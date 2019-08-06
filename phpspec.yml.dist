@@ -1,0 +1,13 @@
+formatter.name: pretty
+extensions:
+  drupol\PhpspecAnnotation\PhpspecAnnotation: ~
+  LeanPHP\PhpSpec\CodeCoverage\CodeCoverageExtension:
+    format:
+      - html
+      - clover
+      - php
+      - text
+    output:
+      html: build/coverage
+      clover: build/logs/clover.xml
+      php: build/coverage.php

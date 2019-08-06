@@ -1,0 +1,19 @@
+{
+    "timeout": 10,
+    "source": {
+        "directories": [
+            "src"
+        ]
+    },
+    "logs": {
+        "text": "build/infection.log",
+        "summary": "build/summary.log",
+        "debug": "build/debug.log",
+        "perMutator": "build/per-mutator.md",
+        "badge": {
+            "branch": "master"
+        }
+    },
+    "testFramework":"phpspec",
+    "tmpDir": "build"
+}
