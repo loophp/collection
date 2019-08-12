@@ -20,7 +20,7 @@ final class Filter extends Operation
 
         if (null === $callback) {
             $callback = static function ($value) {
-                return (bool) $value;
+                return $value;
             };
         }
 
