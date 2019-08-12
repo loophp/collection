@@ -30,8 +30,8 @@ final class Flatten extends Operation
                             yield $i;
                         }
                     } else {
-                        foreach ($collection::with($item)->flatten($depth - 1) as $item) {
-                            yield $item;
+                        foreach ($collection::with($item)->flatten($depth - 1) as $flattenItem) {
+                            yield $flattenItem;
                         }
                     }
                 }

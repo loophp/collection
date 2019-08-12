@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace drupol\collection\Contract;
 
+use Closure;
+
 /**
  * Interface Collection.
  */
@@ -186,6 +188,16 @@ interface Collection extends \Countable, \IteratorAggregate
     public function only(...$keys): self;
 
     /**
+     * TODO: Pad.
+     *
+     * @param int $size
+     * @param mixed $value
+     *
+     * @return \drupol\collection\Contract\Collection
+     */
+    public function pad(int $size, $value): self;
+
+    /**
      * Push an item onto the beginning of the collection.
      *
      * @param mixed ...$items
@@ -238,7 +250,9 @@ interface Collection extends \Countable, \IteratorAggregate
     public function walk(callable ...$callbacks): self;
 
     /**
-     * @param mixed $data
+     * Create a new collection instance.
+     *
+     * @param null|array|callable|Closure|Collection $data
      *
      * @return \drupol\collection\Contract\Collection
      */
@@ -252,6 +266,8 @@ interface Collection extends \Countable, \IteratorAggregate
     public static function withArray(array $data): self;
 
     /**
+     * Create a new collection instance.
+     *
      * @param callable $callable
      *
      * @return \drupol\collection\Contract\Collection

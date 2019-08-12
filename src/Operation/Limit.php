@@ -22,7 +22,7 @@ final class Limit extends Operation
             static function () use ($limit, $collection) {
                 $iterator = $collection->getIterator();
 
-                for (; $iterator->valid() && $limit--; $iterator->next()) {
+                for (; (true === $iterator->valid()) && (0 !== $limit--); $iterator->next()) {
                     yield $iterator->key() => $iterator->current();
                 }
             }

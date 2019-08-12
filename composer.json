@@ -25,6 +25,7 @@
         "infection/infection": "^0.13",
         "phpspec/phpspec": "^5",
         "phpstan/phpstan": "^0.11",
+        "phpstan/phpstan-strict-rules": "^0.11.1",
         "scrutinizer/ocular": "^1.6"
     },
     "config": {
