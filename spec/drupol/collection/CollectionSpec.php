@@ -53,6 +53,57 @@ class CollectionSpec extends ObjectBehavior
         $this
             ->shouldThrow(\Exception::class)
             ->during('apply', [$callback]);
+
+        $context = [];
+
+        $applyCallback1 = static function ($item, $key) use (&$context) {
+            if (3 > $item) {
+                $context[] = 0;
+
+                return 0;
+            }
+
+            if (3 <= $item && 6 > $item) {
+                $context[] = true;
+
+                return true;
+            }
+
+            if (9 < $item) {
+                $context[] = 'nine';
+
+                return false;
+            }
+
+            $context[] = $item;
+        };
+
+        $walkCallback2 = static function ($item) {
+            if (3 > $item) {
+                return 0;
+            }
+
+            if (3 <= $item && 6 > $item) {
+                return true;
+            }
+
+            if (10 === $item) {
+                return 'nine';
+            }
+
+            if (10 < $item) {
+                return false;
+            }
+
+            return $item;
+        };
+
+        $this::withArray(range(1, 20))
+            ->apply($applyCallback1)
+            ->walk($walkCallback2)
+            ->filter(static function ($item) {return false !== $item; })
+            ->all()
+            ->shouldReturn($context);
     }
 
     public function it_can_be_constructed_from_array(): void
@@ -513,6 +564,13 @@ class CollectionSpec extends ObjectBehavior
 
         $this::range(1, 10, 2)
             ->shouldIterateAs([1, 3, 5, 7, 9]);
+
+        $this::range(-5, 5, 2)
+            ->shouldIterateAs([0 => -5, 1 => -3, 2 => -1, 3 => 1, 4 => 3]);
+
+        $this::range()
+            ->limit(10)
+            ->shouldIterateAs([0 => 0, 1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5, 6 => 6, 7 => 7, 8 => 8, 9 => 9]);
     }
 
     public function it_can_use_range_with_value_1(): void
@@ -549,6 +607,10 @@ class CollectionSpec extends ObjectBehavior
         $this::times(-5)
             ->all()
             ->shouldReturn([]);
+
+        $this::times(1)
+            ->all()
+            ->shouldReturn([1]);
     }
 
     public function it_can_walk(): void
