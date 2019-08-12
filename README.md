@@ -38,7 +38,7 @@ This library has been inspired by the [Laravel Support Package](https://github.c
 ```php
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 include 'vendor/autoload.php';
 
@@ -140,7 +140,7 @@ the `drupol\Collection\Contract\Operation` interface, then run it through the `C
 ```php
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 include 'vendor/autoload.php';
 
