@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
-use drupol\collection\Contract\Collection;
+use drupol\collection\Collection;
+use drupol\collection\Contract\Collection as CollectionInterface;
 
 /**
  * Class Flatten.
@@ -14,11 +15,11 @@ final class Flatten extends Operation
     /**
      * {@inheritdoc}
      */
-    public function run(Collection $collection): Collection
+    public function run(CollectionInterface $collection): CollectionInterface
     {
         $depth = $this->parameters[0];
 
-        return $collection::withClosure(
+        return Collection::withClosure(
             static function () use ($depth, $collection) {
                 $iterator = $collection->getIterator();
 
@@ -30,7 +31,7 @@ final class Flatten extends Operation
                             yield $i;
                         }
                     } else {
-                        foreach ($collection::with($item)->flatten($depth - 1) as $flattenItem) {
+                        foreach (Collection::with($item)->flatten($depth - 1) as $flattenItem) {
                             yield $flattenItem;
                         }
                     }

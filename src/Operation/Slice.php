@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
-use drupol\collection\Contract\Collection;
+use drupol\collection\Collection;
+use drupol\collection\Contract\Collection as CollectionInterface;
 
 /**
  * Class Slice.
@@ -14,11 +15,11 @@ final class Slice extends Operation
     /**
      * {@inheritdoc}
      */
-    public function run(Collection $collection): Collection
+    public function run(CollectionInterface $collection): CollectionInterface
     {
         [$offset, $length] = $this->parameters;
 
-        return $collection::withClosure(
+        return Collection::withClosure(
             static function () use ($offset, $length, $collection) {
                 if (null === $length) {
                     yield from $collection->skip($offset);

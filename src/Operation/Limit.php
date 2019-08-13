@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
-use drupol\collection\Contract\Collection;
+use drupol\collection\Collection;
+use drupol\collection\Contract\Collection as CollectionInterface;
 
 /**
  * Class Limit.
@@ -14,11 +15,11 @@ final class Limit extends Operation
     /**
      * {@inheritdoc}
      */
-    public function run(Collection $collection): Collection
+    public function run(CollectionInterface $collection): CollectionInterface
     {
         $limit = $this->parameters[0];
 
-        return $collection::withClosure(
+        return Collection::withClosure(
             static function () use ($limit, $collection) {
                 $iterator = $collection->getIterator();
 

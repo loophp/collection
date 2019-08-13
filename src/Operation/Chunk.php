@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
-use drupol\collection\Contract\Collection;
+use drupol\collection\Collection;
+use drupol\collection\Contract\Collection as CollectionInterface;
 
 /**
  * Class Chunk.
@@ -14,15 +15,15 @@ final class Chunk extends Operation
     /**
      * {@inheritdoc}
      */
-    public function run(Collection $collection): Collection
+    public function run(CollectionInterface $collection): CollectionInterface
     {
         $size = $this->parameters[0];
 
         if (0 >= $size) {
-            return $collection::with();
+            return Collection::with();
         }
 
-        return $collection::withClosure(
+        return Collection::withClosure(
             static function () use ($size, $collection) {
                 $iterator = $collection->getIterator();
 
@@ -33,7 +34,7 @@ final class Chunk extends Operation
                         $values[$iterator->key()] = $iterator->current();
                     }
 
-                    yield $collection::withArray($values);
+                    yield Collection::withArray($values);
                 }
             }
         );

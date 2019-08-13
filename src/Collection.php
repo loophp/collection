@@ -354,7 +354,11 @@ final class Collection implements CollectionInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Create a new collection instance.
+     *
+     * @param null|array|callable|Closure|Collection $data
+     *
+     * @return \drupol\collection\Contract\Collection
      */
     public static function with($data = []): CollectionInterface
     {
@@ -366,27 +370,33 @@ final class Collection implements CollectionInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @param array $data
+     *
+     * @return \drupol\collection\Contract\Collection
      */
-    public static function withArray(array $array): CollectionInterface
+    public static function withArray(array $data): CollectionInterface
     {
         $instance = new static();
 
-        $instance->source = static function () use ($array) {
-            yield from $array;
+        $instance->source = static function () use ($data) {
+            yield from $data;
         };
 
         return $instance;
     }
 
     /**
-     * {@inheritdoc}
+     * Create a new collection instance.
+     *
+     * @param callable $callable
+     *
+     * @return \drupol\collection\Contract\Collection
      */
-    public static function withClosure(callable $callback): CollectionInterface
+    public static function withClosure(callable $callable): CollectionInterface
     {
         $instance = new static();
 
-        $instance->source = $callback;
+        $instance->source = $callable;
 
         return $instance;
     }

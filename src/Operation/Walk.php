@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
-use drupol\collection\Contract\Collection;
+use drupol\collection\Collection;
+use drupol\collection\Contract\Collection as CollectionInterface;
 
 /**
  * Class Walk.
@@ -14,11 +15,11 @@ final class Walk extends Operation
     /**
      * {@inheritdoc}
      */
-    public function run(Collection $collection): Collection
+    public function run(CollectionInterface $collection): CollectionInterface
     {
         $callbacks = $this->parameters;
 
-        return $collection::withClosure(
+        return Collection::withClosure(
             static function () use ($callbacks, $collection) {
                 $callback = static function ($carry, $callback) {
                     return $callback($carry);

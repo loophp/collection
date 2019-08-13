@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace drupol\collection\Contract;
 
-use Closure;
-
 /**
  * Interface Collection.
  */
@@ -248,31 +246,6 @@ interface Collection extends \Countable, \IteratorAggregate
      * @return \drupol\collection\Contract\Collection
      */
     public function walk(callable ...$callbacks): self;
-
-    /**
-     * Create a new collection instance.
-     *
-     * @param null|array|callable|Closure|Collection $data
-     *
-     * @return \drupol\collection\Contract\Collection
-     */
-    public static function with($data = []): self;
-
-    /**
-     * @param array $data
-     *
-     * @return \drupol\collection\Contract\Collection
-     */
-    public static function withArray(array $data): self;
-
-    /**
-     * Create a new collection instance.
-     *
-     * @param callable $callable
-     *
-     * @return \drupol\collection\Contract\Collection
-     */
-    public static function withClosure(callable $callable): self;
 
     /**
      * Zip the collection together with one or more arrays.
