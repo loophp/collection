@@ -1,7 +1,7 @@
 {
     "name": "drupol/collection",
     "type": "library",
-    "description": "A (memory) friendly and easy to use collection object.",
+    "description": "A (memory) friendly, easy, lazy and modular collection class.",
     "keywords": [
         "collection",
         "generator",
@@ -19,7 +19,7 @@
         "php": ">= 7.1.3"
     },
     "require-dev": {
-        "drupol/php-conventions": "^1.5.8",
+        "drupol/php-conventions": "^1.5.11",
         "drupol/phpspec-annotation": "^1.2",
         "drupol/phpspec-code-coverage": "^5",
         "infection/infection": "^0.13",
