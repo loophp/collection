@@ -353,10 +353,6 @@ class CollectionSpec extends ObjectBehavior
             ->shouldReturn('E');
 
         $this
-            ->get()
-            ->shouldBeNull();
-
-        $this
             ->get('unexistent key', 'default')
             ->shouldReturn('default');
     }

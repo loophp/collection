@@ -154,7 +154,7 @@ $square = new class() extends Operation {
      */
     public function run(CollectionInterface $collection): CollectionInterface
     {
-        return $collection::withClosure(
+        return Collection::withClosure(
             static function () use ($collection) {
                 foreach ($collection as $item) {
                     yield $item ** 2;

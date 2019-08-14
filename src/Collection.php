@@ -173,12 +173,8 @@ final class Collection implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function get($key = null, $default = null)
+    public function get($key, $default = null)
     {
-        if (null === $key) {
-            return;
-        }
-
         foreach ($this->getIterator() as $outerKey => $outerValue) {
             if ($outerKey === $key) {
                 return $outerValue;

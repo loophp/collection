@@ -23,6 +23,7 @@
         "drupol/phpspec-annotation": "^1.2",
         "drupol/phpspec-code-coverage": "^5",
         "infection/infection": "^0.13",
+        "phpbench/phpbench": "^0.16.9",
         "phpspec/phpspec": "^5",
         "phpstan/phpstan": "^0.11",
         "phpstan/phpstan-strict-rules": "^0.11.1",
@@ -36,9 +37,14 @@
             "drupol\\collection\\": "./src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "drupol\\collection\\benchmarks\\": "./benchmarks/"
+        }
+    },
     "scripts": {
         "apigen": "./vendor/bin/apigen generate src --destination build/docs",
-        "bench": "./vendor/bin/phpbench run --report=project --store --precision=3",
+        "bench": "./vendor/bin/phpbench run --report='generator: \"table\", cols: [ \"suite\", \"subject\", \"mean\", \"diff\", \"mem_peak\", \"mem_real\"], break: [\"benchmark\"]'",
         "codacy": "./vendor/bin/codacycoverage clover build/logs/clover.xml",
         "grumphp": "./vendor/bin/grumphp run",
         "infection": "./vendor/bin/infection run -j 10",

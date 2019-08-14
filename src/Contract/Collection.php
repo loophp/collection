@@ -114,7 +114,7 @@ interface Collection extends \Countable, \IteratorAggregate
      *
      * @return mixed
      */
-    public function get($key = null, $default = null);
+    public function get($key, $default = null);
 
     /**
      * Get the values iterator.
