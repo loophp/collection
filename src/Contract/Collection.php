@@ -10,9 +10,10 @@ namespace drupol\collection\Contract;
 interface Collection extends \Countable, \IteratorAggregate
 {
     /**
-     * Get all items in the enumerable.
+     * Get all items from the collection.
      *
      * @return array
+     *   An array containing all the elements of the collection.
      */
     public function all(): array;
 
@@ -72,7 +73,7 @@ interface Collection extends \Countable, \IteratorAggregate
     public function filter(callable $callback = null): self;
 
     /**
-     * Get the first item from the enumerable passing the given truth test.
+     * Get the first item from the collection passing the given truth test.
      *
      * @param null|callable $callback
      * @param mixed $default

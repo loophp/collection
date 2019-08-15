@@ -169,7 +169,66 @@ Collection::range(5, 15)
     ->all(); // [25, 36, 49, 64, 81, 100, 121, 144, 169, 196]
 ```
 
-## Code quality, tests and benchmarks
+## API
+
+Most of the methods are [pure PHP functions](https://medium.com/better-programming/what-is-a-pure-function-3b4af9352f6f),
+the methods always return the same values for the same inputs.
+
+### Regular methods
+
+| Methods       | Return type           | Source         |
+| ------------- | --------------------- | -------------- |
+| `all`         | array                 | [Collection.php](./src/Collection.php)
+| `append`      | new Collection object | [Append.php](./src/Operation/Append.php)
+| `apply`       | new Collection object | [Apply.php](./src/Operation/Append.php)
+| `chunk`       | new Collection object | [Chunk.php](./src/Operation/Append.php)
+| `collapse`    | new Collection object | [Collapse.php](./src/Operation/Append.php)
+| `combine`     | new Collection object | [Combine.php](./src/Operation/Append.php)
+| `count`       | int                   | [Collection.php](./src/Collection.php)
+| `filter`      | new Collection object | [Filter.php](./src/Operation/Append.php)
+| `first`       | mixed                 | [Collection.php](./src/Collection.php)
+| `flatten`     | new Collection object | [Flatten.php](./src/Operation/Append.php)
+| `flip`        | new Collection object | [Flip.php](./src/Operation/Append.php)
+| `forget`      | new Collection object | [Forget.php](./src/Operation/Append.php)
+| `get`         | mixed                 | [Collection.php](./src/Collection.php)
+| `getIterator` | Iterator              | [Collection.php](./src/Collection.php)
+| `keys`        | new Collection object | [Keys.php](./src/Operation/Append.php)
+| `limit`       | new Collection object | [Limit.php](./src/Operation/Append.php)
+| `map`         | new Collection object | [Map.php](./src/Operation/Append.php)
+| `merge`       | new Collection object | [Merge.php](./src/Operation/Append.php)
+| `normalize`   | new Collection object | [Normalize.php](./src/Operation/Append.php)
+| `nth`         | new Collection object | [Nth.php](./src/Operation/Append.php)
+| `only`        | new Collection object | [Only.php](./src/Operation/Append.php)
+| `pad`         | new Collection object | [Pad.php](./src/Operation/Append.php)
+| `prepend`     | new Collection object | [Prepend.php](./src/Operation/Append.php)
+| `reduce`      | mixed                 | [Collection.php](./src/Collection.php)
+| `run`         | new Collection object | [Collection.php](./src/Collection.php)
+| `skip`        | new Collection object | [Skip.php](./src/Operation/Append.php)
+| `slice`       | new Collection object | [Slice.php](./src/Operation/Append.php)
+| `walk`        | new Collection object | [Walk.php](./src/Operation/Append.php)
+| `zip`         | new Collection object | [Zip.php](./src/Operation/Append.php)
+
+All those methods are described in [the Collection interface](./src/Contract/Collection.php), feel free to check it out for more information
+about the kind of parameters they require.
+
+### Static methods
+
+| Methods       | Return type           | Source         |
+| ------------- | --------------------- | -------------- |
+| `empty`       | new Collection object | [Collection.php](./src/Collection.php)
+| `range`       | new Collection object | [Collection.php](./src/Collection.php)
+| `times`       | new Collection object | [Collection.php](./src/Collection.php)
+| `with`        | new Collection object | [Collection.php](./src/Collection.php)
+| `withArray`   | new Collection object | [Collection.php](./src/Collection.php)
+| `withClosure` | new Collection object | [Collection.php](./src/Collection.php)
+
+All those methods are not described in [the Collection interface](./src/Contract/Collection.php),
+but in the [Collection class](./src/Collection.php) itself, feel free to check it out to know more about the kind of parameters they require.
+
+## Code style, code quality, tests and benchmarks
+
+The code style is following [PSR-12](https://www.php-fig.org/psr/psr-12/) plus a set of custom rules, the package [drupol/php-conventions](https://github.com/drupol/php-conventions)
+is responsible for this.
 
 Every time changes are introduced into the library, [Travis CI](https://travis-ci.org/drupol/collection/builds) run the tests and the benchmarks.
 
@@ -180,4 +239,4 @@ Feel free to check them out in the `spec` directory. Run `composer phpspec` to t
 
 ## Contributing
 
-Feel free to contribute to this library by sending Github pull requests. I'm quite reactive :-)
+See the file [CONTRIBUTING.md](.github/CONTRIBUTING.md) but feel free to contribute to this library by sending Github pull requests.
