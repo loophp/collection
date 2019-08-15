@@ -46,7 +46,7 @@ final class Collection implements CollectionInterface
      */
     public function all(): array
     {
-        return iterator_to_array($this->getIterator());
+        return \iterator_to_array($this->getIterator());
     }
 
     /**
@@ -102,7 +102,7 @@ final class Collection implements CollectionInterface
      */
     public function count(): int
     {
-        return iterator_count($this->getIterator());
+        return \iterator_count($this->getIterator());
     }
 
     /**
@@ -149,7 +149,7 @@ final class Collection implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function flatten(int $depth = PHP_INT_MAX): CollectionInterface
+    public function flatten(int $depth = \PHP_INT_MAX): CollectionInterface
     {
         return $this->run(Flatten::with($depth));
     }
@@ -221,7 +221,7 @@ final class Collection implements CollectionInterface
      */
     public function merge(...$sources): CollectionInterface
     {
-        return $this->run(Merge::with(...array_map([$this, 'makeIterator'], $sources)));
+        return $this->run(Merge::with(...\array_map([$this, 'makeIterator'], $sources)));
     }
 
     /**
@@ -273,7 +273,7 @@ final class Collection implements CollectionInterface
      *
      * @return \drupol\collection\Contract\Collection
      */
-    public static function range(int $start = 0, $end = INF, $step = 1): CollectionInterface
+    public static function range(int $start = 0, $end = \INF, $step = 1): CollectionInterface
     {
         return self::withArray([])->run(Range::with($start, $end, $step));
     }
@@ -297,7 +297,7 @@ final class Collection implements CollectionInterface
      */
     public function run(Operation ...$operations): CollectionInterface
     {
-        return array_reduce($operations, [$this, 'doRun'], $this);
+        return \array_reduce($operations, [$this, 'doRun'], $this);
     }
 
     /**
@@ -431,7 +431,7 @@ final class Collection implements CollectionInterface
         }
 
         if ($items instanceof Traversable) {
-            return iterator_to_array($items);
+            return \iterator_to_array($items);
         }
 
         return (array) $items;

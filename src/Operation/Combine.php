@@ -32,7 +32,7 @@ final class Combine extends Operation
                 if (($original->valid() && !$keysIterator->valid()) ||
                     (!$original->valid() && $keysIterator->valid())
                 ) {
-                    trigger_error('Both keys and values must have the same amount of items.', E_USER_WARNING);
+                    \trigger_error('Both keys and values must have the same amount of items.', \E_USER_WARNING);
                 }
             }
         );

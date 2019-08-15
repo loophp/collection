@@ -22,7 +22,7 @@ final class Skip extends Operation
         return Collection::withClosure(
             static function () use ($counts, $collection) {
                 $iterator = $collection->getIterator();
-                $counts = array_sum($counts);
+                $counts = \array_sum($counts);
 
                 foreach ($iterator as $key => $item) {
                     if (0 < $counts--) {

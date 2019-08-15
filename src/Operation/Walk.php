@@ -26,7 +26,7 @@ final class Walk extends Operation
                 };
 
                 foreach ($collection->getIterator() as $key => $value) {
-                    yield $key => array_reduce($callbacks, $callback, $value);
+                    yield $key => \array_reduce($callbacks, $callback, $value);
                 }
             }
         );

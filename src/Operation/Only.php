@@ -24,7 +24,7 @@ final class Only extends Operation
                 if ([] === $keys) {
                     yield from $collection;
                 } else {
-                    $keys = array_flip($keys);
+                    $keys = \array_flip($keys);
 
                     foreach ($collection as $key => $value) {
                         if (\array_key_exists($key, $keys)) {

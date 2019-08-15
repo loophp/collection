@@ -34,7 +34,7 @@ class CollectionSpec extends ObjectBehavior
     public function it_can_apply(): void
     {
         $this
-            ->beConstructedThrough('with', [range(1, 10)]);
+            ->beConstructedThrough('with', [\range(1, 10)]);
 
         $this
             ->apply(static function ($item) {
@@ -48,7 +48,9 @@ class CollectionSpec extends ObjectBehavior
             })
             ->shouldReturn($this);
 
-        $callback = static function (): void {throw new \Exception('foo'); };
+        $callback = static function (): void {
+            throw new \Exception('foo');
+        };
 
         $this
             ->shouldThrow(\Exception::class)
@@ -98,10 +100,12 @@ class CollectionSpec extends ObjectBehavior
             return $item;
         };
 
-        $this::withArray(range(1, 20))
+        $this::withArray(\range(1, 20))
             ->apply($applyCallback1)
             ->walk($walkCallback2)
-            ->filter(static function ($item) {return false !== $item; })
+            ->filter(static function ($item) {
+                return false !== $item;
+            })
             ->all()
             ->shouldReturn($context);
     }
@@ -109,7 +113,7 @@ class CollectionSpec extends ObjectBehavior
     public function it_can_be_constructed_from_array(): void
     {
         $this
-            ->beConstructedThrough('withArray', [range('A', 'E')]);
+            ->beConstructedThrough('withArray', [\range('A', 'E')]);
 
         $this
             ->all()
@@ -129,7 +133,9 @@ class CollectionSpec extends ObjectBehavior
     public function it_can_be_constructed_with_a_closure(): void
     {
         $this
-            ->beConstructedThrough('with', [static function () {yield from range(1, 3); }]);
+            ->beConstructedThrough('with', [static function () {
+                yield from \range(1, 3);
+            }]);
         $this->shouldImplement(CollectionInterface::class);
     }
 
@@ -181,11 +187,13 @@ class CollectionSpec extends ObjectBehavior
     public function it_can_chunk(): void
     {
         $this
-            ->beConstructedThrough('with', [range('A', 'F')]);
+            ->beConstructedThrough('with', [\range('A', 'F')]);
 
         $this
             ->chunk(2)
-            ->map(static function (CollectionInterface $item) {return implode('', iterator_to_array($item)); })
+            ->map(static function (CollectionInterface $item) {
+                return \implode('', \iterator_to_array($item));
+            })
             ->all()
             ->shouldReturn(['AB', 'CD', 'EF']);
 
@@ -196,7 +204,9 @@ class CollectionSpec extends ObjectBehavior
 
         $this
             ->chunk(1)
-            ->map(static function (CollectionInterface $item) {return implode('', iterator_to_array($item)); })
+            ->map(static function (CollectionInterface $item) {
+                return \implode('', \iterator_to_array($item));
+            })
             ->all()
             ->shouldReturn(['A', 'B', 'C', 'D', 'E', 'F']);
     }
@@ -204,7 +214,7 @@ class CollectionSpec extends ObjectBehavior
     public function it_can_collapse(): void
     {
         $this
-            ->beConstructedThrough('with', [range('A', 'J')]);
+            ->beConstructedThrough('with', [\range('A', 'J')]);
 
         $this
             ->chunk(2)
@@ -216,14 +226,14 @@ class CollectionSpec extends ObjectBehavior
     public function it_can_combine(): void
     {
         $this
-            ->beConstructedThrough('with', [range('A', 'E')]);
+            ->beConstructedThrough('with', [\range('A', 'E')]);
 
         $this
-            ->combine(range('e', 'a'))
+            ->combine(\range('e', 'a'))
             ->shouldIterateAs(['e' => 'A', 'd' => 'B', 'c' => 'C', 'b' => 'D', 'a' => 'E']);
 
         $this
-            ->combine(range(1, 100))
+            ->combine(\range(1, 100))
             ->shouldThrow(\Exception::class)
             ->during('all');
     }
@@ -240,7 +250,7 @@ class CollectionSpec extends ObjectBehavior
     public function it_can_count_its_items(): void
     {
         $this
-            ->beConstructedThrough('with', [range('A', 'C')]);
+            ->beConstructedThrough('with', [\range('A', 'C')]);
 
         $this
             ->count()
@@ -249,12 +259,14 @@ class CollectionSpec extends ObjectBehavior
 
     public function it_can_filter_its_element(): void
     {
-        $input = array_merge([0, false], range(1, 10));
+        $input = \array_merge([0, false], \range(1, 10));
 
         $this
             ->beConstructedThrough('with', [$input]);
 
-        $callable = static function ($item) {return $item % 2; };
+        $callable = static function ($item) {
+            return $item % 2;
+        };
 
         $this
             ->filter($callable)
@@ -287,7 +299,7 @@ class CollectionSpec extends ObjectBehavior
             $input[] = $items;
         }
 
-        $input = array_pad([], 5, $input);
+        $input = \array_pad([], 5, $input);
 
         $this
             ->beConstructedThrough('with', [$input]);
@@ -295,7 +307,7 @@ class CollectionSpec extends ObjectBehavior
         $output = [];
 
         for ($i = 0; 5 > $i; ++$i) {
-            $output = array_merge($output, range(0, 9));
+            $output = \array_merge($output, \range(0, 9));
         }
 
         $this
@@ -323,7 +335,7 @@ class CollectionSpec extends ObjectBehavior
     public function it_can_flip(): void
     {
         $this
-            ->beConstructedThrough('with', [range('A', 'E')]);
+            ->beConstructedThrough('with', [\range('A', 'E')]);
 
         $this
             ->flip()
@@ -334,7 +346,7 @@ class CollectionSpec extends ObjectBehavior
     public function it_can_forget(): void
     {
         $this
-            ->beConstructedThrough('with', [range('A', 'E')]);
+            ->beConstructedThrough('with', [\range('A', 'E')]);
 
         $this
             ->forget(0, 4)
@@ -346,7 +358,7 @@ class CollectionSpec extends ObjectBehavior
     public function it_can_get(): void
     {
         $this
-            ->beConstructedThrough('with', [range('A', 'E')]);
+            ->beConstructedThrough('with', [\range('A', 'E')]);
 
         $this
             ->get(4)
@@ -360,7 +372,7 @@ class CollectionSpec extends ObjectBehavior
     public function it_can_get_items_with_only_specific_keys(): void
     {
         $this
-            ->beConstructedThrough('with', [range('A', 'E')]);
+            ->beConstructedThrough('with', [\range('A', 'E')]);
 
         $this
             ->only(0, 1, 3)
@@ -376,7 +388,7 @@ class CollectionSpec extends ObjectBehavior
     public function it_can_get_its_first_value(): void
     {
         $this
-            ->beConstructedThrough('with', [range(1, 10)]);
+            ->beConstructedThrough('with', [\range(1, 10)]);
 
         $this
             ->first()
@@ -407,17 +419,17 @@ class CollectionSpec extends ObjectBehavior
     public function it_can_keys(): void
     {
         $this
-            ->beConstructedThrough('with', [range('A', 'E')]);
+            ->beConstructedThrough('with', [\range('A', 'E')]);
 
         $this
             ->keys()
-            ->shouldIterateAs(range(0, 4));
+            ->shouldIterateAs(\range(0, 4));
     }
 
     public function it_can_limit(): void
     {
         $this
-            ->beConstructedThrough('with', [range('A', 'F')]);
+            ->beConstructedThrough('with', [\range('A', 'F')]);
 
         $this
             ->limit(3)
@@ -430,13 +442,15 @@ class CollectionSpec extends ObjectBehavior
 
     public function it_can_map(): void
     {
-        $input = array_combine(range('A', 'E'), range('A', 'E'));
+        $input = \array_combine(\range('A', 'E'), \range('A', 'E'));
 
         $this
             ->beConstructedThrough('with', [$input]);
 
         $this
-            ->map(static function (string $item) {return $item . $item; })
+            ->map(static function (string $item) {
+                return $item . $item;
+            })
             ->all()
             ->shouldReturn([0 => 'AA', 1 => 'BB', 2 => 'CC', 3 => 'DD', 4 => 'EE']);
     }
@@ -444,9 +458,11 @@ class CollectionSpec extends ObjectBehavior
     public function it_can_merge(): void
     {
         $this
-            ->beConstructedThrough('with', [range('A', 'E')]);
+            ->beConstructedThrough('with', [\range('A', 'E')]);
 
-        $collection = Collection::with(static function () {yield from range('F', 'J'); });
+        $collection = Collection::with(static function () {
+            yield from \range('F', 'J');
+        });
 
         $this
             ->merge($collection->all())
@@ -458,7 +474,7 @@ class CollectionSpec extends ObjectBehavior
     public function it_can_nth(): void
     {
         $this
-            ->beConstructedThrough('with', [range(0, 70)]);
+            ->beConstructedThrough('with', [\range(0, 70)]);
 
         $this
             ->nth(7)
@@ -471,7 +487,7 @@ class CollectionSpec extends ObjectBehavior
 
     public function it_can_pad(): void
     {
-        $input = array_combine(range('A', 'E'), range('A', 'E'));
+        $input = \array_combine(\range('A', 'E'), \range('A', 'E'));
 
         $this
             ->beConstructedThrough('with', [$input]);
@@ -485,7 +501,7 @@ class CollectionSpec extends ObjectBehavior
     public function it_can_prepend(): void
     {
         $this
-            ->beConstructedThrough('with', [range('D', 'F')]);
+            ->beConstructedThrough('with', [\range('D', 'F')]);
 
         $this
             ->prepend('A', 'B', 'C')
@@ -497,10 +513,12 @@ class CollectionSpec extends ObjectBehavior
     public function it_can_reduce(): void
     {
         $this
-            ->beConstructedThrough('with', [range(1, 100)]);
+            ->beConstructedThrough('with', [\range(1, 100)]);
 
         $this
-            ->reduce(static function ($carry, $item) {return $carry + $item; }, 0)
+            ->reduce(static function ($carry, $item) {
+                return $carry + $item;
+            }, 0)
             ->shouldReturn(5050);
     }
 
@@ -518,7 +536,7 @@ class CollectionSpec extends ObjectBehavior
     public function it_can_skip(): void
     {
         $this
-            ->beConstructedThrough('with', [range('A', 'F')]);
+            ->beConstructedThrough('with', [\range('A', 'F')]);
 
         $this
             ->skip(3)
@@ -534,7 +552,7 @@ class CollectionSpec extends ObjectBehavior
     public function it_can_slice(): void
     {
         $this
-            ->beConstructedThrough('with', [range(0, 10)]);
+            ->beConstructedThrough('with', [\range(0, 10)]);
 
         $this
             ->slice(5)
@@ -582,7 +600,9 @@ class CollectionSpec extends ObjectBehavior
     public function it_can_use_times_with_a_callback(): void
     {
         $this
-            ->beConstructedThrough('times', [2, static function () {return range(1, 5); }]);
+            ->beConstructedThrough('times', [2, static function () {
+                return \range(1, 5);
+            }]);
 
         $a = [[1, 2, 3, 4, 5], [1, 2, 3, 4, 5]];
 
@@ -598,7 +618,7 @@ class CollectionSpec extends ObjectBehavior
 
         $this
             ->all()
-            ->shouldReturn(range(1, 10));
+            ->shouldReturn(\range(1, 10));
 
         $this::times(-5)
             ->all()
@@ -611,30 +631,40 @@ class CollectionSpec extends ObjectBehavior
 
     public function it_can_walk(): void
     {
-        $input = array_combine(range('A', 'E'), range('A', 'E'));
+        $input = \array_combine(\range('A', 'E'), \range('A', 'E'));
 
         $this
             ->beConstructedThrough('with', [$input]);
 
         $this
-            ->walk(static function (string $item) {return $item . $item; })
+            ->walk(static function (string $item) {
+                return $item . $item;
+            })
             ->all()
             ->shouldReturn(['A' => 'AA', 'B' => 'BB', 'C' => 'CC', 'D' => 'DD', 'E' => 'EE']);
 
-        $this::withArray(range(1, 10))
-            ->walk(static function ($item) {return $item * 2; }, static function ($item) {return $item + 1; })
+        $this::withArray(\range(1, 10))
+            ->walk(static function ($item) {
+                return $item * 2;
+            }, static function ($item) {
+                return $item + 1;
+            })
             ->all()
-            ->shouldReturn(range(3, 21, 2));
+            ->shouldReturn(\range(3, 21, 2));
 
-        $this::withArray(range(1, 10))
-            ->walk(static function ($item) {return $item; }, static function ($item) {return $item; })
-            ->shouldIterateAs(range(1, 10));
+        $this::withArray(\range(1, 10))
+            ->walk(static function ($item) {
+                return $item;
+            }, static function ($item) {
+                return $item;
+            })
+            ->shouldIterateAs(\range(1, 10));
     }
 
     public function it_can_zip(): void
     {
         $this
-            ->beConstructedThrough('with', [range('A', 'C')]);
+            ->beConstructedThrough('with', [\range('A', 'C')]);
 
         $this
             ->zip('D', 'E', 'F')

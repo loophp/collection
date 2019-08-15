@@ -21,7 +21,7 @@ final class Forget extends Operation
 
         return Collection::withClosure(
             static function () use ($keys, $collection) {
-                $keys = array_flip($keys);
+                $keys = \array_flip($keys);
 
                 foreach ($collection->getIterator() as $key => $value) {
                     if (!\array_key_exists($key, $keys)) {

@@ -88,7 +88,7 @@ interface Collection extends \Countable, \IteratorAggregate
      *
      * @return \drupol\collection\Contract\Collection
      */
-    public function flatten(int $depth = PHP_INT_MAX): self;
+    public function flatten(int $depth = \PHP_INT_MAX): self;
 
     /**
      * Flip the items in the collection.
