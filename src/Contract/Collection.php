@@ -197,6 +197,14 @@ interface Collection extends \Countable, \IteratorAggregate
     public function pad(int $size, $value): self;
 
     /**
+     * @param array|string $pluck
+     * @param null|mixed $default
+     *
+     * @return \drupol\collection\Contract\Collection
+     */
+    public function pluck($pluck, $default = null): self;
+
+    /**
      * Push an item onto the beginning of the collection.
      *
      * @param mixed ...$items

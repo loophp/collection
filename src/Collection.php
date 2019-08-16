@@ -23,6 +23,7 @@ use drupol\collection\Operation\Normalize;
 use drupol\collection\Operation\Nth;
 use drupol\collection\Operation\Only;
 use drupol\collection\Operation\Pad;
+use drupol\collection\Operation\Pluck;
 use drupol\collection\Operation\Prepend;
 use drupol\collection\Operation\Range;
 use drupol\collection\Operation\Skip;
@@ -254,6 +255,14 @@ final class Collection implements CollectionInterface
     public function pad(int $size, $value): CollectionInterface
     {
         return $this->run(Pad::with($size, $value));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function pluck($pluck, $default = null): CollectionInterface
+    {
+        return $this->run(Pluck::with($pluck, $default));
     }
 
     /**

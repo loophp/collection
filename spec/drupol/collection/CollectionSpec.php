@@ -498,6 +498,75 @@ class CollectionSpec extends ObjectBehavior
             ->shouldReturn(['A' => 'A', 'B' => 'B', 'C' => 'C', 'D' => 'D', 'E' => 'E', 0 => 'foo', 1 => 'foo', 2 => 'foo', 3 => 'foo', 4 => 'foo']);
     }
 
+    public function it_can_pluck(): void
+    {
+        $six = new class() {
+            public $foo = [
+                'bar' => 5,
+            ];
+        };
+
+        $input = [
+            [
+                'foo' => [
+                    'bar' => 0,
+                ],
+            ],
+            [
+                'foo' => [
+                    'bar' => 1,
+                ],
+            ],
+            [
+                'foo' => [
+                    'bar' => 2,
+                ],
+            ],
+            Collection::withArray(
+                [
+                    'foo' => [
+                        'bar' => 3,
+                    ],
+                ]
+            ),
+            new \ArrayObject([
+                'foo' => [
+                    'bar' => 4,
+                ],
+            ]),
+            new class() {
+                public $foo = [
+                    'bar' => 5,
+                ];
+            },
+            [
+                'foo' => [
+                    'bar' => $six,
+                ],
+            ],
+        ];
+
+        $this::with($input)
+            ->pluck('foo')
+            ->shouldIterateAs([0 => ['bar' => 0], 1 => ['bar' => 1], 2 => ['bar' => 2], 3 => ['bar' => 3], 4 => ['bar' => 4], 5 => ['bar' => 5], 6 => ['bar' => $six]]);
+
+        $this::with($input)
+            ->pluck('foo.*')
+            ->shouldIterateAs([0 => [0 => 0], 1 => [0 => 1], 2 => [0 => 2], 3 => [0 => 3], 4 => [0 => 4], 5 => [0 => 5], 6 => [0 => $six]]);
+
+        $this::with($input)
+            ->pluck('foo.bar')
+            ->shouldIterateAs([0 => 0, 1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5, 6 => $six]);
+
+        $this::with($input)
+            ->pluck('foo.bar.*', 'taz')
+            ->shouldIterateAs([0 => 'taz', 1 => 'taz', 2 => 'taz', 3 => 'taz', 4 => 'taz', 5 => 'taz', 6 => 'taz']);
+
+        $this::with($input)
+            ->pluck('azerty', 'taz')
+            ->shouldIterateAs([0 => 'taz', 1 => 'taz', 2 => 'taz', 3 => 'taz', 4 => 'taz', 5 => 'taz', 6 => 'taz']);
+    }
+
     public function it_can_prepend(): void
     {
         $this

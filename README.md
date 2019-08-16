@@ -200,6 +200,7 @@ the methods always return the same values for the same inputs.
 | `nth`         | new Collection object | [Nth.php](./src/Operation/Append.php)
 | `only`        | new Collection object | [Only.php](./src/Operation/Append.php)
 | `pad`         | new Collection object | [Pad.php](./src/Operation/Append.php)
+| `pluck`       | new Collection object | [Pluck.php](./src/Operation/Pluck.php)
 | `prepend`     | new Collection object | [Prepend.php](./src/Operation/Append.php)
 | `reduce`      | mixed                 | [Collection.php](./src/Collection.php)
 | `run`         | new Collection object | [Collection.php](./src/Collection.php)
