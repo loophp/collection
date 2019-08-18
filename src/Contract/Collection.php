@@ -59,6 +59,13 @@ interface Collection extends \Countable, \IteratorAggregate
     public function combine($keys): self;
 
     /**
+     * @param mixed $key
+     *
+     * @return bool
+     */
+    public function contains($key): bool;
+
+    /**
      * {@inheritdoc}
      */
     public function count(): int;

@@ -47,7 +47,17 @@ final class Collection implements CollectionInterface
      */
     public function all(): array
     {
-        return \iterator_to_array($this->getIterator());
+        $result = [];
+
+        foreach ($this->getIterator() as $key => $item) {
+            if ($item instanceof CollectionInterface) {
+                $result[$key] = $item->all();
+            } else {
+                $result[$key] = $item;
+            }
+        }
+
+        return $result;
     }
 
     /**
@@ -64,9 +74,7 @@ final class Collection implements CollectionInterface
     public function apply(callable $callback): CollectionInterface
     {
         foreach ($this as $key => $item) {
-            $return = $callback($item, $key);
-
-            if (\is_bool($return) && false === $return) {
+            if (false === $callback($item, $key)) {
                 break;
             }
         }
@@ -96,6 +104,26 @@ final class Collection implements CollectionInterface
     public function combine($keys): CollectionInterface
     {
         return $this->run(Combine::with(...$keys));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function contains($key): bool
+    {
+        if (!\is_string($key) && \is_callable($key)) {
+            $placeholder = new \stdClass();
+
+            return $this->first($key, $placeholder) !== $placeholder;
+        }
+
+        foreach ($this as $value) {
+            if ($value === $key) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -361,7 +389,7 @@ final class Collection implements CollectionInterface
     /**
      * Create a new collection instance.
      *
-     * @param null|array|callable|Closure|Collection $data
+     * @param null|array|callable|Closure|CollectionInterface $data
      *
      * @return \drupol\collection\Contract\Collection
      */
@@ -455,14 +483,14 @@ final class Collection implements CollectionInterface
      */
     private function makeIterator($source): \Iterator
     {
-        if (\is_array($source)) {
-            $source = new ArrayIterator($source);
+        if ($source instanceof CollectionInterface) {
+            return $source->getIterator();
         }
 
         if (\is_callable($source)) {
-            $source = $source();
+            return $source();
         }
 
-        return $source;
+        return new ArrayIterator((array) $source);
     }
 }

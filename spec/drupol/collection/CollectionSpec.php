@@ -736,8 +736,12 @@ class CollectionSpec extends ObjectBehavior
             ->beConstructedThrough('with', [\range('A', 'C')]);
 
         $this
-            ->zip('D', 'E', 'F')
+            ->zip(['D', 'E', 'F'])
             ->shouldIterateAs([['A', 'D'], ['B', 'E'], ['C', 'F']]);
+
+        $this::with(['A', 'C', 'E'])
+            ->zip(['B', 'D', 'F', 'H'])
+            ->shouldIterateAs([['A', 'B'], ['C', 'D'], ['E', 'F'], [null, 'H']]);
     }
 
     public function it_is_initializable(): void

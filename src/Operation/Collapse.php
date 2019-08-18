@@ -19,9 +19,11 @@ final class Collapse extends Operation
     {
         return Collection::withClosure(
             static function () use ($collection) {
-                foreach ($collection as $values) {
-                    if (\is_array($values) || $values instanceof CollectionInterface) {
-                        yield from $values;
+                foreach ($collection as $item) {
+                    if (\is_array($item) || $item instanceof CollectionInterface) {
+                        foreach ($item as $value) {
+                            yield $value;
+                        }
                     }
                 }
             }

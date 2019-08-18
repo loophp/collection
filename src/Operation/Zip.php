@@ -17,20 +17,36 @@ final class Zip extends Operation
      */
     public function run(CollectionInterface $collection): CollectionInterface
     {
-        $items = $this->parameters;
+        $iterables = $this->parameters;
 
         return Collection::withClosure(
-            static function () use ($items, $collection) {
-                $iterator = $collection->getIterator();
+            static function () use ($iterables, $collection) {
+                $iterators = Collection::with(
+                    Collection::with($iterables)
+                        ->map(
+                            static function ($iterable) {
+                                return Collection::with($iterable)->getIterator();
+                            }
+                        )
+                        ->prepend($collection->getIterator())
+                );
 
-                /** @var \Iterator $itemsIterator */
-                $itemsIterator = Collection::with($items)->getIterator();
+                while ($iterators->map(static function (\Iterator $iterator) {
+                    return $iterator->valid();
+                })->contains(true)) {
+                    yield Collection::with(
+                        $iterators->map(
+                            static function (\Iterator $item) {
+                                return $item->current();
+                            }
+                        )
+                    )->all();
 
-                while ($iterator->valid()) {
-                    yield [$iterator->current(), $itemsIterator->current()];
-
-                    $itemsIterator->next();
-                    $iterator->next();
+                    $iterators->apply(
+                        static function (\Iterator $item): void {
+                            $item->next();
+                        }
+                    );
                 }
             }
         );
