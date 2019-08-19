@@ -19,7 +19,7 @@ final class Limit extends Operation
     {
         $limit = $this->parameters[0];
 
-        return Collection::withClosure(
+        return Collection::with(
             static function () use ($limit, $collection) {
                 $iterator = $collection->getIterator();
 

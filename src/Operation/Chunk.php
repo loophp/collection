@@ -23,7 +23,7 @@ final class Chunk extends Operation
             return Collection::with();
         }
 
-        return Collection::withClosure(
+        return Collection::with(
             static function () use ($size, $collection) {
                 $iterator = $collection->getIterator();
 
@@ -34,7 +34,7 @@ final class Chunk extends Operation
                         $values[$iterator->key()] = $iterator->current();
                     }
 
-                    yield Collection::withArray($values);
+                    yield Collection::with($values);
                 }
             }
         );

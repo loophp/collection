@@ -19,7 +19,7 @@ final class Combine extends Operation
     {
         $keys = $this->parameters;
 
-        return Collection::withClosure(
+        return Collection::with(
             static function () use ($keys, $collection) {
                 $original = $collection->getIterator();
                 $keysIterator = Collection::with($keys)->getIterator();

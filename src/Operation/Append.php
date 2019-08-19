@@ -19,7 +19,7 @@ final class Append extends Operation
     {
         $items = $this->parameters;
 
-        return Collection::withClosure(
+        return Collection::with(
             static function () use ($items, $collection) {
                 foreach ($collection as $item) {
                     yield $item;

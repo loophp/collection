@@ -19,7 +19,7 @@ final class Prepend extends Operation
     {
         $items = $this->parameters;
 
-        return Collection::withClosure(
+        return Collection::with(
             static function () use ($items, $collection) {
                 foreach ($items as $item) {
                     yield $item;

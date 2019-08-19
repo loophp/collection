@@ -370,34 +370,6 @@ final class Collection implements CollectionInterface
     }
 
     /**
-     * @param array $data
-     *
-     * @return \drupol\collection\Contract\Collection
-     */
-    public static function withArray(array $data): CollectionInterface
-    {
-        return self::withClosure(static function () use ($data) {
-            yield from $data;
-        });
-    }
-
-    /**
-     * Create a new collection instance.
-     *
-     * @param callable $callable
-     *
-     * @return \drupol\collection\Contract\Collection
-     */
-    public static function withClosure(callable $callable): CollectionInterface
-    {
-        $instance = new static();
-
-        $instance->source = $callable;
-
-        return $instance;
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function zip(...$items): CollectionInterface
@@ -455,5 +427,33 @@ final class Collection implements CollectionInterface
         }
 
         return new ArrayIterator((array) $source);
+    }
+
+    /**
+     * @param array $data
+     *
+     * @return \drupol\collection\Contract\Collection
+     */
+    private static function withArray(array $data): CollectionInterface
+    {
+        return self::withClosure(static function () use ($data) {
+            yield from $data;
+        });
+    }
+
+    /**
+     * Create a new collection instance.
+     *
+     * @param callable $callable
+     *
+     * @return \drupol\collection\Contract\Collection
+     */
+    private static function withClosure(callable $callable): CollectionInterface
+    {
+        $instance = new static();
+
+        $instance->source = $callable;
+
+        return $instance;
     }
 }

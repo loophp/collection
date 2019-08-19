@@ -19,7 +19,7 @@ final class Forget extends Operation
     {
         $keys = $this->parameters;
 
-        return Collection::withClosure(
+        return Collection::with(
             static function () use ($keys, $collection) {
                 $keys = \array_flip($keys);
 

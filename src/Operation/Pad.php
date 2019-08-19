@@ -19,7 +19,7 @@ final class Pad extends Operation
     {
         [$size, $value] = $this->parameters;
 
-        return Collection::withClosure(
+        return Collection::with(
             static function () use ($size, $value, $collection) {
                 $y = 0;
 

@@ -19,7 +19,7 @@ final class Merge extends Operation
     {
         $sources = $this->parameters;
 
-        return Collection::withClosure(
+        return Collection::with(
             static function () use ($sources, $collection) {
                 foreach ($collection as $item) {
                     yield $item;

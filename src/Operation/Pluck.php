@@ -21,7 +21,7 @@ final class Pluck extends Operation
         [$key, $default] = $this->parameters;
         $operation = $this;
 
-        return Collection::withClosure(
+        return Collection::with(
             static function () use ($key, $default, $collection, $operation) {
                 $key = \is_string($key) ? \explode('.', \trim($key, '.')) : $key;
 
@@ -57,7 +57,7 @@ final class Pluck extends Operation
                     $result[] = $this->pick($item, $key);
                 }
 
-                return \in_array('*', $key, true) ? Collection::withArray($result)->collapse() : $result;
+                return \in_array('*', $key, true) ? Collection::with($result)->collapse() : $result;
             }
 
             if ((true === \is_array($target)) && (true === \array_key_exists($segment, $target))) {

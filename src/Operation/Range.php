@@ -19,7 +19,7 @@ final class Range extends Operation
     {
         [$start, $end, $step] = $this->parameters;
 
-        return Collection::withClosure(
+        return Collection::with(
             static function () use ($start, $end, $step) {
                 for ($current = $start; $current < $end; $current += $step) {
                     yield $current;

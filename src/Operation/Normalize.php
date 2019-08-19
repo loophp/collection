@@ -17,7 +17,7 @@ final class Normalize extends Operation
      */
     public function run(CollectionInterface $collection): CollectionInterface
     {
-        return Collection::withClosure(
+        return Collection::with(
             static function () use ($collection) {
                 foreach ($collection as $item) {
                     yield $item;

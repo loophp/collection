@@ -19,7 +19,7 @@ final class Skip extends Operation
     {
         $counts = $this->parameters;
 
-        return Collection::withClosure(
+        return Collection::with(
             static function () use ($counts, $collection) {
                 $iterator = $collection->getIterator();
                 $counts = \array_sum($counts);

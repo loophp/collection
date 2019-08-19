@@ -19,7 +19,7 @@ final class Zip extends Operation
     {
         $iterables = $this->parameters;
 
-        return Collection::withClosure(
+        return Collection::with(
             static function () use ($iterables, $collection) {
                 $iterators =
                     Collection::empty()

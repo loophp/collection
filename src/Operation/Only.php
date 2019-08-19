@@ -19,7 +19,7 @@ final class Only extends Operation
     {
         $keys = $this->parameters;
 
-        return Collection::withClosure(
+        return Collection::with(
             static function () use ($keys, $collection) {
                 if ([] === $keys) {
                     yield from $collection;

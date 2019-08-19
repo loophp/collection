@@ -17,7 +17,7 @@ final class Flip extends Operation
      */
     public function run(CollectionInterface $collection): CollectionInterface
     {
-        return Collection::withClosure(
+        return Collection::with(
             static function () use ($collection) {
                 foreach ($collection as $key => $value) {
                     yield $value => $key;

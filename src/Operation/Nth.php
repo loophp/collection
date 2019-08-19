@@ -19,7 +19,7 @@ final class Nth extends Operation
     {
         [$step, $offset] = $this->parameters;
 
-        return Collection::withClosure(
+        return Collection::with(
             static function () use ($step, $offset, $collection) {
                 $position = 0;
 

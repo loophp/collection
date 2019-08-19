@@ -100,7 +100,7 @@ class CollectionSpec extends ObjectBehavior
             return $item;
         };
 
-        $this::withArray(\range(1, 20))
+        $this::with(\range(1, 20))
             ->apply($applyCallback1)
             ->walk($walkCallback2)
             ->filter(static function ($item) {
@@ -113,7 +113,7 @@ class CollectionSpec extends ObjectBehavior
     public function it_can_be_constructed_from_array(): void
     {
         $this
-            ->beConstructedThrough('withArray', [\range('A', 'E')]);
+            ->beConstructedThrough('with', [\range('A', 'E')]);
 
         $this
             ->all()
@@ -142,7 +142,7 @@ class CollectionSpec extends ObjectBehavior
     public function it_can_be_constructed_with_an_array(): void
     {
         $this
-            ->beConstructedThrough('withArray', [['1', '2', '3']]);
+            ->beConstructedThrough('with', [['1', '2', '3']]);
         $this->shouldImplement(CollectionInterface::class);
     }
 
@@ -167,7 +167,7 @@ class CollectionSpec extends ObjectBehavior
         };
 
         $this
-            ->beConstructedThrough('withClosure', [$fibonacci]);
+            ->beConstructedThrough('with', [$fibonacci]);
 
         $this
             ->limit(10)
@@ -544,7 +544,7 @@ class CollectionSpec extends ObjectBehavior
                     'bar' => 2,
                 ],
             ],
-            Collection::withArray(
+            Collection::with(
                 [
                     'foo' => [
                         'bar' => 3,
@@ -769,7 +769,7 @@ class CollectionSpec extends ObjectBehavior
             ->all()
             ->shouldReturn(['A' => 'AA', 'B' => 'BB', 'C' => 'CC', 'D' => 'DD', 'E' => 'EE']);
 
-        $this::withArray(\range(1, 10))
+        $this::with(\range(1, 10))
             ->walk(static function ($item) {
                 return $item * 2;
             }, static function ($item) {
@@ -778,7 +778,7 @@ class CollectionSpec extends ObjectBehavior
             ->all()
             ->shouldReturn(\range(3, 21, 2));
 
-        $this::withArray(\range(1, 10))
+        $this::with(\range(1, 10))
             ->walk(static function ($item) {
                 return $item;
             }, static function ($item) {

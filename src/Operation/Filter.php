@@ -25,7 +25,7 @@ final class Filter extends Operation
             };
         }
 
-        return Collection::withClosure(
+        return Collection::with(
             static function () use ($callback, $collection) {
                 foreach ($collection->getIterator() as $key => $value) {
                     if (true === (bool) $callback($value, $key)) {

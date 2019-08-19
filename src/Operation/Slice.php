@@ -19,7 +19,7 @@ final class Slice extends Operation
     {
         [$offset, $length] = $this->parameters;
 
-        return Collection::withClosure(
+        return Collection::with(
             static function () use ($offset, $length, $collection) {
                 if (null === $length) {
                     yield from $collection->skip($offset);
