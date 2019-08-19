@@ -25,6 +25,7 @@ use drupol\collection\Operation\Only;
 use drupol\collection\Operation\Pad;
 use drupol\collection\Operation\Pluck;
 use drupol\collection\Operation\Prepend;
+use drupol\collection\Operation\Proxy;
 use drupol\collection\Operation\Range;
 use drupol\collection\Operation\Rebase;
 use drupol\collection\Operation\Skip;
@@ -302,6 +303,14 @@ final class Collection implements CollectionInterface
     public function prepend(...$items): CollectionInterface
     {
         return $this->run(Prepend::with(...$items));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function proxy(string $method, string $proxyMethod, ...$parameters): CollectionInterface
+    {
+        return $this->run(Proxy::with($method, $proxyMethod, $parameters));
     }
 
     /**

@@ -607,6 +607,28 @@ class CollectionSpec extends ObjectBehavior
             ->shouldReturn(['A', 'B', 'C', 'D', 'E', 'F']);
     }
 
+    public function it_can_proxy(): void
+    {
+        $input1 = new \ArrayObject(\range('A', 'E'));
+        $input2 = new \ArrayObject(\range(1, 5));
+
+        $this
+            ->beConstructedThrough('with', [[$input1, $input2]]);
+
+        $this
+            ->proxy('map', 'count')
+            ->all()
+            ->shouldReturn([5, 5]);
+
+        $this
+            ->shouldThrow(\Exception::class)
+            ->during('proxy', ['map', 'foo']);
+
+        $this
+            ->shouldThrow(\Exception::class)
+            ->during('proxy', ['foo', 'foo']);
+    }
+
     public function it_can_rebase(): void
     {
         $this

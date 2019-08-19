@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace drupol\collection\Contract;
 
+use drupol\collection\Contract\Collection as CollectionInterface;
+
 /**
  * Interface Collection.
  */
@@ -219,6 +221,15 @@ interface Collection extends \Countable, \IteratorAggregate
      * @return \drupol\collection\Contract\Collection
      */
     public function prepend(...$items): self;
+
+    /**
+     * @param string $method
+     * @param string $proxyMethod
+     * @param mixed ...$parameters
+     *
+     * @return \drupol\collection\Contract\Collection
+     */
+    public function proxy(string $method, string $proxyMethod, ...$parameters): CollectionInterface;
 
     /**
      * @return \drupol\collection\Contract\Collection
