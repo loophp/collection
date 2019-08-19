@@ -249,7 +249,7 @@ interface Collection extends \Countable, \IteratorAggregate
     /**
      * @param \drupol\collection\Contract\Operation ...$operations
      *
-     * @return mixed
+     * @return bool|mixed
      */
     public function run(Operation ...$operations);
 
