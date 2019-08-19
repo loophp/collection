@@ -317,7 +317,7 @@ final class Collection implements CollectionInterface
      */
     public static function range(int $start = 0, $end = \INF, $step = 1): CollectionInterface
     {
-        return self::withArray([])->run(Range::with($start, $end, $step));
+        return self::empty()->run(Range::with($start, $end, $step));
     }
 
     /**
