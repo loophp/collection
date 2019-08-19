@@ -180,7 +180,7 @@ the methods always return the same values for the same inputs.
 | ------------- | --------------------- | -------------- |
 | `all`         | array                 | [Collection.php](./src/Collection.php)
 | `append`      | new Collection object | [Append.php](./src/Operation/Append.php)
-| `apply`       | new Collection object | [Apply.php](./src/Operation/Apply.php)
+| `apply`       | self                  | [Apply.php](./src/Operation/Apply.php)
 | `chunk`       | new Collection object | [Chunk.php](./src/Operation/Chunk.php)
 | `collapse`    | new Collection object | [Collapse.php](./src/Operation/Collapse.php)
 | `combine`     | new Collection object | [Combine.php](./src/Operation/Combine.php)

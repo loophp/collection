@@ -9,6 +9,7 @@ use Closure;
 use drupol\collection\Contract\Collection as CollectionInterface;
 use drupol\collection\Contract\Operation;
 use drupol\collection\Operation\Append;
+use drupol\collection\Operation\Apply;
 use drupol\collection\Operation\Chunk;
 use drupol\collection\Operation\Collapse;
 use drupol\collection\Operation\Combine;
@@ -75,15 +76,7 @@ final class Collection implements CollectionInterface
      */
     public function apply(callable $callback): CollectionInterface
     {
-        $clone = clone $this;
-
-        foreach ($clone as $key => $item) {
-            if (false === $callback($item, $key)) {
-                break;
-            }
-        }
-
-        return $this;
+        return $this->run(Apply::with($callback));
     }
 
     /**
