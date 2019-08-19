@@ -154,7 +154,7 @@ $square = new class() extends Operation {
      */
     public function run(CollectionInterface $collection): CollectionInterface
     {
-        return Collection::withClosure(
+        return Collection::with(
             static function () use ($collection) {
                 foreach ($collection as $item) {
                     yield $item ** 2;
@@ -222,8 +222,6 @@ about the kind of parameters they require.
 | `range`       | new Collection object | [Collection.php](./src/Collection.php)
 | `times`       | new Collection object | [Collection.php](./src/Collection.php)
 | `with`        | new Collection object | [Collection.php](./src/Collection.php)
-| `withArray`   | new Collection object | [Collection.php](./src/Collection.php)
-| `withClosure` | new Collection object | [Collection.php](./src/Collection.php)
 
 All those methods are not described in [the Collection interface](./src/Contract/Collection.php),
 but in the [Collection class](./src/Collection.php) itself, feel free to check it out to know more about the kind of parameters they require.
