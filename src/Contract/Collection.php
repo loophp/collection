@@ -221,6 +221,11 @@ interface Collection extends \Countable, \IteratorAggregate
     public function prepend(...$items): self;
 
     /**
+     * @return \drupol\collection\Contract\Collection
+     */
+    public function rebase(): self;
+
+    /**
      * Reduce the collection to a single value.
      *
      * @param callable $callback

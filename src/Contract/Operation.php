@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace drupol\collection\Contract;
 
 /**
- * Interface CollectionOperation.
+ * Interface Operation.
  */
 interface Operation
 {

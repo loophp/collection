@@ -238,6 +238,22 @@ class CollectionSpec extends ObjectBehavior
             ->during('all');
     }
 
+    public function it_can_contains(): void
+    {
+        $this
+            ->beConstructedThrough('with', [\range('A', 'C')]);
+
+        $this
+            ->contains('A')
+            ->shouldReturn(true);
+
+        $this
+            ->contains(static function ($item) {
+                return 'A' === $item;
+            })
+            ->shouldReturn(true);
+    }
+
     public function it_can_convert_use_a_string_as_parameter(): void
     {
         $this
@@ -367,6 +383,18 @@ class CollectionSpec extends ObjectBehavior
         $this
             ->get('unexistent key', 'default')
             ->shouldReturn('default');
+    }
+
+    public function it_can_get_an_iterator(): void
+    {
+        $this
+            ->beConstructedThrough('with', [\range('A', 'J')]);
+
+        $collection = Collection::with(\range(1, 5));
+
+        $this::with($collection)
+            ->getIterator()
+            ->shouldImplement(\Iterator::class);
     }
 
     public function it_can_get_items_with_only_specific_keys(): void
@@ -579,6 +607,17 @@ class CollectionSpec extends ObjectBehavior
             ->shouldReturn(['A', 'B', 'C', 'D', 'E', 'F']);
     }
 
+    public function it_can_rebase(): void
+    {
+        $this
+            ->beConstructedThrough('with', [\range('A', 'C')]);
+
+        $this
+            ->rebase()
+            ->all()
+            ->shouldBeEqualTo($this->all());
+    }
+
     public function it_can_reduce(): void
     {
         $this
@@ -737,11 +776,20 @@ class CollectionSpec extends ObjectBehavior
 
         $this
             ->zip(['D', 'E', 'F'])
+            ->all()
             ->shouldIterateAs([['A', 'D'], ['B', 'E'], ['C', 'F']]);
 
         $this::with(['A', 'C', 'E'])
             ->zip(['B', 'D', 'F', 'H'])
+            ->all()
             ->shouldIterateAs([['A', 'B'], ['C', 'D'], ['E', 'F'], [null, 'H']]);
+
+        $collection = Collection::with(\range(1, 5));
+
+        $this::with($collection)
+            ->zip(\range('A', 'E'))
+            ->all()
+            ->shouldReturn([[1, 'A'], [2, 'B'], [3, 'C'], [4, 'D'], [5, 'E']]);
     }
 
     public function it_is_initializable(): void

@@ -21,32 +21,33 @@ final class Zip extends Operation
 
         return Collection::withClosure(
             static function () use ($iterables, $collection) {
-                $iterators = Collection::with(
-                    Collection::with($iterables)
+                $iterators =
+                    Collection::empty()
+                        ->append($collection, ...$iterables)
                         ->map(
                             static function ($iterable) {
                                 return Collection::with($iterable)->getIterator();
                             }
-                        )
-                        ->prepend($collection->getIterator())
-                );
+                        );
 
-                while ($iterators->map(static function (\Iterator $iterator) {
+                $iteratorCurrent = static function (\Iterator $iterator) {
+                    return $iterator->current();
+                };
+
+                $iteratorIsValid = static function (\Iterator $iterator) {
                     return $iterator->valid();
-                })->contains(true)) {
-                    yield Collection::with(
-                        $iterators->map(
-                            static function (\Iterator $item) {
-                                return $item->current();
-                            }
-                        )
-                    )->all();
+                };
 
-                    $iterators->apply(
-                        static function (\Iterator $item): void {
-                            $item->next();
-                        }
-                    );
+                $iteratorNext = static function (\Iterator $iterator) {
+                    $iterator->next();
+
+                    return $iterator;
+                };
+
+                while ($iterators->map($iteratorIsValid)->contains(true)) {
+                    yield Collection::with($iterators->map($iteratorCurrent));
+
+                    $iterators = $iterators->map($iteratorNext);
                 }
             }
         );

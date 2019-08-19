@@ -26,6 +26,7 @@ use drupol\collection\Operation\Pad;
 use drupol\collection\Operation\Pluck;
 use drupol\collection\Operation\Prepend;
 use drupol\collection\Operation\Range;
+use drupol\collection\Operation\Rebase;
 use drupol\collection\Operation\Skip;
 use drupol\collection\Operation\Slice;
 use drupol\collection\Operation\Walk;
@@ -73,7 +74,9 @@ final class Collection implements CollectionInterface
      */
     public function apply(callable $callback): CollectionInterface
     {
-        foreach ($this as $key => $item) {
+        $clone = clone $this;
+
+        foreach ($clone as $key => $item) {
             if (false === $callback($item, $key)) {
                 break;
             }
@@ -318,6 +321,14 @@ final class Collection implements CollectionInterface
     /**
      * {@inheritdoc}
      */
+    public function rebase(): CollectionInterface
+    {
+        return $this->run(Rebase::with());
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function reduce(callable $callback, $initial = null)
     {
         $result = $initial;
@@ -483,10 +494,6 @@ final class Collection implements CollectionInterface
      */
     private function makeIterator($source): \Iterator
     {
-        if ($source instanceof CollectionInterface) {
-            return $source->getIterator();
-        }
-
         if (\is_callable($source)) {
             return $source();
         }
