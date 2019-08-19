@@ -30,24 +30,10 @@ final class Zip extends Operation
                             }
                         );
 
-                $iteratorCurrent = static function (\Iterator $iterator) {
-                    return $iterator->current();
-                };
+                while ($iterators->proxy('map', 'valid')->contains(true)) {
+                    yield $iterators->proxy('map', 'current');
 
-                $iteratorIsValid = static function (\Iterator $iterator) {
-                    return $iterator->valid();
-                };
-
-                $iteratorNext = static function (\Iterator $iterator) {
-                    $iterator->next();
-
-                    return $iterator;
-                };
-
-                while ($iterators->map($iteratorIsValid)->contains(true)) {
-                    yield Collection::with($iterators->map($iteratorCurrent));
-
-                    $iterators = $iterators->map($iteratorNext);
+                    $iterators = $iterators->proxy('apply', 'next');
                 }
             }
         );
