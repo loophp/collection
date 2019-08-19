@@ -249,9 +249,9 @@ interface Collection extends \Countable, \IteratorAggregate
     /**
      * @param \drupol\collection\Contract\Operation ...$operations
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return mixed
      */
-    public function run(Operation ...$operations): self;
+    public function run(Operation ...$operations);
 
     /**
      * Skip the first {$count} items.

@@ -191,11 +191,8 @@ class CollectionSpec extends ObjectBehavior
 
         $this
             ->chunk(2)
-            ->map(static function (CollectionInterface $item) {
-                return \implode('', \iterator_to_array($item));
-            })
             ->all()
-            ->shouldReturn(['AB', 'CD', 'EF']);
+            ->shouldReturn([[0 => 'A', 1 => 'B'], [2 => 'C', 3 => 'D'], [4 => 'E', 5 => 'F']]);
 
         $this
             ->chunk(0)
@@ -204,11 +201,8 @@ class CollectionSpec extends ObjectBehavior
 
         $this
             ->chunk(1)
-            ->map(static function (CollectionInterface $item) {
-                return \implode('', \iterator_to_array($item));
-            })
             ->all()
-            ->shouldReturn(['A', 'B', 'C', 'D', 'E', 'F']);
+            ->shouldReturn([[0 => 'A'], [1 => 'B'], [2 => 'C'], [3 => 'D'], [4 => 'E'], [5 => 'F']]);
     }
 
     public function it_can_collapse(): void
@@ -646,9 +640,12 @@ class CollectionSpec extends ObjectBehavior
             ->beConstructedThrough('with', [\range(1, 100)]);
 
         $this
-            ->reduce(static function ($carry, $item) {
-                return $carry + $item;
-            }, 0)
+            ->reduce(
+                static function ($carry, $item) {
+                    return $carry + $item;
+                },
+                0
+            )
             ->shouldReturn(5050);
     }
 
@@ -659,8 +656,7 @@ class CollectionSpec extends ObjectBehavior
             ->shouldBeCalledOnce();
 
         $this
-            ->run($operation)
-            ->shouldImplement(CollectionInterface::class);
+            ->run($operation);
     }
 
     public function it_can_skip(): void

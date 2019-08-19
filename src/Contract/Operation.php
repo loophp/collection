@@ -12,9 +12,9 @@ interface Operation
     /**
      * @param \drupol\collection\Contract\Collection $collection
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return mixed
      */
-    public function run(Collection $collection): Collection;
+    public function run(Collection $collection);
 
     /**
      * @param mixed ...$parameters

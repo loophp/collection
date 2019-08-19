@@ -8,15 +8,19 @@ use ArrayIterator;
 use Closure;
 use drupol\collection\Contract\Collection as CollectionInterface;
 use drupol\collection\Contract\Operation;
+use drupol\collection\Operation\All;
 use drupol\collection\Operation\Append;
 use drupol\collection\Operation\Apply;
 use drupol\collection\Operation\Chunk;
 use drupol\collection\Operation\Collapse;
 use drupol\collection\Operation\Combine;
+use drupol\collection\Operation\Contains;
 use drupol\collection\Operation\Filter;
+use drupol\collection\Operation\First;
 use drupol\collection\Operation\Flatten;
 use drupol\collection\Operation\Flip;
 use drupol\collection\Operation\Forget;
+use drupol\collection\Operation\Get;
 use drupol\collection\Operation\Keys;
 use drupol\collection\Operation\Limit;
 use drupol\collection\Operation\Merge;
@@ -29,6 +33,7 @@ use drupol\collection\Operation\Prepend;
 use drupol\collection\Operation\Proxy;
 use drupol\collection\Operation\Range;
 use drupol\collection\Operation\Rebase;
+use drupol\collection\Operation\Reduce;
 use drupol\collection\Operation\Skip;
 use drupol\collection\Operation\Slice;
 use drupol\collection\Operation\Walk;
@@ -50,17 +55,7 @@ final class Collection implements CollectionInterface
      */
     public function all(): array
     {
-        $result = [];
-
-        foreach ($this->getIterator() as $key => $item) {
-            if ($item instanceof CollectionInterface) {
-                $result[$key] = $item->all();
-            } else {
-                $result[$key] = $item;
-            }
-        }
-
-        return $result;
+        return $this->run(All::with([]));
     }
 
     /**
@@ -108,19 +103,7 @@ final class Collection implements CollectionInterface
      */
     public function contains($key): bool
     {
-        if (!\is_string($key) && \is_callable($key)) {
-            $placeholder = new \stdClass();
-
-            return $this->first($key, $placeholder) !== $placeholder;
-        }
-
-        foreach ($this as $value) {
-            if ($value === $key) {
-                return true;
-            }
-        }
-
-        return false;
+        return $this->run(Contains::with($key));
     }
 
     /**
@@ -136,7 +119,7 @@ final class Collection implements CollectionInterface
      */
     public static function empty(): CollectionInterface
     {
-        return static::withArray([]);
+        return self::withArray([]);
     }
 
     /**
@@ -152,24 +135,7 @@ final class Collection implements CollectionInterface
      */
     public function first(callable $callback = null, $default = null)
     {
-        /** @var \Iterator $iterator */
-        $iterator = $this->getIterator();
-
-        if (null === $callback) {
-            if (!$iterator->valid()) {
-                return $default;
-            }
-
-            return $iterator->current();
-        }
-
-        foreach ($iterator as $key => $value) {
-            if ($callback($value, $key)) {
-                return $value;
-            }
-        }
-
-        return $default;
+        return $this->run(First::with($callback, $default));
     }
 
     /**
@@ -201,13 +167,7 @@ final class Collection implements CollectionInterface
      */
     public function get($key, $default = null)
     {
-        foreach ($this->getIterator() as $outerKey => $outerValue) {
-            if ($outerKey === $key) {
-                return $outerValue;
-            }
-        }
-
-        return $default;
+        return $this->run(Get::with($key, $default));
     }
 
     /**
@@ -333,19 +293,13 @@ final class Collection implements CollectionInterface
      */
     public function reduce(callable $callback, $initial = null)
     {
-        $result = $initial;
-
-        foreach ($this as $value) {
-            $result = $callback($result, $value);
-        }
-
-        return $result;
+        return $this->run(Reduce::with($callback, $initial));
     }
 
     /**
      * {@inheritdoc}
      */
-    public function run(Operation ...$operations): CollectionInterface
+    public function run(Operation ...$operations)
     {
         return \array_reduce($operations, [$this, 'doRun'], $this);
     }
@@ -459,10 +413,10 @@ final class Collection implements CollectionInterface
      * @param \drupol\collection\Contract\Operation $operation
      *   The operation.
      *
-     * @return \drupol\collection\Contract\Collection
-     *   A new collection.
+     * @return mixed
+     *   The operation result.
      */
-    private function doRun(CollectionInterface $collection, Operation $operation): CollectionInterface
+    private function doRun(CollectionInterface $collection, Operation $operation)
     {
         return $operation->run($collection);
     }
