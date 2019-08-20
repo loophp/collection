@@ -205,7 +205,7 @@ the methods always return the same values for the same inputs.
 | `proxy`       | new Collection object | [Proxy.php](./src/Operation/Proxy.php)
 | `rebase`      | new Collection object | [Rebase.php](./src/Operation/Rebase.php)
 | `reduce`      | mixed                 | [Collection.php](./src/Collection.php)
-| `run`         | new Collection object | [Collection.php](./src/Collection.php)
+| `run`         | mixed                 | [Run.php](./src/Operation/Run.php)
 | `skip`        | new Collection object | [Skip.php](./src/Operation/Skip.php)
 | `slice`       | new Collection object | [Slice.php](./src/Operation/Slice.php)
 | `walk`        | new Collection object | [Walk.php](./src/Operation/Walk.php)
