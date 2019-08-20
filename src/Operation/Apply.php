@@ -17,13 +17,13 @@ final class Apply extends Operation
      */
     public function run(CollectionInterface $collection): CollectionInterface
     {
-        [$callback] = $this->parameters;
+        [$callbacks] = $this->parameters;
 
-        $newCollection = Collection::with($collection);
-
-        foreach ($newCollection as $key => $item) {
-            if (false === $callback($item, $key)) {
-                break;
+        foreach ($callbacks as $callback) {
+            foreach (Collection::with($collection) as $key => $item) {
+                if (false === $callback($item, $key)) {
+                    break;
+                }
             }
         }
 

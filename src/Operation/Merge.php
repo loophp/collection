@@ -17,7 +17,7 @@ final class Merge extends Operation
      */
     public function run(CollectionInterface $collection): CollectionInterface
     {
-        $sources = $this->parameters;
+        [$sources] = $this->parameters;
 
         return Collection::with(
             static function () use ($sources, $collection) {

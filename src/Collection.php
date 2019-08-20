@@ -63,15 +63,15 @@ final class Collection implements CollectionInterface
      */
     public function append(...$items): CollectionInterface
     {
-        return $this->run(Append::with(...$items));
+        return $this->run(Append::with($items));
     }
 
     /**
      * {@inheritdoc}
      */
-    public function apply(callable $callback): CollectionInterface
+    public function apply(callable ...$callables): CollectionInterface
     {
-        return $this->run(Apply::with($callback));
+        return $this->run(Apply::with($callables));
     }
 
     /**
@@ -95,7 +95,7 @@ final class Collection implements CollectionInterface
      */
     public function combine($keys): CollectionInterface
     {
-        return $this->run(Combine::with(...$keys));
+        return $this->run(Combine::with($keys));
     }
 
     /**
@@ -159,7 +159,7 @@ final class Collection implements CollectionInterface
      */
     public function forget(...$keys): CollectionInterface
     {
-        return $this->run(Forget::with(...$keys));
+        return $this->run(Forget::with($keys));
     }
 
     /**
@@ -199,7 +199,7 @@ final class Collection implements CollectionInterface
      */
     public function map(callable ...$callbacks): CollectionInterface
     {
-        return $this->run(Walk::with(...$callbacks), Normalize::with());
+        return $this->run(Walk::with($callbacks), Normalize::with());
     }
 
     /**
@@ -207,7 +207,7 @@ final class Collection implements CollectionInterface
      */
     public function merge(...$sources): CollectionInterface
     {
-        return $this->run(Merge::with(...\array_map([$this, 'makeIterator'], $sources)));
+        return $this->run(Merge::with(\array_map([$this, 'makeIterator'], $sources)));
     }
 
     /**
@@ -231,7 +231,7 @@ final class Collection implements CollectionInterface
      */
     public function only(...$keys): CollectionInterface
     {
-        return $this->run(Only::with(...$keys));
+        return $this->run(Only::with($keys));
     }
 
     /**
@@ -255,7 +255,7 @@ final class Collection implements CollectionInterface
      */
     public function prepend(...$items): CollectionInterface
     {
-        return $this->run(Prepend::with(...$items));
+        return $this->run(Prepend::with($items));
     }
 
     /**
@@ -309,7 +309,7 @@ final class Collection implements CollectionInterface
      */
     public function skip(int ...$counts): CollectionInterface
     {
-        return $this->run(Skip::with(...$counts));
+        return $this->run(Skip::with($counts));
     }
 
     /**
@@ -350,13 +350,13 @@ final class Collection implements CollectionInterface
      */
     public function walk(callable ...$callbacks): CollectionInterface
     {
-        return $this->run(Walk::with(...$callbacks));
+        return $this->run(Walk::with($callbacks));
     }
 
     /**
      * Create a new collection instance.
      *
-     * @param null|array|callable|Closure|CollectionInterface $data
+     * @param null|array|callable|Closure|CollectionInterface|\Iterator $data
      *
      * @return \drupol\collection\Contract\Collection
      */
@@ -374,7 +374,7 @@ final class Collection implements CollectionInterface
      */
     public function zip(...$items): CollectionInterface
     {
-        return $this->run(Zip::with(...$items));
+        return $this->run(Zip::with($items));
     }
 
     /**

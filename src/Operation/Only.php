@@ -17,7 +17,7 @@ final class Only extends Operation
      */
     public function run(CollectionInterface $collection): CollectionInterface
     {
-        $keys = $this->parameters;
+        [$keys] = $this->parameters;
 
         return Collection::with(
             static function () use ($keys, $collection) {

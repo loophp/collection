@@ -17,7 +17,7 @@ final class Skip extends Operation
      */
     public function run(CollectionInterface $collection): CollectionInterface
     {
-        $counts = $this->parameters;
+        [$counts] = $this->parameters;
 
         return Collection::with(
             static function () use ($counts, $collection) {

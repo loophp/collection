@@ -31,11 +31,11 @@ interface Collection extends \Countable, \IteratorAggregate
     /**
      * Apply a callback to all the element of an array.
      *
-     * @param callable $callable
+     * @param callable ...$callables
      *
      * @return \drupol\collection\Contract\Collection
      */
-    public function apply(callable $callable): self;
+    public function apply(callable ...$callables): self;
 
     /**
      * Chunk the collection into chunks of the given size.

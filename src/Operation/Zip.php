@@ -17,7 +17,7 @@ final class Zip extends Operation
      */
     public function run(CollectionInterface $collection): CollectionInterface
     {
-        $iterables = $this->parameters;
+        [$iterables] = $this->parameters;
 
         return Collection::with(
             static function () use ($iterables, $collection) {

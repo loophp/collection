@@ -38,7 +38,23 @@ class CollectionSpec extends ObjectBehavior
 
         $this
             ->apply(static function ($item) {
-                return (bool) ($item % 2);
+                // do what you want here.
+
+                return true;
+            })
+            ->shouldIterateAs(\range(1, 10));
+
+        $this
+            ->apply(static function ($item) {
+                // do what you want here.
+
+                return false;
+            })
+            ->shouldIterateAs(\range(1, 10));
+
+        $this
+            ->apply(static function ($item): void {
+                $item %= 2;
             })
             ->shouldIterateAs([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
 
@@ -106,6 +122,24 @@ class CollectionSpec extends ObjectBehavior
             ->filter(static function ($item) {
                 return false !== $item;
             })
+            ->all()
+            ->shouldReturn($context);
+
+        $context = [];
+
+        $applyCallback1 = static function ($item, $key) use (&$context) {
+            $context[] = $item;
+
+            return true;
+        };
+
+        $walkCallback2 = static function ($item) {
+            return $item;
+        };
+
+        $this::with(\range(1, 20))
+            ->apply($applyCallback1)
+            ->walk($walkCallback2)
             ->all()
             ->shouldReturn($context);
     }

@@ -17,7 +17,7 @@ final class Walk extends Operation
      */
     public function run(CollectionInterface $collection): CollectionInterface
     {
-        $callbacks = $this->parameters;
+        [$callbacks] = $this->parameters;
 
         return Collection::with(
             static function () use ($callbacks, $collection) {

@@ -17,7 +17,7 @@ final class Append extends Operation
      */
     public function run(CollectionInterface $collection): CollectionInterface
     {
-        $items = $this->parameters;
+        [$items] = $this->parameters;
 
         return Collection::with(
             static function () use ($items, $collection) {
