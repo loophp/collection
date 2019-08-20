@@ -685,12 +685,48 @@ class CollectionSpec extends ObjectBehavior
 
     public function it_can_run_an_operation(Operation $operation): void
     {
-        $operation
-            ->run($this)
-            ->shouldBeCalledOnce();
+        $square = new class() extends \drupol\collection\Operation\Operation {
+            public function run(CollectionInterface $collection)
+            {
+                return Collection::with(
+                    static function () use ($collection) {
+                        foreach ($collection as $item) {
+                            yield $item ** 2;
+                        }
+                    }
+                );
+            }
+        };
 
-        $this
-            ->run($operation);
+        $sqrt = new class() extends \drupol\collection\Operation\Operation {
+            public function run(CollectionInterface $collection)
+            {
+                return Collection::with(
+                    static function () use ($collection) {
+                        foreach ($collection as $item) {
+                            yield $item ** .5;
+                        }
+                    }
+                );
+            }
+        };
+
+        $map = new class() extends \drupol\collection\Operation\Operation {
+            public function run(CollectionInterface $collection)
+            {
+                return Collection::with(
+                    static function () use ($collection) {
+                        foreach ($collection as $item) {
+                            yield (int) $item;
+                        }
+                    }
+                );
+            }
+        };
+
+        $this::with(\range(1, 5))
+            ->run($square, $sqrt, $map)
+            ->shouldIterateAs(\range(1, 5));
     }
 
     public function it_can_skip(): void

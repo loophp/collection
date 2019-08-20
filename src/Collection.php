@@ -34,6 +34,7 @@ use drupol\collection\Operation\Proxy;
 use drupol\collection\Operation\Range;
 use drupol\collection\Operation\Rebase;
 use drupol\collection\Operation\Reduce;
+use drupol\collection\Operation\Run;
 use drupol\collection\Operation\Skip;
 use drupol\collection\Operation\Slice;
 use drupol\collection\Operation\Walk;
@@ -301,7 +302,7 @@ final class Collection implements CollectionInterface
      */
     public function run(Operation ...$operations)
     {
-        return \array_reduce($operations, [$this, 'doRun'], $this);
+        return Run::with($operations)->run($this);
     }
 
     /**
@@ -375,22 +376,6 @@ final class Collection implements CollectionInterface
     public function zip(...$items): CollectionInterface
     {
         return $this->run(Zip::with($items));
-    }
-
-    /**
-     * Run an operation on the collection.
-     *
-     * @param \drupol\collection\Contract\Collection $collection
-     *   The collection.
-     * @param \drupol\collection\Contract\Operation $operation
-     *   The operation.
-     *
-     * @return mixed
-     *   The operation result.
-     */
-    private function doRun(CollectionInterface $collection, Operation $operation)
-    {
-        return $operation->run($collection);
     }
 
     /**
