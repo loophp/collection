@@ -20,7 +20,7 @@ final class Chunk extends Operation
         $size = $this->parameters[0];
 
         if (0 >= $size) {
-            return Collection::with();
+            return Collection::empty();
         }
 
         return Collection::with(

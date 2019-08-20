@@ -357,11 +357,11 @@ final class Collection implements CollectionInterface
     /**
      * Create a new collection instance.
      *
-     * @param null|array|callable|Closure|CollectionInterface|\Iterator $data
+     * @param array|callable|Closure|CollectionInterface|\Iterator $data
      *
      * @return \drupol\collection\Contract\Collection
      */
-    public static function with($data = []): CollectionInterface
+    public static function with($data): CollectionInterface
     {
         if ($data instanceof Closure || \is_callable($data)) {
             return self::withClosure($data);
