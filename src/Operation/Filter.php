@@ -17,19 +17,21 @@ final class Filter extends Operation
      */
     public function run(CollectionInterface $collection): CollectionInterface
     {
-        $callback = $this->parameters[0];
+        [$callbacks] = $this->parameters;
 
-        if (null === $callback) {
-            $callback = static function ($value) {
+        if ([] === $callbacks) {
+            $callbacks[] = static function ($value) {
                 return $value;
             };
         }
 
         return Collection::with(
-            static function () use ($callback, $collection) {
-                foreach ($collection->getIterator() as $key => $value) {
-                    if (true === (bool) $callback($value, $key)) {
-                        yield $key => $value;
+            static function () use ($callbacks, $collection) {
+                foreach ($callbacks as $callback) {
+                    foreach ($collection->getIterator() as $key => $value) {
+                        if (true === (bool) $callback($value, $key)) {
+                            yield $key => $value;
+                        }
                     }
                 }
             }

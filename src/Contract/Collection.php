@@ -75,11 +75,11 @@ interface Collection extends \Countable, \IteratorAggregate
     /**
      * Run a filter over each of the items.
      *
-     * @param null|callable $callback
+     * @param callable ...$callbacks
      *
      * @return \drupol\collection\Contract\Collection
      */
-    public function filter(callable $callback = null): self;
+    public function filter(callable ...$callbacks): self;
 
     /**
      * Get the first item from the collection passing the given truth test.

@@ -126,9 +126,9 @@ final class Collection implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function filter(callable $callback = null): CollectionInterface
+    public function filter(callable ...$callbacks): CollectionInterface
     {
-        return $this->run(Filter::with($callback));
+        return $this->run(Filter::with($callbacks));
     }
 
     /**
