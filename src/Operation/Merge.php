@@ -20,7 +20,8 @@ final class Merge extends Operation
         [$sources] = $this->parameters;
 
         return Collection::with(
-            static function () use ($sources, $collection) {
+            static function () use ($sources, $collection): \Generator
+            {
                 foreach ($collection as $item) {
                     yield $item;
                 }

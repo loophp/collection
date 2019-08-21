@@ -20,7 +20,8 @@ final class Slice extends Operation
         [$offset, $length] = $this->parameters;
 
         return Collection::with(
-            static function () use ($offset, $length, $collection) {
+            static function () use ($offset, $length, $collection): \Generator
+            {
                 if (null === $length) {
                     yield from $collection->skip($offset);
                 } else {

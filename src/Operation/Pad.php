@@ -20,7 +20,8 @@ final class Pad extends Operation
         [$size, $value] = $this->parameters;
 
         return Collection::with(
-            static function () use ($size, $value, $collection) {
+            static function () use ($size, $value, $collection): \Generator
+            {
                 $y = 0;
 
                 foreach ($collection->getIterator() as $key => $item) {

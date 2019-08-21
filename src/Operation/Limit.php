@@ -20,7 +20,8 @@ final class Limit extends Operation
         $limit = $this->parameters[0];
 
         return Collection::with(
-            static function () use ($limit, $collection) {
+            static function () use ($limit, $collection): \Generator
+            {
                 $iterator = $collection->getIterator();
 
                 for (; (true === $iterator->valid()) && (0 !== $limit--); $iterator->next()) {

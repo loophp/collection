@@ -20,7 +20,8 @@ final class Combine extends Operation
         [$keys] = $this->parameters;
 
         return Collection::with(
-            static function () use ($keys, $collection) {
+            static function () use ($keys, $collection): \Generator
+            {
                 $original = $collection->getIterator();
                 $keysIterator = Collection::with($keys)->getIterator();
 

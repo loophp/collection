@@ -22,7 +22,8 @@ final class Sort extends Operation
         [$callback] = $this->parameters;
 
         return Collection::with(
-            static function () use ($callback, $collection) {
+            static function () use ($callback, $collection): \Generator
+            {
                 $array = \iterator_to_array($collection->getIterator());
 
                 \uasort($array, $callback);

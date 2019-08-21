@@ -20,7 +20,8 @@ final class Zip extends Operation
         [$iterables] = $this->parameters;
 
         return Collection::with(
-            static function () use ($iterables, $collection) {
+            static function () use ($iterables, $collection): \Generator
+            {
                 $iterators =
                     Collection::empty()
                         ->append($collection, ...$iterables)
