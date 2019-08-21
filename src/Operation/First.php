@@ -18,18 +18,13 @@ final class First extends Operation
     {
         [$callback, $default] = $this->parameters;
 
-        /** @var \Iterator $iterator */
-        $iterator = $collection->getIterator();
-
         if (null === $callback) {
-            if (!$iterator->valid()) {
-                return $default;
-            }
-
-            return $iterator->current();
+            $callback = static function ($v, $k) {
+                return true;
+            };
         }
 
-        foreach ($iterator as $key => $value) {
+        foreach ($collection as $key => $value) {
             if ($callback($value, $key)) {
                 return $value;
             }

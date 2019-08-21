@@ -17,14 +17,18 @@ final class Limit extends Operation
      */
     public function run(CollectionInterface $collection): CollectionInterface
     {
-        $limit = $this->parameters[0];
+        [$limit] = $this->parameters;
 
         return Collection::with(
             static function () use ($limit, $collection): \Generator {
-                $iterator = $collection->getIterator();
+                $i = 0;
 
-                for (; (true === $iterator->valid()) && (0 !== $limit--); $iterator->next()) {
-                    yield $iterator->key() => $iterator->current();
+                foreach ($collection as $key => $value) {
+                    yield $key => $value;
+
+                    if (++$i === $limit) {
+                        break;
+                    }
                 }
             }
         );
