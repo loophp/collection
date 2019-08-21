@@ -21,8 +21,6 @@ final class Last extends Operation
         /** @var \Iterator $iterator */
         $iterator = $collection->getIterator();
 
-        $iterator->rewind();
-
         $last = $iterator->current();
 
         while (true === $iterator->valid()) {
