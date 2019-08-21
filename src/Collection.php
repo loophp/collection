@@ -43,7 +43,6 @@ use drupol\collection\Operation\Slice;
 use drupol\collection\Operation\Sort;
 use drupol\collection\Operation\Walk;
 use drupol\collection\Operation\Zip;
-use Traversable;
 
 /**
  * Class Collection.
@@ -180,7 +179,11 @@ final class Collection implements CollectionInterface
      */
     public function getIterator()
     {
-        return $this->makeIterator($this->source);
+        if ($this->source instanceof Closure) {
+            return ($this->source)();
+        }
+
+        return new ArrayIterator((array) $this->source);
     }
 
     /**
@@ -228,7 +231,7 @@ final class Collection implements CollectionInterface
      */
     public function merge(...$sources): CollectionInterface
     {
-        return $this->run(Merge::with(\array_map([$this, 'makeIterator'], $sources)));
+        return $this->run(Merge::with($sources));
     }
 
     /**
@@ -391,11 +394,21 @@ final class Collection implements CollectionInterface
      */
     public static function with($data): CollectionInterface
     {
-        if ($data instanceof Closure || \is_callable($data)) {
+        if ($data instanceof Closure) {
             return self::withClosure($data);
         }
 
-        return self::withArray(self::getArrayableItems($data));
+        if ($data instanceof \Traversable) {
+            return self::withArray(
+                \iterator_to_array(
+                    (static function () use ($data) {
+                        yield from $data;
+                    })()
+                )
+            );
+        }
+
+        return self::withArray((array) $data);
     }
 
     /**
@@ -407,51 +420,17 @@ final class Collection implements CollectionInterface
     }
 
     /**
-     * Get items as an array.
-     *
-     * @param mixed $items
-     *
-     * @return array
-     */
-    private static function getArrayableItems($items): array
-    {
-        if (\is_array($items)) {
-            return $items;
-        }
-
-        if ($items instanceof Traversable) {
-            return \iterator_to_array($items);
-        }
-
-        return (array) $items;
-    }
-
-    /**
-     * Make an iterator from the given source.
-     *
-     * @param mixed $source
-     *
-     * @return \Iterator
-     */
-    private function makeIterator($source): \Iterator
-    {
-        if (\is_callable($source)) {
-            return $source();
-        }
-
-        return new ArrayIterator((array) $source);
-    }
-
-    /**
      * @param array $data
      *
      * @return \drupol\collection\Contract\Collection
      */
     private static function withArray(array $data): CollectionInterface
     {
-        return self::withClosure(static function () use ($data) {
-            yield from $data;
-        });
+        return self::withClosure(
+            static function () use ($data) {
+                yield from $data;
+            }
+        );
     }
 
     /**
