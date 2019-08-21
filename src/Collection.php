@@ -23,6 +23,7 @@ use drupol\collection\Operation\Flip;
 use drupol\collection\Operation\Forget;
 use drupol\collection\Operation\Get;
 use drupol\collection\Operation\Keys;
+use drupol\collection\Operation\Last;
 use drupol\collection\Operation\Limit;
 use drupol\collection\Operation\Merge;
 use drupol\collection\Operation\Normalize;
@@ -186,6 +187,11 @@ final class Collection implements CollectionInterface
     public function keys(): CollectionInterface
     {
         return $this->run(Keys::with());
+    }
+
+    public function last()
+    {
+        return $this->run(Last::with());
     }
 
     /**

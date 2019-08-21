@@ -143,6 +143,13 @@ interface Collection extends \Countable, \IteratorAggregate
     public function keys(): self;
 
     /**
+     * Get the last item.
+     *
+     * @return mixed
+     */
+    public function last();
+
+    /**
      * Limit the first {$limit} items.
      *
      * @param int $limit
@@ -249,7 +256,7 @@ interface Collection extends \Countable, \IteratorAggregate
     /**
      * @param \drupol\collection\Contract\Operation ...$operations
      *
-     * @return bool|mixed
+     * @return bool|int|mixed
      */
     public function run(Operation ...$operations);
 

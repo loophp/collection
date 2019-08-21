@@ -472,6 +472,20 @@ class CollectionSpec extends ObjectBehavior
             ->shouldBe(null);
     }
 
+    public function it_can_get_the_last_item(): void
+    {
+        $this
+            ->beConstructedThrough('with', [\range('A', 'F')]);
+
+        $this
+            ->last()
+            ->shouldReturn('F');
+
+        $this::with([])
+            ->last()
+            ->shouldReturn(null);
+    }
+
     public function it_can_keys(): void
     {
         $this
