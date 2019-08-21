@@ -15,7 +15,7 @@ final class Collapse extends Operation
     /**
      * {@inheritdoc}
      */
-    public function run(CollectionInterface $collection): CollectionInterface
+    public function run(\IteratorAggregate $collection): \IteratorAggregate
     {
         return Collection::with(
             static function () use ($collection): \Generator {

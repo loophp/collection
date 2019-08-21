@@ -16,7 +16,7 @@ final class Pluck extends Operation
     /**
      * {@inheritdoc}
      */
-    public function run(CollectionInterface $collection): CollectionInterface
+    public function run(\IteratorAggregate $collection): \IteratorAggregate
     {
         [$key, $default] = $this->parameters;
         $operation = $this;

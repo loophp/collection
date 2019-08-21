@@ -7,7 +7,7 @@ namespace drupol\collection;
 use ArrayIterator;
 use Closure;
 use drupol\collection\Contract\Collection as CollectionInterface;
-use drupol\collection\Contract\Operation;
+use drupol\collection\Contract\Manipulator;
 use drupol\collection\Operation\All;
 use drupol\collection\Operation\Append;
 use drupol\collection\Operation\Apply;
@@ -65,7 +65,7 @@ final class Collection implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function append(...$items): CollectionInterface
+    public function append(...$items): \Traversable
     {
         return $this->run(Append::with($items));
     }
@@ -73,7 +73,7 @@ final class Collection implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function apply(callable ...$callables): CollectionInterface
+    public function apply(callable ...$callables): \Traversable
     {
         return $this->run(Apply::with($callables));
     }
@@ -277,7 +277,7 @@ final class Collection implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function prepend(...$items): CollectionInterface
+    public function prepend(...$items): \Traversable
     {
         return $this->run(Prepend::with($items));
     }
@@ -323,7 +323,7 @@ final class Collection implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function run(Operation ...$operations)
+    public function run(Manipulator ...$operations)
     {
         return Run::with($operations)->run($this);
     }
@@ -388,7 +388,7 @@ final class Collection implements CollectionInterface
     /**
      * Create a new collection instance.
      *
-     * @param array|callable|Closure|CollectionInterface|\Iterator $data
+     * @param array|callable|Closure|CollectionInterface|\Iterator|\Traversable $data
      *
      * @return \drupol\collection\Contract\Collection
      */

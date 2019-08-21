@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace drupol\collection\Operation;
 
 use drupol\collection\Collection;
-use drupol\collection\Contract\Collection as CollectionInterface;
 
 /**
  * Class Append.
@@ -15,7 +14,7 @@ final class Append extends Operation
     /**
      * {@inheritdoc}
      */
-    public function run(CollectionInterface $collection): CollectionInterface
+    public function run(\IteratorAggregate $collection): \IteratorAggregate
     {
         [$items] = $this->parameters;
 

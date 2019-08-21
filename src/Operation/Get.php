@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
-use drupol\collection\Contract\Collection as CollectionInterface;
-
 /**
  * Class Get.
  */
@@ -14,7 +12,7 @@ final class Get extends Operation
     /**
      * {@inheritdoc}
      */
-    public function run(CollectionInterface $collection)
+    public function run(\IteratorAggregate $collection)
     {
         [$key, $default] = $this->parameters;
 

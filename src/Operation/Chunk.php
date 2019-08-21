@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace drupol\collection\Operation;
 
 use drupol\collection\Collection;
-use drupol\collection\Contract\Collection as CollectionInterface;
 
 /**
  * Class Chunk.
@@ -15,7 +14,7 @@ final class Chunk extends Operation
     /**
      * {@inheritdoc}
      */
-    public function run(CollectionInterface $collection): CollectionInterface
+    public function run(\IteratorAggregate $collection): \IteratorAggregate
     {
         $size = $this->parameters[0];
 
@@ -25,6 +24,7 @@ final class Chunk extends Operation
 
         return Collection::with(
             static function () use ($size, $collection): \Generator {
+                /** @var \Iterator $iterator */
                 $iterator = $collection->getIterator();
 
                 while ($iterator->valid()) {

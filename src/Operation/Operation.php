@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
-use drupol\collection\Contract\Operation as CollectionOperation;
+use drupol\collection\Contract\Manipulator;
 
 /**
  * Class Operation.
  */
-abstract class Operation implements CollectionOperation
+abstract class Operation implements Manipulator
 {
     /**
      * @var array|mixed[]
@@ -19,9 +19,9 @@ abstract class Operation implements CollectionOperation
     /**
      * @param mixed ...$parameters
      *
-     * @return \drupol\collection\Contract\Operation
+     * @return \drupol\collection\Operation\Operation
      */
-    public static function with(...$parameters): CollectionOperation
+    public static function with(...$parameters): Manipulator
     {
         $instance = new static();
 

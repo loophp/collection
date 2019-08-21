@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace drupol\collection\Operation;
 
 use drupol\collection\Collection;
-use drupol\collection\Contract\Collection as CollectionInterface;
 
 /**
  * Class Skip.
@@ -15,12 +14,13 @@ final class Skip extends Operation
     /**
      * {@inheritdoc}
      */
-    public function run(CollectionInterface $collection): CollectionInterface
+    public function run(\IteratorAggregate $collection): \IteratorAggregate
     {
         [$counts] = $this->parameters;
 
         return Collection::with(
             static function () use ($counts, $collection): \Generator {
+                /** @var \Iterator $iterator */
                 $iterator = $collection->getIterator();
                 $counts = \array_sum($counts);
 

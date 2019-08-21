@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
-use drupol\collection\Contract\Collection as CollectionInterface;
-
 /**
  * Class Count.
  *
@@ -16,7 +14,7 @@ final class Count extends Operation
     /**
      * {@inheritdoc}
      */
-    public function run(CollectionInterface $collection)
+    public function run(\IteratorAggregate $collection)
     {
         return \iterator_count($collection->getIterator());
     }

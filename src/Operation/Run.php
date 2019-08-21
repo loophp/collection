@@ -14,7 +14,7 @@ final class Run extends Operation
     /**
      * {@inheritdoc}
      */
-    public function run(CollectionInterface $collection)
+    public function run(\IteratorAggregate $collection)
     {
         [$operations] = $this->parameters;
 
