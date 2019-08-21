@@ -15,6 +15,7 @@ use drupol\collection\Operation\Chunk;
 use drupol\collection\Operation\Collapse;
 use drupol\collection\Operation\Combine;
 use drupol\collection\Operation\Contains;
+use drupol\collection\Operation\Count;
 use drupol\collection\Operation\Filter;
 use drupol\collection\Operation\First;
 use drupol\collection\Operation\Flatten;
@@ -112,7 +113,7 @@ final class Collection implements CollectionInterface
      */
     public function count(): int
     {
-        return \iterator_count($this->getIterator());
+        return $this->run(Count::with());
     }
 
     /**
