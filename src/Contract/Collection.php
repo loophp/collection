@@ -136,6 +136,18 @@ interface Collection extends \Countable, \IteratorAggregate
     public function getIterator();
 
     /**
+     * Insert a given value between each element of a collection.
+     * Indices are not preserved.
+     *
+     * @param mixed $element
+     * @param int $every
+     * @param int $startAt
+     *
+     * @return \drupol\collection\Contract\Collection
+     */
+    public function intersperse($element, int $every = 1, int $startAt = 0): self;
+
+    /**
      * Get the keys of the items.
      *
      * @return \drupol\collection\Contract\Collection

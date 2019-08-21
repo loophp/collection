@@ -22,6 +22,7 @@ use drupol\collection\Operation\Flatten;
 use drupol\collection\Operation\Flip;
 use drupol\collection\Operation\Forget;
 use drupol\collection\Operation\Get;
+use drupol\collection\Operation\Intersperse;
 use drupol\collection\Operation\Keys;
 use drupol\collection\Operation\Last;
 use drupol\collection\Operation\Limit;
@@ -180,6 +181,14 @@ final class Collection implements CollectionInterface
     public function getIterator()
     {
         return $this->makeIterator($this->source);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function intersperse($element, int $every = 1, int $startAt = 0): CollectionInterface
+    {
+        return $this->run(Intersperse::with($element, $every, $startAt));
     }
 
     /**

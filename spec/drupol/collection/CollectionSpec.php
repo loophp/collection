@@ -490,6 +490,58 @@ class CollectionSpec extends ObjectBehavior
             ->shouldReturn(null);
     }
 
+    public function it_can_intersperse(): void
+    {
+        $this
+            ->beConstructedThrough('with', [\range('A', 'F')]);
+
+        $this
+            ->intersperse('foo', 2, 0)
+            ->shouldIterateAs([
+                0 => 'foo',
+                1 => 'A',
+                2 => 'B',
+                3 => 'foo',
+                4 => 'C',
+                5 => 'D',
+                6 => 'foo',
+                7 => 'E',
+                8 => 'F',
+            ]);
+
+        $this
+            ->intersperse('foo', 2, 1)
+            ->shouldIterateAs([
+                0 => 'A',
+                1 => 'foo',
+                2 => 'B',
+                3 => 'C',
+                4 => 'foo',
+                5 => 'D',
+                6 => 'E',
+                7 => 'foo',
+                8 => 'F',
+            ]);
+
+        $this
+            ->intersperse('foo', 2, 2)
+            ->shouldIterateAs([
+                0 => 'foo',
+                1 => 'A',
+                2 => 'B',
+                3 => 'foo',
+                4 => 'C',
+                5 => 'D',
+                6 => 'foo',
+                7 => 'E',
+                8 => 'F',
+            ]);
+
+        $this
+            ->shouldThrow(\Exception::class)
+            ->during('intersperse', ['foo', -1, 1]);
+    }
+
     public function it_can_keys(): void
     {
         $this
