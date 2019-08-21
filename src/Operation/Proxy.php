@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace drupol\collection\Operation;
 
 use drupol\collection\Collection;
-use drupol\collection\Contract\Collection as CollectionInterface;
+use drupol\collection\Contract\BaseCollection as CollectionInterface;
 
 /**
  * Class Proxy.
@@ -39,6 +39,6 @@ final class Proxy extends Operation
 
         return Collection::with($reflection
             ->getMethod($method)
-            ->invoke($collection->rebase(), $callback));
+            ->invoke(Rebase::with()->run($collection), $callback));
     }
 }

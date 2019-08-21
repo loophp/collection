@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace spec\drupol\collection;
 
+use drupol\collection\BaseCollection;
 use drupol\collection\Collection;
-use drupol\collection\Contract\Collection as CollectionInterface;
+use drupol\collection\Contract\BaseCollection as CollectionInterface;
 use drupol\collection\Contract\Operation;
 use PhpSpec\ObjectBehavior;
 
@@ -170,21 +171,22 @@ class CollectionSpec extends ObjectBehavior
             ->beConstructedThrough('with', [static function () {
                 yield from \range(1, 3);
             }]);
-        $this->shouldImplement(CollectionInterface::class);
+
+        $this->shouldImplement(BaseCollection::class);
     }
 
     public function it_can_be_constructed_with_an_array(): void
     {
         $this
             ->beConstructedThrough('with', [['1', '2', '3']]);
-        $this->shouldImplement(CollectionInterface::class);
+        $this->shouldImplement(BaseCollection::class);
     }
 
     public function it_can_be_constructed_with_an_arrayObject(): void
     {
         $this
             ->beConstructedThrough('with', [new \ArrayObject([1, 2, 3])]);
-        $this->shouldImplement(CollectionInterface::class);
+        $this->shouldImplement(BaseCollection::class);
     }
 
     public function it_can_be_instantiated_with_withClosure(): void
@@ -719,8 +721,9 @@ class CollectionSpec extends ObjectBehavior
             ->shouldReturn([5, 5]);
 
         $this
+            ->proxy('map', 'foo')
             ->shouldThrow(\Exception::class)
-            ->during('proxy', ['map', 'foo']);
+            ->during('all');
 
         $this
             ->shouldThrow(\Exception::class)

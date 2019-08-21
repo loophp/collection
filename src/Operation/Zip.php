@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace drupol\collection\Operation;
 
 use drupol\collection\Collection;
-use drupol\collection\Contract\Collection as CollectionInterface;
+use drupol\collection\Contract\BaseCollection as CollectionInterface;
 
 /**
  * Class Zip.
@@ -21,19 +21,20 @@ final class Zip extends Operation
 
         return Collection::with(
             static function () use ($iterables, $collection): \Generator {
-                $iterators =
-                    Collection::empty()
-                        ->append($collection, ...$iterables)
-                        ->map(
-                            static function ($iterable) {
-                                return Collection::with($iterable)->getIterator();
-                            }
-                        );
+                $getIteratorCallback = static function ($iterable) {
+                    return Collection::with($iterable)->getIterator();
+                };
 
-                while ($iterators->proxy('map', 'valid')->contains(true)) {
-                    yield $iterators->proxy('map', 'current');
+                $iterators = Normalize::with()->run(
+                    Walk::with([$getIteratorCallback])->run(
+                        Append::with(\array_merge([$collection], $iterables))->run(Collection::empty())
+                    )
+                );
 
-                    $iterators = $iterators->proxy('apply', 'next');
+                while (Contains::with(true)->run(Proxy::with('map', 'valid', [])->run($iterators))) {
+                    yield Proxy::with('map', 'current', [])->run($iterators);
+
+                    $iterators = Proxy::with('apply', 'next', [])->run($iterators);
                 }
             }
         );

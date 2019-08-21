@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace drupol\collection\Operation;
 
 use drupol\collection\Collection;
-use drupol\collection\Contract\Collection as CollectionInterface;
+use drupol\collection\Contract\BaseCollection as CollectionInterface;
 
 /**
  * Class Merge.

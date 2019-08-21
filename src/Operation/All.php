@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
-use drupol\collection\Contract\Collection as CollectionInterface;
+use drupol\collection\Contract\BaseCollection as CollectionInterface;
 
 /**
  * Class All.
@@ -20,7 +20,7 @@ final class All extends Operation
 
         foreach ($collection as $key => $item) {
             if ($item instanceof CollectionInterface) {
-                $result[$key] = $item->all();
+                $result[$key] = All::with()->run($item);
             } else {
                 $result[$key] = $item;
             }

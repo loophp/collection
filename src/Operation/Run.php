@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
-use drupol\collection\Contract\Collection as CollectionInterface;
+use drupol\collection\Contract\BaseCollection as CollectionInterface;
 
 /**
  * Class Run.
@@ -24,7 +24,7 @@ final class Run extends Operation
     /**
      * Run an operation on the collection.
      *
-     * @param \drupol\collection\Contract\Collection $collection
+     * @param \drupol\collection\Contract\BaseCollection $collection
      *   The collection.
      * @param \drupol\collection\Operation\Operation $operation
      *   The operation.

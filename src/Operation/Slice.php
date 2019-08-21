@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace drupol\collection\Operation;
 
 use drupol\collection\Collection;
-use drupol\collection\Contract\Collection as CollectionInterface;
+use drupol\collection\Contract\BaseCollection as CollectionInterface;
 
 /**
  * Class Slice.
@@ -22,9 +22,9 @@ final class Slice extends Operation
         return Collection::with(
             static function () use ($offset, $length, $collection): \Generator {
                 if (null === $length) {
-                    yield from $collection->skip($offset);
+                    yield from Skip::with([$offset])->run($collection);
                 } else {
-                    yield from $collection->skip($offset)->limit($length);
+                    yield from Limit::with($length)->run(Skip::with([$offset])->run($collection));
                 }
             }
         );

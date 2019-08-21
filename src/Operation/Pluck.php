@@ -6,7 +6,7 @@ namespace drupol\collection\Operation;
 
 use ArrayAccess;
 use drupol\collection\Collection;
-use drupol\collection\Contract\Collection as CollectionInterface;
+use drupol\collection\Contract\BaseCollection as CollectionInterface;
 
 /**
  * Class Pluck.
@@ -57,14 +57,14 @@ final class Pluck extends Operation
                     $result[] = $this->pick($item, $key);
                 }
 
-                return \in_array('*', $key, true) ? Collection::with($result)->collapse() : $result;
+                return \in_array('*', $key, true) ? Collapse::with()->run(Collection::with($result)) : $result;
             }
 
             if ((true === \is_array($target)) && (true === \array_key_exists($segment, $target))) {
                 $target = $target[$segment];
             } elseif (($target instanceof ArrayAccess) && (true === $target->offsetExists($segment))) {
                 $target = $target[$segment];
-            } elseif ($target instanceof CollectionInterface) {
+            } elseif ($target instanceof Collection) {
                 $target = $target->get($segment, $default);
             } elseif ((true === \is_object($target)) && (true === \property_exists($target, $segment))) {
                 $target = (new \ReflectionClass($target))->getProperty($segment)->getValue($target);
