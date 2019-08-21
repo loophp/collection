@@ -20,8 +20,7 @@ final class Append extends Operation
         [$items] = $this->parameters;
 
         return Collection::with(
-            static function () use ($items, $collection): \Generator
-            {
+            static function () use ($items, $collection): \Generator {
                 foreach ($collection as $item) {
                     yield $item;
                 }

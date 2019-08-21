@@ -20,8 +20,7 @@ final class Skip extends Operation
         [$counts] = $this->parameters;
 
         return Collection::with(
-            static function () use ($counts, $collection): \Generator
-            {
+            static function () use ($counts, $collection): \Generator {
                 $iterator = $collection->getIterator();
                 $counts = \array_sum($counts);
 

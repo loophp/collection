@@ -20,8 +20,7 @@ final class Prepend extends Operation
         [$items] = $this->parameters;
 
         return Collection::with(
-            static function () use ($items, $collection): \Generator
-            {
+            static function () use ($items, $collection): \Generator {
                 foreach ($items as $item) {
                     yield $item;
                 }

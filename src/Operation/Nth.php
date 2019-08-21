@@ -20,8 +20,7 @@ final class Nth extends Operation
         [$step, $offset] = $this->parameters;
 
         return Collection::with(
-            static function () use ($step, $offset, $collection): \Generator
-            {
+            static function () use ($step, $offset, $collection): \Generator {
                 $position = 0;
 
                 foreach ($collection->getIterator() as $key => $item) {

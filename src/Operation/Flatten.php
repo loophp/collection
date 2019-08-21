@@ -20,8 +20,7 @@ final class Flatten extends Operation
         $depth = $this->parameters[0];
 
         return Collection::with(
-            static function () use ($depth, $collection): \Generator
-            {
+            static function () use ($depth, $collection): \Generator {
                 $iterator = $collection->getIterator();
 
                 foreach ($iterator as $item) {

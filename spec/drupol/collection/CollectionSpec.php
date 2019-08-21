@@ -481,6 +481,10 @@ class CollectionSpec extends ObjectBehavior
             ->last()
             ->shouldReturn('F');
 
+        $this::with(['A'])
+            ->last()
+            ->shouldReturn('A');
+
         $this::with([])
             ->last()
             ->shouldReturn(null);

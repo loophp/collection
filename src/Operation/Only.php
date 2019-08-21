@@ -20,8 +20,7 @@ final class Only extends Operation
         [$keys] = $this->parameters;
 
         return Collection::with(
-            static function () use ($keys, $collection): \Generator
-            {
+            static function () use ($keys, $collection): \Generator {
                 if ([] === $keys) {
                     yield from $collection;
                 } else {

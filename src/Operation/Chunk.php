@@ -24,8 +24,7 @@ final class Chunk extends Operation
         }
 
         return Collection::with(
-            static function () use ($size, $collection): \Generator
-            {
+            static function () use ($size, $collection): \Generator {
                 $iterator = $collection->getIterator();
 
                 while ($iterator->valid()) {

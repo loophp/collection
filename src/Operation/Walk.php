@@ -20,8 +20,7 @@ final class Walk extends Operation
         [$callbacks] = $this->parameters;
 
         return Collection::with(
-            static function () use ($callbacks, $collection): \Generator
-            {
+            static function () use ($callbacks, $collection): \Generator {
                 $callback = static function ($carry, $callback) {
                     return $callback($carry);
                 };
