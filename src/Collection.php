@@ -179,11 +179,7 @@ final class Collection implements CollectionInterface
      */
     public function getIterator()
     {
-        if ($this->source instanceof Closure) {
-            return ($this->source)();
-        }
-
-        return new ArrayIterator((array) $this->source);
+        return ($this->source)();
     }
 
     /**
