@@ -6,7 +6,7 @@ namespace spec\drupol\collection;
 
 use drupol\collection\Collection;
 use drupol\collection\Contract\Collection as CollectionInterface;
-use drupol\collection\Contract\Operation;
+use drupol\collection\Contract\Manipulator;
 use PhpSpec\ObjectBehavior;
 
 class CollectionSpec extends ObjectBehavior
@@ -753,13 +753,13 @@ class CollectionSpec extends ObjectBehavior
             ->shouldReturn(5050);
     }
 
-    public function it_can_run_an_operation(Operation $operation): void
+    public function it_can_run_an_operation(Manipulator $operation): void
     {
         $square = new class() extends \drupol\collection\Operation\Operation {
-            public function run(CollectionInterface $collection)
+            public function run(\IteratorAggregate $collection): \IteratorAggregate
             {
                 return Collection::with(
-                    static function () use ($collection) {
+                    static function () use ($collection): \Generator {
                         foreach ($collection as $item) {
                             yield $item ** 2;
                         }
@@ -769,10 +769,10 @@ class CollectionSpec extends ObjectBehavior
         };
 
         $sqrt = new class() extends \drupol\collection\Operation\Operation {
-            public function run(CollectionInterface $collection)
+            public function run(\IteratorAggregate $collection): \IteratorAggregate
             {
                 return Collection::with(
-                    static function () use ($collection) {
+                    static function () use ($collection): \Generator {
                         foreach ($collection as $item) {
                             yield $item ** .5;
                         }
@@ -782,10 +782,10 @@ class CollectionSpec extends ObjectBehavior
         };
 
         $map = new class() extends \drupol\collection\Operation\Operation {
-            public function run(CollectionInterface $collection)
+            public function run(\IteratorAggregate $collection): \IteratorAggregate
             {
                 return Collection::with(
-                    static function () use ($collection) {
+                    static function () use ($collection): \Generator {
                         foreach ($collection as $item) {
                             yield (int) $item;
                         }
