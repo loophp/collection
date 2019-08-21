@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace drupol\collection\Contract;
 
 use drupol\collection\Contract\Collection as CollectionInterface;
+use drupol\collection\Contract\Operation\Appendable;
+use drupol\collection\Contract\Operation\Applyable;
+use drupol\collection\Contract\Operation\Prependable;
 
 /**
  * Interface Collection.
  */
-interface Collection extends \Countable, \IteratorAggregate
+interface Collection extends \Countable, \IteratorAggregate, Appendable, Applyable, Prependable
 {
     /**
      * Get all items from the collection.
@@ -18,24 +21,6 @@ interface Collection extends \Countable, \IteratorAggregate
      *   An array containing all the elements of the collection.
      */
     public function all(): array;
-
-    /**
-     * Add an item to the collection.
-     *
-     * @param mixed ...$items
-     *
-     * @return \drupol\collection\Contract\Collection
-     */
-    public function append(...$items): self;
-
-    /**
-     * Apply a callback to all the element of an array.
-     *
-     * @param callable ...$callables
-     *
-     * @return \drupol\collection\Contract\Collection
-     */
-    public function apply(callable ...$callables): self;
 
     /**
      * Chunk the collection into chunks of the given size.
@@ -233,15 +218,6 @@ interface Collection extends \Countable, \IteratorAggregate
     public function pluck($pluck, $default = null): self;
 
     /**
-     * Push an item onto the beginning of the collection.
-     *
-     * @param mixed ...$items
-     *
-     * @return \drupol\collection\Contract\Collection
-     */
-    public function prepend(...$items): self;
-
-    /**
      * @param string $method
      * @param string $proxyMethod
      * @param mixed ...$parameters
@@ -266,11 +242,11 @@ interface Collection extends \Countable, \IteratorAggregate
     public function reduce(callable $callback, $initial = null);
 
     /**
-     * @param \drupol\collection\Contract\Operation ...$operations
+     * @param \drupol\collection\Contract\Manipulator ...$operations
      *
      * @return bool|int|mixed
      */
-    public function run(Operation ...$operations);
+    public function run(Manipulator ...$operations);
 
     /**
      * Skip the first {$count} items.
