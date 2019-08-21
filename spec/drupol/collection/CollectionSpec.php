@@ -777,6 +777,21 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs([5 => 5, 6 => 6, 7 => 7, 8 => 8, 9 => 9, 10 => 10]);
     }
 
+    public function it_can_sort(): void
+    {
+        $input = \range('A', 'E');
+        $input = \array_combine($input, $input);
+
+        $this
+            ->beConstructedThrough('with', [$input]);
+
+        $this
+            ->sort(static function ($item1, $item2) {
+                return $item2 <=> $item1;
+            })
+            ->shouldIterateAs(['E' => 'E', 'D' => 'D', 'C' => 'C', 'B' => 'B', 'A' => 'A']);
+    }
+
     public function it_can_use_range(): void
     {
         $this

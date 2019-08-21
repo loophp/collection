@@ -39,6 +39,7 @@ use drupol\collection\Operation\Reduce;
 use drupol\collection\Operation\Run;
 use drupol\collection\Operation\Skip;
 use drupol\collection\Operation\Slice;
+use drupol\collection\Operation\Sort;
 use drupol\collection\Operation\Walk;
 use drupol\collection\Operation\Zip;
 use Traversable;
@@ -189,6 +190,9 @@ final class Collection implements CollectionInterface
         return $this->run(Keys::with());
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function last()
     {
         return $this->run(Last::with());
@@ -326,6 +330,14 @@ final class Collection implements CollectionInterface
     public function slice(int $offset, int $length = null): CollectionInterface
     {
         return $this->run(Slice::with($offset, $length));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function sort(callable $callback): CollectionInterface
+    {
+        return $this->run(Sort::with($callback));
     }
 
     /**

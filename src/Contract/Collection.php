@@ -280,6 +280,15 @@ interface Collection extends \Countable, \IteratorAggregate
     public function slice(int $offset, int $length = null): self;
 
     /**
+     * Sort the collection using a callback.
+     *
+     * @param callable $callable
+     *
+     * @return \drupol\collection\Contract\Collection
+     */
+    public function sort(callable $callable): self;
+
+    /**
      * @param callable ...$callbacks
      *
      * @return \drupol\collection\Contract\Collection
