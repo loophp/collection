@@ -24,28 +24,28 @@ final class Chunk extends Operation
     /**
      * {@inheritdoc}
      */
-    public function run(BaseCollectionInterface $collection): BaseCollectionInterface
+    public function run(BaseCollectionInterface $collection): \Closure
     {
         [$size] = $this->parameters;
 
         if (0 >= $size) {
-            return $collection::with();
+            return static function () {
+                yield from [];
+            };
         }
 
-        return $collection::with(
-            static function () use ($size, $collection): \Generator {
-                $iterator = $collection->getIterator();
+        return static function () use ($size, $collection): \Generator {
+            $iterator = $collection->getIterator();
 
-                while ($iterator->valid()) {
-                    $values = [];
+            while ($iterator->valid()) {
+                $values = [];
 
-                    for ($i = 0; $iterator->valid() && $i < $size; $i++, $iterator->next()) {
-                        $values[$iterator->key()] = $iterator->current();
-                    }
-
-                    yield $collection::with($values);
+                for ($i = 0; $iterator->valid() && $i < $size; $i++, $iterator->next()) {
+                    $values[$iterator->key()] = $iterator->current();
                 }
+
+                yield $collection::with($values);
             }
-        );
+        };
     }
 }

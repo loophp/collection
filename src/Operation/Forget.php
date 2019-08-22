@@ -14,20 +14,18 @@ final class Forget extends Operation
     /**
      * {@inheritdoc}
      */
-    public function run(BaseCollectionInterface $collection): BaseCollectionInterface
+    public function run(BaseCollectionInterface $collection): \Closure
     {
         [$keys] = $this->parameters;
 
-        return $collection::with(
-            static function () use ($keys, $collection): \Generator {
-                $keys = \array_flip($keys);
+        return static function () use ($keys, $collection): \Generator {
+            $keys = \array_flip($keys);
 
-                foreach ($collection as $key => $value) {
-                    if (!\array_key_exists($key, $keys)) {
-                        yield $key => $value;
-                    }
+            foreach ($collection as $key => $value) {
+                if (!\array_key_exists($key, $keys)) {
+                    yield $key => $value;
                 }
             }
-        );
+        };
     }
 }

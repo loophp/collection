@@ -14,14 +14,12 @@ final class Normalize extends Operation
     /**
      * {@inheritdoc}
      */
-    public function run(BaseCollectionInterface $collection): BaseCollectionInterface
+    public function run(BaseCollectionInterface $collection): \Closure
     {
-        return $collection::with(
-            static function () use ($collection) {
-                foreach ($collection as $item) {
-                    yield $item;
-                }
+        return static function () use ($collection) {
+            foreach ($collection as $item) {
+                yield $item;
             }
-        );
+        };
     }
 }

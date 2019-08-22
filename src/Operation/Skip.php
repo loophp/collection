@@ -24,27 +24,25 @@ final class Skip extends Operation
     /**
      * {@inheritdoc}
      */
-    public function run(BaseCollectionInterface $collection): BaseCollectionInterface
+    public function run(BaseCollectionInterface $collection): \Closure
     {
         [$counts] = $this->parameters;
 
-        return $collection::with(
-            static function () use ($counts, $collection): \Generator {
-                $iterator = $collection->getIterator();
-                $counts = \array_sum($counts);
+        return static function () use ($counts, $collection): \Generator {
+            $iterator = $collection->getIterator();
+            $counts = \array_sum($counts);
 
-                foreach ($iterator as $key => $item) {
-                    if (0 < $counts--) {
-                        continue;
-                    }
-
-                    break;
+            foreach ($iterator as $key => $item) {
+                if (0 < $counts--) {
+                    continue;
                 }
 
-                if ($iterator->valid()) {
-                    yield from $iterator;
-                }
+                break;
             }
-        );
+
+            if ($iterator->valid()) {
+                yield from $iterator;
+            }
+        };
     }
 }

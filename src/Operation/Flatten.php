@@ -24,26 +24,26 @@ final class Flatten extends Operation
     /**
      * {@inheritdoc}
      */
-    public function run(BaseCollectionInterface $collection): BaseCollectionInterface
+    public function run(BaseCollectionInterface $collection): \Closure
     {
         [$depth] = $this->parameters;
 
-        return $collection::with(
-            static function () use ($depth, $collection): \Generator {
-                foreach ($collection as $item) {
-                    if (!\is_array($item) && !$item instanceof BaseCollectionInterface) {
-                        yield $item;
-                    } elseif (1 === $depth) {
-                        foreach ($item as $i) {
-                            yield $i;
-                        }
-                    } else {
-                        foreach ((new Flatten($depth - 1))->run($collection::with($item)) as $flattenItem) {
-                            yield $flattenItem;
-                        }
+        return static function () use ($depth, $collection): \Generator {
+            foreach ($collection as $item) {
+                if (!\is_array($item) && !$item instanceof BaseCollectionInterface) {
+                    yield $item;
+                } elseif (1 === $depth) {
+                    foreach ($item as $i) {
+                        yield $i;
+                    }
+                } else {
+                    $flatten = new Flatten($depth - 1);
+
+                    foreach ($collection::with($flatten->run($collection::with($item))) as $flattenItem) {
+                        yield $flattenItem;
                     }
                 }
             }
-        );
+        };
     }
 }

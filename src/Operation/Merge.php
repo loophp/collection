@@ -14,22 +14,20 @@ final class Merge extends Operation
     /**
      * {@inheritdoc}
      */
-    public function run(BaseCollectionInterface $collection): BaseCollectionInterface
+    public function run(BaseCollectionInterface $collection): \Closure
     {
         [$sources] = $this->parameters;
 
-        return $collection::with(
-            static function () use ($sources, $collection): \Generator {
-                foreach ($collection as $item) {
+        return static function () use ($sources, $collection): \Generator {
+            foreach ($collection as $item) {
+                yield $item;
+            }
+
+            foreach ($sources as $source) {
+                foreach ($source as $item) {
                     yield $item;
                 }
-
-                foreach ($sources as $source) {
-                    foreach ($source as $item) {
-                        yield $item;
-                    }
-                }
             }
-        );
+        };
     }
 }

@@ -24,22 +24,20 @@ final class Limit extends Operation
     /**
      * {@inheritdoc}
      */
-    public function run(BaseCollectionInterface $collection): BaseCollectionInterface
+    public function run(BaseCollectionInterface $collection): \Closure
     {
         [$limit] = $this->parameters;
 
-        return $collection::with(
-            static function () use ($limit, $collection): \Generator {
-                $i = 0;
+        return static function () use ($limit, $collection): \Generator {
+            $i = 0;
 
-                foreach ($collection as $key => $value) {
-                    yield $key => $value;
+            foreach ($collection as $key => $value) {
+                yield $key => $value;
 
-                    if (++$i === $limit) {
-                        break;
-                    }
+                if (++$i === $limit) {
+                    break;
                 }
             }
-        );
+        };
     }
 }

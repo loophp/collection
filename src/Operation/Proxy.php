@@ -20,19 +20,13 @@ final class Proxy extends Operation
      */
     public function __construct(string $method, $proxyMethod, ...$parameters)
     {
-        $params = [
-            'method' => $method,
-            'proxyMethod' => $proxyMethod,
-            'parameters' => $parameters,
-        ];
-
-        parent::__construct(...\array_values($params));
+        parent::__construct(...[$method, $proxyMethod, $parameters]);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function run(BaseCollectionInterface $collection): BaseCollectionInterface
+    public function run(BaseCollectionInterface $collection): \Closure
     {
         [$method, $proxyMethod, $parameters] = $this->parameters;
 
@@ -64,12 +58,10 @@ final class Proxy extends Operation
             throw new \InvalidArgumentException(\sprintf('Method %s does not exist.', $method));
         }
 
-        return $collection::with(
-            static function () use ($reflection, $method, $collection, $callback) {
-                return $reflection
-                    ->getMethod($method)
-                    ->invoke($collection, $callback);
-            }
-        );
+        return static function () use ($reflection, $method, $collection, $callback) {
+            return $reflection
+                ->getMethod($method)
+                ->invoke($collection, $callback);
+        };
     }
 }

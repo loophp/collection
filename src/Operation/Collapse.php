@@ -15,18 +15,16 @@ final class Collapse extends Operation
     /**
      * {@inheritdoc}
      */
-    public function run(BaseCollectionInterface $collection): BaseCollectionInterface
+    public function run(BaseCollectionInterface $collection): \Closure
     {
-        return $collection::with(
-            static function () use ($collection): \Generator {
-                foreach ($collection as $item) {
-                    if (\is_array($item) || $item instanceof Collection) {
-                        foreach ($item as $value) {
-                            yield $value;
-                        }
+        return static function () use ($collection): \Generator {
+            foreach ($collection as $item) {
+                if (\is_array($item) || $item instanceof Collection) {
+                    foreach ($item as $value) {
+                        yield $value;
                     }
                 }
             }
-        );
+        };
     }
 }

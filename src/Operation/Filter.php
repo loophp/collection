@@ -14,7 +14,7 @@ final class Filter extends Operation
     /**
      * {@inheritdoc}
      */
-    public function run(BaseCollectionInterface $collection): BaseCollectionInterface
+    public function run(BaseCollectionInterface $collection): \Closure
     {
         [$callbacks] = $this->parameters;
 
@@ -24,16 +24,14 @@ final class Filter extends Operation
             };
         }
 
-        return $collection::with(
-            static function () use ($callbacks, $collection): \Generator {
-                foreach ($callbacks as $callback) {
-                    foreach ($collection as $key => $value) {
-                        if (true === (bool) $callback($value, $key)) {
-                            yield $key => $value;
-                        }
+        return static function () use ($callbacks, $collection): \Generator {
+            foreach ($callbacks as $callback) {
+                foreach ($collection as $key => $value) {
+                    if (true === (bool) $callback($value, $key)) {
+                        yield $key => $value;
                     }
                 }
             }
-        );
+        };
     }
 }

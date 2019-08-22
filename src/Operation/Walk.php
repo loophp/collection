@@ -24,20 +24,18 @@ final class Walk extends Operation
     /**
      * {@inheritdoc}
      */
-    public function run(BaseCollectionInterface $collection): BaseCollectionInterface
+    public function run(BaseCollectionInterface $collection): \Closure
     {
         [$callbacks] = $this->parameters;
 
-        return $collection::with(
-            static function () use ($callbacks, $collection): \Generator {
-                $callback = static function ($carry, $callback) {
-                    return $callback($carry);
-                };
+        return static function () use ($callbacks, $collection): \Generator {
+            $callback = static function ($carry, $callback) {
+                return $callback($carry);
+            };
 
-                foreach ($collection as $key => $value) {
-                    yield $key => \array_reduce($callbacks, $callback, $value);
-                }
+            foreach ($collection as $key => $value) {
+                yield $key => \array_reduce($callbacks, $callback, $value);
             }
-        );
+        };
     }
 }

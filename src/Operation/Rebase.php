@@ -14,8 +14,10 @@ final class Rebase extends Operation
     /**
      * {@inheritdoc}
      */
-    public function run(BaseCollectionInterface $collection): BaseCollectionInterface
+    public function run(BaseCollectionInterface $collection): \Closure
     {
-        return $collection::with($collection);
+        return static function () use ($collection) {
+            yield from $collection;
+        };
     }
 }

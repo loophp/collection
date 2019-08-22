@@ -25,24 +25,22 @@ final class Pad extends Operation
     /**
      * {@inheritdoc}
      */
-    public function run(BaseCollectionInterface $collection): BaseCollectionInterface
+    public function run(BaseCollectionInterface $collection): \Closure
     {
         [$size, $value] = $this->parameters;
 
-        return $collection::with(
-            static function () use ($size, $value, $collection): \Generator {
-                $y = 0;
+        return static function () use ($size, $value, $collection): \Generator {
+            $y = 0;
 
-                foreach ($collection as $key => $item) {
-                    ++$y;
+            foreach ($collection as $key => $item) {
+                ++$y;
 
-                    yield $key => $item;
-                }
-
-                while ($y++ < $size) {
-                    yield $value;
-                }
+                yield $key => $item;
             }
-        );
+
+            while ($y++ < $size) {
+                yield $value;
+            }
+        };
     }
 }

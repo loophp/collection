@@ -18,12 +18,14 @@ final class Last extends Operation
      */
     public function run(BaseCollectionInterface $collection)
     {
-        return (
-        new Reduce(
-            static function ($carry, $item) {
-                return $item;
-            },
-            $collection->getIterator()->current()
-        ))->run($collection);
+        $reduced =
+            new Reduce(
+                static function ($carry, $item) {
+                    return $item;
+                },
+                $collection->getIterator()->current()
+            );
+
+        return $reduced->run($collection);
     }
 }

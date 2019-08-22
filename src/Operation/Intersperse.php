@@ -30,7 +30,7 @@ final class Intersperse extends Operation
     /**
      * {@inheritdoc}
      */
-    public function run(BaseCollectionInterface $collection): BaseCollectionInterface
+    public function run(BaseCollectionInterface $collection): \Closure
     {
         [$element, $every, $startAt] = $this->parameters;
 
@@ -42,16 +42,14 @@ final class Intersperse extends Operation
             throw new \InvalidArgumentException('The third parameter must be a positive integer.');
         }
 
-        return $collection::with(
-            static function () use ($element, $every, $startAt, $collection): \Generator {
-                foreach ($collection as $key => $value) {
-                    if (0 === $startAt++ % $every) {
-                        yield $element;
-                    }
-
-                    yield $value;
+        return static function () use ($element, $every, $startAt, $collection): \Generator {
+            foreach ($collection as $key => $value) {
+                if (0 === $startAt++ % $every) {
+                    yield $element;
                 }
+
+                yield $value;
             }
-        );
+        };
     }
 }

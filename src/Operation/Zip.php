@@ -14,29 +14,33 @@ final class Zip extends Operation
     /**
      * {@inheritdoc}
      */
-    public function run(BaseCollectionInterface $collection): BaseCollectionInterface
+    public function run(BaseCollectionInterface $collection): \Closure
     {
         [$iterables] = $this->parameters;
 
-        return $collection::with(
-            static function () use ($iterables, $collection): \Generator {
-                $getIteratorCallback = static function ($iterable) use ($collection) {
-                    return $collection::with($iterable)->getIterator();
-                };
+        return static function () use ($iterables, $collection): \Generator {
+            $getIteratorCallback = static function ($iterable) use ($collection) {
+                return $collection::with($iterable)->getIterator();
+            };
 
-                $iterators = (new Walk($getIteratorCallback))->run(
-                    (new Append(\array_merge([$collection], $iterables)))->run($collection::with())
-                );
+            $iterators = $collection::with((new Walk($getIteratorCallback))->run(
+                $collection::with((new Append(\array_merge([$collection], $iterables)))->run($collection::with()))
+            ));
 
-                while ((new Contains(true))->run((new Proxy('map', 'valid'))->run($iterators))) {
-                    yield (new Proxy('map', 'current'))->run($iterators);
-                    $iterators = (new Proxy('map', static function (\Iterator $i) {
+            while ((new Contains(true))->run($collection::with((new Proxy('map', 'valid'))->run($iterators)))) {
+                yield $collection::with((new Proxy('map', 'current'))->run($iterators));
+
+                $proxy = new Proxy(
+                    'map',
+                    static function (\Iterator $i) {
                         $i->next();
 
                         return $i;
-                    }))->run($iterators);
-                }
+                    }
+                );
+
+                $iterators = $collection::with($proxy->run($iterators));
             }
-        );
+        };
     }
 }

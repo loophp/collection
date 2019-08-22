@@ -25,22 +25,20 @@ final class Nth extends Operation
     /**
      * {@inheritdoc}
      */
-    public function run(BaseCollectionInterface $collection): BaseCollectionInterface
+    public function run(BaseCollectionInterface $collection): \Closure
     {
         [$step, $offset] = $this->parameters;
 
-        return $collection::with(
-            static function () use ($step, $offset, $collection): \Generator {
-                $position = 0;
+        return static function () use ($step, $offset, $collection): \Generator {
+            $position = 0;
 
-                foreach ($collection as $key => $item) {
-                    if ($position++ % $step !== $offset) {
-                        continue;
-                    }
-
-                    yield $key => $item;
+            foreach ($collection as $key => $item) {
+                if ($position++ % $step !== $offset) {
+                    continue;
                 }
+
+                yield $key => $item;
             }
-        );
+        };
     }
 }

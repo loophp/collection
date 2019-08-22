@@ -26,16 +26,14 @@ final class Range extends Operation
     /**
      * {@inheritdoc}
      */
-    public function run(BaseCollectionInterface $collection): BaseCollectionInterface
+    public function run(BaseCollectionInterface $collection): \Closure
     {
         [$start, $end, $step] = $this->parameters;
 
-        return $collection::with(
-            static function () use ($start, $end, $step) {
-                for ($current = $start; $current < $end; $current += $step) {
-                    yield $current;
-                }
+        return static function () use ($start, $end, $step) {
+            for ($current = $start; $current < $end; $current += $step) {
+                yield $current;
             }
-        );
+        };
     }
 }

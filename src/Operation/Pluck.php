@@ -28,20 +28,18 @@ final class Pluck extends Operation
     /**
      * {@inheritdoc}
      */
-    public function run(BaseCollectionInterface $collection): BaseCollectionInterface
+    public function run(BaseCollectionInterface $collection): \Closure
     {
         [$key, $default] = $this->parameters;
         $operation = $this;
 
-        return $collection::with(
-            static function () use ($key, $default, $collection, $operation) {
-                $key = \is_string($key) ? \explode('.', \trim($key, '.')) : $key;
+        return static function () use ($key, $default, $collection, $operation) {
+            $key = \is_string($key) ? \explode('.', \trim($key, '.')) : $key;
 
-                foreach ($collection as $item) {
-                    yield $operation->pick($collection, $item, $key, $default);
-                }
+            foreach ($collection as $item) {
+                yield $operation->pick($collection, $item, $key, $default);
             }
-        );
+        };
     }
 
     /**

@@ -42,8 +42,14 @@ final class Run extends Operation
      * @return mixed
      *   The operation result.
      */
-    private function dorun(BaseCollectionInterface $collection, Operation $operation)
+    private function doRun(BaseCollectionInterface $collection, Operation $operation)
     {
-        return $operation->run($collection);
+        $return = $operation->run($collection);
+
+        if ($return instanceof \Closure) {
+            $return = $collection::with($return);
+        }
+
+        return $return;
     }
 }
