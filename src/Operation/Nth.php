@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
-use drupol\collection\Collection;
-use drupol\collection\Contract\Collection as CollectionInterface;
+use drupol\collection\Contract\BaseCollection as BaseCollectionInterface;
 
 /**
  * Class Nth.
@@ -13,13 +12,24 @@ use drupol\collection\Contract\Collection as CollectionInterface;
 final class Nth extends Operation
 {
     /**
+     * Nth constructor.
+     *
+     * @param int $step
+     * @param int $offset
+     */
+    public function __construct(int $step, int $offset)
+    {
+        parent::__construct(...[$step, $offset]);
+    }
+
+    /**
      * {@inheritdoc}
      */
-    public function run(CollectionInterface $collection): CollectionInterface
+    public function run(BaseCollectionInterface $collection): BaseCollectionInterface
     {
         [$step, $offset] = $this->parameters;
 
-        return Collection::with(
+        return $collection::with(
             static function () use ($step, $offset, $collection): \Generator {
                 $position = 0;
 

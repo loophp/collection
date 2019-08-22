@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
-use drupol\collection\Collection;
-use drupol\collection\Contract\Collection as CollectionInterface;
+use drupol\collection\Contract\BaseCollection as BaseCollectionInterface;
 
 /**
  * Class Limit.
@@ -13,13 +12,23 @@ use drupol\collection\Contract\Collection as CollectionInterface;
 final class Limit extends Operation
 {
     /**
+     * Limit constructor.
+     *
+     * @param int $limit
+     */
+    public function __construct(int $limit)
+    {
+        parent::__construct(...[$limit]);
+    }
+
+    /**
      * {@inheritdoc}
      */
-    public function run(CollectionInterface $collection): CollectionInterface
+    public function run(BaseCollectionInterface $collection): BaseCollectionInterface
     {
         [$limit] = $this->parameters;
 
-        return Collection::with(
+        return $collection::with(
             static function () use ($limit, $collection): \Generator {
                 $i = 0;
 

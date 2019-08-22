@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
-use drupol\collection\Collection;
-use drupol\collection\Contract\Collection as CollectionInterface;
+use drupol\collection\Contract\BaseCollection as BaseCollectionInterface;
 
 /**
  * Class Zip.
@@ -15,25 +14,27 @@ final class Zip extends Operation
     /**
      * {@inheritdoc}
      */
-    public function run(CollectionInterface $collection): CollectionInterface
+    public function run(BaseCollectionInterface $collection): BaseCollectionInterface
     {
         [$iterables] = $this->parameters;
 
-        return Collection::with(
+        return $collection::with(
             static function () use ($iterables, $collection): \Generator {
-                $iterators =
-                    Collection::empty()
-                        ->append($collection, ...$iterables)
-                        ->map(
-                            static function ($iterable) {
-                                return Collection::with($iterable)->getIterator();
-                            }
-                        );
+                $getIteratorCallback = static function ($iterable) use ($collection) {
+                    return $collection::with($iterable)->getIterator();
+                };
 
-                while ($iterators->proxy('map', 'valid')->contains(true)) {
-                    yield $iterators->proxy('map', 'current');
+                $iterators = (new Walk($getIteratorCallback))->run(
+                    (new Append(\array_merge([$collection], $iterables)))->run($collection::with())
+                );
 
-                    $iterators = $iterators->proxy('apply', 'next');
+                while ((new Contains(true))->run((new Proxy('map', 'valid'))->run($iterators))) {
+                    yield (new Proxy('map', 'current'))->run($iterators);
+                    $iterators = (new Proxy('map', static function (\Iterator $i) {
+                        $i->next();
+
+                        return $i;
+                    }))->run($iterators);
                 }
             }
         );

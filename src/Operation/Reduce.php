@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
-use drupol\collection\Contract\Collection as CollectionInterface;
+use drupol\collection\Contract\BaseCollection as BaseCollectionInterface;
 
 /**
  * Class Reduce.
@@ -12,9 +12,20 @@ use drupol\collection\Contract\Collection as CollectionInterface;
 final class Reduce extends Operation
 {
     /**
+     * Reduce constructor.
+     *
+     * @param callable $callback
+     * @param mixed $initial
+     */
+    public function __construct(callable $callback, $initial)
+    {
+        parent::__construct(...[$callback, $initial]);
+    }
+
+    /**
      * {@inheritdoc}
      */
-    public function run(CollectionInterface $collection)
+    public function run(BaseCollectionInterface $collection)
     {
         [$callback, $initial] = $this->parameters;
 

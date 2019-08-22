@@ -10,16 +10,9 @@ namespace drupol\collection\Contract;
 interface Operation
 {
     /**
-     * @param \drupol\collection\Contract\Collection $collection
+     * @param \drupol\collection\Contract\BaseCollection $collection
      *
      * @return mixed
      */
-    public function run(Collection $collection);
-
-    /**
-     * @param mixed ...$parameters
-     *
-     * @return \drupol\collection\Contract\Operation
-     */
-    public static function with(...$parameters): self;
+    public function run(BaseCollection $collection);
 }

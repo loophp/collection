@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace drupol\collection\Operation;
 
 use drupol\collection\Collection;
-use drupol\collection\Contract\Collection as CollectionInterface;
+use drupol\collection\Contract\BaseCollection as BaseCollectionInterface;
 
 /**
  * Class Intersperse.
@@ -16,27 +16,40 @@ use drupol\collection\Contract\Collection as CollectionInterface;
 final class Intersperse extends Operation
 {
     /**
+     * Intersperse constructor.
+     *
+     * @param mixed $elementToIntersperse
+     * @param int $atEvery
+     * @param int $startAt
+     */
+    public function __construct($elementToIntersperse, int $atEvery = 1, int $startAt = 0)
+    {
+        parent::__construct(...[$elementToIntersperse, $atEvery, $startAt]);
+    }
+
+    /**
      * {@inheritdoc}
      */
-    public function run(CollectionInterface $collection): CollectionInterface
+    public function run(BaseCollectionInterface $collection): BaseCollectionInterface
     {
         [$element, $every, $startAt] = $this->parameters;
 
-        if (0 >= $every) {
-            throw new \InvalidArgumentException('The parameter must be greater than zero.');
+        if (0 > $every) {
+            throw new \InvalidArgumentException('The second parameter must be a positive integer.');
         }
 
-        return Collection::with(
-            static function () use ($element, $every, $startAt, $collection): \Generator {
-                $i = $startAt;
+        if (0 > $startAt) {
+            throw new \InvalidArgumentException('The third parameter must be a positive integer.');
+        }
 
+        return $collection::with(
+            static function () use ($element, $every, $startAt, $collection): \Generator {
                 foreach ($collection as $key => $value) {
-                    if (0 === $i % $every) {
+                    if (0 === $startAt++ % $every) {
                         yield $element;
                     }
 
                     yield $value;
-                    ++$i;
                 }
             }
         );

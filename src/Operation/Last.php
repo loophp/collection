@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
-use drupol\collection\Contract\Collection as CollectionInterface;
+use drupol\collection\Contract\BaseCollection as BaseCollectionInterface;
 
 /**
  * Class Last.
@@ -16,7 +16,7 @@ final class Last extends Operation
     /**
      * {@inheritdoc}
      */
-    public function run(CollectionInterface $collection)
+    public function run(BaseCollectionInterface $collection)
     {
         /** @var \Iterator $iterator */
         $iterator = $collection->getIterator();
