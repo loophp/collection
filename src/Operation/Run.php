@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
-use drupol\collection\Contract\BaseCollection as CollectionInterface;
+use drupol\collection\Contract\BaseCollection as BaseCollectionInterface;
 
 /**
  * Class Run.
@@ -12,9 +12,19 @@ use drupol\collection\Contract\BaseCollection as CollectionInterface;
 final class Run extends Operation
 {
     /**
+     * Run constructor.
+     *
+     * @param \drupol\collection\Contract\Operation ...$operations
+     */
+    public function __construct(\drupol\collection\Contract\Operation ...$operations)
+    {
+        parent::__construct(...[$operations]);
+    }
+
+    /**
      * {@inheritdoc}
      */
-    public function run(CollectionInterface $collection)
+    public function run(BaseCollectionInterface $collection)
     {
         [$operations] = $this->parameters;
 
@@ -32,7 +42,7 @@ final class Run extends Operation
      * @return mixed
      *   The operation result.
      */
-    private function doRun(CollectionInterface $collection, Operation $operation)
+    private function dorun(BaseCollectionInterface $collection, Operation $operation)
     {
         return $operation->run($collection);
     }

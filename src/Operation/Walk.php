@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
-use drupol\collection\Collection;
-use drupol\collection\Contract\BaseCollection as CollectionInterface;
+use drupol\collection\Contract\BaseCollection as BaseCollectionInterface;
 
 /**
  * Class Walk.
@@ -13,19 +12,29 @@ use drupol\collection\Contract\BaseCollection as CollectionInterface;
 final class Walk extends Operation
 {
     /**
+     * Walk constructor.
+     *
+     * @param callable ...$callbacks
+     */
+    public function __construct(callable ...$callbacks)
+    {
+        parent::__construct(...[$callbacks]);
+    }
+
+    /**
      * {@inheritdoc}
      */
-    public function run(CollectionInterface $collection): CollectionInterface
+    public function run(BaseCollectionInterface $collection): BaseCollectionInterface
     {
         [$callbacks] = $this->parameters;
 
-        return Collection::with(
+        return $collection::with(
             static function () use ($callbacks, $collection): \Generator {
                 $callback = static function ($carry, $callback) {
                     return $callback($carry);
                 };
 
-                foreach ($collection->getIterator() as $key => $value) {
+                foreach ($collection as $key => $value) {
                     yield $key => \array_reduce($callbacks, $callback, $value);
                 }
             }

@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
-use drupol\collection\Collection;
-use drupol\collection\Contract\BaseCollection as CollectionInterface;
+use drupol\collection\Contract\BaseCollection as BaseCollectionInterface;
 
 /**
  * Class Forget.
@@ -15,15 +14,15 @@ final class Forget extends Operation
     /**
      * {@inheritdoc}
      */
-    public function run(CollectionInterface $collection): CollectionInterface
+    public function run(BaseCollectionInterface $collection): BaseCollectionInterface
     {
         [$keys] = $this->parameters;
 
-        return Collection::with(
+        return $collection::with(
             static function () use ($keys, $collection): \Generator {
                 $keys = \array_flip($keys);
 
-                foreach ($collection->getIterator() as $key => $value) {
+                foreach ($collection as $key => $value) {
                     if (!\array_key_exists($key, $keys)) {
                         yield $key => $value;
                     }

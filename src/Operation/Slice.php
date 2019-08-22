@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
-use drupol\collection\Collection;
-use drupol\collection\Contract\BaseCollection as CollectionInterface;
+use drupol\collection\Contract\BaseCollection as BaseCollectionInterface;
 
 /**
  * Class Slice.
@@ -15,16 +14,16 @@ final class Slice extends Operation
     /**
      * {@inheritdoc}
      */
-    public function run(CollectionInterface $collection): CollectionInterface
+    public function run(BaseCollectionInterface $collection): BaseCollectionInterface
     {
         [$offset, $length] = $this->parameters;
 
-        return Collection::with(
+        return $collection::with(
             static function () use ($offset, $length, $collection): \Generator {
                 if (null === $length) {
-                    yield from Skip::with([$offset])->run($collection);
+                    yield from (new Skip($offset))->run($collection);
                 } else {
-                    yield from Limit::with($length)->run(Skip::with([$offset])->run($collection));
+                    yield from (new Limit($length))->run((new Skip($offset))->run($collection));
                 }
             }
         );

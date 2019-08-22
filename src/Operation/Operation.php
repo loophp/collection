@@ -12,21 +12,17 @@ use drupol\collection\Contract\Operation as CollectionOperation;
 abstract class Operation implements CollectionOperation
 {
     /**
-     * @var array|mixed[]
+     * @var mixed
      */
     protected $parameters;
 
     /**
-     * @param mixed ...$parameters
+     * Operation constructor.
      *
-     * @return \drupol\collection\Contract\Operation
+     * @param mixed ...$parameters
      */
-    public static function with(...$parameters): CollectionOperation
+    public function __construct(...$parameters)
     {
-        $instance = new static();
-
-        $instance->parameters = $parameters;
-
-        return $instance;
+        $this->parameters = $parameters;
     }
 }

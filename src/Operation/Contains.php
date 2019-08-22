@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
-use drupol\collection\Contract\BaseCollection as CollectionInterface;
+use drupol\collection\Contract\BaseCollection as BaseCollectionInterface;
 
 /**
  * Class Contains.
@@ -12,16 +12,26 @@ use drupol\collection\Contract\BaseCollection as CollectionInterface;
 final class Contains extends Operation
 {
     /**
+     * Contains constructor.
+     *
+     * @param mixed $key
+     */
+    public function __construct($key)
+    {
+        parent::__construct(...[$key]);
+    }
+
+    /**
      * {@inheritdoc}
      */
-    public function run(CollectionInterface $collection)
+    public function run(BaseCollectionInterface $collection)
     {
         [$key] = $this->parameters;
 
         if (!\is_string($key) && \is_callable($key)) {
             $placeholder = new \stdClass();
 
-            return First::with($key, $placeholder)->run($collection) !== $placeholder;
+            return (new First($key, $placeholder))->run($collection) !== $placeholder;
         }
 
         foreach ($collection as $value) {

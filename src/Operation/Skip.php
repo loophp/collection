@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
-use drupol\collection\Collection;
-use drupol\collection\Contract\BaseCollection as CollectionInterface;
+use drupol\collection\Contract\BaseCollection as BaseCollectionInterface;
 
 /**
  * Class Skip.
@@ -13,13 +12,23 @@ use drupol\collection\Contract\BaseCollection as CollectionInterface;
 final class Skip extends Operation
 {
     /**
+     * Skip constructor.
+     *
+     * @param int ...$skip
+     */
+    public function __construct(int ...$skip)
+    {
+        parent::__construct(...[$skip]);
+    }
+
+    /**
      * {@inheritdoc}
      */
-    public function run(CollectionInterface $collection): CollectionInterface
+    public function run(BaseCollectionInterface $collection): BaseCollectionInterface
     {
         [$counts] = $this->parameters;
 
-        return Collection::with(
+        return $collection::with(
             static function () use ($counts, $collection): \Generator {
                 $iterator = $collection->getIterator();
                 $counts = \array_sum($counts);

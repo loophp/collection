@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
-use drupol\collection\Collection;
-use drupol\collection\Contract\BaseCollection as CollectionInterface;
+use drupol\collection\Contract\BaseCollection as BaseCollectionInterface;
 
 /**
  * Class Combine.
@@ -15,14 +14,14 @@ final class Combine extends Operation
     /**
      * {@inheritdoc}
      */
-    public function run(CollectionInterface $collection): CollectionInterface
+    public function run(BaseCollectionInterface $collection): BaseCollectionInterface
     {
         [$keys] = $this->parameters;
 
-        return Collection::with(
+        return $collection::with(
             static function () use ($keys, $collection): \Generator {
                 $original = $collection->getIterator();
-                $keysIterator = Collection::with($keys)->getIterator();
+                $keysIterator = $collection::with($keys)->getIterator();
 
                 for (; true === ($original->valid() && $keysIterator->valid()); $original->next(), $keysIterator->next()
                 ) {

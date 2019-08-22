@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace drupol\collection\Operation;
 
 use drupol\collection\Collection;
-use drupol\collection\Contract\BaseCollection as CollectionInterface;
+use drupol\collection\Contract\BaseCollection as BaseCollectionInterface;
 
 /**
  * Class Sort.
@@ -15,13 +15,23 @@ use drupol\collection\Contract\BaseCollection as CollectionInterface;
 final class Sort extends Operation
 {
     /**
+     * Sort constructor.
+     *
+     * @param callable $callback
+     */
+    public function __construct(callable $callback)
+    {
+        parent::__construct(...[$callback]);
+    }
+
+    /**
      * {@inheritdoc}
      */
-    public function run(CollectionInterface $collection): CollectionInterface
+    public function run(BaseCollectionInterface $collection): BaseCollectionInterface
     {
         [$callback] = $this->parameters;
 
-        return Collection::with(
+        return $collection::with(
             static function () use ($callback, $collection): \Generator {
                 $array = \iterator_to_array($collection->getIterator());
 

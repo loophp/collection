@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
-use drupol\collection\Contract\BaseCollection as CollectionInterface;
+use drupol\collection\Contract\BaseCollection as BaseCollectionInterface;
 
 /**
  * Class Count.
@@ -16,7 +16,7 @@ final class Count extends Operation
     /**
      * {@inheritdoc}
      */
-    public function run(CollectionInterface $collection)
+    public function run(BaseCollectionInterface $collection)
     {
         return \iterator_count($collection->getIterator());
     }

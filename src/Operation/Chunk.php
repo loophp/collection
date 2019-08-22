@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
-use drupol\collection\Collection;
-use drupol\collection\Contract\BaseCollection as CollectionInterface;
+use drupol\collection\Contract\BaseCollection as BaseCollectionInterface;
 
 /**
  * Class Chunk.
@@ -13,17 +12,27 @@ use drupol\collection\Contract\BaseCollection as CollectionInterface;
 final class Chunk extends Operation
 {
     /**
+     * Chunk constructor.
+     *
+     * @param int $size
+     */
+    public function __construct(int $size)
+    {
+        parent::__construct(...[$size]);
+    }
+
+    /**
      * {@inheritdoc}
      */
-    public function run(CollectionInterface $collection): CollectionInterface
+    public function run(BaseCollectionInterface $collection): BaseCollectionInterface
     {
-        $size = $this->parameters[0];
+        [$size] = $this->parameters;
 
         if (0 >= $size) {
-            return Collection::empty();
+            return $collection::with();
         }
 
-        return Collection::with(
+        return $collection::with(
             static function () use ($size, $collection): \Generator {
                 $iterator = $collection->getIterator();
 
@@ -34,7 +43,7 @@ final class Chunk extends Operation
                         $values[$iterator->key()] = $iterator->current();
                     }
 
-                    yield Collection::with($values);
+                    yield $collection::with($values);
                 }
             }
         );

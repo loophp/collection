@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
-use drupol\collection\Collection;
-use drupol\collection\Contract\BaseCollection as CollectionInterface;
+use drupol\collection\Contract\BaseCollection as BaseCollectionInterface;
 
 /**
  * Class Range.
@@ -13,13 +12,25 @@ use drupol\collection\Contract\BaseCollection as CollectionInterface;
 final class Range extends Operation
 {
     /**
+     * Range constructor.
+     *
+     * @param int $start
+     * @param float|int $end
+     * @param float $step
+     */
+    public function __construct(int $start, $end, $step)
+    {
+        parent::__construct(...[$start, $end, $step]);
+    }
+
+    /**
      * {@inheritdoc}
      */
-    public function run(CollectionInterface $collection): CollectionInterface
+    public function run(BaseCollectionInterface $collection): BaseCollectionInterface
     {
         [$start, $end, $step] = $this->parameters;
 
-        return Collection::with(
+        return $collection::with(
             static function () use ($start, $end, $step) {
                 for ($current = $start; $current < $end; $current += $step) {
                     yield $current;
