@@ -18,6 +18,6 @@ final class Count extends Operation
      */
     public function run(BaseCollectionInterface $collection)
     {
-        return \iterator_count($collection->getIterator());
+        return \iterator_count($collection);
     }
 }

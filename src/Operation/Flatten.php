@@ -30,9 +30,7 @@ final class Flatten extends Operation
 
         return $collection::with(
             static function () use ($depth, $collection): \Generator {
-                $iterator = $collection->getIterator();
-
-                foreach ($iterator as $item) {
+                foreach ($collection as $item) {
                     if (!\is_array($item) && !$item instanceof BaseCollectionInterface) {
                         yield $item;
                     } elseif (1 === $depth) {

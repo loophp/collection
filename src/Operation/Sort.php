@@ -33,7 +33,7 @@ final class Sort extends Operation
 
         return $collection::with(
             static function () use ($callback, $collection): \Generator {
-                $array = \iterator_to_array($collection->getIterator());
+                $array = \iterator_to_array($collection);
 
                 \uasort($array, $callback);
 

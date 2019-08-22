@@ -27,7 +27,7 @@ final class Filter extends Operation
         return $collection::with(
             static function () use ($callbacks, $collection): \Generator {
                 foreach ($callbacks as $callback) {
-                    foreach ($collection->getIterator() as $key => $value) {
+                    foreach ($collection as $key => $value) {
                         if (true === (bool) $callback($value, $key)) {
                             yield $key => $value;
                         }

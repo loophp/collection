@@ -16,6 +16,6 @@ final class Rebase extends Operation
      */
     public function run(BaseCollectionInterface $collection): BaseCollectionInterface
     {
-        return $collection::with($collection->getIterator());
+        return $collection::with($collection);
     }
 }
