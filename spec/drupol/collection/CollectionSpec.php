@@ -498,6 +498,23 @@ class CollectionSpec extends ObjectBehavior
             ->beConstructedThrough('with', [\range('A', 'F')]);
 
         $this
+            ->intersperse('foo')
+            ->shouldIterateAs([
+                0 => 'foo',
+                1 => 'A',
+                2 => 'foo',
+                3 => 'B',
+                4 => 'foo',
+                5 => 'C',
+                6 => 'foo',
+                7 => 'D',
+                8 => 'foo',
+                9 => 'E',
+                10 => 'foo',
+                11 => 'F',
+            ]);
+
+        $this
             ->intersperse('foo', 2, 0)
             ->shouldIterateAs([
                 0 => 'foo',
@@ -542,6 +559,10 @@ class CollectionSpec extends ObjectBehavior
         $this
             ->shouldThrow(\Exception::class)
             ->during('intersperse', ['foo', -1, 1]);
+
+        $this
+            ->shouldThrow(\Exception::class)
+            ->during('intersperse', ['foo', 1, -1]);
     }
 
     public function it_can_keys(): void
