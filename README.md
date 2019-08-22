@@ -16,12 +16,12 @@
 A Collection is an object that can hold a list of items and do things with it.
 
 This Collection class:
- * is stateless,
+ * is immutable,
  * extendable,
  * leverage the power of PHP generators and iterators,
  * doesn't depends or require any other library or framework. 
 
-Except a few methods, most of methods are returning a new Collection object.
+Except a few methods, most of methods are pure and returning a new Collection object.
 
 This library has been inspired by the [Laravel Support Package](https://github.com/illuminate/support) and [Lazy.js](http://danieltao.com/lazy.js/).
 
@@ -145,7 +145,7 @@ declare(strict_types=1);
 include 'vendor/autoload.php';
 
 use drupol\collection\Collection;
-use drupol\collection\Contract\Collection as CollectionInterface;
+use drupol\collection\Contract\BaseCollection as CollectionInterface;
 use drupol\collection\Operation\Operation;
 
 $square = new class() extends Operation {
