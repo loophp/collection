@@ -277,7 +277,7 @@ final class Collection extends BaseCollection implements CollectionInterface
      */
     public static function range(int $start = 0, $end = \INF, $step = 1): BaseCollectionInterface
     {
-        return (new Range($start, $end, $step))->run(static::empty());
+        return (new self())->run(new Range($start, $end, $step));
     }
 
     /**
@@ -345,7 +345,7 @@ final class Collection extends BaseCollection implements CollectionInterface
             }
         );
 
-        return null === $callback ? $instance : (new Walk($callback))->run($instance);
+        return null === $callback ? $instance : static::with((new Run(new Walk($callback)))->run($instance));
     }
 
     /**
