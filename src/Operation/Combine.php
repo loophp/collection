@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
-use drupol\collection\Contract\BaseCollection as BaseCollectionInterface;
+use drupol\collection\Iterator\ClosureIterator;
 
 /**
  * Class Combine.
@@ -14,13 +14,19 @@ final class Combine extends Operation
     /**
      * {@inheritdoc}
      */
-    public function run(BaseCollectionInterface $collection): \Closure
+    public function on(\Traversable $collection): \Closure
     {
         [$keys] = $this->parameters;
 
         return static function () use ($keys, $collection): \Generator {
-            $original = $collection->getIterator();
-            $keysIterator = $collection::with($keys)->getIterator();
+            $original = new ClosureIterator(
+                static function () use ($collection) {
+                    foreach ($collection as $k => $v) {
+                        yield $k => $v;
+                    }
+                }
+            );
+            $keysIterator = new \ArrayIterator($keys);
 
             for (; true === ($original->valid() && $keysIterator->valid()); $original->next(), $keysIterator->next()
                 ) {

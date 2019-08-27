@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
-use drupol\collection\Contract\BaseCollection as BaseCollectionInterface;
-
 /**
  * Class First.
  */
@@ -14,7 +12,7 @@ final class First extends Operation
     /**
      * {@inheritdoc}
      */
-    public function run(BaseCollectionInterface $collection)
+    public function on(\Traversable $collection)
     {
         [$callback, $default] = $this->parameters;
 

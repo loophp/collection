@@ -12,7 +12,7 @@ interface Combineable
     /**
      * @param mixed $keys
      *
-     * @return \drupol\collection\Contract\BaseCollection
+     * @return \drupol\collection\Contract\Collection
      */
-    public function combine($keys): BaseCollection;
+    public function combine($keys): Collection;
 }

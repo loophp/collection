@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
-use drupol\collection\Contract\BaseCollection as BaseCollectionInterface;
-
 /**
  * Class Sort.
  *
@@ -26,7 +24,7 @@ final class Sort extends Operation
     /**
      * {@inheritdoc}
      */
-    public function run(BaseCollectionInterface $collection): \Closure
+    public function on(\Traversable $collection): \Closure
     {
         [$callback] = $this->parameters;
 

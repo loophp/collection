@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
-use drupol\collection\Contract\BaseCollection as BaseCollectionInterface;
-
 /**
  * Class Walk.
  */
@@ -24,7 +22,7 @@ final class Walk extends Operation
     /**
      * {@inheritdoc}
      */
-    public function run(BaseCollectionInterface $collection): \Closure
+    public function on(\Traversable $collection): \Closure
     {
         [$callbacks] = $this->parameters;
 

@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
-use drupol\collection\Contract\BaseCollection as BaseCollectionInterface;
+use drupol\collection\Collection;
+use drupol\collection\Iterator\ClosureIterator;
 
 /**
  * Class Run.
@@ -24,8 +25,10 @@ final class Run extends Operation
     /**
      * {@inheritdoc}
      */
-    public function run(BaseCollectionInterface $collection)
+    public function on(\Traversable $collection)
     {
+        $collection = clone $collection;
+
         [$operations] = $this->parameters;
 
         return \array_reduce($operations, [$this, 'doRun'], $collection);
@@ -34,20 +37,25 @@ final class Run extends Operation
     /**
      * Run an operation on the collection.
      *
-     * @param \drupol\collection\Contract\BaseCollection $collection
+     * @param \Traversable $collection
      *   The collection.
      * @param \drupol\collection\Operation\Operation $operation
      *   The operation.
      *
+     * @throws \ReflectionException
+     *
      * @return mixed
      *   The operation result.
      */
-    private function doRun(BaseCollectionInterface $collection, Operation $operation)
+    private function doRun(\Traversable $collection, Operation $operation)
     {
-        $return = $operation->run($collection);
+        $collection = clone $collection;
+
+        $return = $operation->on($collection);
 
         if ($return instanceof \Closure) {
-            $return = $collection::with($return);
+            // Todo: Remove this.
+            $return = new ClosureIterator($return);
         }
 
         return $return;

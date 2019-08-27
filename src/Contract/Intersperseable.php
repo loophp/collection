@@ -17,7 +17,7 @@ interface Intersperseable
      * @param int $every
      * @param int $startAt
      *
-     * @return \drupol\collection\Contract\BaseCollection
+     * @return \drupol\collection\Contract\Collection
      */
-    public function intersperse($element, int $every = 1, int $startAt = 0): BaseCollection;
+    public function intersperse($element, int $every = 1, int $startAt = 0): Collection;
 }

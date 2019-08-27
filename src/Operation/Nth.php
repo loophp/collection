@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
-use drupol\collection\Contract\BaseCollection as BaseCollectionInterface;
-
 /**
  * Class Nth.
  */
@@ -25,7 +23,7 @@ final class Nth extends Operation
     /**
      * {@inheritdoc}
      */
-    public function run(BaseCollectionInterface $collection): \Closure
+    public function on(\Traversable $collection): \Closure
     {
         [$step, $offset] = $this->parameters;
 

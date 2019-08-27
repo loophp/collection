@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace drupol\collection\Operation;
 
 use drupol\collection\Collection;
-use drupol\collection\Contract\BaseCollection as BaseCollectionInterface;
 
 /**
  * Class Intersperse.
@@ -30,7 +29,7 @@ final class Intersperse extends Operation
     /**
      * {@inheritdoc}
      */
-    public function run(BaseCollectionInterface $collection): \Closure
+    public function on(\Traversable $collection): \Closure
     {
         [$element, $every, $startAt] = $this->parameters;
 

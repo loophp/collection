@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace drupol\collection;
 
 use drupol\collection\Contract\BaseCollection as BaseCollectionInterface;
+use drupol\collection\Iterator\ClosureIterator;
 
 /**
  * Class BaseCollection.
@@ -28,38 +29,31 @@ abstract class BaseCollection implements BaseCollectionInterface
                 $this->source = $data;
 
                 break;
-            case $data instanceof \IteratorAggregate:
             case $data instanceof \Traversable:
                 $this->source = static function () use ($data) {
-                    yield from \iterator_to_array(
-                        (static function () use ($data) {
-                            yield from $data;
-                        })()
-                    );
+                    foreach ($data as $k => $v) {
+                        yield $k => $v;
+                    }
                 };
 
                 break;
 
             default:
                 $this->source = static function () use ($data) {
-                    yield from (array) $data;
+                    foreach ((array) $data as $k => $v) {
+                        yield $k => $v;
+                    }
                 };
         }
     }
 
     /**
      * {@inheritdoc}
+     *
+     * @throws \ReflectionException
      */
-    public function getIterator()
+    public function getIterator(): ClosureIterator
     {
-        return ($this->source)();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public static function with($data = []): BaseCollectionInterface
-    {
-        return new static($data);
+        return new ClosureIterator($this->source);
     }
 }

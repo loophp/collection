@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
-use drupol\collection\Contract\BaseCollection as BaseCollectionInterface;
+use drupol\collection\Iterator\ClosureIterator;
 
 /**
  * Class Last.
@@ -16,16 +16,23 @@ final class Last extends Operation
     /**
      * {@inheritdoc}
      */
-    public function run(BaseCollectionInterface $collection)
+    public function on(\Traversable $collection)
     {
-        $reduced =
-            new Reduce(
-                static function ($carry, $item) {
-                    return $item;
-                },
-                $collection->getIterator()->current()
-            );
+        $iterator = new ClosureIterator(
+            static function () use ($collection) {
+                foreach ($collection as $k => $v) {
+                    yield $k => $v;
+                }
+            }
+        );
 
-        return $reduced->run($collection);
+        $reduced = new Reduce(
+            static function ($carry, $item) {
+                return $item;
+            },
+            $iterator->current()
+        );
+
+        return $reduced->on($collection);
     }
 }

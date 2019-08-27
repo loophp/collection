@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
-use drupol\collection\Contract\BaseCollection as BaseCollectionInterface;
+use drupol\collection\Iterator\ClosureIterator;
 
 /**
  * Class Chunk.
@@ -24,7 +24,7 @@ final class Chunk extends Operation
     /**
      * {@inheritdoc}
      */
-    public function run(BaseCollectionInterface $collection): \Closure
+    public function on(\Traversable $collection): \Closure
     {
         [$size] = $this->parameters;
 
@@ -35,7 +35,13 @@ final class Chunk extends Operation
         }
 
         return static function () use ($size, $collection): \Generator {
-            $iterator = $collection->getIterator();
+            $iterator = new ClosureIterator(
+                static function () use ($collection) {
+                    foreach ($collection as $k => $v) {
+                        yield $k => $v;
+                    }
+                }
+            );
 
             while ($iterator->valid()) {
                 $values = [];
@@ -44,7 +50,7 @@ final class Chunk extends Operation
                     $values[$iterator->key()] = $iterator->current();
                 }
 
-                yield $collection::with($values);
+                yield new \ArrayObject($values);
             }
         };
     }

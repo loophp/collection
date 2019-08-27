@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
-use drupol\collection\Contract\BaseCollection as BaseCollectionInterface;
+use drupol\collection\Iterator\ClosureIterator;
 
 /**
  * Class Flatten.
@@ -24,13 +24,13 @@ final class Flatten extends Operation
     /**
      * {@inheritdoc}
      */
-    public function run(BaseCollectionInterface $collection): \Closure
+    public function on(\Traversable $collection): \Closure
     {
         [$depth] = $this->parameters;
 
         return static function () use ($depth, $collection): \Generator {
             foreach ($collection as $item) {
-                if (!\is_array($item) && !$item instanceof BaseCollectionInterface) {
+                if (!\is_array($item) && !$item instanceof \Traversable) {
                     yield $item;
                 } elseif (1 === $depth) {
                     foreach ($item as $i) {
@@ -38,8 +38,9 @@ final class Flatten extends Operation
                     }
                 } else {
                     $flatten = new Flatten($depth - 1);
+                    $iterator = new ClosureIterator($flatten->on(new \ArrayObject($item)));
 
-                    foreach ($collection::with($flatten->run($collection::with($item))) as $flattenItem) {
+                    foreach ($iterator as $flattenItem) {
                         yield $flattenItem;
                     }
                 }

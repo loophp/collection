@@ -4,23 +4,35 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
-use drupol\collection\Contract\BaseCollection as BaseCollectionInterface;
-
 /**
  * Class All.
  */
 final class All extends Operation
 {
     /**
+     * All constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    /**
      * {@inheritdoc}
      */
-    public function run(BaseCollectionInterface $collection)
+    public function on(\Traversable $collection)
     {
         $result = [];
 
         foreach ($collection as $key => $item) {
-            if ($item instanceof BaseCollectionInterface) {
-                $result[$key] = (new self())->run($item);
+            if ($item instanceof \Traversable) {
+                $subresult = [];
+
+                foreach ($item as $k => $v) {
+                    $subresult[$k] = $v;
+                }
+
+                $result[$key] = $subresult;
             } else {
                 $result[$key] = $item;
             }

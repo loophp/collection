@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
-use drupol\collection\Contract\BaseCollection as BaseCollectionInterface;
+use drupol\collection\Iterator\ClosureIterator;
 
 /**
  * Class Slice.
@@ -14,15 +14,18 @@ final class Slice extends Operation
     /**
      * {@inheritdoc}
      */
-    public function run(BaseCollectionInterface $collection): \Closure
+    public function on(\Traversable $collection): \Closure
     {
         [$offset, $length] = $this->parameters;
 
         return static function () use ($offset, $length, $collection): \Generator {
             if (null === $length) {
-                yield from (new Skip($offset))->run($collection)();
+                yield from (new Skip($offset))->on($collection)();
             } else {
-                yield from (new Limit($length))->run($collection::with((new Skip($offset))->run($collection)))();
+                $limit = new Limit($length);
+                $skip = new Skip($offset);
+
+                yield from $limit->on(new ClosureIterator($skip->on($collection)))();
             }
         };
     }

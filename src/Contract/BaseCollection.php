@@ -15,13 +15,4 @@ interface BaseCollection extends \IteratorAggregate
      * @return \Iterator
      */
     public function getIterator();
-
-    /**
-     * Create a new collection instance.
-     *
-     * @param mixed $data
-     *
-     * @return \drupol\collection\Contract\BaseCollection|\drupol\collection\Contract\Collection
-     */
-    public static function with($data = []): self;
 }

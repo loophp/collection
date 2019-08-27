@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
-use drupol\collection\Contract\BaseCollection as BaseCollectionInterface;
-
 /**
  * Class Reduce.
  */
@@ -25,7 +23,7 @@ final class Reduce extends Operation
     /**
      * {@inheritdoc}
      */
-    public function run(BaseCollectionInterface $collection)
+    public function on(\Traversable $collection)
     {
         [$callback, $initial] = $this->parameters;
 

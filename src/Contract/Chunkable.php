@@ -14,7 +14,7 @@ interface Chunkable
      *
      * @param int $size
      *
-     * @return \drupol\collection\Contract\BaseCollection
+     * @return \drupol\collection\Contract\Collection
      */
-    public function chunk(int $size): BaseCollection;
+    public function chunk(int $size): Collection;
 }

@@ -15,7 +15,7 @@ interface Padable
      * @param int $size
      * @param mixed $value
      *
-     * @return \drupol\collection\Contract\BaseCollection
+     * @return \drupol\collection\Contract\Collection
      */
-    public function pad(int $size, $value): BaseCollection;
+    public function pad(int $size, $value): Collection;
 }

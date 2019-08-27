@@ -6,7 +6,6 @@ namespace spec\drupol\collection;
 
 use drupol\collection\BaseCollection;
 use drupol\collection\Collection;
-use drupol\collection\Contract\BaseCollection as CollectionInterface;
 use drupol\collection\Contract\Operation;
 use PhpSpec\ObjectBehavior;
 
@@ -15,7 +14,7 @@ class CollectionSpec extends ObjectBehavior
     public function it_can_append_items(): void
     {
         $this
-            ->beConstructedThrough('with', [new \ArrayObject(['1', '2', '3'])]);
+            ->beConstructedThrough('with', [['1', '2', '3']]);
 
         $this
             ->append('4')
@@ -63,7 +62,7 @@ class CollectionSpec extends ObjectBehavior
             ->apply(static function ($item) {
                 return false;
             })
-            ->shouldReturn($this);
+            ->shouldReturnAnInstanceOf(\drupol\collection\Contract\BaseCollection::class);
 
         $callback = static function (): void {
             throw new \Exception('foo');
@@ -225,17 +224,17 @@ class CollectionSpec extends ObjectBehavior
         $this
             ->beConstructedThrough('with', [\range('A', 'F')]);
 
-        $this
+        $this::with(\range('A', 'F'))
             ->chunk(2)
             ->all()
             ->shouldReturn([[0 => 'A', 1 => 'B'], [2 => 'C', 3 => 'D'], [4 => 'E', 5 => 'F']]);
 
-        $this
+        $this::with(\range('A', 'F'))
             ->chunk(0)
             ->all()
             ->shouldReturn([]);
 
-        $this
+        $this::with(\range('A', 'F'))
             ->chunk(1)
             ->all()
             ->shouldReturn([[0 => 'A'], [1 => 'B'], [2 => 'C'], [3 => 'D'], [4 => 'E'], [5 => 'F']]);
@@ -728,29 +727,6 @@ class CollectionSpec extends ObjectBehavior
             ->shouldReturn(['A', 'B', 'C', 'D', 'E', 'F']);
     }
 
-    public function it_can_proxy(): void
-    {
-        $input1 = new \ArrayObject(\range('A', 'E'));
-        $input2 = new \ArrayObject(\range(1, 5));
-
-        $this
-            ->beConstructedThrough('with', [[$input1, $input2]]);
-
-        $this
-            ->proxy('map', 'count')
-            ->all()
-            ->shouldReturn([5, 5]);
-
-        $this
-            ->proxy('map', 'foo')
-            ->shouldThrow(\Exception::class)
-            ->during('all');
-
-        $this
-            ->shouldThrow(\Exception::class)
-            ->during('proxy', ['foo', 'foo']);
-    }
-
     public function it_can_rebase(): void
     {
         $this
@@ -780,7 +756,7 @@ class CollectionSpec extends ObjectBehavior
     public function it_can_run_an_operation(Operation $operation): void
     {
         $square = new class() extends \drupol\collection\Operation\Operation {
-            public function run(CollectionInterface $collection)
+            public function on(\Traversable $collection)
             {
                 return Collection::with(
                     static function () use ($collection) {
@@ -793,7 +769,7 @@ class CollectionSpec extends ObjectBehavior
         };
 
         $sqrt = new class() extends \drupol\collection\Operation\Operation {
-            public function run(CollectionInterface $collection)
+            public function on(\Traversable $collection)
             {
                 return Collection::with(
                     static function () use ($collection) {
@@ -806,7 +782,7 @@ class CollectionSpec extends ObjectBehavior
         };
 
         $map = new class() extends \drupol\collection\Operation\Operation {
-            public function run(CollectionInterface $collection)
+            public function on(\Traversable $collection)
             {
                 return Collection::with(
                     static function () use ($collection) {
@@ -974,12 +950,12 @@ class CollectionSpec extends ObjectBehavior
         $this
             ->zip(['D', 'E', 'F'])
             ->all()
-            ->shouldIterateAs([['A', 'D'], ['B', 'E'], ['C', 'F']]);
+            ->shouldReturn([['A', 'D'], ['B', 'E'], ['C', 'F']]);
 
         $this::with(['A', 'C', 'E'])
             ->zip(['B', 'D', 'F', 'H'])
             ->all()
-            ->shouldIterateAs([['A', 'B'], ['C', 'D'], ['E', 'F'], [null, 'H']]);
+            ->shouldReturn([['A', 'B'], ['C', 'D'], ['E', 'F'], [null, 'H']]);
 
         $collection = Collection::with(\range(1, 5));
 

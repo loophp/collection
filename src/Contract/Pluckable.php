@@ -13,7 +13,7 @@ interface Pluckable
      * @param array|string $pluck
      * @param null|mixed $default
      *
-     * @return \drupol\collection\Contract\BaseCollection
+     * @return \drupol\collection\Contract\Collection
      */
-    public function pluck($pluck, $default = null): BaseCollection;
+    public function pluck($pluck, $default = null): Collection;
 }

@@ -16,10 +16,11 @@
 A Collection is an object that can hold a list of items and do things with it.
 
 This Collection class:
- * is immutable,
+ * is [immutable](https://en.wikipedia.org/wiki/Immutable_object),
  * extendable,
- * leverage the power of PHP generators and iterators,
- * doesn't depends or require any other library or framework. 
+ * leverage the power of PHP [generators](https://www.php.net/manual/en/class.generator.php) and [iterators](https://www.php.net/manual/en/class.iterator.php),
+ * use [S.O.L.I.D principles](https://en.wikipedia.org/wiki/SOLID),
+ * doesn't depends or require any other library or framework.
 
 Except a few methods, most of methods are pure and returning a new Collection object.
 
@@ -152,21 +153,20 @@ $square = new class() extends Operation {
     /**
      * {@inheritdoc}
      */
-    public function run(CollectionInterface $collection): CollectionInterface
+    public function on(\Traversable $collection): \Closure
     {
-        return Collection::with(
-            static function () use ($collection) {
+        return static function () use ($collection) {
                 foreach ($collection as $item) {
                     yield $item ** 2;
                 }
-            }
-        );
+            };
     }
 };
 
-Collection::range(5, 15)
+Collection::with(
+  Collection::range(5, 15)
     ->run($square)
-    ->all(); // [25, 36, 49, 64, 81, 100, 121, 144, 169, 196]
+)->all();
 ```
 
 ## API
@@ -203,7 +203,6 @@ the methods always return the same values for the same inputs.
 | `pad`         | new Collection object | [Pad.php](./src/Operation/Pad.php)
 | `pluck`       | new Collection object | [Pluck.php](./src/Operation/Pluck.php)
 | `prepend`     | new Collection object | [Prepend.php](./src/Operation/Prepend.php)
-| `proxy`       | new Collection object | [Proxy.php](./src/Operation/Proxy.php)
 | `rebase`      | new Collection object | [Rebase.php](./src/Operation/Rebase.php)
 | `reduce`      | mixed                 | [Reduce.php](./src/Operation/Reduce.php)
 | `run`         | mixed                 | [Run.php](./src/Operation/Run.php)
