@@ -22,7 +22,7 @@ final class Skip extends Operation
     /**
      * {@inheritdoc}
      */
-    public function on(\Traversable $collection): \Closure
+    public function on(iterable $collection): \Closure
     {
         [$counts] = $this->parameters;
 

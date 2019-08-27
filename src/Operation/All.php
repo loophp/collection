@@ -20,7 +20,7 @@ final class All extends Operation
     /**
      * {@inheritdoc}
      */
-    public function on(\Traversable $collection)
+    public function on(iterable $collection)
     {
         $result = [];
 

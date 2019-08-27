@@ -22,7 +22,7 @@ final class Contains extends Operation
     /**
      * {@inheritdoc}
      */
-    public function on(\Traversable $collection)
+    public function on(iterable $collection)
     {
         [$key] = $this->parameters;
 

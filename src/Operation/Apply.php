@@ -12,7 +12,7 @@ final class Apply extends Operation
     /**
      * {@inheritdoc}
      */
-    public function on(\Traversable $collection): \Traversable
+    public function on(iterable $collection): iterable
     {
         [$callbacks] = $this->parameters;
 

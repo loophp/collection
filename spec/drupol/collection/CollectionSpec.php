@@ -277,6 +277,10 @@ class CollectionSpec extends ObjectBehavior
             ->shouldReturn(true);
 
         $this
+            ->contains('unknown')
+            ->shouldReturn(false);
+
+        $this
             ->contains(static function ($item) {
                 return 'A' === $item;
             })
@@ -756,7 +760,7 @@ class CollectionSpec extends ObjectBehavior
     public function it_can_run_an_operation(Operation $operation): void
     {
         $square = new class() extends \drupol\collection\Operation\Operation {
-            public function on(\Traversable $collection)
+            public function on(iterable $collection)
             {
                 return Collection::with(
                     static function () use ($collection) {
@@ -769,7 +773,7 @@ class CollectionSpec extends ObjectBehavior
         };
 
         $sqrt = new class() extends \drupol\collection\Operation\Operation {
-            public function on(\Traversable $collection)
+            public function on(iterable $collection)
             {
                 return Collection::with(
                     static function () use ($collection) {
@@ -782,7 +786,7 @@ class CollectionSpec extends ObjectBehavior
         };
 
         $map = new class() extends \drupol\collection\Operation\Operation {
-            public function on(\Traversable $collection)
+            public function on(iterable $collection)
             {
                 return Collection::with(
                     static function () use ($collection) {

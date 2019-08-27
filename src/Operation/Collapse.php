@@ -12,7 +12,7 @@ final class Collapse extends Operation
     /**
      * {@inheritdoc}
      */
-    public function on(\Traversable $collection): \Closure
+    public function on(iterable $collection): \Closure
     {
         return static function () use ($collection): \Generator {
             foreach ($collection as $item) {

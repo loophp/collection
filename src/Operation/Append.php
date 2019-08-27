@@ -12,7 +12,7 @@ final class Append extends Operation
     /**
      * {@inheritdoc}
      */
-    public function on(\Traversable $collection): \Closure
+    public function on(iterable $collection): \Closure
     {
         [$items] = $this->parameters;
 

@@ -14,7 +14,7 @@ final class Slice extends Operation
     /**
      * {@inheritdoc}
      */
-    public function on(\Traversable $collection): \Closure
+    public function on(iterable $collection): \Closure
     {
         [$offset, $length] = $this->parameters;
 

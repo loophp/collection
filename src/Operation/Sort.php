@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
+use drupol\collection\Iterator\ClosureIterator;
+
 /**
  * Class Sort.
  *
@@ -24,12 +26,20 @@ final class Sort extends Operation
     /**
      * {@inheritdoc}
      */
-    public function on(\Traversable $collection): \Closure
+    public function on(iterable $collection): \Closure
     {
         [$callback] = $this->parameters;
 
         return static function () use ($callback, $collection): \Generator {
-            $array = \iterator_to_array($collection);
+            $array = \iterator_to_array(
+                new ClosureIterator(
+                    static function () use ($collection) {
+                        foreach ($collection as $key => $item) {
+                            yield $key => $item;
+                        }
+                    }
+                )
+            );
 
             \uasort($array, $callback);
 

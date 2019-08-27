@@ -12,7 +12,7 @@ final class Forget extends Operation
     /**
      * {@inheritdoc}
      */
-    public function on(\Traversable $collection): \Closure
+    public function on(iterable $collection): \Closure
     {
         [$keys] = $this->parameters;
 

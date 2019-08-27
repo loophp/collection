@@ -23,7 +23,7 @@ final class Nth extends Operation
     /**
      * {@inheritdoc}
      */
-    public function on(\Traversable $collection): \Closure
+    public function on(iterable $collection): \Closure
     {
         [$step, $offset] = $this->parameters;
 

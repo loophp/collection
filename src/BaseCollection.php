@@ -29,7 +29,7 @@ abstract class BaseCollection implements BaseCollectionInterface
                 $this->source = $data;
 
                 break;
-            case $data instanceof \Traversable:
+            case \is_iterable($data):
                 $this->source = static function () use ($data) {
                     foreach ($data as $k => $v) {
                         yield $k => $v;

@@ -29,7 +29,7 @@ final class Intersperse extends Operation
     /**
      * {@inheritdoc}
      */
-    public function on(\Traversable $collection): \Closure
+    public function on(iterable $collection): \Closure
     {
         [$element, $every, $startAt] = $this->parameters;
 

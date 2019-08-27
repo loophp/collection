@@ -10,9 +10,9 @@ namespace drupol\collection\Contract;
 interface Operation
 {
     /**
-     * @param \Traversable $collection
+     * @param iterable $collection
      *
      * @return mixed
      */
-    public function on(\Traversable $collection);
+    public function on(iterable $collection);
 }

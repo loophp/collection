@@ -24,7 +24,7 @@ final class Range extends Operation
     /**
      * {@inheritdoc}
      */
-    public function on(\Traversable $collection): \Closure
+    public function on(iterable $collection): \Closure
     {
         [$start, $end, $step] = $this->parameters;
 

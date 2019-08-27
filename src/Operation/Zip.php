@@ -14,7 +14,7 @@ final class Zip extends Operation
     /**
      * {@inheritdoc}
      */
-    public function on(\Traversable $collection): \Closure
+    public function on(iterable $collection): \Closure
     {
         [$iterables] = $this->parameters;
 
@@ -35,7 +35,7 @@ final class Zip extends Operation
             $append = new Append($items);
 
             $iterators = new ClosureIterator(
-                $walk->on(new ClosureIterator($append->on(new \ArrayObject())))
+                $walk->on(new ClosureIterator($append->on([])))
             );
 
             $mit = new \MultipleIterator(\MultipleIterator::MIT_NEED_ANY);
@@ -45,7 +45,7 @@ final class Zip extends Operation
             }
 
             foreach ($mit as $values) {
-                yield new \ArrayObject($values);
+                yield new \ArrayIterator($values);
             }
         };
     }

@@ -16,7 +16,7 @@ final class Last extends Operation
     /**
      * {@inheritdoc}
      */
-    public function on(\Traversable $collection)
+    public function on(iterable $collection)
     {
         $iterator = new ClosureIterator(
             static function () use ($collection) {

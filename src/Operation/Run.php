@@ -25,10 +25,8 @@ final class Run extends Operation
     /**
      * {@inheritdoc}
      */
-    public function on(\Traversable $collection)
+    public function on(iterable $collection)
     {
-        $collection = clone $collection;
-
         [$operations] = $this->parameters;
 
         return \array_reduce($operations, [$this, 'doRun'], $collection);
@@ -37,7 +35,7 @@ final class Run extends Operation
     /**
      * Run an operation on the collection.
      *
-     * @param \Traversable $collection
+     * @param iterable $collection
      *   The collection.
      * @param \drupol\collection\Operation\Operation $operation
      *   The operation.
@@ -47,10 +45,8 @@ final class Run extends Operation
      * @return mixed
      *   The operation result.
      */
-    private function doRun(\Traversable $collection, Operation $operation)
+    private function doRun(iterable $collection, Operation $operation)
     {
-        $collection = clone $collection;
-
         $return = $operation->on($collection);
 
         if ($return instanceof \Closure) {

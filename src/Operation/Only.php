@@ -12,7 +12,7 @@ final class Only extends Operation
     /**
      * {@inheritdoc}
      */
-    public function on(\Traversable $collection)
+    public function on(iterable $collection)
     {
         [$keys] = $this->parameters;
 

@@ -24,7 +24,7 @@ final class Flatten extends Operation
     /**
      * {@inheritdoc}
      */
-    public function on(\Traversable $collection): \Closure
+    public function on(iterable $collection): \Closure
     {
         [$depth] = $this->parameters;
 
@@ -38,7 +38,7 @@ final class Flatten extends Operation
                     }
                 } else {
                     $flatten = new Flatten($depth - 1);
-                    $iterator = new ClosureIterator($flatten->on(new \ArrayObject($item)));
+                    $iterator = new ClosureIterator($flatten->on($item));
 
                     foreach ($iterator as $flattenItem) {
                         yield $flattenItem;

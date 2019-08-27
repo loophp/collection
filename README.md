@@ -129,6 +129,41 @@ Collection::with(
     )
     ->limit(10)
     ->all(); // [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
+
+// Use an existing Generator as input data.
+$readFileLineByLine = static function (string $filepath): \Generator {
+    $fh = fopen($filepath, 'rb');
+    $i = 0;
+
+    while (!feof($fh)) {
+        $line = '';
+
+        while (PHP_EOL !== $chunk = fread($fh, 1)) {
+            $line .= $chunk;
+        }
+
+        yield [
+            'number' => $i++,
+            'content' => $line
+        ];
+    }
+
+    fclose($fh);
+};
+
+$hugeFile = __DIR__ .'/vendor/composer/autoload_static.php';
+
+Collection::with($readFileLineByLine($hugeFile))
+    // Find public static fields or methods.
+    ->filter(static function (array $line) {return false !== strpos($line['content'], 'public static');})
+    // Skip the first one.
+    ->skip(1)
+    // Limit the list to 3 results only.
+    ->limit(3)
+    // Add the line number at the end of each line.
+    ->map(static function (array $line) {return sprintf('%s // Line %s', $line['content'], $line['number']);})
+    // Implode into a string.
+    ->implode(PHP_EOL);
 ```
 
 ## Advanced usage
@@ -153,7 +188,7 @@ $square = new class() extends Operation {
     /**
      * {@inheritdoc}
      */
-    public function on(\Traversable $collection): \Closure
+    public function on(iterable $collection): \Closure
     {
         return static function () use ($collection) {
                 foreach ($collection as $item) {

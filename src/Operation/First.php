@@ -12,7 +12,7 @@ final class First extends Operation
     /**
      * {@inheritdoc}
      */
-    public function on(\Traversable $collection)
+    public function on(iterable $collection)
     {
         [$callback, $default] = $this->parameters;
 

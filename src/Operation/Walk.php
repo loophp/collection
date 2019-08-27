@@ -22,7 +22,7 @@ final class Walk extends Operation
     /**
      * {@inheritdoc}
      */
-    public function on(\Traversable $collection): \Closure
+    public function on(iterable $collection): \Closure
     {
         [$callbacks] = $this->parameters;
 

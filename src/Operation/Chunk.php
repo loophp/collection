@@ -24,12 +24,12 @@ final class Chunk extends Operation
     /**
      * {@inheritdoc}
      */
-    public function on(\Traversable $collection): \Closure
+    public function on(iterable $collection): \Closure
     {
         [$size] = $this->parameters;
 
         if (0 >= $size) {
-            return static function () {
+            return static function (): \Generator {
                 yield from [];
             };
         }
@@ -50,7 +50,7 @@ final class Chunk extends Operation
                     $values[$iterator->key()] = $iterator->current();
                 }
 
-                yield new \ArrayObject($values);
+                yield new \ArrayIterator($values);
             }
         };
     }

@@ -22,75 +22,64 @@ class ClosureIterator implements \Iterator
     /**
      * ClosureIterator constructor.
      *
-     * @param \Closure $closure
-     *
-     * @throws \ReflectionException
+     * @param callable $callable
+     * @param array ...$arguments
      */
-    public function __construct(\Closure $closure)
+    public function __construct(callable $callable, ...$arguments)
     {
-        $reflection = new \ReflectionFunction($closure);
-
-        if (!$reflection->isGenerator()) {
-            $closure = static function () use ($closure) {
-                foreach ($closure() as $k => $v) {
-                    yield $k => $v;
-                }
-            };
-        }
-
-        $this->source = static function () use ($closure) {
-            foreach ($closure() as $k => $v) {
+        $this->source = static function () use ($callable, $arguments) {
+            foreach ($callable(...$arguments) as $k => $v) {
                 yield $k => $v;
             }
         };
-
-        $this->generator = $closure();
     }
 
     /**
-     * Return the current element.
+     * {@inheritdoc}
      *
-     * @see https://php.net/manual/en/iterator.current.php
-     *
-     * @return mixed Can return any type.
-     *
-     * @since 5.0.0
+     * @return mixed
      */
     public function current()
     {
+        if (null === $this->generator) {
+            $this->rewind();
+        }
+
         return $this->generator->current();
     }
 
     /**
-     * Return the key of the current element.
+     * {@inheritdoc}
      *
-     * @see https://php.net/manual/en/iterator.key.php
-     *
-     * @return mixed scalar on success, or null on failure.
-     *
-     * @since 5.0.0
+     * @return int|string
      */
     public function key()
     {
+        if (null === $this->generator) {
+            $this->rewind();
+        }
+
         return $this->generator->key();
     }
 
     /**
-     * Move forward to next element.
+     * {@inheritdoc}
      *
-     * @see https://php.net/manual/en/iterator.next.php
-     * @since 5.0.0
+     * @return $this|void
      */
-    public function next(): void
+    public function next()
     {
+        if (null === $this->generator) {
+            $this->rewind();
+        }
+
         $this->generator->next();
+
+        return $this;
     }
 
     /**
-     * Rewind the Iterator to the first element.
-     *
-     * @see https://php.net/manual/en/iterator.rewind.php
-     * @since 5.0.0
+     * {@inheritdoc}
      */
     public function rewind(): void
     {
@@ -98,17 +87,32 @@ class ClosureIterator implements \Iterator
     }
 
     /**
-     * Checks if current position is valid.
+     * Send a value to the inner Generator.
      *
-     * @see https://php.net/manual/en/iterator.valid.php
+     * @param null|mixed $value
      *
-     * @return bool The return value will be casted to boolean and then evaluated.
-     * Returns true on success or false on failure.
+     * @return mixed
+     */
+    public function send($value = null)
+    {
+        if (null === $this->generator) {
+            $this->rewind();
+        }
+
+        return $this->generator->send($value);
+    }
+
+    /**
+     * {@inheritdoc}
      *
-     * @since 5.0.0
+     * @return bool
      */
     public function valid()
     {
+        if (null === $this->generator) {
+            $this->rewind();
+        }
+
         return $this->generator->valid();
     }
 }

@@ -27,7 +27,7 @@ final class Pluck extends Operation
     /**
      * {@inheritdoc}
      */
-    public function on(\Traversable $collection): \Closure
+    public function on(iterable $collection): \Closure
     {
         [$key, $default] = $this->parameters;
         $operation = $this;
@@ -44,7 +44,7 @@ final class Pluck extends Operation
     /**
      * Get an item from an array or object using "dot" notation.
      *
-     * @param \Traversable $collection
+     * @param iterable $collection
      * @param mixed $target
      * @param array $key
      * @param mixed $default
@@ -53,7 +53,7 @@ final class Pluck extends Operation
      *
      * @return mixed
      */
-    private function pick($collection, $target, array $key, $default = null)
+    private function pick(iterable $collection, $target, array $key, $default = null)
     {
         while (null !== $segment = \array_shift($key)) {
             if ('*' === $segment) {
@@ -67,7 +67,7 @@ final class Pluck extends Operation
                     $result[] = $this->pick($collection, $item, $key);
                 }
 
-                return \in_array('*', $key, true) ? (new Collapse())->on(new \ArrayObject($result)) : $result;
+                return \in_array('*', $key, true) ? (new Collapse())->on($result) : $result;
             }
 
             if ((true === \is_array($target)) && (true === \array_key_exists($segment, $target))) {
