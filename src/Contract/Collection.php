@@ -55,9 +55,9 @@ interface Collection extends
      * @param float|int $end
      * @param int $step
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \drupol\collection\Contract\BaseCollection
      */
-    public static function range(int $start = 0, $end = \INF, $step = 1): Collection;
+    public static function range(int $start = 0, $end = \INF, $step = 1): BaseCollection;
 
     /**
      * Create a new instance by invoking the callback a given amount of times.
@@ -65,7 +65,7 @@ interface Collection extends
      * @param int $number
      * @param callable $callback
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \drupol\collection\Contract\BaseCollection
      */
-    public static function times($number, callable $callback = null): Collection;
+    public static function times($number, callable $callback = null): BaseCollection;
 }

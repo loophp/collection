@@ -12,7 +12,7 @@ interface Normalizeable
     /**
      * Reset the keys on the underlying array.
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \drupol\collection\Contract\BaseCollection
      */
-    public function normalize(): Collection;
+    public function normalize(): BaseCollection;
 }

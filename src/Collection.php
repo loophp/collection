@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace drupol\collection;
 
+use drupol\collection\Contract\BaseCollection as BaseCollectionInterface;
 use drupol\collection\Contract\Collection as CollectionInterface;
 use drupol\collection\Operation\All;
 use drupol\collection\Operation\Append;
@@ -57,7 +58,7 @@ final class Collection extends BaseCollection implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function append(...$items): CollectionInterface
+    public function append(...$items): BaseCollectionInterface
     {
         return $this::with($this->run(new Append($items)));
     }
@@ -65,15 +66,15 @@ final class Collection extends BaseCollection implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function apply(callable ...$callables): CollectionInterface
+    public function apply(callable ...$callables): BaseCollectionInterface
     {
-        return $this::with($this->run(new Apply($callables)));
+        return $this::with($this->run(new Apply(...$callables)));
     }
 
     /**
      * {@inheritdoc}
      */
-    public function chunk(int $size): CollectionInterface
+    public function chunk(int $size): BaseCollectionInterface
     {
         return $this::with($this->run(new Chunk($size)));
     }
@@ -81,7 +82,7 @@ final class Collection extends BaseCollection implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function collapse(): CollectionInterface
+    public function collapse(): BaseCollectionInterface
     {
         return $this::with($this->run(new Collapse()));
     }
@@ -89,7 +90,7 @@ final class Collection extends BaseCollection implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function combine($keys): CollectionInterface
+    public function combine($keys): BaseCollectionInterface
     {
         return $this::with($this->run(new Combine($keys)));
     }
@@ -121,7 +122,7 @@ final class Collection extends BaseCollection implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function filter(callable ...$callbacks): CollectionInterface
+    public function filter(callable ...$callbacks): BaseCollectionInterface
     {
         return $this::with($this->run(new Filter($callbacks)));
     }
@@ -137,7 +138,7 @@ final class Collection extends BaseCollection implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function flatten(int $depth = \PHP_INT_MAX): CollectionInterface
+    public function flatten(int $depth = \PHP_INT_MAX): BaseCollectionInterface
     {
         return $this::with($this->run(new Flatten($depth)));
     }
@@ -145,7 +146,7 @@ final class Collection extends BaseCollection implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function flip(): CollectionInterface
+    public function flip(): BaseCollectionInterface
     {
         return $this::with($this->run(new Flip()));
     }
@@ -153,7 +154,7 @@ final class Collection extends BaseCollection implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function forget(...$keys): CollectionInterface
+    public function forget(...$keys): BaseCollectionInterface
     {
         return $this::with($this->run(new Forget($keys)));
     }
@@ -177,7 +178,7 @@ final class Collection extends BaseCollection implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function intersperse($element, int $every = 1, int $startAt = 0): CollectionInterface
+    public function intersperse($element, int $every = 1, int $startAt = 0): BaseCollectionInterface
     {
         return $this::with($this->run(new Intersperse($element, $every, $startAt)));
     }
@@ -185,7 +186,7 @@ final class Collection extends BaseCollection implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function keys(): CollectionInterface
+    public function keys(): BaseCollectionInterface
     {
         return $this::with($this->run(new Keys()));
     }
@@ -201,7 +202,7 @@ final class Collection extends BaseCollection implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function limit(int $limit): CollectionInterface
+    public function limit(int $limit): BaseCollectionInterface
     {
         return $this::with($this->run(new Limit($limit)));
     }
@@ -209,7 +210,7 @@ final class Collection extends BaseCollection implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function map(callable ...$callbacks): CollectionInterface
+    public function map(callable ...$callbacks): BaseCollectionInterface
     {
         return $this::with($this->run(new Walk(...$callbacks), new Normalize()));
     }
@@ -217,7 +218,7 @@ final class Collection extends BaseCollection implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function merge(...$sources): CollectionInterface
+    public function merge(...$sources): BaseCollectionInterface
     {
         return $this::with($this->run(new Merge($sources)));
     }
@@ -225,7 +226,7 @@ final class Collection extends BaseCollection implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function normalize(): CollectionInterface
+    public function normalize(): BaseCollectionInterface
     {
         return $this::with($this->run(new Normalize()));
     }
@@ -233,7 +234,7 @@ final class Collection extends BaseCollection implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function nth(int $step, int $offset = 0): CollectionInterface
+    public function nth(int $step, int $offset = 0): BaseCollectionInterface
     {
         return $this::with($this->run(new Nth($step, $offset)));
     }
@@ -241,7 +242,7 @@ final class Collection extends BaseCollection implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function only(...$keys): CollectionInterface
+    public function only(...$keys): BaseCollectionInterface
     {
         return $this::with($this->run(new Only($keys)));
     }
@@ -249,7 +250,7 @@ final class Collection extends BaseCollection implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function pad(int $size, $value): CollectionInterface
+    public function pad(int $size, $value): BaseCollectionInterface
     {
         return $this::with($this->run(new Pad($size, $value)));
     }
@@ -257,7 +258,7 @@ final class Collection extends BaseCollection implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function pluck($pluck, $default = null): CollectionInterface
+    public function pluck($pluck, $default = null): BaseCollectionInterface
     {
         return $this::with($this->run(new Pluck($pluck, $default)));
     }
@@ -265,7 +266,7 @@ final class Collection extends BaseCollection implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function prepend(...$items): CollectionInterface
+    public function prepend(...$items): BaseCollectionInterface
     {
         return $this::with($this->run(new Prepend($items)));
     }
@@ -273,7 +274,7 @@ final class Collection extends BaseCollection implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public static function range(int $start = 0, $end = \INF, $step = 1): CollectionInterface
+    public static function range(int $start = 0, $end = \INF, $step = 1): BaseCollectionInterface
     {
         return self::with((new self())->run(new Range($start, $end, $step)));
     }
@@ -281,7 +282,7 @@ final class Collection extends BaseCollection implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function rebase(): CollectionInterface
+    public function rebase(): BaseCollectionInterface
     {
         return $this::with($this->run(new Rebase()));
     }
@@ -297,7 +298,7 @@ final class Collection extends BaseCollection implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function skip(int ...$counts): CollectionInterface
+    public function skip(int ...$counts): BaseCollectionInterface
     {
         return $this::with($this->run(new Skip(...$counts)));
     }
@@ -305,7 +306,7 @@ final class Collection extends BaseCollection implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function slice(int $offset, int $length = null): CollectionInterface
+    public function slice(int $offset, int $length = null): BaseCollectionInterface
     {
         return $this::with($this->run(new Slice($offset, $length)));
     }
@@ -313,7 +314,7 @@ final class Collection extends BaseCollection implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function sort(callable $callback): CollectionInterface
+    public function sort(callable $callback): BaseCollectionInterface
     {
         return $this::with($this->run(new Sort($callback)));
     }
@@ -321,7 +322,7 @@ final class Collection extends BaseCollection implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public static function times($number, callable $callback = null): CollectionInterface
+    public static function times($number, callable $callback = null): BaseCollectionInterface
     {
         if (1 > $number) {
             return static::empty();
@@ -341,7 +342,7 @@ final class Collection extends BaseCollection implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function walk(callable ...$callbacks): CollectionInterface
+    public function walk(callable ...$callbacks): BaseCollectionInterface
     {
         return $this::with($this->run(new Walk(...$callbacks)));
     }
@@ -353,7 +354,7 @@ final class Collection extends BaseCollection implements CollectionInterface
      *
      * @return \drupol\collection\Contract\Collection
      */
-    public static function with($data = []): CollectionInterface
+    public static function with($data = []): BaseCollectionInterface
     {
         return new static($data);
     }
@@ -361,7 +362,7 @@ final class Collection extends BaseCollection implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function zip(...$items): CollectionInterface
+    public function zip(...$items): BaseCollectionInterface
     {
         return $this::with($this->run(new Zip($items)));
     }

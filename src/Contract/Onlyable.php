@@ -14,7 +14,7 @@ interface Onlyable
      *
      * @param mixed ...$keys
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \drupol\collection\Contract\BaseCollection
      */
-    public function only(...$keys): Collection;
+    public function only(...$keys): BaseCollection;
 }

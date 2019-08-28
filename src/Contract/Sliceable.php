@@ -15,7 +15,7 @@ interface Sliceable
      * @param int $offset
      * @param null|int $length
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \drupol\collection\Contract\BaseCollection
      */
-    public function slice(int $offset, int $length = null): Collection;
+    public function slice(int $offset, int $length = null): BaseCollection;
 }

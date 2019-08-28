@@ -12,7 +12,7 @@ interface Flipable
     /**
      * Flip the items in the collection.
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \drupol\collection\Contract\BaseCollection
      */
-    public function flip(): Collection;
+    public function flip(): BaseCollection;
 }

@@ -12,7 +12,7 @@ interface Walkable
     /**
      * @param callable ...$callbacks
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \drupol\collection\Contract\BaseCollection
      */
-    public function walk(callable ...$callbacks): Collection;
+    public function walk(callable ...$callbacks): BaseCollection;
 }

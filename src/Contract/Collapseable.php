@@ -12,7 +12,7 @@ interface Collapseable
     /**
      * Collapse the collection of items into a single array.
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \drupol\collection\Contract\BaseCollection
      */
-    public function collapse(): Collection;
+    public function collapse(): BaseCollection;
 }

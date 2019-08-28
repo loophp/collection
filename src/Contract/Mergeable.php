@@ -14,7 +14,7 @@ interface Mergeable
      *
      * @param iterable ...$sources
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \drupol\collection\Contract\BaseCollection
      */
-    public function merge(...$sources): Collection;
+    public function merge(...$sources): BaseCollection;
 }

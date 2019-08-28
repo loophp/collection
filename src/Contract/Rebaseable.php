@@ -10,7 +10,7 @@ namespace drupol\collection\Contract;
 interface Rebaseable
 {
     /**
-     * @return \drupol\collection\Contract\Collection
+     * @return \drupol\collection\Contract\BaseCollection
      */
-    public function rebase(): Collection;
+    public function rebase(): BaseCollection;
 }
