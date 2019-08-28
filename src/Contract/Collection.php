@@ -22,6 +22,7 @@ interface Collection extends
     Flipable,
     Forgetable,
     Getable,
+    Implodeable,
     Intersperseable,
     Keysable,
     Lastable,

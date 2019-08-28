@@ -227,6 +227,8 @@ the methods always return the same values for the same inputs.
 | `forget`      | new Collection object | [Forget.php](./src/Operation/Forget.php)
 | `get`         | mixed                 | [Get.php](./src/Operation/Get.php)
 | `getIterator` | Iterator              | [Collection.php](./src/Collection.php)
+| `implode`     | string                | [Implode.php](./src/Operation/Implode.php)
+| `intersperse` | new Collection object | [Intersperse.php](./src/Operation/Intersperse.php)
 | `keys`        | new Collection object | [Keys.php](./src/Operation/Keys.php)
 | `last`        | mixed                 | [Last.php](./src/Operation/Last.php)
 | `limit`       | new Collection object | [Limit.php](./src/Operation/Limit.php)

@@ -495,6 +495,20 @@ class CollectionSpec extends ObjectBehavior
             ->shouldReturn(null);
     }
 
+    public function it_can_implode(): void
+    {
+        $this
+            ->beConstructedThrough('with', [\range('A', 'C')]);
+
+        $this
+            ->implode('-')
+            ->shouldReturn('A-B-C');
+
+        $this
+            ->implode()
+            ->shouldReturn('ABC');
+    }
+
     public function it_can_intersperse(): void
     {
         $this

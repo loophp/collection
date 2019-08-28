@@ -20,6 +20,7 @@ use drupol\collection\Operation\Flatten;
 use drupol\collection\Operation\Flip;
 use drupol\collection\Operation\Forget;
 use drupol\collection\Operation\Get;
+use drupol\collection\Operation\Implode;
 use drupol\collection\Operation\Intersperse;
 use drupol\collection\Operation\Keys;
 use drupol\collection\Operation\Last;
@@ -164,6 +165,14 @@ final class Collection extends BaseCollection implements CollectionInterface
     public function get($key, $default = null)
     {
         return $this->run(new Get($key, $default));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function implode(string $implode = ''): string
+    {
+        return (new Implode($implode))->on($this);
     }
 
     /**
