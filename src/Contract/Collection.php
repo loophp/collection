@@ -37,7 +37,6 @@ interface Collection extends
     Prependable,
     Rebaseable,
     Reduceable,
-    Runable,
     Skipable,
     Sliceable,
     Sortable,

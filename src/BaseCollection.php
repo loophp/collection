@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace drupol\collection;
 
 use drupol\collection\Contract\BaseCollection as BaseCollectionInterface;
+use drupol\collection\Contract\Operation;
 use drupol\collection\Iterator\ClosureIterator;
+use drupol\collection\Operation\Run;
 
 /**
  * Class BaseCollection.
@@ -49,11 +51,17 @@ abstract class BaseCollection implements BaseCollectionInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @throws \ReflectionException
      */
     public function getIterator(): ClosureIterator
     {
         return new ClosureIterator($this->source);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function run(Operation ...$operations)
+    {
+        return (new Run(...$operations))->on($this);
     }
 }

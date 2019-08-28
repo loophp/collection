@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace drupol\collection;
 
 use drupol\collection\Contract\Collection as CollectionInterface;
-use drupol\collection\Contract\Operation;
 use drupol\collection\Operation\All;
 use drupol\collection\Operation\Append;
 use drupol\collection\Operation\Apply;
@@ -293,14 +292,6 @@ final class Collection extends BaseCollection implements CollectionInterface
     public function reduce(callable $callback, $initial = null)
     {
         return $this->run(new Reduce($callback, $initial));
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function run(Operation ...$operations)
-    {
-        return (new Run(...$operations))->on($this);
     }
 
     /**

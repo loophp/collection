@@ -7,7 +7,7 @@ namespace drupol\collection\Contract;
 /**
  * Interface BaseCollection.
  */
-interface BaseCollection extends \IteratorAggregate
+interface BaseCollection extends \IteratorAggregate, Runable
 {
     /**
      * {@inheritdoc}
