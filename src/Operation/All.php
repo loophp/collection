@@ -25,7 +25,7 @@ final class All extends Operation
         $result = [];
 
         foreach ($collection as $key => $item) {
-            if ($item instanceof \Traversable) {
+            if (true === \is_iterable($item)) {
                 $subresult = [];
 
                 foreach ($item as $k => $v) {
