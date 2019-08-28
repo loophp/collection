@@ -12,18 +12,20 @@ final class Apply extends Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): iterable
+    public function on(iterable $collection): \Closure
     {
-        [$callbacks] = $this->parameters;
+        $callbacks = $this->parameters;
 
-        foreach ($callbacks as $callback) {
-            foreach ($collection as $key => $item) {
-                if (false === $callback($item, $key)) {
-                    break;
+        return static function () use ($callbacks, $collection): iterable {
+            foreach ($callbacks as $callback) {
+                foreach ($collection as $key => $item) {
+                    if (false === $callback($item, $key)) {
+                        break;
+                    }
                 }
             }
-        }
 
-        return $collection;
+            return $collection;
+        };
     }
 }

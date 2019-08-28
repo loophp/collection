@@ -69,8 +69,9 @@ class CollectionSpec extends ObjectBehavior
         };
 
         $this
+            ->apply($callback)
             ->shouldThrow(\Exception::class)
-            ->during('apply', [$callback]);
+            ->during('all', [$callback]);
 
         $context = [];
 
