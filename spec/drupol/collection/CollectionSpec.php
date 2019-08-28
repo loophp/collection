@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace spec\drupol\collection;
 
-use drupol\collection\BaseCollection;
 use drupol\collection\Collection;
 use drupol\collection\Contract\Operation;
 use PhpSpec\ObjectBehavior;
@@ -33,8 +32,10 @@ class CollectionSpec extends ObjectBehavior
 
     public function it_can_apply(): void
     {
+        $input = \array_combine(\range('A', 'Z'), \range('A', 'Z'));
+
         $this
-            ->beConstructedThrough('with', [\range(1, 10)]);
+            ->beConstructedThrough('with', [$input]);
 
         $this
             ->apply(static function ($item) {
@@ -42,7 +43,7 @@ class CollectionSpec extends ObjectBehavior
 
                 return true;
             })
-            ->shouldIterateAs(\range(1, 10));
+            ->shouldIterateAs($input);
 
         $this
             ->apply(static function ($item) {
@@ -50,19 +51,19 @@ class CollectionSpec extends ObjectBehavior
 
                 return false;
             })
-            ->shouldIterateAs(\range(1, 10));
+            ->shouldIterateAs($input);
 
         $this
-            ->apply(static function ($item): void {
-                $item %= 2;
+            ->apply(static function ($item) {
+                return $item;
             })
-            ->shouldIterateAs([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+            ->shouldIterateAs($input);
 
         $this
             ->apply(static function ($item) {
                 return false;
             })
-            ->shouldReturnAnInstanceOf(\drupol\collection\Contract\BaseCollection::class);
+            ->shouldReturnAnInstanceOf(\drupol\collection\Contract\Collection::class);
 
         $callback = static function (): void {
             throw new \Exception('foo');
@@ -71,7 +72,7 @@ class CollectionSpec extends ObjectBehavior
         $this
             ->apply($callback)
             ->shouldThrow(\Exception::class)
-            ->during('all', [$callback]);
+            ->during('all');
 
         $context = [];
 
@@ -172,21 +173,21 @@ class CollectionSpec extends ObjectBehavior
                 yield from \range(1, 3);
             }]);
 
-        $this->shouldImplement(BaseCollection::class);
+        $this->shouldImplement(Collection::class);
     }
 
     public function it_can_be_constructed_with_an_array(): void
     {
         $this
             ->beConstructedThrough('with', [['1', '2', '3']]);
-        $this->shouldImplement(BaseCollection::class);
+        $this->shouldImplement(Collection::class);
     }
 
     public function it_can_be_constructed_with_an_arrayObject(): void
     {
         $this
             ->beConstructedThrough('with', [new \ArrayObject([1, 2, 3])]);
-        $this->shouldImplement(BaseCollection::class);
+        $this->shouldImplement(Collection::class);
     }
 
     public function it_can_be_instantiated_with_withClosure(): void

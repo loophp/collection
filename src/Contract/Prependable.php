@@ -14,7 +14,7 @@ interface Prependable
      *
      * @param mixed ...$items
      *
-     * @return \drupol\collection\Contract\BaseCollection
+     * @return \drupol\collection\Contract\Collection
      */
-    public function prepend(...$items): BaseCollection;
+    public function prepend(...$items): Collection;
 }

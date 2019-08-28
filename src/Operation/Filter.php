@@ -14,7 +14,7 @@ final class Filter extends Operation
      */
     public function on(iterable $collection): \Closure
     {
-        [$callbacks] = $this->parameters;
+        $callbacks = $this->parameters;
 
         if ([] === $callbacks) {
             $callbacks[] = static function ($value) {

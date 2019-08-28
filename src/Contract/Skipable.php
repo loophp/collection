@@ -14,7 +14,7 @@ interface Skipable
      *
      * @param int ...$counts
      *
-     * @return \drupol\collection\Contract\BaseCollection
+     * @return \drupol\collection\Contract\Collection
      */
-    public function skip(int ...$counts): BaseCollection;
+    public function skip(int ...$counts): Collection;
 }

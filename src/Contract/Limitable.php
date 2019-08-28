@@ -14,7 +14,7 @@ interface Limitable
      *
      * @param int $limit
      *
-     * @return \drupol\collection\Contract\BaseCollection
+     * @return \drupol\collection\Contract\Collection
      */
-    public function limit(int $limit): BaseCollection;
+    public function limit(int $limit): Collection;
 }

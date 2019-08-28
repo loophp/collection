@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace drupol\collection\Operation;
 
 use ArrayAccess;
-use drupol\collection\Collection;
-use drupol\collection\Contract\BaseCollection;
+use drupol\collection\Contract\Collection;
 
 /**
  * Class Pluck.
@@ -74,7 +73,7 @@ final class Pluck extends Operation
                 $target = $target[$segment];
             } elseif (($target instanceof ArrayAccess) && (true === $target->offsetExists($segment))) {
                 $target = $target[$segment];
-            } elseif ($target instanceof BaseCollection) {
+            } elseif ($target instanceof Collection) {
                 $target = (new Get($segment, $default))->on($target);
             } elseif ((true === \is_object($target)) && (true === \property_exists($target, $segment))) {
                 $target = (new \ReflectionClass($target))->getProperty($segment)->getValue($target);

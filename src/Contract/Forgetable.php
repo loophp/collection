@@ -14,7 +14,7 @@ interface Forgetable
      *
      * @param string ...$keys
      *
-     * @return \drupol\collection\Contract\BaseCollection
+     * @return \drupol\collection\Contract\Collection
      */
-    public function forget(...$keys): BaseCollection;
+    public function forget(...$keys): Collection;
 }

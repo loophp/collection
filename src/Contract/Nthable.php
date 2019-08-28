@@ -15,7 +15,7 @@ interface Nthable
      * @param int $step
      * @param int $offset
      *
-     * @return \drupol\collection\Contract\BaseCollection
+     * @return \drupol\collection\Contract\Collection
      */
-    public function nth(int $step, int $offset = 0): BaseCollection;
+    public function nth(int $step, int $offset = 0): Collection;
 }

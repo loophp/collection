@@ -14,7 +14,7 @@ interface Applyable
      *
      * @param callable ...$callables
      *
-     * @return \drupol\collection\Contract\BaseCollection
+     * @return \drupol\collection\Contract\Collection
      */
-    public function apply(callable ...$callables): BaseCollection;
+    public function apply(callable ...$callables): Collection;
 }

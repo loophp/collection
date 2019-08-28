@@ -8,10 +8,10 @@ namespace drupol\collection\Contract;
  * Interface Collection.
  */
 interface Collection extends
+    \IteratorAggregate,
     Allable,
     Appendable,
     Applyable,
-    BaseCollection,
     Chunkable,
     Collapseable,
     Combineable,
@@ -37,6 +37,7 @@ interface Collection extends
     Prependable,
     Rebaseable,
     Reduceable,
+    Runable,
     Skipable,
     Sliceable,
     Sortable,
@@ -55,9 +56,9 @@ interface Collection extends
      * @param float|int $end
      * @param int $step
      *
-     * @return \drupol\collection\Contract\BaseCollection
+     * @return \drupol\collection\Contract\Collection
      */
-    public static function range(int $start = 0, $end = \INF, $step = 1): BaseCollection;
+    public static function range(int $start = 0, $end = \INF, $step = 1): Collection;
 
     /**
      * Create a new instance by invoking the callback a given amount of times.
@@ -65,7 +66,7 @@ interface Collection extends
      * @param int $number
      * @param callable $callback
      *
-     * @return \drupol\collection\Contract\BaseCollection
+     * @return \drupol\collection\Contract\Collection
      */
-    public static function times($number, callable $callback = null): BaseCollection;
+    public static function times($number, callable $callback = null): Collection;
 }

@@ -12,7 +12,7 @@ interface Keysable
     /**
      * Get the keys of the items.
      *
-     * @return \drupol\collection\Contract\BaseCollection
+     * @return \drupol\collection\Contract\Collection
      */
-    public function keys(): BaseCollection;
+    public function keys(): Collection;
 }

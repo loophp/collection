@@ -25,7 +25,7 @@ final class Apply extends Operation
                 }
             }
 
-            return $collection;
+            yield from $collection;
         };
     }
 }

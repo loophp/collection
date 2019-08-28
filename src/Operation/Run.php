@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
-use drupol\collection\Collection;
+use drupol\collection\Contract\Operation as OperationInterface;
 use drupol\collection\Iterator\ClosureIterator;
 
 /**
@@ -17,7 +17,7 @@ final class Run extends Operation
      *
      * @param \drupol\collection\Contract\Operation ...$operations
      */
-    public function __construct(\drupol\collection\Contract\Operation ...$operations)
+    public function __construct(OperationInterface ...$operations)
     {
         parent::__construct(...[$operations]);
     }
@@ -37,15 +37,13 @@ final class Run extends Operation
      *
      * @param iterable $collection
      *   The collection.
-     * @param \drupol\collection\Operation\Operation $operation
+     * @param \drupol\collection\Contract\Operation $operation
      *   The operation.
-     *
-     * @throws \ReflectionException
      *
      * @return mixed
      *   The operation result.
      */
-    private function doRun(iterable $collection, Operation $operation)
+    private function doRun(iterable $collection, OperationInterface $operation)
     {
         $return = $operation->on($collection);
 
