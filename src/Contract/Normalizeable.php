@@ -14,5 +14,5 @@ interface Normalizeable
      *
      * @return \drupol\collection\Contract\Collection
      */
-    public function normalize(): Collection;
+    public function normalize(): Base;
 }

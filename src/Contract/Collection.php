@@ -8,10 +8,10 @@ namespace drupol\collection\Contract;
  * Interface Collection.
  */
 interface Collection extends
-    \IteratorAggregate,
     Allable,
     Appendable,
     Applyable,
+    Base,
     Chunkable,
     Collapseable,
     Combineable,
@@ -47,7 +47,7 @@ interface Collection extends
     /**
      * Create a new instance with no items.
      */
-    public static function empty(): self;
+    public static function empty(): Collection;
 
     /**
      * Create a new with a range of number.

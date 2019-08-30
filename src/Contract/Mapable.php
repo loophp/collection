@@ -16,5 +16,5 @@ interface Mapable
      *
      * @return \drupol\collection\Contract\Collection
      */
-    public function map(callable ...$callbacks): Collection;
+    public function map(callable ...$callbacks): Base;
 }

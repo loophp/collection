@@ -14,5 +14,5 @@ interface Flipable
      *
      * @return \drupol\collection\Contract\Collection
      */
-    public function flip(): Collection;
+    public function flip(): Base;
 }

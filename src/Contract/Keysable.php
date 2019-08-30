@@ -14,5 +14,5 @@ interface Keysable
      *
      * @return \drupol\collection\Contract\Collection
      */
-    public function keys(): Collection;
+    public function keys(): Base;
 }

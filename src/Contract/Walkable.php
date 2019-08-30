@@ -14,5 +14,5 @@ interface Walkable
      *
      * @return \drupol\collection\Contract\Collection|\drupol\collection\Contract\Collection
      */
-    public function walk(callable ...$callbacks): Collection;
+    public function walk(callable ...$callbacks): Base;
 }

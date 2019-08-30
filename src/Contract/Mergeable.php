@@ -16,5 +16,5 @@ interface Mergeable
      *
      * @return \drupol\collection\Contract\Collection
      */
-    public function merge(...$sources): Collection;
+    public function merge(...$sources): Base;
 }

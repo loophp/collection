@@ -16,5 +16,5 @@ interface Prependable
      *
      * @return \drupol\collection\Contract\Collection
      */
-    public function prepend(...$items): Collection;
+    public function prepend(...$items): Base;
 }

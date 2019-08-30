@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace drupol\collection;
 
+use drupol\collection\Contract\Base as BaseInterface;
 use drupol\collection\Contract\Collection as CollectionInterface;
 use drupol\collection\Contract\Operation;
-use drupol\collection\Iterator\ClosureIterator;
 use drupol\collection\Operation\All;
 use drupol\collection\Operation\Append;
 use drupol\collection\Operation\Apply;
@@ -46,43 +46,8 @@ use drupol\collection\Operation\Zip;
 /**
  * Class Collection.
  */
-class Collection implements CollectionInterface
+final class Collection extends Base implements CollectionInterface
 {
-    /**
-     * @var \Closure
-     */
-    protected $source;
-
-    /**
-     * Collection constructor.
-     *
-     * @param mixed $data
-     */
-    public function __construct($data = [])
-    {
-        switch (true) {
-            case $data instanceof \Closure:
-                $this->source = $data;
-
-                break;
-            case \is_iterable($data):
-                $this->source = static function () use ($data) {
-                    foreach ($data as $k => $v) {
-                        yield $k => $v;
-                    }
-                };
-
-                break;
-
-            default:
-                $this->source = static function () use ($data) {
-                    foreach ((array) $data as $k => $v) {
-                        yield $k => $v;
-                    }
-                };
-        }
-    }
-
     /**
      * {@inheritdoc}
      */
@@ -93,52 +58,42 @@ class Collection implements CollectionInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return \drupol\collection\Contract\Collection
      */
-    public function append(...$items): CollectionInterface
+    public function append(...$items): BaseInterface
     {
-        return $this::with($this->run(new Append($items)));
+        return new Collection($this->run(new Append($items)));
     }
 
     /**
      * {@inheritdoc}
-     *
-     * @return \drupol\collection\Contract\Collection
      */
-    public function apply(callable ...$callables): CollectionInterface
+    public function apply(callable ...$callables): BaseInterface
     {
-        return $this::with($this->run(new Apply(...$callables)));
+        return new Collection($this->run(new Apply(...$callables)));
     }
 
     /**
      * {@inheritdoc}
-     *
-     * @return \drupol\collection\Contract\Collection
      */
-    public function chunk(int $size): CollectionInterface
+    public function chunk(int $size): BaseInterface
     {
-        return $this::with($this->run(new Chunk($size)));
+        return new Collection($this->run(new Chunk($size)));
     }
 
     /**
      * {@inheritdoc}
-     *
-     * @return \drupol\collection\Contract\Collection
      */
-    public function collapse(): CollectionInterface
+    public function collapse(): BaseInterface
     {
-        return $this::with($this->run(new Collapse()));
+        return new Collection($this->run(new Collapse()));
     }
 
     /**
      * {@inheritdoc}
-     *
-     * @return \drupol\collection\Contract\Collection
      */
-    public function combine($keys): CollectionInterface
+    public function combine($keys): BaseInterface
     {
-        return $this::with($this->run(new Combine($keys)));
+        return new Collection($this->run(new Combine($keys)));
     }
 
     /**
@@ -159,22 +114,18 @@ class Collection implements CollectionInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return \drupol\collection\Contract\Collection
      */
     public static function empty(): CollectionInterface
     {
-        return new static();
+        return new Collection();
     }
 
     /**
      * {@inheritdoc}
-     *
-     * @return \drupol\collection\Contract\Collection
      */
-    public function filter(callable ...$callbacks): CollectionInterface
+    public function filter(callable ...$callbacks): BaseInterface
     {
-        return $this::with($this->run(new Filter(...$callbacks)));
+        return new Collection($this->run(new Filter(...$callbacks)));
     }
 
     /**
@@ -187,32 +138,26 @@ class Collection implements CollectionInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return \drupol\collection\Contract\Collection
      */
-    public function flatten(int $depth = \PHP_INT_MAX): CollectionInterface
+    public function flatten(int $depth = \PHP_INT_MAX): BaseInterface
     {
-        return $this::with($this->run(new Flatten($depth)));
+        return new Collection($this->run(new Flatten($depth)));
     }
 
     /**
      * {@inheritdoc}
-     *
-     * @return \drupol\collection\Contract\Collection
      */
-    public function flip(): CollectionInterface
+    public function flip(): BaseInterface
     {
-        return $this::with($this->run(new Flip()));
+        return new Collection($this->run(new Flip()));
     }
 
     /**
      * {@inheritdoc}
-     *
-     * @return \drupol\collection\Contract\Collection
      */
-    public function forget(...$keys): CollectionInterface
+    public function forget(...$keys): BaseInterface
     {
-        return $this::with($this->run(new Forget($keys)));
+        return new Collection($this->run(new Forget($keys)));
     }
 
     /**
@@ -226,14 +171,6 @@ class Collection implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function getIterator(): ClosureIterator
-    {
-        return new ClosureIterator($this->source);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function implode(string $implode = ''): string
     {
         return (new Implode($implode))->on($this);
@@ -241,22 +178,18 @@ class Collection implements CollectionInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return \drupol\collection\Contract\Collection
      */
-    public function intersperse($element, int $every = 1, int $startAt = 0): CollectionInterface
+    public function intersperse($element, int $every = 1, int $startAt = 0): BaseInterface
     {
-        return $this::with($this->run(new Intersperse($element, $every, $startAt)));
+        return new Collection($this->run(new Intersperse($element, $every, $startAt)));
     }
 
     /**
      * {@inheritdoc}
-     *
-     * @return \drupol\collection\Contract\Collection
      */
-    public function keys(): CollectionInterface
+    public function keys(): BaseInterface
     {
-        return $this::with($this->run(new Keys()));
+        return new Collection($this->run(new Keys()));
     }
 
     /**
@@ -269,112 +202,90 @@ class Collection implements CollectionInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return \drupol\collection\Contract\Collection
      */
-    public function limit(int $limit): CollectionInterface
+    public function limit(int $limit): BaseInterface
     {
-        return $this::with($this->run(new Limit($limit)));
+        return new Collection($this->run(new Limit($limit)));
     }
 
     /**
      * {@inheritdoc}
-     *
-     * @return \drupol\collection\Contract\Collection
      */
-    public function map(callable ...$callbacks): CollectionInterface
+    public function map(callable ...$callbacks): BaseInterface
     {
-        return $this::with($this->run(new Walk(...$callbacks), new Normalize()));
+        return new Collection($this->run(new Walk(...$callbacks), new Normalize()));
     }
 
     /**
      * {@inheritdoc}
-     *
-     * @return \drupol\collection\Contract\Collection
      */
-    public function merge(...$sources): CollectionInterface
+    public function merge(...$sources): BaseInterface
     {
-        return $this::with($this->run(new Merge($sources)));
+        return new Collection($this->run(new Merge($sources)));
     }
 
     /**
      * {@inheritdoc}
-     *
-     * @return \drupol\collection\Contract\Collection
      */
-    public function normalize(): CollectionInterface
+    public function normalize(): BaseInterface
     {
-        return $this::with($this->run(new Normalize()));
+        return new Collection($this->run(new Normalize()));
     }
 
     /**
      * {@inheritdoc}
-     *
-     * @return \drupol\collection\Contract\Collection
      */
-    public function nth(int $step, int $offset = 0): CollectionInterface
+    public function nth(int $step, int $offset = 0): BaseInterface
     {
-        return $this::with($this->run(new Nth($step, $offset)));
+        return new Collection($this->run(new Nth($step, $offset)));
     }
 
     /**
      * {@inheritdoc}
-     *
-     * @return \drupol\collection\Contract\Collection
      */
-    public function only(...$keys): CollectionInterface
+    public function only(...$keys): BaseInterface
     {
-        return $this::with($this->run(new Only($keys)));
+        return new Collection($this->run(new Only($keys)));
     }
 
     /**
      * {@inheritdoc}
-     *
-     * @return \drupol\collection\Contract\Collection
      */
-    public function pad(int $size, $value): CollectionInterface
+    public function pad(int $size, $value): BaseInterface
     {
-        return $this::with($this->run(new Pad($size, $value)));
+        return new Collection($this->run(new Pad($size, $value)));
     }
 
     /**
      * {@inheritdoc}
-     *
-     * @return \drupol\collection\Contract\Collection
      */
-    public function pluck($pluck, $default = null): CollectionInterface
+    public function pluck($pluck, $default = null): BaseInterface
     {
-        return $this::with($this->run(new Pluck($pluck, $default)));
+        return new Collection($this->run(new Pluck($pluck, $default)));
     }
 
     /**
      * {@inheritdoc}
-     *
-     * @return \drupol\collection\Contract\Collection
      */
-    public function prepend(...$items): CollectionInterface
+    public function prepend(...$items): BaseInterface
     {
-        return $this::with($this->run(new Prepend($items)));
+        return new Collection($this->run(new Prepend($items)));
     }
 
     /**
      * {@inheritdoc}
-     *
-     * @return \drupol\collection\Contract\Collection
      */
     public static function range(int $start = 0, $end = \INF, $step = 1): CollectionInterface
     {
-        return self::with((new self())->run(new Range($start, $end, $step)));
+        return new Collection((new Collection())->run(new Range($start, $end, $step)));
     }
 
     /**
      * {@inheritdoc}
-     *
-     * @return \drupol\collection\Contract\Collection
      */
-    public function rebase(): CollectionInterface
+    public function rebase(): BaseInterface
     {
-        return $this::with($this->run(new Rebase()));
+        return new Collection($this->run(new Rebase()));
     }
 
     /**
@@ -395,38 +306,30 @@ class Collection implements CollectionInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return \drupol\collection\Contract\Collection
      */
-    public function skip(int ...$counts): CollectionInterface
+    public function skip(int ...$counts): BaseInterface
     {
-        return $this::with($this->run(new Skip(...$counts)));
+        return new Collection($this->run(new Skip(...$counts)));
     }
 
     /**
      * {@inheritdoc}
-     *
-     * @return \drupol\collection\Contract\Collection
      */
-    public function slice(int $offset, int $length = null): CollectionInterface
+    public function slice(int $offset, int $length = null): BaseInterface
     {
-        return $this::with($this->run(new Slice($offset, $length)));
+        return new Collection($this->run(new Slice($offset, $length)));
     }
 
     /**
      * {@inheritdoc}
-     *
-     * @return \drupol\collection\Contract\Collection
      */
-    public function sort(callable $callback): CollectionInterface
+    public function sort(callable $callback): BaseInterface
     {
-        return $this::with($this->run(new Sort($callback)));
+        return new Collection($this->run(new Sort($callback)));
     }
 
     /**
      * {@inheritdoc}
-     *
-     * @return \drupol\collection\Contract\Collection
      */
     public static function times($number, callable $callback = null): CollectionInterface
     {
@@ -434,7 +337,7 @@ class Collection implements CollectionInterface
             return static::empty();
         }
 
-        $instance = static::with(
+        $instance = new Collection(
             static function () use ($number) {
                 for ($current = 1; $current <= $number; ++$current) {
                     yield $current;
@@ -442,38 +345,22 @@ class Collection implements CollectionInterface
             }
         );
 
-        return null === $callback ? $instance : static::with((new Run(new Walk($callback)))->on($instance));
+        return null === $callback ? $instance : new Collection((new Run(new Walk($callback)))->on($instance));
     }
 
     /**
      * {@inheritdoc}
-     *
-     * @return \drupol\collection\Contract\Collection
      */
-    public function walk(callable ...$callbacks): CollectionInterface
+    public function walk(callable ...$callbacks): BaseInterface
     {
-        return $this::with($this->run(new Walk(...$callbacks)));
-    }
-
-    /**
-     * Create a new collection instance.
-     *
-     * @param mixed $data
-     *
-     * @return \drupol\collection\Contract\Collection
-     */
-    public static function with($data = []): CollectionInterface
-    {
-        return new static($data);
+        return new Collection($this->run(new Walk(...$callbacks)));
     }
 
     /**
      * {@inheritdoc}
-     *
-     * @return \drupol\collection\Contract\Collection
      */
-    public function zip(...$items): CollectionInterface
+    public function zip(...$items): BaseInterface
     {
-        return $this::with($this->run(new Zip($items)));
+        return new Collection($this->run(new Zip($items)));
     }
 }

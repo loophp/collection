@@ -17,5 +17,5 @@ interface Padable
      *
      * @return \drupol\collection\Contract\Collection
      */
-    public function pad(int $size, $value): Collection;
+    public function pad(int $size, $value): Base;
 }

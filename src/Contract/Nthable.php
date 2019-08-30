@@ -17,5 +17,5 @@ interface Nthable
      *
      * @return \drupol\collection\Contract\Collection
      */
-    public function nth(int $step, int $offset = 0): Collection;
+    public function nth(int $step, int $offset = 0): Base;
 }

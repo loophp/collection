@@ -16,5 +16,5 @@ interface Filterable
      *
      * @return \drupol\collection\Contract\Collection
      */
-    public function filter(callable ...$callbacks): Collection;
+    public function filter(callable ...$callbacks): Base;
 }

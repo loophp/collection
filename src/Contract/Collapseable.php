@@ -14,5 +14,5 @@ interface Collapseable
      *
      * @return \drupol\collection\Contract\Collection
      */
-    public function collapse(): Collection;
+    public function collapse(): Base;
 }

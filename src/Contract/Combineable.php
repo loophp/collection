@@ -14,5 +14,5 @@ interface Combineable
      *
      * @return \drupol\collection\Contract\Collection
      */
-    public function combine($keys): Collection;
+    public function combine($keys): Base;
 }

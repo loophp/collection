@@ -12,5 +12,5 @@ interface Rebaseable
     /**
      * @return \drupol\collection\Contract\Collection
      */
-    public function rebase(): Collection;
+    public function rebase(): Base;
 }

@@ -16,5 +16,5 @@ interface Onlyable
      *
      * @return \drupol\collection\Contract\Collection
      */
-    public function only(...$keys): Collection;
+    public function only(...$keys): Base;
 }

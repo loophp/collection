@@ -16,5 +16,5 @@ interface Flattenable
      *
      * @return \drupol\collection\Contract\Collection
      */
-    public function flatten(int $depth = \PHP_INT_MAX): Collection;
+    public function flatten(int $depth = \PHP_INT_MAX): Base;
 }

@@ -15,5 +15,5 @@ interface Pluckable
      *
      * @return \drupol\collection\Contract\Collection
      */
-    public function pluck($pluck, $default = null): Collection;
+    public function pluck($pluck, $default = null): Base;
 }

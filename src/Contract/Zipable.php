@@ -19,5 +19,5 @@ interface Zipable
      *
      * @return \drupol\collection\Contract\Collection
      */
-    public function zip(...$items): Collection;
+    public function zip(...$items): Base;
 }
