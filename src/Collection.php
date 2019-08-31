@@ -358,6 +358,16 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @return \drupol\collection\Contract\Collection
+     */
+    public static function with($data = []): BaseInterface
+    {
+        return parent::with($data);
+    }
+
+    /**
+     * {@inheritdoc}
      */
     public function zip(...$items): BaseInterface
     {
