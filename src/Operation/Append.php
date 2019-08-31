@@ -17,8 +17,8 @@ final class Append extends Operation
         [$items] = $this->parameters;
 
         return static function () use ($items, $collection): \Generator {
-            foreach ($collection as $item) {
-                yield $item;
+            foreach ($collection as $value) {
+                yield $value;
             }
 
             foreach ($items as $item) {

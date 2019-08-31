@@ -30,12 +30,12 @@ final class Nth extends Operation
         return static function () use ($step, $offset, $collection): \Generator {
             $position = 0;
 
-            foreach ($collection as $key => $item) {
+            foreach ($collection as $key => $value) {
                 if ($position++ % $step !== $offset) {
                     continue;
                 }
 
-                yield $key => $item;
+                yield $key => $value;
             }
         };
     }

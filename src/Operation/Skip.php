@@ -29,12 +29,12 @@ final class Skip extends Operation
         return static function () use ($counts, $collection): \Generator {
             $counts = \array_sum($counts);
 
-            foreach ($collection as $key => $item) {
+            foreach ($collection as $key => $value) {
                 if (0 < $counts--) {
                     continue;
                 }
 
-                yield $key => $item;
+                yield $key => $value;
             }
         };
     }

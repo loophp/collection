@@ -15,8 +15,8 @@ final class Normalize extends Operation
     public function on(iterable $collection): \Closure
     {
         return static function () use ($collection) {
-            foreach ($collection as $item) {
-                yield $item;
+            foreach ($collection as $value) {
+                yield $value;
             }
         };
     }

@@ -31,8 +31,8 @@ abstract class Base implements BaseInterface
                 break;
             case \is_iterable($data):
                 $this->source = static function () use ($data) {
-                    foreach ($data as $k => $v) {
-                        yield $k => $v;
+                    foreach ($data as $key => $value) {
+                        yield $key => $value;
                     }
                 };
 
@@ -40,8 +40,8 @@ abstract class Base implements BaseInterface
 
             default:
                 $this->source = static function () use ($data) {
-                    foreach ((array) $data as $k => $v) {
-                        yield $k => $v;
+                    foreach ((array) $data as $key => $value) {
+                        yield $key => $value;
                     }
                 };
         }

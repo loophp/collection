@@ -25,11 +25,11 @@ final class Get extends Operation
      */
     public function on(iterable $collection)
     {
-        [$key, $default] = $this->parameters;
+        [$keyToGet, $default] = $this->parameters;
 
-        foreach ($collection as $outerKey => $outerValue) {
-            if ($outerKey === $key) {
-                return $outerValue;
+        foreach ($collection as $key => $value) {
+            if ($key === $keyToGet) {
+                return $value;
             }
         }
 

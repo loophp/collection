@@ -21,8 +21,8 @@ final class Combine extends Operation
         return static function () use ($keys, $collection): \Generator {
             $original = new ClosureIterator(
                 static function () use ($collection) {
-                    foreach ($collection as $k => $v) {
-                        yield $k => $v;
+                    foreach ($collection as $key => $value) {
+                        yield $key => $value;
                     }
                 }
             );
@@ -33,8 +33,8 @@ final class Combine extends Operation
                 yield $keysIterator->current() => $original->current();
             }
 
-            if (($original->valid() && !$keysIterator->valid()) ||
-                    (!$original->valid() && $keysIterator->valid())
+            if ((true === $original->valid() && false === $keysIterator->valid()) ||
+                    (false === $original->valid() && true === $keysIterator->valid())
                 ) {
                 \trigger_error('Both keys and values must have the same amount of items.', \E_USER_WARNING);
             }

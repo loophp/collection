@@ -34,8 +34,8 @@ final class Sort extends Operation
             $array = \iterator_to_array(
                 new ClosureIterator(
                     static function () use ($collection) {
-                        foreach ($collection as $key => $item) {
-                            yield $key => $item;
+                        foreach ($collection as $key => $value) {
+                            yield $key => $value;
                         }
                     }
                 )

@@ -34,8 +34,8 @@ final class Pluck extends Operation
         return static function () use ($key, $default, $collection, $operation) {
             $key = \is_string($key) ? \explode('.', \trim($key, '.')) : $key;
 
-            foreach ($collection as $item) {
-                yield $operation->pick($collection, $item, $key, $default);
+            foreach ($collection as $value) {
+                yield $operation->pick($collection, $value, $key, $default);
             }
         };
     }
@@ -56,7 +56,7 @@ final class Pluck extends Operation
     {
         while (null !== $segment = \array_shift($key)) {
             if ('*' === $segment) {
-                if (!\is_array($target)) {
+                if (false === \is_iterable($target)) {
                     return $default;
                 }
 

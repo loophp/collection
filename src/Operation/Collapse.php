@@ -15,10 +15,10 @@ final class Collapse extends Operation
     public function on(iterable $collection): \Closure
     {
         return static function () use ($collection): \Generator {
-            foreach ($collection as $item) {
-                if (\is_array($item) || $item instanceof \Traversable) {
-                    foreach ($item as $value) {
-                        yield $value;
+            foreach ($collection as $value) {
+                if (true === \is_iterable($value)) {
+                    foreach ($value as $subValue) {
+                        yield $subValue;
                     }
                 }
             }

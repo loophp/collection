@@ -23,7 +23,7 @@ final class Only extends Operation
                 $keys = \array_flip($keys);
 
                 foreach ($collection as $key => $value) {
-                    if (\array_key_exists($key, $keys)) {
+                    if (true === \array_key_exists($key, $keys)) {
                         yield $key => $value;
                     }
                 }

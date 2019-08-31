@@ -25,19 +25,19 @@ final class Pad extends Operation
      */
     public function on(iterable $collection): \Closure
     {
-        [$size, $value] = $this->parameters;
+        [$size, $padValue] = $this->parameters;
 
-        return static function () use ($size, $value, $collection): \Generator {
+        return static function () use ($size, $padValue, $collection): \Generator {
             $y = 0;
 
-            foreach ($collection as $key => $item) {
+            foreach ($collection as $key => $value) {
                 ++$y;
 
-                yield $key => $item;
+                yield $key => $value;
             }
 
             while ($y++ < $size) {
-                yield $value;
+                yield $padValue;
             }
         };
     }

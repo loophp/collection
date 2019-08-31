@@ -22,8 +22,8 @@ final class Zip extends Operation
             $getIteratorCallback = static function ($iterable) {
                 return new ClosureIterator(
                     static function () use ($iterable) {
-                        foreach ($iterable as $k => $v) {
-                            yield $k => $v;
+                        foreach ($iterable as $key => $value) {
+                            yield $key => $value;
                         }
                     }
                 );

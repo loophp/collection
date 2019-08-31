@@ -18,8 +18,8 @@ final class Apply extends Operation
 
         return static function () use ($callbacks, $collection): iterable {
             foreach ($callbacks as $callback) {
-                foreach ($collection as $key => $item) {
-                    if (false === $callback($item, $key)) {
+                foreach ($collection as $key => $value) {
+                    if (false === $callback($value, $key)) {
                         break;
                     }
                 }

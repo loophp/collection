@@ -29,19 +29,18 @@ final class Flatten extends Operation
         [$depth] = $this->parameters;
 
         return static function () use ($depth, $collection): \Generator {
-            foreach ($collection as $item) {
-                if (!\is_array($item) && !$item instanceof \Traversable) {
-                    yield $item;
+            foreach ($collection as $value) {
+                if ((false === \is_array($value)) && (false === ($value instanceof \Traversable))) {
+                    yield $value;
                 } elseif (1 === $depth) {
-                    foreach ($item as $i) {
-                        yield $i;
+                    foreach ($value as $subValue) {
+                        yield $subValue;
                     }
                 } else {
-                    $flatten = new Flatten($depth - 1);
-                    $iterator = new ClosureIterator($flatten->on($item));
+                    $iterator = new ClosureIterator((new Flatten($depth - 1))->on($value));
 
-                    foreach ($iterator as $flattenItem) {
-                        yield $flattenItem;
+                    foreach ($iterator as $subValue) {
+                        yield $subValue;
                     }
                 }
             }

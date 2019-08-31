@@ -28,8 +28,8 @@ class ClosureIterator implements \Iterator
     public function __construct(callable $callable, ...$arguments)
     {
         $this->source = static function () use ($callable, $arguments) {
-            foreach ($callable(...$arguments) as $k => $v) {
-                yield $k => $v;
+            foreach ($callable(...$arguments) as $key => $value) {
+                yield $key => $value;
             }
         };
     }

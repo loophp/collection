@@ -37,8 +37,8 @@ final class Chunk extends Operation
         return static function () use ($size, $collection): \Generator {
             $iterator = new ClosureIterator(
                 static function () use ($collection) {
-                    foreach ($collection as $k => $v) {
-                        yield $k => $v;
+                    foreach ($collection as $key => $value) {
+                        yield $key => $value;
                     }
                 }
             );

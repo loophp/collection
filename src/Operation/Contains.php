@@ -26,7 +26,7 @@ final class Contains extends Operation
     {
         [$key] = $this->parameters;
 
-        if (!\is_string($key) && \is_callable($key)) {
+        if ((false === \is_string($key)) && (true === \is_callable($key))) {
             $placeholder = new \stdClass();
 
             return (new First($key, $placeholder))->on($collection) !== $placeholder;

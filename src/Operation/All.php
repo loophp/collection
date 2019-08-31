@@ -24,17 +24,11 @@ final class All extends Operation
     {
         $result = [];
 
-        foreach ($collection as $key => $item) {
-            if (true === \is_iterable($item)) {
-                $subresult = [];
-
-                foreach ($item as $k => $v) {
-                    $subresult[$k] = $v;
-                }
-
-                $result[$key] = $subresult;
+        foreach ($collection as $key => $value) {
+            if (true === \is_iterable($value)) {
+                $result[$key] = $this->on($value);
             } else {
-                $result[$key] = $item;
+                $result[$key] = $value;
             }
         }
 

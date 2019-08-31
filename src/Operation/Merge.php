@@ -17,13 +17,13 @@ final class Merge extends Operation
         [$sources] = $this->parameters;
 
         return static function () use ($sources, $collection): \Generator {
-            foreach ($collection as $item) {
-                yield $item;
+            foreach ($collection as $value) {
+                yield $value;
             }
 
             foreach ($sources as $source) {
-                foreach ($source as $item) {
-                    yield $item;
+                foreach ($source as $value) {
+                    yield $value;
                 }
             }
         };

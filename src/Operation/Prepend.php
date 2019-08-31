@@ -21,8 +21,8 @@ final class Prepend extends Operation
                 yield $item;
             }
 
-            foreach ($collection as $item) {
-                yield $item;
+            foreach ($collection as $value) {
+                yield $value;
             }
         };
     }
