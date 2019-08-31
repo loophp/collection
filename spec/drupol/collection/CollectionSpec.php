@@ -723,7 +723,7 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs([0 => [0 => 0], 1 => [0 => 1], 2 => [0 => 2], 3 => [0 => 3], 4 => [0 => 4], 5 => [0 => 5], 6 => [0 => $six]]);
 
         $this::with($input)
-            ->pluck('foo.bar')
+            ->pluck('.foo.bar.')
             ->shouldIterateAs([0 => 0, 1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5, 6 => $six]);
 
         $this::with($input)
