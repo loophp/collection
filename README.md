@@ -168,10 +168,13 @@ Collection::with($readFileLineByLine($hugeFile))
 
 ## Advanced usage
 
-Each operation of the Collection class live in its own class.
+You can choose to build your own collection object by extending the [Base](./src/Base.php) collection object or
+by just creating a new [Operation](./src/Contract/Operation.php).
 
-If you want to extend the collection features, you can use your own custom operation by creating a class implementing
-the `drupol\Collection\Contract\Operation` interface, then run it through the `Collection::run()` method.
+Each already existing operations of the [Collection](./src/Collection.php) class live in its own class file.
+
+In order to extend the Collection features, create your own custom operation by creating an object implementing
+the [Operation](./src/Contract/Operation.php) interface, then run it through the `Collection::run()` method.
 
 ```php
 <?php
@@ -203,6 +206,62 @@ Collection::with(
     ->run($square)
 )->all();
 ```
+
+Another way would be to create your own custom collection object:
+
+In the following example and just for the sake of creating an example, the custom collection object will only be able to
+transform any input (`iterable` or `\Generator`) into a regular array.
+
+```php
+<?php
+
+declare(strict_types=1);
+
+include 'vendor/autoload.php';
+
+use drupol\collection\Base;
+use drupol\collection\Contract\Allable;
+use drupol\collection\Contract\Runable;
+use drupol\collection\Operation\All;
+use drupol\collection\Operation\Run;
+use drupol\collection\Contract\Operation;
+
+$customCollectionClass = new class extends Base implements Allable, Runable {
+
+    /**
+     * {@inheritdoc}
+     */
+    public function all(): array {
+        return $this->run(new All());
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function run(Operation ...$operations)
+    {
+        return (new Run(...$operations))->on($this);
+    }
+};
+
+$customCollection = new $customCollectionClass(new ArrayObject(['A', 'B', 'C']));
+
+print_r($customCollection->all()); // ['A', 'B', 'C']
+
+$generator = function() {
+  yield 'A';
+  yield 'B';
+  yield 'C';
+};
+
+$customCollection = new $customCollectionClass($generator);
+
+print_r($customCollection->all()); // ['A', 'B', 'C']
+```
+
+The [Collection](./src/Collection.php) object provided by this library implements all the interfaces from this library,
+and is set as `final`. Feel free to use it like it, decorated or create your own object by using the same procedure as
+shown here.
 
 ## API
 
