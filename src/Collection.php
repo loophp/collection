@@ -36,6 +36,7 @@ use drupol\collection\Operation\Prepend;
 use drupol\collection\Operation\Range;
 use drupol\collection\Operation\Rebase;
 use drupol\collection\Operation\Reduce;
+use drupol\collection\Operation\Reduction;
 use drupol\collection\Operation\Run;
 use drupol\collection\Operation\Skip;
 use drupol\collection\Operation\Slice;
@@ -294,6 +295,14 @@ final class Collection extends Base implements CollectionInterface
     public function reduce(callable $callback, $initial = null)
     {
         return $this->run(new Reduce($callback, $initial));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function reduction(callable $callback, $initial = null): BaseInterface
+    {
+        return new Collection($this->run(new Reduction($callback, $initial)));
     }
 
     /**

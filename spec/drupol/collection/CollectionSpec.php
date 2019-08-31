@@ -773,6 +773,21 @@ class CollectionSpec extends ObjectBehavior
             ->shouldReturn(5050);
     }
 
+    public function it_can_reduction(): void
+    {
+        $this
+            ->beConstructedThrough('with', [\range(1, 5)]);
+
+        $this
+            ->reduction(
+                static function ($carry, $item) {
+                    return $carry + $item;
+                },
+                0
+            )
+            ->shouldIterateAs([0, 1, 3, 6, 10, 15]);
+    }
+
     public function it_can_run_an_operation(Operation $operation): void
     {
         $square = new class() extends \drupol\collection\Operation\Operation {

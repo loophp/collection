@@ -242,6 +242,7 @@ the methods always return the same values for the same inputs.
 | `prepend`     | new Collection object | [Prepend.php](./src/Operation/Prepend.php)
 | `rebase`      | new Collection object | [Rebase.php](./src/Operation/Rebase.php)
 | `reduce`      | mixed                 | [Reduce.php](./src/Operation/Reduce.php)
+| `reduction`   | new Collection object | [Reduction.php](./src/Operation/Reduction.php)
 | `run`         | mixed                 | [Run.php](./src/Operation/Run.php)
 | `skip`        | new Collection object | [Skip.php](./src/Operation/Skip.php)
 | `slice`       | new Collection object | [Slice.php](./src/Operation/Slice.php)
