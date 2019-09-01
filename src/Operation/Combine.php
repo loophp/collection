@@ -4,19 +4,35 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
+use drupol\collection\Contract\Operation;
 use drupol\collection\Iterator\ClosureIterator;
 
 /**
  * Class Combine.
  */
-final class Combine extends Operation
+final class Combine implements Operation
 {
+    /**
+     * @var array
+     */
+    private $keys;
+
+    /**
+     * Combine constructor.
+     *
+     * @param int|string ...$keys
+     */
+    public function __construct(...$keys)
+    {
+        $this->keys = $keys;
+    }
+
     /**
      * {@inheritdoc}
      */
     public function on(iterable $collection): \Closure
     {
-        [$keys] = $this->parameters;
+        [$keys] = $this->keys;
 
         return static function () use ($keys, $collection): \Generator {
             $original = new ClosureIterator(

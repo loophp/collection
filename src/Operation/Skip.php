@@ -4,11 +4,18 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
+use drupol\collection\Contract\Operation;
+
 /**
  * Class Skip.
  */
-final class Skip extends Operation
+final class Skip implements Operation
 {
+    /**
+     * @var int[]
+     */
+    private $skip;
+
     /**
      * Skip constructor.
      *
@@ -16,7 +23,7 @@ final class Skip extends Operation
      */
     public function __construct(int ...$skip)
     {
-        parent::__construct(...[$skip]);
+        $this->skip = $skip;
     }
 
     /**
@@ -24,13 +31,13 @@ final class Skip extends Operation
      */
     public function on(iterable $collection): \Closure
     {
-        [$counts] = $this->parameters;
+        $skip = $this->skip;
 
-        return static function () use ($counts, $collection): \Generator {
-            $counts = \array_sum($counts);
+        return static function () use ($skip, $collection): \Generator {
+            $skip = \array_sum($skip);
 
             foreach ($collection as $key => $value) {
-                if (0 < $counts--) {
+                if (0 < $skip--) {
                     continue;
                 }
 

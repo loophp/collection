@@ -4,11 +4,28 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
+use drupol\collection\Contract\Operation;
+
 /**
  * Class Range.
  */
-final class Range extends Operation
+final class Range implements Operation
 {
+    /**
+     * @var float|int
+     */
+    private $end;
+
+    /**
+     * @var int
+     */
+    private $start;
+
+    /**
+     * @var float
+     */
+    private $step;
+
     /**
      * Range constructor.
      *
@@ -18,7 +35,9 @@ final class Range extends Operation
      */
     public function __construct(int $start, $end, $step)
     {
-        parent::__construct(...[$start, $end, $step]);
+        $this->start = $start;
+        $this->end = $end;
+        $this->step = $step;
     }
 
     /**
@@ -26,7 +45,9 @@ final class Range extends Operation
      */
     public function on(iterable $collection): \Closure
     {
-        [$start, $end, $step] = $this->parameters;
+        $start = $this->start;
+        $end = $this->end;
+        $step = $this->step;
 
         return static function () use ($start, $end, $step) {
             for ($current = $start; $current < $end; $current += $step) {

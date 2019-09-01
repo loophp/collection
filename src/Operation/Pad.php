@@ -4,11 +4,23 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
+use drupol\collection\Contract\Operation;
+
 /**
  * Class Pad.
  */
-final class Pad extends Operation
+final class Pad implements Operation
 {
+    /**
+     * @var int
+     */
+    private $size;
+
+    /**
+     * @var mixed
+     */
+    private $value;
+
     /**
      * Pad constructor.
      *
@@ -17,7 +29,8 @@ final class Pad extends Operation
      */
     public function __construct(int $size, $value)
     {
-        parent::__construct(...[$size, $value]);
+        $this->size = $size;
+        $this->value = $value;
     }
 
     /**
@@ -25,7 +38,8 @@ final class Pad extends Operation
      */
     public function on(iterable $collection): \Closure
     {
-        [$size, $padValue] = $this->parameters;
+        $size = $this->size;
+        $padValue = $this->value;
 
         return static function () use ($size, $padValue, $collection): \Generator {
             $y = 0;

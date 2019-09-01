@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
+use drupol\collection\Contract\Operation;
 use drupol\collection\Iterator\ClosureIterator;
 
 /**
@@ -11,7 +12,7 @@ use drupol\collection\Iterator\ClosureIterator;
  *
  * Be careful, this will only work with finite collection sets.
  */
-final class Last extends Operation
+final class Last implements Operation
 {
     /**
      * {@inheritdoc}

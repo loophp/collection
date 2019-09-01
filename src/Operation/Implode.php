@@ -4,11 +4,18 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
+use drupol\collection\Contract\Operation;
+
 /**
  * Class Implode.
  */
-final class Implode extends Operation
+final class Implode implements Operation
 {
+    /**
+     * @var string
+     */
+    private $glue;
+
     /**
      * Implode constructor.
      *
@@ -16,7 +23,7 @@ final class Implode extends Operation
      */
     public function __construct(string $glue = '')
     {
-        parent::__construct(...[$glue]);
+        $this->glue = $glue;
     }
 
     /**
@@ -24,8 +31,6 @@ final class Implode extends Operation
      */
     public function on(iterable $collection): string
     {
-        [$glue] = $this->parameters;
-
-        return \implode($glue, (new All())->on($collection));
+        return \implode($this->glue, (new All())->on($collection));
     }
 }

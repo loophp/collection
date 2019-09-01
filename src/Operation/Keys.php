@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
+use drupol\collection\Contract\Operation;
+
 /**
  * Class Keys.
  */
-final class Keys extends Operation
+final class Keys implements Operation
 {
     /**
      * {@inheritdoc}

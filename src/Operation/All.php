@@ -4,19 +4,13 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
+use drupol\collection\Contract\Operation;
+
 /**
  * Class All.
  */
-final class All extends Operation
+final class All implements Operation
 {
-    /**
-     * All constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     /**
      * {@inheritdoc}
      */

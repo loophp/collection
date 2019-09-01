@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
+use drupol\collection\Contract\Operation;
 use drupol\collection\Iterator\ClosureIterator;
 
 /**
@@ -11,8 +12,13 @@ use drupol\collection\Iterator\ClosureIterator;
  *
  * Be careful, this will only work with finite collection sets.
  */
-final class Sort extends Operation
+final class Sort implements Operation
 {
+    /**
+     * @var callable
+     */
+    private $callback;
+
     /**
      * Sort constructor.
      *
@@ -20,7 +26,7 @@ final class Sort extends Operation
      */
     public function __construct(callable $callback)
     {
-        parent::__construct(...[$callback]);
+        $this->callback = $callback;
     }
 
     /**
@@ -28,7 +34,7 @@ final class Sort extends Operation
      */
     public function on(iterable $collection): \Closure
     {
-        [$callback] = $this->parameters;
+        $callback = $this->callback;
 
         return static function () use ($callback, $collection): \Generator {
             $array = \iterator_to_array(

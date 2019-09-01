@@ -4,11 +4,23 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
+use drupol\collection\Contract\Operation;
+
 /**
  * Class Reduce.
  */
-final class Reduce extends Operation
+final class Reduce implements Operation
 {
+    /**
+     * @var callable
+     */
+    private $callback;
+
+    /**
+     * @var mixed
+     */
+    private $initial;
+
     /**
      * Reduce constructor.
      *
@@ -17,7 +29,8 @@ final class Reduce extends Operation
      */
     public function __construct(callable $callback, $initial)
     {
-        parent::__construct(...[$callback, $initial]);
+        $this->callback = $callback;
+        $this->initial = $initial;
     }
 
     /**
@@ -25,7 +38,8 @@ final class Reduce extends Operation
      */
     public function on(iterable $collection)
     {
-        [$callback, $initial] = $this->parameters;
+        $callback = $this->callback;
+        $initial = $this->initial;
 
         $result = $initial;
 

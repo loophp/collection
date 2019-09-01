@@ -4,14 +4,20 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
+use drupol\collection\Contract\Operation;
 use drupol\collection\Contract\Operation as OperationInterface;
 use drupol\collection\Iterator\ClosureIterator;
 
 /**
  * Class Run.
  */
-final class Run extends Operation
+final class Run implements Operation
 {
+    /**
+     * @var \drupol\collection\Contract\Operation[]
+     */
+    private $operations;
+
     /**
      * Run constructor.
      *
@@ -19,7 +25,7 @@ final class Run extends Operation
      */
     public function __construct(OperationInterface ...$operations)
     {
-        parent::__construct(...[$operations]);
+        $this->operations = $operations;
     }
 
     /**
@@ -27,9 +33,7 @@ final class Run extends Operation
      */
     public function on(iterable $collection)
     {
-        [$operations] = $this->parameters;
-
-        return \array_reduce($operations, [$this, 'doRun'], $collection);
+        return \array_reduce($this->operations, [$this, 'doRun'], $collection);
     }
 
     /**

@@ -4,21 +4,27 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
+use drupol\collection\Contract\Operation;
 use drupol\collection\Iterator\ClosureIterator;
 
 /**
  * Class Chunk.
  */
-final class Chunk extends Operation
+final class Chunk implements Operation
 {
+    /**
+     * @var int
+     */
+    private $length;
+
     /**
      * Chunk constructor.
      *
-     * @param int $size
+     * @param int $length
      */
-    public function __construct(int $size)
+    public function __construct(int $length)
     {
-        parent::__construct(...[$size]);
+        $this->length = $length;
     }
 
     /**
@@ -26,15 +32,15 @@ final class Chunk extends Operation
      */
     public function on(iterable $collection): \Closure
     {
-        [$size] = $this->parameters;
+        $length = $this->length;
 
-        if (0 >= $size) {
+        if (0 >= $length) {
             return static function (): \Generator {
                 yield from [];
             };
         }
 
-        return static function () use ($size, $collection): \Generator {
+        return static function () use ($length, $collection): \Generator {
             $iterator = new ClosureIterator(
                 static function () use ($collection) {
                     foreach ($collection as $key => $value) {
@@ -46,7 +52,7 @@ final class Chunk extends Operation
             while ($iterator->valid()) {
                 $values = [];
 
-                for ($i = 0; $iterator->valid() && $i < $size; $i++, $iterator->next()) {
+                for ($i = 0; $iterator->valid() && $i < $length; $i++, $iterator->next()) {
                     $values[$iterator->key()] = $iterator->current();
                 }
 

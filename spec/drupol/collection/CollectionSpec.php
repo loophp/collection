@@ -790,7 +790,7 @@ class CollectionSpec extends ObjectBehavior
 
     public function it_can_run_an_operation(Operation $operation): void
     {
-        $square = new class() extends \drupol\collection\Operation\Operation {
+        $square = new class() implements Operation {
             public function on(iterable $collection)
             {
                 return Collection::with(
@@ -803,7 +803,7 @@ class CollectionSpec extends ObjectBehavior
             }
         };
 
-        $sqrt = new class() extends \drupol\collection\Operation\Operation {
+        $sqrt = new class() implements Operation {
             public function on(iterable $collection)
             {
                 return Collection::with(
@@ -816,7 +816,7 @@ class CollectionSpec extends ObjectBehavior
             }
         };
 
-        $map = new class() extends \drupol\collection\Operation\Operation {
+        $map = new class() implements Operation {
             public function on(iterable $collection)
             {
                 return Collection::with(

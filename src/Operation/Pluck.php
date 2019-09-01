@@ -6,12 +6,23 @@ namespace drupol\collection\Operation;
 
 use ArrayAccess;
 use drupol\collection\Contract\Collection;
+use drupol\collection\Contract\Operation;
 
 /**
  * Class Pluck.
  */
-final class Pluck extends Operation
+final class Pluck implements Operation
 {
+    /**
+     * @var mixed
+     */
+    private $default;
+
+    /**
+     * @var array|string
+     */
+    private $key;
+
     /**
      * Pluck constructor.
      *
@@ -20,7 +31,8 @@ final class Pluck extends Operation
      */
     public function __construct($key, $default)
     {
-        parent::__construct(...[$key, $default]);
+        $this->key = $key;
+        $this->default = $default;
     }
 
     /**
@@ -28,7 +40,9 @@ final class Pluck extends Operation
      */
     public function on(iterable $collection): \Closure
     {
-        [$key, $default] = $this->parameters;
+        $key = $this->key;
+        $default = $this->default;
+
         $operation = $this;
 
         return static function () use ($key, $default, $collection, $operation) {

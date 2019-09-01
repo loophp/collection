@@ -4,11 +4,18 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
+use drupol\collection\Contract\Operation;
+
 /**
  * Class Contains.
  */
-final class Contains extends Operation
+final class Contains implements Operation
 {
+    /**
+     * @var mixed
+     */
+    private $key;
+
     /**
      * Contains constructor.
      *
@@ -16,7 +23,7 @@ final class Contains extends Operation
      */
     public function __construct($key)
     {
-        parent::__construct(...[$key]);
+        $this->key = $key;
     }
 
     /**
@@ -24,7 +31,7 @@ final class Contains extends Operation
      */
     public function on(iterable $collection)
     {
-        [$key] = $this->parameters;
+        $key = $this->key;
 
         if ((false === \is_string($key)) && (true === \is_callable($key))) {
             $placeholder = new \stdClass();

@@ -4,17 +4,29 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
+use drupol\collection\Contract\Operation;
+
 /**
  * Class Merge.
  */
-final class Merge extends Operation
+final class Merge implements Operation
 {
+    /**
+     * @var iterable[]
+     */
+    private $sources;
+
+    public function __construct(iterable ...$sources)
+    {
+        $this->sources = $sources;
+    }
+
     /**
      * {@inheritdoc}
      */
     public function on(iterable $collection): \Closure
     {
-        [$sources] = $this->parameters;
+        [$sources] = $this->sources;
 
         return static function () use ($sources, $collection): \Generator {
             foreach ($collection as $value) {

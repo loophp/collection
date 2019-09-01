@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
+use drupol\collection\Contract\Operation;
+
 /**
  * Class Flip.
  */
-final class Flip extends Operation
+final class Flip implements Operation
 {
     /**
      * {@inheritdoc}

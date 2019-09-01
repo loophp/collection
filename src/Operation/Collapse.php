@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
+use drupol\collection\Contract\Operation;
+
 /**
  * Class Collapse.
  */
-final class Collapse extends Operation
+final class Collapse implements Operation
 {
     /**
      * {@inheritdoc}

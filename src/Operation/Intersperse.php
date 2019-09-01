@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace drupol\collection\Operation;
 
 use drupol\collection\Collection;
+use drupol\collection\Contract\Operation;
 
 /**
  * Class Intersperse.
@@ -12,18 +13,35 @@ use drupol\collection\Collection;
  * Insert a given value between each element of a collection.
  * Indices are not preserved.
  */
-final class Intersperse extends Operation
+final class Intersperse implements Operation
 {
+    /**
+     * @var int
+     */
+    private $atEvery;
+
+    /**
+     * @var mixed
+     */
+    private $element;
+
+    /**
+     * @var int
+     */
+    private $startAt;
+
     /**
      * Intersperse constructor.
      *
-     * @param mixed $elementToIntersperse
+     * @param mixed $element
      * @param int $atEvery
      * @param int $startAt
      */
-    public function __construct($elementToIntersperse, int $atEvery = 1, int $startAt = 0)
+    public function __construct($element, int $atEvery = 1, int $startAt = 0)
     {
-        parent::__construct(...[$elementToIntersperse, $atEvery, $startAt]);
+        $this->element = $element;
+        $this->atEvery = $atEvery;
+        $this->startAt = $startAt;
     }
 
     /**
@@ -31,7 +49,9 @@ final class Intersperse extends Operation
      */
     public function on(iterable $collection): \Closure
     {
-        [$element, $every, $startAt] = $this->parameters;
+        $element = $this->element;
+        $every = $this->atEvery;
+        $startAt = $this->startAt;
 
         if (0 > $every) {
             throw new \InvalidArgumentException('The second parameter must be a positive integer.');

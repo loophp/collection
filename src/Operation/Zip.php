@@ -4,19 +4,35 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
+use drupol\collection\Contract\Operation;
 use drupol\collection\Iterator\ClosureIterator;
 
 /**
  * Class Zip.
  */
-final class Zip extends Operation
+final class Zip implements Operation
 {
+    /**
+     * @var iterable[]
+     */
+    private $iterables;
+
+    /**
+     * Zip constructor.
+     *
+     * @param iterable ...$iterables
+     */
+    public function __construct(iterable ...$iterables)
+    {
+        $this->iterables = $iterables;
+    }
+
     /**
      * {@inheritdoc}
      */
     public function on(iterable $collection): \Closure
     {
-        [$iterables] = $this->parameters;
+        [$iterables] = $this->iterables;
 
         return static function () use ($iterables, $collection): \Generator {
             $getIteratorCallback = static function ($iterable) {

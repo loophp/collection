@@ -4,11 +4,23 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
+use drupol\collection\Contract\Operation;
+
 /**
  * Class Get.
  */
-final class Get extends Operation
+final class Get implements Operation
 {
+    /**
+     * @var mixed
+     */
+    private $default;
+
+    /**
+     * @var int|string
+     */
+    private $key;
+
     /**
      * Get constructor.
      *
@@ -17,7 +29,8 @@ final class Get extends Operation
      */
     public function __construct($key, $default)
     {
-        parent::__construct(...[$key, $default]);
+        $this->key = $key;
+        $this->default = $default;
     }
 
     /**
@@ -25,7 +38,8 @@ final class Get extends Operation
      */
     public function on(iterable $collection)
     {
-        [$keyToGet, $default] = $this->parameters;
+        $keyToGet = $this->key;
+        $default = $this->default;
 
         foreach ($collection as $key => $value) {
             if ($key === $keyToGet) {

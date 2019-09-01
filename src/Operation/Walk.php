@@ -4,11 +4,18 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
+use drupol\collection\Contract\Operation;
+
 /**
  * Class Walk.
  */
-final class Walk extends Operation
+final class Walk implements Operation
 {
+    /**
+     * @var callable[]
+     */
+    private $callbacks;
+
     /**
      * Walk constructor.
      *
@@ -16,7 +23,7 @@ final class Walk extends Operation
      */
     public function __construct(callable ...$callbacks)
     {
-        parent::__construct(...[$callbacks]);
+        $this->callbacks = $callbacks;
     }
 
     /**
@@ -24,7 +31,7 @@ final class Walk extends Operation
      */
     public function on(iterable $collection): \Closure
     {
-        [$callbacks] = $this->parameters;
+        $callbacks = $this->callbacks;
 
         return static function () use ($callbacks, $collection): \Generator {
             $callback = static function ($carry, $callback) {

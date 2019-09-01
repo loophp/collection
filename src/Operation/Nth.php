@@ -4,11 +4,23 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
+use drupol\collection\Contract\Operation;
+
 /**
  * Class Nth.
  */
-final class Nth extends Operation
+final class Nth implements Operation
 {
+    /**
+     * @var int
+     */
+    private $offset;
+
+    /**
+     * @var int
+     */
+    private $step;
+
     /**
      * Nth constructor.
      *
@@ -17,7 +29,8 @@ final class Nth extends Operation
      */
     public function __construct(int $step, int $offset)
     {
-        parent::__construct(...[$step, $offset]);
+        $this->step = $step;
+        $this->offset = $offset;
     }
 
     /**
@@ -25,7 +38,8 @@ final class Nth extends Operation
      */
     public function on(iterable $collection): \Closure
     {
-        [$step, $offset] = $this->parameters;
+        $step = $this->step;
+        $offset = $this->offset;
 
         return static function () use ($step, $offset, $collection): \Generator {
             $position = 0;

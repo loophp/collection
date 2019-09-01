@@ -4,13 +4,19 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
+use drupol\collection\Contract\Operation;
 use drupol\collection\Iterator\ClosureIterator;
 
 /**
  * Class Flatten.
  */
-final class Flatten extends Operation
+final class Flatten implements Operation
 {
+    /**
+     * @var int
+     */
+    private $depth;
+
     /**
      * Flatten constructor.
      *
@@ -18,7 +24,7 @@ final class Flatten extends Operation
      */
     public function __construct(int $depth)
     {
-        parent::__construct(...[$depth]);
+        $this->depth = $depth;
     }
 
     /**
@@ -26,7 +32,7 @@ final class Flatten extends Operation
      */
     public function on(iterable $collection): \Closure
     {
-        [$depth] = $this->parameters;
+        $depth = $this->depth;
 
         return static function () use ($depth, $collection): \Generator {
             foreach ($collection as $value) {

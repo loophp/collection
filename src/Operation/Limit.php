@@ -4,11 +4,18 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
+use drupol\collection\Contract\Operation;
+
 /**
  * Class Limit.
  */
-final class Limit extends Operation
+final class Limit implements Operation
 {
+    /**
+     * @var int
+     */
+    private $limit;
+
     /**
      * Limit constructor.
      *
@@ -16,7 +23,7 @@ final class Limit extends Operation
      */
     public function __construct(int $limit)
     {
-        parent::__construct(...[$limit]);
+        $this->limit = $limit;
     }
 
     /**
@@ -24,7 +31,7 @@ final class Limit extends Operation
      */
     public function on(iterable $collection): \Closure
     {
-        [$limit] = $this->parameters;
+        $limit = $this->limit;
 
         return static function () use ($limit, $collection): \Generator {
             $i = 0;
