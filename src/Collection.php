@@ -372,7 +372,7 @@ final class Collection extends Base implements CollectionInterface
      */
     public static function with($data = []): BaseInterface
     {
-        return parent::with($data);
+        return new Collection($data);
     }
 
     /**
