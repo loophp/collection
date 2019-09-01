@@ -1,4 +1,4 @@
-/tests export-ignore
+/spec export-ignore
 .editorconfig export-ignore
 .gitattributes export-ignore
 .gitignore export-ignore
@@ -7,3 +7,4 @@
 phpunit.xml.dist export-ignore
 infection.json.dist export-ignore
 grumphp.yml.dist export-ignore
+phpspec.yml.dist export-ignore
