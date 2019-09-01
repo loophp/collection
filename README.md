@@ -187,7 +187,7 @@ use drupol\collection\Collection;
 use drupol\collection\Contract\BaseCollection as CollectionInterface;
 use drupol\collection\Operation\Operation;
 
-$square = new class() extends Operation {
+$square = new class extends Operation {
     /**
      * {@inheritdoc}
      */
@@ -259,9 +259,8 @@ $customCollection = new $customCollectionClass($generator);
 print_r($customCollection->all()); // ['A', 'B', 'C']
 ```
 
-The [Collection](./src/Collection.php) object provided by this library implements all the interfaces from this library,
-and is set as `final`. Feel free to use it like it, decorated or create your own object by using the same procedure as
-shown here.
+The [Collection](./src/Collection.php) object implements all the interfaces from this library, and is set as `final`.
+Use it like it is, decorated it or create your own object by using the same procedure as shown here.
 
 ## API
 
