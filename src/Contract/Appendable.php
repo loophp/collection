@@ -14,7 +14,7 @@ interface Appendable
      *
      * @param mixed ...$items
      *
-     * @return \drupol\collection\Contract\Base
+     * @return \drupol\collection\Contract\Collection
      */
     public function append(...$items): Base;
 }

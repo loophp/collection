@@ -77,12 +77,4 @@ interface Collection extends
      * @return \drupol\collection\Contract\Collection
      */
     public static function times($number, callable $callback = null): Collection;
-
-    /**
-     * @param callable $callback
-     * @param mixed $initial
-     *
-     * @return \drupol\collection\Contract\Collection
-     */
-    public static function iterate(callable $callback, $initial = null): Collection;
 }
