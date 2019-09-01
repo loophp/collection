@@ -229,7 +229,7 @@ class CollectionSpec extends ObjectBehavior
         $this::with(\range('A', 'F'))
             ->chunk(2)
             ->all()
-            ->shouldReturn([[0 => 'A', 1 => 'B'], [2 => 'C', 3 => 'D'], [4 => 'E', 5 => 'F']]);
+            ->shouldReturn([[0 => 'A', 1 => 'B'], [0 => 'C', 1 => 'D'], [0 => 'E', 1 => 'F']]);
 
         $this::with(\range('A', 'F'))
             ->chunk(0)
@@ -239,7 +239,7 @@ class CollectionSpec extends ObjectBehavior
         $this::with(\range('A', 'F'))
             ->chunk(1)
             ->all()
-            ->shouldReturn([[0 => 'A'], [1 => 'B'], [2 => 'C'], [3 => 'D'], [4 => 'E'], [5 => 'F']]);
+            ->shouldReturn([[0 => 'A'], [0 => 'B'], [0 => 'C'], [0 => 'D'], [0 => 'E'], [0 => 'F']]);
     }
 
     public function it_can_collapse(): void

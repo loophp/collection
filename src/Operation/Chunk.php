@@ -44,7 +44,7 @@ final class Chunk implements Operation
             $iterator = new ClosureIterator(
                 static function () use ($collection) {
                     foreach ($collection as $key => $value) {
-                        yield $key => $value;
+                        yield $value;
                     }
                 }
             );
@@ -53,7 +53,7 @@ final class Chunk implements Operation
                 $values = [];
 
                 for ($i = 0; $iterator->valid() && $i < $length; $i++, $iterator->next()) {
-                    $values[$iterator->key()] = $iterator->current();
+                    $values[] = $iterator->current();
                 }
 
                 yield new \ArrayIterator($values);
