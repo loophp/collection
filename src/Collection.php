@@ -6,7 +6,6 @@ namespace drupol\collection;
 
 use drupol\collection\Contract\Base as BaseInterface;
 use drupol\collection\Contract\Collection as CollectionInterface;
-use drupol\collection\Contract\Operation;
 use drupol\collection\Operation\All;
 use drupol\collection\Operation\Append;
 use drupol\collection\Operation\Apply;
@@ -303,14 +302,6 @@ final class Collection extends Base implements CollectionInterface
     public function reduction(callable $callback, $initial = null): BaseInterface
     {
         return new Collection($this->run(new Reduction($callback, $initial)));
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function run(Operation ...$operations)
-    {
-        return (new Run(...$operations))->on($this);
     }
 
     /**

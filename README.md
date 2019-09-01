@@ -226,21 +226,13 @@ use drupol\collection\Operation\All;
 use drupol\collection\Operation\Run;
 use drupol\collection\Contract\Operation;
 
-$customCollectionClass = new class extends Base implements Allable, Runable {
+$customCollectionClass = new class extends Base implements Allable {
 
     /**
      * {@inheritdoc}
      */
     public function all(): array {
         return $this->run(new All());
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function run(Operation ...$operations)
-    {
-        return (new Run(...$operations))->on($this);
     }
 };
 

@@ -38,7 +38,6 @@ interface Collection extends
     Rebaseable,
     Reduceable,
     Reductionable,
-    Runable,
     Skipable,
     Sliceable,
     Sortable,
