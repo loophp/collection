@@ -30,7 +30,7 @@ final class Flatten extends Operation
 
         return static function () use ($depth, $collection): \Generator {
             foreach ($collection as $value) {
-                if ((false === \is_array($value)) && (false === ($value instanceof \Traversable))) {
+                if (false === \is_iterable($value)) {
                     yield $value;
                 } elseif (1 === $depth) {
                     foreach ($value as $subValue) {
