@@ -187,6 +187,26 @@ final class Collection extends Base implements CollectionInterface
     /**
      * {@inheritdoc}
      */
+    public static function iterate(callable $callback, $initial = null): CollectionInterface
+    {
+        return new Collection(
+            static function () use ($initial, $callback) {
+                $result = $initial;
+
+                yield $initial;
+
+                while (true) {
+                    $result = $callback($result);
+
+                    yield $result;
+                }
+            }
+        );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function keys(): BaseInterface
     {
         return new Collection($this->run(new Keys()));

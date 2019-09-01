@@ -584,6 +584,21 @@ class CollectionSpec extends ObjectBehavior
             ->during('intersperse', ['foo', 1, -1]);
     }
 
+    public function it_can_iterate(): void
+    {
+        $this
+            ->beConstructedThrough('iterate', [static function ($item) {
+                return [$item[1], $item[0] + $item[1]];
+            }, [0, 1]]);
+
+        $this
+            ->map(static function ($item) {
+                return $item[0];
+            })
+            ->limit(10)
+            ->shouldIterateAs([0, 1, 1, 2, 3, 5, 8, 13, 21, 34]);
+    }
+
     public function it_can_keys(): void
     {
         $this

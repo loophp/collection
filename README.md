@@ -130,6 +130,36 @@ Collection::with(
     ->limit(10)
     ->all(); // [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
 
+// or
+
+Collection::iterate(
+    static function($v) {
+        return [$v[1], $v[0] + $v[1]];
+    },
+    [1,1]
+    )
+    ->limit(10)
+    ->all(); // [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
+
+// Find the golden ratio with Fibonacci
+$result = Collection::iterate(
+    static function($v) {
+        return [$v[1], $v[0] + $v[1]];
+    },
+    [1,1]
+    )
+    ->map(static function($item) {return $item[0];})
+    ->chunk(2)
+    ->map(
+        static function(ArrayIterator $item) {
+            [$first, $second] = $item;
+
+            return $second / $first;
+        }
+    )
+    ->limit(100)
+    ->last(); // 1.6180339887499
+
 // Use an existing Generator as input data.
 $readFileLineByLine = static function (string $filepath): \Generator {
     $fh = fopen($filepath, 'rb');
@@ -308,6 +338,7 @@ about the kind of parameters they require.
 | Methods       | Return type           | Source         |
 | ------------- | --------------------- | -------------- |
 | `empty`       | new Collection object | [Collection.php](./src/Collection.php)
+| `iterate`     | new Collection object | [Collection.php](./src/Collection.php)
 | `range`       | new Collection object | [Collection.php](./src/Collection.php)
 | `times`       | new Collection object | [Collection.php](./src/Collection.php)
 | `with`        | new Collection object | [Collection.php](./src/Collection.php)
