@@ -136,7 +136,7 @@ Collection::iterate(
     static function($v) {
         return [$v[1], $v[0] + $v[1]];
     },
-    [1,1]
+    1,1
     )
     ->limit(10)
     ->all(); // [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
@@ -146,7 +146,7 @@ $result = Collection::iterate(
     static function($v) {
         return [$v[1], $v[0] + $v[1]];
     },
-    [1,1]
+    1,1
     )
     ->map(static function($item) {return $item[0];})
     ->chunk(2)

@@ -51,11 +51,11 @@ interface Collection extends
 
     /**
      * @param callable $callback
-     * @param mixed $initial
+     * @param mixed ...$parameters
      *
      * @return \drupol\collection\Contract\Collection
      */
-    public static function iterate(callable $callback, $initial = null): Collection;
+    public static function iterate(callable $callback, ...$parameters): Collection;
 
     /**
      * Create a new with a range of number.

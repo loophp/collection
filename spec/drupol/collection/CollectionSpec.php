@@ -589,7 +589,7 @@ class CollectionSpec extends ObjectBehavior
         $this
             ->beConstructedThrough('iterate', [static function ($item) {
                 return [$item[1], $item[0] + $item[1]];
-            }, [0, 1]]);
+            }, 0, 1]);
 
         $this
             ->map(static function ($item) {

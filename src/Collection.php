@@ -187,18 +187,14 @@ final class Collection extends Base implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public static function iterate(callable $callback, $initial = null): CollectionInterface
+    public static function iterate(callable $callback, ...$parameters): CollectionInterface
     {
         return new Collection(
-            static function () use ($initial, $callback) {
-                $result = $initial;
-
-                yield $initial;
-
+            static function () use ($parameters, $callback) {
                 while (true) {
-                    $result = $callback($result);
+                    yield $parameters;
 
-                    yield $result;
+                    $parameters = $callback($parameters);
                 }
             }
         );
