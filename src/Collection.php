@@ -59,6 +59,8 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @return \drupol\collection\Contract\Collection
      */
     public function append(...$items): BaseInterface
     {
@@ -67,6 +69,8 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @return \drupol\collection\Contract\Collection
      */
     public function apply(callable ...$callables): BaseInterface
     {
@@ -75,6 +79,8 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @return \drupol\collection\Contract\Collection
      */
     public function chunk(int $size): BaseInterface
     {
@@ -83,6 +89,8 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @return \drupol\collection\Contract\Collection
      */
     public function collapse(): BaseInterface
     {
@@ -91,6 +99,8 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @return \drupol\collection\Contract\Collection
      */
     public function combine($keys): BaseInterface
     {
@@ -135,6 +145,8 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @return \drupol\collection\Contract\Collection
      */
     public function filter(callable ...$callbacks): BaseInterface
     {
@@ -151,6 +163,8 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @return \drupol\collection\Contract\Collection
      */
     public function flatten(int $depth = \PHP_INT_MAX): BaseInterface
     {
@@ -159,6 +173,8 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @return \drupol\collection\Contract\Collection
      */
     public function flip(): BaseInterface
     {
@@ -167,6 +183,8 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @return \drupol\collection\Contract\Collection
      */
     public function forget(...$keys): BaseInterface
     {
@@ -191,6 +209,8 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @return \drupol\collection\Contract\Collection
      */
     public function intersperse($element, int $every = 1, int $startAt = 0): BaseInterface
     {
@@ -199,6 +219,8 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @return \drupol\collection\Contract\Collection
      */
     public static function iterate(callable $callback, ...$parameters): CollectionInterface
     {
@@ -215,6 +237,8 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @return \drupol\collection\Contract\Collection
      */
     public function keys(): BaseInterface
     {
@@ -231,6 +255,8 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @return \drupol\collection\Contract\Collection
      */
     public function limit(int $limit): BaseInterface
     {
@@ -239,6 +265,8 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @return \drupol\collection\Contract\Collection
      */
     public function map(callable ...$callbacks): BaseInterface
     {
@@ -247,6 +275,8 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @return \drupol\collection\Contract\Collection
      */
     public function merge(...$sources): BaseInterface
     {
@@ -255,6 +285,8 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @return \drupol\collection\Contract\Collection
      */
     public function normalize(): BaseInterface
     {
@@ -263,6 +295,8 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @return \drupol\collection\Contract\Collection
      */
     public function nth(int $step, int $offset = 0): BaseInterface
     {
@@ -271,6 +305,8 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @return \drupol\collection\Contract\Collection
      */
     public function only(...$keys): BaseInterface
     {
@@ -279,6 +315,8 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @return \drupol\collection\Contract\Collection
      */
     public function pad(int $size, $value): BaseInterface
     {
@@ -287,6 +325,8 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @return \drupol\collection\Contract\Collection
      */
     public function pluck($pluck, $default = null): BaseInterface
     {
@@ -295,6 +335,8 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @return \drupol\collection\Contract\Collection
      */
     public function prepend(...$items): BaseInterface
     {
@@ -303,6 +345,8 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @return \drupol\collection\Contract\Collection
      */
     public static function range(int $start = 0, $end = \INF, $step = 1): CollectionInterface
     {
@@ -311,6 +355,8 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @return \drupol\collection\Contract\Collection
      */
     public function rebase(): BaseInterface
     {
@@ -327,6 +373,8 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @return \drupol\collection\Contract\Collection
      */
     public function reduction(callable $callback, $initial = null): BaseInterface
     {
@@ -349,6 +397,8 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @return \drupol\collection\Contract\Collection
      */
     public function skip(int ...$counts): BaseInterface
     {
@@ -357,6 +407,8 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @return \drupol\collection\Contract\Collection
      */
     public function slice(int $offset, int $length = null): BaseInterface
     {
@@ -365,6 +417,8 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @return \drupol\collection\Contract\Collection
      */
     public function sort(callable $callback): BaseInterface
     {
@@ -373,6 +427,8 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @return \drupol\collection\Contract\Collection
      */
     public static function times($number, callable $callback = null): CollectionInterface
     {
@@ -393,6 +449,8 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @return \drupol\collection\Contract\Collection
      */
     public function walk(callable ...$callbacks): BaseInterface
     {
@@ -411,6 +469,8 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @return \drupol\collection\Contract\Collection
      */
     public function zip(...$items): BaseInterface
     {
