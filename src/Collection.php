@@ -34,7 +34,6 @@ use drupol\collection\Operation\Pad;
 use drupol\collection\Operation\Pluck;
 use drupol\collection\Operation\Prepend;
 use drupol\collection\Operation\Range;
-use drupol\collection\Operation\Rebase;
 use drupol\collection\Operation\Reduce;
 use drupol\collection\Operation\Reduction;
 use drupol\collection\Operation\Run;
@@ -226,10 +225,14 @@ final class Collection extends Base implements CollectionInterface
     {
         return new Collection(
             static function () use ($parameters, $callback) {
-                while (true) {
+                if ([] !== $parameters) {
                     yield $parameters;
+                }
 
+                while (true) {
                     $parameters = $callback($parameters);
+
+                    yield $parameters;
                 }
             }
         );
@@ -360,7 +363,7 @@ final class Collection extends Base implements CollectionInterface
      */
     public function rebase(): BaseInterface
     {
-        return new Collection($this->run(new Rebase()));
+        return new Collection($this->run(new All()));
     }
 
     /**
