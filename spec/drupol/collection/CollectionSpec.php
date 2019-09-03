@@ -308,6 +308,18 @@ class CollectionSpec extends ObjectBehavior
             ->shouldReturn(3);
     }
 
+    public function it_can_distinct(): void
+    {
+        $stdclass = new \stdClass();
+
+        $this
+            ->beConstructedWith([1, 1, 2, 2, 3, 3, $stdclass, $stdclass]);
+
+        $this
+            ->distinct()
+            ->shouldIterateAs([0 => 1, 2 => 2, 4 => 3, 6 => $stdclass]);
+    }
+
     public function it_can_filter_its_element(): void
     {
         $input = \array_merge([0, false], \range(1, 10));
@@ -801,6 +813,20 @@ class CollectionSpec extends ObjectBehavior
                 0
             )
             ->shouldIterateAs([0, 1, 3, 6, 10, 15]);
+    }
+
+    public function it_can_rsample(): void
+    {
+        $this
+            ->beConstructedThrough('with', [\range(1, 10)]);
+
+        $this
+            ->rsample(1)
+            ->shouldHaveCount(10);
+
+        $this
+            ->rsample(.5)
+            ->shouldNotHaveCount(10);
     }
 
     public function it_can_run_an_operation(Operation $operation): void

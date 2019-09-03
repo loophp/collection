@@ -14,6 +14,7 @@ use drupol\collection\Operation\Collapse;
 use drupol\collection\Operation\Combine;
 use drupol\collection\Operation\Contains;
 use drupol\collection\Operation\Count;
+use drupol\collection\Operation\Distinct;
 use drupol\collection\Operation\Filter;
 use drupol\collection\Operation\First;
 use drupol\collection\Operation\Flatten;
@@ -114,6 +115,18 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @return \drupol\collection\Contract\Collection
+     */
+    public function distinct(): BaseInterface
+    {
+        return new Collection($this->run(new Distinct()));
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return \drupol\collection\Contract\Collection
      */
     public static function empty(): CollectionInterface
     {
@@ -318,6 +331,20 @@ final class Collection extends Base implements CollectionInterface
     public function reduction(callable $callback, $initial = null): BaseInterface
     {
         return new Collection($this->run(new Reduction($callback, $initial)));
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return \drupol\collection\Contract\Collection
+     */
+    public function rsample($probability): BaseInterface
+    {
+        $callback = static function ($item) use ($probability) {
+            return (\mt_rand() / \mt_getrandmax()) < $probability;
+        };
+
+        return new Collection($this->run(new Filter($callback)));
     }
 
     /**
