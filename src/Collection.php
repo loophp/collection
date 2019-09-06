@@ -41,7 +41,6 @@ use drupol\collection\Transformation\Get;
 use drupol\collection\Transformation\Implode;
 use drupol\collection\Transformation\Last;
 use drupol\collection\Transformation\Reduce;
-use drupol\collection\Transformation\Run;
 
 /**
  * Class Collection.
@@ -447,7 +446,7 @@ final class Collection extends Base implements CollectionInterface
             }
         );
 
-        return null === $callback ? $instance : new Collection((new Run(new Walk($callback)))->on($instance));
+        return null === $callback ? $instance : new Collection($instance->run(new Walk($callback)));
     }
 
     /**
