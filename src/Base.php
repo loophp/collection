@@ -6,8 +6,10 @@ namespace drupol\collection;
 
 use drupol\collection\Contract\Base as BaseInterface;
 use drupol\collection\Contract\Operation;
+use drupol\collection\Contract\Transformer;
 use drupol\collection\Iterator\ClosureIterator;
-use drupol\collection\Operation\Run;
+use drupol\collection\Transformation\Run;
+use drupol\collection\Transformation\Transform;
 
 /**
  * Class Base.
@@ -66,12 +68,10 @@ abstract class Base implements BaseInterface
     }
 
     /**
-     * @param array $data
-     *
-     * @return \drupol\collection\Contract\Base
+     * {@inheritdoc}
      */
-    public static function with($data = []): BaseInterface
+    public function transform(Transformer ...$transformers)
     {
-        return new static($data);
+        return (new Transform(...$transformers))->on($this);
     }
 }

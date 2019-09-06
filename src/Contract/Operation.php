@@ -7,12 +7,12 @@ namespace drupol\collection\Contract;
 /**
  * Interface Operation.
  */
-interface Operation
+interface Operation extends Transformer
 {
     /**
      * @param iterable $collection
      *
-     * @return mixed
+     * @return \Closure
      */
-    public function on(iterable $collection);
+    public function on(iterable $collection): \Closure;
 }

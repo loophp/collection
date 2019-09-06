@@ -7,6 +7,7 @@ namespace drupol\collection\Operation;
 use ArrayAccess;
 use drupol\collection\Contract\Collection;
 use drupol\collection\Contract\Operation;
+use drupol\collection\Transformation\Get;
 
 /**
  * Class Pluck.

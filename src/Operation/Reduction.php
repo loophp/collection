@@ -36,7 +36,7 @@ final class Reduction implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection)
+    public function on(iterable $collection): \Closure
     {
         $callback = $this->callback;
         $initial = $this->initial;

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace drupol\collection\Operation;
+namespace drupol\collection\Transformation;
 
-use drupol\collection\Contract\Operation;
+use drupol\collection\Contract\Transformer;
 use drupol\collection\Iterator\ClosureIterator;
 
 /**
@@ -12,7 +12,7 @@ use drupol\collection\Iterator\ClosureIterator;
  *
  * Be careful, this will only work with finite collection sets.
  */
-final class Count implements Operation
+final class Count implements Transformer
 {
     /**
      * {@inheritdoc}

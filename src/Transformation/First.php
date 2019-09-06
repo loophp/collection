@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace drupol\collection\Operation;
+namespace drupol\collection\Transformation;
 
-use drupol\collection\Contract\Operation;
+use drupol\collection\Contract\Transformer;
 
 /**
  * Class First.
  */
-final class First implements Operation
+final class First implements Transformer
 {
     /**
      * @var null|callable

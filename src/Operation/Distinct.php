@@ -15,7 +15,7 @@ final class Distinct implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection)
+    public function on(iterable $collection): \Closure
     {
         return static function () use ($collection) {
             $seen = new Collection([]);

@@ -6,25 +6,18 @@ namespace drupol\collection;
 
 use drupol\collection\Contract\Base as BaseInterface;
 use drupol\collection\Contract\Collection as CollectionInterface;
-use drupol\collection\Operation\All;
 use drupol\collection\Operation\Append;
 use drupol\collection\Operation\Apply;
 use drupol\collection\Operation\Chunk;
 use drupol\collection\Operation\Collapse;
 use drupol\collection\Operation\Combine;
-use drupol\collection\Operation\Contains;
-use drupol\collection\Operation\Count;
 use drupol\collection\Operation\Distinct;
 use drupol\collection\Operation\Filter;
-use drupol\collection\Operation\First;
 use drupol\collection\Operation\Flatten;
 use drupol\collection\Operation\Flip;
 use drupol\collection\Operation\Forget;
-use drupol\collection\Operation\Get;
-use drupol\collection\Operation\Implode;
 use drupol\collection\Operation\Intersperse;
 use drupol\collection\Operation\Keys;
-use drupol\collection\Operation\Last;
 use drupol\collection\Operation\Limit;
 use drupol\collection\Operation\Merge;
 use drupol\collection\Operation\Normalize;
@@ -34,14 +27,21 @@ use drupol\collection\Operation\Pad;
 use drupol\collection\Operation\Pluck;
 use drupol\collection\Operation\Prepend;
 use drupol\collection\Operation\Range;
-use drupol\collection\Operation\Reduce;
 use drupol\collection\Operation\Reduction;
-use drupol\collection\Operation\Run;
 use drupol\collection\Operation\Skip;
 use drupol\collection\Operation\Slice;
 use drupol\collection\Operation\Sort;
 use drupol\collection\Operation\Walk;
 use drupol\collection\Operation\Zip;
+use drupol\collection\Transformation\All;
+use drupol\collection\Transformation\Contains;
+use drupol\collection\Transformation\Count;
+use drupol\collection\Transformation\First;
+use drupol\collection\Transformation\Get;
+use drupol\collection\Transformation\Implode;
+use drupol\collection\Transformation\Last;
+use drupol\collection\Transformation\Reduce;
+use drupol\collection\Transformation\Run;
 
 /**
  * Class Collection.
@@ -53,7 +53,7 @@ final class Collection extends Base implements CollectionInterface
      */
     public function all(): array
     {
-        return $this->run(new All());
+        return $this->transform(new All());
     }
 
     /**
@@ -111,7 +111,7 @@ final class Collection extends Base implements CollectionInterface
      */
     public function contains($key): bool
     {
-        return $this->run(new Contains($key));
+        return $this->transform(new Contains($key));
     }
 
     /**
@@ -119,7 +119,7 @@ final class Collection extends Base implements CollectionInterface
      */
     public function count(): int
     {
-        return $this->run(new Count());
+        return $this->transform(new Count());
     }
 
     /**
@@ -157,7 +157,7 @@ final class Collection extends Base implements CollectionInterface
      */
     public function first(callable $callback = null, $default = null)
     {
-        return $this->run(new First($callback, $default));
+        return $this->transform(new First($callback, $default));
     }
 
     /**
@@ -195,15 +195,15 @@ final class Collection extends Base implements CollectionInterface
      */
     public function get($key, $default = null)
     {
-        return $this->run(new Get($key, $default));
+        return $this->transform(new Get($key, $default));
     }
 
     /**
      * {@inheritdoc}
      */
-    public function implode(string $implode = ''): string
+    public function implode(string $glue = ''): string
     {
-        return (new Implode($implode))->on($this);
+        return $this->transform(new Implode($glue));
     }
 
     /**
@@ -253,7 +253,7 @@ final class Collection extends Base implements CollectionInterface
      */
     public function last()
     {
-        return $this->run(new Last());
+        return $this->transform(new Last());
     }
 
     /**
@@ -363,7 +363,7 @@ final class Collection extends Base implements CollectionInterface
      */
     public function rebase(): BaseInterface
     {
-        return new Collection($this->run(new All()));
+        return new Collection($this->transform(new All()));
     }
 
     /**
@@ -371,7 +371,7 @@ final class Collection extends Base implements CollectionInterface
      */
     public function reduce(callable $callback, $initial = null)
     {
-        return $this->run(new Reduce($callback, $initial));
+        return $this->transform(new Reduce($callback, $initial));
     }
 
     /**
@@ -461,9 +461,9 @@ final class Collection extends Base implements CollectionInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @param array $data
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \drupol\collection\Contract\Base
      */
     public static function with($data = []): BaseInterface
     {

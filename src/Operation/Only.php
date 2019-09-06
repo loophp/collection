@@ -29,7 +29,7 @@ final class Only implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection)
+    public function on(iterable $collection): \Closure
     {
         [$keys] = $this->keys;
 

@@ -7,6 +7,6 @@ namespace drupol\collection\Contract;
 /**
  * Interface Base.
  */
-interface Base extends \IteratorAggregate, Runable
+interface Base extends \IteratorAggregate, Runable, Transformable
 {
 }

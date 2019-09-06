@@ -832,41 +832,35 @@ class CollectionSpec extends ObjectBehavior
     public function it_can_run_an_operation(Operation $operation): void
     {
         $square = new class() implements Operation {
-            public function on(iterable $collection)
+            public function on(iterable $collection): \Closure
             {
-                return Collection::with(
-                    static function () use ($collection) {
-                        foreach ($collection as $item) {
-                            yield $item ** 2;
-                        }
+                return static function () use ($collection) {
+                    foreach ($collection as $item) {
+                        yield $item ** 2;
                     }
-                );
+                };
             }
         };
 
         $sqrt = new class() implements Operation {
-            public function on(iterable $collection)
+            public function on(iterable $collection): \Closure
             {
-                return Collection::with(
-                    static function () use ($collection) {
-                        foreach ($collection as $item) {
-                            yield $item ** .5;
-                        }
+                return static function () use ($collection) {
+                    foreach ($collection as $item) {
+                        yield $item ** .5;
                     }
-                );
+                };
             }
         };
 
         $map = new class() implements Operation {
-            public function on(iterable $collection)
+            public function on(iterable $collection): \Closure
             {
-                return Collection::with(
-                    static function () use ($collection) {
-                        foreach ($collection as $item) {
-                            yield (int) $item;
-                        }
+                return static function () use ($collection) {
+                    foreach ($collection as $item) {
+                        yield (int) $item;
                     }
-                );
+                };
             }
         };
 

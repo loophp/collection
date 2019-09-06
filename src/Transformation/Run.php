@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace drupol\collection\Operation;
+namespace drupol\collection\Transformation;
 
-use drupol\collection\Contract\Operation;
 use drupol\collection\Contract\Operation as OperationInterface;
+use drupol\collection\Contract\Transformer;
 use drupol\collection\Iterator\ClosureIterator;
 
 /**
  * Class Run.
  */
-final class Run implements Operation
+final class Run implements Transformer
 {
     /**
      * @var \drupol\collection\Contract\Operation[]
@@ -49,13 +49,6 @@ final class Run implements Operation
      */
     private function doRun(iterable $collection, OperationInterface $operation)
     {
-        $return = $operation->on($collection);
-
-        if ($return instanceof \Closure) {
-            // Todo: Remove this.
-            $return = new ClosureIterator($return);
-        }
-
-        return $return;
+        return new ClosureIterator($operation->on($collection));
     }
 }
