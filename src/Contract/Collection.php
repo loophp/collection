@@ -17,6 +17,7 @@ interface Collection extends
     Combineable,
     Containsable,
     Distinctable,
+    Explodeable,
     Filterable,
     Firstable,
     Flattenable,

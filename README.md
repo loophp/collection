@@ -339,6 +339,8 @@ the methods always return the same values for the same inputs.
 | `collapse`    | new Collection object | [Collapse.php](./src/Operation/Collapse.php)
 | `combine`     | new Collection object | [Combine.php](./src/Operation/Combine.php)
 | `count`       | int                   | [Count.php](./src/Operation/Count.php)
+| `distinct`    | new Collection object | [Distinct.php](./src/Operation/Distinct.php)
+| `explode`     | new Collection object | [Explode.php](./src/Operation/Explode.php)
 | `filter`      | new Collection object | [Filter.php](./src/Operation/Filter.php)
 | `first`       | mixed                 | [First.php](./src/Operation/First.php)
 | `flatten`     | new Collection object | [Flatten.php](./src/Operation/Flatten.php)

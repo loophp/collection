@@ -12,6 +12,7 @@ use drupol\collection\Operation\Chunk;
 use drupol\collection\Operation\Collapse;
 use drupol\collection\Operation\Combine;
 use drupol\collection\Operation\Distinct;
+use drupol\collection\Operation\Explode;
 use drupol\collection\Operation\Filter;
 use drupol\collection\Operation\Flatten;
 use drupol\collection\Operation\Flip;
@@ -140,6 +141,16 @@ final class Collection extends Base implements CollectionInterface
     public static function empty(): CollectionInterface
     {
         return new Collection();
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return \drupol\collection\Contract\Collection
+     */
+    public function explode(string ...$strings): BaseInterface
+    {
+        return new Collection($this->run(new Explode(...$strings)));
     }
 
     /**

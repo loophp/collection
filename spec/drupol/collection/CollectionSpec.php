@@ -328,6 +328,65 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs([0 => 1, 2 => 2, 4 => 3, 6 => $stdclass]);
     }
 
+    public function it_can_explode(): void
+    {
+        $string = 'I am just a random piece of text.';
+
+        $this
+            ->beConstructedThrough('with', [$string]);
+
+        $this
+            ->explode('o')
+            ->map(
+                static function ($item) {
+                    return \iterator_to_array($item);
+                }
+            )
+            ->shouldIterateAs(
+                [
+                    0 => [
+                        0 => 'I',
+                        1 => ' ',
+                        2 => 'a',
+                        3 => 'm',
+                        4 => ' ',
+                        5 => 'j',
+                        6 => 'u',
+                        7 => 's',
+                        8 => 't',
+                        9 => ' ',
+                        10 => 'a',
+                        11 => ' ',
+                        12 => 'r',
+                        13 => 'a',
+                        14 => 'n',
+                        15 => 'd',
+                        16 => 'o',
+                    ],
+                    1 => [
+                        0 => 'm',
+                        1 => ' ',
+                        2 => 'p',
+                        3 => 'i',
+                        4 => 'e',
+                        5 => 'c',
+                        6 => 'e',
+                        7 => ' ',
+                        8 => 'o',
+                    ],
+                    2 => [
+                        0 => 'f',
+                        1 => ' ',
+                        2 => 't',
+                        3 => 'e',
+                        4 => 'x',
+                        5 => 't',
+                        6 => '.',
+                    ],
+                ]
+            );
+    }
+
     public function it_can_filter_its_element(): void
     {
         $input = \array_merge([0, false], \range(1, 10));
