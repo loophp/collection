@@ -69,7 +69,7 @@ $collection
 // Split a collection into chunks of a given size.
 $collection
     ->chunk(2)
-    ->map(function (Collection $collection) {return $collection->all();})
+    ->map(static function (Collection $collection) {return $collection->all();})
     ->all(); // [['A', 'B'], ['C', 'D'], ['E']]
 
 // Merge items.
@@ -80,46 +80,64 @@ $collection
 // Map data
 $collection
     ->map(
-        static function ($item, $key) {
-            return sprintf('%s.%s', $item, $item);
+        static function ($value, $key) {
+            return sprintf('%s.%s', $value, $value);
         }
     )
     ->all(); // ['A.A', 'B.B', 'C.C', 'D.D', 'E.E']
 
 // ::map() and ::walk() are not the same.
 Collection::with(['A' => 'A', 'B' => 'B', 'C' => 'C', 'D' => 'D', 'E' => 'E'])
-    ->map(static function ($item, $key) {return strtolower($item); })
+    ->map(
+        static function ($value, $key) {
+            return strtolower($value);
+        }
+    )
     ->all(); // [0 => 'a', 1 => 'b', 2 => 'c', 3 = >'d', 4 => 'e']
 
 Collection::with(['A' => 'A', 'B' => 'B', 'C' => 'C', 'D' => 'D', 'E' => 'E'])
-    ->walk(static function ($item, $key) {return strtolower($item); })
+    ->walk(
+        static function ($value, $key) {
+            return strtolower($value);
+        }
+    )
     ->all(); // ['A' => 'a', B => 'b', 'C' => 'c', 'D' = >'d', 'E' => 'e']
 
 // Infinitely loop over numbers, square them, filter those that are not divisible by 5, take the first 100 of them.
 Collection::range(0, INF)
-    ->map(static function ($number) {
-        return $number ** 3;
-    })
-    ->filter(static function ($number) {
-        return $number % 5;
-    })
+    ->map(
+        static function ($value, $key) {
+            return $value ** 3;
+        }
+    )
+    ->filter(
+        static function ($value, $key) {
+            return $value % 5;
+        }
+    )
     ->limit(100)
     ->all(); // [1, 8, 27, ..., 1815848, 1860867, 1906624]
 
 // Apply a callback to the values without altering the original object.
 // If the callback returns false, then it will stop.
 Collection::with(range('A', 'Z'))
-    ->apply(static function ($item, $key) {
-        echo strtolower($item);
-    });
+    ->apply(
+        static function ($value, $key) {
+            echo strtolower($value);
+        }
+    );
 
-// Generate 300 random numbers between 0 and 1000
-$random = function() {
-    yield mt_rand() / mt_getrandmax();
+// Generate 300 distinct random numbers between 0 and 1000
+$random = static function() {
+    return mt_rand() / mt_getrandmax();
 };
 
 Collection::iterate($random)
-    ->map(static function (Generator $e) { return floor($e->current() * 1000) + 1;})
+    ->map(
+        static function ($value) {
+            return floor($value * 1000) + 1;
+        }
+    )
     ->distinct()
     ->limit(300)
     ->normalize()
@@ -137,36 +155,38 @@ Collection::with(
                 yield $start;
             }
         }
-
     )
     ->limit(10)
     ->all(); // [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
 
-// or
-
+// Fibonacci using the static method ::iterate()
 Collection::iterate(
-    static function($v) {
-        return [$v[1], $v[0] + $v[1]];
+    static function($previous, $next) {
+        return [$next, $previous + $next];
     },
     1,1
     )
+    // Get the first item of each result.
+    ->pluck(0)
+    // Limit the amount of results to 10.
     ->limit(10)
-    ->all(); // [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
+    // Convert to regular array.
+    ->all(); // [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
 
-// Find the golden ratio with Fibonacci
-$result = Collection::iterate(
-    static function($v) {
-        return [$v[1], $v[0] + $v[1]];
+// Find the Golden Ratio with Fibonacci
+$fibonacci = Collection::iterate(
+    static function($previous, $next) {
+        return [$next, $previous + $next];
     },
     1,1
-    )
-    ->map(static function($item) {return $item[0];})
-    ->chunk(2)
-    ->map(
-        static function(ArrayIterator $item) {
-            [$first, $second] = $item;
+    );
 
-            return $second / $first;
+Collection::with($fibonacci)
+    ->map(
+        static function(array $value, $key) {
+            [$previous, $next] = $value;
+
+            return $next / $previous;
         }
     )
     ->limit(100)
@@ -187,21 +207,26 @@ $hugeFile = __DIR__ . '/vendor/composer/autoload_static.php';
 
 Collection::with($readFileLineByLine($hugeFile))
     // Split the collection at a specific item, here PHP_EOL.
-    ->split(static function ($item, $key) {
-        return \PHP_EOL === $item;
-    })
-    // Concatenate each characters into a line.
-    ->map(static function ($items, $key) {
-        return implode('', $items);
-    })
-    // Add a PHP comment at the end of the line, before the PHP_EOL.
-    ->map(static function ($items, $key) {
-        return str_replace(PHP_EOL, ' // line ' . $key . PHP_EOL, $items);
-    })
+    ->split(
+          static function ($value, $key) {
+              return \PHP_EOL === $value;
+          }
+    )
+    // Concatenate each characters into a line. (the map operation has variadic arguments)
+    ->map(
+        static function ($value, $key) {
+            return implode('', $value);
+        },
+        static function ($value, $key) {
+            return str_replace(PHP_EOL, ' // line ' . $key . PHP_EOL, $value);
+        }
+    )
     // Find public static fields or methods among the results.
-    ->filter(static function ($line) {
-        return false !== strpos(trim($line), 'public static');
-    })
+    ->filter(
+        static function ($value, $key) {
+            return false !== strpos(trim($value), 'public static');
+        }
+    )
     // Skip the first result.
     ->skip(1)
     // Limit to 3 results only.
