@@ -13,24 +13,40 @@
 
 ## Description
 
-A Collection is an object that can hold a list of items and do things with it.
+Collection is a functional utility library for PHP.
 
-This Collection class:
+It's similar to [other available collection libraries](https://packagist.org/?query=collection) based on regular PHP
+arrays, but with a lazy mechanism under the hood that strives to do as little work as possible while being as flexible
+as possible.
+
+Collection leverages PHP's generators and iterators to allow you to work with very large data sets while keeping memory
+usage as low as possible.
+
+For example, imagine your application needs to process a multi-gigabyte log file while taking advantage of this
+library's methods to parse the logs.
+Instead of reading the entire file into memory at once, this library may be used to keep only a small part of the file
+in memory at a given time.
+
+On top of this, this library:
  * is [immutable](https://en.wikipedia.org/wiki/Immutable_object),
- * extendable,
- * leverage the power of PHP [generators](https://www.php.net/manual/en/class.generator.php) and [iterators](https://www.php.net/manual/en/class.iterator.php),
- * use [S.O.L.I.D principles](https://en.wikipedia.org/wiki/SOLID),
+ * is extendable,
+ * leverages the power of PHP [generators](https://www.php.net/manual/en/class.generator.php) and [iterators](https://www.php.net/manual/en/class.iterator.php),
+ * uses [S.O.L.I.D principles](https://en.wikipedia.org/wiki/SOLID),
  * doesn't depends or require any other library or framework.
 
-Except a few methods, most of methods are pure and returning a new Collection object.
+Except a few methods, most of methods are [pure](https://en.wikipedia.org/wiki/Pure_function) and return a
+new Collection object.
 
-This library has been inspired by the [Laravel Support Package](https://github.com/illuminate/support) and [Lazy.js](http://danieltao.com/lazy.js/).
+This library has been inspired by the [Laravel Support Package](https://github.com/illuminate/support) and
+[Lazy.js](http://danieltao.com/lazy.js/).
 
 ## Requirements
 
 * PHP >= 7.1.3
 
 ## Installation
+
+It has no external dependencies, so you can get started right away with:
 
 ```composer require drupol/collection```
 
@@ -196,8 +212,8 @@ Collection::with($fibonacci)
 $readFileLineByLine = static function (string $filepath): Generator {
     $fh = \fopen($filepath, 'rb');
 
-    while (!\feof($fh)) {
-        yield \fread($fh, 1);
+    while (false !== $line = fgets($fh)) {
+        yield $line;
     }
 
     \fclose($fh);
@@ -206,17 +222,8 @@ $readFileLineByLine = static function (string $filepath): Generator {
 $hugeFile = __DIR__ . '/vendor/composer/autoload_static.php';
 
 Collection::with($readFileLineByLine($hugeFile))
-    // Split the collection at a specific item, here PHP_EOL.
-    ->split(
-          static function ($value, $key) {
-              return \PHP_EOL === $value;
-          }
-    )
-    // Concatenate each characters into a line. (the map operation has variadic arguments)
+    // Add the line number at the end of the line, as comment.
     ->map(
-        static function ($value, $key) {
-            return implode('', $value);
-        },
         static function ($value, $key) {
             return str_replace(PHP_EOL, ' // line ' . $key . PHP_EOL, $value);
         }
@@ -233,6 +240,20 @@ Collection::with($readFileLineByLine($hugeFile))
     ->limit(3)
     // Implode into a string.
     ->implode();
+
+// Load a string
+$string = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  Quisque feugiat tincidunt sodales. 
+  Donec ut laoreet lectus, quis mollis nisl. 
+  Aliquam maximus, orci vel placerat dapibus, libero erat aliquet nibh, nec imperdiet felis dui quis est. 
+  Vestibulum non ante sit amet neque tincidunt porta et sit amet neque. 
+  In a tempor ipsum. Duis scelerisque libero sit amet enim pretium pulvinar. 
+  Duis vitae lorem convallis, egestas mauris at, sollicitudin sem. 
+  Fusce molestie rutrum faucibus.';
+
+Collection::with($string)
+    ->explode(' ')
+    ->count(); // 71
 ```
 
 ## Advanced usage
@@ -250,29 +271,28 @@ the [Operation](./src/Contract/Operation.php) interface, then run it through the
 
 declare(strict_types=1);
 
+use drupol\collection\Collection;
+use drupol\collection\Contract\Operation;
+
 include 'vendor/autoload.php';
 
-use drupol\collection\Collection;
-use drupol\collection\Contract\BaseCollection as CollectionInterface;
-use drupol\collection\Operation\Operation;
-
-$square = new class extends Operation {
+$square = new class implements Operation {
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): \Closure
+    public function on(iterable $iterable): \Closure
     {
-        return static function () use ($collection) {
-                foreach ($collection as $item) {
-                    yield $item ** 2;
-                }
-            };
+        return static function () use ($iterable) {
+            foreach ($iterable as $value) {
+                yield $value ** 2;
+            }
+        };
     }
 };
 
 Collection::with(
-  Collection::range(5, 15)
-    ->run($square)
+    Collection::range(5, 15)
+        ->run($square)
 )->all();
 ```
 
@@ -399,6 +419,9 @@ The library has tests written with [PHPSpec](http://www.phpspec.net/).
 Feel free to check them out in the `spec` directory. Run `composer phpspec` to trigger the tests.
 
 [PHPInfection](https://github.com/infection/infection) is used to ensure that your code is properly tested, run `composer infection` to test your code.
+
+## On the internet
+* [Reddit announcement thread](https://www.reddit.com/r/PHP/comments/csxw23/a_stateless_and_modular_collection_class/)
 
 ## Contributing
 
