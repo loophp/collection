@@ -151,6 +151,8 @@ class CollectionSpec extends ObjectBehavior
         $this
             ->beConstructedThrough('with', [\range('A', 'E')]);
 
+        $this->shouldImplement(Collection::class);
+
         $this
             ->all()
             ->shouldReturn(['A', 'B', 'C', 'D', 'E']);
@@ -176,18 +178,24 @@ class CollectionSpec extends ObjectBehavior
         $this->shouldImplement(Collection::class);
     }
 
-    public function it_can_be_constructed_with_an_array(): void
-    {
-        $this
-            ->beConstructedThrough('with', [['1', '2', '3']]);
-        $this->shouldImplement(Collection::class);
-    }
-
     public function it_can_be_constructed_with_an_arrayObject(): void
     {
         $this
             ->beConstructedThrough('with', [new \ArrayObject([1, 2, 3])]);
+
         $this->shouldImplement(Collection::class);
+    }
+
+    public function it_can_be_constructed_with_integer(): void
+    {
+        $this
+            ->beConstructedThrough('with', [1]);
+
+        $this->shouldImplement(Collection::class);
+
+        $this
+            ->all()
+            ->shouldReturn([1]);
     }
 
     public function it_can_be_instantiated_with_withClosure(): void
@@ -295,7 +303,7 @@ class CollectionSpec extends ObjectBehavior
             ->beConstructedThrough('with', ['foo']);
 
         $this
-            ->shouldIterateAs(['foo']);
+            ->shouldIterateAs([0 => 'f', 1 => 'o', 2 => 'o']);
     }
 
     public function it_can_count_its_items(): void

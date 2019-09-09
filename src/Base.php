@@ -41,6 +41,14 @@ abstract class Base implements BaseInterface
                 };
 
                 break;
+            case \is_string($data):
+                $this->source = static function () use ($data) {
+                    foreach (mb_str_split($data) as $key => $value) {
+                        yield $key => $value;
+                    }
+                };
+
+                break;
 
             default:
                 $this->source = static function () use ($data) {
