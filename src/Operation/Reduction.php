@@ -42,14 +42,12 @@ final class Reduction implements Operation
         $initial = $this->initial;
 
         return static function () use ($callback, $initial, $collection) {
-            $result = $initial;
+            $carry = $initial;
 
             yield $initial;
 
-            foreach ($collection as $value) {
-                $result = $callback($result, $value);
-
-                yield $result;
+            foreach ($collection as $key => $value) {
+                yield $carry = $callback($carry, $value, $key);
             }
         };
     }
