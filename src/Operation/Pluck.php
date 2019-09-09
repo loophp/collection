@@ -20,7 +20,7 @@ final class Pluck implements Operation
     private $default;
 
     /**
-     * @var array|string
+     * @var mixed
      */
     private $key;
 
@@ -47,7 +47,7 @@ final class Pluck implements Operation
         $operation = $this;
 
         return static function () use ($key, $default, $collection, $operation) {
-            $key = \is_string($key) ? \explode('.', \trim($key, '.')) : $key;
+            $key = true === \is_scalar($key) ? \explode('.', \trim((string) $key, '.')) : $key;
 
             foreach ($collection as $value) {
                 yield $operation->pick($collection, $value, $key, $default);

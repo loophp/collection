@@ -702,16 +702,19 @@ class CollectionSpec extends ObjectBehavior
 
         $input = [
             [
+                0 => 'A',
                 'foo' => [
                     'bar' => 0,
                 ],
             ],
             [
+                0 => 'B',
                 'foo' => [
                     'bar' => 1,
                 ],
             ],
             [
+                0 => 'C',
                 'foo' => [
                     'bar' => 2,
                 ],
@@ -734,6 +737,7 @@ class CollectionSpec extends ObjectBehavior
                 ];
             },
             [
+                0 => 'D',
                 'foo' => [
                     'bar' => $six,
                 ],
@@ -759,6 +763,10 @@ class CollectionSpec extends ObjectBehavior
         $this::with($input)
             ->pluck('azerty', 'taz')
             ->shouldIterateAs([0 => 'taz', 1 => 'taz', 2 => 'taz', 3 => 'taz', 4 => 'taz', 5 => 'taz', 6 => 'taz']);
+
+        $this::with($input)
+            ->pluck(0)
+            ->shouldIterateAs([0 => 'A', 1 => 'B', 2 => 'C', null, null, null, 6 => 'D']);
     }
 
     public function it_can_prepend(): void
