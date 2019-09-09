@@ -31,6 +31,7 @@ use drupol\collection\Operation\Reduction;
 use drupol\collection\Operation\Skip;
 use drupol\collection\Operation\Slice;
 use drupol\collection\Operation\Sort;
+use drupol\collection\Operation\Split;
 use drupol\collection\Operation\Walk;
 use drupol\collection\Operation\Zip;
 use drupol\collection\Transformation\All;
@@ -425,6 +426,16 @@ final class Collection extends Base implements CollectionInterface
     public function sort(callable $callback): BaseInterface
     {
         return new Collection($this->run(new Sort($callback)));
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return \drupol\collection\Contract\Collection
+     */
+    public function split(callable ...$callbacks): BaseInterface
+    {
+        return new Collection($this->run(new Split(...$callbacks)));
     }
 
     /**

@@ -7,9 +7,9 @@ namespace drupol\collection\Operation;
 use drupol\collection\Contract\Operation;
 
 /**
- * Class Walk.
+ * Class Split.
  */
-final class Walk implements Operation
+final class Split implements Operation
 {
     /**
      * @var callable[]
@@ -17,7 +17,7 @@ final class Walk implements Operation
     private $callbacks;
 
     /**
-     * Walk constructor.
+     * Split constructor.
      *
      * @param callable ...$callbacks
      */
@@ -34,15 +34,24 @@ final class Walk implements Operation
         $callbacks = $this->callbacks;
 
         return static function () use ($callbacks, $collection): \Generator {
+            $carry = new \ArrayIterator();
+
             foreach ($collection as $key => $value) {
-                $carry = $value;
+                $carry->append($value);
 
-                // Custom array_reduce function with the key passed in argument.
                 foreach ($callbacks as $callback) {
-                    $carry = $callback($carry, $key);
-                }
+                    if (true !== $callback($value, $key)) {
+                        continue;
+                    }
 
-                yield $key => $carry;
+                    yield $carry;
+
+                    $carry = new \ArrayIterator();
+                }
+            }
+
+            if ($carry->count() !== 0) {
+                yield $carry;
             }
         };
     }

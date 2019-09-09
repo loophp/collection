@@ -43,6 +43,7 @@ interface Collection extends
     Skipable,
     Sliceable,
     Sortable,
+    Splitable,
     Walkable,
     Zipable
 {

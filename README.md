@@ -113,6 +113,18 @@ Collection::with(range('A', 'Z'))
         echo strtolower($item);
     });
 
+// Generate 300 random numbers between 0 and 1000
+$random = function() {
+    yield mt_rand() / mt_getrandmax();
+};
+
+Collection::iterate($random)
+    ->map(static function (Generator $e) { return floor($e->current() * 1000) + 1;})
+    ->distinct()
+    ->limit(300)
+    ->normalize()
+    ->all();
+
 // The famous Fibonacci example:
 Collection::with(
         static function($start = 0, $inc = 1) {
@@ -161,39 +173,41 @@ $result = Collection::iterate(
     ->last(); // 1.6180339887499
 
 // Use an existing Generator as input data.
-$readFileLineByLine = static function (string $filepath): \Generator {
-    $fh = fopen($filepath, 'rb');
-    $i = 0;
+$readFileLineByLine = static function (string $filepath): Generator {
+    $fh = \fopen($filepath, 'rb');
 
-    while (!feof($fh)) {
-        $line = '';
-
-        while (PHP_EOL !== $chunk = fread($fh, 1)) {
-            $line .= $chunk;
-        }
-
-        yield [
-            'number' => $i++,
-            'content' => $line
-        ];
+    while (!\feof($fh)) {
+        yield \fread($fh, 1);
     }
 
-    fclose($fh);
+    \fclose($fh);
 };
 
-$hugeFile = __DIR__ .'/vendor/composer/autoload_static.php';
+$hugeFile = __DIR__ . '/vendor/composer/autoload_static.php';
 
 Collection::with($readFileLineByLine($hugeFile))
-    // Find public static fields or methods.
-    ->filter(static function (array $line) {return false !== strpos($line['content'], 'public static');})
-    // Skip the first one.
+    // Split the collection at a specific item, here PHP_EOL.
+    ->split(static function ($item, $key) {
+        return \PHP_EOL === $item;
+    })
+    // Concatenate each characters into a line.
+    ->map(static function ($items, $key) {
+        return implode('', $items);
+    })
+    // Add a PHP comment at the end of the line, before the PHP_EOL.
+    ->map(static function ($items, $key) {
+        return str_replace(PHP_EOL, ' // line ' . $key . PHP_EOL, $items);
+    })
+    // Find public static fields or methods among the results.
+    ->filter(static function ($line) {
+        return false !== strpos(trim($line), 'public static');
+    })
+    // Skip the first result.
     ->skip(1)
-    // Limit the list to 3 results only.
+    // Limit to 3 results only.
     ->limit(3)
-    // Add the line number at the end of each line.
-    ->map(static function (array $line) {return sprintf('%s // Line %s', $line['content'], $line['number']);})
     // Implode into a string.
-    ->implode(PHP_EOL);
+    ->implode();
 ```
 
 ## Advanced usage
@@ -326,7 +340,8 @@ the methods always return the same values for the same inputs.
 | `run`         | mixed                 | [Run.php](./src/Operation/Run.php)
 | `skip`        | new Collection object | [Skip.php](./src/Operation/Skip.php)
 | `slice`       | new Collection object | [Slice.php](./src/Operation/Slice.php)
-| `sort `       | new Collection object | [Sort.php](./src/Operation/Sort.php)
+| `sort`        | new Collection object | [Sort.php](./src/Operation/Sort.php)
+| `split`       | new Collection object | [Split.php](./src/Operation/Split.php)
 | `walk`        | new Collection object | [Walk.php](./src/Operation/Walk.php)
 | `zip`         | new Collection object | [Zip.php](./src/Operation/Zip.php)
 

@@ -402,8 +402,7 @@ class CollectionSpec extends ObjectBehavior
 
         $this
             ->flip()
-            ->all()
-            ->shouldReturn(['A' => 0, 'B' => 1, 'C' => 2, 'D' => 3, 'E' => 4]);
+            ->shouldIterateAs(['A' => 0, 'B' => 1, 'C' => 2, 'D' => 3, 'E' => 4]);
     }
 
     public function it_can_forget(): void
@@ -916,6 +915,26 @@ class CollectionSpec extends ObjectBehavior
                 return $item2 <=> $item1;
             })
             ->shouldIterateAs(['E' => 'E', 'D' => 'D', 'C' => 'C', 'B' => 'B', 'A' => 'A']);
+    }
+
+    public function it_can_split(): void
+    {
+        $this
+            ->beConstructedThrough('with', [\range(1, 17)]);
+
+        $this
+            ->split(static function ($value) {
+                return 0 === $value % 3;
+            })
+            ->map(static function (\ArrayIterator $item) {return iterator_to_array($item);})
+            ->shouldIterateAs([0 => [1, 2, 3], 1 => [4, 5, 6], 2 => [7, 8, 9], 3 => [10, 11, 12], 4 => [13, 14, 15], 5 => [16, 17]]);
+
+        $this::with(\range(1, 15))
+            ->split(static function ($value) {
+                return 0 === $value % 3;
+            })
+            ->map(static function (\ArrayIterator $item) {return iterator_to_array($item);})
+            ->shouldIterateAs([0 => [1, 2, 3], 1 => [4, 5, 6], 2 => [7, 8, 9], 3 => [10, 11, 12], 4 => [13, 14, 15]]);
     }
 
     public function it_can_use_range(): void
