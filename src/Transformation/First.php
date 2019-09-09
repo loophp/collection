@@ -42,13 +42,13 @@ final class First implements Transformer
         $default = $this->default;
 
         if (null === $callback) {
-            $callback = static function ($v, $k) {
+            $callback = static function ($value, $key) {
                 return true;
             };
         }
 
         foreach ($collection as $key => $value) {
-            if ($callback($value, $key)) {
+            if (true === $callback($value, $key)) {
                 return $value;
             }
         }
