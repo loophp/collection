@@ -1002,14 +1002,18 @@ class CollectionSpec extends ObjectBehavior
             ->split(static function ($value) {
                 return 0 === $value % 3;
             })
-            ->map(static function (\ArrayIterator $item) {return iterator_to_array($item);})
+            ->map(static function (\ArrayIterator $item) {
+                return \iterator_to_array($item);
+            })
             ->shouldIterateAs([0 => [1, 2, 3], 1 => [4, 5, 6], 2 => [7, 8, 9], 3 => [10, 11, 12], 4 => [13, 14, 15], 5 => [16, 17]]);
 
         $this::with(\range(1, 15))
             ->split(static function ($value) {
                 return 0 === $value % 3;
             })
-            ->map(static function (\ArrayIterator $item) {return iterator_to_array($item);})
+            ->map(static function (\ArrayIterator $item) {
+                return \iterator_to_array($item);
+            })
             ->shouldIterateAs([0 => [1, 2, 3], 1 => [4, 5, 6], 2 => [7, 8, 9], 3 => [10, 11, 12], 4 => [13, 14, 15]]);
     }
 

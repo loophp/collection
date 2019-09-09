@@ -50,7 +50,7 @@ final class Split implements Operation
                 }
             }
 
-            if ($carry->count() !== 0) {
+            if (0 !== $carry->count()) {
                 yield $carry;
             }
         };

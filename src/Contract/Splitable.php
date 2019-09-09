@@ -10,8 +10,6 @@ namespace drupol\collection\Contract;
 interface Splitable
 {
     /**
-     * Get a slice of items.
-     *
      * @param callable ...$callbacks
      *
      * @return \drupol\collection\Contract\Collection
