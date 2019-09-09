@@ -230,9 +230,11 @@ final class Collection extends Base implements CollectionInterface
                 }
 
                 while (true) {
-                    $parameters = $callback($parameters);
+                    $parameters = $callback(...$parameters);
 
                     yield $parameters;
+
+                    $parameters = (array) $parameters;
                 }
             }
         );
