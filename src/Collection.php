@@ -11,6 +11,7 @@ use drupol\collection\Operation\Apply;
 use drupol\collection\Operation\Chunk;
 use drupol\collection\Operation\Collapse;
 use drupol\collection\Operation\Combine;
+use drupol\collection\Operation\Cycle;
 use drupol\collection\Operation\Distinct;
 use drupol\collection\Operation\Explode;
 use drupol\collection\Operation\Filter;
@@ -121,6 +122,16 @@ final class Collection extends Base implements CollectionInterface
     public function count(): int
     {
         return $this->transform(new Count());
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return \drupol\collection\Contract\Collection
+     */
+    public function cycle(int $count = 0): BaseInterface
+    {
+        return new Collection($this->run(new Cycle($count)));
     }
 
     /**

@@ -16,6 +16,7 @@ interface Collection extends
     Collapseable,
     Combineable,
     Containsable,
+    Cycleable,
     Distinctable,
     Explodeable,
     Filterable,

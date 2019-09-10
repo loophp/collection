@@ -316,6 +316,25 @@ class CollectionSpec extends ObjectBehavior
             ->shouldReturn(3);
     }
 
+    public function it_can_cycle(): void
+    {
+        $this
+            ->beConstructedThrough('with', [['1', '2', '3']]);
+
+        $this
+            ->cycle(1)
+            ->shouldIterateAs(['1', '2', '3']);
+
+        $this
+            ->cycle(2)
+            ->shouldIterateAs(['1', '2', '3', '1', '2', '3']);
+
+        $this
+            ->cycle()
+            ->limit(7)
+            ->shouldIterateAs(['1', '2', '3', '1', '2', '3', '1']);
+    }
+
     public function it_can_distinct(): void
     {
         $stdclass = new \stdClass();
