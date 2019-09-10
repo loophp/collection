@@ -72,7 +72,7 @@ abstract class Base implements BaseInterface
      */
     public function run(Operation ...$operations)
     {
-        return (new Run(...$operations))->on($this);
+        return new static((new Run(...$operations))->on($this));
     }
 
     /**
