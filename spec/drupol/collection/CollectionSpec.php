@@ -1036,6 +1036,26 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs([0 => [1, 2, 3], 1 => [4, 5, 6], 2 => [7, 8, 9], 3 => [10, 11, 12], 4 => [13, 14, 15]]);
     }
 
+    public function it_can_until(): void
+    {
+        $collatz = static function (int $initial = 1): int {
+            return 0 === $initial % 2 ?
+                $initial / 2 :
+                $initial * 3 + 1;
+        };
+
+        $this
+            ->beConstructedThrough('iterate', [$collatz, 10]);
+
+        $until = static function (int $number): bool {
+            return 1 === $number;
+        };
+
+        $this
+            ->until($until)
+            ->shouldIterateAs([5, 16, 8, 4, 2, 1]);
+    }
+
     public function it_can_use_range(): void
     {
         $this

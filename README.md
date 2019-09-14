@@ -254,6 +254,23 @@ $string = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 Collection::with($string)
     ->explode(' ')
     ->count(); // 71
+
+// The Collatz conjecture (https://en.wikipedia.org/wiki/Collatz_conjecture)
+$collatz = static function (int $initial = 1): int
+{
+    return 0 === $initial % 2 ?
+        $initial / 2:
+        $initial * 3 + 1;
+};
+
+Collection::iterate($collatz, 10)
+    ->until(static function ($number): bool {
+        return 1 === $number;
+    })
+    ->all(); // [5, 16, 8, 4, 2, 1]
+
+
+
 ```
 
 ## Advanced usage
@@ -311,8 +328,8 @@ include 'vendor/autoload.php';
 use drupol\collection\Base;
 use drupol\collection\Contract\Allable;
 use drupol\collection\Contract\Runable;
-use drupol\collection\Operation\All;
-use drupol\collection\Operation\Run;
+use drupol\collection\Transformation\All;
+use drupol\collection\Transformation\Run;
 use drupol\collection\Contract\Operation;
 
 $customCollectionClass = new class extends Base implements Allable {
@@ -389,6 +406,7 @@ the methods always return the same values for the same inputs.
 | `slice`       | new Collection object | [Slice.php](./src/Operation/Slice.php)
 | `sort`        | new Collection object | [Sort.php](./src/Operation/Sort.php)
 | `split`       | new Collection object | [Split.php](./src/Operation/Split.php)
+| `until`       | new Collection object | [Until.php](./src/Operation/Until.php)
 | `walk`        | new Collection object | [Walk.php](./src/Operation/Walk.php)
 | `zip`         | new Collection object | [Zip.php](./src/Operation/Zip.php)
 

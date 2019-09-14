@@ -34,6 +34,7 @@ use drupol\collection\Operation\Skip;
 use drupol\collection\Operation\Slice;
 use drupol\collection\Operation\Sort;
 use drupol\collection\Operation\Split;
+use drupol\collection\Operation\Until;
 use drupol\collection\Operation\Walk;
 use drupol\collection\Operation\Zip;
 use drupol\collection\Transformation\All;
@@ -478,6 +479,16 @@ final class Collection extends Base implements CollectionInterface
         );
 
         return null === $callback ? $instance : $instance->run(new Walk($callback));
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return \drupol\collection\Contract\Collection
+     */
+    public function until(callable $callback): BaseInterface
+    {
+        return $this->run(new Until($callback));
     }
 
     /**

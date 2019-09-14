@@ -46,6 +46,7 @@ interface Collection extends
     Sliceable,
     Sortable,
     Splitable,
+    Untilable,
     Walkable,
     Zipable
 {
