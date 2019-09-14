@@ -247,10 +247,6 @@ final class Collection extends Base implements CollectionInterface
     {
         return new Collection(
             static function () use ($parameters, $callback) {
-                if ([] !== $parameters) {
-                    yield $parameters;
-                }
-
                 while (true) {
                     $parameters = $callback(...$parameters);
 

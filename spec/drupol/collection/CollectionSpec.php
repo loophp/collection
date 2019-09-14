@@ -694,7 +694,7 @@ class CollectionSpec extends ObjectBehavior
             })
             ->limit(10)
             ->all()
-            ->shouldReturn([0, 1, 1, 2, 3, 5, 8, 13, 21, 34]);
+            ->shouldReturn([1, 1, 2, 3, 5, 8, 13, 21, 34, 55]);
     }
 
     public function it_can_keys(): void
