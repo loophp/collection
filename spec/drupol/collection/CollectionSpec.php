@@ -17,17 +17,14 @@ class CollectionSpec extends ObjectBehavior
 
         $this
             ->append('4')
-            ->all()
-            ->shouldReturn(['1', '2', '3', '4']);
+            ->shouldIterateAs(['1', '2', '3', '4']);
 
         $this
             ->append('5', '6')
-            ->all()
-            ->shouldReturn(['1', '2', '3', '5', '6']);
+            ->shouldIterateAs(['1', '2', '3', '5', '6']);
 
         $this
-            ->all()
-            ->shouldReturn(['1', '2', '3']);
+            ->shouldIterateAs(['1', '2', '3']);
     }
 
     public function it_can_apply(): void
@@ -125,7 +122,7 @@ class CollectionSpec extends ObjectBehavior
                 return false !== $item;
             })
             ->all()
-            ->shouldReturn($context);
+            ->shouldIterateAs($context);
 
         $context = [];
 
@@ -143,7 +140,7 @@ class CollectionSpec extends ObjectBehavior
             ->apply($applyCallback1)
             ->walk($walkCallback2)
             ->all()
-            ->shouldReturn($context);
+            ->shouldIterateAs($context);
     }
 
     public function it_can_be_constructed_from_array(): void
@@ -154,8 +151,7 @@ class CollectionSpec extends ObjectBehavior
         $this->shouldImplement(Collection::class);
 
         $this
-            ->all()
-            ->shouldReturn(['A', 'B', 'C', 'D', 'E']);
+            ->shouldIterateAs(['A', 'B', 'C', 'D', 'E']);
     }
 
     public function it_can_be_constructed_from_empty(): void
@@ -164,8 +160,7 @@ class CollectionSpec extends ObjectBehavior
             ->beConstructedThrough('empty');
 
         $this
-            ->all()
-            ->shouldReturn([]);
+            ->shouldIterateAs([]);
     }
 
     public function it_can_be_constructed_with_a_closure(): void
@@ -194,8 +189,7 @@ class CollectionSpec extends ObjectBehavior
         $this->shouldImplement(Collection::class);
 
         $this
-            ->all()
-            ->shouldReturn([1]);
+            ->shouldIterateAs([1]);
     }
 
     public function it_can_be_instantiated_with_withClosure(): void
@@ -225,8 +219,7 @@ class CollectionSpec extends ObjectBehavior
             ->beConstructedThrough('with', [new \ArrayObject(['1', '2', '3'])]);
 
         $this
-            ->all()
-            ->shouldReturn(['1', '2', '3']);
+            ->shouldIterateAs(['1', '2', '3']);
     }
 
     public function it_can_chunk(): void
@@ -258,8 +251,7 @@ class CollectionSpec extends ObjectBehavior
         $this
             ->chunk(2)
             ->collapse()
-            ->all()
-            ->shouldReturn(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']);
+            ->shouldIterateAs(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']);
     }
 
     public function it_can_combine(): void
@@ -425,14 +417,12 @@ class CollectionSpec extends ObjectBehavior
         $this
             ->filter($callable)
             ->normalize()
-            ->all()
-            ->shouldReturn([1, 3, 5, 7, 9]);
+            ->shouldIterateAs([1, 3, 5, 7, 9]);
 
         $this
             ->filter()
             ->normalize()
-            ->all()
-            ->shouldReturn([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+            ->shouldIterateAs([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
     }
 
     public function it_can_flatten(): void
@@ -461,8 +451,7 @@ class CollectionSpec extends ObjectBehavior
 
         $this
             ->flatten()
-            ->all()
-            ->shouldReturn($output);
+            ->shouldIterateAs($output);
 
         $output = [];
 
@@ -477,8 +466,7 @@ class CollectionSpec extends ObjectBehavior
 
         $this
             ->flatten(1)
-            ->all()
-            ->shouldReturn($output);
+            ->shouldIterateAs($output);
     }
 
     public function it_can_flip(): void
@@ -498,9 +486,7 @@ class CollectionSpec extends ObjectBehavior
 
         $this
             ->forget(0, 4)
-            ->normalize()
-            ->all()
-            ->shouldReturn(['B', 'C', 'D']);
+            ->shouldIterateAs([1 => 'B', 2 => 'C', 3 => 'D']);
     }
 
     public function it_can_get(): void
@@ -536,13 +522,11 @@ class CollectionSpec extends ObjectBehavior
 
         $this
             ->only(0, 1, 3)
-            ->all()
-            ->shouldReturn([0 => 'A', 1 => 'B', 3 => 'D']);
+            ->shouldIterateAs([0 => 'A', 1 => 'B', 3 => 'D']);
 
         $this
             ->only()
-            ->all()
-            ->shouldReturn([0 => 'A', 1 => 'B', 2 => 'C', 3 => 'D', 4 => 'E']);
+            ->shouldIterateAs([0 => 'A', 1 => 'B', 2 => 'C', 3 => 'D', 4 => 'E']);
     }
 
     public function it_can_get_its_first_value(): void
@@ -683,18 +667,27 @@ class CollectionSpec extends ObjectBehavior
 
     public function it_can_iterate(): void
     {
+        $fibonacci = static function ($value1, $value2) {
+            return [$value2, $value1 + $value2];
+        };
+
         $this
-            ->beConstructedThrough('iterate', [static function ($value1, $value2) {
-                return [$value2, $value1 + $value2];
-            }, 0, 1]);
+            ->beConstructedThrough('iterate', [$fibonacci, 0, 1]);
 
         $this
             ->map(static function ($item) {
                 return $item[0];
             })
             ->limit(10)
-            ->all()
-            ->shouldReturn([1, 1, 2, 3, 5, 8, 13, 21, 34, 55]);
+            ->shouldIterateAs([1, 1, 2, 3, 5, 8, 13, 21, 34, 55]);
+
+        $plusOne = static function ($value) {
+            return $value + 1;
+        };
+
+        $this::iterate($plusOne, 0)
+            ->limit(10)
+            ->shouldIterateAs([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
     }
 
     public function it_can_keys(): void
@@ -732,8 +725,7 @@ class CollectionSpec extends ObjectBehavior
             ->map(static function (string $item) {
                 return $item . $item;
             })
-            ->all()
-            ->shouldReturn([0 => 'AA', 1 => 'BB', 2 => 'CC', 3 => 'DD', 4 => 'EE']);
+            ->shouldIterateAs([0 => 'AA', 1 => 'BB', 2 => 'CC', 3 => 'DD', 4 => 'EE']);
     }
 
     public function it_can_merge(): void
@@ -747,9 +739,7 @@ class CollectionSpec extends ObjectBehavior
 
         $this
             ->merge($collection->all())
-            ->normalize()
-            ->all()
-            ->shouldReturn(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']);
+            ->shouldIterateAs(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']);
     }
 
     public function it_can_nth(): void
@@ -775,8 +765,7 @@ class CollectionSpec extends ObjectBehavior
 
         $this
             ->pad(10, 'foo')
-            ->all()
-            ->shouldReturn(['A' => 'A', 'B' => 'B', 'C' => 'C', 'D' => 'D', 'E' => 'E', 0 => 'foo', 1 => 'foo', 2 => 'foo', 3 => 'foo', 4 => 'foo']);
+            ->shouldIterateAs(['A' => 'A', 'B' => 'B', 'C' => 'C', 'D' => 'D', 'E' => 'E', 0 => 'foo', 1 => 'foo', 2 => 'foo', 3 => 'foo', 4 => 'foo']);
     }
 
     public function it_can_pluck(): void
@@ -863,9 +852,7 @@ class CollectionSpec extends ObjectBehavior
 
         $this
             ->prepend('A', 'B', 'C')
-            ->normalize()
-            ->all()
-            ->shouldReturn(['A', 'B', 'C', 'D', 'E', 'F']);
+            ->shouldIterateAs(['A', 'B', 'C', 'D', 'E', 'F']);
     }
 
     public function it_can_rebase(): void
@@ -970,13 +957,11 @@ class CollectionSpec extends ObjectBehavior
 
         $this
             ->skip(3)
-            ->all()
-            ->shouldReturn([3 => 'D', 4 => 'E', 5 => 'F']);
+            ->shouldIterateAs([3 => 'D', 4 => 'E', 5 => 'F']);
 
         $this
             ->skip(3, 3)
-            ->all()
-            ->shouldReturn([]);
+            ->shouldIterateAs([]);
     }
 
     public function it_can_slice(): void
@@ -1062,8 +1047,7 @@ class CollectionSpec extends ObjectBehavior
             ->beConstructedThrough('range', [0, 5]);
 
         $this
-            ->all()
-            ->shouldReturn([0, 1, 2, 3, 4]);
+            ->shouldIterateAs([0, 1, 2, 3, 4]);
 
         $this::range(1, 10, 2)
             ->shouldIterateAs([1, 3, 5, 7, 9]);
@@ -1082,8 +1066,7 @@ class CollectionSpec extends ObjectBehavior
             ->beConstructedThrough('range', [0, 1]);
 
         $this
-            ->all()
-            ->shouldReturn([0]);
+            ->shouldIterateAs([0]);
     }
 
     public function it_can_use_times_with_a_callback(): void
@@ -1096,8 +1079,7 @@ class CollectionSpec extends ObjectBehavior
         $a = [[1, 2, 3, 4, 5], [1, 2, 3, 4, 5]];
 
         $this
-            ->all()
-            ->shouldReturn($a);
+            ->shouldIterateAs($a);
     }
 
     public function it_can_use_times_without_a_callback(): void
@@ -1106,16 +1088,13 @@ class CollectionSpec extends ObjectBehavior
             ->beConstructedThrough('times', [10]);
 
         $this
-            ->all()
-            ->shouldReturn(\range(1, 10));
+            ->shouldIterateAs(\range(1, 10));
 
         $this::times(-5)
-            ->all()
-            ->shouldReturn([]);
+            ->shouldIterateAs([]);
 
         $this::times(1)
-            ->all()
-            ->shouldReturn([1]);
+            ->shouldIterateAs([1]);
     }
 
     public function it_can_walk(): void
@@ -1129,8 +1108,7 @@ class CollectionSpec extends ObjectBehavior
             ->walk(static function (string $item) {
                 return $item . $item;
             })
-            ->all()
-            ->shouldReturn(['A' => 'AA', 'B' => 'BB', 'C' => 'CC', 'D' => 'DD', 'E' => 'EE']);
+            ->shouldIterateAs(['A' => 'AA', 'B' => 'BB', 'C' => 'CC', 'D' => 'DD', 'E' => 'EE']);
 
         $this::with(\range(1, 10))
             ->walk(static function ($item) {
@@ -1138,8 +1116,7 @@ class CollectionSpec extends ObjectBehavior
             }, static function ($item) {
                 return $item + 1;
             })
-            ->all()
-            ->shouldReturn(\range(3, 21, 2));
+            ->shouldIterateAs(\range(3, 21, 2));
 
         $this::with(\range(1, 10))
             ->walk(static function ($item) {
