@@ -2,6 +2,7 @@ imports:
   - { resource: vendor/drupol/php-conventions/config/php71/grumphp.yml }
 
 parameters:
+  process_timeout: 300
   extra_tasks:
     phpspec:
       verbose: true
