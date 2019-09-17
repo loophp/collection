@@ -503,12 +503,13 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * @param array $data
+     * @param mixed ...$parameters
      *
      * @return \drupol\collection\Contract\Base
      */
-    public static function with($data = []): BaseInterface
+    public static function with($data = [], ...$parameters): BaseInterface
     {
-        return new Collection($data);
+        return new Collection($data, ...$parameters);
     }
 
     /**

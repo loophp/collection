@@ -296,6 +296,9 @@ class CollectionSpec extends ObjectBehavior
 
         $this
             ->shouldIterateAs([0 => 'f', 1 => 'o', 2 => 'o']);
+
+        $this::with('hello, world', ',')
+            ->shouldIterateAs([0 => 'hello', 1 => ' world']);
     }
 
     public function it_can_count_its_items(): void

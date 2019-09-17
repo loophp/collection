@@ -251,9 +251,14 @@ $string = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.
   Duis vitae lorem convallis, egestas mauris at, sollicitudin sem. 
   Fusce molestie rutrum faucibus.';
 
+// By default will have the same behavior as str_split().
 Collection::with($string)
     ->explode(' ')
     ->count(); // 71
+
+// Or add a separator if needed, same behavior as explode().
+Collection::with($string, ',')
+  ->count(); // 9
 
 // The Collatz conjecture (https://en.wikipedia.org/wiki/Collatz_conjecture)
 $collatz = static function (int $initial = 1): int
