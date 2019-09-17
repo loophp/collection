@@ -33,18 +33,6 @@ class ClosureIteratorSpec extends ObjectBehavior
             ->shouldReturn(0);
     }
 
-    public function it_can_send(): void
-    {
-        $callback = static function () {
-            yield from \range(1, 5);
-        };
-
-        $this
-            ->beConstructedWith($callback);
-
-        $this->send('foo');
-    }
-
     public function it_can_use_next(): void
     {
         $callback = static function () {

@@ -41,9 +41,7 @@ class ClosureIterator implements \Iterator
      */
     public function current()
     {
-        if (null === $this->generator) {
-            $this->rewind();
-        }
+        $this->initGenerator();
 
         return $this->generator->current();
     }
@@ -55,9 +53,7 @@ class ClosureIterator implements \Iterator
      */
     public function key()
     {
-        if (null === $this->generator) {
-            $this->rewind();
-        }
+        $this->initGenerator();
 
         return $this->generator->key();
     }
@@ -69,9 +65,7 @@ class ClosureIterator implements \Iterator
      */
     public function next()
     {
-        if (null === $this->generator) {
-            $this->rewind();
-        }
+        $this->initGenerator();
 
         $this->generator->next();
 
@@ -83,23 +77,7 @@ class ClosureIterator implements \Iterator
      */
     public function rewind(): void
     {
-        $this->generator = ($this->source)();
-    }
-
-    /**
-     * Send a value to the inner Generator.
-     *
-     * @param null|mixed $value
-     *
-     * @return mixed
-     */
-    public function send($value = null)
-    {
-        if (null === $this->generator) {
-            $this->rewind();
-        }
-
-        return $this->generator->send($value);
+        $this->initGenerator();
     }
 
     /**
@@ -109,10 +87,18 @@ class ClosureIterator implements \Iterator
      */
     public function valid()
     {
-        if (null === $this->generator) {
-            $this->rewind();
-        }
+        $this->initGenerator();
 
         return $this->generator->valid();
+    }
+
+    /**
+     * Init the generator if not initialized yet.
+     */
+    private function initGenerator(): void
+    {
+        if (null === $this->generator) {
+            $this->generator = ($this->source)();
+        }
     }
 }
