@@ -343,7 +343,7 @@ $customCollectionClass = new class extends Base implements Allable {
      * {@inheritdoc}
      */
     public function all(): array {
-        return $this->run(new All());
+        return $this->transform(new All());
     }
 };
 
