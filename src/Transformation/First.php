@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace drupol\collection\Transformation;
 
-use drupol\collection\Contract\Transformer;
+use drupol\collection\Contract\Transformation;
 
 /**
  * Class First.
  */
-final class First implements Transformer
+final class First implements Transformation
 {
     /**
      * @var null|callable

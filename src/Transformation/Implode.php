@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace drupol\collection\Transformation;
 
-use drupol\collection\Contract\Transformer;
+use drupol\collection\Contract\Transformation;
 
 /**
  * Class Implode.
  */
-final class Implode implements Transformer
+final class Implode implements Transformation
 {
     /**
      * @var string

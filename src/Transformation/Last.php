@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace drupol\collection\Transformation;
 
-use drupol\collection\Contract\Transformer;
+use drupol\collection\Contract\Transformation;
 use drupol\collection\Iterator\ClosureIterator;
 
 /**
@@ -12,7 +12,7 @@ use drupol\collection\Iterator\ClosureIterator;
  *
  * Be careful, this will only work with finite collection sets.
  */
-final class Last implements Transformer
+final class Last implements Transformation
 {
     /**
      * {@inheritdoc}

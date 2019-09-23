@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace drupol\collection\Transformation;
 
-use drupol\collection\Contract\Transformer;
+use drupol\collection\Contract\Transformation;
 
 /**
  * Class Get.
  */
-final class Get implements Transformer
+final class Get implements Transformation
 {
     /**
      * @var mixed

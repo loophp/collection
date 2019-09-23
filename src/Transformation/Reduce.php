@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace drupol\collection\Transformation;
 
-use drupol\collection\Contract\Transformer;
+use drupol\collection\Contract\Transformation;
 
 /**
  * Class Reduce.
  */
-final class Reduce implements Transformer
+final class Reduce implements Transformation
 {
     /**
      * @var callable

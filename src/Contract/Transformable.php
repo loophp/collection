@@ -10,9 +10,9 @@ namespace drupol\collection\Contract;
 interface Transformable
 {
     /**
-     * @param \drupol\collection\Contract\Transformer ...$transformers
+     * @param \drupol\collection\Contract\Transformation ...$transformers
      *
      * @return bool|int|mixed|string
      */
-    public function transform(Transformer ...$transformers);
+    public function transform(Transformation ...$transformers);
 }

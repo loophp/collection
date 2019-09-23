@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace drupol\collection\Transformation;
 
 use drupol\collection\Contract\Operation as OperationInterface;
-use drupol\collection\Contract\Transformer;
+use drupol\collection\Contract\Transformation;
 use drupol\collection\Iterator\ClosureIterator;
 
 /**
  * Class Run.
  */
-final class Run implements Transformer
+final class Run implements Transformation
 {
     /**
      * @var \drupol\collection\Contract\Operation[]

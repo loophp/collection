@@ -4,24 +4,24 @@ declare(strict_types=1);
 
 namespace drupol\collection\Transformation;
 
-use drupol\collection\Contract\Transformer;
+use drupol\collection\Contract\Transformation;
 
 /**
  * Class Transform.
  */
-final class Transform implements Transformer
+final class Transform implements Transformation
 {
     /**
-     * @var \drupol\collection\Contract\Transformer[]
+     * @var \drupol\collection\Contract\Transformation[]
      */
     private $transformers;
 
     /**
      * Run constructor.
      *
-     * @param \drupol\collection\Contract\Transformer ...$transformers
+     * @param \drupol\collection\Contract\Transformation ...$transformers
      */
-    public function __construct(Transformer ...$transformers)
+    public function __construct(Transformation ...$transformers)
     {
         $this->transformers = $transformers;
     }
@@ -39,12 +39,12 @@ final class Transform implements Transformer
      *
      * @param iterable $collection
      *   The collection.
-     * @param \drupol\collection\Contract\Transformer $transformer
+     * @param \drupol\collection\Contract\Transformation $transformer
      *
      * @return mixed
      *   The operation result.
      */
-    private function doRun(iterable $collection, Transformer $transformer)
+    private function doRun(iterable $collection, Transformation $transformer)
     {
         return $transformer->on($collection);
     }

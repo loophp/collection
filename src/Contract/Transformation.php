@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace drupol\collection\Contract;
 
 /**
- * Interface Transformer.
+ * Interface Transformation.
  */
-interface Transformer
+interface Transformation
 {
     /**
      * @param iterable $collection

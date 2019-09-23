@@ -7,7 +7,7 @@ namespace drupol\collection\Contract;
 /**
  * Interface Operation.
  */
-interface Operation extends Transformer
+interface Operation extends Transformation
 {
     /**
      * @param iterable $collection
