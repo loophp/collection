@@ -41,12 +41,10 @@ final class Reduce implements Transformation
         $callback = $this->callback;
         $initial = $this->initial;
 
-        $carry = $initial;
-
         foreach ($collection as $key => $value) {
-            $carry = $callback($carry, $value, $key);
+            $initial = $callback($initial, $value, $key);
         }
 
-        return $carry;
+        return $initial;
     }
 }

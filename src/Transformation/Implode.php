@@ -31,6 +31,12 @@ final class Implode implements Transformation
      */
     public function on(iterable $collection): string
     {
-        return \implode($this->glue, (new All())->on($collection));
+        $result = '';
+
+        foreach ($collection as $value) {
+            $result .= $value . $this->glue;
+        }
+
+        return \rtrim($result, $this->glue);
     }
 }

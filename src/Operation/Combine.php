@@ -44,14 +44,17 @@ final class Combine implements Operation
             );
             $keysIterator = new \ArrayIterator($keys);
 
-            for (; true === ($original->valid() && $keysIterator->valid()); $original->next(), $keysIterator->next()
-                ) {
+            while ($original->valid() && $keysIterator->valid()) {
                 yield $keysIterator->current() => $original->current();
+
+                $original->next();
+                $keysIterator->next();
             }
 
-            if ((true === $original->valid() && false === $keysIterator->valid()) ||
-                    (false === $original->valid() && true === $keysIterator->valid())
-                ) {
+            $predicate1 = (true === $original->valid() && false === $keysIterator->valid());
+            $predicate2 = (false === $original->valid() && true === $keysIterator->valid());
+
+            if ($predicate1 || $predicate2) {
                 \trigger_error('Both keys and values must have the same amount of items.', \E_USER_WARNING);
             }
         };
