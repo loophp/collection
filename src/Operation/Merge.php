@@ -16,6 +16,11 @@ final class Merge implements Operation
      */
     private $sources;
 
+    /**
+     * Merge constructor.
+     *
+     * @param iterable ...$sources
+     */
     public function __construct(iterable ...$sources)
     {
         $this->sources = $sources;

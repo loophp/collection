@@ -19,11 +19,9 @@ final class All implements Transformation
         $result = [];
 
         foreach ($collection as $key => $value) {
-            if (true === \is_iterable($value)) {
-                $result[$key] = $this->on($value);
-            } else {
-                $result[$key] = $value;
-            }
+            $result[$key] = \is_iterable($value) ?
+                $this->on($value) :
+                $value;
         }
 
         return $result;

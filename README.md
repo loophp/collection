@@ -31,7 +31,7 @@ On top of this, this library:
  * is [immutable](https://en.wikipedia.org/wiki/Immutable_object),
  * is extendable,
  * leverages the power of PHP [generators](https://www.php.net/manual/en/class.generator.php) and [iterators](https://www.php.net/manual/en/class.iterator.php),
- * uses [S.O.L.I.D principles](https://en.wikipedia.org/wiki/SOLID),
+ * uses [S.O.L.I.D. principles](https://en.wikipedia.org/wiki/SOLID),
  * doesn't depends or require any other library or framework.
 
 Except a few methods, most of methods are [pure](https://en.wikipedia.org/wiki/Pure_function) and return a

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace drupol\collection\Transformation;
 
-use drupol\collection\Contract\Operation as OperationInterface;
+use drupol\collection\Contract\Operation;
 use drupol\collection\Contract\Transformation;
 use drupol\collection\Iterator\ClosureIterator;
 
@@ -23,7 +23,7 @@ final class Run implements Transformation
      *
      * @param \drupol\collection\Contract\Operation ...$operations
      */
-    public function __construct(OperationInterface ...$operations)
+    public function __construct(Operation ...$operations)
     {
         $this->operations = $operations;
     }
@@ -33,22 +33,10 @@ final class Run implements Transformation
      */
     public function on(iterable $collection)
     {
-        return \array_reduce($this->operations, [$this, 'doRun'], $collection);
-    }
+        $callback = static function (iterable $collection, Operation $operation) {
+            return new ClosureIterator($operation->on($collection));
+        };
 
-    /**
-     * Run an operation on the collection.
-     *
-     * @param iterable $collection
-     *   The collection.
-     * @param \drupol\collection\Contract\Operation $operation
-     *   The operation.
-     *
-     * @return mixed
-     *   The operation result.
-     */
-    private function doRun(iterable $collection, OperationInterface $operation)
-    {
-        return new ClosureIterator($operation->on($collection));
+        return (new Reduce($callback, $collection))->on($this->operations);
     }
 }

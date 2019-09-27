@@ -31,21 +31,10 @@ final class Transform implements Transformation
      */
     public function on(iterable $collection)
     {
-        return \array_reduce($this->transformers, [$this, 'doRun'], $collection);
-    }
+        $callback = static function (iterable $collection, Transformation $transformer) {
+            return $transformer->on($collection);
+        };
 
-    /**
-     * Run an operation on the collection.
-     *
-     * @param iterable $collection
-     *   The collection.
-     * @param \drupol\collection\Contract\Transformation $transformer
-     *
-     * @return mixed
-     *   The operation result.
-     */
-    private function doRun(iterable $collection, Transformation $transformer)
-    {
-        return $transformer->on($collection);
+        return (new Reduce($callback, $collection))->on($this->transformers);
     }
 }
