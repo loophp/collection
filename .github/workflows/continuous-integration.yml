@@ -1,0 +1,43 @@
+# https://help.github.com/en/categories/automating-your-workflow-with-github-actions
+
+on:
+  - pull_request
+  - push
+
+name: "Continuous Integration"
+
+jobs:
+  grumphp:
+    name: "Grumphp tests"
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php-binary:
+          - php7.2
+          - php7.3
+
+        dependencies:
+          - lowest
+          - locked
+          - highest
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@master
+
+      - name: "Install lowest dependencies with composer"
+        if: matrix.dependencies == 'lowest'
+        run: ${{ matrix.php-binary }} $(which composer) update --no-interaction --no-progress --no-suggest --prefer-lowest
+
+      - name: "Install locked dependencies with composer"
+        if: matrix.dependencies == 'locked'
+        run: ${{ matrix.php-binary }} $(which composer) install --no-interaction --no-progress --no-suggest
+
+      - name: "Install highest dependencies with composer"
+        if: matrix.dependencies == 'highest'
+        run: ${{ matrix.php-binary }} $(which composer) update --no-interaction --no-progress --no-suggest
+
+      - name: "Run Grumphp"
+        run: ${{ matrix.php-binary }} vendor/bin/grumphp run
