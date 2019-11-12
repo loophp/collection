@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
+use Closure;
 use drupol\collection\Contract\Operation;
+use Generator;
 
 /**
  * Class Skip.
@@ -29,12 +31,12 @@ final class Skip implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): \Closure
+    public function on(iterable $collection): Closure
     {
         $skip = $this->skip;
 
-        return static function () use ($skip, $collection): \Generator {
-            $skip = \array_sum($skip);
+        return static function () use ($skip, $collection): Generator {
+            $skip = array_sum($skip);
 
             foreach ($collection as $key => $value) {
                 if (0 < $skip--) {

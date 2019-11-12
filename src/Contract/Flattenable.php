@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace drupol\collection\Contract;
 
+use const PHP_INT_MAX;
+
 /**
  * Interface Flattenable.
  */
@@ -16,5 +18,5 @@ interface Flattenable
      *
      * @return \drupol\collection\Contract\Collection
      */
-    public function flatten(int $depth = \PHP_INT_MAX): Base;
+    public function flatten(int $depth = PHP_INT_MAX): Base;
 }

@@ -11,7 +11,7 @@ interface Pluckable
 {
     /**
      * @param array|string $pluck
-     * @param null|mixed $default
+     * @param mixed|null $default
      *
      * @return \drupol\collection\Contract\Collection
      */

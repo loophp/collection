@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
+use Closure;
 use drupol\collection\Contract\Operation;
+use Generator;
 
 /**
  * Class Pad.
@@ -36,12 +38,12 @@ final class Pad implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): \Closure
+    public function on(iterable $collection): Closure
     {
         $size = $this->size;
         $padValue = $this->value;
 
-        return static function () use ($size, $padValue, $collection): \Generator {
+        return static function () use ($size, $padValue, $collection): Generator {
             $y = 0;
 
             foreach ($collection as $key => $value) {

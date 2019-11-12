@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
+use Closure;
 use drupol\collection\Contract\Operation;
+use Generator;
 
 /**
  * Class Merge.
@@ -29,11 +31,11 @@ final class Merge implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): \Closure
+    public function on(iterable $collection): Closure
     {
         [$sources] = $this->sources;
 
-        return static function () use ($sources, $collection): \Generator {
+        return static function () use ($sources, $collection): Generator {
             foreach ($collection as $value) {
                 yield $value;
             }

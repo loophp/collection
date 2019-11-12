@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
+use ArrayIterator;
+use Closure;
 use drupol\collection\Contract\Operation;
 use drupol\collection\Iterator\ClosureIterator;
+use Generator;
 
 /**
  * Class Chunk.
@@ -30,17 +33,17 @@ final class Chunk implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): \Closure
+    public function on(iterable $collection): Closure
     {
         $length = $this->length;
 
         if (0 >= $length) {
-            return static function (): \Generator {
+            return static function (): Generator {
                 yield from [];
             };
         }
 
-        return static function () use ($length, $collection): \Generator {
+        return static function () use ($length, $collection): Generator {
             $iterator = new ClosureIterator(
                 static function () use ($collection) {
                     foreach ($collection as $key => $value) {
@@ -56,7 +59,7 @@ final class Chunk implements Operation
                     $values[] = $iterator->current();
                 }
 
-                yield new \ArrayIterator($values);
+                yield new ArrayIterator($values);
             }
         };
     }

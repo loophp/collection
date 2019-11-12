@@ -5,6 +5,10 @@ declare(strict_types=1);
 namespace drupol\collection\Transformation;
 
 use drupol\collection\Contract\Transformation;
+use stdClass;
+
+use function is_callable;
+use function is_string;
 
 /**
  * Class Contains.
@@ -33,8 +37,8 @@ final class Contains implements Transformation
     {
         $key = $this->key;
 
-        if ((false === \is_string($key)) && (true === \is_callable($key))) {
-            $placeholder = new \stdClass();
+        if ((false === is_string($key)) && (true === is_callable($key))) {
+            $placeholder = new stdClass();
 
             return (new First($key, $placeholder))->on($collection) !== $placeholder;
         }

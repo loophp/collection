@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
+use Closure;
 use drupol\collection\Contract\Operation;
+use Generator;
+
+use function array_key_exists;
 
 /**
  * Class Only.
@@ -29,18 +33,18 @@ final class Only implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): \Closure
+    public function on(iterable $collection): Closure
     {
         [$keys] = $this->keys;
 
-        return static function () use ($keys, $collection): \Generator {
+        return static function () use ($keys, $collection): Generator {
             if ([] === $keys) {
                 yield from $collection;
             } else {
-                $keys = \array_flip($keys);
+                $keys = array_flip($keys);
 
                 foreach ($collection as $key => $value) {
-                    if (true === \array_key_exists($key, $keys)) {
+                    if (true === array_key_exists($key, $keys)) {
                         yield $key => $value;
                     }
                 }

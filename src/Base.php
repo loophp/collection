@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace drupol\collection;
 
+use Closure;
 use drupol\collection\Contract\Base as BaseInterface;
 use drupol\collection\Contract\Operation;
 use drupol\collection\Contract\Transformation;
@@ -11,30 +12,32 @@ use drupol\collection\Iterator\ClosureIterator;
 use drupol\collection\Transformation\Run;
 use drupol\collection\Transformation\Transform;
 
+use function is_string;
+
 /**
  * Class Base.
  */
 abstract class Base implements BaseInterface
 {
     /**
-     * @var \Closure
+     * @var Closure
      */
     protected $source;
 
     /**
      * Base constructor.
      *
-     * @param \Closure|iterable|mixed $data
+     * @param Closure|iterable|mixed $data
      * @param mixed ...$parameters
      */
     public function __construct($data = [], ...$parameters)
     {
         switch (true) {
-            case $data instanceof \Closure:
+            case $data instanceof Closure:
                 $this->source = $data;
 
                 break;
-            case \is_iterable($data):
+            case is_iterable($data):
                 $this->source = static function () use ($data) {
                     foreach ($data as $key => $value) {
                         yield $key => $value;
@@ -42,7 +45,7 @@ abstract class Base implements BaseInterface
                 };
 
                 break;
-            case \is_string($data):
+            case is_string($data):
                 $parameters += [0 => null];
                 $separator = (string) $parameters[0];
 
@@ -50,20 +53,20 @@ abstract class Base implements BaseInterface
                     $offset = 0;
 
                     $nextOffset = '' !== $separator ?
-                        \mb_strpos($data, $separator, $offset) :
+                        mb_strpos($data, $separator, $offset) :
                         1;
 
-                    while (\mb_strlen($data) > $offset && false !== $nextOffset) {
-                        yield \mb_substr($data, $offset, $nextOffset - $offset);
-                        $offset = $nextOffset + \mb_strlen($separator);
+                    while (mb_strlen($data) > $offset && false !== $nextOffset) {
+                        yield mb_substr($data, $offset, $nextOffset - $offset);
+                        $offset = $nextOffset + mb_strlen($separator);
 
                         $nextOffset = '' !== $separator ?
-                            \mb_strpos($data, $separator, $offset) :
+                            mb_strpos($data, $separator, $offset) :
                             $nextOffset + 1;
                     }
 
                     if ('' !== $separator) {
-                        yield \mb_substr($data, $offset);
+                        yield mb_substr($data, $offset);
                     }
                 };
 

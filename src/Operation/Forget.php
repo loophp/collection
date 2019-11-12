@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
+use Closure;
 use drupol\collection\Contract\Operation;
+use Generator;
+
+use function array_key_exists;
 
 /**
  * Class Forget.
@@ -29,15 +33,15 @@ final class Forget implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): \Closure
+    public function on(iterable $collection): Closure
     {
         [$keys] = $this->keys;
 
-        return static function () use ($keys, $collection): \Generator {
-            $keys = \array_flip($keys);
+        return static function () use ($keys, $collection): Generator {
+            $keys = array_flip($keys);
 
             foreach ($collection as $key => $value) {
-                if (false === \array_key_exists($key, $keys)) {
+                if (false === array_key_exists($key, $keys)) {
                     yield $key => $value;
                 }
             }

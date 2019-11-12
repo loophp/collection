@@ -37,6 +37,6 @@ final class Implode implements Transformation
             $result .= $value . $this->glue;
         }
 
-        return \rtrim($result, $this->glue);
+        return rtrim($result, $this->glue);
     }
 }

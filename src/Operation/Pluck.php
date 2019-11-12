@@ -5,9 +5,17 @@ declare(strict_types=1);
 namespace drupol\collection\Operation;
 
 use ArrayAccess;
+use Closure;
 use drupol\collection\Contract\Collection;
 use drupol\collection\Contract\Operation;
 use drupol\collection\Transformation\Get;
+use ReflectionClass;
+use ReflectionException;
+
+use function array_key_exists;
+use function in_array;
+use function is_array;
+use function is_object;
 
 /**
  * Class Pluck.
@@ -39,7 +47,7 @@ final class Pluck implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): \Closure
+    public function on(iterable $collection): Closure
     {
         $key = $this->key;
         $default = $this->default;
@@ -47,7 +55,7 @@ final class Pluck implements Operation
         $operation = $this;
 
         return static function () use ($key, $default, $collection, $operation) {
-            $key = true === \is_scalar($key) ? \explode('.', \trim((string) $key, '.')) : $key;
+            $key = true === is_scalar($key) ? explode('.', trim((string) $key, '.')) : $key;
 
             foreach ($collection as $value) {
                 yield $operation->pick($collection, $value, $key, $default);
@@ -63,15 +71,15 @@ final class Pluck implements Operation
      * @param array $key
      * @param mixed $default
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      *
      * @return mixed
      */
     private function pick(iterable $collection, $target, array $key, $default = null)
     {
-        while (null !== $segment = \array_shift($key)) {
+        while (null !== $segment = array_shift($key)) {
             if ('*' === $segment) {
-                if (false === \is_iterable($target)) {
+                if (false === is_iterable($target)) {
                     return $default;
                 }
 
@@ -81,17 +89,17 @@ final class Pluck implements Operation
                     $result[] = $this->pick($collection, $item, $key);
                 }
 
-                return \in_array('*', $key, true) ? (new Collapse())->on($result) : $result;
+                return in_array('*', $key, true) ? (new Collapse())->on($result) : $result;
             }
 
-            if ((true === \is_array($target)) && (true === \array_key_exists($segment, $target))) {
+            if ((true === is_array($target)) && (true === array_key_exists($segment, $target))) {
                 $target = $target[$segment];
             } elseif (($target instanceof ArrayAccess) && (true === $target->offsetExists($segment))) {
                 $target = $target[$segment];
             } elseif ($target instanceof Collection) {
                 $target = (new Get($segment, $default))->on($target);
-            } elseif ((true === \is_object($target)) && (true === \property_exists($target, $segment))) {
-                $target = (new \ReflectionClass($target))->getProperty($segment)->getValue($target);
+            } elseif ((true === is_object($target)) && (true === property_exists($target, $segment))) {
+                $target = (new ReflectionClass($target))->getProperty($segment)->getValue($target);
             } else {
                 $target = $default;
             }

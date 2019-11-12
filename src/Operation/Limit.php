@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
+use Closure;
 use drupol\collection\Contract\Operation;
+use Generator;
 
 /**
  * Class Limit.
@@ -29,11 +31,11 @@ final class Limit implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): \Closure
+    public function on(iterable $collection): Closure
     {
         $limit = $this->limit;
 
-        return static function () use ($limit, $collection): \Generator {
+        return static function () use ($limit, $collection): Generator {
             $i = 0;
 
             foreach ($collection as $key => $value) {

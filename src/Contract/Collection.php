@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace drupol\collection\Contract;
 
+use const INF;
+
 /**
  * Interface Collection.
  */
@@ -72,7 +74,7 @@ interface Collection extends
      *
      * @return \drupol\collection\Contract\Collection
      */
-    public static function range(int $start = 0, $end = \INF, $step = 1): Collection;
+    public static function range(int $start = 0, $end = INF, $step = 1): Collection;
 
     /**
      * Create a new instance by invoking the callback a given amount of times.
@@ -82,5 +84,5 @@ interface Collection extends
      *
      * @return \drupol\collection\Contract\Collection
      */
-    public static function times($number, callable $callback = null): Collection;
+    public static function times($number, ?callable $callback = null): Collection;
 }

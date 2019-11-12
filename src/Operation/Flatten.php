@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
+use Closure;
 use drupol\collection\Contract\Operation;
 use drupol\collection\Iterator\ClosureIterator;
+use Generator;
 
 /**
  * Class Flatten.
@@ -30,13 +32,13 @@ final class Flatten implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): \Closure
+    public function on(iterable $collection): Closure
     {
         $depth = $this->depth;
 
-        return static function () use ($depth, $collection): \Generator {
+        return static function () use ($depth, $collection): Generator {
             foreach ($collection as $value) {
-                if (false === \is_iterable($value)) {
+                if (false === is_iterable($value)) {
                     yield $value;
                 } elseif (1 === $depth) {
                     foreach ($value as $subValue) {

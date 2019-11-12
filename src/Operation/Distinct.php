@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
+use Closure;
 use drupol\collection\Collection;
 use drupol\collection\Contract\Operation;
 
@@ -15,7 +16,7 @@ final class Distinct implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): \Closure
+    public function on(iterable $collection): Closure
     {
         return static function () use ($collection) {
             $seen = new Collection([]);

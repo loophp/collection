@@ -13,9 +13,9 @@ interface Sliceable
      * Get a slice of items.
      *
      * @param int $offset
-     * @param null|int $length
+     * @param int|null $length
      *
      * @return \drupol\collection\Contract\Collection
      */
-    public function slice(int $offset, int $length = null): Base;
+    public function slice(int $offset, ?int $length = null): Base;
 }

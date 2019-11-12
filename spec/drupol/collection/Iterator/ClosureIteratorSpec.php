@@ -12,7 +12,7 @@ class ClosureIteratorSpec extends ObjectBehavior
     public function it_can_be_constructed_with_a_callable_which_is_not_a_generator(): void
     {
         $callback = static function () {
-            return \range(1, 5);
+            return range(1, 5);
         };
 
         $this
@@ -22,7 +22,7 @@ class ClosureIteratorSpec extends ObjectBehavior
     public function it_can_get_a_key(): void
     {
         $callback = static function () {
-            return \range(1, 5);
+            return range(1, 5);
         };
 
         $this
@@ -36,7 +36,7 @@ class ClosureIteratorSpec extends ObjectBehavior
     public function it_can_use_next(): void
     {
         $callback = static function () {
-            return \range(1, 5);
+            return range(1, 5);
         };
 
         $this

@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
+use Closure;
 use drupol\collection\Contract\Operation;
+use Generator;
 
 /**
  * Class Until.
@@ -29,11 +31,11 @@ final class Until implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): \Closure
+    public function on(iterable $collection): Closure
     {
         $until = $this->callable;
 
-        return static function () use ($until, $collection): \Generator {
+        return static function () use ($until, $collection): Generator {
             foreach ($collection as $key => $value) {
                 yield $key => $value;
 

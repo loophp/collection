@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
+use ArrayIterator;
+use Closure;
 use drupol\collection\Contract\Operation;
+use Generator;
 
 /**
  * Class Split.
@@ -29,12 +32,12 @@ final class Split implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): \Closure
+    public function on(iterable $collection): Closure
     {
         $callbacks = $this->callbacks;
 
-        return static function () use ($callbacks, $collection): \Generator {
-            $carry = new \ArrayIterator();
+        return static function () use ($callbacks, $collection): Generator {
+            $carry = new ArrayIterator();
 
             foreach ($collection as $key => $value) {
                 $carry->append($value);
@@ -46,7 +49,7 @@ final class Split implements Operation
 
                     yield $carry;
 
-                    $carry = new \ArrayIterator();
+                    $carry = new ArrayIterator();
                 }
             }
 

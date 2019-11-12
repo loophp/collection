@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
+use Closure;
 use drupol\collection\Contract\Operation;
 
 /**
@@ -29,9 +30,9 @@ final class Explode implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): \Closure
+    public function on(iterable $collection): Closure
     {
-        $callbacks = \array_map(
+        $callbacks = array_map(
             static function ($explode) {
                 return static function ($value) use ($explode) {
                     return $value === $explode;

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace drupol\collection\Contract;
 
+use Closure;
+
 /**
  * Interface Operation.
  */
@@ -12,7 +14,7 @@ interface Operation extends Transformation
     /**
      * @param iterable $collection
      *
-     * @return \Closure
+     * @return Closure
      */
-    public function on(iterable $collection): \Closure;
+    public function on(iterable $collection): Closure;
 }

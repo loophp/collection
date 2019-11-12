@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
+use Closure;
 use drupol\collection\Contract\Operation;
 use drupol\collection\Iterator\ClosureIterator;
+use Generator;
 
 /**
  * Class Slice.
@@ -13,7 +15,7 @@ use drupol\collection\Iterator\ClosureIterator;
 final class Slice implements Operation
 {
     /**
-     * @var null|int
+     * @var int|null
      */
     private $length;
 
@@ -26,9 +28,9 @@ final class Slice implements Operation
      * Slice constructor.
      *
      * @param int $offset
-     * @param null|int $length
+     * @param int|null $length
      */
-    public function __construct(int $offset, int $length = null)
+    public function __construct(int $offset, ?int $length = null)
     {
         $this->offset = $offset;
         $this->length = $length;
@@ -37,12 +39,12 @@ final class Slice implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): \Closure
+    public function on(iterable $collection): Closure
     {
         $offset = $this->offset;
         $length = $this->length;
 
-        return static function () use ($offset, $length, $collection): \Generator {
+        return static function () use ($offset, $length, $collection): Generator {
             if (null === $length) {
                 yield from (new Skip($offset))->on($collection)();
             } else {

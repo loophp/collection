@@ -46,6 +46,9 @@ use drupol\collection\Transformation\Implode;
 use drupol\collection\Transformation\Last;
 use drupol\collection\Transformation\Reduce;
 
+use const INF;
+use const PHP_INT_MAX;
+
 /**
  * Class Collection.
  */
@@ -178,7 +181,7 @@ final class Collection extends Base implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function first(callable $callback = null, $default = null)
+    public function first(?callable $callback = null, $default = null)
     {
         return $this->transform(new First($callback, $default));
     }
@@ -188,7 +191,7 @@ final class Collection extends Base implements CollectionInterface
      *
      * @return \drupol\collection\Contract\Collection
      */
-    public function flatten(int $depth = \PHP_INT_MAX): BaseInterface
+    public function flatten(int $depth = PHP_INT_MAX): BaseInterface
     {
         return $this->run(new Flatten($depth));
     }
@@ -372,7 +375,7 @@ final class Collection extends Base implements CollectionInterface
      *
      * @return \drupol\collection\Contract\Collection
      */
-    public static function range(int $start = 0, $end = \INF, $step = 1): CollectionInterface
+    public static function range(int $start = 0, $end = INF, $step = 1): CollectionInterface
     {
         return (new Collection())->run(new Range($start, $end, $step));
     }
@@ -413,7 +416,7 @@ final class Collection extends Base implements CollectionInterface
     public function rsample($probability): BaseInterface
     {
         $callback = static function ($item) use ($probability) {
-            return (\mt_rand() / \mt_getrandmax()) < $probability;
+            return (mt_rand() / mt_getrandmax()) < $probability;
         };
 
         return $this->run(new Filter($callback));
@@ -434,7 +437,7 @@ final class Collection extends Base implements CollectionInterface
      *
      * @return \drupol\collection\Contract\Collection
      */
-    public function slice(int $offset, int $length = null): BaseInterface
+    public function slice(int $offset, ?int $length = null): BaseInterface
     {
         return $this->run(new Slice($offset, $length));
     }
@@ -464,10 +467,10 @@ final class Collection extends Base implements CollectionInterface
      *
      * @return \drupol\collection\Contract\Collection
      */
-    public static function times($number, callable $callback = null): CollectionInterface
+    public static function times($number, ?callable $callback = null): CollectionInterface
     {
         if (1 > $number) {
-            return static::empty();
+            return self::empty();
         }
 
         $instance = new Collection(

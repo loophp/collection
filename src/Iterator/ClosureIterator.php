@@ -4,18 +4,22 @@ declare(strict_types=1);
 
 namespace drupol\collection\Iterator;
 
+use Closure;
+use Generator;
+use Iterator;
+
 /**
  * Class ClosureIterator.
  */
-class ClosureIterator implements \Iterator
+final class ClosureIterator implements Iterator
 {
     /**
-     * @var \Generator
+     * @var Generator|null
      */
     private $generator;
 
     /**
-     * @var \Closure
+     * @var Closure
      */
     private $source;
 
@@ -28,9 +32,7 @@ class ClosureIterator implements \Iterator
     public function __construct(callable $callable, ...$arguments)
     {
         $this->source = static function () use ($callable, $arguments) {
-            foreach ($callable(...$arguments) as $key => $value) {
-                yield $key => $value;
-            }
+            yield from $callable(...$arguments);
         };
     }
 
@@ -41,9 +43,7 @@ class ClosureIterator implements \Iterator
      */
     public function current()
     {
-        $this->initGenerator();
-
-        return $this->generator->current();
+        return $this->getGenerator()->current();
     }
 
     /**
@@ -53,21 +53,17 @@ class ClosureIterator implements \Iterator
      */
     public function key()
     {
-        $this->initGenerator();
-
-        return $this->generator->key();
+        return $this->getGenerator()->key();
     }
 
     /**
      * {@inheritdoc}
      *
-     * @return $this|void
+     * @return $this
      */
     public function next()
     {
-        $this->initGenerator();
-
-        $this->generator->next();
+        $this->getGenerator()->next();
 
         return $this;
     }
@@ -77,7 +73,7 @@ class ClosureIterator implements \Iterator
      */
     public function rewind(): void
     {
-        $this->initGenerator();
+        $this->getGenerator();
     }
 
     /**
@@ -87,18 +83,18 @@ class ClosureIterator implements \Iterator
      */
     public function valid()
     {
-        $this->initGenerator();
-
-        return $this->generator->valid();
+        return $this->getGenerator()->valid();
     }
 
     /**
      * Init the generator if not initialized yet.
+     *
+     * @return Generator
      */
-    private function initGenerator(): void
+    private function getGenerator(): Generator
     {
-        if (null === $this->generator) {
-            $this->generator = ($this->source)();
-        }
+        $this->generator = $this->generator ?? ($this->source)();
+
+        return $this->generator;
     }
 }

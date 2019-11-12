@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
+use Closure;
 use drupol\collection\Contract\Operation;
+use Generator;
 
 /**
  * Class Nth.
@@ -36,12 +38,12 @@ final class Nth implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): \Closure
+    public function on(iterable $collection): Closure
     {
         $step = $this->step;
         $offset = $this->offset;
 
-        return static function () use ($step, $offset, $collection): \Generator {
+        return static function () use ($step, $offset, $collection): Generator {
             $position = 0;
 
             foreach ($collection as $key => $value) {

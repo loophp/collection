@@ -19,7 +19,7 @@ final class Count implements Transformation
      */
     public function on(iterable $collection)
     {
-        return \iterator_count(
+        return iterator_count(
             new ClosureIterator(
                 static function () use ($collection) {
                     foreach ($collection as $key => $value) {

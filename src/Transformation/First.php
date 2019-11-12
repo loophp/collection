@@ -12,22 +12,22 @@ use drupol\collection\Contract\Transformation;
 final class First implements Transformation
 {
     /**
-     * @var null|callable
+     * @var callable|null
      */
     private $callback;
 
     /**
-     * @var null|mixed
+     * @var mixed|null
      */
     private $default;
 
     /**
      * First constructor.
      *
-     * @param null|callable $callback
-     * @param null|mixed $default
+     * @param callable|null $callback
+     * @param mixed|null $default
      */
-    public function __construct(callable $callback = null, $default = null)
+    public function __construct(?callable $callback = null, $default = null)
     {
         $this->callback = $callback;
         $this->default = $default;

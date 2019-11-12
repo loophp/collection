@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
+use Closure;
 use drupol\collection\Collection;
 use drupol\collection\Contract\Operation;
+use Generator;
+use InvalidArgumentException;
 
 /**
  * Class Intersperse.
@@ -47,21 +50,21 @@ final class Intersperse implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): \Closure
+    public function on(iterable $collection): Closure
     {
         $element = $this->element;
         $every = $this->atEvery;
         $startAt = $this->startAt;
 
         if (0 > $every) {
-            throw new \InvalidArgumentException('The second parameter must be a positive integer.');
+            throw new InvalidArgumentException('The second parameter must be a positive integer.');
         }
 
         if (0 > $startAt) {
-            throw new \InvalidArgumentException('The third parameter must be a positive integer.');
+            throw new InvalidArgumentException('The third parameter must be a positive integer.');
         }
 
-        return static function () use ($element, $every, $startAt, $collection): \Generator {
+        return static function () use ($element, $every, $startAt, $collection): Generator {
             foreach ($collection as $key => $value) {
                 if (0 === $startAt++ % $every) {
                     yield $element;

@@ -12,10 +12,10 @@ interface Firstable
     /**
      * Get the first item from the collection passing the given truth test.
      *
-     * @param null|callable $callback
+     * @param callable|null $callback
      * @param mixed $default
      *
      * @return mixed
      */
-    public function first(callable $callback = null, $default = null);
+    public function first(?callable $callback = null, $default = null);
 }

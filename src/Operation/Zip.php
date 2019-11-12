@@ -4,8 +4,12 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
+use ArrayIterator;
+use Closure;
 use drupol\collection\Contract\Operation;
 use drupol\collection\Iterator\ClosureIterator;
+use Generator;
+use MultipleIterator;
 
 /**
  * Class Zip.
@@ -30,11 +34,11 @@ final class Zip implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): \Closure
+    public function on(iterable $collection): Closure
     {
         [$iterables] = $this->iterables;
 
-        return static function () use ($iterables, $collection): \Generator {
+        return static function () use ($iterables, $collection): Generator {
             $getIteratorCallback = static function ($iterable) {
                 return new ClosureIterator(
                     static function () use ($iterable) {
@@ -45,7 +49,7 @@ final class Zip implements Operation
                 );
             };
 
-            $items = \array_merge([$collection], $iterables);
+            $items = array_merge([$collection], $iterables);
 
             $walk = new Walk($getIteratorCallback);
             $append = new Append($items);
@@ -54,14 +58,14 @@ final class Zip implements Operation
                 $walk->on(new ClosureIterator($append->on([])))
             );
 
-            $mit = new \MultipleIterator(\MultipleIterator::MIT_NEED_ANY);
+            $mit = new MultipleIterator(MultipleIterator::MIT_NEED_ANY);
 
             foreach ($iterators as $iterator) {
                 $mit->attachIterator($iterator);
             }
 
             foreach ($mit as $values) {
-                yield new \ArrayIterator($values);
+                yield new ArrayIterator($values);
             }
         };
     }

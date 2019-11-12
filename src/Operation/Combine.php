@@ -4,8 +4,13 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
+use ArrayIterator;
+use Closure;
 use drupol\collection\Contract\Operation;
 use drupol\collection\Iterator\ClosureIterator;
+use Generator;
+
+use const E_USER_WARNING;
 
 /**
  * Class Combine.
@@ -30,11 +35,11 @@ final class Combine implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): \Closure
+    public function on(iterable $collection): Closure
     {
         [$keys] = $this->keys;
 
-        return static function () use ($keys, $collection): \Generator {
+        return static function () use ($keys, $collection): Generator {
             $original = new ClosureIterator(
                 static function () use ($collection) {
                     foreach ($collection as $key => $value) {
@@ -42,7 +47,7 @@ final class Combine implements Operation
                     }
                 }
             );
-            $keysIterator = new \ArrayIterator($keys);
+            $keysIterator = new ArrayIterator($keys);
 
             while ($original->valid() && $keysIterator->valid()) {
                 yield $keysIterator->current() => $original->current();
@@ -55,7 +60,7 @@ final class Combine implements Operation
             $predicate2 = (false === $original->valid() && true === $keysIterator->valid());
 
             if ($predicate1 || $predicate2) {
-                \trigger_error('Both keys and values must have the same amount of items.', \E_USER_WARNING);
+                trigger_error('Both keys and values must have the same amount of items.', E_USER_WARNING);
             }
         };
     }

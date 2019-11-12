@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
+use Closure;
 use drupol\collection\Contract\Operation;
+use Generator;
 
 /**
  * Class Append.
@@ -29,11 +31,11 @@ final class Append implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): \Closure
+    public function on(iterable $collection): Closure
     {
         [$items] = $this->items;
 
-        return static function () use ($items, $collection): \Generator {
+        return static function () use ($items, $collection): Generator {
             foreach ($collection as $value) {
                 yield $value;
             }

@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
+use Closure;
 use drupol\collection\Contract\Operation;
 use drupol\collection\Iterator\ClosureIterator;
+use Generator;
 
 /**
  * Class Sort.
@@ -32,12 +34,12 @@ final class Sort implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): \Closure
+    public function on(iterable $collection): Closure
     {
         $callback = $this->callback;
 
-        return static function () use ($callback, $collection): \Generator {
-            $array = \iterator_to_array(
+        return static function () use ($callback, $collection): Generator {
+            $array = iterator_to_array(
                 new ClosureIterator(
                     static function () use ($collection) {
                         foreach ($collection as $key => $value) {
@@ -47,7 +49,7 @@ final class Sort implements Operation
                 )
             );
 
-            \uasort($array, $callback);
+            uasort($array, $callback);
 
             yield from $array;
         };
