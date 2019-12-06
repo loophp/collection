@@ -20,7 +20,7 @@ final class Flip implements Operation
     {
         return static function () use ($collection): Generator {
             foreach ($collection as $key => $value) {
-                yield $value => $key;
+                yield (string) $value => $key;
             }
         };
     }

@@ -486,6 +486,19 @@ class CollectionSpec extends ObjectBehavior
         $this
             ->flip()
             ->shouldIterateAs(['A' => 0, 'B' => 1, 'C' => 2, 'D' => 3, 'E' => 4]);
+
+        $input = [3/2, 4/3, 5/4, 6/5, 9/8];
+        $output = [
+            '1.5' => 0,
+            '1.3333333333333' => 1,
+            '1.25' => 2,
+            '1.2' => 3,
+            '1.125' => 4,
+        ];
+
+        $this::with($input)
+            ->flip()
+            ->shouldIterateAs($output);
     }
 
     public function it_can_forget(): void
