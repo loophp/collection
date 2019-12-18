@@ -9,6 +9,7 @@ use Closure;
 use drupol\collection\Contract\Collection;
 use drupol\collection\Contract\Operation;
 use drupol\collection\Transformation\Get;
+use Generator;
 use ReflectionClass;
 use ReflectionException;
 
@@ -35,7 +36,7 @@ final class Pluck implements Operation
     /**
      * Pluck constructor.
      *
-     * @param array|string $key
+     * @param array<int, string>|string $key
      * @param mixed $default
      */
     public function __construct($key, $default)
@@ -54,7 +55,7 @@ final class Pluck implements Operation
 
         $operation = $this;
 
-        return static function () use ($key, $default, $collection, $operation) {
+        return static function () use ($key, $default, $collection, $operation): Generator {
             $key = true === is_scalar($key) ? explode('.', trim((string) $key, '.')) : $key;
 
             foreach ($collection as $value) {
@@ -66,9 +67,9 @@ final class Pluck implements Operation
     /**
      * Get an item from an array or object using "dot" notation.
      *
-     * @param iterable $collection
+     * @param iterable<mixed> $collection
      * @param mixed $target
-     * @param array $key
+     * @param array<string> $key
      * @param mixed $default
      *
      * @throws ReflectionException

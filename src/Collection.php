@@ -46,6 +46,7 @@ use drupol\collection\Transformation\Get;
 use drupol\collection\Transformation\Implode;
 use drupol\collection\Transformation\Last;
 use drupol\collection\Transformation\Reduce;
+use Generator;
 
 use const INF;
 use const PHP_INT_MAX;
@@ -251,7 +252,7 @@ final class Collection extends Base implements CollectionInterface
     public static function iterate(callable $callback, ...$parameters): CollectionInterface
     {
         return new Collection(
-            static function () use ($parameters, $callback) {
+            static function () use ($parameters, $callback): Generator {
                 while (true) {
                     $parameters = $callback(...$parameters);
 
@@ -416,7 +417,7 @@ final class Collection extends Base implements CollectionInterface
      */
     public function rsample($probability): BaseInterface
     {
-        $callback = static function ($item) use ($probability) {
+        $callback = static function ($item) use ($probability): bool {
             return (mt_rand() / mt_getrandmax()) < $probability;
         };
 
@@ -488,7 +489,7 @@ final class Collection extends Base implements CollectionInterface
         }
 
         $instance = new Collection(
-            static function () use ($number) {
+            static function () use ($number): Generator {
                 for ($current = 1; $current <= $number; ++$current) {
                     yield $current;
                 }
@@ -519,10 +520,10 @@ final class Collection extends Base implements CollectionInterface
     }
 
     /**
-     * @param array $data
+     * @param array<mixed> $data
      * @param mixed ...$parameters
      *
-     * @return \drupol\collection\Contract\Base
+     * @return \drupol\collection\Contract\Base<mixed>
      */
     public static function with($data = [], ...$parameters): BaseInterface
     {

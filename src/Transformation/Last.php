@@ -6,6 +6,7 @@ namespace drupol\collection\Transformation;
 
 use drupol\collection\Contract\Transformation;
 use drupol\collection\Iterator\ClosureIterator;
+use Generator;
 
 /**
  * Class Last.
@@ -20,7 +21,7 @@ final class Last implements Transformation
     public function on(iterable $collection)
     {
         $iterator = new ClosureIterator(
-            static function () use ($collection) {
+            static function () use ($collection): Generator {
                 foreach ($collection as $key => $value) {
                     yield $key => $value;
                 }

@@ -41,7 +41,7 @@ final class Sort implements Operation
         return static function () use ($callback, $collection): Generator {
             $array = iterator_to_array(
                 new ClosureIterator(
-                    static function () use ($collection) {
+                    static function () use ($collection): Generator {
                         foreach ($collection as $key => $value) {
                             yield $key => $value;
                         }

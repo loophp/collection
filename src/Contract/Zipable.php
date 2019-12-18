@@ -17,7 +17,7 @@ interface Zipable
      *
      * @param mixed ...$items
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \drupol\collection\Contract\Collection<mixed>
      */
     public function zip(...$items): Base;
 }

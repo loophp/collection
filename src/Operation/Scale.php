@@ -48,7 +48,7 @@ final class Scale implements Operation
             $wantedUpperBound = $wantedUpperBound ?? $base;
         }
 
-        $callback = static function ($v) use ($lowerBound, $upperBound, $wantedLowerBound, $wantedUpperBound, $base) {
+        $callback = static function ($v) use ($lowerBound, $upperBound, $wantedLowerBound, $wantedUpperBound, $base): float { // phpcs:ignore
             if (null !== $base) {
                 $mx = log($v - $lowerBound, $base) / log($upperBound - $lowerBound, $base);
 

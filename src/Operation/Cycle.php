@@ -6,6 +6,7 @@ namespace drupol\collection\Operation;
 
 use Closure;
 use drupol\collection\Contract\Operation;
+use Generator;
 
 /**
  * Class Cycle.
@@ -34,7 +35,7 @@ final class Cycle implements Operation
     {
         $count = $this->count;
 
-        return static function () use ($collection, $count) {
+        return static function () use ($collection, $count): Generator {
             for ($j = 0 === $count ? 1 : 0; $j !== $count; ++$j) {
                 foreach ($collection as $value) {
                     yield $value;

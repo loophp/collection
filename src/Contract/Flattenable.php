@@ -16,7 +16,7 @@ interface Flattenable
      *
      * @param int $depth
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \drupol\collection\Contract\Collection<mixed>
      */
     public function flatten(int $depth = PHP_INT_MAX): Base;
 }

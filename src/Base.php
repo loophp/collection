@@ -11,6 +11,7 @@ use drupol\collection\Contract\Transformation;
 use drupol\collection\Iterator\ClosureIterator;
 use drupol\collection\Transformation\Run;
 use drupol\collection\Transformation\Transform;
+use Generator;
 
 use function is_string;
 
@@ -30,7 +31,7 @@ abstract class Base implements BaseInterface
      * @param Closure|iterable|mixed $data
      * @param mixed ...$parameters
      */
-    public function __construct($data = [], ...$parameters)
+    final public function __construct($data = [], ...$parameters)
     {
         switch (true) {
             case $data instanceof Closure:
@@ -38,7 +39,7 @@ abstract class Base implements BaseInterface
 
                 break;
             case is_iterable($data):
-                $this->source = static function () use ($data) {
+                $this->source = static function () use ($data): Generator {
                     foreach ($data as $key => $value) {
                         yield $key => $value;
                     }
@@ -49,7 +50,7 @@ abstract class Base implements BaseInterface
                 $parameters += [0 => null];
                 $separator = (string) $parameters[0];
 
-                $this->source = static function () use ($data, $separator) {
+                $this->source = static function () use ($data, $separator): Generator {
                     $offset = 0;
 
                     $nextOffset = '' !== $separator ?
@@ -73,7 +74,7 @@ abstract class Base implements BaseInterface
                 break;
 
             default:
-                $this->source = static function () use ($data) {
+                $this->source = static function () use ($data): Generator {
                     foreach ((array) $data as $key => $value) {
                         yield $key => $value;
                     }
@@ -82,7 +83,7 @@ abstract class Base implements BaseInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @return ClosureIterator<mixed>
      */
     public function getIterator(): ClosureIterator
     {

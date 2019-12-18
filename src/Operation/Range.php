@@ -6,6 +6,7 @@ namespace drupol\collection\Operation;
 
 use Closure;
 use drupol\collection\Contract\Operation;
+use Generator;
 
 /**
  * Class Range.
@@ -50,7 +51,7 @@ final class Range implements Operation
         $end = $this->end;
         $step = $this->step;
 
-        return static function () use ($start, $end, $step) {
+        return static function () use ($start, $end, $step): Generator {
             for ($current = $start; $current < $end; $current += $step) {
                 yield $current;
             }

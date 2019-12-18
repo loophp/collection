@@ -45,7 +45,7 @@ final class Chunk implements Operation
 
         return static function () use ($length, $collection): Generator {
             $iterator = new ClosureIterator(
-                static function () use ($collection) {
+                static function () use ($collection): Generator {
                     foreach ($collection as $key => $value) {
                         yield $value;
                     }

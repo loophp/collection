@@ -10,10 +10,10 @@ namespace drupol\collection\Contract;
 interface Pluckable
 {
     /**
-     * @param array|string $pluck
+     * @param array<int, string>|string $pluck
      * @param mixed|null $default
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \drupol\collection\Contract\Collection<mixed>
      */
     public function pluck($pluck, $default = null): Base;
 }

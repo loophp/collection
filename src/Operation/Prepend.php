@@ -14,14 +14,14 @@ use Generator;
 final class Prepend implements Operation
 {
     /**
-     * @var array
+     * @var array<mixed, mixed>
      */
     private $items;
 
     /**
      * Prepend constructor.
      *
-     * @param mixed ...$items
+     * @param array<mixed, mixed> ...$items
      */
     public function __construct(...$items)
     {

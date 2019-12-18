@@ -39,9 +39,9 @@ final class Zip implements Operation
         [$iterables] = $this->iterables;
 
         return static function () use ($iterables, $collection): Generator {
-            $getIteratorCallback = static function ($iterable) {
+            $getIteratorCallback = static function ($iterable): ClosureIterator {
                 return new ClosureIterator(
-                    static function () use ($iterable) {
+                    static function () use ($iterable): Generator {
                         foreach ($iterable as $key => $value) {
                             yield $key => $value;
                         }

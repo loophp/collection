@@ -6,6 +6,7 @@ namespace drupol\collection\Operation;
 
 use Closure;
 use drupol\collection\Contract\Operation;
+use Generator;
 
 /**
  * Class Reduction.
@@ -42,7 +43,7 @@ final class Reduction implements Operation
         $callback = $this->callback;
         $initial = $this->initial;
 
-        return static function () use ($callback, $initial, $collection) {
+        return static function () use ($callback, $initial, $collection): Generator {
             $carry = $initial;
 
             yield $initial;

@@ -10,7 +10,7 @@ namespace drupol\collection\Contract;
 interface Transformation
 {
     /**
-     * @param iterable $collection
+     * @param iterable<mixed> $collection
      *
      * @return bool|mixed
      */

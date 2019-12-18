@@ -14,7 +14,7 @@ interface Sortable
      *
      * @param callable $callable
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \drupol\collection\Contract\Collection<mixed>
      */
     public function sort(callable $callable): Base;
 }

@@ -1,6 +1,5 @@
 formatter.name: pretty
 extensions:
-  drupol\PhpspecAnnotation\PhpspecAnnotation: ~
   LeanPHP\PhpSpec\CodeCoverage\CodeCoverageExtension:
     format:
       - html

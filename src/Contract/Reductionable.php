@@ -15,7 +15,7 @@ interface Reductionable
      * @param callable $callback
      * @param mixed $initial
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \drupol\collection\Contract\Collection<mixed>
      */
     public function reduction(callable $callback, $initial = null): Base;
 }

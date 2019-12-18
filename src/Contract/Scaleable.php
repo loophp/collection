@@ -18,7 +18,7 @@ interface Scaleable
      * @param float|null $wantedUpperBound
      * @param float|null $base
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \drupol\collection\Contract\Collection<mixed>
      */
     public function scale(
         float $lowerBound,

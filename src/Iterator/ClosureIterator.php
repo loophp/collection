@@ -10,11 +10,13 @@ use Iterator;
 
 /**
  * Class ClosureIterator.
+ *
+ * @implements Iterator<Iterator>
  */
 final class ClosureIterator implements Iterator
 {
     /**
-     * @var Generator|null
+     * @var Generator<callable>|null
      */
     private $generator;
 
@@ -27,19 +29,17 @@ final class ClosureIterator implements Iterator
      * ClosureIterator constructor.
      *
      * @param callable $callable
-     * @param array ...$arguments
+     * @param array<mixed> ...$arguments
      */
     public function __construct(callable $callable, ...$arguments)
     {
-        $this->source = static function () use ($callable, $arguments) {
+        $this->source = static function () use ($callable, $arguments): Generator {
             yield from $callable(...$arguments);
         };
     }
 
     /**
-     * {@inheritdoc}
-     *
-     * @return mixed
+     * @return Iterator<mixed>
      */
     public function current()
     {
@@ -89,7 +89,7 @@ final class ClosureIterator implements Iterator
     /**
      * Init the generator if not initialized yet.
      *
-     * @return Generator
+     * @return Generator<Generator<mixed>>
      */
     private function getGenerator(): Generator
     {

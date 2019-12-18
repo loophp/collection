@@ -12,7 +12,7 @@ use Closure;
 interface Operation extends Transformation
 {
     /**
-     * @param iterable $collection
+     * @param iterable<mixed> $collection
      *
      * @return Closure
      */

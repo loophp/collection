@@ -12,7 +12,7 @@ interface Untilable
     /**
      * @param callable $callable
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \drupol\collection\Contract\Collection<mixed>
      */
     public function until(callable $callable): Base;
 }

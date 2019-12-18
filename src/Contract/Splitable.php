@@ -12,7 +12,7 @@ interface Splitable
     /**
      * @param callable ...$callbacks
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \drupol\collection\Contract\Collection<mixed>
      */
     public function split(callable ...$callbacks): Base;
 }

@@ -8,6 +8,8 @@ use IteratorAggregate;
 
 /**
  * Interface Base.
+ *
+ * @template-extends IteratorAggregate<mixed>
  */
 interface Base extends IteratorAggregate, Runable, Transformable
 {

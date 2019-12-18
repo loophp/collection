@@ -12,7 +12,7 @@ interface RSampleable
     /**
      * @param float $probability
      *
-     * @return \drupol\collection\Contract\Base
+     * @return \drupol\collection\Contract\Base<mixed>
      */
     public function rsample($probability): Base;
 }

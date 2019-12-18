@@ -34,7 +34,7 @@ final class Explode implements Operation
     {
         $callbacks = array_map(
             static function ($explode) {
-                return static function ($value) use ($explode) {
+                return static function ($value) use ($explode): bool {
                     return $value === $explode;
                 };
             },

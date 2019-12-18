@@ -14,7 +14,7 @@ interface Skipable
      *
      * @param int ...$counts
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \drupol\collection\Contract\Collection<mixed>
      */
     public function skip(int ...$counts): Base;
 }

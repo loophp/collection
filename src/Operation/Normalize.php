@@ -6,6 +6,7 @@ namespace drupol\collection\Operation;
 
 use Closure;
 use drupol\collection\Contract\Operation;
+use Generator;
 
 /**
  * Class Normalize.
@@ -17,7 +18,7 @@ final class Normalize implements Operation
      */
     public function on(iterable $collection): Closure
     {
-        return static function () use ($collection) {
+        return static function () use ($collection): Generator {
             foreach ($collection as $value) {
                 yield $value;
             }

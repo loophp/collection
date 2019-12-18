@@ -12,7 +12,7 @@ interface Explodeable
     /**
      * @param string ...$explodes
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \drupol\collection\Contract\Collection<mixed>
      */
     public function explode(string ...$explodes): Base;
 }

@@ -14,18 +14,21 @@ use const E_USER_WARNING;
 
 /**
  * Class Combine.
+ *
+ * @template TKey
+ * @template TValue
  */
 final class Combine implements Operation
 {
     /**
-     * @var array
+     * @var array<TKey, TValue>
      */
     private $keys;
 
     /**
      * Combine constructor.
      *
-     * @param int|string ...$keys
+     * @param mixed ...$keys
      */
     public function __construct(...$keys)
     {
@@ -41,7 +44,7 @@ final class Combine implements Operation
 
         return static function () use ($keys, $collection): Generator {
             $original = new ClosureIterator(
-                static function () use ($collection) {
+                static function () use ($collection): Generator {
                     foreach ($collection as $key => $value) {
                         yield $key => $value;
                     }

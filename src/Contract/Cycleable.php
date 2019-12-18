@@ -12,7 +12,7 @@ interface Cycleable
     /**
      * @param int $count
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \drupol\collection\Contract\Collection<mixed>
      */
     public function cycle(int $count = 0): Base;
 }
