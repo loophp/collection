@@ -487,7 +487,7 @@ class CollectionSpec extends ObjectBehavior
             ->flip()
             ->shouldIterateAs(['A' => 0, 'B' => 1, 'C' => 2, 'D' => 3, 'E' => 4]);
 
-        $input = [3/2, 4/3, 5/4, 6/5, 9/8];
+        $input = [3 / 2, 4 / 3, 5 / 4, 6 / 5, 9 / 8];
         $output = [
             '1.5' => 0,
             '1.3333333333333' => 1,
@@ -970,6 +970,20 @@ class CollectionSpec extends ObjectBehavior
         $this::with(range(1, 5))
             ->run($square, $sqrt, $map)
             ->shouldIterateAs(range(1, 5));
+    }
+
+    public function it_can_scale(): void
+    {
+        $input = [0, 2, 4, 6, 8, 10];
+
+        $this
+            ->beConstructedThrough('with', [$input]);
+
+        $this
+            ->scale(0, 10)
+            // @todo: For some reason, using shouldIterateAs does not work here.
+            ->all()
+            ->shouldReturn([0.0, 0.2, 0.4, 0.6, 0.8, 1.0]);
     }
 
     public function it_can_skip(): void

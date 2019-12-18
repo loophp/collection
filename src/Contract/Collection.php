@@ -44,6 +44,7 @@ interface Collection extends
     Reduceable,
     Reductionable,
     RSampleable,
+    Scaleable,
     Skipable,
     Sliceable,
     Sortable,

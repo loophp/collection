@@ -274,8 +274,15 @@ Collection::iterate($collatz, 10)
     })
     ->all(); // [5, 16, 8, 4, 2, 1]
 
+// Regular values normalization.
+Collection::with([0, 2, 4, 6, 8, 10])
+    ->scale(0, 10)
+    ->all(); // [0, 0.2, 0.4, 0.6, 0.8, 1]
 
-
+// Logarithmic values normalization.
+Collection::with([0, 2, 4, 6, 8, 10])
+    ->scale(0, 10, 5, 15, 3)
+    ->all(); // [5, 8.01, 11.02, 12.78, 14.03, 15]
 ```
 
 ## Advanced usage

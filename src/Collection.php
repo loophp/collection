@@ -30,6 +30,7 @@ use drupol\collection\Operation\Pluck;
 use drupol\collection\Operation\Prepend;
 use drupol\collection\Operation\Range;
 use drupol\collection\Operation\Reduction;
+use drupol\collection\Operation\Scale;
 use drupol\collection\Operation\Skip;
 use drupol\collection\Operation\Slice;
 use drupol\collection\Operation\Sort;
@@ -420,6 +421,19 @@ final class Collection extends Base implements CollectionInterface
         };
 
         return $this->run(new Filter($callback));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function scale(
+        float $lowerBound,
+        float $upperBound,
+        ?float $wantedLowerBound = null,
+        ?float $wantedUpperBound = null,
+        ?float $base = null
+    ): BaseInterface {
+        return $this->run(new Scale($lowerBound, $upperBound, $wantedLowerBound, $wantedUpperBound, $base));
     }
 
     /**
