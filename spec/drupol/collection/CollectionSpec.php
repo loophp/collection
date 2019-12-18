@@ -984,6 +984,13 @@ class CollectionSpec extends ObjectBehavior
             // @todo: For some reason, using shouldIterateAs does not work here.
             ->all()
             ->shouldReturn([0.0, 0.2, 0.4, 0.6, 0.8, 1.0]);
+
+        $this
+            ->scale(0, 10, 5, 15, 3)
+            ->walk(static function ($value) {return (float) round($value, 2);})
+            // @todo: For some reason, using shouldIterateAs does not work here.
+            ->all()
+            ->shouldReturn([5.0, 8.01, 11.02, 12.78, 14.03, 15.0]);
     }
 
     public function it_can_skip(): void
