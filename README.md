@@ -1,7 +1,7 @@
 [![Latest Stable Version](https://img.shields.io/packagist/v/drupol/collection.svg?style=flat-square)](https://packagist.org/packages/drupol/collection)
  [![GitHub stars](https://img.shields.io/github/stars/drupol/collection.svg?style=flat-square)](https://packagist.org/packages/drupol/collection)
  [![Total Downloads](https://img.shields.io/packagist/dt/drupol/collection.svg?style=flat-square)](https://packagist.org/packages/drupol/collection)
- [![Build Status](https://img.shields.io/travis/drupol/collection/master.svg?style=flat-square)](https://travis-ci.org/drupol/collection)
+ [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/drupol/collection/Continuous%20Integration?style=flat-square)](https://github.com/drupol/collection/actions)
  [![Scrutinizer code quality](https://img.shields.io/scrutinizer/quality/g/drupol/collection/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/drupol/collection/?branch=master)
  [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/drupol/collection/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/drupol/collection/?branch=master)
  [![Mutation testing badge](https://badge.stryker-mutator.io/github.com/drupol/collection/master)](https://stryker-mutator.github.io)

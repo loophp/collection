@@ -14,6 +14,5 @@
             "branch": "master"
         }
     },
-    "testFramework":"phpspec",
-    "tmpDir": "build"
+    "testFramework":"phpspec"
 }
