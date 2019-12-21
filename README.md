@@ -261,11 +261,11 @@ Collection::with($string, ',')
   ->count(); // 9
 
 // The Collatz conjecture (https://en.wikipedia.org/wiki/Collatz_conjecture)
-$collatz = static function (int $initial = 1): int
+$collatz = static function (int $value): int
 {
-    return 0 === $initial % 2 ?
-        $initial / 2:
-        $initial * 3 + 1;
+    return 0 === $value % 2 ?
+        $value / 2:
+        $value * 3 + 1;
 };
 
 Collection::iterate($collatz, 10)
@@ -283,6 +283,19 @@ Collection::with([0, 2, 4, 6, 8, 10])
 Collection::with([0, 2, 4, 6, 8, 10])
     ->scale(0, 10, 5, 15, 3)
     ->all(); // [5, 8.01, 11.02, 12.78, 14.03, 15]
+
+// Fun with function convergence.
+// Iterator over the function: f(x) = r * x * (1-x)
+// Change that parameter $r to see different behavior.
+// More on this: https://en.wikipedia.org/wiki/Logistic_map
+$function = static function ($x = .3, $r = 2) {
+    return $r * $x * (1 - $x);
+};
+
+Collection::iterate($function)
+    ->map(static function ($value) {return round($value,2);})
+    ->limit(10)
+    ->all(); // [0.42, 0.48, 0.49, 0.49, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5]
 ```
 
 ## Advanced usage
@@ -381,26 +394,27 @@ the methods always return the same values for the same inputs.
 
 | Methods       | Return type           | Source         |
 | ------------- | --------------------- | -------------- |
-| `all`         | array                 | [All.php](./src/Operation/All.php)
+| `all`         | array                 | [All.php](./src/Transformation/All.php)
 | `append`      | new Collection object | [Append.php](./src/Operation/Append.php)
 | `apply`       | new Collection object | [Apply.php](./src/Operation/Apply.php)
 | `chunk`       | new Collection object | [Chunk.php](./src/Operation/Chunk.php)
 | `collapse`    | new Collection object | [Collapse.php](./src/Operation/Collapse.php)
 | `combine`     | new Collection object | [Combine.php](./src/Operation/Combine.php)
-| `count`       | int                   | [Count.php](./src/Operation/Count.php)
+| `contains`    | boolean               | [Contains.php](./src/Transformation/Contains.php)
+| `count`       | int                   | [Count.php](./src/Transformation/Count.php)
 | `distinct`    | new Collection object | [Distinct.php](./src/Operation/Distinct.php)
 | `explode`     | new Collection object | [Explode.php](./src/Operation/Explode.php)
 | `filter`      | new Collection object | [Filter.php](./src/Operation/Filter.php)
-| `first`       | mixed                 | [First.php](./src/Operation/First.php)
+| `first`       | mixed                 | [First.php](./src/Transformation/First.php)
 | `flatten`     | new Collection object | [Flatten.php](./src/Operation/Flatten.php)
 | `flip`        | new Collection object | [Flip.php](./src/Operation/Flip.php)
 | `forget`      | new Collection object | [Forget.php](./src/Operation/Forget.php)
-| `get`         | mixed                 | [Get.php](./src/Operation/Get.php)
+| `get`         | mixed                 | [Get.php](./src/Transformation/Get.php)
 | `getIterator` | Iterator              | [Collection.php](./src/Collection.php)
-| `implode`     | string                | [Implode.php](./src/Operation/Implode.php)
+| `implode`     | string                | [Implode.php](./src/Transformation/Implode.php)
 | `intersperse` | new Collection object | [Intersperse.php](./src/Operation/Intersperse.php)
 | `keys`        | new Collection object | [Keys.php](./src/Operation/Keys.php)
-| `last`        | mixed                 | [Last.php](./src/Operation/Last.php)
+| `last`        | mixed                 | [Last.php](./src/Transformation/Last.php)
 | `limit`       | new Collection object | [Limit.php](./src/Operation/Limit.php)
 | `map`         | new Collection object | [Collection.php](./src/Operation/Collection.php)
 | `merge`       | new Collection object | [Merge.php](./src/Operation/Merge.php)
@@ -411,13 +425,16 @@ the methods always return the same values for the same inputs.
 | `pluck`       | new Collection object | [Pluck.php](./src/Operation/Pluck.php)
 | `prepend`     | new Collection object | [Prepend.php](./src/Operation/Prepend.php)
 | `rebase`      | new Collection object | [Collection.php](./src/Operation/Collection.php)
-| `reduce`      | mixed                 | [Reduce.php](./src/Operation/Reduce.php)
+| `reduce`      | mixed                 | [Reduce.php](./src/Transformation/Reduce.php)
 | `reduction`   | new Collection object | [Reduction.php](./src/Operation/Reduction.php)
-| `run`         | mixed                 | [Run.php](./src/Operation/Run.php)
+| `reverse`     | new Collection object | [Reverse.php](./src/Operation/Reverse.php)
+| `run`         | mixed                 | [Run.php](./src/Transformation/Run.php)
 | `skip`        | new Collection object | [Skip.php](./src/Operation/Skip.php)
 | `slice`       | new Collection object | [Slice.php](./src/Operation/Slice.php)
 | `sort`        | new Collection object | [Sort.php](./src/Operation/Sort.php)
 | `split`       | new Collection object | [Split.php](./src/Operation/Split.php)
+| `tail`        | new Collection object | [Tail.php](./src/Operation/Tail.php)
+| `transform`   | mixed                 | [Transform.php](./src/Transformation/Transform.php)
 | `until`       | new Collection object | [Until.php](./src/Operation/Until.php)
 | `walk`        | new Collection object | [Walk.php](./src/Operation/Walk.php)
 | `zip`         | new Collection object | [Zip.php](./src/Operation/Zip.php)
