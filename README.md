@@ -111,6 +111,17 @@ Collection::with(['A' => 'A', 'B' => 'B', 'C' => 'C', 'D' => 'D', 'E' => 'E'])
     )
     ->all(); // [0 => 'a', 1 => 'b', 2 => 'c', 3 = >'d', 4 => 'e']
 
+// Tail
+Collection::with(range('a', 'z'))
+    ->tail(3)
+    ->all(); // [23 => 'x', 24 => 'y', 25 => 'z']
+
+// Reverse
+Collection::with(range('a', 'z'))
+    ->tail(4)
+    ->reverse()
+    ->all(); // [25 => 'z', 24 => 'y', 23 => 'x', 22 => 'w']
+
 Collection::with(['A' => 'A', 'B' => 'B', 'C' => 'C', 'D' => 'D', 'E' => 'E'])
     ->walk(
         static function ($value, $key) {

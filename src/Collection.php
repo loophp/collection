@@ -30,11 +30,13 @@ use drupol\collection\Operation\Pluck;
 use drupol\collection\Operation\Prepend;
 use drupol\collection\Operation\Range;
 use drupol\collection\Operation\Reduction;
+use drupol\collection\Operation\Reverse;
 use drupol\collection\Operation\Scale;
 use drupol\collection\Operation\Skip;
 use drupol\collection\Operation\Slice;
 use drupol\collection\Operation\Sort;
 use drupol\collection\Operation\Split;
+use drupol\collection\Operation\Tail;
 use drupol\collection\Operation\Until;
 use drupol\collection\Operation\Walk;
 use drupol\collection\Operation\Zip;
@@ -415,6 +417,16 @@ final class Collection extends Base implements CollectionInterface
      *
      * @return \drupol\collection\Contract\Collection
      */
+    public function reverse(): BaseInterface
+    {
+        return $this->run(new Reverse());
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return \drupol\collection\Contract\Collection
+     */
     public function rsample($probability): BaseInterface
     {
         $callback = static function ($item) use ($probability): bool {
@@ -475,6 +487,16 @@ final class Collection extends Base implements CollectionInterface
     public function split(callable ...$callbacks): BaseInterface
     {
         return $this->run(new Split(...$callbacks));
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return \drupol\collection\Contract\Collection
+     */
+    public function tail(int $length): BaseInterface
+    {
+        return $this->run(new Tail($length));
     }
 
     /**

@@ -918,6 +918,20 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs([0, 1, 3, 6, 10, 15]);
     }
 
+    public function it_can_reverse(): void
+    {
+        $this
+            ->beConstructedThrough('with', [range('A', 'F')]);
+
+        $this
+            ->reverse()
+            ->shouldIterateAs([5 => 'F', 4 => 'E', 3 => 'D', 2 => 'C', 1 => 'B', 0 => 'A']);
+
+        $this
+            ->skip(3, 3)
+            ->shouldIterateAs([]);
+    }
+
     public function it_can_rsample(): void
     {
         $this
@@ -1064,6 +1078,24 @@ class CollectionSpec extends ObjectBehavior
                 return iterator_to_array($item);
             })
             ->shouldIterateAs([0 => [1, 2, 3], 1 => [4, 5, 6], 2 => [7, 8, 9], 3 => [10, 11, 12], 4 => [13, 14, 15]]);
+    }
+
+    public function it_can_tail(): void
+    {
+        $this
+            ->beConstructedThrough('with', [range('A', 'F')]);
+
+        $this
+            ->tail(3)
+            ->shouldIterateAs([3 => 'D', 4 => 'E', 5 => 'F']);
+
+        $this
+            ->tail(-5)
+            ->shouldIterateAs([]);
+
+        $this
+            ->tail(100)
+            ->shouldIterateAs(range('A', 'F'));
     }
 
     public function it_can_until(): void
