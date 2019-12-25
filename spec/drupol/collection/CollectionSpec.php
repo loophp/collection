@@ -499,6 +499,12 @@ class CollectionSpec extends ObjectBehavior
         $this::with($input)
             ->flip()
             ->shouldIterateAs($output);
+
+        $this::with(['a', 'b', 'c', 'd', 'a'])
+            ->flip()
+            ->flip()
+            ->all()
+            ->shouldIterateAs(['a', 'b', 'c', 'd', 'a']);
     }
 
     public function it_can_forget(): void
@@ -1096,6 +1102,13 @@ class CollectionSpec extends ObjectBehavior
         $this
             ->tail(100)
             ->shouldIterateAs(range('A', 'F'));
+
+        $this::with(['a', 'b', 'c', 'd', 'a'])
+            ->flip()
+            ->flip()
+            ->tail(2)
+            ->all()
+            ->shouldIterateAs([3 => 'd', 4 => 'a']);
     }
 
     public function it_can_until(): void

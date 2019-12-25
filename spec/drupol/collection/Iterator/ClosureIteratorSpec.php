@@ -33,6 +33,30 @@ class ClosureIteratorSpec extends ObjectBehavior
             ->shouldReturn(0);
     }
 
+    public function it_can_rewind()
+    {
+        $rdmString = static function () {
+            yield 'foo';
+        };
+
+        $this
+            ->beConstructedWith($rdmString);
+
+        $this
+            ->current()
+            ->shouldReturn('foo');
+
+        $this
+            ->next()
+            ->current()
+            ->shouldReturn(null);
+
+        $this
+            ->rewind()
+            ->current()
+            ->shouldReturn('foo');
+    }
+
     public function it_can_use_next(): void
     {
         $callback = static function () {

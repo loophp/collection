@@ -69,11 +69,14 @@ final class ClosureIterator implements Iterator
     }
 
     /**
-     * {@inheritdoc}
+     * @return \drupol\collection\Iterator\ClosureIterator
      */
-    public function rewind(): void
+    public function rewind()
     {
+        $this->generator = null;
         $this->getGenerator();
+
+        return $this;
     }
 
     /**
