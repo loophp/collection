@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
-use ArrayIterator;
 use Closure;
 use drupol\collection\Contract\Operation;
-use drupol\collection\Iterator\ClosureIterator;
 use Generator;
+
+use function count;
 
 /**
  * Class Chunk.
@@ -44,23 +44,19 @@ final class Chunk implements Operation
         }
 
         return static function () use ($length, $collection): Generator {
-            $iterator = new ClosureIterator(
-                static function () use ($collection): Generator {
-                    foreach ($collection as $key => $value) {
-                        yield $value;
-                    }
+            $values = [];
+
+            foreach ($collection as $key => $value) {
+                if (count($values) === $length) {
+                    yield $values;
+
+                    $values = [$value];
+                } else {
+                    $values[] = $value;
                 }
-            );
-
-            while ($iterator->valid()) {
-                $values = [];
-
-                for ($i = 0; $iterator->valid() && $i < $length; $i++, $iterator->next()) {
-                    $values[] = $iterator->current();
-                }
-
-                yield new ArrayIterator($values);
             }
+
+            yield $values;
         };
     }
 }
