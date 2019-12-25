@@ -111,6 +111,14 @@ Collection::with(['A' => 'A', 'B' => 'B', 'C' => 'C', 'D' => 'D', 'E' => 'E'])
     )
     ->all(); // [0 => 'a', 1 => 'b', 2 => 'c', 3 = >'d', 4 => 'e']
 
+Collection::with(['A' => 'A', 'B' => 'B', 'C' => 'C', 'D' => 'D', 'E' => 'E'])
+    ->walk(
+        static function ($value, $key) {
+            return strtolower($value);
+        }
+    )
+    ->all(); // ['A' => 'a', B => 'b', 'C' => 'c', 'D' = >'d', 'E' => 'e']
+
 // Tail
 Collection::with(range('a', 'z'))
     ->tail(3)
@@ -122,13 +130,18 @@ Collection::with(range('a', 'z'))
     ->reverse()
     ->all(); // [25 => 'z', 24 => 'y', 23 => 'x', 22 => 'w']
 
-Collection::with(['A' => 'A', 'B' => 'B', 'C' => 'C', 'D' => 'D', 'E' => 'E'])
-    ->walk(
-        static function ($value, $key) {
-            return strtolower($value);
-        }
-    )
-    ->all(); // ['A' => 'a', B => 'b', 'C' => 'c', 'D' = >'d', 'E' => 'e']
+// Flip operation.
+// array_flip() can be used in PHP to remove duplicates from an array.(dedup-licate an array)
+// See: https://www.php.net/manual/en/function.array-flip.php
+// Example:
+// $dedupArray = array_flip(array_flip(['a', 'b', 'c', 'd', 'a'])); // ['a', 'b', 'c', 'd']
+// However, in drupol/collection it doesn't behave as such.
+// As this library is based on PHP Generators, it's able to return multiple times the same key when iterating.
+// You end up with the following result when issuing twice the ::flip() operation.
+Collection::with(['a', 'b', 'c', 'd', 'a'])
+    ->flip()
+    ->flip()
+    ->all(); // ['a', 'b', 'c', 'd', 'a']
 
 // Infinitely loop over numbers, cube them, filter those that are not divisible by 5, take the first 100 of them.
 Collection::range(0, INF)
