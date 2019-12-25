@@ -19,14 +19,14 @@
         "php": ">= 7.1.3"
     },
     "require-dev": {
-        "drupol/php-conventions": "^1.6.8",
+        "drupol/php-conventions": "^1.6.11",
         "friends-of-phpspec/phpspec-code-coverage": "^4.3.2",
         "infection/infection": "^0.13.6",
-        "scrutinizer/ocular": "^1.6",
         "phpbench/phpbench": "^0.16.10",
         "phpspec/phpspec": "^5.1.2 || ^6.1.1",
         "phpstan/phpstan": "^0.12.3",
-        "phpstan/phpstan-strict-rules": "^0.12"
+        "phpstan/phpstan-strict-rules": "^0.12",
+        "scrutinizer/ocular": "^1.6"
     },
     "config": {
         "sort-packages": true
