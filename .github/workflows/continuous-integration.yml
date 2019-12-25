@@ -1,41 +1,40 @@
 # https://help.github.com/en/categories/automating-your-workflow-with-github-actions
 
 on:
-  - pull_request
-  - push
+    - pull_request
+    - push
 
 name: "Continuous Integration"
 
 jobs:
-  grumphp:
-    name: "Grumphp"
+    run:
+        name: "Grumphp"
+        runs-on: ${{ matrix.operating-system }}
+        strategy:
+            fail-fast: false
+            matrix:
+                operating-system: [ubuntu-latest, windows-latest, macOS-latest]
+                php-versions: ['7.1', '7.2', '7.3', '7.4']
 
-    runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@master
+              with:
+                  fetch-depth: 1
 
-    strategy:
-      matrix:
-        php-binary:
-          - php7.1
-          - php7.2
-          - php7.3
+            - name: Install PHP
+              uses: shivammathur/setup-php@master
+              with:
+                  php-version: ${{ matrix.php-versions }}
+                  extensions: xdebug
 
-    steps:
-      - name: "Checkout"
-        uses: actions/checkout@master
-        with:
-            fetch-depth: 1
+            - name: Install dependencies
+              run: composer install --no-interaction --no-progress --no-suggest
 
-      - name: "Composer install"
-        run: ${{ matrix.php-binary }} $(which composer) install --no-interaction --no-progress --no-suggest
+            - name: Run Grumphp
+              run: vendor/bin/grumphp run
+              env:
+                  STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
 
-      - name: "Composer install lowest dependencies"
-        if: matrix.dependencies == 'lowest'
-        run: ${{ matrix.php-binary }} $(which composer) update --no-interaction --no-progress --no-suggest --prefer-lowest
-
-      - name: "Run Grumphp"
-        run: ${{ matrix.php-binary }} vendor/bin/grumphp run
-        env:
-            STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
-
-      - name: "Scrutinizer"
-        run: wget https://scrutinizer-ci.com/ocular.phar && php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml
+            - name: Scrutinizer
+              run: vendor/bin/ocular code-coverage:upload --format=php-clover build/logs/clover.xml
