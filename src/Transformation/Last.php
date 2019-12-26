@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace drupol\collection\Transformation;
 
 use drupol\collection\Contract\Transformation;
-use drupol\collection\Iterator\ClosureIterator;
-use Generator;
 
 /**
  * Class Last.
@@ -20,12 +18,12 @@ final class Last implements Transformation
      */
     public function on(iterable $collection)
     {
-        $value = null;
+        $return = null;
 
         foreach ($collection as $key => $value) {
-
+            $return = $value;
         }
 
-        return $value;
+        return $return;
     }
 }

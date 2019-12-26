@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
-use ArrayIterator;
 use Closure;
 use drupol\collection\Contract\Operation;
 use Generator;
+
+use function count;
 
 /**
  * Class Split.
@@ -37,10 +38,10 @@ final class Split implements Operation
         $callbacks = $this->callbacks;
 
         return static function () use ($callbacks, $collection): Generator {
-            $carry = new ArrayIterator();
+            $carry = [];
 
             foreach ($collection as $key => $value) {
-                $carry->append($value);
+                $carry[] = $value;
 
                 foreach ($callbacks as $callback) {
                     if (true !== $callback($value, $key)) {
@@ -49,11 +50,11 @@ final class Split implements Operation
 
                     yield $carry;
 
-                    $carry = new ArrayIterator();
+                    $carry = [];
                 }
             }
 
-            if (0 !== $carry->count()) {
+            if (0 !== count($carry)) {
                 yield $carry;
             }
         };

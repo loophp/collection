@@ -6,6 +6,7 @@ namespace drupol\collection\Operation;
 
 use Closure;
 use drupol\collection\Contract\Operation;
+use Generator;
 
 /**
  * Class Apply.
@@ -34,7 +35,7 @@ final class Apply implements Operation
     {
         $callbacks = $this->callbacks;
 
-        return static function () use ($callbacks, $collection): iterable {
+        return static function () use ($callbacks, $collection): Generator {
             foreach ($callbacks as $callback) {
                 foreach ($collection as $key => $value) {
                     if (false === $callback($value, $key)) {
