@@ -21,11 +21,11 @@ final class Until implements Operation
     /**
      * Until constructor.
      *
-     * @param callable $until
+     * @param callable $callable
      */
-    public function __construct(callable $until)
+    public function __construct(callable $callable)
     {
-        $this->callable = $until;
+        $this->callable = $callable;
     }
 
     /**
@@ -33,13 +33,13 @@ final class Until implements Operation
      */
     public function on(iterable $collection): Closure
     {
-        $until = $this->callable;
+        $callable = $this->callable;
 
-        return static function () use ($until, $collection): Generator {
+        return static function () use ($callable, $collection): Generator {
             foreach ($collection as $key => $value) {
                 yield $key => $value;
 
-                if (true === $until($value, $key)) {
+                if (true === $callable($value, $key)) {
                     break;
                 }
             }

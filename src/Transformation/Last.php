@@ -20,21 +20,12 @@ final class Last implements Transformation
      */
     public function on(iterable $collection)
     {
-        $iterator = new ClosureIterator(
-            static function () use ($collection): Generator {
-                foreach ($collection as $key => $value) {
-                    yield $key => $value;
-                }
-            }
-        );
+        $value = null;
 
-        $reduced = new Reduce(
-            static function ($carry, $item) {
-                return $item;
-            },
-            $iterator->current()
-        );
+        foreach ($collection as $key => $value) {
 
-        return $reduced->on($collection);
+        }
+
+        return $value;
     }
 }
