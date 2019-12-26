@@ -6,7 +6,7 @@ namespace drupol\collection\Operation;
 
 use Closure;
 use drupol\collection\Contract\Operation;
-use drupol\collection\Iterator\ClosureIterator;
+use drupol\collection\Iterator\IterableIterator;
 use Generator;
 
 /**
@@ -40,13 +40,7 @@ final class Sort implements Operation
 
         return static function () use ($callback, $collection): Generator {
             $array = iterator_to_array(
-                new ClosureIterator(
-                    static function () use ($collection): Generator {
-                        foreach ($collection as $key => $value) {
-                            yield $key => $value;
-                        }
-                    }
-                )
+                new IterableIterator($collection)
             );
 
             uasort($array, $callback);

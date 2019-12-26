@@ -1137,17 +1137,17 @@ class CollectionSpec extends ObjectBehavior
             ->beConstructedThrough('range', [0, 5]);
 
         $this
-            ->shouldIterateAs([0, 1, 2, 3, 4]);
+            ->shouldIterateAs([(float) 0, (float) 1, (float) 2, (float) 3, (float) 4]);
 
         $this::range(1, 10, 2)
-            ->shouldIterateAs([1, 3, 5, 7, 9]);
+            ->shouldIterateAs([(float) 1, (float) 3, (float) 5, (float) 7, (float) 9]);
 
         $this::range(-5, 5, 2)
-            ->shouldIterateAs([0 => -5, 1 => -3, 2 => -1, 3 => 1, 4 => 3]);
+            ->shouldIterateAs([0 => (float) -5, 1 => (float) -3, 2 => (float) -1, 3 => (float) 1, 4 => (float) 3]);
 
         $this::range()
             ->limit(10)
-            ->shouldIterateAs([0 => 0, 1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5, 6 => 6, 7 => 7, 8 => 8, 9 => 9]);
+            ->shouldIterateAs([0 => (float) 0, 1 => (float) 1, 2 => (float) 2, 3 => (float) 3, 4 => (float) 4, 5 => (float) 5, 6 => (float) 6, 7 => (float) 7, 8 => (float) 8, 9 => (float) 9]);
     }
 
     public function it_can_use_range_with_value_1(): void
@@ -1156,7 +1156,7 @@ class CollectionSpec extends ObjectBehavior
             ->beConstructedThrough('range', [0, 1]);
 
         $this
-            ->shouldIterateAs([0]);
+            ->shouldIterateAs([(float) 0]);
     }
 
     public function it_can_use_times_with_a_callback(): void

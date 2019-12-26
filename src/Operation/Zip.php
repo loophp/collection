@@ -8,6 +8,7 @@ use ArrayIterator;
 use Closure;
 use drupol\collection\Contract\Operation;
 use drupol\collection\Iterator\ClosureIterator;
+use drupol\collection\Iterator\IterableIterator;
 use Generator;
 use MultipleIterator;
 
@@ -39,14 +40,8 @@ final class Zip implements Operation
         [$iterables] = $this->iterables;
 
         return static function () use ($iterables, $collection): Generator {
-            $getIteratorCallback = static function ($iterable): ClosureIterator {
-                return new ClosureIterator(
-                    static function () use ($iterable): Generator {
-                        foreach ($iterable as $key => $value) {
-                            yield $key => $value;
-                        }
-                    }
-                );
+            $getIteratorCallback = static function ($iterable): IterableIterator {
+                return new IterableIterator($iterable);
             };
 
             $items = array_merge([$collection], $iterables);

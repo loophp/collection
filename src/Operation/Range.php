@@ -14,12 +14,12 @@ use Generator;
 final class Range implements Operation
 {
     /**
-     * @var float|int
+     * @var float
      */
     private $end;
 
     /**
-     * @var int
+     * @var float
      */
     private $start;
 
@@ -31,11 +31,11 @@ final class Range implements Operation
     /**
      * Range constructor.
      *
-     * @param int $start
-     * @param float|int $end
+     * @param float $start
+     * @param float $end
      * @param float $step
      */
-    public function __construct(int $start, $end, $step)
+    public function __construct(float $start, float $end, float $step)
     {
         $this->start = $start;
         $this->end = $end;

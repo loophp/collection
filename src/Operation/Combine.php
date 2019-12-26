@@ -7,7 +7,7 @@ namespace drupol\collection\Operation;
 use ArrayIterator;
 use Closure;
 use drupol\collection\Contract\Operation;
-use drupol\collection\Iterator\ClosureIterator;
+use drupol\collection\Iterator\IterableIterator;
 use Generator;
 
 use const E_USER_WARNING;
@@ -43,13 +43,7 @@ final class Combine implements Operation
         [$keys] = $this->keys;
 
         return static function () use ($keys, $collection): Generator {
-            $original = new ClosureIterator(
-                static function () use ($collection): Generator {
-                    foreach ($collection as $key => $value) {
-                        yield $key => $value;
-                    }
-                }
-            );
+            $original = new IterableIterator($collection);
             $keysIterator = new ArrayIterator($keys);
 
             while ($original->valid() && $keysIterator->valid()) {

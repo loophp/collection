@@ -20,10 +20,12 @@ final class Collapse implements Operation
     {
         return static function () use ($collection): Generator {
             foreach ($collection as $value) {
-                if (true === is_iterable($value)) {
-                    foreach ($value as $subValue) {
-                        yield $subValue;
-                    }
+                if (true !== is_iterable($value)) {
+                    continue;
+                }
+
+                foreach ($value as $subValue) {
+                    yield $subValue;
                 }
             }
         };
