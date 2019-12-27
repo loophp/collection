@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace drupol\collection\Transformation;
 
 use drupol\collection\Contract\Transformation;
-use drupol\collection\Iterator\ClosureIterator;
-use Generator;
+use drupol\collection\Iterator\IterableIterator;
 
 /**
  * Class Count.
@@ -20,14 +19,6 @@ final class Count implements Transformation
      */
     public function on(iterable $collection)
     {
-        return iterator_count(
-            new ClosureIterator(
-                static function () use ($collection): Generator {
-                    foreach ($collection as $key => $value) {
-                        yield $key => $value;
-                    }
-                }
-            )
-        );
+        return iterator_count(new IterableIterator($collection));
     }
 }
