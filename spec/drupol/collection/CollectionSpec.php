@@ -10,6 +10,7 @@ use drupol\collection\Collection;
 use drupol\collection\Contract\Operation;
 use Exception;
 use Iterator;
+use OutOfRangeException;
 use PhpSpec\ObjectBehavior;
 use stdClass;
 
@@ -1085,7 +1086,8 @@ class CollectionSpec extends ObjectBehavior
 
         $this
             ->tail(-5)
-            ->shouldIterateAs([]);
+            ->shouldThrow(OutOfRangeException::class)
+            ->during('all');
 
         $this
             ->tail(100)
