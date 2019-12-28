@@ -323,16 +323,15 @@ class CollectionSpec extends ObjectBehavior
             ->beConstructedThrough('with', [['1', '2', '3']]);
 
         $this
-            ->cycle(1)
+            ->cycle(3)
             ->shouldIterateAs(['1', '2', '3']);
 
         $this
-            ->cycle(2)
+            ->cycle(6)
             ->shouldIterateAs(['1', '2', '3', '1', '2', '3']);
 
         $this
-            ->cycle()
-            ->limit(7)
+            ->cycle(7)
             ->shouldIterateAs(['1', '2', '3', '1', '2', '3', '1']);
     }
 

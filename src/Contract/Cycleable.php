@@ -10,9 +10,9 @@ namespace drupol\collection\Contract;
 interface Cycleable
 {
     /**
-     * @param int $count
+     * @param int $length
      *
      * @return \drupol\collection\Contract\Collection<mixed>
      */
-    public function cycle(int $count = 0): Base;
+    public function cycle(int $length = 0): Base;
 }

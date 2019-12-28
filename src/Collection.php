@@ -137,9 +137,9 @@ final class Collection extends Base implements CollectionInterface
      *
      * @return \drupol\collection\Contract\Collection
      */
-    public function cycle(int $count = 0): BaseInterface
+    public function cycle(int $length = 0): BaseInterface
     {
-        return $this->run(new Cycle($count));
+        return $this->run(new Cycle($length));
     }
 
     /**

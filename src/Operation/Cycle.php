@@ -6,7 +6,10 @@ namespace drupol\collection\Operation;
 
 use Closure;
 use drupol\collection\Contract\Operation;
+use drupol\collection\Iterator\IterableIterator;
 use Generator;
+use InfiniteIterator;
+use LimitIterator;
 
 /**
  * Class Cycle.
@@ -16,16 +19,16 @@ final class Cycle implements Operation
     /**
      * @var int
      */
-    private $count;
+    private $length;
 
     /**
      * Cycle constructor.
      *
-     * @param int $count
+     * @param int $length
      */
-    public function __construct(int $count = 0)
+    public function __construct(int $length = 0)
     {
-        $this->count = $count;
+        $this->length = $length;
     }
 
     /**
@@ -33,13 +36,19 @@ final class Cycle implements Operation
      */
     public function on(iterable $collection): Closure
     {
-        $count = $this->count;
+        $length = $this->length;
 
-        return static function () use ($collection, $count): Generator {
-            for ($j = 0 === $count ? 1 : 0; $j !== $count; ++$j) {
-                foreach ($collection as $value) {
-                    yield $value;
-                }
+        return static function () use ($collection, $length): Generator {
+            $cycleIterator = new LimitIterator(
+                new InfiniteIterator(
+                    new IterableIterator($collection)
+                ),
+                0,
+                $length
+            );
+
+            foreach ($cycleIterator as $value) {
+                yield $value;
             }
         };
     }
