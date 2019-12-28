@@ -1,8 +1,7 @@
 formatter.name: pretty
 extensions:
-  LeanPHP\PhpSpec\CodeCoverage\CodeCoverageExtension:
+  FriendsOfPhpSpec\PhpSpec\CodeCoverage\CodeCoverageExtension:
     format:
-      - html
       - clover
       - php
       - text
