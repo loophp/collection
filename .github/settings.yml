@@ -39,6 +39,7 @@ repository:
     allow_squash_merge: false
     default_branch: master
     description: "A (memory) friendly, easy, lazy and modular collection class."
+    homepage: https://drupol-collection.rtfd.io/
     topics: collection,generator,iterator,yield,immutable
     has_downloads: true
     has_issues: true
