@@ -57,6 +57,7 @@ This library is framework agnostic and can be integrated in any PHP project, in 
    Requirements <pages/requirements>
    Installation <pages/installation>
    Usage <pages/usage>
+   API <pages/api>
    Tests <pages/tests>
    Contributing <pages/contributing>
    Development <pages/development>
