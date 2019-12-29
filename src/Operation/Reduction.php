@@ -44,7 +44,7 @@ final class Reduction implements Operation
         $initial = $this->initial;
 
         return static function () use ($callback, $initial, $collection): Generator {
-            yield $carry = $initial;
+            $carry = $initial;
 
             foreach ($collection as $key => $value) {
                 yield $carry = $callback($carry, $value, $key);

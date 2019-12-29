@@ -915,7 +915,7 @@ class CollectionSpec extends ObjectBehavior
                 },
                 0
             )
-            ->shouldIterateAs([0, 1, 3, 6, 10, 15]);
+            ->shouldIterateAs([1, 3, 6, 10, 15]);
     }
 
     public function it_can_reverse(): void
