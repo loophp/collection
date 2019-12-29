@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace drupol\collection\Operation;
 
+use CallbackFilterIterator;
 use Closure;
 use drupol\collection\Contract\Operation;
+use drupol\collection\Iterator\IterableIterator;
 use Generator;
 
 /**
@@ -35,19 +37,11 @@ final class Filter implements Operation
     {
         $callbacks = $this->callbacks;
 
-        if ([] === $callbacks) {
-            $callbacks[] = static function ($value) {
-                return $value;
-            };
-        }
-
         return static function () use ($callbacks, $collection): Generator {
+            $iterator = $collection;
+
             foreach ($callbacks as $callback) {
-                foreach ($collection as $key => $value) {
-                    if (true === (bool) $callback($value, $key)) {
-                        yield $key => $value;
-                    }
-                }
+                yield from $iterator = new CallbackFilterIterator(new IterableIterator($iterator), $callback);
             }
         };
     }

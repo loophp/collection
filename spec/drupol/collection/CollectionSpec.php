@@ -408,8 +408,8 @@ class CollectionSpec extends ObjectBehavior
         $this
             ->beConstructedThrough('with', [$input]);
 
-        $callable = static function ($item) {
-            return $item % 2;
+        $callable = static function ($value, $key, $iterator) {
+            return $value % 2;
         };
 
         $this
@@ -425,7 +425,7 @@ class CollectionSpec extends ObjectBehavior
         $this
             ->filter()
             ->normalize()
-            ->shouldIterateAs([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+            ->shouldIterateAs([]);
     }
 
     public function it_can_flatten(): void
