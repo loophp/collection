@@ -4,6 +4,10 @@ API
 append
 ------
 
+Interface: `Appendable`_
+
+Signature: Collection::append(...$items);
+
 .. code-block:: php
 
     $collection = Collection::with(['1', '2', '3']);
@@ -110,3 +114,5 @@ walk
 
 zip
 ---
+
+.. _Appendable: https://github.com/drupol/collection/blob/master/src/Contract/Appendable.php
