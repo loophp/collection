@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace drupol\collection\Contract;
+namespace loophp\collection\Contract;
 
 /**
  * Interface Explodeable.
@@ -12,7 +12,7 @@ interface Explodeable
     /**
      * @param string ...$explodes
      *
-     * @return \drupol\collection\Contract\Collection<mixed>
+     * @return \loophp\collection\Contract\Collection<mixed>
      */
     public function explode(string ...$explodes): Base;
 }

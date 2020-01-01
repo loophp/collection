@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace drupol\collection\Operation;
+namespace loophp\collection\Operation;
 
 use Closure;
-use drupol\collection\Contract\Operation;
-use drupol\collection\Transformation\Count;
 use Generator;
+use loophp\collection\Contract\Operation;
+use loophp\collection\Transformation\Count;
 
 /**
  * Class Tail.

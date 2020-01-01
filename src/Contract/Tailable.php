@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace drupol\collection\Contract;
+namespace loophp\collection\Contract;
 
 /**
  * Interface Tailable.
@@ -12,7 +12,7 @@ interface Tailable
     /**
      * @param int $length
      *
-     * @return \drupol\collection\Contract\Collection<mixed>
+     * @return \loophp\collection\Contract\Collection<mixed>
      */
     public function tail(int $length): Base;
 }

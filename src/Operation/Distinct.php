@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace drupol\collection\Operation;
+namespace loophp\collection\Operation;
 
 use Closure;
-use drupol\collection\Collection;
-use drupol\collection\Contract\Operation;
 use Generator;
+use loophp\collection\Collection;
+use loophp\collection\Contract\Operation;
 
 /**
  * Class Distinct.

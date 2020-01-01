@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace spec\drupol\collection;
+namespace spec\loophp\collection;
 
 use ArrayObject;
 use Closure;
-use drupol\collection\Collection;
-use drupol\collection\Contract\Operation;
 use Exception;
 use Iterator;
+use loophp\collection\Collection;
+use loophp\collection\Contract\Operation;
 use OutOfRangeException;
 use PhpSpec\ObjectBehavior;
 use stdClass;
@@ -66,7 +66,7 @@ class CollectionSpec extends ObjectBehavior
             ->apply(static function ($item) {
                 return false;
             })
-            ->shouldReturnAnInstanceOf(\drupol\collection\Contract\Collection::class);
+            ->shouldReturnAnInstanceOf(\loophp\collection\Contract\Collection::class);
 
         $callback = static function (): void {
             throw new Exception('foo');

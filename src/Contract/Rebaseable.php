@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace drupol\collection\Contract;
+namespace loophp\collection\Contract;
 
 /**
  * Interface Rebaseable.
@@ -10,7 +10,7 @@ namespace drupol\collection\Contract;
 interface Rebaseable
 {
     /**
-     * @return \drupol\collection\Contract\Collection<mixed>
+     * @return \loophp\collection\Contract\Collection<mixed>
      */
     public function rebase(): Base;
 }

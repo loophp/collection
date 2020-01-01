@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace drupol\collection\Contract;
+namespace loophp\collection\Contract;
 
 /**
  * Interface Skipable.
@@ -14,7 +14,7 @@ interface Skipable
      *
      * @param int ...$counts
      *
-     * @return \drupol\collection\Contract\Collection<mixed>
+     * @return \loophp\collection\Contract\Collection<mixed>
      */
     public function skip(int ...$counts): Base;
 }

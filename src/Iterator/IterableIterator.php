@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace drupol\collection\Iterator;
+namespace loophp\collection\Iterator;
 
 use Generator;
 use Iterator;
@@ -15,7 +15,7 @@ use Iterator;
 final class IterableIterator implements Iterator
 {
     /**
-     * @var \drupol\collection\Iterator\ClosureIterator
+     * @var \loophp\collection\Iterator\ClosureIterator
      */
     private $iterator;
 

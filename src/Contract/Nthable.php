@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace drupol\collection\Contract;
+namespace loophp\collection\Contract;
 
 /**
  * Interface Nthable.
@@ -15,7 +15,7 @@ interface Nthable
      * @param int $step
      * @param int $offset
      *
-     * @return \drupol\collection\Contract\Collection<mixed>
+     * @return \loophp\collection\Contract\Collection<mixed>
      */
     public function nth(int $step, int $offset = 0): Base;
 }

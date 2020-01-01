@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace drupol\collection\Operation;
+namespace loophp\collection\Operation;
 
 use Closure;
-use drupol\collection\Contract\Operation;
-use drupol\collection\Iterator\IterableIterator;
 use Generator;
 use InfiniteIterator;
 use LimitIterator;
+use loophp\collection\Contract\Operation;
+use loophp\collection\Iterator\IterableIterator;
 
 /**
  * Class Cycle.

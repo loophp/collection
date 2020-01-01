@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace drupol\collection\Contract;
+namespace loophp\collection\Contract;
 
 use const INF;
 
@@ -58,7 +58,7 @@ interface Collection extends
     /**
      * Create a new instance with no items.
      *
-     * @return \drupol\collection\Contract\Collection<mixed>
+     * @return \loophp\collection\Contract\Collection<mixed>
      */
     public static function empty(): Collection;
 
@@ -66,7 +66,7 @@ interface Collection extends
      * @param callable $callback
      * @param mixed ...$parameters
      *
-     * @return \drupol\collection\Contract\Collection<mixed>
+     * @return \loophp\collection\Contract\Collection<mixed>
      */
     public static function iterate(callable $callback, ...$parameters): Collection;
 
@@ -77,7 +77,7 @@ interface Collection extends
      * @param float|int $end
      * @param int $step
      *
-     * @return \drupol\collection\Contract\Collection<mixed>
+     * @return \loophp\collection\Contract\Collection<mixed>
      */
     public static function range(int $start = 0, $end = INF, $step = 1): Collection;
 
@@ -87,7 +87,7 @@ interface Collection extends
      * @param int $number
      * @param callable $callback
      *
-     * @return \drupol\collection\Contract\Collection<mixed>
+     * @return \loophp\collection\Contract\Collection<mixed>
      */
     public static function times($number, ?callable $callback = null): Collection;
 }

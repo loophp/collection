@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace drupol\collection\Contract;
+namespace loophp\collection\Contract;
 
 /**
  * Interface Mapable.
@@ -14,7 +14,7 @@ interface Mapable
      *
      * @param callable ...$callbacks
      *
-     * @return \drupol\collection\Contract\Collection<mixed>
+     * @return \loophp\collection\Contract\Collection<mixed>
      */
     public function map(callable ...$callbacks): Base;
 }

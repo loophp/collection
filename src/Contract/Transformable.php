@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace drupol\collection\Contract;
+namespace loophp\collection\Contract;
 
 /**
  * Interface Transformable.
@@ -10,7 +10,7 @@ namespace drupol\collection\Contract;
 interface Transformable
 {
     /**
-     * @param \drupol\collection\Contract\Transformation ...$transformers
+     * @param \loophp\collection\Contract\Transformation ...$transformers
      *
      * @return bool|int|mixed|string
      */

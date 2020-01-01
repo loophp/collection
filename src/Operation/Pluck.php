@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace drupol\collection\Operation;
+namespace loophp\collection\Operation;
 
 use ArrayAccess;
 use Closure;
-use drupol\collection\Contract\Collection;
-use drupol\collection\Contract\Operation;
-use drupol\collection\Transformation\Get;
 use Generator;
+use loophp\collection\Contract\Collection;
+use loophp\collection\Contract\Operation;
+use loophp\collection\Transformation\Get;
 use ReflectionClass;
 use ReflectionException;
 

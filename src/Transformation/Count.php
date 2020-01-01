@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace drupol\collection\Transformation;
+namespace loophp\collection\Transformation;
 
-use drupol\collection\Contract\Transformation;
-use drupol\collection\Iterator\IterableIterator;
+use loophp\collection\Contract\Transformation;
+use loophp\collection\Iterator\IterableIterator;
 
 /**
  * Class Count.

@@ -2,53 +2,53 @@
 
 declare(strict_types=1);
 
-namespace drupol\collection;
+namespace loophp\collection;
 
-use drupol\collection\Contract\Base as BaseInterface;
-use drupol\collection\Contract\Collection as CollectionInterface;
-use drupol\collection\Operation\Append;
-use drupol\collection\Operation\Apply;
-use drupol\collection\Operation\Chunk;
-use drupol\collection\Operation\Collapse;
-use drupol\collection\Operation\Combine;
-use drupol\collection\Operation\Cycle;
-use drupol\collection\Operation\Distinct;
-use drupol\collection\Operation\Explode;
-use drupol\collection\Operation\Filter;
-use drupol\collection\Operation\Flatten;
-use drupol\collection\Operation\Flip;
-use drupol\collection\Operation\Forget;
-use drupol\collection\Operation\Intersperse;
-use drupol\collection\Operation\Keys;
-use drupol\collection\Operation\Limit;
-use drupol\collection\Operation\Merge;
-use drupol\collection\Operation\Normalize;
-use drupol\collection\Operation\Nth;
-use drupol\collection\Operation\Only;
-use drupol\collection\Operation\Pad;
-use drupol\collection\Operation\Pluck;
-use drupol\collection\Operation\Prepend;
-use drupol\collection\Operation\Range;
-use drupol\collection\Operation\Reduction;
-use drupol\collection\Operation\Reverse;
-use drupol\collection\Operation\Scale;
-use drupol\collection\Operation\Skip;
-use drupol\collection\Operation\Slice;
-use drupol\collection\Operation\Sort;
-use drupol\collection\Operation\Split;
-use drupol\collection\Operation\Tail;
-use drupol\collection\Operation\Until;
-use drupol\collection\Operation\Walk;
-use drupol\collection\Operation\Zip;
-use drupol\collection\Transformation\All;
-use drupol\collection\Transformation\Contains;
-use drupol\collection\Transformation\Count;
-use drupol\collection\Transformation\First;
-use drupol\collection\Transformation\Get;
-use drupol\collection\Transformation\Implode;
-use drupol\collection\Transformation\Last;
-use drupol\collection\Transformation\Reduce;
 use Generator;
+use loophp\collection\Contract\Base as BaseInterface;
+use loophp\collection\Contract\Collection as CollectionInterface;
+use loophp\collection\Operation\Append;
+use loophp\collection\Operation\Apply;
+use loophp\collection\Operation\Chunk;
+use loophp\collection\Operation\Collapse;
+use loophp\collection\Operation\Combine;
+use loophp\collection\Operation\Cycle;
+use loophp\collection\Operation\Distinct;
+use loophp\collection\Operation\Explode;
+use loophp\collection\Operation\Filter;
+use loophp\collection\Operation\Flatten;
+use loophp\collection\Operation\Flip;
+use loophp\collection\Operation\Forget;
+use loophp\collection\Operation\Intersperse;
+use loophp\collection\Operation\Keys;
+use loophp\collection\Operation\Limit;
+use loophp\collection\Operation\Merge;
+use loophp\collection\Operation\Normalize;
+use loophp\collection\Operation\Nth;
+use loophp\collection\Operation\Only;
+use loophp\collection\Operation\Pad;
+use loophp\collection\Operation\Pluck;
+use loophp\collection\Operation\Prepend;
+use loophp\collection\Operation\Range;
+use loophp\collection\Operation\Reduction;
+use loophp\collection\Operation\Reverse;
+use loophp\collection\Operation\Scale;
+use loophp\collection\Operation\Skip;
+use loophp\collection\Operation\Slice;
+use loophp\collection\Operation\Sort;
+use loophp\collection\Operation\Split;
+use loophp\collection\Operation\Tail;
+use loophp\collection\Operation\Until;
+use loophp\collection\Operation\Walk;
+use loophp\collection\Operation\Zip;
+use loophp\collection\Transformation\All;
+use loophp\collection\Transformation\Contains;
+use loophp\collection\Transformation\Count;
+use loophp\collection\Transformation\First;
+use loophp\collection\Transformation\Get;
+use loophp\collection\Transformation\Implode;
+use loophp\collection\Transformation\Last;
+use loophp\collection\Transformation\Reduce;
 
 use const INF;
 use const PHP_INT_MAX;
@@ -69,7 +69,7 @@ final class Collection extends Base implements CollectionInterface
     /**
      * {@inheritdoc}
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \loophp\collection\Contract\Collection
      */
     public function append(...$items): BaseInterface
     {
@@ -79,7 +79,7 @@ final class Collection extends Base implements CollectionInterface
     /**
      * {@inheritdoc}
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \loophp\collection\Contract\Collection
      */
     public function apply(callable ...$callables): BaseInterface
     {
@@ -89,7 +89,7 @@ final class Collection extends Base implements CollectionInterface
     /**
      * {@inheritdoc}
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \loophp\collection\Contract\Collection
      */
     public function chunk(int $size): BaseInterface
     {
@@ -99,7 +99,7 @@ final class Collection extends Base implements CollectionInterface
     /**
      * {@inheritdoc}
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \loophp\collection\Contract\Collection
      */
     public function collapse(): BaseInterface
     {
@@ -109,7 +109,7 @@ final class Collection extends Base implements CollectionInterface
     /**
      * {@inheritdoc}
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \loophp\collection\Contract\Collection
      */
     public function combine($keys): BaseInterface
     {
@@ -135,7 +135,7 @@ final class Collection extends Base implements CollectionInterface
     /**
      * {@inheritdoc}
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \loophp\collection\Contract\Collection
      */
     public function cycle(int $length = 0): BaseInterface
     {
@@ -145,7 +145,7 @@ final class Collection extends Base implements CollectionInterface
     /**
      * {@inheritdoc}
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \loophp\collection\Contract\Collection
      */
     public function distinct(): BaseInterface
     {
@@ -155,7 +155,7 @@ final class Collection extends Base implements CollectionInterface
     /**
      * {@inheritdoc}
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \loophp\collection\Contract\Collection
      */
     public static function empty(): CollectionInterface
     {
@@ -165,7 +165,7 @@ final class Collection extends Base implements CollectionInterface
     /**
      * {@inheritdoc}
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \loophp\collection\Contract\Collection
      */
     public function explode(string ...$strings): BaseInterface
     {
@@ -175,7 +175,7 @@ final class Collection extends Base implements CollectionInterface
     /**
      * {@inheritdoc}
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \loophp\collection\Contract\Collection
      */
     public function filter(callable ...$callbacks): BaseInterface
     {
@@ -193,7 +193,7 @@ final class Collection extends Base implements CollectionInterface
     /**
      * {@inheritdoc}
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \loophp\collection\Contract\Collection
      */
     public function flatten(int $depth = PHP_INT_MAX): BaseInterface
     {
@@ -203,7 +203,7 @@ final class Collection extends Base implements CollectionInterface
     /**
      * {@inheritdoc}
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \loophp\collection\Contract\Collection
      */
     public function flip(): BaseInterface
     {
@@ -213,7 +213,7 @@ final class Collection extends Base implements CollectionInterface
     /**
      * {@inheritdoc}
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \loophp\collection\Contract\Collection
      */
     public function forget(...$keys): BaseInterface
     {
@@ -239,7 +239,7 @@ final class Collection extends Base implements CollectionInterface
     /**
      * {@inheritdoc}
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \loophp\collection\Contract\Collection
      */
     public function intersperse($element, int $every = 1, int $startAt = 0): BaseInterface
     {
@@ -249,7 +249,7 @@ final class Collection extends Base implements CollectionInterface
     /**
      * {@inheritdoc}
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \loophp\collection\Contract\Collection
      */
     public static function iterate(callable $callback, ...$parameters): CollectionInterface
     {
@@ -269,7 +269,7 @@ final class Collection extends Base implements CollectionInterface
     /**
      * {@inheritdoc}
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \loophp\collection\Contract\Collection
      */
     public function keys(): BaseInterface
     {
@@ -287,7 +287,7 @@ final class Collection extends Base implements CollectionInterface
     /**
      * {@inheritdoc}
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \loophp\collection\Contract\Collection
      */
     public function limit(int $limit): BaseInterface
     {
@@ -297,7 +297,7 @@ final class Collection extends Base implements CollectionInterface
     /**
      * {@inheritdoc}
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \loophp\collection\Contract\Collection
      */
     public function map(callable ...$callbacks): BaseInterface
     {
@@ -307,7 +307,7 @@ final class Collection extends Base implements CollectionInterface
     /**
      * {@inheritdoc}
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \loophp\collection\Contract\Collection
      */
     public function merge(...$sources): BaseInterface
     {
@@ -317,7 +317,7 @@ final class Collection extends Base implements CollectionInterface
     /**
      * {@inheritdoc}
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \loophp\collection\Contract\Collection
      */
     public function normalize(): BaseInterface
     {
@@ -327,7 +327,7 @@ final class Collection extends Base implements CollectionInterface
     /**
      * {@inheritdoc}
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \loophp\collection\Contract\Collection
      */
     public function nth(int $step, int $offset = 0): BaseInterface
     {
@@ -337,7 +337,7 @@ final class Collection extends Base implements CollectionInterface
     /**
      * {@inheritdoc}
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \loophp\collection\Contract\Collection
      */
     public function only(...$keys): BaseInterface
     {
@@ -347,7 +347,7 @@ final class Collection extends Base implements CollectionInterface
     /**
      * {@inheritdoc}
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \loophp\collection\Contract\Collection
      */
     public function pad(int $size, $value): BaseInterface
     {
@@ -357,7 +357,7 @@ final class Collection extends Base implements CollectionInterface
     /**
      * {@inheritdoc}
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \loophp\collection\Contract\Collection
      */
     public function pluck($pluck, $default = null): BaseInterface
     {
@@ -367,7 +367,7 @@ final class Collection extends Base implements CollectionInterface
     /**
      * {@inheritdoc}
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \loophp\collection\Contract\Collection
      */
     public function prepend(...$items): BaseInterface
     {
@@ -377,7 +377,7 @@ final class Collection extends Base implements CollectionInterface
     /**
      * {@inheritdoc}
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \loophp\collection\Contract\Collection
      */
     public static function range(int $start = 0, $end = INF, $step = 1): CollectionInterface
     {
@@ -387,7 +387,7 @@ final class Collection extends Base implements CollectionInterface
     /**
      * {@inheritdoc}
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \loophp\collection\Contract\Collection
      */
     public function rebase(): BaseInterface
     {
@@ -405,7 +405,7 @@ final class Collection extends Base implements CollectionInterface
     /**
      * {@inheritdoc}
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \loophp\collection\Contract\Collection
      */
     public function reduction(callable $callback, $initial = null): BaseInterface
     {
@@ -415,7 +415,7 @@ final class Collection extends Base implements CollectionInterface
     /**
      * {@inheritdoc}
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \loophp\collection\Contract\Collection
      */
     public function reverse(): BaseInterface
     {
@@ -425,7 +425,7 @@ final class Collection extends Base implements CollectionInterface
     /**
      * {@inheritdoc}
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \loophp\collection\Contract\Collection
      */
     public function rsample($probability): BaseInterface
     {
@@ -452,7 +452,7 @@ final class Collection extends Base implements CollectionInterface
     /**
      * {@inheritdoc}
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \loophp\collection\Contract\Collection
      */
     public function skip(int ...$counts): BaseInterface
     {
@@ -462,7 +462,7 @@ final class Collection extends Base implements CollectionInterface
     /**
      * {@inheritdoc}
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \loophp\collection\Contract\Collection
      */
     public function slice(int $offset, ?int $length = null): BaseInterface
     {
@@ -472,7 +472,7 @@ final class Collection extends Base implements CollectionInterface
     /**
      * {@inheritdoc}
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \loophp\collection\Contract\Collection
      */
     public function sort(callable $callback): BaseInterface
     {
@@ -482,7 +482,7 @@ final class Collection extends Base implements CollectionInterface
     /**
      * {@inheritdoc}
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \loophp\collection\Contract\Collection
      */
     public function split(callable ...$callbacks): BaseInterface
     {
@@ -492,7 +492,7 @@ final class Collection extends Base implements CollectionInterface
     /**
      * {@inheritdoc}
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \loophp\collection\Contract\Collection
      */
     public function tail(int $length): BaseInterface
     {
@@ -502,7 +502,7 @@ final class Collection extends Base implements CollectionInterface
     /**
      * {@inheritdoc}
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \loophp\collection\Contract\Collection
      */
     public static function times($number, ?callable $callback = null): CollectionInterface
     {
@@ -524,7 +524,7 @@ final class Collection extends Base implements CollectionInterface
     /**
      * {@inheritdoc}
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \loophp\collection\Contract\Collection
      */
     public function until(callable $callback): BaseInterface
     {
@@ -534,7 +534,7 @@ final class Collection extends Base implements CollectionInterface
     /**
      * {@inheritdoc}
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \loophp\collection\Contract\Collection
      */
     public function walk(callable ...$callbacks): BaseInterface
     {
@@ -545,7 +545,7 @@ final class Collection extends Base implements CollectionInterface
      * @param array<mixed> $data
      * @param mixed ...$parameters
      *
-     * @return \drupol\collection\Contract\Base<mixed>
+     * @return \loophp\collection\Contract\Base<mixed>
      */
     public static function with($data = [], ...$parameters): BaseInterface
     {
@@ -555,7 +555,7 @@ final class Collection extends Base implements CollectionInterface
     /**
      * {@inheritdoc}
      *
-     * @return \drupol\collection\Contract\Collection
+     * @return \loophp\collection\Contract\Collection
      */
     public function zip(...$items): BaseInterface
     {

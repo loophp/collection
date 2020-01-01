@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace drupol\collection\Contract;
+namespace loophp\collection\Contract;
 
 /**
  * Interface Distinctable.
@@ -10,7 +10,7 @@ namespace drupol\collection\Contract;
 interface Distinctable
 {
     /**
-     * @return \drupol\collection\Contract\Base<mixed>
+     * @return \loophp\collection\Contract\Base<mixed>
      */
     public function distinct(): Base;
 }

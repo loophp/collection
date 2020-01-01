@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace drupol\collection\Contract;
+namespace loophp\collection\Contract;
 
 /**
  * Interface Mergeable.
@@ -14,7 +14,7 @@ interface Mergeable
      *
      * @param iterable ...$sources
      *
-     * @return \drupol\collection\Contract\Collection<mixed>
+     * @return \loophp\collection\Contract\Collection<mixed>
      */
     public function merge(...$sources): Base;
 }

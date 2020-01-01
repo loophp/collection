@@ -1,12 +1,11 @@
-[![Latest Stable Version](https://img.shields.io/packagist/v/drupol/collection.svg?style=flat-square)](https://packagist.org/packages/drupol/collection)
- [![GitHub stars](https://img.shields.io/github/stars/drupol/collection.svg?style=flat-square)](https://packagist.org/packages/drupol/collection)
- [![Total Downloads](https://img.shields.io/packagist/dt/drupol/collection.svg?style=flat-square)](https://packagist.org/packages/drupol/collection)
- [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/drupol/collection/Continuous%20Integration?style=flat-square)](https://github.com/drupol/collection/actions)
- [![Scrutinizer code quality](https://img.shields.io/scrutinizer/quality/g/drupol/collection/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/drupol/collection/?branch=master)
- [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/drupol/collection/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/drupol/collection/?branch=master)
- [![Mutation testing badge](https://badge.stryker-mutator.io/github.com/drupol/collection/master)](https://stryker-mutator.github.io)
- [![License](https://img.shields.io/packagist/l/drupol/collection.svg?style=flat-square)](https://packagist.org/packages/drupol/collection)
- [![Say Thanks!](https://img.shields.io/badge/Say-thanks-brightgreen.svg?style=flat-square)](https://saythanks.io/to/drupol)
+[![Latest Stable Version](https://img.shields.io/packagist/v/loophp/collection.svg?style=flat-square)](https://packagist.org/packages/loophp/collection)
+ [![GitHub stars](https://img.shields.io/github/stars/loophp/collection.svg?style=flat-square)](https://packagist.org/packages/loophp/collection)
+ [![Total Downloads](https://img.shields.io/packagist/dt/loophp/collection.svg?style=flat-square)](https://packagist.org/packages/loophp/collection)
+ [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/loophp/collection/Continuous%20Integration?style=flat-square)](https://github.com/loophp/collection/actions)
+ [![Scrutinizer code quality](https://img.shields.io/scrutinizer/quality/g/loophp/collection/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/loophp/collection/?branch=master)
+ [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/loophp/collection/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/loophp/collection/?branch=master)
+ [![Mutation testing badge](https://badge.stryker-mutator.io/github.com/loophp/collection/master)](https://stryker-mutator.github.io)
+ [![License](https://img.shields.io/packagist/l/loophp/collection.svg?style=flat-square)](https://packagist.org/packages/loophp/collection)
  [![Donate!](https://img.shields.io/badge/Donate-Paypal-brightgreen.svg?style=flat-square)](https://paypal.me/drupol)
  
 # PHP Collection
@@ -48,7 +47,7 @@ This library has been inspired by the [Laravel Support Package](https://github.c
 
 It has no external dependencies, so you can get started right away with:
 
-```composer require drupol/collection```
+```composer require loophp/collection```
 
 ## Usage
 
@@ -59,7 +58,7 @@ declare(strict_types=1);
 
 include 'vendor/autoload.php';
 
-use drupol\collection\Collection;
+use loophp\collection\Collection;
 
 // More examples...
 $collection = Collection::with(['A', 'B', 'C', 'D', 'E']);
@@ -135,7 +134,7 @@ Collection::with(range('a', 'z'))
 // See: https://www.php.net/manual/en/function.array-flip.php
 // Example:
 // $dedupArray = array_flip(array_flip(['a', 'b', 'c', 'd', 'a'])); // ['a', 'b', 'c', 'd']
-// However, in drupol/collection it doesn't behave as such.
+// However, in loophp/collection it doesn't behave as such.
 // As this library is based on PHP Generators, it's able to return multiple times the same key when iterating.
 // You end up with the following result when issuing twice the ::flip() operation.
 Collection::with(['a', 'b', 'c', 'd', 'a'])
@@ -337,8 +336,8 @@ the [Operation](./src/Contract/Operation.php) interface, then run it through the
 
 declare(strict_types=1);
 
-use drupol\collection\Collection;
-use drupol\collection\Contract\Operation;
+use loophp\collection\Collection;
+use loophp\collection\Contract\Operation;
 
 include 'vendor/autoload.php';
 
@@ -374,12 +373,12 @@ declare(strict_types=1);
 
 include 'vendor/autoload.php';
 
-use drupol\collection\Base;
-use drupol\collection\Contract\Allable;
-use drupol\collection\Contract\Runable;
-use drupol\collection\Transformation\All;
-use drupol\collection\Transformation\Run;
-use drupol\collection\Contract\Operation;
+use loophp\collection\Base;
+use loophp\collection\Contract\Allable;
+use loophp\collection\Contract\Runable;
+use loophp\collection\Transformation\All;
+use loophp\collection\Transformation\Run;
+use loophp\collection\Contract\Operation;
 
 $customCollectionClass = new class extends Base implements Allable {
 
@@ -481,10 +480,10 @@ but in the [Collection class](./src/Collection.php) itself, feel free to check i
 
 ## Code style, code quality, tests and benchmarks
 
-The code style is following [PSR-12](https://www.php-fig.org/psr/psr-12/) plus a set of custom rules, the package [drupol/php-conventions](https://github.com/drupol/php-conventions)
+The code style is following [PSR-12](https://www.php-fig.org/psr/psr-12/) plus a set of custom rules, the package [loophp/php-conventions](https://github.com/loophp/php-conventions)
 is responsible for this.
 
-Every time changes are introduced into the library, [Github](https://github.com/drupol/collection/actions) run the tests and the benchmarks.
+Every time changes are introduced into the library, [Github](https://github.com/loophp/collection/actions) run the tests and the benchmarks.
 
 The library has tests written with [PHPSpec](http://www.phpspec.net/).
 Feel free to check them out in the `spec` directory. Run `composer phpspec` to trigger the tests.

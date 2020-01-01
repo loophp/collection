@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace drupol\collection;
+namespace loophp\collection;
 
 use Closure;
-use drupol\collection\Contract\Base as BaseInterface;
-use drupol\collection\Contract\Operation;
-use drupol\collection\Contract\Transformation;
-use drupol\collection\Iterator\ClosureIterator;
-use drupol\collection\Transformation\Run;
-use drupol\collection\Transformation\Transform;
 use Generator;
+use loophp\collection\Contract\Base as BaseInterface;
+use loophp\collection\Contract\Operation;
+use loophp\collection\Contract\Transformation;
+use loophp\collection\Iterator\ClosureIterator;
+use loophp\collection\Transformation\Run;
+use loophp\collection\Transformation\Transform;
 
 use function is_string;
 

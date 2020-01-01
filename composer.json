@@ -1,5 +1,5 @@
 {
-    "name": "drupol/collection",
+    "name": "loophp/collection",
     "type": "library",
     "description": "A (memory) friendly, easy, lazy and modular collection class.",
     "keywords": [
@@ -33,12 +33,12 @@
     },
     "autoload": {
         "psr-4": {
-            "drupol\\collection\\": "./src/"
+            "loophp\\collection\\": "./src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "drupol\\collection\\benchmarks\\": "./benchmarks/"
+            "loophp\\collection\\benchmarks\\": "./benchmarks/"
         }
     },
     "scripts": {

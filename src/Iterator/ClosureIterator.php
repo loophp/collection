@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace drupol\collection\Iterator;
+namespace loophp\collection\Iterator;
 
 use Closure;
 use Generator;
@@ -69,7 +69,7 @@ final class ClosureIterator implements Iterator
     }
 
     /**
-     * @return \drupol\collection\Iterator\ClosureIterator
+     * @return \loophp\collection\Iterator\ClosureIterator
      */
     public function rewind()
     {

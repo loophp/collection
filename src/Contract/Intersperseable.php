@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace drupol\collection\Contract;
+namespace loophp\collection\Contract;
 
 /**
  * Interface Intersperseable.
@@ -17,7 +17,7 @@ interface Intersperseable
      * @param int $every
      * @param int $startAt
      *
-     * @return \drupol\collection\Contract\Collection<mixed>
+     * @return \loophp\collection\Contract\Collection<mixed>
      */
     public function intersperse($element, int $every = 1, int $startAt = 0): Base;
 }

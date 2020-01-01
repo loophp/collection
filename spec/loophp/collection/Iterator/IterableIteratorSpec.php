@@ -2,31 +2,23 @@
 
 declare(strict_types=1);
 
-namespace spec\drupol\collection\Iterator;
+namespace spec\loophp\collection\Iterator;
 
-use drupol\collection\Iterator\ClosureIterator;
+use loophp\collection\Iterator\IterableIterator;
 use PhpSpec\ObjectBehavior;
 
-class ClosureIteratorSpec extends ObjectBehavior
+class IterableIteratorSpec extends ObjectBehavior
 {
     public function it_can_be_constructed_with_a_callable_which_is_not_a_generator(): void
     {
-        $callback = static function () {
-            return range(1, 5);
-        };
-
         $this
-            ->beConstructedWith($callback);
+            ->beConstructedWith(range(1, 5));
     }
 
     public function it_can_get_a_key(): void
     {
-        $callback = static function () {
-            return range(1, 5);
-        };
-
         $this
-            ->beConstructedWith($callback);
+            ->beConstructedWith(range(1, 5));
 
         $this
             ->key()
@@ -35,12 +27,10 @@ class ClosureIteratorSpec extends ObjectBehavior
 
     public function it_can_rewind()
     {
-        $rdmString = static function () {
-            yield 'foo';
-        };
+        $iterable = ['foo'];
 
         $this
-            ->beConstructedWith($rdmString);
+            ->beConstructedWith($iterable);
 
         $this
             ->current()
@@ -59,12 +49,8 @@ class ClosureIteratorSpec extends ObjectBehavior
 
     public function it_can_use_next(): void
     {
-        $callback = static function () {
-            return range(1, 5);
-        };
-
         $this
-            ->beConstructedWith($callback);
+            ->beConstructedWith(range(1, 5));
 
         $this
             ->next()
@@ -77,18 +63,12 @@ class ClosureIteratorSpec extends ObjectBehavior
 
     public function it_is_initializable(): void
     {
-        $callback = static function ($a, $b, $c) {
-            yield $a;
-
-            yield $b;
-
-            yield $c;
-        };
+        $iterable = ['foo', 'bar', 'baz'];
 
         $this
-            ->beConstructedWith($callback, 'foo', 'bar', 'baz');
+            ->beConstructedWith($iterable);
 
-        $this->shouldHaveType(ClosureIterator::class);
+        $this->shouldHaveType(IterableIterator::class);
 
         $this
             ->current()

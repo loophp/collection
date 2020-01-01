@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace drupol\collection\Contract;
+namespace loophp\collection\Contract;
 
 /**
  * Interface Scaleable.
@@ -18,7 +18,7 @@ interface Scaleable
      * @param float|null $wantedUpperBound
      * @param float|null $base
      *
-     * @return \drupol\collection\Contract\Collection<mixed>
+     * @return \loophp\collection\Contract\Collection<mixed>
      */
     public function scale(
         float $lowerBound,

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace drupol\collection\Contract;
+namespace loophp\collection\Contract;
 
 /**
  * Interface Runable.
@@ -10,7 +10,7 @@ namespace drupol\collection\Contract;
 interface Runable
 {
     /**
-     * @param \drupol\collection\Contract\Operation ...$operations
+     * @param \loophp\collection\Contract\Operation ...$operations
      *
      * @return bool|int|mixed
      */

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace drupol\collection\Transformation;
+namespace loophp\collection\Transformation;
 
-use drupol\collection\Contract\Transformation;
+use loophp\collection\Contract\Transformation;
 
 /**
  * Class Transform.
@@ -12,14 +12,14 @@ use drupol\collection\Contract\Transformation;
 final class Transform implements Transformation
 {
     /**
-     * @var \drupol\collection\Contract\Transformation[]
+     * @var \loophp\collection\Contract\Transformation[]
      */
     private $transformers;
 
     /**
      * Run constructor.
      *
-     * @param \drupol\collection\Contract\Transformation ...$transformers
+     * @param \loophp\collection\Contract\Transformation ...$transformers
      */
     public function __construct(Transformation ...$transformers)
     {

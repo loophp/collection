@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace drupol\collection\Contract;
+namespace loophp\collection\Contract;
 
 /**
  * Interface Reductionable.
@@ -15,7 +15,7 @@ interface Reductionable
      * @param callable $callback
      * @param mixed $initial
      *
-     * @return \drupol\collection\Contract\Collection<mixed>
+     * @return \loophp\collection\Contract\Collection<mixed>
      */
     public function reduction(callable $callback, $initial = null): Base;
 }

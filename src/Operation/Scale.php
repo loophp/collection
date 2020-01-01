@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace drupol\collection\Operation;
+namespace loophp\collection\Operation;
 
 use Closure;
-use drupol\collection\Contract\Operation;
+use loophp\collection\Contract\Operation;
 
 use const INF;
 
@@ -15,12 +15,12 @@ use const INF;
 final class Scale implements Operation
 {
     /**
-     * @var \drupol\collection\Operation\Filter
+     * @var \loophp\collection\Operation\Filter
      */
     private $filter;
 
     /**
-     * @var \drupol\collection\Operation\Walk
+     * @var \loophp\collection\Operation\Walk
      */
     private $mapper;
 

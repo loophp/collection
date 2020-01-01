@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace drupol\collection\Transformation;
+namespace loophp\collection\Transformation;
 
-use drupol\collection\Contract\Operation;
-use drupol\collection\Contract\Transformation;
-use drupol\collection\Iterator\ClosureIterator;
+use loophp\collection\Contract\Operation;
+use loophp\collection\Contract\Transformation;
+use loophp\collection\Iterator\ClosureIterator;
 
 /**
  * Class Run.
@@ -14,14 +14,14 @@ use drupol\collection\Iterator\ClosureIterator;
 final class Run implements Transformation
 {
     /**
-     * @var \drupol\collection\Contract\Operation[]
+     * @var \loophp\collection\Contract\Operation[]
      */
     private $operations;
 
     /**
      * Run constructor.
      *
-     * @param \drupol\collection\Contract\Operation ...$operations
+     * @param \loophp\collection\Contract\Operation ...$operations
      */
     public function __construct(Operation ...$operations)
     {
