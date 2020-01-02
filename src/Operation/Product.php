@@ -63,9 +63,7 @@ final class Product implements Operation
         $last = array_pop($iterators);
 
         if (null === $last) {
-            yield [];
-
-            return;
+            return yield [];
         }
 
         foreach ($this->cartesian($iterators) as $item) {
