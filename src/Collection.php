@@ -29,6 +29,7 @@ use loophp\collection\Operation\Only;
 use loophp\collection\Operation\Pad;
 use loophp\collection\Operation\Pluck;
 use loophp\collection\Operation\Prepend;
+use loophp\collection\Operation\Product;
 use loophp\collection\Operation\Range;
 use loophp\collection\Operation\Reduction;
 use loophp\collection\Operation\Reverse;
@@ -372,6 +373,16 @@ final class Collection extends Base implements CollectionInterface
     public function prepend(...$items): BaseInterface
     {
         return $this->run(new Prepend($items));
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return \loophp\collection\Contract\Collection
+     */
+    public function product(iterable ...$iterables): BaseInterface
+    {
+        return $this->run(new Product(...$iterables));
     }
 
     /**

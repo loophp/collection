@@ -82,6 +82,9 @@ pluck
 prepend
 -------
 
+product
+-------
+
 rebase
 ------
 

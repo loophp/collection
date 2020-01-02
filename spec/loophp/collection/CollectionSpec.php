@@ -347,6 +347,20 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs([0 => 1, 2 => 2, 4 => 3, 6 => $stdclass]);
     }
 
+    public function it_can_do_the_cartesian_product(): void
+    {
+        $this
+            ->beConstructedThrough('with', [range('A', 'C')]);
+
+        $this
+            ->product()
+            ->shouldIterateAs([0 => ['A'], 1 => ['B'], 2 => ['C']]);
+
+        $this
+            ->product([1, 2])
+            ->shouldIterateAs([0 => ['A', 1], 1 => ['A', 2], 2 => ['B', 1], 3 => ['B', 2], 4 => ['C', 1], 5 => ['C', 2]]);
+    }
+
     public function it_can_explode(): void
     {
         $string = 'I am just a random piece of text.';

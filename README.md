@@ -142,6 +142,11 @@ Collection::with(['a', 'b', 'c', 'd', 'a'])
     ->flip()
     ->all(); // ['a', 'b', 'c', 'd', 'a']
 
+// Get the Cartesian product.
+Collection::with(['a', 'b'])
+    ->product([1, 2])
+    ->all(); // [['a', 1], ['a', 2], ['b', 1], ['b', 2]]
+
 // Infinitely loop over numbers, cube them, filter those that are not divisible by 5, take the first 100 of them.
 Collection::range(0, INF)
     ->map(
@@ -447,6 +452,7 @@ the methods always return the same values for the same inputs.
 | `pad`         | new Collection object | [Pad.php](./src/Operation/Pad.php)
 | `pluck`       | new Collection object | [Pluck.php](./src/Operation/Pluck.php)
 | `prepend`     | new Collection object | [Prepend.php](./src/Operation/Prepend.php)
+| `product`     | new Collection object | [Product.php](./src/Operation/Product.php)
 | `rebase`      | new Collection object | [Collection.php](./src/Operation/Collection.php)
 | `reduce`      | mixed                 | [Reduce.php](./src/Transformation/Reduce.php)
 | `reduction`   | new Collection object | [Reduction.php](./src/Operation/Reduction.php)

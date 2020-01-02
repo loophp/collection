@@ -40,6 +40,7 @@ interface Collection extends
     Padable,
     Pluckable,
     Prependable,
+    Productable,
     Rebaseable,
     Reduceable,
     Reductionable,
