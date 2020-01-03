@@ -260,6 +260,58 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']);
     }
 
+    public function it_can_combinate(): void
+    {
+        $this::with(range('a', 'c'))
+            ->combinate(0)
+            ->shouldIterateAs(
+                [
+                    [
+                        0 => 'a',
+                        1 => 'b',
+                        2 => 'c',
+                    ],
+                ]
+            );
+
+        $this::with(range('a', 'c'))
+            ->combinate(1)
+            ->shouldIterateAs(
+                [
+                    [
+                        'a',
+                    ],
+                    [
+                        'b',
+                    ],
+                    [
+                        'c',
+                    ],
+                ]
+            );
+
+        $this::with(range('a', 'c'))
+            ->combinate()
+            ->all()
+            ->shouldBeEqualTo(
+                [
+                    0 => [
+                        0 => 'a',
+                        1 => 'b',
+                        2 => 'c',
+                    ],
+                    1 => [
+                        0 => 'a',
+                        1 => 'c',
+                    ],
+                    2 => [
+                        0 => 'b',
+                        1 => 'c',
+                    ],
+                ]
+            );
+    }
+
     public function it_can_combine(): void
     {
         $this
@@ -802,6 +854,46 @@ class CollectionSpec extends ObjectBehavior
         $this
             ->pad(10, 'foo')
             ->shouldIterateAs(['A' => 'A', 'B' => 'B', 'C' => 'C', 'D' => 'D', 'E' => 'E', 0 => 'foo', 1 => 'foo', 2 => 'foo', 3 => 'foo', 4 => 'foo']);
+    }
+
+    public function it_can_permutate(): void
+    {
+        $this::with(range('a', 'c'))
+            ->permutate()
+            ->shouldIterateAs(
+                [
+                    [
+                        0 => 'a',
+                        1 => 'b',
+                        2 => 'c',
+                    ],
+                    [
+                        0 => 'a',
+                        1 => 'c',
+                        2 => 'b',
+                    ],
+                    [
+                        0 => 'b',
+                        1 => 'a',
+                        2 => 'c',
+                    ],
+                    [
+                        0 => 'b',
+                        1 => 'c',
+                        2 => 'a',
+                    ],
+                    [
+                        0 => 'c',
+                        1 => 'a',
+                        2 => 'b',
+                    ],
+                    [
+                        0 => 'c',
+                        1 => 'b',
+                        2 => 'a',
+                    ],
+                ]
+            );
     }
 
     public function it_can_pluck(): void

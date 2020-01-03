@@ -11,6 +11,7 @@ use loophp\collection\Operation\Append;
 use loophp\collection\Operation\Apply;
 use loophp\collection\Operation\Chunk;
 use loophp\collection\Operation\Collapse;
+use loophp\collection\Operation\Combinate;
 use loophp\collection\Operation\Combine;
 use loophp\collection\Operation\Cycle;
 use loophp\collection\Operation\Distinct;
@@ -27,6 +28,7 @@ use loophp\collection\Operation\Normalize;
 use loophp\collection\Operation\Nth;
 use loophp\collection\Operation\Only;
 use loophp\collection\Operation\Pad;
+use loophp\collection\Operation\Permutate;
 use loophp\collection\Operation\Pluck;
 use loophp\collection\Operation\Prepend;
 use loophp\collection\Operation\Product;
@@ -105,6 +107,16 @@ final class Collection extends Base implements CollectionInterface
     public function collapse(): BaseInterface
     {
         return $this->run(new Collapse());
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return \loophp\collection\Contract\Collection
+     */
+    public function combinate(?int $size = null): BaseInterface
+    {
+        return $this->run(new Combinate($size));
     }
 
     /**
@@ -353,6 +365,16 @@ final class Collection extends Base implements CollectionInterface
     public function pad(int $size, $value): BaseInterface
     {
         return $this->run(new Pad($size, $value));
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return \loophp\collection\Contract\Collection
+     */
+    public function permutate(): BaseInterface
+    {
+        return $this->run(new Permutate());
     }
 
     /**

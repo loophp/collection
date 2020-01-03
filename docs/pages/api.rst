@@ -31,6 +31,9 @@ collapse
 combine
 -------
 
+combinate
+---------
+
 distinct
 --------
 
@@ -75,6 +78,9 @@ only
 
 pad
 ---
+
+permutate
+---------
 
 pluck
 -----
