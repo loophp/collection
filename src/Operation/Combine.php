@@ -40,9 +40,11 @@ final class Combine implements Operation
      */
     public function on(iterable $collection): Closure
     {
-        [$keys] = $this->keys;
+        $keys = $this->keys;
 
         return static function () use ($keys, $collection): Generator {
+            [$keys] = $keys;
+
             $original = new IterableIterator($collection);
             $keysIterator = new ArrayIterator($keys);
 

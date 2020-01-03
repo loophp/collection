@@ -35,18 +35,20 @@ final class Only implements Operation
      */
     public function on(iterable $collection): Closure
     {
-        [$keys] = $this->keys;
+        $keys = $this->keys;
 
         return static function () use ($keys, $collection): Generator {
-            if ([] === $keys) {
-                yield from $collection;
-            } else {
-                $keys = array_flip($keys);
+            [$keys] = $keys;
 
-                foreach ($collection as $key => $value) {
-                    if (true === array_key_exists($key, $keys)) {
-                        yield $key => $value;
-                    }
+            if ([] === $keys) {
+                return yield from $collection;
+            }
+
+            $keys = array_flip($keys);
+
+            foreach ($collection as $key => $value) {
+                if (true === array_key_exists($key, $keys)) {
+                    yield $key => $value;
                 }
             }
         };

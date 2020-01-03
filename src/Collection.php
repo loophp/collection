@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace loophp\collection;
 
-use Generator;
 use loophp\collection\Contract\Base as BaseInterface;
 use loophp\collection\Contract\Collection as CollectionInterface;
 use loophp\collection\Operation\Append;
@@ -21,6 +20,7 @@ use loophp\collection\Operation\Flatten;
 use loophp\collection\Operation\Flip;
 use loophp\collection\Operation\Forget;
 use loophp\collection\Operation\Intersperse;
+use loophp\collection\Operation\Iterate;
 use loophp\collection\Operation\Keys;
 use loophp\collection\Operation\Limit;
 use loophp\collection\Operation\Merge;
@@ -33,14 +33,17 @@ use loophp\collection\Operation\Pluck;
 use loophp\collection\Operation\Prepend;
 use loophp\collection\Operation\Product;
 use loophp\collection\Operation\Range;
+use loophp\collection\Operation\Rebase;
 use loophp\collection\Operation\Reduction;
 use loophp\collection\Operation\Reverse;
+use loophp\collection\Operation\RSample;
 use loophp\collection\Operation\Scale;
 use loophp\collection\Operation\Skip;
 use loophp\collection\Operation\Slice;
 use loophp\collection\Operation\Sort;
 use loophp\collection\Operation\Split;
 use loophp\collection\Operation\Tail;
+use loophp\collection\Operation\Times;
 use loophp\collection\Operation\Until;
 use loophp\collection\Operation\Walk;
 use loophp\collection\Operation\Zip;
@@ -266,17 +269,7 @@ final class Collection extends Base implements CollectionInterface
      */
     public static function iterate(callable $callback, ...$parameters): CollectionInterface
     {
-        return new Collection(
-            static function () use ($parameters, $callback): Generator {
-                while (true) {
-                    $parameters = $callback(...$parameters);
-
-                    yield $parameters;
-
-                    $parameters = (array) $parameters;
-                }
-            }
-        );
+        return (new Collection())->run(new Iterate($callback, $parameters));
     }
 
     /**
@@ -424,7 +417,7 @@ final class Collection extends Base implements CollectionInterface
      */
     public function rebase(): BaseInterface
     {
-        return new Collection($this->transform(new All()));
+        return $this->run(new Rebase());
     }
 
     /**
@@ -462,15 +455,13 @@ final class Collection extends Base implements CollectionInterface
      */
     public function rsample($probability): BaseInterface
     {
-        $callback = static function ($item) use ($probability): bool {
-            return (mt_rand() / mt_getrandmax()) < $probability;
-        };
-
-        return $this->run(new Filter($callback));
+        return $this->run(new RSample($probability));
     }
 
     /**
      * {@inheritdoc}
+     *
+     * @return \loophp\collection\Contract\Collection
      */
     public function scale(
         float $lowerBound,
@@ -527,7 +518,7 @@ final class Collection extends Base implements CollectionInterface
      *
      * @return \loophp\collection\Contract\Collection
      */
-    public function tail(int $length): BaseInterface
+    public function tail(int $length = 1): BaseInterface
     {
         return $this->run(new Tail($length));
     }
@@ -537,21 +528,9 @@ final class Collection extends Base implements CollectionInterface
      *
      * @return \loophp\collection\Contract\Collection
      */
-    public static function times($number, ?callable $callback = null): CollectionInterface
+    public static function times(int $number, ?callable $callback = null): CollectionInterface
     {
-        if (1 > $number) {
-            return self::empty();
-        }
-
-        $instance = new Collection(
-            static function () use ($number): Generator {
-                for ($current = 1; $current <= $number; ++$current) {
-                    yield $current;
-                }
-            }
-        );
-
-        return null === $callback ? $instance : $instance->run(new Walk($callback));
+        return (new Collection())->run(new Times($number, $callback));
     }
 
     /**
@@ -575,12 +554,12 @@ final class Collection extends Base implements CollectionInterface
     }
 
     /**
-     * @param array<mixed> $data
+     * @param mixed $data
      * @param mixed ...$parameters
      *
-     * @return \loophp\collection\Contract\Base<mixed>
+     * @return \loophp\collection\Contract\Collection<mixed>
      */
-    public static function with($data = [], ...$parameters): BaseInterface
+    public static function with($data = [], ...$parameters): CollectionInterface
     {
         return new Collection($data, ...$parameters);
     }

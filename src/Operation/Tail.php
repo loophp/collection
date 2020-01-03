@@ -24,7 +24,7 @@ final class Tail implements Operation
      *
      * @param int $length
      */
-    public function __construct(int $length)
+    public function __construct(int $length = 1)
     {
         $this->length = $length;
     }
@@ -34,11 +34,14 @@ final class Tail implements Operation
      */
     public function on(iterable $collection): Closure
     {
-        $offset = (new Count())->on($collection) - $this->length;
         $length = $this->length;
 
-        return static function () use ($offset, $length, $collection): Generator {
-            yield from (new Limit($length))->on((new Skip($offset))->on($collection)())();
+        return static function () use ($length, $collection): Generator {
+            yield from (new Limit($length))
+                ->on(
+                    (new Skip((new Count())->on($collection) - $length))
+                        ->on($collection)()
+                )();
         };
     }
 }

@@ -65,7 +65,7 @@ final class Intersperse implements Operation
         }
 
         return static function () use ($element, $every, $startAt, $collection): Generator {
-            foreach ($collection as $key => $value) {
+            foreach ($collection as $value) {
                 if (0 === $startAt++ % $every) {
                     yield $element;
                 }

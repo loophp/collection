@@ -10,9 +10,11 @@ namespace loophp\collection\Contract;
 interface Tailable
 {
     /**
+     * TODO: Tail.
+     *
      * @param int $length
      *
      * @return \loophp\collection\Contract\Collection<mixed>
      */
-    public function tail(int $length): Base;
+    public function tail(int $length = 1): Base;
 }

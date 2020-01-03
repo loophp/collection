@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace loophp\collection\Operation;
 
-use ArrayIterator;
 use Closure;
 use Generator;
 use loophp\collection\Contract\Operation;
@@ -60,7 +59,7 @@ final class Zip implements Operation
             }
 
             foreach ($mit as $values) {
-                yield new ArrayIterator($values);
+                yield $values;
             }
         };
     }

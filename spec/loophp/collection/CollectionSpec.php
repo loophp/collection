@@ -1186,6 +1186,10 @@ class CollectionSpec extends ObjectBehavior
             ->beConstructedThrough('with', [range('A', 'F')]);
 
         $this
+            ->tail()
+            ->shouldIterateAs([5 => 'F']);
+
+        $this
             ->tail(3)
             ->shouldIterateAs([3 => 'D', 4 => 'E', 5 => 'F']);
 

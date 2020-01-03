@@ -35,9 +35,10 @@ final class Forget implements Operation
      */
     public function on(iterable $collection): Closure
     {
-        [$keys] = $this->keys;
+        $keys = $this->keys;
 
         return static function () use ($keys, $collection): Generator {
+            [$keys] = $keys;
             $keys = array_flip($keys);
 
             foreach ($collection as $key => $value) {

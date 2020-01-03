@@ -20,7 +20,7 @@ final class Last implements Transformation
     {
         $return = null;
 
-        foreach ($collection as $key => $value) {
+        foreach ($collection as $value) {
             $return = $value;
         }
 

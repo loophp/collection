@@ -33,9 +33,11 @@ final class Prepend implements Operation
      */
     public function on(iterable $collection): Closure
     {
-        [$items] = $this->items;
+        $items = $this->items;
 
         return static function () use ($items, $collection): Generator {
+            [$items] = $items;
+
             foreach ($items as $item) {
                 yield $item;
             }

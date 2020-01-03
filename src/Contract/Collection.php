@@ -92,5 +92,15 @@ interface Collection extends
      *
      * @return \loophp\collection\Contract\Collection<mixed>
      */
-    public static function times($number, ?callable $callback = null): Collection;
+    public static function times(int $number, ?callable $callback = null): Collection;
+
+    /**
+     * TODO.
+     *
+     * @param mixed $data
+     * @param mixed ...$parameters
+     *
+     * @return \loophp\collection\Contract\Collection<mixed>
+     */
+    public static function with($data = [], ...$parameters): Collection;
 }

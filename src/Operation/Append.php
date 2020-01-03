@@ -33,12 +33,14 @@ final class Append implements Operation
      */
     public function on(iterable $collection): Closure
     {
-        [$items] = $this->items;
+        $items = $this->items;
 
         return static function () use ($items, $collection): Generator {
             foreach ($collection as $value) {
                 yield $value;
             }
+
+            [$items] = $items;
 
             foreach ($items as $item) {
                 yield $item;

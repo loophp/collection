@@ -8,12 +8,10 @@ use Closure;
 use Generator;
 use loophp\collection\Contract\Operation;
 
-use function in_array;
-
 /**
- * Class Distinct.
+ * Class Rebase.
  */
-final class Distinct implements Operation
+final class Rebase implements Operation
 {
     /**
      * {@inheritdoc}
@@ -21,16 +19,8 @@ final class Distinct implements Operation
     public function on(iterable $collection): Closure
     {
         return static function () use ($collection): Generator {
-            $seen = [];
-
-            foreach ($collection as $key => $value) {
-                if (true === in_array($value, $seen, true)) {
-                    continue;
-                }
-
-                $seen[] = $value;
-
-                yield $key => $value;
+            foreach ($collection as $value) {
+                yield $value;
             }
         };
     }

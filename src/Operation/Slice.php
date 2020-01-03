@@ -46,13 +46,13 @@ final class Slice implements Operation
 
         return static function () use ($offset, $length, $collection): Generator {
             if (null === $length) {
-                yield from (new Skip($offset))->on($collection)();
-            } else {
-                $limit = new Limit($length);
-                $skip = new Skip($offset);
-
-                yield from $limit->on(new ClosureIterator($skip->on($collection)))();
+                return yield from (new Skip($offset))->on($collection)();
             }
+
+            $limit = new Limit($length);
+            $skip = new Skip($offset);
+
+            yield from $limit->on(new ClosureIterator($skip->on($collection)))();
         };
     }
 }

@@ -8,9 +8,6 @@ use Closure;
 use Generator;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Transformation\All;
-use loophp\collection\Transformation\Count;
-
-use function count;
 
 /**
  * Class Permutate.
@@ -22,12 +19,12 @@ final class Permutate implements Operation
      */
     public function on(iterable $collection): Closure
     {
-        $getPermutate = function (array $dataset): Generator {
+        $getPermutations = function (array $dataset): Generator {
             return $this->getPermutations($dataset);
         };
 
-        return static function () use ($collection, $getPermutate): Generator {
-            yield from $getPermutate((new All())->on($collection));
+        return static function () use ($collection, $getPermutations): Generator {
+            yield from $getPermutations((new All())->on($collection));
         };
     }
 
@@ -43,16 +40,16 @@ final class Permutate implements Operation
 
             array_splice($remaining, $key, 1);
 
-            if (0 === count($remaining)) {
+            if ([] === $remaining) {
                 yield [$firstItem];
 
                 continue;
             }
 
-            foreach ($this->getPermutations($remaining) as $Permutate) {
-                array_unshift($Permutate, $firstItem);
+            foreach ($this->getPermutations($remaining) as $permutation) {
+                array_unshift($permutation, $firstItem);
 
-                yield $Permutate;
+                yield $permutation;
             }
         }
     }

@@ -37,16 +37,14 @@ final class Chunk implements Operation
     {
         $length = $this->length;
 
-        if (0 >= $length) {
-            return static function (): Generator {
-                yield from [];
-            };
-        }
-
         return static function () use ($length, $collection): Generator {
+            if (0 >= $length) {
+                return yield from [];
+            }
+
             $values = [];
 
-            foreach ($collection as $key => $value) {
+            foreach ($collection as $value) {
                 if (count($values) === $length) {
                     yield $values;
 
