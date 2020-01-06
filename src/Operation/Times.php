@@ -19,17 +19,17 @@ final class Times implements Operation
     private $callback;
 
     /**
-     * @var int
+     * @var float|int
      */
     private $number;
 
     /**
      * Times constructor.
      *
-     * @param int $number
+     * @param float|int $number
      * @param callable|null $callback
      */
-    public function __construct(int $number, ?callable $callback = null)
+    public function __construct($number, ?callable $callback = null)
     {
         $this->number = $number;
         $this->callback = $callback;

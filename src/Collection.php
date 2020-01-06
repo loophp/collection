@@ -528,9 +528,9 @@ final class Collection extends Base implements CollectionInterface
      *
      * @return \loophp\collection\Contract\Collection
      */
-    public static function times(int $number, ?callable $callback = null): CollectionInterface
+    public static function times($number = INF, ?callable $callback = null): CollectionInterface
     {
-        return (new Collection())->run(new Times($number, $callback));
+        return (new self())->run(new Times($number, $callback));
     }
 
     /**

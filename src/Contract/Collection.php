@@ -87,12 +87,12 @@ interface Collection extends
     /**
      * Create a new instance by invoking the callback a given amount of times.
      *
-     * @param int $number
+     * @param float|int $number
      * @param callable $callback
      *
      * @return \loophp\collection\Contract\Collection<mixed>
      */
-    public static function times(int $number, ?callable $callback = null): Collection;
+    public static function times($number = INF, ?callable $callback = null): Collection;
 
     /**
      * TODO.
