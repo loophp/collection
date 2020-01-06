@@ -38,11 +38,13 @@ final class Filter implements Operation
         $callbacks = $this->callbacks;
 
         return static function () use ($callbacks, $collection): Generator {
-            $iterator = $collection;
+            $iterator = new IterableIterator($collection);
 
             foreach ($callbacks as $callback) {
-                yield from $iterator = new CallbackFilterIterator(new IterableIterator($iterator), $callback);
+                $iterator = new CallbackFilterIterator($iterator, $callback);
             }
+
+            yield from $iterator;
         };
     }
 }

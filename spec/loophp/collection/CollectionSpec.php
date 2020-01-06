@@ -467,7 +467,7 @@ class CollectionSpec extends ObjectBehavior
             );
     }
 
-    public function it_can_filter_its_element(): void
+    public function it_can_filter(): void
     {
         $input = array_merge([0, false], range(1, 10));
 
@@ -488,10 +488,17 @@ class CollectionSpec extends ObjectBehavior
             ->normalize()
             ->shouldIterateAs([1, 3, 5, 7, 9]);
 
-        $this
-            ->filter()
+        $this::with(['afooe', 'fooe', 'allo', 'llo'])
+            ->filter(
+                static function ($value) {
+                    return 0 === mb_strpos($value, 'a');
+                },
+                static function ($value) {
+                    return mb_strlen($value) - 1 === mb_strpos($value, 'o');
+                }
+            )
             ->normalize()
-            ->shouldIterateAs([]);
+            ->shouldIterateAs(['allo']);
     }
 
     public function it_can_flatten(): void
