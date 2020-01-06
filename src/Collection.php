@@ -175,7 +175,7 @@ final class Collection extends Base implements CollectionInterface
      */
     public static function empty(): CollectionInterface
     {
-        return new Collection();
+        return new self();
     }
 
     /**
@@ -269,7 +269,7 @@ final class Collection extends Base implements CollectionInterface
      */
     public static function iterate(callable $callback, ...$parameters): CollectionInterface
     {
-        return (new Collection())->run(new Iterate($callback, $parameters));
+        return (new self())->run(new Iterate($callback, $parameters));
     }
 
     /**
@@ -407,7 +407,7 @@ final class Collection extends Base implements CollectionInterface
      */
     public static function range(int $start = 0, $end = INF, $step = 1): CollectionInterface
     {
-        return (new Collection())->run(new Range($start, $end, $step));
+        return (new self())->run(new Range($start, $end, $step));
     }
 
     /**
@@ -561,7 +561,7 @@ final class Collection extends Base implements CollectionInterface
      */
     public static function with($data = [], ...$parameters): CollectionInterface
     {
-        return new Collection($data, ...$parameters);
+        return new self($data, ...$parameters);
     }
 
     /**

@@ -77,7 +77,7 @@ interface Collection extends
      * Create a new with a range of number.
      *
      * @param int $start
-     * @param float|int $end
+     * @param float|float|int $end
      * @param int $step
      *
      * @return \loophp\collection\Contract\Collection<mixed>
