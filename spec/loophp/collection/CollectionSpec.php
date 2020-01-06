@@ -1156,10 +1156,16 @@ class CollectionSpec extends ObjectBehavior
             ->beConstructedThrough('with', [$input]);
 
         $this
-            ->sort(static function ($item1, $item2) {
-                return $item2 <=> $item1;
-            })
-            ->shouldIterateAs(['E' => 'E', 'D' => 'D', 'C' => 'C', 'B' => 'B', 'A' => 'A']);
+            ->sort()
+            ->shouldIterateAs($input);
+
+        $this
+            ->sort(
+                static function ($left, $right): int {
+                    return $right <=> $left;
+                }
+            )
+            ->shouldIterateAs(array_reverse($input, true));
     }
 
     public function it_can_split(): void

@@ -498,7 +498,7 @@ final class Collection extends Base implements CollectionInterface
      *
      * @return \loophp\collection\Contract\Collection
      */
-    public function sort(callable $callback): BaseInterface
+    public function sort(?callable $callback = null): BaseInterface
     {
         return $this->run(new Sort($callback));
     }

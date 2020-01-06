@@ -7,7 +7,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use loophp\collection\Contract\Operation;
-use loophp\collection\Iterator\IterableIterator;
+use loophp\collection\Iterator\SortableIterableIterator;
 
 /**
  * Class Sort.
@@ -17,7 +17,7 @@ use loophp\collection\Iterator\IterableIterator;
 final class Sort implements Operation
 {
     /**
-     * @var callable
+     * @var callable|null
      */
     private $callback;
 
@@ -26,7 +26,7 @@ final class Sort implements Operation
      *
      * @param callable $callback
      */
-    public function __construct(callable $callback)
+    public function __construct(?callable $callback = null)
     {
         $this->callback = $callback;
     }
@@ -39,13 +39,13 @@ final class Sort implements Operation
         $callback = $this->callback;
 
         return static function () use ($callback, $collection): Generator {
-            $array = iterator_to_array(
-                new IterableIterator($collection)
-            );
+            if (null === $callback) {
+                $callback = static function ($left, $right): int {
+                    return $left <=> $right;
+                };
+            }
 
-            uasort($array, $callback);
-
-            yield from $array;
+            yield from new SortableIterableIterator($collection, $callback);
         };
     }
 }

@@ -16,5 +16,5 @@ interface Sortable
      *
      * @return \loophp\collection\Contract\Collection<mixed>
      */
-    public function sort(callable $callable): Base;
+    public function sort(?callable $callable = null): Base;
 }
