@@ -21,7 +21,7 @@ use const E_USER_WARNING;
 final class Combine implements Operation
 {
     /**
-     * @var array<TKey, TValue>
+     * @var array<array<TKey, TValue>>
      */
     private $keys;
 
