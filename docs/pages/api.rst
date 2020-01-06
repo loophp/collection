@@ -124,4 +124,4 @@ walk
 zip
 ---
 
-.. _Appendable: https://github.com/drupol/collection/blob/master/src/Contract/Appendable.php
+.. _Appendable: https://github.com/loophp/collection/blob/master/src/Contract/Appendable.php

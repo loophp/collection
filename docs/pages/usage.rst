@@ -9,7 +9,7 @@ Usage
 
     include 'vendor/autoload.php';
 
-    use drupol\collection\Collection;
+    use loophp\collection\Collection;
 
     // More examples...
     $collection = Collection::with(['A', 'B', 'C', 'D', 'E']);
@@ -85,7 +85,7 @@ Usage
     // See: https://www.php.net/manual/en/function.array-flip.php
     // Example:
     // $dedupArray = array_flip(array_flip(['a', 'b', 'c', 'd', 'a'])); // ['a', 'b', 'c', 'd']
-    // However, in drupol/collection it doesn't behave as such.
+    // However, in loophp/collection it doesn't behave as such.
     // As this library is based on PHP Generators, it's able to return multiple times the same key when iterating.
     // You end up with the following result when issuing twice the ::flip() operation.
     Collection::with(['a', 'b', 'c', 'd', 'a'])
