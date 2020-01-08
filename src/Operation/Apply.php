@@ -38,7 +38,10 @@ final class Apply implements Operation
         return static function () use ($callbacks, $collection): Generator {
             foreach ($collection as $key => $value) {
                 foreach ($callbacks as $callback) {
-                    $callback($value, $key);
+                    if (true === $callback($value, $key)) {
+                        continue;
+                    }
+                    break;
                 }
 
                 yield $key => $value;

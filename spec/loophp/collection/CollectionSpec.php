@@ -80,6 +80,19 @@ class CollectionSpec extends ObjectBehavior
             ->apply($callback)
             ->shouldThrow(Exception::class)
             ->during('all');
+
+        $apply1 = static function ($value) {
+            return $value % 2 === true;
+        };
+
+        $apply2 = static function ($value) {
+            return $value % 3 === true;
+        };
+
+        $this::with([1, 2, 3, 4, 5, 6])
+            ->apply($apply1)
+            ->apply($apply2)
+            ->shouldIterateAs([1, 2, 3, 4 ,5 ,6]);
     }
 
     public function it_can_be_constructed_from_array(): void
