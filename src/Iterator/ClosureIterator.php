@@ -4,26 +4,30 @@ declare(strict_types=1);
 
 namespace loophp\collection\Iterator;
 
-use Closure;
 use Generator;
 use Iterator;
 
 /**
  * Class ClosureIterator.
  *
- * @implements Iterator<Iterator>
+ * @implements Iterator<mixed>
  */
 final class ClosureIterator implements Iterator
 {
     /**
-     * @var Generator<callable>|null
+     * @var array<mixed>
      */
-    private $generator;
+    private $arguments;
 
     /**
-     * @var Closure
+     * @var callable
      */
-    private $source;
+    private $callable;
+
+    /**
+     * @var Generator<Generator<mixed>>|null
+     */
+    private $generator;
 
     /**
      * ClosureIterator constructor.
@@ -33,13 +37,12 @@ final class ClosureIterator implements Iterator
      */
     public function __construct(callable $callable, ...$arguments)
     {
-        $this->source = static function () use ($callable, $arguments): Generator {
-            yield from $callable(...$arguments);
-        };
+        $this->callable = $callable;
+        $this->arguments = $arguments;
     }
 
     /**
-     * @return Iterator<mixed>
+     * {@inheritdoc}
      */
     public function current()
     {
@@ -59,7 +62,7 @@ final class ClosureIterator implements Iterator
     /**
      * {@inheritdoc}
      *
-     * @return $this
+     * @return \loophp\collection\Iterator\ClosureIterator
      */
     public function next()
     {
@@ -74,7 +77,6 @@ final class ClosureIterator implements Iterator
     public function rewind()
     {
         $this->generator = null;
-        $this->getGenerator();
 
         return $this;
     }
@@ -96,7 +98,13 @@ final class ClosureIterator implements Iterator
      */
     private function getGenerator(): Generator
     {
-        $this->generator = $this->generator ?? ($this->source)();
+        if (null === $this->generator) {
+            $this->generator = (
+                static function ($callable, $arguments): Generator {
+                    yield from ($callable)(...$arguments);
+                }
+            )($this->callable, $this->arguments);
+        }
 
         return $this->generator;
     }

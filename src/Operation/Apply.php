@@ -41,6 +41,7 @@ final class Apply implements Operation
                     if (true === $callback($value, $key)) {
                         continue;
                     }
+
                     break;
                 }
 

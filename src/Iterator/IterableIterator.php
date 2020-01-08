@@ -10,12 +10,12 @@ use Iterator;
 /**
  * Class IterableIterator.
  *
- * @implements Iterator<Iterator>
+ * @implements Iterator<mixed>
  */
 final class IterableIterator implements Iterator
 {
     /**
-     * @var \loophp\collection\Iterator\ClosureIterator
+     * @var \loophp\collection\Iterator\ClosureIterator<mixed>
      */
     private $iterator;
 
@@ -36,7 +36,7 @@ final class IterableIterator implements Iterator
     }
 
     /**
-     * @return Iterator<mixed>
+     * {@inheritdoc}
      */
     public function current()
     {
@@ -56,7 +56,7 @@ final class IterableIterator implements Iterator
     /**
      * {@inheritdoc}
      *
-     * @return $this
+     * @return \loophp\collection\Iterator\IterableIterator
      */
     public function next()
     {
@@ -66,7 +66,9 @@ final class IterableIterator implements Iterator
     }
 
     /**
-     * @return $this|void
+     * {@inheritdoc}
+     *
+     * @return \loophp\collection\Iterator\IterableIterator
      */
     public function rewind()
     {
