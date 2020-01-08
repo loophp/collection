@@ -57,16 +57,20 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs($input);
 
         $this
-            ->apply(static function ($item) {
-                return $item;
-            })
+            ->apply(
+                static function ($item) {
+                    return $item;
+                }
+            )
             ->shouldIterateAs($input);
 
         $this
-            ->apply(static function ($item) {
-                return false;
-            })
-            ->shouldReturnAnInstanceOf(\loophp\collection\Contract\Collection::class);
+            ->apply(
+                static function ($item) {
+                    return false;
+                }
+            )
+            ->shouldReturnAnInstanceOf(Collection::class);
 
         $callback = static function (): void {
             throw new Exception('foo');
@@ -76,77 +80,6 @@ class CollectionSpec extends ObjectBehavior
             ->apply($callback)
             ->shouldThrow(Exception::class)
             ->during('all');
-
-        $context = [];
-
-        $applyCallback1 = static function ($item, $key) use (&$context) {
-            if (3 > $item) {
-                $context[] = 0;
-
-                return 0;
-            }
-
-            if (3 <= $item && 6 > $item) {
-                $context[] = true;
-
-                return true;
-            }
-
-            if (9 < $item) {
-                $context[] = 'nine';
-
-                return false;
-            }
-
-            $context[] = $item;
-        };
-
-        $walkCallback2 = static function ($item) {
-            if (3 > $item) {
-                return 0;
-            }
-
-            if (3 <= $item && 6 > $item) {
-                return true;
-            }
-
-            if (10 === $item) {
-                return 'nine';
-            }
-
-            if (10 < $item) {
-                return false;
-            }
-
-            return $item;
-        };
-
-        $this::with(range(1, 20))
-            ->apply($applyCallback1)
-            ->walk($walkCallback2)
-            ->filter(static function ($item) {
-                return false !== $item;
-            })
-            ->all()
-            ->shouldIterateAs($context);
-
-        $context = [];
-
-        $applyCallback1 = static function ($item, $key) use (&$context) {
-            $context[] = $item;
-
-            return true;
-        };
-
-        $walkCallback2 = static function ($item) {
-            return $item;
-        };
-
-        $this::with(range(1, 20))
-            ->apply($applyCallback1)
-            ->walk($walkCallback2)
-            ->all()
-            ->shouldIterateAs($context);
     }
 
     public function it_can_be_constructed_from_array(): void

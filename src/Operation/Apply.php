@@ -36,15 +36,13 @@ final class Apply implements Operation
         $callbacks = $this->callbacks;
 
         return static function () use ($callbacks, $collection): Generator {
-            foreach ($callbacks as $callback) {
-                foreach ($collection as $key => $value) {
-                    if (false === $callback($value, $key)) {
-                        break;
-                    }
+            foreach ($collection as $key => $value) {
+                foreach ($callbacks as $callback) {
+                    $callback($value, $key);
                 }
-            }
 
-            yield from $collection;
+                yield $key => $value;
+            }
         };
     }
 }
