@@ -33,7 +33,6 @@ use loophp\collection\Operation\Pluck;
 use loophp\collection\Operation\Prepend;
 use loophp\collection\Operation\Product;
 use loophp\collection\Operation\Range;
-use loophp\collection\Operation\Rebase;
 use loophp\collection\Operation\Reduction;
 use loophp\collection\Operation\Reverse;
 use loophp\collection\Operation\RSample;
@@ -408,16 +407,6 @@ final class Collection extends Base implements CollectionInterface
     public static function range(int $start = 0, $end = INF, $step = 1): CollectionInterface
     {
         return (new self())->run(new Range($start, $end, $step));
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @return \loophp\collection\Contract\Collection
-     */
-    public function rebase(): BaseInterface
-    {
-        return $this->run(new Rebase());
     }
 
     /**

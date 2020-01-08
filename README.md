@@ -455,7 +455,6 @@ the methods always return the same values for the same inputs.
 | `pluck`       | new Collection object | [Pluck.php](./src/Operation/Pluck.php)
 | `prepend`     | new Collection object | [Prepend.php](./src/Operation/Prepend.php)
 | `product`     | new Collection object | [Product.php](./src/Operation/Product.php)
-| `rebase`      | new Collection object | [Collection.php](./src/Operation/Collection.php)
 | `reduce`      | mixed                 | [Reduce.php](./src/Transformation/Reduce.php)
 | `reduction`   | new Collection object | [Reduction.php](./src/Operation/Reduction.php)
 | `reverse`     | new Collection object | [Reverse.php](./src/Operation/Reverse.php)

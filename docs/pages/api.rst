@@ -91,9 +91,6 @@ prepend
 product
 -------
 
-rebase
-------
-
 reduction
 ---------
 

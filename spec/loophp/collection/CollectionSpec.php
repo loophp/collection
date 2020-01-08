@@ -923,17 +923,6 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs(['A', 'B', 'C', 'D', 'E', 'F']);
     }
 
-    public function it_can_rebase(): void
-    {
-        $this
-            ->beConstructedThrough('with', [range('A', 'C')]);
-
-        $this
-            ->rebase()
-            ->all()
-            ->shouldBeEqualTo($this->all());
-    }
-
     public function it_can_reduce(): void
     {
         $this

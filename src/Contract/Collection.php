@@ -43,7 +43,6 @@ interface Collection extends
     Pluckable,
     Prependable,
     Productable,
-    Rebaseable,
     Reduceable,
     Reductionable,
     Reverseable,
