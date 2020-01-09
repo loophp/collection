@@ -15,7 +15,6 @@ jobs:
             matrix:
                 operating-system: [ubuntu-latest, windows-latest, macOS-latest]
                 php-versions: ['7.1', '7.2', '7.3', '7.4']
-                dependencies: [lowest, highest]
 
         steps:
             - name: Checkout
@@ -37,15 +36,11 @@ jobs:
               uses: actions/cache@v1
               with:
                   path: ${{ steps.composer-cache.outputs.dir }}
-                  key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}-${{ matrix.dependencies }}
+                  key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
                   restore-keys: ${{ runner.os }}-composer-
 
             - name: Install dependencies
-              run: composer install --no-interaction --no-progress --no-suggest
-
-            - name: "Composer install lowest dependencies"
-              if: matrix.dependencies == 'lowest'
-              run: composer update --no-interaction --no-progress --no-suggest --prefer-lowest
+              run: composer install --no-progress --no-suggest --prefer-dist --optimize-autoloader
 
             - name: Run Grumphp
               run: vendor/bin/grumphp run
