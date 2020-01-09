@@ -45,7 +45,7 @@ final class Iterate implements Operation
 
         return static function () use ($callback, $parameters): Generator {
             while (true) {
-                yield $parameters = $callback(...(array) $parameters);
+                yield $parameters = $callback(...array_values((array) $parameters));
             }
         };
     }
