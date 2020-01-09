@@ -10,9 +10,9 @@ namespace loophp\collection\Contract;
 interface Untilable
 {
     /**
-     * @param callable $callable
+     * @param callable ...$callbacks
      *
      * @return \loophp\collection\Contract\Collection<mixed>
      */
-    public function until(callable $callable): Base;
+    public function until(callable ...$callbacks): Base;
 }

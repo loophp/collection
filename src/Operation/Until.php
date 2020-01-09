@@ -14,18 +14,18 @@ use loophp\collection\Contract\Operation;
 final class Until implements Operation
 {
     /**
-     * @var callable
+     * @var array<callable>
      */
-    private $callable;
+    private $callbacks;
 
     /**
      * Until constructor.
      *
-     * @param callable $callable
+     * @param callable ...$callbacks
      */
-    public function __construct(callable $callable)
+    public function __construct(callable ...$callbacks)
     {
-        $this->callable = $callable;
+        $this->callbacks = $callbacks;
     }
 
     /**
@@ -33,13 +33,19 @@ final class Until implements Operation
      */
     public function on(iterable $collection): Closure
     {
-        $callable = $this->callable;
+        $callbacks = $this->callbacks;
 
-        return static function () use ($callable, $collection): Generator {
+        return static function () use ($callbacks, $collection): Generator {
             foreach ($collection as $key => $value) {
                 yield $key => $value;
 
-                if (true === $callable($value, $key)) {
+                $result = true;
+
+                foreach ($callbacks as $callback) {
+                    $result &= $callback($value, $key);
+                }
+
+                if (1 === $result) {
                     break;
                 }
             }

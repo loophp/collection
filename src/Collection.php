@@ -527,9 +527,9 @@ final class Collection extends Base implements CollectionInterface
      *
      * @return \loophp\collection\Contract\Collection
      */
-    public function until(callable $callback): BaseInterface
+    public function until(callable ...$callbacks): BaseInterface
     {
-        return $this->run(new Until($callback));
+        return $this->run(new Until(...$callbacks));
     }
 
     /**
