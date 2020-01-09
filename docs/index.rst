@@ -20,7 +20,7 @@ On top of this, this library:
  * is extendable,
  * leverages the power of PHP `generators`_ and `iterators`_,
  * uses `S.O.L.I.D. principles`_,
- * does not have any dependency,
+ * does not have any external dependency,
  * fully tested,
  * framework agnostic.
 
@@ -31,7 +31,7 @@ This library has been inspired by the `Laravel Support Package`_ and `Lazy.js`_.
 It uses the following `PHP Standards Recommendations`_ :
 
 -  `PSR-4`_ for classes autoloading,
--  `PSR-12`_ for coding standards,
+-  `PSR-12`_ for coding standards.
 
 This library is framework agnostic and can be integrated in any PHP project, in any framework.
 
