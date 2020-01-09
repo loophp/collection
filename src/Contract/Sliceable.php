@@ -10,7 +10,7 @@ namespace loophp\collection\Contract;
 interface Sliceable
 {
     /**
-     * Get a slice of items.
+     * Get a slice of a collection.
      *
      * @param int $offset
      * @param int|null $length

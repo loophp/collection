@@ -278,7 +278,9 @@ Signature: ``Collection::limit(int $limit);``
 map
 ---
 
-Apply one or more callbacks to a collection and use the return value.
+Apply one or more supplied callbacks to every item of a collection and use the return value.
+
+.. warning:: Unlike the Collection::walk() operation, keys are not preserved!
 
 Interface: `Mapable`_
 
@@ -286,12 +288,12 @@ Signature: ``Collection::map(callable ...$callbacks);``
 
 .. code-block:: php
 
-    $map1 = static function($value, $key) {
+    $mapper = static function($value, $key) {
         return $value * 2;
     };
 
     $collection = Collection::with(range(1, 100))
-        ->map($map1);
+        ->map($mapper);
 
 merge
 -----
@@ -480,17 +482,78 @@ rsample
 scale
 -----
 
+Scale/normalize values.
+
+Interface: `Scaleable`_
+
+Signature: ``Collection::scale(float $lowerBound, float $upperBound, ?float $wantedLowerBound = null, ?float $wantedUpperBound = null, ?float $base = null);``
+
+.. code-block:: php
+
+    $collection = Collection::range(0, 10, 2)
+        ->scale(0, 10);
+
 skip
 ----
+
+Skip the n items of a collection.
+
+Interface: `Skipable`_
+
+Signature: ``Collection::skip(int ...$counts);``
+
+.. code-block:: php
+
+    $collection = Collection::with(range(10, 20))
+        ->skip(2);
 
 slice
 -----
 
+Get a slice of a collection.
+
+Interface: `Sliceable`_
+
+Signature: ``Collection::slice(int $offset, ?int $length = null);``
+
+.. code-block:: php
+
+    $collection = Collection::with(range('a', 'z'))
+        ->slice(5, 5);
+
 sort
 ----
 
+Sort a collection using a callback.
+
+If no callback is provided, it will sort using natural order.
+
+Interface: `Sortable`_
+
+Signature: ``Collection::sort(?callable $callback = null);``
+
+.. code-block:: php
+
+    $collection = Collection::with(['z', 'y', 'x'])
+        ->sort();
+
 split
 -----
+
+Split a collection using a callback.
+
+Interface: `Splitable`_
+
+Signature: ``Collection::split(callable ...$callbacks);``
+
+.. code-block:: php
+
+    $splitter = static function ($value, $key) {
+        return 0 === $value % 3;
+    };
+
+    $collection = Collection::with(range(0, 20))
+        ->split($splitter);
 
 tail
 ----
@@ -498,11 +561,54 @@ tail
 until
 -----
 
+Limit a collection using a callback.
+
+Interface: `Untilable`_
+
+Signature: ``Collection::until(callable ...$callbacks);``
+
+.. code-block:: php
+
+    $fibonacci = static function ($a = 0, $b = 1): array {
+        return [$b, $a + $b];
+    };
+
+    $collection = Collection::iterate($fibonacci)
+        ->until(static function ($value) {return $value[0] > 1000;});
+
 walk
 ----
 
+Apply one or more supplied callbacks to every item of a collection and use the return value.
+
+.. warning:: Unlike the Collection::map() operation, keys are preserved!
+
+Interface: `Walkable`_
+
+Signature: ``Collection::walk(callable ...$callbacks);``
+
+.. code-block:: php
+
+    $walker = static function($value, $key) {
+        return $value * 2;
+    };
+
+    $collection = Collection::with(range(10, 20))
+        ->walk($walker);
+
 zip
 ---
+
+Zip a collection together with one or more iterables.
+
+Interface: `Zipable`_
+
+Signature: ``Collection::zip(iterable ...$iterables);``
+
+.. code-block:: php
+
+     $collection = Collection::with([1, 2, 3])
+        ->zip([4, 5, 6]);
 
 .. _Appendable: https://github.com/loophp/collection/blob/master/src/Contract/Appendable.php
 .. _Applyable: https://github.com/loophp/collection/blob/master/src/Contract/Applyable.php
@@ -533,3 +639,11 @@ zip
 .. _Productable: https://github.com/loophp/collection/blob/master/src/Contract/Productable.php
 .. _Reductionable: https://github.com/loophp/collection/blob/master/src/Contract/Reductionable.php
 .. _Reverseable: https://github.com/loophp/collection/blob/master/src/Contract/Reverseable.php
+.. _Scaleable: https://github.com/loophp/collection/blob/master/src/Contract/Scaleable.php
+.. _Skipable: https://github.com/loophp/collection/blob/master/src/Contract/Skipable.php
+.. _Sliceable: https://github.com/loophp/collection/blob/master/src/Contract/Sliceable.php
+.. _Sortable: https://github.com/loophp/collection/blob/master/src/Contract/Sortable.php
+.. _Splitable: https://github.com/loophp/collection/blob/master/src/Contract/Splitable.php
+.. _Untilable: https://github.com/loophp/collection/blob/master/src/Contract/Untilable.php
+.. _Walkable: https://github.com/loophp/collection/blob/master/src/Contract/Walkable.php
+.. _Zipable: https://github.com/loophp/collection/blob/master/src/Contract/Zipable.php

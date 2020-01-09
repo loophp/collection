@@ -10,6 +10,8 @@ namespace loophp\collection\Contract;
 interface Splitable
 {
     /**
+     * Split a collection using a callback.
+     *
      * @param callable ...$callbacks
      *
      * @return \loophp\collection\Contract\Collection<mixed>

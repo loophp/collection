@@ -10,7 +10,7 @@ namespace loophp\collection\Contract;
 interface Skipable
 {
     /**
-     * Skip the first {$count} items.
+     * Skip the n items of a collection.
      *
      * @param int ...$counts
      *

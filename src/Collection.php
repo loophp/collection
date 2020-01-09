@@ -558,8 +558,8 @@ final class Collection extends Base implements CollectionInterface
      *
      * @return \loophp\collection\Contract\Collection
      */
-    public function zip(...$items): BaseInterface
+    public function zip(iterable ...$iterables): BaseInterface
     {
-        return $this->run(new Zip($items));
+        return $this->run(new Zip($iterables));
     }
 }

@@ -10,7 +10,7 @@ namespace loophp\collection\Contract;
 interface Sortable
 {
     /**
-     * Sort the collection using a callback.
+     * Sort a collection using a callback.
      *
      * @param callable $callable
      *

@@ -10,14 +10,11 @@ namespace loophp\collection\Contract;
 interface Zipable
 {
     /**
-     * Zip the collection together with one or more arrays.
+     * Zip a collection together with one or more iterables.
      *
-     * e.g. new Collection([1, 2, 3])->zip([4, 5, 6]);
-     *      => [[1, 4], [2, 5], [3, 6]]
-     *
-     * @param mixed ...$items
+     * @param iterable ...$iterables
      *
      * @return \loophp\collection\Contract\Collection<mixed>
      */
-    public function zip(...$items): Base;
+    public function zip(iterable ...$iterables): Base;
 }

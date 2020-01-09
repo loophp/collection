@@ -20,7 +20,9 @@ On top of this, this library:
  * is extendable,
  * leverages the power of PHP `generators`_ and `iterators`_,
  * uses `S.O.L.I.D. principles`_,
- * doesn't depends or require any other library or framework.
+ * does not have any dependency,
+ * fully tested,
+ * framework agnostic.
 
 Except a few methods, most of methods are `pure`_ and return a new Collection object.
 

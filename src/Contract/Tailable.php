@@ -10,7 +10,7 @@ namespace loophp\collection\Contract;
 interface Tailable
 {
     /**
-     * TODO: Tail.
+     * Get last collection items of a collection.
      *
      * @param int $length
      *

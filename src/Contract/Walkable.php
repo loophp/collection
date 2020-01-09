@@ -10,6 +10,8 @@ namespace loophp\collection\Contract;
 interface Walkable
 {
     /**
+     * Apply one or more supplied callbacks to every item of a collection.
+     *
      * @param callable ...$callbacks
      *
      * @return \loophp\collection\Contract\Collection<mixed>
