@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace loophp\collection\Contract;
 
 /**
- * Interface Appendable.
+ * Interface Applyable.
  */
 interface Applyable
 {
     /**
-     * Apply a callback to all the element of an array.
+     * Execute a callback for each element of the collection.
      *
      * @param callable ...$callables
      *

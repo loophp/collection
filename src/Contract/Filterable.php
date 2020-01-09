@@ -10,7 +10,7 @@ namespace loophp\collection\Contract;
 interface Filterable
 {
     /**
-     * Run a filter over each of the items.
+     * Filter collection items based on one or more callbacks.
      *
      * @param callable ...$callbacks
      *

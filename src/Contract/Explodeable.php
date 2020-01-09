@@ -10,9 +10,11 @@ namespace loophp\collection\Contract;
 interface Explodeable
 {
     /**
-     * @param string ...$explodes
+     * Explode a collection into subsets based on a given value.
+     *
+     * @param mixed ...$explodes
      *
      * @return \loophp\collection\Contract\Collection<mixed>
      */
-    public function explode(string ...$explodes): Base;
+    public function explode(...$explodes): Base;
 }

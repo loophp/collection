@@ -10,9 +10,11 @@ namespace loophp\collection\Contract;
 interface Combineable
 {
     /**
-     * @param mixed $keys
+     * Combine a collection of items with some other keys.
+     *
+     * @param mixed ...$keys
      *
      * @return \loophp\collection\Contract\Collection<mixed>
      */
-    public function combine($keys): Base;
+    public function combine(...$keys): Base;
 }

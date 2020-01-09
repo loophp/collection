@@ -116,9 +116,9 @@ final class Collection extends Base implements CollectionInterface
      *
      * @return \loophp\collection\Contract\Collection
      */
-    public function combinate(?int $size = null): BaseInterface
+    public function combinate(?int $length = null): BaseInterface
     {
-        return $this->run(new Combinate($size));
+        return $this->run(new Combinate($length));
     }
 
     /**
@@ -126,7 +126,7 @@ final class Collection extends Base implements CollectionInterface
      *
      * @return \loophp\collection\Contract\Collection
      */
-    public function combine($keys): BaseInterface
+    public function combine(...$keys): BaseInterface
     {
         return $this->run(new Combine($keys));
     }
@@ -182,9 +182,9 @@ final class Collection extends Base implements CollectionInterface
      *
      * @return \loophp\collection\Contract\Collection
      */
-    public function explode(string ...$strings): BaseInterface
+    public function explode(...$explodes): BaseInterface
     {
-        return $this->run(new Explode(...$strings));
+        return $this->run(new Explode(...$explodes));
     }
 
     /**

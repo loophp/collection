@@ -24,7 +24,7 @@ final class Combinate implements Operation
     private $length;
 
     /**
-     * Permutations constructor.
+     * Combinate constructor.
      *
      * @param int $length
      */

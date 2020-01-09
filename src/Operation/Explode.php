@@ -13,16 +13,16 @@ use loophp\collection\Contract\Operation;
 final class Explode implements Operation
 {
     /**
-     * @var string[]
+     * @var array<mixed>
      */
     private $explodes;
 
     /**
      * Explode constructor.
      *
-     * @param string ...$explodes
+     * @param mixed ...$explodes
      */
-    public function __construct(string ...$explodes)
+    public function __construct(...$explodes)
     {
         $this->explodes = $explodes;
     }

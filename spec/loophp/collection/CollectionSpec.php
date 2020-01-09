@@ -264,11 +264,11 @@ class CollectionSpec extends ObjectBehavior
             ->beConstructedThrough('with', [range('A', 'E')]);
 
         $this
-            ->combine(range('e', 'a'))
+            ->combine(...range('e', 'a'))
             ->shouldIterateAs(['e' => 'A', 'd' => 'B', 'c' => 'C', 'b' => 'D', 'a' => 'E']);
 
         $this
-            ->combine(range(1, 100))
+            ->combine(...range(1, 100))
             ->shouldThrow(Exception::class)
             ->during('all');
     }

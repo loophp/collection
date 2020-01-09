@@ -10,11 +10,12 @@ namespace loophp\collection\Contract;
 interface Combinateable
 {
     /**
-     * TODO: Combinations.
+     * Get all the combinations of a given length of a collection of items.
      *
-     * @param int $size
+     * @param int $length
+     *   The length.
      *
      * @return \loophp\collection\Contract\Collection<mixed>
      */
-    public function combinate(?int $size = null): Base;
+    public function combinate(?int $length = null): Base;
 }

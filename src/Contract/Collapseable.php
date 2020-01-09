@@ -10,7 +10,7 @@ namespace loophp\collection\Contract;
 interface Collapseable
 {
     /**
-     * Collapse the collection of items into a single array.
+     * Collapse a collection of items into a simple flat collection.
      *
      * @return \loophp\collection\Contract\Collection<mixed>
      */
