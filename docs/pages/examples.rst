@@ -53,30 +53,101 @@ Approximate the number Pi
 
     use loophp\collection\Collection;
 
-    $iterations = 100000;
-
-    $monteCarloMethod = static function ($in = 0) {
-        $randomNumber1 = mt_rand() / mt_getrandmax();
-        $randomNumber2 = mt_rand() / mt_getrandmax();
+    $monteCarloMethod = static function ($in = 0, $total = 1) {
+        $randomNumber1 = mt_rand(0, mt_getrandmax() - 1) / mt_getrandmax();
+        $randomNumber2 = mt_rand(0, mt_getrandmax() - 1) / mt_getrandmax();
 
         if (1 >= (($randomNumber1 ** 2) + ($randomNumber2 ** 2))) {
             ++$in;
         }
 
-        return $in;
+        return ['in' => $in, 'total' => ++$total];
+    };
+
+    $precision = new class() {
+
+        /**
+         * @var array
+         */
+        private $state;
+
+        /**
+         * @var float
+         */
+        private $precision;
+
+        /**
+         * @var int
+         */
+        private $row;
+
+        /**
+         * Precision constructor.
+         *
+         * @param float $precision
+         * @param int $row
+         */
+        public function __construct(float $precision = 10 ** -5, int $row = 20)
+        {
+            $this->precision = $precision;
+            $this->row = $row;
+            $this->state = [
+                'prev' => null,
+                'found' => 0,
+            ];
+        }
+
+        /**
+         * @param float $value
+         *
+         * @return bool
+         */
+        public function __invoke(float $value): bool
+        {
+            if (null === $this->state['prev']) {
+                $this->state['prev'] = $value;
+                $this->state['found'] = 0;
+
+                return false;
+            }
+
+            if ($value === $this->state['prev']) {
+                $this->state['found'] = 0;
+
+                return false;
+            }
+
+            if (abs($value - $this->state['prev']) <= $this->precision) {
+                ++$this->state['found'];
+
+                return false;
+            }
+
+            if ($this->state['found'] >= $this->row) {
+                $this->state['found'] = 0;
+
+                return true;
+            }
+
+            $this->state['prev'] = $value;
+            $this->state['found'] = 0;
+
+            return false;
+        }
     };
 
     $pi_approximation = Collection::iterate($monteCarloMethod)
-        ->limit($iterations)
-        ->tail()
         ->map(
-            static function ($value) use ($iterations) {
-                return 4 * $value / $iterations;
+            static function ($value) {
+                return 4 * $value['in'] / $value['total'];
             }
         )
-        ->first();
+        ->nth(50)
+        ->until($precision)
+        ->last();
 
-    var_dump($pi_approximation); // 3.1416764444444
+    print_r($pi_approximation);
+
 
 Find Prime numbers
 ------------------
