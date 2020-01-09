@@ -380,17 +380,105 @@ Signature: ``Collection::permutate(int $size, $value);``
 pluck
 -----
 
+Retrieves all of the values of a collection for a given key.
+
+Interface: `Pluckable`_
+
+Signature: ``Collection::pluck($pluck, $default = null);``
+
+.. code-block:: php
+
+    $fibonacci = static function ($a = 0, $b = 1): array {
+        return [$b, $a + $b];
+    };
+
+    $collection = Collection::iterate($fibonacci)
+        ->limit(10)
+        ->pluck(0);
+
 prepend
 -------
+
+Push an item onto the beginning of the collection.
+
+Interface: `Prependable`_
+
+Signature: ``Collection::prepend(...$items);``
+
+.. code-block:: php
+
+    $collection = Collection::with(['4', '5', '6'])
+        ->prepend('1', '2', '3');
 
 product
 -------
 
+Get the the cartesian product of items of a collection.
+
+Interface: `Productable`_
+
+Signature: ``Collection::product(iterable ...$iterables);``
+
+.. code-block:: php
+
+    $collection = Collection::with(['4', '5', '6'])
+        ->product(['1', '2', '3'], ['a', 'b'], ['foo', 'bar']);
+
 reduction
 ---------
 
+Reduce a collection of items through a given callback.
+
+Interface: `Reductionable`_
+
+Signature: ``Collection::reduction(callable $callback, $initial = null);``
+
+.. code-block:: php
+
+    $multiplication = static function ($value1, $value2) {
+        return $value1 * $value2;
+    };
+
+    $addition = static function ($value1, $value2) {
+        return $value1 + $value2;
+    };
+
+    $fact = static function (int $number) use ($multiplication) {
+        return Collection::range(1, $number + 1)
+            ->reduce(
+                $multiplication,
+                1
+            );
+    };
+
+    $e = static function (int $value) use ($fact): float {
+        return $value / $fact($value);
+    };
+
+    $number_e_approximation = Collection::times()
+        ->map($e)
+        ->limit(10)
+        ->reduction($addition);
+
 reverse
 -------
+
+Reverse order items of a collection.
+
+Interface: `Reverseable`_
+
+Signature: ``Collection::reverse();``
+
+.. code-block:: php
+
+    $collection = Collection::with(['a', 'b', 'c'])
+        ->reverse();
+
+rsample
+-------
+
+scale
+-----
 
 skip
 ----
@@ -440,3 +528,8 @@ zip
 .. _Onlyable: https://github.com/loophp/collection/blob/master/src/Contract/Onlyable.php
 .. _Padable: https://github.com/loophp/collection/blob/master/src/Contract/Padable.php
 .. _Permutateable: https://github.com/loophp/collection/blob/master/src/Contract/Permutateable.php
+.. _Pluckable: https://github.com/loophp/collection/blob/master/src/Contract/Pluckable.php
+.. _Prependable: https://github.com/loophp/collection/blob/master/src/Contract/Prependable.php
+.. _Productable: https://github.com/loophp/collection/blob/master/src/Contract/Productable.php
+.. _Reductionable: https://github.com/loophp/collection/blob/master/src/Contract/Reductionable.php
+.. _Reverseable: https://github.com/loophp/collection/blob/master/src/Contract/Reverseable.php

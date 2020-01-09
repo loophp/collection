@@ -10,7 +10,7 @@ namespace loophp\collection\Contract;
 interface Reductionable
 {
     /**
-     * TODO.
+     * Reduce a collection of items through a given callback.
      *
      * @param callable $callback
      * @param mixed $initial

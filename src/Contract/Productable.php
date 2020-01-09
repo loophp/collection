@@ -10,7 +10,7 @@ namespace loophp\collection\Contract;
 interface Productable
 {
     /**
-     * Compute the cartesian product.
+     * Get the the cartesian product of items of a collection.
      *
      * @param iterable ...$iterables
      *

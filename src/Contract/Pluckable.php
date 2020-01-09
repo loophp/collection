@@ -10,6 +10,8 @@ namespace loophp\collection\Contract;
 interface Pluckable
 {
     /**
+     * Retrieves all of the values of a collection for a given key.
+     *
      * @param array<int, string>|string $pluck
      * @param mixed|null $default
      *

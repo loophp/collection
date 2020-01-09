@@ -10,7 +10,7 @@ namespace loophp\collection\Contract;
 interface Reverseable
 {
     /**
-     * TODO.
+     * Reverse order items of a collection.
      *
      * @return \loophp\collection\Contract\Collection<mixed>
      */
