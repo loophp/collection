@@ -10,7 +10,7 @@ namespace loophp\collection\Contract;
 interface Forgetable
 {
     /**
-     * Remove an item by key.
+     * Remove items having specific keys.
      *
      * @param string ...$keys
      *

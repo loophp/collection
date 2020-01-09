@@ -10,7 +10,7 @@ namespace loophp\collection\Contract;
 interface Nthable
 {
     /**
-     * Create a new collection consisting of every n-th element.
+     * Get every n-th element of a collection.
      *
      * @param int $step
      * @param int $offset

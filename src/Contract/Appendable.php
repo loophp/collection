@@ -10,7 +10,7 @@ namespace loophp\collection\Contract;
 interface Appendable
 {
     /**
-     * Add an item to the collection.
+     * Add one or more items to a collection.
      *
      * @param mixed ...$items
      *

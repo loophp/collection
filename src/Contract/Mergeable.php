@@ -10,7 +10,7 @@ namespace loophp\collection\Contract;
 interface Mergeable
 {
     /**
-     * Push all of the given items onto the collection.
+     * Merge one or more collection of items onto a collection.
      *
      * @param iterable ...$sources
      *

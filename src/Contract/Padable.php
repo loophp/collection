@@ -10,7 +10,7 @@ namespace loophp\collection\Contract;
 interface Padable
 {
     /**
-     * TODO: Pad.
+     * Pad a collection to the given length with a given value.
      *
      * @param int $size
      * @param mixed $value

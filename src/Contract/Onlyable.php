@@ -10,7 +10,7 @@ namespace loophp\collection\Contract;
 interface Onlyable
 {
     /**
-     * Get the items with the specified keys.
+     * Get items having corresponding given keys.
      *
      * @param mixed ...$keys
      *

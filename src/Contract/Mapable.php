@@ -10,7 +10,7 @@ namespace loophp\collection\Contract;
 interface Mapable
 {
     /**
-     * Run a map over each of the items.
+     * Apply one or more callbacks to a collection and use the return value.
      *
      * @param callable ...$callbacks
      *

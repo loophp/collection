@@ -169,41 +169,213 @@ Signature: ``Collection::filter(callable ...$callbacks);``
 flatten
 -------
 
+Flatten a collection of items into a simple flat collection.
+
+Interface: `Flattenable`_
+
+Signature: ``Collection::flatten(int $depth = PHP_INT_MAX);``
+
+.. code-block:: php
+
+    $collection = Collection::with([0, [1, 2], [3, [4, [5, 6]]]])
+        ->flatten();
+
 flip
 ----
+
+Flip keys and items in a collection.
+
+Interface: `Flipable`_
+
+Signature: ``Collection::flip(int $depth = PHP_INT_MAX);``
+
+.. code-block:: php
+
+    $collection = Collection::with(['a', 'b', 'c', 'a'])
+        ->flip();
+
+.. tip:: array_flip() and Collection::flip() can behave different, check the following examples.
+
+When using regular arrays, `array_flip()`_ can be used to remove duplicates (dedup-licate an array).
+
+.. code-block:: php
+
+    $dedupArray = array_flip(array_flip(['a', 'b', 'c', 'd', 'a']));
+
+This example will return ``['a', 'b', 'c', 'd']``.
+
+However, when using a collection:
+
+.. code-block:: php
+
+    $dedupCollection = Collection::with(['a', 'b', 'c', 'd', 'a'])
+        ->flip()
+        ->flip()
+        ->all();
+
+This example will return ``['a', 'b', 'c', 'd', 'a']``.
 
 forget
 ------
 
+Remove items having specific keys.
+
+Interface: `Forgetable`_
+
+Signature: ``Collection::forget(...$keys);``
+
+.. code-block:: php
+
+    $collection = Collection::with(range('a', 'z'))
+        ->forget(5, 6, 10, 15);
+
 intersperse
 -----------
+
+Insert a given value at every n element of a collection and indices are not preserved.
+
+Interface: `Intersperseable`_
+
+Signature: ``Collection::intersperse($element, int $every = 1, int $startAt = 0);``
+
+.. code-block:: php
+
+    $collection = Collection::with(range('a', 'z'))
+        ->intersperse('foo', 3);
 
 keys
 ----
 
+Get the keys of the items.
+
+Interface: `Keysable`_
+
+Signature: ``Collection::keys();``
+
+.. code-block:: php
+
+    $collection = Collection::with(range('a', 'z'))
+        ->keys();
+
 limit
 -----
+
+Limit the amount of values in the collection.
+
+Interface: `Limitable`_
+
+Signature: ``Collection::limit(int $limit);``
+
+.. code-block:: php
+
+    $fibonacci = static function ($a = 0, $b = 1): array {
+        return [$b, $a + $b];
+    };
+
+    $collection = Collection::iterate($fibonacci)
+        ->limit(10);
 
 map
 ---
 
+Apply one or more callbacks to a collection and use the return value.
+
+Interface: `Mapable`_
+
+Signature: ``Collection::map(callable ...$callbacks);``
+
+.. code-block:: php
+
+    $map1 = static function($value, $key) {
+        return $value * 2;
+    };
+
+    $collection = Collection::with(range(1, 100))
+        ->map($map1);
+
 merge
 -----
+
+Merge one or more collection of items onto a collection.
+
+Interface: `Mergeable`_
+
+Signature: ``Collection::merge(...$sources);``
+
+.. code-block:: php
+
+    $collection = Collection::with(range(1, 10))
+        ->merge(['a', 'b', 'c'])
 
 normalize
 ---------
 
+Replace, reorder and use numeric keys on a collection.
+
+Interface: `Normalizeable`_
+
+Signature: ``Collection::normalize();``
+
+.. code-block:: php
+
+    $collection = Collection::with(['a' => 'a', 'b' => 'b', 'c' => 'c'])
+        ->normalize();
+
 nth
 ---
+
+Get every n-th element of a collection.
+
+Interface: `Nthable`_
+
+Signature: ``Collection::nth(int $step, int $offset = 0);``
+
+.. code-block:: php
+
+    $collection = Collection::with(range(10, 100))
+        ->nth(3);
 
 only
 ----
 
+Get items having corresponding given keys.
+
+Interface: `Onlyable`_
+
+Signature: ``Collection::only(...$keys);``
+
+.. code-block:: php
+
+    $collection = Collection::with(range(10, 100))
+        ->only(3, 10, 'a', 9);
+
 pad
 ---
 
+Pad a collection to the given length with a given value.
+
+Interface: `Padable`_
+
+Signature: ``Collection::pad(int $size, $value);``
+
+.. code-block:: php
+
+    $collection = Collection::with(range(1, 5))
+        ->pad(10, 'foo');
+
 permutate
 ---------
+
+Find all the permutations of a collection.
+
+Interface: `Permutateable`_
+
+Signature: ``Collection::permutate(int $size, $value);``
+
+.. code-block:: php
+
+    $collection = Collection::with(['hello', 'how', 'are', 'you'])
+        ->permutate();
 
 pluck
 -----
@@ -254,3 +426,17 @@ zip
 .. _Distinctable: https://github.com/loophp/collection/blob/master/src/Contract/Distinctable.php
 .. _Explodeable: https://github.com/loophp/collection/blob/master/src/Contract/Explodeable.php
 .. _Filterable: https://github.com/loophp/collection/blob/master/src/Contract/Filterable.php
+.. _Flattenable: https://github.com/loophp/collection/blob/master/src/Contract/Flattenable.php
+.. _Flipable: https://github.com/loophp/collection/blob/master/src/Contract/Flipable.php
+.. _array_flip(): https://php.net/array_flip
+.. _Forgetable: https://github.com/loophp/collection/blob/master/src/Contract/Forgetable.php
+.. _Intersperseable: https://github.com/loophp/collection/blob/master/src/Contract/Intersperseable.php
+.. _Keysable: https://github.com/loophp/collection/blob/master/src/Contract/Keysable.php
+.. _Limitable: https://github.com/loophp/collection/blob/master/src/Contract/Limitable.php
+.. _Mapable: https://github.com/loophp/collection/blob/master/src/Contract/Mapable.php
+.. _Mergeable: https://github.com/loophp/collection/blob/master/src/Contract/Mergeable.php
+.. _Normalizeable: https://github.com/loophp/collection/blob/master/src/Contract/Normalizeable.php
+.. _Nthable: https://github.com/loophp/collection/blob/master/src/Contract/Nthable.php
+.. _Onlyable: https://github.com/loophp/collection/blob/master/src/Contract/Onlyable.php
+.. _Padable: https://github.com/loophp/collection/blob/master/src/Contract/Padable.php
+.. _Permutateable: https://github.com/loophp/collection/blob/master/src/Contract/Permutateable.php

@@ -10,7 +10,7 @@ namespace loophp\collection\Contract;
 interface Permutateable
 {
     /**
-     * TODO: Permutations.
+     * Find all the permutations of a collection.
      *
      * @return \loophp\collection\Contract\Collection<mixed>
      */

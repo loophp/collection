@@ -10,7 +10,7 @@ namespace loophp\collection\Contract;
 interface Normalizeable
 {
     /**
-     * Reset the keys on the underlying array.
+     * Replace, reorder and use numeric keys on a collection.
      *
      * @return \loophp\collection\Contract\Collection<mixed>
      */

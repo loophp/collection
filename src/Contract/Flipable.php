@@ -10,7 +10,7 @@ namespace loophp\collection\Contract;
 interface Flipable
 {
     /**
-     * Flip the items in the collection.
+     * Flip keys and items in a collection.
      *
      * @return \loophp\collection\Contract\Collection<mixed>
      */

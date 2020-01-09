@@ -12,7 +12,7 @@ use const PHP_INT_MAX;
 interface Flattenable
 {
     /**
-     * Get a flattened list of the items in the collection.
+     * Flatten a collection of items into a simple flat collection.
      *
      * @param int $depth
      *
