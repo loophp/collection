@@ -1,6 +1,11 @@
 Usage
 =====
 
+Find here some working examples.
+
+Simple
+-------
+
 .. code-block:: php
 
     <?php
@@ -11,7 +16,6 @@ Usage
 
     use loophp\collection\Collection;
 
-    // More examples...
     $collection = Collection::with(['A', 'B', 'C', 'D', 'E']);
 
     // Get the result as an array.
@@ -93,6 +97,11 @@ Usage
         ->flip()
         ->all(); // ['a', 'b', 'c', 'd', 'a']
 
+    // Get the Cartesian product.
+    Collection::with(['a', 'b'])
+        ->product([1, 2])
+        ->all(); // [['a', 1], ['a', 2], ['b', 1], ['b', 2]]
+
     // Infinitely loop over numbers, cube them, filter those that are not divisible by 5, take the first 100 of them.
     Collection::range(0, INF)
         ->map(
@@ -114,6 +123,8 @@ Usage
         ->apply(
             static function ($value, $key) {
                 echo strtolower($value);
+
+                return true;
             }
         );
 
@@ -133,50 +144,23 @@ Usage
         ->normalize()
         ->all();
 
-    // The famous Fibonacci example:
-    Collection::with(
-            static function($start = 0, $inc = 1) {
-                yield $start;
-
-                while(true)
-                {
-                    $inc = $start + $inc;
-                    $start = $inc - $start;
-                    yield $start;
-                }
-            }
-        )
-        ->limit(10)
-        ->all(); // [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
-
     // Fibonacci using the static method ::iterate()
-    Collection::iterate(
-        static function($previous, $next) {
-            return [$next, $previous + $next];
-        },
-        1,1
-        )
+    $fibonacci = static function($a = 0, $b = 1): array {
+        return [$b, $b + $a];
+    };
+
+    Collection::iterate($fibonacci)
         // Get the first item of each result.
         ->pluck(0)
         // Limit the amount of results to 10.
         ->limit(10)
         // Convert to regular array.
-        ->all(); // [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
+        ->all(); // [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
 
-    // Find the Golden Ratio with Fibonacci
-    $fibonacci = Collection::iterate(
-        static function($previous, $next) {
-            return [$next, $previous + $next];
-        },
-        1,1
-        );
-
-    Collection::with($fibonacci)
+    Collection::iterate($fibonacci)
         ->map(
             static function(array $value, $key) {
-                [$previous, $next] = $value;
-
-                return $next / $previous;
+                return $value[1] / $value[0];
             }
         )
         ->limit(100)
@@ -270,3 +254,92 @@ Usage
         ->map(static function ($value) {return round($value,2);})
         ->limit(10)
         ->all(); // [0.42, 0.48, 0.49, 0.49, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5]
+
+Advanced
+--------
+
+You can choose to build your own Collection object by extending the `Base Collection class`_ or
+by just creating a new Operation class.
+
+Each already existing operations live in its own file.
+
+In order to extend the Collection features, create your own custom operation by creating an object implementing
+the `Operation interface`_, then run it through the ``Collection::run(Operation ...$operations)`` method.
+
+.. code-block:: php
+
+    <?php
+
+    declare(strict_types=1);
+
+    use loophp\collection\Collection;
+    use loophp\collection\Contract\Operation;
+    use Closure
+
+    include 'vendor/autoload.php';
+
+    $square = new class implements Operation {
+        /**
+         * {@inheritdoc}
+         */
+        public function on(iterable $iterable): Closure
+        {
+            return static function () use ($iterable) {
+                foreach ($iterable as $value) {
+                    yield $value ** 2;
+                }
+            };
+        }
+    };
+
+    Collection::range(5, 15)
+        ->run($square)
+        ->all();
+
+Another way would be to create your own custom collection object:
+
+In the following example and just for didactic purposes, the custom collection object will only be able to
+transform any input (`iterable`) into a regular array.
+
+.. code-block:: php
+
+    <?php
+
+    declare(strict_types=1);
+
+    include 'vendor/autoload.php';
+
+    use loophp\collection\Base;
+    use loophp\collection\Contract\Allable;
+    use loophp\collection\Contract\Runable;
+    use loophp\collection\Transformation\All;
+    use loophp\collection\Transformation\Run;
+    use loophp\collection\Contract\Operation;
+
+    $customCollectionClass = new class extends Base implements Allable {
+
+        /**
+         * {@inheritdoc}
+         */
+        public function all(): array {
+            return $this->transform(new All());
+        }
+    };
+
+    $customCollection = new $customCollectionClass(new ArrayObject(['A', 'B', 'C']));
+
+    print_r($customCollection->all()); // ['A', 'B', 'C']
+
+    $generator = function() {
+      yield 'A';
+      yield 'B';
+      yield 'C';
+    };
+
+    $customCollection = new $customCollectionClass($generator);
+
+    print_r($customCollection->all()); // ['A', 'B', 'C']
+
+The final Collection class implements by default all the interfaces available.
+
+Use it like it is or create your own object by using the same procedure as shown here.

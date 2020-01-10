@@ -1,6 +1,50 @@
 Examples
 ========
 
+Manipulate strings
+------------------
+
+.. code-block:: bash
+
+    $string = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      Quisque feugiat tincidunt sodales.
+      Donec ut laoreet lectus, quis mollis nisl.
+      Aliquam maximus, orci vel placerat dapibus, libero erat aliquet nibh, nec imperdiet felis dui quis est.
+      Vestibulum non ante sit amet neque tincidunt porta et sit amet neque.
+      In a tempor ipsum. Duis scelerisque libero sit amet enim pretium pulvinar.
+      Duis vitae lorem convallis, egestas mauris at, sollicitudin sem.
+      Fusce molestie rutrum faucibus.';
+
+    // By default will have the same behavior as str_split().
+    Collection::with($string)
+        ->explode(' ')
+        ->count(); // 71
+
+    // Or add a separator if needed, same behavior as explode().
+    Collection::with($string, ',')
+      ->count(); // 9
+
+Random number generation
+------------------------
+
+.. code-block:: bash
+
+    // Generate 300 distinct random numbers between 0 and 1000
+    $random = static function() {
+        return mt_rand() / mt_getrandmax();
+    };
+
+    $random_numbers = Collection::iterate($random)
+        ->map(
+            static function ($value) {
+                return floor($value * 1000) + 1;
+            }
+        )
+        ->distinct()
+        ->limit(300)
+        ->normalize()
+        ->all();
+
 Approximate the number e
 ------------------------
 

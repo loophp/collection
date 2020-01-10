@@ -1,8 +1,89 @@
 API
 ===
 
+static constructors
+-------------------
+
+empty
+~~~~~
+
+Create an empty Collection.
+
+.. code-block:: php
+
+    $collection = Collection::empty();
+
+iterate
+~~~~~~~
+
+Iterate over a callback and use the callback results to build a collection.
+
+Signature: ``Collection::iterate(callable $callback, ...$parameters);``
+
+.. warning:: The callback return values are reused as callback arguments at the next callback call.
+
+.. code-block:: php
+
+    $fibonacci = static function ($a = 0, $b = 1): array {
+        return [$b, $a + $b];
+    };
+
+    $collection = Collection::iterate($fibonacci)
+        ->limit(10);
+
+range
+~~~~~
+
+Build a collection from a range of values.
+
+Signature: ``Collection::range(int $start = 0, $end = INF, $step = 1);``
+
+.. code-block:: php
+
+    $fibonacci = static function ($a = 0, $b = 1): array {
+        return [$b, $a + $b];
+    };
+
+    $collection = Collection::iterate($fibonacci)
+        ->limit(10);
+
+times
+~~~~~
+
+Create a collection by invoking a callback a given amount of times.
+
+If no callback is provided, then it will create a simple list of incremented integers.
+
+Signature: ``Collection::times($number = INF, ?callable $callback = null);``
+
+.. code-block:: php
+
+    $collection = Collection::times(10);
+
+with
+~~~~
+
+Create a collection with the provided data.
+
+Signature: ``Collection::with($data = [], ...$parameters);``
+
+.. code-block:: php
+
+    $collection = Collection::with(['a', 'b']);
+    $collection = Collection::with('string');
+    $collection = Collection::with($fibonacci, 0, 1);
+
+    $fileReader = static function ($file) {
+        yield from new SplFileObject($file);
+    };
+
+    $collection = Collection::with($fibonacci, __DIR__ . '/vendor/autoload.php');
+
+Methods (operations)
+--------------------
+
 append
-------
+~~~~~~
 
 Add one or more items to a collection.
 
@@ -15,13 +96,11 @@ Signature: ``Collection::append(...$items);``
     $collection = Collection::with(['1', '2', '3']);
 
     $collection
-        ->append('4'); // ['1', '2', '3', '4']
-
-    $this
-        ->append('5', '6'); // ['1', '2', '3', '5', '6']
+        ->append('4')
+        ->append('5', '6');
 
 apply
------
+~~~~~
 
 Execute a callback for each element of the collection without
 altering the collection item itself.
@@ -47,7 +126,7 @@ Signature: ``Collection::apply(...$callbacks);``
         ->apply($callback);
 
 chunk
------
+~~~~~
 
 Chunk a collection of item into chunks of items of a given size.
 
@@ -62,7 +141,7 @@ Signature: ``Collection::chunk(int $size);``
     $collection->chunk(2);
 
 collapse
---------
+~~~~~~~~
 
 Collapse a collection of items into a simple flat collection.
 
@@ -77,7 +156,7 @@ Signature: ``Collection::collapse();``
     $collection->collapse();
 
 combinate
----------
+~~~~~~~~~
 
 Get all the combinations of a given length of a collection of items.
 
@@ -91,7 +170,7 @@ Signature: ``Collection::combinate(?int $length);``
         ->combinate(3);
 
 combine
--------
+~~~~~~~
 
 Combine a collection of items with some other keys.
 
@@ -105,7 +184,7 @@ Signature: ``Collection::combine(...$keys);``
         ->combine('w', 'x', 'y', 'z')
 
 cycle
------
+~~~~~
 
 Cycle around a collection of items.
 
@@ -119,7 +198,7 @@ Signature: ``Collection::cycle(int $length = 0);``
         ->cycle(10)
 
 distinct
---------
+~~~~~~~~
 
 Remove duplicated values from a collection.
 
@@ -133,7 +212,7 @@ Signature: ``Collection::distinct();``
         ->distinct()
 
 explode
--------
+~~~~~~~
 
 Explode a collection into subsets based on a given value.
 
@@ -149,7 +228,7 @@ Signature: ``Collection::explode(...$items);``
         ->explode('o');
 
 filter
-------
+~~~~~~
 
 Filter collection items based on one or more callbacks.
 
@@ -167,7 +246,7 @@ Signature: ``Collection::filter(callable ...$callbacks);``
         ->filter($callback);
 
 flatten
--------
+~~~~~~~
 
 Flatten a collection of items into a simple flat collection.
 
@@ -181,7 +260,7 @@ Signature: ``Collection::flatten(int $depth = PHP_INT_MAX);``
         ->flatten();
 
 flip
-----
+~~~~
 
 Flip keys and items in a collection.
 
@@ -216,7 +295,7 @@ However, when using a collection:
 This example will return ``['a', 'b', 'c', 'd', 'a']``.
 
 forget
-------
+~~~~~~
 
 Remove items having specific keys.
 
@@ -230,7 +309,7 @@ Signature: ``Collection::forget(...$keys);``
         ->forget(5, 6, 10, 15);
 
 intersperse
------------
+~~~~~~~~~~~
 
 Insert a given value at every n element of a collection and indices are not preserved.
 
@@ -244,7 +323,7 @@ Signature: ``Collection::intersperse($element, int $every = 1, int $startAt = 0)
         ->intersperse('foo', 3);
 
 keys
-----
+~~~~
 
 Get the keys of the items.
 
@@ -258,7 +337,7 @@ Signature: ``Collection::keys();``
         ->keys();
 
 limit
------
+~~~~~
 
 Limit the amount of values in the collection.
 
@@ -276,7 +355,7 @@ Signature: ``Collection::limit(int $limit);``
         ->limit(10);
 
 map
----
+~~~
 
 Apply one or more supplied callbacks to every item of a collection and use the return value.
 
@@ -296,7 +375,7 @@ Signature: ``Collection::map(callable ...$callbacks);``
         ->map($mapper);
 
 merge
------
+~~~~~
 
 Merge one or more collection of items onto a collection.
 
@@ -310,7 +389,7 @@ Signature: ``Collection::merge(...$sources);``
         ->merge(['a', 'b', 'c'])
 
 normalize
----------
+~~~~~~~~~
 
 Replace, reorder and use numeric keys on a collection.
 
@@ -324,7 +403,7 @@ Signature: ``Collection::normalize();``
         ->normalize();
 
 nth
----
+~~~
 
 Get every n-th element of a collection.
 
@@ -338,7 +417,7 @@ Signature: ``Collection::nth(int $step, int $offset = 0);``
         ->nth(3);
 
 only
-----
+~~~~
 
 Get items having corresponding given keys.
 
@@ -352,7 +431,7 @@ Signature: ``Collection::only(...$keys);``
         ->only(3, 10, 'a', 9);
 
 pad
----
+~~~
 
 Pad a collection to the given length with a given value.
 
@@ -366,7 +445,7 @@ Signature: ``Collection::pad(int $size, $value);``
         ->pad(10, 'foo');
 
 permutate
----------
+~~~~~~~~~
 
 Find all the permutations of a collection.
 
@@ -380,7 +459,7 @@ Signature: ``Collection::permutate(int $size, $value);``
         ->permutate();
 
 pluck
------
+~~~~~
 
 Retrieves all of the values of a collection for a given key.
 
@@ -399,7 +478,7 @@ Signature: ``Collection::pluck($pluck, $default = null);``
         ->pluck(0);
 
 prepend
--------
+~~~~~~~
 
 Push an item onto the beginning of the collection.
 
@@ -413,7 +492,7 @@ Signature: ``Collection::prepend(...$items);``
         ->prepend('1', '2', '3');
 
 product
--------
+~~~~~~~
 
 Get the the cartesian product of items of a collection.
 
@@ -427,7 +506,7 @@ Signature: ``Collection::product(iterable ...$iterables);``
         ->product(['1', '2', '3'], ['a', 'b'], ['foo', 'bar']);
 
 reduction
----------
+~~~~~~~~~
 
 Reduce a collection of items through a given callback.
 
@@ -463,7 +542,7 @@ Signature: ``Collection::reduction(callable $callback, $initial = null);``
         ->reduction($addition);
 
 reverse
--------
+~~~~~~~
 
 Reverse order items of a collection.
 
@@ -477,10 +556,12 @@ Signature: ``Collection::reverse();``
         ->reverse();
 
 rsample
--------
+~~~~~~~
+
+
 
 scale
------
+~~~~~
 
 Scale/normalize values.
 
@@ -493,8 +574,11 @@ Signature: ``Collection::scale(float $lowerBound, float $upperBound, ?float $wan
     $collection = Collection::range(0, 10, 2)
         ->scale(0, 10);
 
+    $collection = Collection::range(0, 10, 2)
+        ->scale(0, 10, 5, 15, 3);
+
 skip
-----
+~~~~
 
 Skip the n items of a collection.
 
@@ -508,7 +592,7 @@ Signature: ``Collection::skip(int ...$counts);``
         ->skip(2);
 
 slice
------
+~~~~~
 
 Get a slice of a collection.
 
@@ -522,7 +606,7 @@ Signature: ``Collection::slice(int $offset, ?int $length = null);``
         ->slice(5, 5);
 
 sort
-----
+~~~~
 
 Sort a collection using a callback.
 
@@ -538,7 +622,7 @@ Signature: ``Collection::sort(?callable $callback = null);``
         ->sort();
 
 split
------
+~~~~~
 
 Split a collection using a callback.
 
@@ -556,10 +640,21 @@ Signature: ``Collection::split(callable ...$callbacks);``
         ->split($splitter);
 
 tail
-----
+~~~~
+
+Get last collection items of a collection.
+
+Interface: `Tailable`_
+
+Signature: ``Collection::tail(int $length = 1);``
+
+.. code-block:: php
+
+    $collection = Collection::with(['a', 'b', 'c'])
+        ->tail(2);
 
 until
------
+~~~~~
 
 Limit a collection using a callback.
 
@@ -569,15 +664,21 @@ Signature: ``Collection::until(callable ...$callbacks);``
 
 .. code-block:: php
 
-    $fibonacci = static function ($a = 0, $b = 1): array {
-        return [$b, $a + $b];
+    // The Collatz conjecture (https://en.wikipedia.org/wiki/Collatz_conjecture)
+    $collatz = static function (int $value): int
+    {
+        return 0 === $value % 2 ?
+            $value / 2:
+            $value * 3 + 1;
     };
 
-    $collection = Collection::iterate($fibonacci)
-        ->until(static function ($value) {return $value[0] > 1000;});
+    $collection = Collection::iterate($collatz, 10)
+        ->until(static function ($number): bool {
+            return 1 === $number;
+        });
 
 walk
-----
+~~~~
 
 Apply one or more supplied callbacks to every item of a collection and use the return value.
 
@@ -597,7 +698,7 @@ Signature: ``Collection::walk(callable ...$callbacks);``
         ->walk($walker);
 
 zip
----
+~~~
 
 Zip a collection together with one or more iterables.
 
@@ -609,6 +710,9 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 
      $collection = Collection::with([1, 2, 3])
         ->zip([4, 5, 6]);
+
+Methods (transformations)
+-------------------------
 
 .. _Appendable: https://github.com/loophp/collection/blob/master/src/Contract/Appendable.php
 .. _Applyable: https://github.com/loophp/collection/blob/master/src/Contract/Applyable.php
@@ -644,6 +748,7 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Sliceable: https://github.com/loophp/collection/blob/master/src/Contract/Sliceable.php
 .. _Sortable: https://github.com/loophp/collection/blob/master/src/Contract/Sortable.php
 .. _Splitable: https://github.com/loophp/collection/blob/master/src/Contract/Splitable.php
+.. _Tailable: https://github.com/loophp/collection/blob/master/src/Contract/Tailable.php
 .. _Untilable: https://github.com/loophp/collection/blob/master/src/Contract/Untilable.php
 .. _Walkable: https://github.com/loophp/collection/blob/master/src/Contract/Walkable.php
 .. _Zipable: https://github.com/loophp/collection/blob/master/src/Contract/Zipable.php
