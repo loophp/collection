@@ -343,3 +343,6 @@ transform any input (`iterable`) into a regular array.
 The final Collection class implements by default all the interfaces available.
 
 Use it like it is or create your own object by using the same procedure as shown here.
+
+.. _Base Collection class: https://github.com/loophp/collection/blob/master/src/Base.php
+.. _Operation interface: https://github.com/loophp/collection/blob/master/src/Contract/Operation.php

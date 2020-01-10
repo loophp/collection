@@ -1,7 +1,7 @@
 API
 ===
 
-static constructors
+Static constructors
 -------------------
 
 empty
