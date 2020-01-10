@@ -35,7 +35,7 @@ final class Range implements Operation
      * @param float $end
      * @param float $step
      */
-    public function __construct(float $start, float $end, float $step)
+    public function __construct(float $start = 0, float $end = INF, float $step = 1)
     {
         $this->start = $start;
         $this->end = $end;

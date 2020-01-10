@@ -60,14 +60,14 @@ final class Product implements Operation
      */
     private function cartesian(array $iterators): Generator
     {
-        $last = array_pop($iterators);
+        $iterator = array_pop($iterators);
 
-        if (null === $last) {
+        if (null === $iterator) {
             return yield [];
         }
 
         foreach ($this->cartesian($iterators) as $item) {
-            foreach ($last as $value) {
+            foreach ($iterator as $value) {
                 yield $item + [count($item) => $value];
             }
         }

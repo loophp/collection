@@ -94,7 +94,7 @@ interface Collection extends
     public static function times($number = INF, ?callable $callback = null): Collection;
 
     /**
-     * TODO.
+     * Create a collection with the data.
      *
      * @param mixed $data
      * @param mixed ...$parameters

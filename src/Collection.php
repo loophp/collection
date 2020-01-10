@@ -73,8 +73,6 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return \loophp\collection\Contract\Collection
      */
     public function append(...$items): BaseInterface
     {
@@ -83,8 +81,6 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return \loophp\collection\Contract\Collection
      */
     public function apply(callable ...$callables): BaseInterface
     {
@@ -93,8 +89,6 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return \loophp\collection\Contract\Collection
      */
     public function chunk(int $size): BaseInterface
     {
@@ -103,8 +97,6 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return \loophp\collection\Contract\Collection
      */
     public function collapse(): BaseInterface
     {
@@ -113,8 +105,6 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return \loophp\collection\Contract\Collection
      */
     public function combinate(?int $length = null): BaseInterface
     {
@@ -123,8 +113,6 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return \loophp\collection\Contract\Collection
      */
     public function combine(...$keys): BaseInterface
     {
@@ -149,8 +137,6 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return \loophp\collection\Contract\Collection
      */
     public function cycle(int $length = 0): BaseInterface
     {
@@ -159,8 +145,6 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return \loophp\collection\Contract\Collection
      */
     public function distinct(): BaseInterface
     {
@@ -169,8 +153,6 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return \loophp\collection\Contract\Collection
      */
     public static function empty(): CollectionInterface
     {
@@ -179,8 +161,6 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return \loophp\collection\Contract\Collection
      */
     public function explode(...$explodes): BaseInterface
     {
@@ -189,8 +169,6 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return \loophp\collection\Contract\Collection
      */
     public function filter(callable ...$callbacks): BaseInterface
     {
@@ -207,8 +185,6 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return \loophp\collection\Contract\Collection
      */
     public function flatten(int $depth = PHP_INT_MAX): BaseInterface
     {
@@ -217,8 +193,6 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return \loophp\collection\Contract\Collection
      */
     public function flip(): BaseInterface
     {
@@ -227,8 +201,6 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return \loophp\collection\Contract\Collection
      */
     public function forget(...$keys): BaseInterface
     {
@@ -253,8 +225,6 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return \loophp\collection\Contract\Collection
      */
     public function intersperse($element, int $every = 1, int $startAt = 0): BaseInterface
     {
@@ -263,8 +233,6 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return \loophp\collection\Contract\Collection
      */
     public static function iterate(callable $callback, ...$parameters): CollectionInterface
     {
@@ -273,8 +241,6 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return \loophp\collection\Contract\Collection
      */
     public function keys(): BaseInterface
     {
@@ -291,8 +257,6 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return \loophp\collection\Contract\Collection
      */
     public function limit(int $limit): BaseInterface
     {
@@ -301,8 +265,6 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return \loophp\collection\Contract\Collection
      */
     public function map(callable ...$callbacks): BaseInterface
     {
@@ -311,8 +273,6 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return \loophp\collection\Contract\Collection
      */
     public function merge(...$sources): BaseInterface
     {
@@ -321,8 +281,6 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return \loophp\collection\Contract\Collection
      */
     public function normalize(): BaseInterface
     {
@@ -331,8 +289,6 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return \loophp\collection\Contract\Collection
      */
     public function nth(int $step, int $offset = 0): BaseInterface
     {
@@ -341,8 +297,6 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return \loophp\collection\Contract\Collection
      */
     public function only(...$keys): BaseInterface
     {
@@ -351,8 +305,6 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return \loophp\collection\Contract\Collection
      */
     public function pad(int $size, $value): BaseInterface
     {
@@ -361,8 +313,6 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return \loophp\collection\Contract\Collection
      */
     public function permutate(): BaseInterface
     {
@@ -371,8 +321,6 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return \loophp\collection\Contract\Collection
      */
     public function pluck($pluck, $default = null): BaseInterface
     {
@@ -381,8 +329,6 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return \loophp\collection\Contract\Collection
      */
     public function prepend(...$items): BaseInterface
     {
@@ -391,8 +337,6 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return \loophp\collection\Contract\Collection
      */
     public function product(iterable ...$iterables): BaseInterface
     {
@@ -401,8 +345,6 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return \loophp\collection\Contract\Collection
      */
     public static function range(int $start = 0, $end = INF, $step = 1): CollectionInterface
     {
@@ -419,8 +361,6 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return \loophp\collection\Contract\Collection
      */
     public function reduction(callable $callback, $initial = null): BaseInterface
     {
@@ -429,8 +369,6 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return \loophp\collection\Contract\Collection
      */
     public function reverse(): BaseInterface
     {
@@ -439,8 +377,6 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return \loophp\collection\Contract\Collection
      */
     public function rsample($probability): BaseInterface
     {
@@ -449,8 +385,6 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return \loophp\collection\Contract\Collection
      */
     public function scale(
         float $lowerBound,
@@ -464,8 +398,6 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return \loophp\collection\Contract\Collection
      */
     public function skip(int ...$counts): BaseInterface
     {
@@ -474,8 +406,6 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return \loophp\collection\Contract\Collection
      */
     public function slice(int $offset, ?int $length = null): BaseInterface
     {
@@ -484,8 +414,6 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return \loophp\collection\Contract\Collection
      */
     public function sort(?callable $callback = null): BaseInterface
     {
@@ -494,8 +422,6 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return \loophp\collection\Contract\Collection
      */
     public function split(callable ...$callbacks): BaseInterface
     {
@@ -504,8 +430,6 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return \loophp\collection\Contract\Collection
      */
     public function tail(int $length = 1): BaseInterface
     {
@@ -514,8 +438,6 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return \loophp\collection\Contract\Collection
      */
     public static function times($number = INF, ?callable $callback = null): CollectionInterface
     {
@@ -524,8 +446,6 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return \loophp\collection\Contract\Collection
      */
     public function until(callable ...$callbacks): BaseInterface
     {
@@ -534,8 +454,6 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return \loophp\collection\Contract\Collection
      */
     public function walk(callable ...$callbacks): BaseInterface
     {
@@ -543,10 +461,7 @@ final class Collection extends Base implements CollectionInterface
     }
 
     /**
-     * @param mixed $data
-     * @param mixed ...$parameters
-     *
-     * @return \loophp\collection\Contract\Collection<mixed>
+     * {@inheritdoc}
      */
     public static function with($data = [], ...$parameters): CollectionInterface
     {
@@ -555,8 +470,6 @@ final class Collection extends Base implements CollectionInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @return \loophp\collection\Contract\Collection
      */
     public function zip(iterable ...$iterables): BaseInterface
     {

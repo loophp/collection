@@ -35,7 +35,11 @@ abstract class Base implements BaseInterface
     {
         switch (true) {
             case $data instanceof Closure:
-                $this->source = $data;
+                $this->source = static function () use ($data, $parameters) {
+                    return (static function ($data, $parameters) {
+                        return $data(...$parameters);
+                    })($data, $parameters);
+                };
 
                 break;
             case is_iterable($data):
