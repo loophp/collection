@@ -8,6 +8,8 @@ use Closure;
 use Generator;
 use loophp\collection\Contract\Operation;
 
+use const INF;
+
 /**
  * Class Range.
  */
@@ -35,7 +37,7 @@ final class Range implements Operation
      * @param float $end
      * @param float $step
      */
-    public function __construct(float $start = 0, float $end = INF, float $step = 1)
+    public function __construct(float $start = 0.0, float $end = INF, float $step = 1.0)
     {
         $this->start = $start;
         $this->end = $end;

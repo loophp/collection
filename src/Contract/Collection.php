@@ -75,13 +75,13 @@ interface Collection extends
     /**
      * Create a new with a range of number.
      *
-     * @param int $start
-     * @param float|float|int $end
-     * @param int $step
+     * @param float $start
+     * @param float $end
+     * @param float $step
      *
      * @return \loophp\collection\Contract\Collection<mixed>
      */
-    public static function range(int $start = 0, $end = INF, $step = 1): Collection;
+    public static function range(float $start = 0.0, float $end = INF, float $step = 1.0): Collection;
 
     /**
      * Create a new instance by invoking the callback a given amount of times.

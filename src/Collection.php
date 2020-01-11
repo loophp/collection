@@ -346,7 +346,7 @@ final class Collection extends Base implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public static function range(int $start = 0, $end = INF, $step = 1): CollectionInterface
+    public static function range(float $start = 0.0, float $end = INF, float $step = 1.0): CollectionInterface
     {
         return (new self())->run(new Range($start, $end, $step));
     }
