@@ -13,6 +13,7 @@ use loophp\collection\Iterator\ClosureIterator;
 use loophp\collection\Transformation\Run;
 use loophp\collection\Transformation\Transform;
 
+use function is_resource;
 use function is_string;
 
 /**
@@ -28,12 +29,20 @@ abstract class Base implements BaseInterface
     /**
      * Base constructor.
      *
-     * @param Closure|iterable|mixed $data
+     * @param Closure|iterable|mixed|resource $data
      * @param mixed ...$parameters
      */
     final public function __construct($data = [], ...$parameters)
     {
         switch (true) {
+            case is_resource($data) && 'stream' === get_resource_type($data):
+                $this->source = static function () use ($data): Generator {
+                    while (false !== $chunk = fgetc($data)) {
+                        yield $chunk;
+                    }
+                };
+
+                break;
             case $data instanceof Closure:
                 $this->source = static function () use ($data, $parameters) {
                     return (static function ($data, $parameters) {

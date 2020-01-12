@@ -1291,4 +1291,19 @@ class CollectionSpec extends ObjectBehavior
     {
         $this->shouldHaveType(Collection::class);
     }
+
+    public function it_can_be_constructed_from_a_stream(): void
+    {
+        $string = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
+
+        $stream = fopen('data://text/plain,' . $string, 'rb');
+        $this::with($stream)
+            ->count()
+            ->shouldReturn(56);
+
+        $stream = fopen('data://text/plain,' . $string, 'rb');
+        $this::with($stream)
+            ->implode('')
+            ->shouldReturn($string);
+    }
 }
