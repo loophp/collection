@@ -49,7 +49,7 @@ final class Times implements Operation
             }
 
             if (null === $callback) {
-                $callback = static function ($value) {
+                $callback = static function (int $value): int {
                     return $value;
                 };
             }
