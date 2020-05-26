@@ -27,9 +27,9 @@ final class Reduction implements Operation
      * Reduction constructor.
      *
      * @param callable $callback
-     * @param mixed $initial
+     * @param mixed|null $initial
      */
-    public function __construct(callable $callback, $initial)
+    public function __construct(callable $callback, $initial = null)
     {
         $this->callback = $callback;
         $this->initial = $initial;
