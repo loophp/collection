@@ -8,8 +8,6 @@ use Closure;
 use Generator;
 use loophp\collection\Contract\Operation;
 
-use function count;
-
 /**
  * Class Split.
  */
@@ -54,7 +52,7 @@ final class Split implements Operation
                 }
             }
 
-            if (0 !== count($carry)) {
+            if ([] !== $carry) {
                 yield $carry;
             }
         };
