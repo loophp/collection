@@ -48,6 +48,8 @@ final class Combinate implements Operation
             $dataset = (new All())->on($collection);
 
             if (0 < $length) {
+                // TODO: Investigate why it's calling issues with PHPStan.
+                /** @phpstan-ignore-next-line */
                 return yield from $getCombinations($dataset, $length);
             }
 
