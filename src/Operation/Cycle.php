@@ -39,7 +39,7 @@ final class Cycle implements Operation
         $length = $this->length;
 
         return static function () use ($collection, $length): Generator {
-            $cycleIterator = new LimitIterator(
+            $iterator = new LimitIterator(
                 new InfiniteIterator(
                     new IterableIterator($collection)
                 ),
@@ -47,7 +47,7 @@ final class Cycle implements Operation
                 $length
             );
 
-            foreach ($cycleIterator as $value) {
+            foreach ($iterator as $value) {
                 yield $value;
             }
         };
