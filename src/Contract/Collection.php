@@ -26,6 +26,8 @@ interface Collection extends
     Firstable,
     Flattenable,
     Flipable,
+    FoldLeftable,
+    FoldRightable,
     Forgetable,
     Getable,
     Implodeable,

@@ -18,6 +18,8 @@ use loophp\collection\Operation\Explode;
 use loophp\collection\Operation\Filter;
 use loophp\collection\Operation\Flatten;
 use loophp\collection\Operation\Flip;
+use loophp\collection\Operation\FoldLeft;
+use loophp\collection\Operation\FoldRight;
 use loophp\collection\Operation\Forget;
 use loophp\collection\Operation\Intersperse;
 use loophp\collection\Operation\Iterate;
@@ -197,6 +199,22 @@ final class Collection extends Base implements CollectionInterface
     public function flip(): BaseInterface
     {
         return $this->run(new Flip());
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function foldLeft(callable $callback, $initial = null)
+    {
+        return $this->transform(new FoldLeft($callback, $initial));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function foldRight(callable $callback, $initial = null)
+    {
+        return $this->transform(new FoldRight($callback, $initial));
     }
 
     /**

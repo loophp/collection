@@ -95,6 +95,21 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs([1, 2, 3, 4, 5, 6]);
     }
 
+    public function it_can_be_constructed_from_a_stream(): void
+    {
+        $string = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
+
+        $stream = fopen('data://text/plain,' . $string, 'rb');
+        $this::with($stream)
+            ->count()
+            ->shouldReturn(56);
+
+        $stream = fopen('data://text/plain,' . $string, 'rb');
+        $this::with($stream)
+            ->implode('')
+            ->shouldReturn($string);
+    }
+
     public function it_can_be_constructed_from_array(): void
     {
         $this
@@ -518,6 +533,40 @@ class CollectionSpec extends ObjectBehavior
             ->flip()
             ->all()
             ->shouldIterateAs(['a', 'b', 'c', 'd', 'a']);
+    }
+
+    public function it_can_fold_from_the_left(): void
+    {
+        $this
+            ->beConstructedThrough('with', [range('A', 'C')]);
+
+        $this
+            ->foldLeft(
+                static function (string $carry, string $item): string {
+                    $carry .= $item;
+
+                    return $carry;
+                },
+                ''
+            )
+            ->shouldReturn('ABC');
+    }
+
+    public function it_can_fold_from_the_right(): void
+    {
+        $this
+            ->beConstructedThrough('with', [range('A', 'C')]);
+
+        $this
+            ->foldRight(
+                static function (string $carry, string $item): string {
+                    $carry .= $item;
+
+                    return $carry;
+                },
+                ''
+            )
+            ->shouldReturn('CBA');
     }
 
     public function it_can_forget(): void
@@ -1290,20 +1339,5 @@ class CollectionSpec extends ObjectBehavior
     public function it_is_initializable(): void
     {
         $this->shouldHaveType(Collection::class);
-    }
-
-    public function it_can_be_constructed_from_a_stream(): void
-    {
-        $string = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
-
-        $stream = fopen('data://text/plain,' . $string, 'rb');
-        $this::with($stream)
-            ->count()
-            ->shouldReturn(56);
-
-        $stream = fopen('data://text/plain,' . $string, 'rb');
-        $this::with($stream)
-            ->implode('')
-            ->shouldReturn($string);
     }
 }
