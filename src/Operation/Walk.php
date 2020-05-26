@@ -37,14 +37,12 @@ final class Walk implements Operation
 
         return static function () use ($callbacks, $collection): Generator {
             foreach ($collection as $key => $value) {
-                $carry = $value;
-
                 // Custom array_reduce function with the key passed in argument.
                 foreach ($callbacks as $callback) {
-                    $carry = $callback($carry, $key);
+                    $value = $callback($value, $key);
                 }
 
-                yield $key => $carry;
+                yield $key => $value;
             }
         };
     }
