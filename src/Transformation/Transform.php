@@ -31,10 +31,13 @@ final class Transform implements Transformation
      */
     public function on(iterable $collection)
     {
-        $callback = static function (iterable $collection, Transformation $transformer) {
-            return $transformer->on($collection);
-        };
-
-        return (new Reduce($callback, $collection))->on($this->transformers);
+        return (
+            new FoldLeft(
+                static function (iterable $collection, Transformation $transformer) {
+                    return $transformer->on($collection);
+                },
+                $collection
+            )
+        )->on($this->transformers);
     }
 }

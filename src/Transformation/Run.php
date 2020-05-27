@@ -33,10 +33,13 @@ final class Run implements Transformation
      */
     public function on(iterable $collection)
     {
-        $callback = static function (iterable $collection, Operation $operation): ClosureIterator {
-            return new ClosureIterator($operation->on($collection));
-        };
-
-        return (new Reduce($callback, $collection))->on($this->operations);
+        return (
+            new FoldLeft(
+                static function (iterable $collection, Operation $operation): ClosureIterator {
+                    return new ClosureIterator($operation->on($collection));
+                },
+                $collection
+            )
+        )->on($this->operations);
     }
 }
