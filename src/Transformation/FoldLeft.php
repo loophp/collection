@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace loophp\collection\Operation;
+namespace loophp\collection\Transformation;
 
 use loophp\collection\Contract\Transformation;
 
