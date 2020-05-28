@@ -18,12 +18,12 @@ final class Last implements Transformation
      */
     public function on(iterable $collection)
     {
-        $return = null;
-
-        foreach ($collection as $value) {
-            $return = $value;
-        }
-
-        return $return;
+        return (
+        new FoldLeft(
+            static function ($carry, $item) {
+                return $item;
+            }
+        )
+        )->on($collection);
     }
 }

@@ -17,7 +17,7 @@ final class Transform implements Transformation
     private $transformers;
 
     /**
-     * Run constructor.
+     * Transform constructor.
      *
      * @param \loophp\collection\Contract\Transformation ...$transformers
      */
