@@ -38,8 +38,6 @@ final class Only implements Operation
         $keys = $this->keys;
 
         return static function () use ($keys, $collection): Generator {
-            [$keys] = $keys;
-
             if ([] === $keys) {
                 return yield from $collection;
             }

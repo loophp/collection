@@ -40,8 +40,6 @@ final class Append implements Operation
                 yield $value;
             }
 
-            [$items] = $items;
-
             foreach ($items as $item) {
                 yield $item;
             }

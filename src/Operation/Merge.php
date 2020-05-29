@@ -33,7 +33,7 @@ final class Merge implements Operation
      */
     public function on(iterable $collection): Closure
     {
-        [$sources] = $this->sources;
+        $sources = $this->sources;
 
         return static function () use ($sources, $collection): Generator {
             foreach ($collection as $value) {

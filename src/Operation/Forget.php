@@ -38,7 +38,6 @@ final class Forget implements Operation
         $keys = $this->keys;
 
         return static function () use ($keys, $collection): Generator {
-            [$keys] = $keys;
             $keys = array_flip($keys);
 
             foreach ($collection as $key => $value) {

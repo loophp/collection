@@ -43,8 +43,6 @@ final class Combine implements Operation
         $keys = $this->keys;
 
         return static function () use ($keys, $collection): Generator {
-            [$keys] = $keys;
-
             $original = new IterableIterator($collection);
             $keysIterator = new ArrayIterator($keys);
 

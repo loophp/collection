@@ -36,7 +36,7 @@ final class Zip implements Operation
      */
     public function on(iterable $collection): Closure
     {
-        [$iterables] = $this->iterables;
+        $iterables = $this->iterables;
 
         return static function () use ($iterables, $collection): Generator {
             $getIteratorCallback = static function ($iterable): IterableIterator {
@@ -46,7 +46,7 @@ final class Zip implements Operation
             $items = array_merge([$collection], $iterables);
 
             $walk = new Walk($getIteratorCallback);
-            $append = new Append($items);
+            $append = new Append(...$items);
 
             $iterators = new ClosureIterator(
                 $walk->on(new ClosureIterator($append->on([])))

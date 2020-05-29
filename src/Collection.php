@@ -78,7 +78,7 @@ final class Collection extends Base implements CollectionInterface
      */
     public function append(...$items): BaseInterface
     {
-        return $this->run(new Append($items));
+        return $this->run(new Append(...$items));
     }
 
     /**
@@ -118,7 +118,7 @@ final class Collection extends Base implements CollectionInterface
      */
     public function combine(...$keys): BaseInterface
     {
-        return $this->run(new Combine($keys));
+        return $this->run(new Combine(...$keys));
     }
 
     /**
@@ -222,7 +222,7 @@ final class Collection extends Base implements CollectionInterface
      */
     public function forget(...$keys): BaseInterface
     {
-        return $this->run(new Forget($keys));
+        return $this->run(new Forget(...$keys));
     }
 
     /**
@@ -292,9 +292,9 @@ final class Collection extends Base implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function merge(...$sources): BaseInterface
+    public function merge(iterable ...$sources): BaseInterface
     {
-        return $this->run(new Merge($sources));
+        return $this->run(new Merge(...$sources));
     }
 
     /**
@@ -318,7 +318,7 @@ final class Collection extends Base implements CollectionInterface
      */
     public function only(...$keys): BaseInterface
     {
-        return $this->run(new Only($keys));
+        return $this->run(new Only(...$keys));
     }
 
     /**
@@ -491,6 +491,6 @@ final class Collection extends Base implements CollectionInterface
      */
     public function zip(iterable ...$iterables): BaseInterface
     {
-        return $this->run(new Zip($iterables));
+        return $this->run(new Zip(...$iterables));
     }
 }
