@@ -49,10 +49,7 @@ final class Slice implements Operation
                 return yield from (new Skip($offset))->on($collection)();
             }
 
-            $limit = new Limit($length);
-            $skip = new Skip($offset);
-
-            yield from $limit->on(new ClosureIterator($skip->on($collection)))();
+            yield from (new Limit($length))->on(new ClosureIterator((new Skip($offset))->on($collection)))();
         };
     }
 }
