@@ -360,7 +360,7 @@ final class Collection extends Base implements CollectionInterface
      */
     public function prepend(...$items): BaseInterface
     {
-        return $this->run(new Prepend($items));
+        return $this->run(new Prepend(...$items));
     }
 
     /**

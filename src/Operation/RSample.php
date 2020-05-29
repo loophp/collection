@@ -34,10 +34,12 @@ final class RSample implements Operation
     {
         $probability = $this->probability;
 
-        $callback = static function ($item) use ($probability): bool {
-            return (mt_rand() / mt_getrandmax()) < $probability;
-        };
-
-        return (new Filter($callback))->on($collection);
+        return (
+            new Filter(
+                static function () use ($probability): bool {
+                    return (mt_rand() / mt_getrandmax()) < $probability;
+                }
+            )
+        )->on($collection);
     }
 }

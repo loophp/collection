@@ -36,8 +36,6 @@ final class Prepend implements Operation
         $items = $this->items;
 
         return static function () use ($items, $collection): Generator {
-            [$items] = $items;
-
             foreach ($items as $item) {
                 yield $item;
             }
