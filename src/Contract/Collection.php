@@ -51,6 +51,7 @@ interface Collection extends
     Reverseable,
     RSampleable,
     Scaleable,
+    Shuffleable,
     Skipable,
     Sliceable,
     Sortable,

@@ -219,6 +219,10 @@ class CollectionSpec extends ObjectBehavior
             ->chunk(2)
             ->collapse()
             ->shouldIterateAs(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']);
+
+        $this::with(range('A', 'E'))
+            ->collapse()
+            ->shouldIterateAs([]);
     }
 
     public function it_can_combinate(): void
@@ -1115,6 +1119,18 @@ class CollectionSpec extends ObjectBehavior
             // @todo: For some reason, using shouldIterateAs does not work here.
             ->all()
             ->shouldReturn([5.0, 8.01, 11.02, 12.78, 14.03, 15.0]);
+    }
+
+    public function it_can_shuffle(): void
+    {
+        $data = range('A', 'E');
+
+        $this
+            ->beConstructedThrough('with', [$data]);
+
+        $this
+            ->shuffle()
+            ->shouldNotIterateAs($data);
     }
 
     public function it_can_skip(): void

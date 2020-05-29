@@ -38,6 +38,7 @@ use loophp\collection\Operation\Reduction;
 use loophp\collection\Operation\Reverse;
 use loophp\collection\Operation\RSample;
 use loophp\collection\Operation\Scale;
+use loophp\collection\Operation\Shuffle;
 use loophp\collection\Operation\Skip;
 use loophp\collection\Operation\Slice;
 use loophp\collection\Operation\Sort;
@@ -422,6 +423,14 @@ final class Collection extends Base implements CollectionInterface
         ?float $base = null
     ): BaseInterface {
         return $this->run(new Scale($lowerBound, $upperBound, $wantedLowerBound, $wantedUpperBound, $base));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function shuffle(): BaseInterface
+    {
+        return $this->run(new Shuffle());
     }
 
     /**
