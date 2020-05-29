@@ -23,6 +23,7 @@ use loophp\collection\Operation\Intersperse;
 use loophp\collection\Operation\Iterate;
 use loophp\collection\Operation\Keys;
 use loophp\collection\Operation\Limit;
+use loophp\collection\Operation\Loop;
 use loophp\collection\Operation\Merge;
 use loophp\collection\Operation\Normalize;
 use loophp\collection\Operation\Nth;
@@ -279,6 +280,14 @@ final class Collection extends Base implements CollectionInterface
     public function limit(int $limit): BaseInterface
     {
         return $this->run(new Limit($limit));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function loop(): BaseInterface
+    {
+        return $this->run(new Loop());
     }
 
     /**

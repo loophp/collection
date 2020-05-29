@@ -35,6 +35,7 @@ interface Collection extends
     Keysable,
     Lastable,
     Limitable,
+    Loopable,
     Mapable,
     Mergeable,
     Normalizeable,

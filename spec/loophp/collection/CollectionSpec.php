@@ -804,6 +804,17 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs(['A', 'B', 'C']);
     }
 
+    public function it_can_loop(): void
+    {
+        $this
+            ->beConstructedThrough('with', [['1', '2', '3']]);
+
+        $this
+            ->loop()
+            ->limit(6)
+            ->shouldIterateAs(['1', '2', '3', '1', '2', '3']);
+    }
+
     public function it_can_map(): void
     {
         $input = array_combine(range('A', 'E'), range('A', 'E'));
