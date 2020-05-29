@@ -255,6 +255,20 @@ Simple
         ->limit(10)
         ->all(); // [0.42, 0.48, 0.49, 0.49, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5]
 
+    // Infinitely loop over a collection
+    Collection::with(['A', 'B', 'C'])
+        ->loop();
+
+    // Traverse the collection using windows of a given size.
+    Collection::with(range('a', 'z'))
+        ->window(3)
+        ->all(); // [['a', 'b', 'c'], ['b', 'c', 'd'], ['c', 'd', 'e'], ...]
+
+    // Traverse the collection using windows of a given size.
+    Collection::with(range('a', 'z'))
+        ->window(4, 2)
+        ->all(); // [['a', 'b', 'c', 'd'], ['b', 'c'], ['c', 'd', 'e', 'f'], ['d', 'e'], ...]
+
 Advanced
 --------
 
