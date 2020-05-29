@@ -46,6 +46,7 @@ use loophp\collection\Operation\Tail;
 use loophp\collection\Operation\Times;
 use loophp\collection\Operation\Until;
 use loophp\collection\Operation\Walk;
+use loophp\collection\Operation\Window;
 use loophp\collection\Operation\Zip;
 use loophp\collection\Transformation\All;
 use loophp\collection\Transformation\Contains;
@@ -485,6 +486,14 @@ final class Collection extends Base implements CollectionInterface
     public function walk(callable ...$callbacks): BaseInterface
     {
         return $this->run(new Walk(...$callbacks));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function window(int ...$length): BaseInterface
+    {
+        return $this->run(new Window(...$length));
     }
 
     /**

@@ -58,6 +58,7 @@ interface Collection extends
     Tailable,
     Untilable,
     Walkable,
+    Windowable,
     Zipable
 {
     /**
