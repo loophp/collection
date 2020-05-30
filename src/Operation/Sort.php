@@ -34,11 +34,11 @@ final class Sort implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): Closure
+    public function __invoke(): Closure
     {
         $callback = $this->callback;
 
-        return static function () use ($callback, $collection): Generator {
+        return static function (iterable $collection) use ($callback): Generator {
             if (null === $callback) {
                 $callback = static function ($left, $right): int {
                     return $left <=> $right;

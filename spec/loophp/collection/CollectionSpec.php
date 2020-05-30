@@ -7,6 +7,7 @@ namespace spec\loophp\collection;
 use ArrayObject;
 use Closure;
 use Exception;
+use Generator;
 use Iterator;
 use loophp\collection\Collection;
 use loophp\collection\Contract\Operation;
@@ -1061,9 +1062,9 @@ class CollectionSpec extends ObjectBehavior
     public function it_can_run_an_operation(Operation $operation): void
     {
         $square = new class() implements Operation {
-            public function on(iterable $collection): Closure
+            public function __invoke(): Closure
             {
-                return static function () use ($collection) {
+                return static function ($collection): Generator {
                     foreach ($collection as $item) {
                         yield $item ** 2;
                     }
@@ -1072,9 +1073,9 @@ class CollectionSpec extends ObjectBehavior
         };
 
         $sqrt = new class() implements Operation {
-            public function on(iterable $collection): Closure
+            public function __invoke(): Closure
             {
-                return static function () use ($collection) {
+                return static function ($collection) {
                     foreach ($collection as $item) {
                         yield $item ** .5;
                     }
@@ -1083,9 +1084,9 @@ class CollectionSpec extends ObjectBehavior
         };
 
         $map = new class() implements Operation {
-            public function on(iterable $collection): Closure
+            public function __invoke(): Closure
             {
-                return static function () use ($collection) {
+                return static function ($collection) {
                     foreach ($collection as $item) {
                         yield (int) $item;
                     }

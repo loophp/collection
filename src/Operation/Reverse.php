@@ -17,10 +17,10 @@ final class Reverse implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): Closure
+    public function __invoke(): Closure
     {
-        return static function () use ($collection): Generator {
-            $all = (new All())->on($collection);
+        return static function (iterable $collection): Generator {
+            $all = (new All())($collection);
 
             for (end($all); null !== ($key = key($all)); prev($all)) {
                 yield $key => current($all);

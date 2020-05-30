@@ -34,11 +34,11 @@ final class Cycle implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): Closure
+    public function __invoke(): Closure
     {
         $length = $this->length;
 
-        return static function () use ($collection, $length): Generator {
+        return static function (iterable $collection) use ($length): Generator {
             $iterator = new LimitIterator(
                 new InfiniteIterator(
                     new IterableIterator($collection)

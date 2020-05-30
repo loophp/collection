@@ -108,7 +108,7 @@ abstract class Base implements BaseInterface
      */
     public function run(Operation ...$operations)
     {
-        return new static((new Run(...$operations))->on($this));
+        return new static((new Run(...$operations))($this));
     }
 
     /**
@@ -116,6 +116,6 @@ abstract class Base implements BaseInterface
      */
     public function transform(Transformation ...$transformers)
     {
-        return (new Transform(...$transformers))->on($this);
+        return (new Transform(...$transformers))($this);
     }
 }

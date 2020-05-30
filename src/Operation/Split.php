@@ -31,11 +31,11 @@ final class Split implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): Closure
+    public function __invoke(): Closure
     {
         $callbacks = $this->callbacks;
 
-        return static function () use ($callbacks, $collection): Generator {
+        return static function (iterable $collection) use ($callbacks): Generator {
             $carry = [];
 
             foreach ($collection as $key => $value) {

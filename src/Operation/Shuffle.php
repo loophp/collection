@@ -17,10 +17,10 @@ final class Shuffle implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): Closure
+    public function __invoke(): Closure
     {
-        return static function () use ($collection): Generator {
-            $data = (new All())->on($collection);
+        return static function (iterable $collection): Generator {
+            $data = (new All())($collection);
 
             while ([] !== $data) {
                 $randomKey = array_rand($data);

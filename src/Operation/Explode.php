@@ -30,7 +30,7 @@ final class Explode implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): Closure
+    public function __invoke(): Closure
     {
         $callbacks = array_map(
             static function ($explode) {
@@ -41,6 +41,6 @@ final class Explode implements Operation
             $this->explodes
         );
 
-        return (new Split(...$callbacks))->on($collection);
+        return (new Split(...$callbacks))();
     }
 }

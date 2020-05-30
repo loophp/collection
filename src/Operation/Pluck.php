@@ -10,6 +10,7 @@ use Generator;
 use loophp\collection\Contract\Collection;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Transformation\Get;
+use loophp\collection\Transformation\Run;
 use ReflectionClass;
 use ReflectionException;
 
@@ -48,14 +49,14 @@ final class Pluck implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): Closure
+    public function __invoke(): Closure
     {
         $key = $this->key;
         $default = $this->default;
 
         $operation = $this;
 
-        return static function () use ($key, $default, $collection, $operation): Generator {
+        return static function (iterable $collection) use ($key, $default, $operation): Generator {
             $key = true === is_scalar($key) ? explode('.', trim((string) $key, '.')) : $key;
 
             foreach ($collection as $value) {
@@ -90,7 +91,7 @@ final class Pluck implements Operation
                     $result[] = $this->pick($collection, $item, $key);
                 }
 
-                return in_array('*', $key, true) ? (new Collapse())->on($result) : $result;
+                return in_array('*', $key, true) ? (new Run((new Collapse())))($result) : $result;
             }
 
             if ((true === is_array($target)) && (true === array_key_exists($segment, $target))) {
@@ -98,7 +99,7 @@ final class Pluck implements Operation
             } elseif (($target instanceof ArrayAccess) && (true === $target->offsetExists($segment))) {
                 $target = $target[$segment];
             } elseif ($target instanceof Collection) {
-                $target = (new Get($segment, $default))->on($target);
+                $target = (new Get($segment, $default))($target);
             } elseif ((true === is_object($target)) && (true === property_exists($target, $segment))) {
                 $target = (new ReflectionClass($target))->getProperty($segment)->getValue($target);
             } else {

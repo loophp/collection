@@ -18,9 +18,9 @@ final class Loop implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): Closure
+    public function __invoke(): Closure
     {
-        return static function () use ($collection): Generator {
+        return static function (iterable $collection): Generator {
             $iterator = new InfiniteIterator(
                 new IterableIterator($collection)
             );

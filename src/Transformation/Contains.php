@@ -33,14 +33,14 @@ final class Contains implements Transformation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection)
+    public function __invoke(iterable $collection)
     {
         $key = $this->key;
 
         if ((false === is_string($key)) && (true === is_callable($key))) {
             $placeholder = new stdClass();
 
-            return (new First($key, $placeholder))->on($collection) !== $placeholder;
+            return (new First($key, $placeholder))($collection) !== $placeholder;
         }
 
         foreach ($collection as $value) {

@@ -38,7 +38,7 @@ final class Iterate implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): Closure
+    public function __invoke(): Closure
     {
         $callback = $this->callback;
         $parameters = $this->parameters;

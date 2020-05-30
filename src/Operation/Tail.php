@@ -8,6 +8,7 @@ use Closure;
 use Generator;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Transformation\Count;
+use loophp\collection\Transformation\Run;
 
 /**
  * Class Tail.
@@ -32,16 +33,18 @@ final class Tail implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): Closure
+    public function __invoke(): Closure
     {
         $length = $this->length;
 
-        return static function () use ($length, $collection): Generator {
-            yield from (new Limit($length))
-                ->on(
-                    (new Skip((new Count())->on($collection) - $length))
-                        ->on($collection)()
-                )();
+        return static function (iterable $collection) use ($length): Generator {
+            yield from (
+                new Run(
+                    new Skip(
+                        (new Count())($collection) - $length
+                    ),
+                    new Limit($length)
+                ))($collection);
         };
     }
 }

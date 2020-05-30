@@ -7,7 +7,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use loophp\collection\Contract\Operation;
-use loophp\collection\Iterator\ClosureIterator;
+use loophp\collection\Transformation\Run;
 
 /**
  * Class Slice.
@@ -39,17 +39,19 @@ final class Slice implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): Closure
+    public function __invoke(): Closure
     {
         $offset = $this->offset;
         $length = $this->length;
 
-        return static function () use ($offset, $length, $collection): Generator {
+        return static function (iterable $collection) use ($offset, $length): Generator {
+            $skip = new Skip($offset);
+
             if (null === $length) {
-                return yield from (new Skip($offset))->on($collection)();
+                return yield from (new Run($skip))($collection);
             }
 
-            yield from (new Limit($length))->on(new ClosureIterator((new Skip($offset))->on($collection)))();
+            yield from (new Run($skip, new Limit($length)))($collection);
         };
     }
 }

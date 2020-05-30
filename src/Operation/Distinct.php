@@ -18,9 +18,9 @@ final class Distinct implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): Closure
+    public function __invoke(): Closure
     {
-        return static function () use ($collection): Generator {
+        return static function (iterable $collection): Generator {
             $seen = [];
 
             foreach ($collection as $key => $value) {

@@ -40,12 +40,12 @@ final class Limit implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): Closure
+    public function __invoke(): Closure
     {
         $limit = $this->limit;
         $offset = $this->offset;
 
-        return static function () use ($collection, $offset, $limit): Generator {
+        return static function (iterable $collection) use ($offset, $limit): Generator {
             yield from new LimitIterator(new IterableIterator($collection), $offset, $limit);
         };
     }

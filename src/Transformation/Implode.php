@@ -29,7 +29,7 @@ final class Implode implements Transformation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): string
+    public function __invoke(iterable $collection): string
     {
         $result = '';
 

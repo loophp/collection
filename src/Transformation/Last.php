@@ -16,7 +16,7 @@ final class Last implements Transformation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection)
+    public function __invoke(iterable $collection)
     {
         return (
         new FoldLeft(
@@ -24,6 +24,6 @@ final class Last implements Transformation
                 return $item;
             }
         )
-        )->on($collection);
+        )($collection);
     }
 }

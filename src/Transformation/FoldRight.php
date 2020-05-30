@@ -37,12 +37,12 @@ final class FoldRight implements Transformation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection)
+    public function __invoke(iterable $collection)
     {
         $callback = $this->callback;
         $initial = $this->initial;
 
-        foreach ((new Reverse())->on($collection)() as $key => $value) {
+        foreach ((new Run(new Reverse()))($collection) as $key => $value) {
             $initial = $callback($initial, $value, $key);
         }
 

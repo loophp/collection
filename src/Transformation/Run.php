@@ -31,15 +31,15 @@ final class Run implements Transformation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection)
+    public function __invoke(iterable $collection)
     {
         return (
             new FoldLeft(
                 static function (iterable $collection, Operation $operation): ClosureIterator {
-                    return new ClosureIterator($operation->on($collection));
+                    return new ClosureIterator($operation(), $collection);
                 },
                 $collection
             )
-        )->on($this->operations);
+        )($this->operations);
     }
 }

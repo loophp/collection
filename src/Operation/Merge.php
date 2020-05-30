@@ -31,11 +31,11 @@ final class Merge implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): Closure
+    public function __invoke(): Closure
     {
         $sources = $this->sources;
 
-        return static function () use ($sources, $collection): Generator {
+        return static function (iterable $collection) use ($sources): Generator {
             foreach ($collection as $value) {
                 yield $value;
             }

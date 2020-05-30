@@ -34,7 +34,7 @@ final class Product implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): Closure
+    public function __invoke(): Closure
     {
         $iterables = $this->iterables;
 
@@ -42,7 +42,7 @@ final class Product implements Operation
             return $this->cartesian($input);
         };
 
-        return static function () use ($iterables, $collection, $cartesian): Generator {
+        return static function (iterable $collection) use ($iterables, $cartesian): Generator {
             $its = [$collection];
 
             foreach ($iterables as $iterable) {

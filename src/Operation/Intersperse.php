@@ -50,7 +50,7 @@ final class Intersperse implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): Closure
+    public function __invoke(): Closure
     {
         $element = $this->element;
         $every = $this->atEvery;
@@ -64,7 +64,7 @@ final class Intersperse implements Operation
             throw new InvalidArgumentException('The third parameter must be a positive integer.');
         }
 
-        return static function () use ($element, $every, $startAt, $collection): Generator {
+        return static function (iterable $collection) use ($element, $every, $startAt): Generator {
             foreach ($collection as $value) {
                 if (0 === $startAt++ % $every) {
                     yield $element;

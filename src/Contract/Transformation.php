@@ -14,5 +14,5 @@ interface Transformation
      *
      * @return bool|mixed
      */
-    public function on(iterable $collection);
+    public function __invoke(iterable $collection);
 }

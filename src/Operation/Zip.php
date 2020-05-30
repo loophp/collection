@@ -7,8 +7,8 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use loophp\collection\Contract\Operation;
-use loophp\collection\Iterator\ClosureIterator;
 use loophp\collection\Iterator\IterableIterator;
+use loophp\collection\Transformation\Run;
 use MultipleIterator;
 
 /**
@@ -34,27 +34,19 @@ final class Zip implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): Closure
+    public function __invoke(): Closure
     {
         $iterables = $this->iterables;
 
-        return static function () use ($iterables, $collection): Generator {
+        return static function (iterable $collection) use ($iterables): Generator {
             $getIteratorCallback = static function ($iterable): IterableIterator {
                 return new IterableIterator($iterable);
             };
 
-            $items = array_merge([$collection], $iterables);
-
-            $walk = new Walk($getIteratorCallback);
-            $append = new Append(...$items);
-
-            $iterators = new ClosureIterator(
-                $walk->on(new ClosureIterator($append->on([])))
-            );
-
+            $items = (new Run((new Walk($getIteratorCallback))))(array_merge([$collection], $iterables));
             $mit = new MultipleIterator(MultipleIterator::MIT_NEED_ANY);
 
-            foreach ($iterators as $iterator) {
+            foreach (new IterableIterator($items) as $iterator) {
                 $mit->attachIterator($iterator);
             }
 

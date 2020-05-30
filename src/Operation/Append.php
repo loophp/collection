@@ -31,11 +31,11 @@ final class Append implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): Closure
+    public function __invoke(): Closure
     {
         $items = $this->items;
 
-        return static function () use ($items, $collection): Generator {
+        return static function (iterable $collection) use ($items): Generator {
             foreach ($collection as $value) {
                 yield $value;
             }

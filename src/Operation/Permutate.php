@@ -17,14 +17,14 @@ final class Permutate implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): Closure
+    public function __invoke(): Closure
     {
         $getPermutations = function (array $dataset): Generator {
             return $this->getPermutations($dataset);
         };
 
-        return static function () use ($collection, $getPermutations): Generator {
-            yield from $getPermutations((new All())->on($collection));
+        return static function (iterable $collection) use ($getPermutations): Generator {
+            yield from $getPermutations((new All())($collection));
         };
     }
 

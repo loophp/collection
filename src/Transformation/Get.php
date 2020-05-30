@@ -36,7 +36,7 @@ final class Get implements Transformation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection)
+    public function __invoke(iterable $collection)
     {
         $keyToGet = $this->key;
         $default = $this->default;

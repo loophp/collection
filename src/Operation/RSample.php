@@ -30,7 +30,7 @@ final class RSample implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): Closure
+    public function __invoke(): Closure
     {
         $probability = $this->probability;
 
@@ -40,6 +40,6 @@ final class RSample implements Operation
                     return (mt_rand() / mt_getrandmax()) < $probability;
                 }
             )
-        )->on($collection);
+        )();
     }
 }

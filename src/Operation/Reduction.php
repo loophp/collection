@@ -38,12 +38,12 @@ final class Reduction implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): Closure
+    public function __invoke(): Closure
     {
         $callback = $this->callback;
         $initial = $this->initial;
 
-        return static function () use ($callback, $initial, $collection): Generator {
+        return static function (iterable $collection) use ($callback, $initial): Generator {
             $carry = $initial;
 
             foreach ($collection as $key => $value) {

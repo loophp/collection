@@ -32,11 +32,11 @@ final class Flatten implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): Closure
+    public function __invoke(): Closure
     {
         $depth = $this->depth;
 
-        return static function () use ($depth, $collection): Generator {
+        return static function (iterable $collection) use ($depth): Generator {
             foreach ($collection as $value) {
                 if (false === is_iterable($value)) {
                     yield $value;
@@ -45,7 +45,7 @@ final class Flatten implements Operation
                         yield $subValue;
                     }
                 } else {
-                    $iterator = new ClosureIterator((new Flatten($depth - 1))->on($value));
+                    $iterator = new ClosureIterator((new Flatten($depth - 1))(), $value);
 
                     foreach ($iterator as $subValue) {
                         yield $subValue;

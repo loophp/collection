@@ -38,12 +38,12 @@ final class Nth implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): Closure
+    public function __invoke(): Closure
     {
         $step = $this->step;
         $offset = $this->offset;
 
-        return static function () use ($step, $offset, $collection): Generator {
+        return static function (iterable $collection) use ($step, $offset): Generator {
             $position = 0;
 
             foreach ($collection as $key => $value) {

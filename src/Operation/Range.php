@@ -47,13 +47,13 @@ final class Range implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): Closure
+    public function __invoke(): Closure
     {
         $start = $this->start;
         $end = $this->end;
         $step = $this->step;
 
-        return static function () use ($start, $end, $step): Generator {
+        return static function (iterable $collection) use ($start, $end, $step): Generator {
             for ($current = $start; $current < $end; $current += $step) {
                 yield $current;
             }

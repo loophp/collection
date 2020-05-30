@@ -16,9 +16,9 @@ final class Collapse implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): Closure
+    public function __invoke(): Closure
     {
-        return static function () use ($collection): Generator {
+        return static function (iterable $collection): Generator {
             foreach ($collection as $value) {
                 if (true !== is_iterable($value)) {
                     continue;

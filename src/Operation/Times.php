@@ -38,12 +38,12 @@ final class Times implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): Closure
+    public function __invoke(): Closure
     {
         $number = $this->number;
         $callback = $this->callback;
 
-        return static function () use ($number, $callback): Generator {
+        return static function (iterable $collection) use ($number, $callback): Generator {
             if (1 > $number) {
                 return;
             }

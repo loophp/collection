@@ -33,11 +33,11 @@ final class Only implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): Closure
+    public function __invoke(): Closure
     {
         $keys = $this->keys;
 
-        return static function () use ($keys, $collection): Generator {
+        return static function (iterable $collection) use ($keys): Generator {
             if ([] === $keys) {
                 return yield from $collection;
             }

@@ -15,7 +15,7 @@ final class All implements Transformation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection)
+    public function __invoke(iterable $collection)
     {
         return iterator_to_array(new IterableIterator($collection));
     }

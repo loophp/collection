@@ -31,11 +31,11 @@ final class Walk implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): Closure
+    public function __invoke(): Closure
     {
         $callbacks = $this->callbacks;
 
-        return static function () use ($callbacks, $collection): Generator {
+        return static function (iterable $collection) use ($callbacks): Generator {
             foreach ($collection as $key => $value) {
                 // Custom array_reduce function with the key passed in argument.
                 foreach ($callbacks as $callback) {

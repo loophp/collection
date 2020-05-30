@@ -29,15 +29,15 @@ final class Transform implements Transformation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection)
+    public function __invoke(iterable $collection)
     {
         return (
             new FoldLeft(
                 static function (iterable $collection, Transformation $transformer) {
-                    return $transformer->on($collection);
+                    return $transformer($collection);
                 },
                 $collection
             )
-        )->on($this->transformers);
+        )($this->transformers);
     }
 }

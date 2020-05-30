@@ -31,11 +31,11 @@ final class Skip implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): Closure
+    public function __invoke(): Closure
     {
         $skip = $this->skip;
 
-        return static function () use ($skip, $collection): Generator {
+        return static function (iterable $collection) use ($skip): Generator {
             $skip = array_sum($skip);
 
             foreach ($collection as $key => $value) {

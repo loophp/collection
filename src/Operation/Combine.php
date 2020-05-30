@@ -38,11 +38,11 @@ final class Combine implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): Closure
+    public function __invoke(): Closure
     {
         $keys = $this->keys;
 
-        return static function () use ($keys, $collection): Generator {
+        return static function (iterable $collection) use ($keys): Generator {
             $original = new IterableIterator($collection);
             $keysIterator = new ArrayIterator($keys);
 

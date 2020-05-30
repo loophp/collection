@@ -33,11 +33,11 @@ final class Chunk implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): Closure
+    public function __invoke(): Closure
     {
         $length = $this->length;
 
-        return static function () use ($length, $collection): Generator {
+        return static function (iterable $collection) use ($length): Generator {
             if (0 >= $length) {
                 return yield from [];
             }

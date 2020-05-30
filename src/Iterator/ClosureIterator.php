@@ -33,7 +33,7 @@ final class ClosureIterator implements Iterator
      * ClosureIterator constructor.
      *
      * @param callable $callable
-     * @param array<mixed> ...$arguments
+     * @param mixed ...$arguments
      */
     public function __construct(callable $callable, ...$arguments)
     {

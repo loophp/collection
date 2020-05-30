@@ -9,12 +9,10 @@ use Closure;
 /**
  * Interface Operation.
  */
-interface Operation extends Transformation
+interface Operation
 {
     /**
-     * @param iterable<mixed> $collection
-     *
      * @return Closure
      */
-    public function on(iterable $collection): Closure;
+    public function __invoke(): Closure;
 }

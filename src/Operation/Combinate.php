@@ -36,7 +36,7 @@ final class Combinate implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): Closure
+    public function __invoke(): Closure
     {
         $length = $this->length;
 
@@ -44,8 +44,8 @@ final class Combinate implements Operation
             return $this->getCombinations($dataset, $length);
         };
 
-        return static function () use ($length, $collection, $getCombinations): Generator {
-            $dataset = (new All())->on($collection);
+        return static function (iterable $collection) use ($length, $getCombinations): Generator {
+            $dataset = (new All())($collection);
 
             if (0 < $length) {
                 // TODO: Investigate why it's calling issues with PHPStan.

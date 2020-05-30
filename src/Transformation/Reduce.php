@@ -36,7 +36,7 @@ final class Reduce implements Transformation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection)
+    public function __invoke(iterable $collection)
     {
         $callback = $this->callback;
         $initial = $this->initial;

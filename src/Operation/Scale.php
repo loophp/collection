@@ -6,6 +6,7 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use loophp\collection\Contract\Operation;
+use loophp\collection\Transformation\Run;
 
 use const INF;
 
@@ -77,8 +78,13 @@ final class Scale implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): Closure
+    public function __invoke(): Closure
     {
-        return $this->mapper->on($this->filter->on($collection)());
+        $mapper = $this->mapper;
+        $filter = $this->filter;
+
+        return static function (iterable $collection) use ($mapper, $filter) {
+            return (new Run($filter, $mapper))($collection);
+        };
     }
 }

@@ -17,7 +17,7 @@ final class Count implements Transformation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection)
+    public function __invoke(iterable $collection)
     {
         return iterator_count(new IterableIterator($collection));
     }

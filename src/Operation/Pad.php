@@ -38,12 +38,12 @@ final class Pad implements Operation
     /**
      * {@inheritdoc}
      */
-    public function on(iterable $collection): Closure
+    public function __invoke(): Closure
     {
         $size = $this->size;
         $padValue = $this->value;
 
-        return static function () use ($size, $padValue, $collection): Generator {
+        return static function (iterable $collection) use ($size, $padValue): Generator {
             $y = 0;
 
             foreach ($collection as $key => $value) {
