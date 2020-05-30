@@ -20,6 +20,12 @@ final class Last implements Transformation
     {
         return (
         new FoldLeft(
+            /**
+             * @param mixed $carry
+             * @param mixed $item
+             *
+             * @return mixed
+             */
             static function ($carry, $item) {
                 return $item;
             }

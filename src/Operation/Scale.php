@@ -49,26 +49,35 @@ final class Scale implements Operation
             $wantedUpperBound = $wantedUpperBound ?? $base;
         }
 
-        $callback = static function ($v) use ($lowerBound, $upperBound, $wantedLowerBound, $wantedUpperBound, $base): float { // phpcs:ignore
-            if (null !== $base) {
-                $mx = log($v - $lowerBound, $base) / log($upperBound - $lowerBound, $base);
+        $this->mapper = new Walk(
+            /**
+             * @param float|int $v
+             */
+            static function ($v) use ($lowerBound, $upperBound, $wantedLowerBound, $wantedUpperBound, $base): float { // phpcs:ignore
+                if (null !== $base) {
+                    $mx = log($v - $lowerBound, $base) / log($upperBound - $lowerBound, $base);
 
-                if ($mx === -INF) {
-                    $mx = 0;
+                    if ($mx === -INF) {
+                        $mx = 0;
+                    }
+                } else {
+                    $mx = ($v - $lowerBound) / ($upperBound - $lowerBound);
                 }
-            } else {
-                $mx = ($v - $lowerBound) / ($upperBound - $lowerBound);
+
+                return $wantedLowerBound + $mx * ($wantedUpperBound - $wantedLowerBound);
             }
-
-            return $wantedLowerBound + $mx * ($wantedUpperBound - $wantedLowerBound);
-        };
-
-        $this->mapper = new Walk($callback);
+        );
 
         $this->filter = new Filter(
+            /**
+             * @param float|int $item
+             */
             static function ($item) use ($lowerBound): bool {
                 return $item >= $lowerBound;
             },
+            /**
+             * @param float|int $item
+             */
             static function ($item) use ($upperBound): bool {
                 return $item <= $upperBound;
             }

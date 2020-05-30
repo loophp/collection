@@ -33,6 +33,7 @@ final class Transform implements Transformation
     {
         return (
             new FoldLeft(
+                /** @return mixed */
                 static function (iterable $collection, Transformation $transformer) {
                     return $transformer($collection);
                 },

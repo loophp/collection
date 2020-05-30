@@ -12,7 +12,7 @@ interface Transformation
     /**
      * @param iterable<mixed> $collection
      *
-     * @return bool|mixed
+     * @return iterable|mixed
      */
     public function __invoke(iterable $collection);
 }

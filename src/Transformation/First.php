@@ -42,7 +42,7 @@ final class First implements Transformation
         $default = $this->default;
 
         if (null === $callback) {
-            $callback = static function ($value, $key): bool {
+            $callback = static function (): bool {
                 return true;
             };
         }

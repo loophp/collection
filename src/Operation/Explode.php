@@ -13,14 +13,14 @@ use loophp\collection\Contract\Operation;
 final class Explode implements Operation
 {
     /**
-     * @var array<mixed>
+     * @var array<float|int|string>
      */
     private $explodes;
 
     /**
      * Explode constructor.
      *
-     * @param mixed ...$explodes
+     * @param float|int|string ...$explodes
      */
     public function __construct(...$explodes)
     {
@@ -33,10 +33,15 @@ final class Explode implements Operation
     public function __invoke(): Closure
     {
         $callbacks = array_map(
+            /**
+             * @param float|int|string $explode
+             */
             static function ($explode) {
-                return static function ($value) use ($explode): bool {
-                    return $value === $explode;
-                };
+                return
+                    /** @param mixed $value */
+                    static function ($value) use ($explode): bool {
+                        return $value === $explode;
+                    };
             },
             $this->explodes
         );
