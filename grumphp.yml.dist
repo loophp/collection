@@ -9,11 +9,11 @@ parameters:
       metadata:
         priority: 3000
     infection:
-      threads: 10
+      threads: 1
       test_framework: phpspec
       configuration: infection.json.dist
-      min_msi: 75
-      min_covered_msi: 80
+      min_msi: 90
+      min_covered_msi: 90
       metadata:
         priority: 2000
 
