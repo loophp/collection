@@ -12,7 +12,7 @@
 
 ## Description
 
-Collection is a functional utility library for PHP greater than 7.1.3.
+Collection is a functional utility library for PHP greater than 7.2.5.
 
 It's similar to [other collection libraries](https://packagist.org/?query=collection) based on regular PHP arrays,
 but with a lazy mechanism under the hood that strives to do as little work as possible while being as flexible
