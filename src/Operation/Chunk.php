@@ -6,7 +6,9 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
+use loophp\collection\Collection;
 use loophp\collection\Contract\Operation;
+use loophp\collection\Iterator\IterableIterator;
 
 use function count;
 
@@ -16,18 +18,18 @@ use function count;
 final class Chunk implements Operation
 {
     /**
-     * @var int
+     * @var array<int, int>
      */
-    private $length;
+    private $size;
 
     /**
      * Chunk constructor.
      *
-     * @param int $length
+     * @param array<int, int> $size
      */
-    public function __construct(int $length)
+    public function __construct(int ...$size)
     {
-        $this->length = $length;
+        $this->size = $size;
     }
 
     /**
@@ -35,17 +37,21 @@ final class Chunk implements Operation
      */
     public function __invoke(): Closure
     {
-        $length = $this->length;
+        $size = $this->size;
 
-        return static function (iterable $collection) use ($length): Generator {
-            if (0 >= $length) {
-                return yield from [];
-            }
+        return static function (iterable $collection) use ($size): Generator {
+            $size = new IterableIterator((new Collection($size))->loop());
 
             $values = [];
 
             foreach ($collection as $value) {
-                if (count($values) === $length) {
+                if (0 >= $size->current()) {
+                    return yield from [];
+                }
+
+                if (count($values) === $size->current()) {
+                    $size->next();
+
                     yield $values;
 
                     $values = [$value];

@@ -95,9 +95,9 @@ final class Collection extends Base implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function chunk(int $size): BaseInterface
+    public function chunk(int ...$size): BaseInterface
     {
-        return $this->run(new Chunk($size));
+        return $this->run(new Chunk(...$size));
     }
 
     /**

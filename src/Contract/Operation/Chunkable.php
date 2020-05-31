@@ -14,9 +14,9 @@ interface Chunkable
     /**
      * Chunk the collection into chunks of the given size.
      *
-     * @param int $size
+     * @param array<int, int> $size
      *
      * @return \loophp\collection\Contract\Collection<mixed>
      */
-    public function chunk(int $size): Base;
+    public function chunk(int ...$size): Base;
 }
