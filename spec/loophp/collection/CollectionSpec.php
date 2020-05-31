@@ -8,6 +8,7 @@ use ArrayObject;
 use Closure;
 use Exception;
 use Generator;
+use InvalidArgumentException;
 use Iterator;
 use loophp\collection\Collection;
 use loophp\collection\Contract\Operation;
@@ -1304,8 +1305,9 @@ class CollectionSpec extends ObjectBehavior
         $this
             ->shouldIterateAs(range(1, 10));
 
-        $this::times(-5)
-            ->shouldIterateAs([]);
+        $this
+            ->shouldThrow(InvalidArgumentException::class)
+            ->during('times', [-5]);
 
         $this::times(1)
             ->shouldIterateAs([1]);

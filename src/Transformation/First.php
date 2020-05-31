@@ -12,7 +12,7 @@ use loophp\collection\Contract\Transformation;
 final class First implements Transformation
 {
     /**
-     * @var callable|null
+     * @var callable
      */
     private $callback;
 
@@ -29,7 +29,9 @@ final class First implements Transformation
      */
     public function __construct(?callable $callback = null, $default = null)
     {
-        $this->callback = $callback;
+        $this->callback = $callback ?? static function (): bool {
+            return true;
+        };
         $this->default = $default;
     }
 
@@ -40,12 +42,6 @@ final class First implements Transformation
     {
         $callback = $this->callback;
         $default = $this->default;
-
-        if (null === $callback) {
-            $callback = static function (): bool {
-                return true;
-            };
-        }
 
         foreach ($collection as $key => $value) {
             if (true === $callback($value, $key)) {

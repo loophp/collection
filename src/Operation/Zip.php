@@ -39,11 +39,14 @@ final class Zip implements Operation
         $iterables = $this->iterables;
 
         return static function (iterable $collection) use ($iterables): Generator {
-            $getIteratorCallback = static function ($iterable): IterableIterator {
-                return new IterableIterator($iterable);
-            };
-
-            $items = (new Run((new Walk($getIteratorCallback))))(array_merge([$collection], $iterables));
+            $items = (
+                new Run(
+                    (new Walk(
+                        static function ($iterable): IterableIterator {
+                            return new IterableIterator($iterable);
+                        }
+                    ))
+                ))(array_merge([$collection], $iterables));
             $mit = new MultipleIterator(MultipleIterator::MIT_NEED_ANY);
 
             foreach (new IterableIterator($items) as $iterator) {

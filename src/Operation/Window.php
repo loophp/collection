@@ -45,10 +45,7 @@ final class Window implements Operation
 
             // Todo: Find a way to get rid of unused variable $value.
             foreach ($collection as $value) {
-                $slice = new Slice($i++, $length->current());
-
-                yield iterator_to_array((new Run($slice))($collection));
-
+                yield iterator_to_array((new Run(new Slice($i++, $length->current())))($collection));
                 $length->next();
             }
         };

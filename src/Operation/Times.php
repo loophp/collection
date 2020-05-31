@@ -6,6 +6,7 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
+use InvalidArgumentException;
 use loophp\collection\Contract\Operation;
 
 /**
@@ -14,7 +15,7 @@ use loophp\collection\Contract\Operation;
 final class Times implements Operation
 {
     /**
-     * @var callable|null
+     * @var callable
      */
     private $callback;
 
@@ -31,8 +32,15 @@ final class Times implements Operation
      */
     public function __construct($number, ?callable $callback = null)
     {
+        if (1 > $number) {
+            throw new InvalidArgumentException('Invalid parameter. $number must be greater than 1.');
+        }
+
         $this->number = $number;
-        $this->callback = $callback;
+
+        $this->callback = $callback ?? static function (int $value): int {
+            return $value;
+        };
     }
 
     /**
@@ -43,17 +51,7 @@ final class Times implements Operation
         $number = $this->number;
         $callback = $this->callback;
 
-        return static function (iterable $collection) use ($number, $callback): Generator {
-            if (1 > $number) {
-                return;
-            }
-
-            if (null === $callback) {
-                $callback = static function (int $value): int {
-                    return $value;
-                };
-            }
-
+        return static function () use ($number, $callback): Generator {
             for ($current = 1; $current <= $number; ++$current) {
                 yield $callback($current);
             }

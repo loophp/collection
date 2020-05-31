@@ -21,11 +21,7 @@ final class Loop implements Operation
     public function __invoke(): Closure
     {
         return static function (iterable $collection): Generator {
-            $iterator = new InfiniteIterator(
-                new IterableIterator($collection)
-            );
-
-            foreach ($iterator as $value) {
+            foreach (new InfiniteIterator(new IterableIterator($collection)) as $value) {
                 yield $value;
             }
         };

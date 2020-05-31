@@ -17,7 +17,7 @@ use loophp\collection\Iterator\SortableIterableIterator;
 final class Sort implements Operation
 {
     /**
-     * @var callable|null
+     * @var callable
      */
     private $callback;
 
@@ -28,7 +28,9 @@ final class Sort implements Operation
      */
     public function __construct(?callable $callback = null)
     {
-        $this->callback = $callback;
+        $this->callback = $callback ?? static function ($left, $right): int {
+            return $left <=> $right;
+        };
     }
 
     /**
@@ -39,12 +41,6 @@ final class Sort implements Operation
         $callback = $this->callback;
 
         return static function (iterable $collection) use ($callback): Generator {
-            if (null === $callback) {
-                $callback = static function ($left, $right): int {
-                    return $left <=> $right;
-                };
-            }
-
             yield from new SortableIterableIterator($collection, $callback);
         };
     }

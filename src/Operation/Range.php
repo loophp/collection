@@ -53,7 +53,7 @@ final class Range implements Operation
         $end = $this->end;
         $step = $this->step;
 
-        return static function (iterable $collection) use ($start, $end, $step): Generator {
+        return static function () use ($start, $end, $step): Generator {
             for ($current = $start; $current < $end; $current += $step) {
                 yield $current;
             }

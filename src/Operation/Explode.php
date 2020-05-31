@@ -32,20 +32,20 @@ final class Explode implements Operation
      */
     public function __invoke(): Closure
     {
-        $callbacks = array_map(
-            /**
-             * @param float|int|string $explode
-             */
-            static function ($explode) {
-                return
-                    /** @param mixed $value */
-                    static function ($value) use ($explode): bool {
-                        return $value === $explode;
-                    };
-            },
-            $this->explodes
-        );
-
-        return (new Split(...$callbacks))();
+        return (new Split(
+            ...array_map(
+                /**
+                 * @param float|int|string $explode
+                 */
+                static function ($explode) {
+                    return
+                        /** @param mixed $value */
+                        static function ($value) use ($explode): bool {
+                            return $value === $explode;
+                        };
+                },
+                $this->explodes
+            )
+        ))();
     }
 }
