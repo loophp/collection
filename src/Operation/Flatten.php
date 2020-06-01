@@ -7,7 +7,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use loophp\collection\Contract\Operation;
-use loophp\collection\Iterator\ClosureIterator;
+use loophp\collection\Transformation\Run;
 
 /**
  * Class Flatten.
@@ -45,9 +45,7 @@ final class Flatten implements Operation
                         yield $subValue;
                     }
                 } else {
-                    $iterator = new ClosureIterator((new Flatten($depth - 1))(), $value);
-
-                    foreach ($iterator as $subValue) {
+                    foreach ((new Run(new Flatten($depth - 1)))($value) as $subValue) {
                         yield $subValue;
                     }
                 }

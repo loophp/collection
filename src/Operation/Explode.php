@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
+use Generator;
 use loophp\collection\Contract\Operation;
+use loophp\collection\Transformation\Run;
 
 /**
  * Class Explode.
@@ -32,20 +34,26 @@ final class Explode implements Operation
      */
     public function __invoke(): Closure
     {
-        return (new Split(
-            ...array_map(
-                /**
-                 * @param float|int|string $explode
-                 */
-                static function ($explode) {
-                    return
-                        /** @param mixed $value */
-                        static function ($value) use ($explode): bool {
-                            return $value === $explode;
-                        };
-                },
-                $this->explodes
-            )
-        ))();
+        $explodes = $this->explodes;
+
+        return static function (iterable $collection) use ($explodes): Generator {
+            yield from (new Run(
+                new Split(
+                    ...array_map(
+                        /**
+                         * @param float|int|string $explode
+                         */
+                        static function ($explode) {
+                            return
+                                /** @param mixed $value */
+                                static function ($value) use ($explode): bool {
+                                    return $value === $explode;
+                                };
+                        },
+                        $explodes
+                    )
+                )
+            ))($collection);
+        };
     }
 }

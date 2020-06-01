@@ -31,7 +31,7 @@ final class Run implements Transformation
     /**
      * {@inheritdoc}
      */
-    public function __invoke(iterable $collection)
+    public function __invoke(iterable $collection): ClosureIterator
     {
         return (
             new FoldLeft(

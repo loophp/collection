@@ -31,14 +31,12 @@ final class Transform implements Transformation
      */
     public function __invoke(iterable $collection)
     {
-        return (
-            new FoldLeft(
-                /** @return mixed */
-                static function (iterable $collection, Transformation $transformer) {
-                    return $transformer($collection);
-                },
-                $collection
-            )
-        )($this->transformers);
+        return (new FoldLeft(
+            /** @return mixed */
+            static function (iterable $collection, Transformation $transformer) {
+                return $transformer($collection);
+            },
+            $collection
+        ))($this->transformers);
     }
 }

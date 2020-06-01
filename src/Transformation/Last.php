@@ -18,8 +18,7 @@ final class Last implements Transformation
      */
     public function __invoke(iterable $collection)
     {
-        return (
-        new FoldLeft(
+        return (new FoldLeft(
             /**
              * @param mixed $carry
              * @param mixed $item
@@ -29,7 +28,6 @@ final class Last implements Transformation
             static function ($carry, $item) {
                 return $item;
             }
-        )
-        )($collection);
+        ))($collection);
     }
 }
