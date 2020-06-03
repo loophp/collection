@@ -255,7 +255,7 @@ final class Collection extends Base implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public static function iterate(callable $callback, ...$parameters): CollectionInterface
+    public static function iterate(callable $callback, ...$parameters): BaseInterface
     {
         return (new self())->run(new Iterate($callback, $parameters));
     }
@@ -375,7 +375,7 @@ final class Collection extends Base implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public static function range(float $start = 0.0, float $end = INF, float $step = 1.0): CollectionInterface
+    public static function range(float $start = 0.0, float $end = INF, float $step = 1.0): BaseInterface
     {
         return (new self())->run(new Range($start, $end, $step));
     }
@@ -476,7 +476,7 @@ final class Collection extends Base implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public static function times($number = INF, ?callable $callback = null): CollectionInterface
+    public static function times($number = INF, ?callable $callback = null): BaseInterface
     {
         return (new self())->run(new Times($number, $callback));
     }

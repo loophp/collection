@@ -14,7 +14,7 @@ interface Transformable
     /**
      * @param \loophp\collection\Contract\Transformation ...$transformers
      *
-     * @return bool|int|mixed|string
+     * @return mixed
      */
     public function transform(Transformation ...$transformers);
 }

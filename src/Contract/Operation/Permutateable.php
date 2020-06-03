@@ -14,7 +14,7 @@ interface Permutateable
     /**
      * Find all the permutations of a collection.
      *
-     * @return \loophp\collection\Contract\Collection<mixed>
+     * @return \loophp\collection\Base<mixed>|\loophp\collection\Contract\Collection<mixed>
      */
     public function permutate(): Base;
 }

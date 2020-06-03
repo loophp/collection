@@ -39,7 +39,7 @@ final class Until implements Operation
             foreach ($collection as $key => $value) {
                 yield $key => $value;
 
-                $result = true;
+                $result = 1;
 
                 foreach ($callbacks as $callback) {
                     $result &= $callback($value, $key);

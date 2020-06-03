@@ -56,8 +56,11 @@ Simple
         )
         ->all(); // ['A.A', 'B.B', 'C.C', 'D.D', 'E.E']
 
+    // Use \StdClass as input
+    $data = (object) array_combine(range('A', 'E'), range('A', 'E'));
+
     // ::map() and ::walk() are not the same.
-    Collection::with(['A' => 'A', 'B' => 'B', 'C' => 'C', 'D' => 'D', 'E' => 'E'])
+    Collection::with($data)
         ->map(
             static function ($value, $key) {
                 return strtolower($value);

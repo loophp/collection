@@ -72,13 +72,11 @@ final class ClosureIterator implements Iterator
     }
 
     /**
-     * @return \loophp\collection\Iterator\ClosureIterator
+     * {@inheritdoc}
      */
-    public function rewind()
+    public function rewind(): void
     {
         $this->generator = null;
-
-        return $this;
     }
 
     /**
@@ -100,7 +98,7 @@ final class ClosureIterator implements Iterator
     {
         if (null === $this->generator) {
             $this->generator = (
-                static function ($callable, $arguments): Generator {
+                static function (callable $callable, array $arguments): Generator {
                     yield from ($callable)(...$arguments);
                 }
             )($this->callable, $this->arguments);

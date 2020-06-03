@@ -17,7 +17,7 @@ interface Reductionable
      * @param callable $callback
      * @param mixed $initial
      *
-     * @return \loophp\collection\Contract\Collection<mixed>
+     * @return \loophp\collection\Base<mixed>|\loophp\collection\Contract\Collection<mixed>
      */
     public function reduction(callable $callback, $initial = null): Base;
 }

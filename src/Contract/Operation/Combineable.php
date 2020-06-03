@@ -16,7 +16,7 @@ interface Combineable
      *
      * @param mixed ...$keys
      *
-     * @return \loophp\collection\Contract\Collection<mixed>
+     * @return \loophp\collection\Base<mixed>|\loophp\collection\Contract\Collection<mixed>
      */
     public function combine(...$keys): Base;
 }

@@ -53,8 +53,7 @@ class ClosureIteratorSpec extends ObjectBehavior
 
         $this
             ->rewind()
-            ->current()
-            ->shouldReturn('foo');
+            ->shouldBeNull();
     }
 
     public function it_can_use_next(): void

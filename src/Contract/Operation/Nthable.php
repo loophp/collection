@@ -17,7 +17,7 @@ interface Nthable
      * @param int $step
      * @param int $offset
      *
-     * @return \loophp\collection\Contract\Collection<mixed>
+     * @return \loophp\collection\Base<mixed>|\loophp\collection\Contract\Collection<mixed>
      */
     public function nth(int $step, int $offset = 0): Base;
 }

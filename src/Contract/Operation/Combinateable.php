@@ -17,7 +17,7 @@ interface Combinateable
      * @param int $length
      *   The length.
      *
-     * @return \loophp\collection\Contract\Collection<mixed>
+     * @return \loophp\collection\Base<mixed>|\loophp\collection\Contract\Collection<mixed>
      */
     public function combinate(?int $length = null): Base;
 }

@@ -19,7 +19,7 @@ interface Intersperseable
      * @param int $every
      * @param int $startAt
      *
-     * @return \loophp\collection\Contract\Collection<mixed>
+     * @return \loophp\collection\Base<mixed>|\loophp\collection\Contract\Collection<mixed>
      */
     public function intersperse($element, int $every = 1, int $startAt = 0): Base;
 }

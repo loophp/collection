@@ -16,7 +16,7 @@ interface Mergeable
      *
      * @param iterable ...$sources
      *
-     * @return \loophp\collection\Contract\Collection<mixed>
+     * @return \loophp\collection\Base<mixed>|\loophp\collection\Contract\Collection<mixed>
      */
     public function merge(iterable ...$sources): Base;
 }

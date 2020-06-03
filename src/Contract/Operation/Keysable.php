@@ -14,7 +14,7 @@ interface Keysable
     /**
      * Get the keys of the items.
      *
-     * @return \loophp\collection\Contract\Collection<mixed>
+     * @return \loophp\collection\Base<mixed>|\loophp\collection\Contract\Collection<mixed>
      */
     public function keys(): Base;
 }

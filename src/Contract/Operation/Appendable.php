@@ -16,7 +16,7 @@ interface Appendable
      *
      * @param mixed ...$items
      *
-     * @return \loophp\collection\Contract\Collection<mixed>
+     * @return \loophp\collection\Base<mixed>|\loophp\collection\Contract\Collection<mixed>
      */
     public function append(...$items): Base;
 }

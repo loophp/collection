@@ -14,7 +14,7 @@ interface Flipable
     /**
      * Flip keys and items in a collection.
      *
-     * @return \loophp\collection\Contract\Collection<mixed>
+     * @return \loophp\collection\Base<mixed>|\loophp\collection\Contract\Collection<mixed>
      */
     public function flip(): Base;
 }

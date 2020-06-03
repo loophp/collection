@@ -7,16 +7,15 @@ namespace loophp\collection\Contract\Operation;
 use loophp\collection\Contract\Base;
 
 /**
- * Interface Explodeable.
+ * Interface Iterateable.
  */
-interface Explodeable
+interface Iterateable
 {
     /**
-     * Explode a collection into subsets based on a given value.
-     *
-     * @param mixed ...$explodes
+     * @param callable $callback
+     * @param mixed ...$parameters
      *
      * @return \loophp\collection\Base<mixed>|\loophp\collection\Contract\Collection<mixed>
      */
-    public function explode(...$explodes): Base;
+    public static function iterate(callable $callback, ...$parameters): Base;
 }

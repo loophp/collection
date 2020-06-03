@@ -42,7 +42,7 @@ final class Zip implements Operation
             $items = (
                 new Run(
                     (new Walk(
-                        static function ($iterable): IterableIterator {
+                        static function (iterable $iterable): IterableIterator {
                             return new IterableIterator($iterable);
                         }
                     ))
