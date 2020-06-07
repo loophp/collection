@@ -46,6 +46,7 @@ use loophp\collection\Operation\Sort;
 use loophp\collection\Operation\Split;
 use loophp\collection\Operation\Tail;
 use loophp\collection\Operation\Times;
+use loophp\collection\Operation\Transpose;
 use loophp\collection\Operation\Until;
 use loophp\collection\Operation\Walk;
 use loophp\collection\Operation\Window;
@@ -488,6 +489,14 @@ final class Collection extends Base implements CollectionInterface
     public static function times($number = INF, ?callable $callback = null): BaseInterface
     {
         return (new self())->run(new Times($number, $callback));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function transpose(): BaseInterface
+    {
+        return $this->run(new Transpose());
     }
 
     /**

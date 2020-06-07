@@ -45,6 +45,7 @@ use loophp\collection\Contract\Operation\Sortable;
 use loophp\collection\Contract\Operation\Splitable;
 use loophp\collection\Contract\Operation\Tailable;
 use loophp\collection\Contract\Operation\Timesable;
+use loophp\collection\Contract\Operation\Transposeable;
 use loophp\collection\Contract\Operation\Untilable;
 use loophp\collection\Contract\Operation\Walkable;
 use loophp\collection\Contract\Operation\Windowable;
@@ -114,6 +115,7 @@ interface Collection extends
     Splitable,
     Tailable,
     Timesable,
+    Transposeable,
     Untilable,
     Walkable,
     Windowable,

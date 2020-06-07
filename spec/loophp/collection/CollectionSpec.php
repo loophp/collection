@@ -1276,6 +1276,60 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs([3 => 'd', 4 => 'a']);
     }
 
+    public function it_can_transpose(): void
+    {
+        $records = [
+            [
+                'id' => 2135,
+                'first_name' => 'John',
+                'last_name' => 'Doe',
+            ],
+            [
+                'id' => 3245,
+                'first_name' => 'Sally',
+                'last_name' => 'Smith',
+            ],
+            [
+                'id' => 5342,
+                'first_name' => 'Jane',
+                'last_name' => 'Jones',
+            ],
+            [
+                'id' => 5623,
+                'first_name' => 'Peter',
+                'last_name' => 'Doe',
+            ],
+        ];
+
+        $this
+            ->beConstructedThrough('with', [$records]);
+
+        $this
+            ->transpose()
+            ->shouldIterateAs(
+                [
+                    'id' => [
+                        0 => 2135,
+                        1 => 3245,
+                        2 => 5342,
+                        3 => 5623,
+                    ],
+                    'first_name' => [
+                        0 => 'John',
+                        1 => 'Sally',
+                        2 => 'Jane',
+                        3 => 'Peter',
+                    ],
+                    'last_name' => [
+                        0 => 'Doe',
+                        1 => 'Smith',
+                        2 => 'Jones',
+                        3 => 'Doe',
+                    ],
+                ]
+            );
+    }
+
     public function it_can_until(): void
     {
         $collatz = static function (int $initial = 1): int {

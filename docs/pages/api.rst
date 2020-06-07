@@ -710,6 +710,43 @@ Signature: ``Collection::tail(int $length = 1);``
     $collection = Collection::with(['a', 'b', 'c'])
         ->tail(2);
 
+transpose
+~~~~~~~~~
+
+Matrix transposition.
+
+Interface: `Transposeable`_
+
+Signature: ``Collection::transpose();``
+
+.. code-block:: php
+
+    $records = [
+        [
+            'id' => 2135,
+            'first_name' => 'John',
+            'last_name' => 'Doe',
+        ],
+        [
+            'id' => 3245,
+            'first_name' => 'Sally',
+            'last_name' => 'Smith',
+        ],
+        [
+            'id' => 5342,
+            'first_name' => 'Jane',
+            'last_name' => 'Jones',
+        ],
+        [
+            'id' => 5623,
+            'first_name' => 'Peter',
+            'last_name' => 'Doe',
+        ],
+    ];
+
+    $result = Collection::with($records)
+        ->transpose();
+
 until
 ~~~~~
 
@@ -827,6 +864,7 @@ Work in progress... sorry.
 .. _Sortable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Sortable.php
 .. _Splitable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Splitable.php
 .. _Tailable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Tailable.php
+.. _Transposeable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Transposeable.php
 .. _Untilable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Untilable.php
 .. _Walkable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Walkable.php
 .. _Windowable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Windowable.php
