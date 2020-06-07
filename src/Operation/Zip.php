@@ -8,7 +8,6 @@ use Closure;
 use Generator;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Iterator\IterableIterator;
-use loophp\collection\Transformation\Run;
 use MultipleIterator;
 
 /**
@@ -39,18 +38,11 @@ final class Zip implements Operation
         $iterables = $this->iterables;
 
         return static function (iterable $collection) use ($iterables): Generator {
-            $items = (
-                new Run(
-                    (new Walk(
-                        static function (iterable $iterable): IterableIterator {
-                            return new IterableIterator($iterable);
-                        }
-                    ))
-                ))(array_merge([$collection], $iterables));
             $mit = new MultipleIterator(MultipleIterator::MIT_NEED_ANY);
+            $mit->attachIterator(new IterableIterator($collection));
 
-            foreach (new IterableIterator($items) as $iterator) {
-                $mit->attachIterator($iterator);
+            foreach ($iterables as $iterator) {
+                $mit->attachIterator(new IterableIterator($iterator));
             }
 
             foreach ($mit as $values) {
