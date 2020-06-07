@@ -155,6 +155,43 @@ Signature: ``Collection::collapse();``
 
     $collection->collapse();
 
+column
+~~~~~~
+
+Return the values from a single column in the input iterables.
+
+Interface: `Columnable`_
+
+Signature: ``Collection::column($index);``
+
+.. code-block:: php
+
+    $records = [
+        [
+            'id' => 2135,
+            'first_name' => 'John',
+            'last_name' => 'Doe',
+        ],
+        [
+            'id' => 3245,
+            'first_name' => 'Sally',
+            'last_name' => 'Smith',
+        ],
+        [
+            'id' => 5342,
+            'first_name' => 'Jane',
+            'last_name' => 'Jones',
+        ],
+        [
+            'id' => 5623,
+            'first_name' => 'Peter',
+            'last_name' => 'Doe',
+        ],
+    ];
+
+    $result = Collection::with($records)
+        ->column('first_name');
+
 combinate
 ~~~~~~~~~
 
@@ -757,6 +794,7 @@ Work in progress... sorry.
 .. _Applyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Applyable.php
 .. _Chunkable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Chunkable.php
 .. _Collapseable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Collapseable.php
+.. _Columnable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Columnable.php
 .. _Combinateable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Combinateable.php
 .. _Combineable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Combineable.php
 .. _Cycleable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Cycleable.php

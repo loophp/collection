@@ -8,6 +8,7 @@ use loophp\collection\Contract\Operation\Appendable;
 use loophp\collection\Contract\Operation\Applyable;
 use loophp\collection\Contract\Operation\Chunkable;
 use loophp\collection\Contract\Operation\Collapseable;
+use loophp\collection\Contract\Operation\Columnable;
 use loophp\collection\Contract\Operation\Combinateable;
 use loophp\collection\Contract\Operation\Combineable;
 use loophp\collection\Contract\Operation\Cycleable;
@@ -68,6 +69,7 @@ interface Collection extends
     Base,
     Chunkable,
     Collapseable,
+    Columnable,
     Combinateable,
     Combineable,
     Containsable,

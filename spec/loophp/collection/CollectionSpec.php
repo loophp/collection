@@ -227,6 +227,46 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs([]);
     }
 
+    public function it_can_column(): void
+    {
+        $records = [
+            [
+                'id' => 2135,
+                'first_name' => 'John',
+                'last_name' => 'Doe',
+            ],
+            [
+                'id' => 3245,
+                'first_name' => 'Sally',
+                'last_name' => 'Smith',
+            ],
+            [
+                'id' => 5342,
+                'first_name' => 'Jane',
+                'last_name' => 'Jones',
+            ],
+            [
+                'id' => 5623,
+                'first_name' => 'Peter',
+                'last_name' => 'Doe',
+            ],
+        ];
+
+        $this
+            ->beConstructedThrough('with', [$records]);
+
+        $this
+            ->column('first_name')
+            ->shouldIterateAs(
+                [
+                    0 => 'John',
+                    1 => 'Sally',
+                    2 => 'Jane',
+                    3 => 'Peter',
+                ]
+            );
+    }
+
     public function it_can_combinate(): void
     {
         $this::with(range('a', 'c'))

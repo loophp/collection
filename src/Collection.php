@@ -10,6 +10,7 @@ use loophp\collection\Operation\Append;
 use loophp\collection\Operation\Apply;
 use loophp\collection\Operation\Chunk;
 use loophp\collection\Operation\Collapse;
+use loophp\collection\Operation\Column;
 use loophp\collection\Operation\Combinate;
 use loophp\collection\Operation\Combine;
 use loophp\collection\Operation\Cycle;
@@ -106,6 +107,14 @@ final class Collection extends Base implements CollectionInterface
     public function collapse(): BaseInterface
     {
         return $this->run(new Collapse());
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function column($column): BaseInterface
+    {
+        return $this->run(new Column($column));
     }
 
     /**
