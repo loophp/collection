@@ -45,9 +45,7 @@ abstract class Base implements BaseInterface
                 break;
             case $data instanceof Closure:
                 $this->source = static function () use ($data, $parameters): Generator {
-                    return (static function (callable $data, array $parameters) {
-                        return $data(...$parameters);
-                    })($data, $parameters);
+                    yield from $data(...$parameters);
                 };
 
                 break;
