@@ -47,7 +47,9 @@ class ClosureIteratorSpec extends ObjectBehavior
             ->shouldReturn('foo');
 
         $this
-            ->next()
+            ->next();
+
+        $this
             ->current()
             ->shouldReturn(null);
 
@@ -67,7 +69,7 @@ class ClosureIteratorSpec extends ObjectBehavior
 
         $this
             ->next()
-            ->shouldReturn($this);
+            ->shouldBeNull();
 
         $this
             ->current()

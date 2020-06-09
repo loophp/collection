@@ -14,7 +14,7 @@ interface Transformable
     /**
      * @param \loophp\collection\Contract\Transformation ...$transformers
      *
-     * @return mixed
+     * @return \loophp\collection\Iterator\ClosureIterator|mixed
      */
     public function transform(Transformation ...$transformers);
 }

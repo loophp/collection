@@ -14,8 +14,10 @@ final class All implements Transformation
 {
     /**
      * {@inheritdoc}
+     *
+     * @return mixed[]
      */
-    public function __invoke(iterable $collection)
+    public function __invoke(iterable $collection): array
     {
         return iterator_to_array(new IterableIterator($collection));
     }

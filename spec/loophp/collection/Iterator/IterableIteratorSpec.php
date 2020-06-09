@@ -37,12 +37,16 @@ class IterableIteratorSpec extends ObjectBehavior
             ->shouldReturn('foo');
 
         $this
-            ->next()
+            ->next();
+
+        $this
             ->current()
             ->shouldReturn(null);
 
         $this
-            ->rewind()
+            ->rewind();
+
+        $this
             ->current()
             ->shouldReturn('foo');
     }
@@ -54,7 +58,7 @@ class IterableIteratorSpec extends ObjectBehavior
 
         $this
             ->next()
-            ->shouldReturn($this);
+            ->shouldBeNull();
 
         $this
             ->current()

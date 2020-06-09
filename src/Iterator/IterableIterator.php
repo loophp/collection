@@ -56,25 +56,21 @@ final class IterableIterator implements Iterator
     /**
      * {@inheritdoc}
      *
-     * @return \loophp\collection\Iterator\IterableIterator
+     * @return void
      */
     public function next()
     {
         $this->iterator->next();
-
-        return $this;
     }
 
     /**
      * {@inheritdoc}
      *
-     * @return \loophp\collection\Iterator\IterableIterator
+     * @return void
      */
     public function rewind()
     {
         $this->iterator->rewind();
-
-        return $this;
     }
 
     /**

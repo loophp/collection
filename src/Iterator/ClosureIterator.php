@@ -62,13 +62,11 @@ final class ClosureIterator implements Iterator
     /**
      * {@inheritdoc}
      *
-     * @return \loophp\collection\Iterator\ClosureIterator
+     * @return void
      */
     public function next()
     {
         $this->getGenerator()->next();
-
-        return $this;
     }
 
     /**
