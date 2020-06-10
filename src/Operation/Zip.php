@@ -23,7 +23,7 @@ final class Zip implements Operation
     /**
      * Zip constructor.
      *
-     * @param iterable ...$iterables
+     * @param iterable<mixed> ...$iterables
      */
     public function __construct(iterable ...$iterables)
     {

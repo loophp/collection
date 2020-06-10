@@ -17,14 +17,14 @@ use function count;
 final class Product implements Operation
 {
     /**
-     * @var iterable[]
+     * @var array<int, iterable<mixed>>
      */
     private $iterables;
 
     /**
      * Product constructor.
      *
-     * @param iterable ...$iterables
+     * @param iterable<mixed> ...$iterables
      */
     public function __construct(iterable ...$iterables)
     {

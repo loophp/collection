@@ -24,7 +24,7 @@ final class Window implements Operation
     /**
      * Window constructor.
      *
-     * @param array<int, int> $length
+     * @param int ...$length
      */
     public function __construct(int ...$length)
     {

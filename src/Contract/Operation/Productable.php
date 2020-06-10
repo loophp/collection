@@ -14,7 +14,7 @@ interface Productable
     /**
      * Get the the cartesian product of items of a collection.
      *
-     * @param iterable ...$iterables
+     * @param iterable<mixed> ...$iterables
      *
      * @return \loophp\collection\Base<mixed>|\loophp\collection\Contract\Collection<mixed>
      */

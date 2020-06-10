@@ -14,7 +14,7 @@ interface Chunkable
     /**
      * Chunk the collection into chunks of the given size.
      *
-     * @param array<int, int> $size
+     * @param int ...$size
      *
      * @return \loophp\collection\Base<mixed>|\loophp\collection\Contract\Collection<mixed>
      */

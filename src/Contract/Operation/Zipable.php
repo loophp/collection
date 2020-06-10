@@ -14,7 +14,7 @@ interface Zipable
     /**
      * Zip a collection together with one or more iterables.
      *
-     * @param iterable ...$iterables
+     * @param iterable<mixed> ...$iterables
      *
      * @return \loophp\collection\Base<mixed>|\loophp\collection\Contract\Collection<mixed>
      */

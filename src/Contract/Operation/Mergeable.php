@@ -14,7 +14,7 @@ interface Mergeable
     /**
      * Merge one or more collection of items onto a collection.
      *
-     * @param iterable ...$sources
+     * @param iterable<mixed> ...$sources
      *
      * @return \loophp\collection\Base<mixed>|\loophp\collection\Contract\Collection<mixed>
      */

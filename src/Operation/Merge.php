@@ -14,14 +14,14 @@ use loophp\collection\Contract\Operation;
 final class Merge implements Operation
 {
     /**
-     * @var iterable[]
+     * @var array<int, iterable<mixed>>
      */
     private $sources;
 
     /**
      * Merge constructor.
      *
-     * @param iterable ...$sources
+     * @param iterable<mixed> ...$sources
      */
     public function __construct(iterable ...$sources)
     {

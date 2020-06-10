@@ -25,7 +25,7 @@ final class Chunk implements Operation
     /**
      * Chunk constructor.
      *
-     * @param array<int, int> $size
+     * @param int ...$size
      */
     public function __construct(int ...$size)
     {
