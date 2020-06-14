@@ -24,7 +24,7 @@
         "infection/infection": ">= 0.15.3",
         "phpbench/phpbench": "^0.17.0",
         "phpspec/phpspec": "^6.1.1",
-        "phpstan/phpstan": "^0.12.28",
+        "phpstan/phpstan": "^0.12.29",
         "phpstan/phpstan-strict-rules": "^0.12",
         "vimeo/psalm": "^3.11.5"
     },
