@@ -52,13 +52,16 @@ use loophp\collection\Contract\Operation\Windowable;
 use loophp\collection\Contract\Operation\Zipable;
 use loophp\collection\Contract\Transformation\Allable;
 use loophp\collection\Contract\Transformation\Containsable;
+use loophp\collection\Contract\Transformation\Falsyable;
 use loophp\collection\Contract\Transformation\Firstable;
 use loophp\collection\Contract\Transformation\FoldLeftable;
 use loophp\collection\Contract\Transformation\FoldRightable;
 use loophp\collection\Contract\Transformation\Getable;
 use loophp\collection\Contract\Transformation\Implodeable;
 use loophp\collection\Contract\Transformation\Lastable;
+use loophp\collection\Contract\Transformation\Nullsyable;
 use loophp\collection\Contract\Transformation\Reduceable;
+use loophp\collection\Contract\Transformation\Truthyable;
 
 /**
  * Interface Collection.
@@ -77,6 +80,7 @@ interface Collection extends
     Cycleable,
     Distinctable,
     Explodeable,
+    Falsyable,
     Filterable,
     Firstable,
     Flattenable,
@@ -96,6 +100,7 @@ interface Collection extends
     Mergeable,
     Normalizeable,
     Nthable,
+    Nullsyable,
     Onlyable,
     Padable,
     Permutateable,
@@ -116,6 +121,7 @@ interface Collection extends
     Tailable,
     Timesable,
     Transposeable,
+    Truthyable,
     Untilable,
     Walkable,
     Windowable,

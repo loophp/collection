@@ -54,20 +54,20 @@ use loophp\collection\Operation\Zip;
 use loophp\collection\Transformation\All;
 use loophp\collection\Transformation\Contains;
 use loophp\collection\Transformation\Count;
+use loophp\collection\Transformation\Falsy;
 use loophp\collection\Transformation\First;
 use loophp\collection\Transformation\FoldLeft;
 use loophp\collection\Transformation\FoldRight;
 use loophp\collection\Transformation\Get;
 use loophp\collection\Transformation\Implode;
 use loophp\collection\Transformation\Last;
+use loophp\collection\Transformation\Nullsy;
 use loophp\collection\Transformation\Reduce;
+use loophp\collection\Transformation\Truthy;
 
 use const INF;
 use const PHP_INT_MAX;
 
-/**
- * Class Collection.
- */
 final class Collection extends Base implements CollectionInterface
 {
     /**
@@ -180,6 +180,14 @@ final class Collection extends Base implements CollectionInterface
     public function explode(...$explodes): BaseInterface
     {
         return $this->run(new Explode(...$explodes));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function falsy(): bool
+    {
+        return $this->transform(new Falsy());
     }
 
     /**
@@ -332,6 +340,14 @@ final class Collection extends Base implements CollectionInterface
     public function nth(int $step, int $offset = 0): BaseInterface
     {
         return $this->run(new Nth($step, $offset));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function nullsy(): bool
+    {
+        return $this->transform(new Nullsy());
     }
 
     /**
@@ -497,6 +513,14 @@ final class Collection extends Base implements CollectionInterface
     public function transpose(): BaseInterface
     {
         return $this->run(new Transpose());
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function truthy(): bool
+    {
+        return $this->transform(new Truthy());
     }
 
     /**

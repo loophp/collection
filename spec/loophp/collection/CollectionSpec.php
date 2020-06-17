@@ -474,6 +474,20 @@ class CollectionSpec extends ObjectBehavior
             );
     }
 
+    public function it_can_falsy(): void
+    {
+        $this
+            ->beConstructedThrough('with', [[false, false, false]]);
+
+        $this
+            ->falsy()
+            ->shouldReturn(true);
+
+        $this::with([false, true, false])
+            ->falsy()
+            ->shouldReturn(false);
+    }
+
     public function it_can_filter(): void
     {
         $input = array_merge([0, false], range(1, 10));
@@ -903,6 +917,20 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs([3 => 3, 10 => 10, 17 => 17, 24 => 24, 31 => 31, 38 => 38, 45 => 45, 52 => 52, 59 => 59, 66 => 66]);
     }
 
+    public function it_can_nullsy(): void
+    {
+        $this
+            ->beConstructedThrough('with', [[null, null, null]]);
+
+        $this
+            ->nullsy()
+            ->shouldReturn(true);
+
+        $this::with([null, 0, null])
+            ->nullsy()
+            ->shouldReturn(false);
+    }
+
     public function it_can_pad(): void
     {
         $input = array_combine(range('A', 'E'), range('A', 'E'));
@@ -1328,6 +1356,20 @@ class CollectionSpec extends ObjectBehavior
                     ],
                 ]
             );
+    }
+
+    public function it_can_truthy(): void
+    {
+        $this
+            ->beConstructedThrough('with', [[true, true, true]]);
+
+        $this
+            ->truthy()
+            ->shouldReturn(true);
+
+        $this::with([true, false, true])
+            ->truthy()
+            ->shouldReturn(false);
     }
 
     public function it_can_until(): void
