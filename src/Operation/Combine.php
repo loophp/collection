@@ -53,10 +53,7 @@ final class Combine implements Operation
                 $keysIterator->next();
             }
 
-            $predicate1 = (true === $original->valid() && false === $keysIterator->valid());
-            $predicate2 = (false === $original->valid() && true === $keysIterator->valid());
-
-            if ($predicate1 || $predicate2) {
+            if ($original->valid() !== $keysIterator->valid()) {
                 trigger_error('Both keys and values must have the same amount of items.', E_USER_WARNING);
             }
         };
