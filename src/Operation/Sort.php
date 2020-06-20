@@ -13,9 +13,7 @@ final class Sort extends AbstractOperation implements Operation
 {
     public function __construct(?callable $callback = null)
     {
-        $this->storage['callback'] = $callback ?? static function ($left, $right): int {
-            return $left <=> $right;
-        };
+        $this->storage['callback'] = $callback ?? Closure::fromCallable([$this, 'compare']);
     }
 
     /**
@@ -26,5 +24,15 @@ final class Sort extends AbstractOperation implements Operation
         return static function (iterable $collection, callable $callback): Generator {
             yield from new SortableIterableIterator($collection, $callback);
         };
+    }
+
+    /**
+     * @param mixed $left
+     * @param mixed $right
+     *
+     * @return int
+     */
+    private function compare($left, $right): int {
+        return $left <=> $right;
     }
 }
