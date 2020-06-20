@@ -32,7 +32,8 @@ final class Sort extends AbstractOperation implements Operation
      *
      * @return int
      */
-    private function compare($left, $right): int {
+    private function compare($left, $right): int
+    {
         return $left <=> $right;
     }
 }

@@ -41,15 +41,17 @@ final class Chunk extends AbstractOperation implements Operation
                     return yield from [];
                 }
 
-                if (count($values) === $sizes->current()) {
-                    $sizes->next();
-
-                    yield $values;
-
-                    $values = [$value];
-                } else {
+                if (count($values) !== $sizes->current()) {
                     $values[] = $value;
+
+                    continue;
                 }
+
+                $sizes->next();
+
+                yield $values;
+
+                $values = [$value];
             }
 
             yield $values;
