@@ -10,38 +10,15 @@ use loophp\collection\Contract\Operation;
 
 use const INF;
 
-/**
- * Class Range.
- */
-final class Range implements Operation
+final class Range extends AbstractOperation implements Operation
 {
-    /**
-     * @var float
-     */
-    private $end;
-
-    /**
-     * @var float
-     */
-    private $start;
-
-    /**
-     * @var float
-     */
-    private $step;
-
-    /**
-     * Range constructor.
-     *
-     * @param float $start
-     * @param float $end
-     * @param float $step
-     */
     public function __construct(float $start = 0.0, float $end = INF, float $step = 1.0)
     {
-        $this->start = $start;
-        $this->end = $end;
-        $this->step = $step;
+        $this->storage = [
+            'start' => $start,
+            'end' => $end,
+            'step' => $step,
+        ];
     }
 
     /**
@@ -49,11 +26,7 @@ final class Range implements Operation
      */
     public function __invoke(): Closure
     {
-        $start = $this->start;
-        $end = $this->end;
-        $step = $this->step;
-
-        return static function () use ($start, $end, $step): Generator {
+        return static function (iterable $collection, float $start, float $end, float $step): Generator {
             for ($current = $start; $current < $end; $current += $step) {
                 yield $current;
             }

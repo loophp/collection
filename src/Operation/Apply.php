@@ -8,16 +8,8 @@ use Closure;
 use Generator;
 use loophp\collection\Contract\Operation;
 
-/**
- * Class Apply.
- */
-final class Apply implements Operation
+final class Apply extends AbstractOperation implements Operation
 {
-    /**
-     * @var callable[]
-     */
-    private $callbacks;
-
     /**
      * Apply constructor.
      *
@@ -25,7 +17,7 @@ final class Apply implements Operation
      */
     public function __construct(callable ...$callbacks)
     {
-        $this->callbacks = $callbacks;
+        $this->storage['callbacks'] = $callbacks;
     }
 
     /**
@@ -33,9 +25,7 @@ final class Apply implements Operation
      */
     public function __invoke(): Closure
     {
-        $callbacks = $this->callbacks;
-
-        return static function (iterable $collection) use ($callbacks): Generator {
+        return static function (iterable $collection, array $callbacks): Generator {
             foreach ($collection as $key => $value) {
                 foreach ($callbacks as $callback) {
                     if (true === $callback($value, $key)) {

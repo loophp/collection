@@ -8,10 +8,7 @@ use Closure;
 use Generator;
 use loophp\collection\Contract\Operation;
 
-/**
- * Class Flip.
- */
-final class Flip implements Operation
+final class Flip extends AbstractOperation implements Operation
 {
     /**
      * {@inheritdoc}

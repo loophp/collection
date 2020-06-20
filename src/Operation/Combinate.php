@@ -13,24 +13,16 @@ use loophp\collection\Transformation\Count;
 use function array_slice;
 use function count;
 
-/**
- * Class Combinate.
- */
-final class Combinate implements Operation
+final class Combinate extends AbstractOperation implements Operation
 {
-    /**
-     * @var int|null
-     */
-    private $length;
-
-    /**
-     * Combinate constructor.
-     *
-     * @param int $length
-     */
     public function __construct(?int $length = null)
     {
-        $this->length = $length;
+        $this->storage = [
+            'length' => $length,
+            'getCombinations' => function (array $dataset, int $length): Generator {
+                return $this->getCombinations($dataset, $length);
+            },
+        ];
     }
 
     /**
@@ -38,18 +30,11 @@ final class Combinate implements Operation
      */
     public function __invoke(): Closure
     {
-        $length = $this->length;
-
-        $getCombinations = function (array $dataset, int $length): Generator {
-            return $this->getCombinations($dataset, $length);
-        };
-
-        return static function (iterable $collection) use ($length, $getCombinations): Generator {
+        return static function (iterable $collection, ?int $length, callable $getCombinations): Generator {
             $dataset = (new All())($collection);
 
             if (0 < $length) {
                 // TODO: Investigate why it's calling issues with PHPStan.
-                /** @phpstan-ignore-next-line */
                 return yield from $getCombinations($dataset, $length);
             }
 

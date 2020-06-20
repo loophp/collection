@@ -9,16 +9,8 @@ use Generator;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Transformation\Run;
 
-/**
- * Class Explode.
- */
-final class Explode implements Operation
+final class Explode extends AbstractOperation implements Operation
 {
-    /**
-     * @var array<float|int|string>
-     */
-    private $explodes;
-
     /**
      * Explode constructor.
      *
@@ -26,7 +18,7 @@ final class Explode implements Operation
      */
     public function __construct(...$explodes)
     {
-        $this->explodes = $explodes;
+        $this->storage['explodes'] = $explodes;
     }
 
     /**
@@ -34,9 +26,7 @@ final class Explode implements Operation
      */
     public function __invoke(): Closure
     {
-        $explodes = $this->explodes;
-
-        return static function (iterable $collection) use ($explodes): Generator {
+        return static function (iterable $collection, array $explodes): Generator {
             yield from (new Run(
                 new Split(
                     ...array_map(

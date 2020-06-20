@@ -12,6 +12,7 @@ use InvalidArgumentException;
 use Iterator;
 use loophp\collection\Collection;
 use loophp\collection\Contract\Operation;
+use loophp\collection\Operation\AbstractOperation;
 use OutOfRangeException;
 use PhpSpec\ObjectBehavior;
 use stdClass;
@@ -1130,7 +1131,7 @@ class CollectionSpec extends ObjectBehavior
 
     public function it_can_run_an_operation(Operation $operation): void
     {
-        $square = new class() implements Operation {
+        $square = new class() extends AbstractOperation implements Operation {
             public function __invoke(): Closure
             {
                 return static function ($collection): Generator {
@@ -1141,7 +1142,7 @@ class CollectionSpec extends ObjectBehavior
             }
         };
 
-        $sqrt = new class() implements Operation {
+        $sqrt = new class() extends AbstractOperation implements Operation {
             public function __invoke(): Closure
             {
                 return static function ($collection) {
@@ -1152,7 +1153,7 @@ class CollectionSpec extends ObjectBehavior
             }
         };
 
-        $map = new class() implements Operation {
+        $map = new class() extends AbstractOperation implements Operation {
             public function __invoke(): Closure
             {
                 return static function ($collection) {

@@ -9,24 +9,11 @@ use Generator;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Transformation\Run;
 
-/**
- * Class RSample.
- */
-final class RSample implements Operation
+final class RSample extends AbstractOperation implements Operation
 {
-    /**
-     * @var float
-     */
-    private $probability;
-
-    /**
-     * RSample constructor.
-     *
-     * @param float $probability
-     */
     public function __construct(float $probability)
     {
-        $this->probability = $probability;
+        $this->storage['probability'] = $probability;
     }
 
     /**
@@ -34,9 +21,7 @@ final class RSample implements Operation
      */
     public function __invoke(): Closure
     {
-        $probability = $this->probability;
-
-        return static function (iterable $collection) use ($probability): Generator {
+        return static function (iterable $collection, float $probability): Generator {
             yield from (new Run(
                 new Filter(
                     static function () use ($probability): bool {

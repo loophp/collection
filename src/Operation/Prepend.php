@@ -8,16 +8,8 @@ use Closure;
 use Generator;
 use loophp\collection\Contract\Operation;
 
-/**
- * Class Prepend.
- */
-final class Prepend implements Operation
+final class Prepend extends AbstractOperation implements Operation
 {
-    /**
-     * @var array<mixed, mixed>
-     */
-    private $items;
-
     /**
      * Prepend constructor.
      *
@@ -25,7 +17,7 @@ final class Prepend implements Operation
      */
     public function __construct(...$items)
     {
-        $this->items = $items;
+        $this->storage['items'] = $items;
     }
 
     /**
@@ -33,9 +25,7 @@ final class Prepend implements Operation
      */
     public function __invoke(): Closure
     {
-        $items = $this->items;
-
-        return static function (iterable $collection) use ($items): Generator {
+        return static function (iterable $collection, array $items): Generator {
             foreach ($items as $item) {
                 yield $item;
             }

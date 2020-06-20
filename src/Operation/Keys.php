@@ -8,10 +8,7 @@ use Closure;
 use Generator;
 use loophp\collection\Contract\Operation;
 
-/**
- * Class Keys.
- */
-final class Keys implements Operation
+final class Keys extends AbstractOperation implements Operation
 {
     /**
      * {@inheritdoc}

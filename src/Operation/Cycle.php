@@ -11,24 +11,11 @@ use LimitIterator;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Iterator\IterableIterator;
 
-/**
- * Class Cycle.
- */
-final class Cycle implements Operation
+final class Cycle extends AbstractOperation implements Operation
 {
-    /**
-     * @var int
-     */
-    private $length;
-
-    /**
-     * Cycle constructor.
-     *
-     * @param int $length
-     */
     public function __construct(int $length = 0)
     {
-        $this->length = $length;
+        $this->storage['length'] = $length;
     }
 
     /**
@@ -36,9 +23,7 @@ final class Cycle implements Operation
      */
     public function __invoke(): Closure
     {
-        $length = $this->length;
-
-        return static function (iterable $collection) use ($length): Generator {
+        return static function (iterable $collection, int $length): Generator {
             $iterator = new LimitIterator(
                 new InfiniteIterator(
                     new IterableIterator($collection)

@@ -10,10 +10,7 @@ use InfiniteIterator;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Iterator\IterableIterator;
 
-/**
- * Class Loop.
- */
-final class Loop implements Operation
+final class Loop extends AbstractOperation implements Operation
 {
     /**
      * {@inheritdoc}

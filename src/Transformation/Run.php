@@ -36,7 +36,7 @@ final class Run implements Transformation
         return (
             new FoldLeft(
                 static function (iterable $collection, Operation $operation): ClosureIterator {
-                    return new ClosureIterator($operation(), $collection);
+                    return new ClosureIterator($operation(), $collection, ...array_values($operation->getArguments()));
                 },
                 $collection
             )

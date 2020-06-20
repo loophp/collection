@@ -12,19 +12,8 @@ use loophp\collection\Iterator\IterableIterator;
 
 use const E_USER_WARNING;
 
-/**
- * Class Combine.
- *
- * @template TKey
- * @template TValue
- */
-final class Combine implements Operation
+final class Combine extends AbstractOperation implements Operation
 {
-    /**
-     * @var array<array<TKey, TValue>>
-     */
-    private $keys;
-
     /**
      * Combine constructor.
      *
@@ -32,7 +21,7 @@ final class Combine implements Operation
      */
     public function __construct(...$keys)
     {
-        $this->keys = $keys;
+        $this->storage['keys'] = $keys;
     }
 
     /**
@@ -40,9 +29,7 @@ final class Combine implements Operation
      */
     public function __invoke(): Closure
     {
-        $keys = $this->keys;
-
-        return static function (iterable $collection) use ($keys): Generator {
+        return static function (iterable $collection, array $keys): Generator {
             $original = new IterableIterator($collection);
             $keysIterator = new ArrayIterator($keys);
 

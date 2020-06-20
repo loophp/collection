@@ -11,24 +11,11 @@ use loophp\collection\Contract\Operation;
 use loophp\collection\Iterator\IterableIterator;
 use loophp\collection\Transformation\Run;
 
-/**
- * Class Window.
- */
-final class Window implements Operation
+final class Window extends AbstractOperation implements Operation
 {
-    /**
-     * @var array<int, int>
-     */
-    private $length;
-
-    /**
-     * Window constructor.
-     *
-     * @param int ...$length
-     */
     public function __construct(int ...$length)
     {
-        $this->length = $length;
+        $this->storage['length'] = $length;
     }
 
     /**
@@ -36,9 +23,7 @@ final class Window implements Operation
      */
     public function __invoke(): Closure
     {
-        $length = $this->length;
-
-        return static function (iterable $collection) use ($length): Generator {
+        return static function (iterable $collection, array $length): Generator {
             $i = 0;
 
             $length = new IterableIterator((new Collection($length))->loop());

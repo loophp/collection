@@ -10,10 +10,7 @@ use loophp\collection\Contract\Operation;
 
 use function in_array;
 
-/**
- * Class Distinct.
- */
-final class Distinct implements Operation
+final class Distinct extends AbstractOperation implements Operation
 {
     /**
      * {@inheritdoc}

@@ -9,10 +9,7 @@ use Generator;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Transformation\All;
 
-/**
- * Class Reverse.
- */
-final class Reverse implements Operation
+final class Reverse extends AbstractOperation implements Operation
 {
     /**
      * {@inheritdoc}

@@ -10,16 +10,8 @@ use loophp\collection\Contract\Operation;
 
 use function array_key_exists;
 
-/**
- * Class Forget.
- */
-final class Forget implements Operation
+final class Forget extends AbstractOperation implements Operation
 {
-    /**
-     * @var array|mixed[]
-     */
-    private $keys;
-
     /**
      * Forget constructor.
      *
@@ -27,7 +19,7 @@ final class Forget implements Operation
      */
     public function __construct(...$keys)
     {
-        $this->keys = $keys;
+        $this->storage['keys'] = $keys;
     }
 
     /**
@@ -35,9 +27,7 @@ final class Forget implements Operation
      */
     public function __invoke(): Closure
     {
-        $keys = $this->keys;
-
-        return static function (iterable $collection) use ($keys): Generator {
+        return static function (iterable $collection, array $keys): Generator {
             $keys = array_flip($keys);
 
             foreach ($collection as $key => $value) {

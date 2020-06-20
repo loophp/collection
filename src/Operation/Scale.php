@@ -14,18 +14,8 @@ use const INF;
 /**
  * Class Scale.
  */
-final class Scale implements Operation
+final class Scale extends AbstractOperation implements Operation
 {
-    /**
-     * @var \loophp\collection\Operation\Filter
-     */
-    private $filter;
-
-    /**
-     * @var \loophp\collection\Operation\Walk
-     */
-    private $mapper;
-
     /**
      * Scale constructor.
      *
@@ -50,7 +40,7 @@ final class Scale implements Operation
             $wantedUpperBound = $wantedUpperBound ?? $base;
         }
 
-        $this->mapper = new Walk(
+        $this->storage['mapper'] = new Walk(
             /**
              * @param float|int $v
              */
@@ -69,7 +59,7 @@ final class Scale implements Operation
             }
         );
 
-        $this->filter = new Filter(
+        $this->storage['filter'] = new Filter(
             /**
              * @param float|int $item
              */
@@ -90,10 +80,7 @@ final class Scale implements Operation
      */
     public function __invoke(): Closure
     {
-        $mapper = $this->mapper;
-        $filter = $this->filter;
-
-        return static function (iterable $collection) use ($mapper, $filter): ClosureIterator {
+        return static function (iterable $collection, Walk $mapper, Filter $filter): ClosureIterator {
             return (new Run($filter, $mapper))($collection);
         };
     }

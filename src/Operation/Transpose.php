@@ -10,10 +10,7 @@ use loophp\collection\Contract\Operation;
 use loophp\collection\Iterator\IterableIterator;
 use MultipleIterator;
 
-/**
- * Class Transpose.
- */
-final class Transpose implements Operation
+final class Transpose extends AbstractOperation implements Operation
 {
     /**
      * {@inheritdoc}

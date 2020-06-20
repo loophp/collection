@@ -9,21 +9,8 @@ use Generator;
 use InvalidArgumentException;
 use loophp\collection\Contract\Operation;
 
-/**
- * Class Times.
- */
-final class Times implements Operation
+final class Times extends AbstractOperation implements Operation
 {
-    /**
-     * @var callable
-     */
-    private $callback;
-
-    /**
-     * @var float|int
-     */
-    private $number;
-
     /**
      * Times constructor.
      *
@@ -36,11 +23,12 @@ final class Times implements Operation
             throw new InvalidArgumentException('Invalid parameter. $number must be greater than 1.');
         }
 
-        $this->number = $number;
-
-        $this->callback = $callback ?? static function (int $value): int {
-            return $value;
-        };
+        $this->storage = [
+            'number' => $number,
+            'callback' => $callback ?? static function (int $value): int {
+                return $value;
+            },
+        ];
     }
 
     /**
@@ -48,13 +36,16 @@ final class Times implements Operation
      */
     public function __invoke(): Closure
     {
-        $number = $this->number;
-        $callback = $this->callback;
-
-        return static function () use ($number, $callback): Generator {
-            for ($current = 1; $current <= $number; ++$current) {
-                yield $callback($current);
-            }
-        };
+        return
+            /**
+             * @param iterable $collection
+             * @param float|int $number
+             * @param callable $callback
+             */
+            static function (iterable $collection, $number, callable $callback): Generator {
+                for ($current = 1; $current <= $number; ++$current) {
+                    yield $callback($current);
+                }
+            };
     }
 }

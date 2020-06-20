@@ -16,23 +16,8 @@ use loophp\collection\Contract\Operation;
  * Insert a given value between each element of a collection.
  * Indices are not preserved.
  */
-final class Intersperse implements Operation
+final class Intersperse extends AbstractOperation implements Operation
 {
-    /**
-     * @var int
-     */
-    private $atEvery;
-
-    /**
-     * @var mixed
-     */
-    private $element;
-
-    /**
-     * @var int
-     */
-    private $startAt;
-
     /**
      * Intersperse constructor.
      *
@@ -42,9 +27,11 @@ final class Intersperse implements Operation
      */
     public function __construct($element, int $atEvery = 1, int $startAt = 0)
     {
-        $this->element = $element;
-        $this->atEvery = $atEvery;
-        $this->startAt = $startAt;
+        $this->storage = [
+            'element' => $element,
+            'atEvery' => $atEvery,
+            'startAt' => $startAt,
+        ];
     }
 
     /**
@@ -52,9 +39,8 @@ final class Intersperse implements Operation
      */
     public function __invoke(): Closure
     {
-        $element = $this->element;
-        $every = $this->atEvery;
-        $startAt = $this->startAt;
+        $every = $this->get('atEvery');
+        $startAt = $this->get('startAt');
 
         if (0 > $every) {
             throw new InvalidArgumentException('The second parameter must be a positive integer.');
@@ -64,14 +50,21 @@ final class Intersperse implements Operation
             throw new InvalidArgumentException('The third parameter must be a positive integer.');
         }
 
-        return static function (iterable $collection) use ($element, $every, $startAt): Generator {
-            foreach ($collection as $value) {
-                if (0 === $startAt++ % $every) {
-                    yield $element;
-                }
+        return
+            /**
+             * @param mixed $element
+             * @param iterable $collection
+             * @param int $every
+             * @param int $startAt
+             */
+            static function (iterable $collection, $element, int $every, int $startAt): Generator {
+                foreach ($collection as $value) {
+                    if (0 === $startAt++ % $every) {
+                        yield $element;
+                    }
 
-                yield $value;
-            }
-        };
+                    yield $value;
+                }
+            };
     }
 }

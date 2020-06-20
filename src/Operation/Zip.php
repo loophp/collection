@@ -10,16 +10,8 @@ use loophp\collection\Contract\Operation;
 use loophp\collection\Iterator\IterableIterator;
 use MultipleIterator;
 
-/**
- * Class Zip.
- */
-final class Zip implements Operation
+final class Zip extends AbstractOperation implements Operation
 {
-    /**
-     * @var iterable[]
-     */
-    private $iterables;
-
     /**
      * Zip constructor.
      *
@@ -27,7 +19,7 @@ final class Zip implements Operation
      */
     public function __construct(iterable ...$iterables)
     {
-        $this->iterables = $iterables;
+        $this->storage['iterables'] = $iterables;
     }
 
     /**
@@ -35,9 +27,7 @@ final class Zip implements Operation
      */
     public function __invoke(): Closure
     {
-        $iterables = $this->iterables;
-
-        return static function (iterable $collection) use ($iterables): Generator {
+        return static function (iterable $collection, array $iterables): Generator {
             $mit = new MultipleIterator(MultipleIterator::MIT_NEED_ANY);
             $mit->attachIterator(new IterableIterator($collection));
 

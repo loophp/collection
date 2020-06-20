@@ -8,24 +8,11 @@ use Closure;
 use Generator;
 use loophp\collection\Contract\Operation;
 
-/**
- * Class Skip.
- */
-final class Skip implements Operation
+final class Skip extends AbstractOperation implements Operation
 {
-    /**
-     * @var int[]
-     */
-    private $skip;
-
-    /**
-     * Skip constructor.
-     *
-     * @param int ...$skip
-     */
     public function __construct(int ...$skip)
     {
-        $this->skip = $skip;
+        $this->storage['skip'] = $skip;
     }
 
     /**
@@ -33,9 +20,7 @@ final class Skip implements Operation
      */
     public function __invoke(): Closure
     {
-        $skip = $this->skip;
-
-        return static function (iterable $collection) use ($skip): Generator {
+        return static function (iterable $collection, array $skip): Generator {
             $skip = array_sum($skip);
 
             foreach ($collection as $key => $value) {

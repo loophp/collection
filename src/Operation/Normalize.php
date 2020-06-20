@@ -8,10 +8,7 @@ use Closure;
 use Generator;
 use loophp\collection\Contract\Operation;
 
-/**
- * Class Normalize.
- */
-final class Normalize implements Operation
+final class Normalize extends AbstractOperation implements Operation
 {
     /**
      * {@inheritdoc}

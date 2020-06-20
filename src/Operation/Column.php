@@ -9,16 +9,8 @@ use Generator;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Transformation\Run;
 
-/**
- * Class Column.
- */
-final class Column implements Operation
+final class Column extends AbstractOperation implements Operation
 {
-    /**
-     * @var int|string
-     */
-    private $column;
-
     /**
      * Column constructor.
      *
@@ -26,7 +18,7 @@ final class Column implements Operation
      */
     public function __construct($column)
     {
-        $this->column = $column;
+        $this->storage['column'] = $column;
     }
 
     /**
@@ -34,14 +26,17 @@ final class Column implements Operation
      */
     public function __invoke(): Closure
     {
-        $column = $this->column;
-
-        return static function (iterable $collection) use ($column): Generator {
-            foreach ((new Run((new Transpose())))($collection) as $key => $value) {
-                if ($key === $column) {
-                    return yield from $value;
+        return
+            /**
+             * @param int|string $column
+             * @param iterable $collection
+             */
+            static function (iterable $collection, $column): Generator {
+                foreach ((new Run((new Transpose())))($collection) as $key => $value) {
+                    if ($key === $column) {
+                        return yield from $value;
+                    }
                 }
-            }
-        };
+            };
     }
 }

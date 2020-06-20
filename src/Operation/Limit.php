@@ -10,31 +10,14 @@ use LimitIterator;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Iterator\IterableIterator;
 
-/**
- * Class Limit.
- */
-final class Limit implements Operation
+final class Limit extends AbstractOperation implements Operation
 {
-    /**
-     * @var int
-     */
-    private $limit;
-
-    /**
-     * @var int
-     */
-    private $offset;
-
-    /**
-     * Limit constructor.
-     *
-     * @param int $limit
-     * @param int $offset
-     */
     public function __construct(int $limit, int $offset = 0)
     {
-        $this->limit = $limit;
-        $this->offset = $offset;
+        $this->storage = [
+            'limit' => $limit,
+            'offset' => $offset,
+        ];
     }
 
     /**
@@ -42,10 +25,7 @@ final class Limit implements Operation
      */
     public function __invoke(): Closure
     {
-        $limit = $this->limit;
-        $offset = $this->offset;
-
-        return static function (iterable $collection) use ($offset, $limit): Generator {
+        return static function (iterable $collection, int $limit, int $offset): Generator {
             yield from new LimitIterator(new IterableIterator($collection), $offset, $limit);
         };
     }

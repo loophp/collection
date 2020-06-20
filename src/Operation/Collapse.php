@@ -8,10 +8,7 @@ use Closure;
 use Generator;
 use loophp\collection\Contract\Operation;
 
-/**
- * Class Collapse.
- */
-final class Collapse implements Operation
+final class Collapse extends AbstractOperation implements Operation
 {
     /**
      * {@inheritdoc}

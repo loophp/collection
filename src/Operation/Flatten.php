@@ -9,24 +9,11 @@ use Generator;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Transformation\Run;
 
-/**
- * Class Flatten.
- */
-final class Flatten implements Operation
+final class Flatten extends AbstractOperation implements Operation
 {
-    /**
-     * @var int
-     */
-    private $depth;
-
-    /**
-     * Flatten constructor.
-     *
-     * @param int $depth
-     */
     public function __construct(int $depth)
     {
-        $this->depth = $depth;
+        $this->storage['depth'] = $depth;
     }
 
     /**
@@ -34,9 +21,7 @@ final class Flatten implements Operation
      */
     public function __invoke(): Closure
     {
-        $depth = $this->depth;
-
-        return static function (iterable $collection) use ($depth): Generator {
+        return static function (iterable $collection, int $depth): Generator {
             foreach ($collection as $value) {
                 if (false === is_iterable($value)) {
                     yield $value;

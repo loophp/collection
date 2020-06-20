@@ -14,13 +14,8 @@ use function count;
 /**
  * Class Product.
  */
-final class Product implements Operation
+final class Product extends AbstractOperation implements Operation
 {
-    /**
-     * @var array<int, iterable<mixed>>
-     */
-    private $iterables;
-
     /**
      * Product constructor.
      *
@@ -28,7 +23,12 @@ final class Product implements Operation
      */
     public function __construct(iterable ...$iterables)
     {
-        $this->iterables = $iterables;
+        $this->storage = [
+            'iterables' => $iterables,
+            'cartesian' => function (array $input): Generator {
+                return $this->cartesian($input);
+            },
+        ];
     }
 
     /**
@@ -36,13 +36,7 @@ final class Product implements Operation
      */
     public function __invoke(): Closure
     {
-        $iterables = $this->iterables;
-
-        $cartesian = function (array $input): Generator {
-            return $this->cartesian($input);
-        };
-
-        return static function (iterable $collection) use ($iterables, $cartesian): Generator {
+        return static function (iterable $collection, array $iterables, callable $cartesian): Generator {
             $its = [$collection];
 
             foreach ($iterables as $iterable) {

@@ -8,21 +8,8 @@ use Closure;
 use Generator;
 use loophp\collection\Contract\Operation;
 
-/**
- * Class Pad.
- */
-final class Pad implements Operation
+final class Pad extends AbstractOperation implements Operation
 {
-    /**
-     * @var int
-     */
-    private $size;
-
-    /**
-     * @var mixed
-     */
-    private $value;
-
     /**
      * Pad constructor.
      *
@@ -31,8 +18,10 @@ final class Pad implements Operation
      */
     public function __construct(int $size, $value)
     {
-        $this->size = $size;
-        $this->value = $value;
+        $this->storage = [
+            'size' => $size,
+            'value' => $value,
+        ];
     }
 
     /**
@@ -40,21 +29,24 @@ final class Pad implements Operation
      */
     public function __invoke(): Closure
     {
-        $size = $this->size;
-        $padValue = $this->value;
+        return
+            /**
+             * @param iterable $collection
+             * @param int $size
+             * @param mixed $padValue
+             */
+            static function (iterable $collection, int $size, $padValue): Generator {
+                $y = 0;
 
-        return static function (iterable $collection) use ($size, $padValue): Generator {
-            $y = 0;
+                foreach ($collection as $key => $value) {
+                    ++$y;
 
-            foreach ($collection as $key => $value) {
-                ++$y;
+                    yield $key => $value;
+                }
 
-                yield $key => $value;
-            }
-
-            while ($y++ < $size) {
-                yield $padValue;
-            }
-        };
+                while ($y++ < $size) {
+                    yield $padValue;
+                }
+            };
     }
 }

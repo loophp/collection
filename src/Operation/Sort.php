@@ -9,26 +9,11 @@ use Generator;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Iterator\SortableIterableIterator;
 
-/**
- * Class Sort.
- *
- * Be careful, this will only work with finite collection sets.
- */
-final class Sort implements Operation
+final class Sort extends AbstractOperation implements Operation
 {
-    /**
-     * @var callable
-     */
-    private $callback;
-
-    /**
-     * Sort constructor.
-     *
-     * @param callable $callback
-     */
     public function __construct(?callable $callback = null)
     {
-        $this->callback = $callback ?? static function ($left, $right): int {
+        $this->storage['callback'] = $callback ?? static function ($left, $right): int {
             return $left <=> $right;
         };
     }
@@ -38,9 +23,7 @@ final class Sort implements Operation
      */
     public function __invoke(): Closure
     {
-        $callback = $this->callback;
-
-        return static function (iterable $collection) use ($callback): Generator {
+        return static function (iterable $collection, callable $callback): Generator {
             yield from new SortableIterableIterator($collection, $callback);
         };
     }

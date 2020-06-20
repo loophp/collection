@@ -10,24 +10,11 @@ use loophp\collection\Contract\Operation;
 use loophp\collection\Transformation\Count;
 use loophp\collection\Transformation\Run;
 
-/**
- * Class Tail.
- */
-final class Tail implements Operation
+final class Tail extends AbstractOperation implements Operation
 {
-    /**
-     * @var int
-     */
-    private $length;
-
-    /**
-     * Tail constructor.
-     *
-     * @param int $length
-     */
     public function __construct(int $length = 1)
     {
-        $this->length = $length;
+        $this->storage['length'] = $length;
     }
 
     /**
@@ -35,9 +22,7 @@ final class Tail implements Operation
      */
     public function __invoke(): Closure
     {
-        $length = $this->length;
-
-        return static function (iterable $collection) use ($length): Generator {
+        return static function (iterable $collection, int $length): Generator {
             yield from (
                 new Run(
                     new Skip(

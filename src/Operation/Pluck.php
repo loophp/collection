@@ -19,21 +19,8 @@ use function in_array;
 use function is_array;
 use function is_object;
 
-/**
- * Class Pluck.
- */
-final class Pluck implements Operation
+final class Pluck extends AbstractOperation implements Operation
 {
-    /**
-     * @var mixed
-     */
-    private $default;
-
-    /**
-     * @var mixed
-     */
-    private $key;
-
     /**
      * Pluck constructor.
      *
@@ -42,8 +29,11 @@ final class Pluck implements Operation
      */
     public function __construct($key, $default)
     {
-        $this->key = $key;
-        $this->default = $default;
+        $this->storage = [
+            'key' => $key,
+            'default' => $default,
+            'operation' => Closure::fromCallable([$this, 'pick']),
+        ];
     }
 
     /**
@@ -51,18 +41,20 @@ final class Pluck implements Operation
      */
     public function __invoke(): Closure
     {
-        $key = $this->key;
-        $default = $this->default;
+        return
+            /**
+             * @param iterable $collection
+             * @param array<int, string>|string $key
+             * @param mixed $default
+             * @param callable $pick
+             */
+            static function (iterable $collection, $key, $default, callable $pick): Generator {
+                $key = true === is_scalar($key) ? explode('.', trim((string) $key, '.')) : $key;
 
-        $operation = $this;
-
-        return static function (iterable $collection) use ($key, $default, $operation): Generator {
-            $key = true === is_scalar($key) ? explode('.', trim((string) $key, '.')) : $key;
-
-            foreach ($collection as $value) {
-                yield $operation->pick($collection, $value, $key, $default);
-            }
-        };
+                foreach ($collection as $value) {
+                    yield $pick($collection, $value, $key, $default);
+                }
+            };
     }
 
     /**

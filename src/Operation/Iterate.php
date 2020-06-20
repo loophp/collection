@@ -8,21 +8,8 @@ use Closure;
 use Generator;
 use loophp\collection\Contract\Operation;
 
-/**
- * Class Iterate.
- */
-final class Iterate implements Operation
+final class Iterate extends AbstractOperation implements Operation
 {
-    /**
-     * @var callable
-     */
-    private $callback;
-
-    /**
-     * @var array<mixed>
-     */
-    private $parameters;
-
     /**
      * Iterate constructor.
      *
@@ -31,8 +18,10 @@ final class Iterate implements Operation
      */
     public function __construct(callable $callback, array $parameters = [])
     {
-        $this->callback = $callback;
-        $this->parameters = $parameters;
+        $this->storage = [
+            'callback' => $callback,
+            'parameters' => $parameters,
+        ];
     }
 
     /**
@@ -40,13 +29,16 @@ final class Iterate implements Operation
      */
     public function __invoke(): Closure
     {
-        $callback = $this->callback;
-        $parameters = $this->parameters;
-
-        return static function () use ($callback, $parameters): Generator {
-            while (true) {
-                yield $parameters = $callback(...array_values((array) $parameters));
-            }
-        };
+        return
+            /**
+             * @param array<mixed> $parameters
+             * @param iterable $collection
+             * @param callable $callback
+             */
+            static function (iterable $collection, callable $callback, array $parameters): Generator {
+                while (true) {
+                    yield $parameters = $callback(...array_values((array) $parameters));
+                }
+            };
     }
 }

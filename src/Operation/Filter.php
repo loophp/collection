@@ -10,24 +10,11 @@ use Generator;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Iterator\IterableIterator;
 
-/**
- * Class Filter.
- */
-final class Filter implements Operation
+final class Filter extends AbstractOperation implements Operation
 {
-    /**
-     * @var callable[]
-     */
-    private $callbacks;
-
-    /**
-     * Filter constructor.
-     *
-     * @param callable ...$callbacks
-     */
     public function __construct(callable ...$callbacks)
     {
-        $this->callbacks = $callbacks;
+        $this->storage['callbacks'] = $callbacks;
     }
 
     /**
@@ -35,9 +22,7 @@ final class Filter implements Operation
      */
     public function __invoke(): Closure
     {
-        $callbacks = $this->callbacks;
-
-        return static function (iterable $collection) use ($callbacks): Generator {
+        return static function (iterable $collection, array $callbacks): Generator {
             $iterator = new IterableIterator($collection);
 
             foreach ($callbacks as $callback) {

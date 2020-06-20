@@ -9,10 +9,7 @@ use Generator;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Transformation\All;
 
-/**
- * Class Permutate.
- */
-final class Permutate implements Operation
+final class Permutate extends AbstractOperation implements Operation
 {
     /**
      * {@inheritdoc}

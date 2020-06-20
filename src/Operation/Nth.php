@@ -8,31 +8,14 @@ use Closure;
 use Generator;
 use loophp\collection\Contract\Operation;
 
-/**
- * Class Nth.
- */
-final class Nth implements Operation
+final class Nth extends AbstractOperation implements Operation
 {
-    /**
-     * @var int
-     */
-    private $offset;
-
-    /**
-     * @var int
-     */
-    private $step;
-
-    /**
-     * Nth constructor.
-     *
-     * @param int $step
-     * @param int $offset
-     */
     public function __construct(int $step, int $offset)
     {
-        $this->step = $step;
-        $this->offset = $offset;
+        $this->storage = [
+            'step' => $step,
+            'offset' => $offset,
+        ];
     }
 
     /**
@@ -40,10 +23,7 @@ final class Nth implements Operation
      */
     public function __invoke(): Closure
     {
-        $step = $this->step;
-        $offset = $this->offset;
-
-        return static function (iterable $collection) use ($step, $offset): Generator {
+        return static function (iterable $collection, int $step, int $offset): Generator {
             $position = 0;
 
             foreach ($collection as $key => $value) {

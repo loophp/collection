@@ -8,24 +8,11 @@ use Closure;
 use Generator;
 use loophp\collection\Contract\Operation;
 
-/**
- * Class Split.
- */
-final class Split implements Operation
+final class Split extends AbstractOperation implements Operation
 {
-    /**
-     * @var callable[]
-     */
-    private $callbacks;
-
-    /**
-     * Split constructor.
-     *
-     * @param callable ...$callbacks
-     */
     public function __construct(callable ...$callbacks)
     {
-        $this->callbacks = $callbacks;
+        $this->storage['callbacks'] = $callbacks;
     }
 
     /**
@@ -33,28 +20,31 @@ final class Split implements Operation
      */
     public function __invoke(): Closure
     {
-        $callbacks = $this->callbacks;
+        return
+            /**
+             * @param iterable $collection
+             * @param callable[] $callbacks
+             */
+            static function (iterable $collection, $callbacks): Generator {
+                $carry = [];
 
-        return static function (iterable $collection) use ($callbacks): Generator {
-            $carry = [];
+                foreach ($collection as $key => $value) {
+                    $carry[] = $value;
 
-            foreach ($collection as $key => $value) {
-                $carry[] = $value;
+                    foreach ($callbacks as $callback) {
+                        if (true !== $callback($value, $key)) {
+                            continue;
+                        }
 
-                foreach ($callbacks as $callback) {
-                    if (true !== $callback($value, $key)) {
-                        continue;
+                        yield $carry;
+
+                        $carry = [];
                     }
-
-                    yield $carry;
-
-                    $carry = [];
                 }
-            }
 
-            if ([] !== $carry) {
-                yield $carry;
-            }
-        };
+                if ([] !== $carry) {
+                    yield $carry;
+                }
+            };
     }
 }

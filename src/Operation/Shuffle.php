@@ -9,10 +9,7 @@ use Generator;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Transformation\All;
 
-/**
- * Class Shuffle.
- */
-final class Shuffle implements Operation
+final class Shuffle extends AbstractOperation implements Operation
 {
     /**
      * {@inheritdoc}

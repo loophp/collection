@@ -8,16 +8,8 @@ use Closure;
 use Generator;
 use loophp\collection\Contract\Operation;
 
-/**
- * Class Merge.
- */
-final class Merge implements Operation
+final class Merge extends AbstractOperation implements Operation
 {
-    /**
-     * @var array<int, iterable<mixed>>
-     */
-    private $sources;
-
     /**
      * Merge constructor.
      *
@@ -25,7 +17,7 @@ final class Merge implements Operation
      */
     public function __construct(iterable ...$sources)
     {
-        $this->sources = $sources;
+        $this->storage['sources'] = $sources;
     }
 
     /**
@@ -33,9 +25,7 @@ final class Merge implements Operation
      */
     public function __invoke(): Closure
     {
-        $sources = $this->sources;
-
-        return static function (iterable $collection) use ($sources): Generator {
+        return static function (iterable $collection, array $sources): Generator {
             foreach ($collection as $value) {
                 yield $value;
             }

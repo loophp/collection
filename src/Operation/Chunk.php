@@ -12,16 +12,8 @@ use loophp\collection\Iterator\IterableIterator;
 
 use function count;
 
-/**
- * Class Chunk.
- */
-final class Chunk implements Operation
+final class Chunk extends AbstractOperation implements Operation
 {
-    /**
-     * @var array<int, int>
-     */
-    private $size;
-
     /**
      * Chunk constructor.
      *
@@ -29,7 +21,7 @@ final class Chunk implements Operation
      */
     public function __construct(int ...$size)
     {
-        $this->size = $size;
+        $this->storage['size'] = $size;
     }
 
     /**
@@ -37,20 +29,20 @@ final class Chunk implements Operation
      */
     public function __invoke(): Closure
     {
-        $size = $this->size;
-
-        return static function (iterable $collection) use ($size): Generator {
-            $size = new IterableIterator((new Collection($size))->loop());
+        return static function (iterable $collection, array $sizes): Generator {
+            $sizes = new IterableIterator(
+                (new Collection($sizes))->loop()
+            );
 
             $values = [];
 
             foreach ($collection as $value) {
-                if (0 >= $size->current()) {
+                if (0 >= $sizes->current()) {
                     return yield from [];
                 }
 
-                if (count($values) === $size->current()) {
-                    $size->next();
+                if (count($values) === $sizes->current()) {
+                    $sizes->next();
 
                     yield $values;
 

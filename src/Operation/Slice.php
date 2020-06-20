@@ -9,31 +9,14 @@ use Generator;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Transformation\Run;
 
-/**
- * Class Slice.
- */
-final class Slice implements Operation
+final class Slice extends AbstractOperation implements Operation
 {
-    /**
-     * @var int|null
-     */
-    private $length;
-
-    /**
-     * @var int
-     */
-    private $offset;
-
-    /**
-     * Slice constructor.
-     *
-     * @param int $offset
-     * @param int|null $length
-     */
     public function __construct(int $offset, ?int $length = null)
     {
-        $this->offset = $offset;
-        $this->length = $length;
+        $this->storage = [
+            'offset' => $offset,
+            'length' => $length,
+        ];
     }
 
     /**
@@ -41,10 +24,7 @@ final class Slice implements Operation
      */
     public function __invoke(): Closure
     {
-        $offset = $this->offset;
-        $length = $this->length;
-
-        return static function (iterable $collection) use ($offset, $length): Generator {
+        return static function (iterable $collection, int $offset, ?int $length): Generator {
             $skip = new Skip($offset);
 
             if (null === $length) {

@@ -8,24 +8,11 @@ use Closure;
 use Generator;
 use loophp\collection\Contract\Operation;
 
-/**
- * Class Until.
- */
-final class Until implements Operation
+final class Until extends AbstractOperation implements Operation
 {
-    /**
-     * @var array<callable>
-     */
-    private $callbacks;
-
-    /**
-     * Until constructor.
-     *
-     * @param callable ...$callbacks
-     */
     public function __construct(callable ...$callbacks)
     {
-        $this->callbacks = $callbacks;
+        $this->storage['callbacks'] = $callbacks;
     }
 
     /**
@@ -33,9 +20,7 @@ final class Until implements Operation
      */
     public function __invoke(): Closure
     {
-        $callbacks = $this->callbacks;
-
-        return static function (iterable $collection) use ($callbacks): Generator {
+        return static function (iterable $collection, array $callbacks): Generator {
             foreach ($collection as $key => $value) {
                 yield $key => $value;
 
