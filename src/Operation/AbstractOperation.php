@@ -9,15 +9,15 @@ use function array_key_exists;
 abstract class AbstractOperation
 {
     /**
-     * @var array
+     * @var array<string, mixed>
      */
     protected $storage = [];
 
     /**
      * @param string $key
-     * @param mixed $default
+     * @param mixed|null $default
      *
-     * @return mixed
+     * @return mixed|null
      */
     public function get(string $key, $default = null)
     {
@@ -26,6 +26,9 @@ abstract class AbstractOperation
             $default;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function getArguments(): array
     {
         return $this->storage;
