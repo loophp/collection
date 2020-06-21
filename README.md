@@ -19,8 +19,8 @@ It's similar to [other collection libraries](https://packagist.org/?query=collec
 but with a lazy mechanism under the hood that strives to do as little work as possible while being as flexible
 as possible.
 
-Collection leverages PHP's generators and iterators to allow you to work with very large data sets while keeping memory
-usage as low as possible.
+Collection leverages PHP's generators, iterators and yield statements to allow you to work with very large data sets
+while keeping memory usage as low as possible.
 
 For example, imagine your application needs to process a multi-gigabyte log file while taking advantage of this
 library's methods to parse the file.
@@ -36,20 +36,46 @@ On top of this, this library:
  * fully tested,
  * framework agnostic.
  
-Except a few methods, most of methods are [pure](https://en.wikipedia.org/wiki/Pure_function) and return a
-new Collection object.
+Except a few methods, most methods are [pure](https://en.wikipedia.org/wiki/Pure_function) and return a
+[new Collection object](https://github.com/loophp/collection/blob/master/src/Collection.php).
 
-This library has been inspired by the [Laravel Support Package](https://github.com/illuminate/support) and
-[Lazy.js](http://danieltao.com/lazy.js/).
+This library has been inspired by:
+* [Laravel Support Package](https://github.com/illuminate/support)
+* [Lazy.js](http://danieltao.com/lazy.js/)
+* [Ruby Array](https://ruby-doc.org/core-2.7.0/Array.html)
+* [mtdowling/transducers](https://github.com/mtdowling/transducers.php)
+
+Similar libraries:
+* [DusanKasan/Knapsack](https://github.com/DusanKasan/Knapsack)
+* [nikic/iter](https://github.com/nikic/iter)
+
+## Installation
+
+```composer require loophp/collection```
 
 ## Documentation
 
 On top of a complete documented code, the package include a full documentation that gets automatically compiled
 and published upon each commit at [https://loophp-collection.rtfd.io](https://loophp-collection.rtfd.io).
 
-## Installation
+The documentation is missing some parts, it's being continuously improved with time.
 
-```composer require loophp/collection```
+## Code quality, tests and benchmarks
+
+Every time changes are introduced into the library, [Github](https://github.com/loophp/collection/actions) run the
+tests.
+
+The library has tests written with [PHPSpec](http://www.phpspec.net/).
+Feel free to check them out in the `spec` directory. Run `composer phpspec` to trigger the tests.
+
+Before each commit some inspections are executed with [GrumPHP](https://github.com/phpro/grumphp), 
+run `./vendor/bin/grumphp run` to check manually.
+
+[PHPInfection](https://github.com/infection/infection) is used to ensure that your code is properly tested, run `composer infection` to test your code.
+
+## Contributing
+
+Feel free to contribute to this library by sending Github pull requests. I'm quite reactive :-)
 
 ## On the internet
 * [Reddit announcement thread](https://www.reddit.com/r/PHP/comments/csxw23/a_stateless_and_modular_collection_class/)
