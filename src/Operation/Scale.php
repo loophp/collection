@@ -32,27 +32,20 @@ final class Scale extends AbstractOperation implements Operation
         ?float $wantedUpperBound = null,
         ?float $base = null
     ) {
-        if (null === $base) {
-            $wantedLowerBound = $wantedLowerBound ?? 0.0;
-            $wantedUpperBound = $wantedUpperBound ?? 1.0;
-        } else {
-            $wantedLowerBound = $wantedLowerBound ?? 1.0;
-            $wantedUpperBound = $wantedUpperBound ?? $base;
-        }
+        $wantedLowerBound = $wantedLowerBound ?? (null === $base ? 0.0 : 1.0);
+        $wantedUpperBound = $wantedUpperBound ?? ($base ?? 1.0);
 
         $this->storage['mapper'] = new Walk(
             /**
              * @param float|int $v
              */
             static function ($v) use ($lowerBound, $upperBound, $wantedLowerBound, $wantedUpperBound, $base): float { // phpcs:ignore
-                if (null !== $base) {
-                    $mx = log($v - $lowerBound, $base) / log($upperBound - $lowerBound, $base);
+                $mx = null === $base ?
+                    ($v - $lowerBound) / ($upperBound - $lowerBound) :
+                    log($v - $lowerBound, $base) / log($upperBound - $lowerBound, $base);
 
-                    if ($mx === -INF) {
-                        $mx = 0;
-                    }
-                } else {
-                    $mx = ($v - $lowerBound) / ($upperBound - $lowerBound);
+                if ($mx === -INF) {
+                    $mx = 0;
                 }
 
                 return $wantedLowerBound + $mx * ($wantedUpperBound - $wantedLowerBound);
