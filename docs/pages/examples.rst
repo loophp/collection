@@ -371,3 +371,50 @@ Find Prime numbers
         ->limit(100); // Take the 100 first prime numbers.
 
     print_r($primes->all());
+
+Text analysis
+-------------
+
+.. code-block:: php
+
+    <?php
+
+    declare(strict_types=1);
+
+    include __DIR__ . '/vendor/autoload.php';
+
+    use loophp\collection\Collection;
+    use loophp\collection\Contract\Operation;
+    use loophp\collection\Operation\AbstractOperation;
+
+    $data = file_get_contents('http://loripsum.net/api');
+
+    $textFrequencyAnalysis = new class() extends AbstractOperation implements Operation {
+        public function __invoke(): Closure
+        {
+            return static function (iterable $collection): Generator {
+                $storage = [];
+
+                foreach ($collection as $value) {
+                    $storage += [$value => 0];
+
+                    ++$storage[$value];
+                }
+
+                yield from $storage;
+            };
+        }
+    };
+
+    $result = Collection::with($data)
+        ->map(static function (string $letter):string {return strtolower($letter); })
+        ->filter(
+            static function ($item, $key): bool {
+                return (bool) preg_match('/^[a-zA-Z]+$/', $item);
+            }
+        )
+        ->run($textFrequencyAnalysis)
+        ->sort()
+        ->all();
+
+    print_r($result);
