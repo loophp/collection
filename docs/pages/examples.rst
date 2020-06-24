@@ -384,37 +384,25 @@ Text analysis
     include __DIR__ . '/vendor/autoload.php';
 
     use loophp\collection\Collection;
-    use loophp\collection\Contract\Operation;
-    use loophp\collection\Operation\AbstractOperation;
 
-    $data = file_get_contents('http://loripsum.net/api');
-
-    $textFrequencyAnalysis = new class() extends AbstractOperation implements Operation {
-        public function __invoke(): Closure
-        {
-            return static function (iterable $collection): Generator {
-                $storage = [];
-
-                foreach ($collection as $value) {
-                    $storage += [$value => 0];
-
-                    ++$storage[$value];
-                }
-
-                yield from $storage;
-            };
-        }
-    };
-
-    $result = Collection::with($data)
-        ->map(static function (string $letter):string {return strtolower($letter); })
+    $collection = Collection::with(file_get_contents('http://loripsum.net/api'))
+        // Filter out some characters.
         ->filter(
             static function ($item, $key): bool {
                 return (bool) preg_match('/^[a-zA-Z]+$/', $item);
             }
         )
-        ->run($textFrequencyAnalysis)
+        // Lowercase each character.
+        ->map(static function (string $letter): string {
+            return mb_strtolower($letter);
+        })
+        // Run the frequency tool.
+        ->frequency()
+        // Flip keys and values.
+        ->flip()
+        // Sort values.
         ->sort()
+        // Convert to array.
         ->all();
 
-    print_r($result);
+    print_r($collection);

@@ -20,6 +20,7 @@ use loophp\collection\Operation\Filter;
 use loophp\collection\Operation\Flatten;
 use loophp\collection\Operation\Flip;
 use loophp\collection\Operation\Forget;
+use loophp\collection\Operation\Frequency;
 use loophp\collection\Operation\Intersperse;
 use loophp\collection\Operation\Iterate;
 use loophp\collection\Operation\Keys;
@@ -244,6 +245,14 @@ final class Collection extends Base implements CollectionInterface
     public function forget(...$keys): BaseInterface
     {
         return $this->run(new Forget(...$keys));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function frequency(): BaseInterface
+    {
+        return $this->run(new Frequency());
     }
 
     /**

@@ -345,6 +345,23 @@ Signature: ``Collection::forget(...$keys);``
     $collection = Collection::with(range('a', 'z'))
         ->forget(5, 6, 10, 15);
 
+frequency
+~~~~~~~~~
+
+Calculate the frequency of the values, frequencies are stored in keys.
+
+Values can be anything (object, scalar, ... ).
+
+Interface: `Frequencyable`_
+
+Signature: ``Collection::frequency();``
+
+.. code-block:: php
+
+    $collection = Collection::with(['a', 'b', 'c', 'b', 'c', 'c')
+        ->frequency()
+        ->all(); // [1 => 'a', 2 => 'b', 3 => 'c'];
+
 intersperse
 ~~~~~~~~~~~
 
@@ -842,6 +859,7 @@ Work in progress... sorry.
 .. _Flipable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Flipable.php
 .. _array_flip(): https://php.net/array_flip
 .. _Forgetable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Forgetable.php
+.. _Frequencyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Frequencyable.php
 .. _Intersperseable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Intersperseable.php
 .. _Keysable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Keysable.php
 .. _Limitable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Limitable.php

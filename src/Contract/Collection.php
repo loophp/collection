@@ -18,6 +18,7 @@ use loophp\collection\Contract\Operation\Filterable;
 use loophp\collection\Contract\Operation\Flattenable;
 use loophp\collection\Contract\Operation\Flipable;
 use loophp\collection\Contract\Operation\Forgetable;
+use loophp\collection\Contract\Operation\Frequencyable;
 use loophp\collection\Contract\Operation\Intersperseable;
 use loophp\collection\Contract\Operation\Iterateable;
 use loophp\collection\Contract\Operation\Keysable;
@@ -63,9 +64,6 @@ use loophp\collection\Contract\Transformation\Nullsyable;
 use loophp\collection\Contract\Transformation\Reduceable;
 use loophp\collection\Contract\Transformation\Truthyable;
 
-/**
- * Interface Collection.
- */
 interface Collection extends
     Allable,
     Appendable,
@@ -88,6 +86,7 @@ interface Collection extends
     FoldLeftable,
     FoldRightable,
     Forgetable,
+    Frequencyable,
     Getable,
     Implodeable,
     Intersperseable,

@@ -640,6 +640,36 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs([1 => 'B', 2 => 'C', 3 => 'D']);
     }
 
+    public function it_can_frequency(): void
+    {
+        $object = new StdClass();
+
+        $input = ['1', '2', '3', null, '4', '2', null, '6', $object, $object];
+
+        $this
+            ->beConstructedThrough('with', [$input]);
+
+        $iterateAs = static function () use ($object): Generator {
+            yield 1 => '1';
+
+            yield 2 => '2';
+
+            yield 1 => '3';
+
+            yield 2 => null;
+
+            yield 1 => '4';
+
+            yield 1 => '6';
+
+            yield 2 => $object;
+        };
+
+        $this
+            ->frequency()
+            ->shouldIterateAs($iterateAs());
+    }
+
     public function it_can_get(): void
     {
         $this
