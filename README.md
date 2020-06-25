@@ -5,9 +5,8 @@
  [![Scrutinizer code quality](https://img.shields.io/scrutinizer/quality/g/loophp/collection/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/loophp/collection/?branch=master)
  [![Type Coverage](https://shepherd.dev/github/loophp/collection/coverage.svg)](https://shepherd.dev/github/loophp/collection)
  [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/loophp/collection/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/loophp/collection/?branch=master)
- [![Mutation testing badge](https://badge.stryker-mutator.io/github.com/loophp/collection/master)](https://stryker-mutator.github.io)
  [![License](https://img.shields.io/packagist/l/loophp/collection.svg?style=flat-square)](https://packagist.org/packages/loophp/collection)
- [![Donate!](https://img.shields.io/badge/Donate-Paypal-brightgreen.svg?style=flat-square)](https://paypal.me/drupol)
+ [![Donate!](https://img.shields.io/badge/Sponsor-Github-brightgreen.svg?style=flat-square)](https://github.com/sponsors/drupol)
  
 # PHP Collection
 
