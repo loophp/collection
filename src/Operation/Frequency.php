@@ -32,12 +32,14 @@ final class Frequency extends AbstractOperation implements Operation
                     break;
                 }
 
-                if (false === $added) {
-                    $storage[] = [
-                        'value' => $value,
-                        'count' => 1,
-                    ];
+                if (true === $added) {
+                    continue;
                 }
+
+                $storage[] = [
+                    'value' => $value,
+                    'count' => 1,
+                ];
             }
 
             foreach ($storage as $value) {
