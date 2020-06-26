@@ -16,7 +16,7 @@ interface Zipable
      *
      * @param iterable<mixed> ...$iterables
      *
-     * @return \loophp\collection\Base<mixed>|\loophp\collection\Contract\Collection<mixed>
+     * @return \loophp\collection\Base|\loophp\collection\Contract\Collection
      */
     public function zip(iterable ...$iterables): Base;
 }

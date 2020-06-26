@@ -14,7 +14,7 @@ interface Collapseable
     /**
      * Collapse a collection of items into a simple flat collection.
      *
-     * @return \loophp\collection\Base<mixed>|\loophp\collection\Contract\Collection<mixed>
+     * @return \loophp\collection\Base|\loophp\collection\Contract\Collection
      */
     public function collapse(): Base;
 }

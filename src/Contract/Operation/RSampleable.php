@@ -14,7 +14,7 @@ interface RSampleable
     /**
      * @param float $probability
      *
-     * @return \loophp\collection\Contract\Base<mixed>
+     * @return \loophp\collection\Contract\Base
      */
     public function rsample($probability): Base;
 }

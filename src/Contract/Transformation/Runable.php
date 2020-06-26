@@ -14,7 +14,7 @@ interface Runable
     /**
      * @param \loophp\collection\Contract\Operation ...$operations
      *
-     * @return \loophp\collection\Base<mixed>|\loophp\collection\Collection<mixed>
+     * @return \loophp\collection\Base|\loophp\collection\Collection
      */
     public function run(Operation ...$operations);
 }

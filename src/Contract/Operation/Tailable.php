@@ -16,7 +16,7 @@ interface Tailable
      *
      * @param int $length
      *
-     * @return \loophp\collection\Base<mixed>|\loophp\collection\Contract\Collection<mixed>
+     * @return \loophp\collection\Base|\loophp\collection\Contract\Collection
      */
     public function tail(int $length = 1): Base;
 }

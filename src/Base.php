@@ -94,7 +94,7 @@ abstract class Base implements BaseInterface
     }
 
     /**
-     * @return ClosureIterator<mixed>
+     * @return ClosureIterator
      */
     public function getIterator(): ClosureIterator
     {

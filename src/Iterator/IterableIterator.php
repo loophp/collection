@@ -15,7 +15,7 @@ use Iterator;
 final class IterableIterator implements Iterator
 {
     /**
-     * @var \loophp\collection\Iterator\ClosureIterator<mixed>
+     * @var \loophp\collection\Iterator\ClosureIterator
      */
     private $iterator;
 

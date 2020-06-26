@@ -13,7 +13,7 @@ final class Prepend extends AbstractOperation implements Operation
     /**
      * Prepend constructor.
      *
-     * @param array<mixed, mixed> ...$items
+     * @param mixed ...$items
      */
     public function __construct(...$items)
     {

@@ -14,7 +14,7 @@ interface Distinctable
     /**
      * Remove duplicated values from a collection.
      *
-     * @return \loophp\collection\Contract\Base<mixed>
+     * @return \loophp\collection\Contract\Base
      */
     public function distinct(): Base;
 }

@@ -20,7 +20,7 @@ interface Scaleable
      * @param float|null $wantedUpperBound
      * @param float|null $base
      *
-     * @return \loophp\collection\Base<mixed>|\loophp\collection\Contract\Collection<mixed>
+     * @return \loophp\collection\Base|\loophp\collection\Contract\Collection
      */
     public function scale(
         float $lowerBound,

@@ -14,7 +14,7 @@ interface Untilable
     /**
      * @param callable ...$callbacks
      *
-     * @return \loophp\collection\Base<mixed>|\loophp\collection\Contract\Collection<mixed>
+     * @return \loophp\collection\Base|\loophp\collection\Contract\Collection
      */
     public function until(callable ...$callbacks): Base;
 }

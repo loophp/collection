@@ -17,7 +17,7 @@ interface Sliceable
      * @param int $offset
      * @param int|null $length
      *
-     * @return \loophp\collection\Base<mixed>|\loophp\collection\Contract\Collection<mixed>
+     * @return \loophp\collection\Base|\loophp\collection\Contract\Collection
      */
     public function slice(int $offset, ?int $length = null): Base;
 }

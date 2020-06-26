@@ -16,7 +16,7 @@ interface Columnable
      *
      * @param int|string $index
      *
-     * @return \loophp\collection\Base<mixed>|\loophp\collection\Contract\Collection<mixed>
+     * @return \loophp\collection\Base|\loophp\collection\Contract\Collection
      */
     public function column($index): Base;
 }

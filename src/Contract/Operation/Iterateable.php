@@ -15,7 +15,7 @@ interface Iterateable
      * @param callable $callback
      * @param mixed ...$parameters
      *
-     * @return \loophp\collection\Base<mixed>|\loophp\collection\Contract\Collection<mixed>
+     * @return \loophp\collection\Base|\loophp\collection\Contract\Collection
      */
     public static function iterate(callable $callback, ...$parameters): Base;
 }

@@ -17,7 +17,7 @@ interface Padable
      * @param int $size
      * @param mixed $value
      *
-     * @return \loophp\collection\Base<mixed>|\loophp\collection\Contract\Collection<mixed>
+     * @return \loophp\collection\Base|\loophp\collection\Contract\Collection
      */
     public function pad(int $size, $value): Base;
 }
