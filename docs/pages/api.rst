@@ -69,15 +69,22 @@ Signature: ``Collection::with($data = [], ...$parameters);``
 
 .. code-block:: php
 
+    // With an iterable
     $collection = Collection::with(['a', 'b']);
+
+    // With a string
     $collection = Collection::with('string');
-    $collection = Collection::with($fibonacci, 0, 1);
 
     $fileReader = static function ($file) {
         yield from new SplFileObject($file);
     };
 
-    $collection = Collection::with($fibonacci, __DIR__ . '/vendor/autoload.php');
+    // With a callback
+    $collection = Collection::with($fileReader, __DIR__ . '/vendor/autoload.php');
+
+    // With a resource/stream
+    $collection = Collection::with(fopen( __DIR__ . '/vendor/autoload.php', 'r'));
+
 
 Methods (operations)
 --------------------
