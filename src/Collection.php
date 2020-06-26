@@ -41,6 +41,7 @@ use loophp\collection\Operation\Reverse;
 use loophp\collection\Operation\RSample;
 use loophp\collection\Operation\Scale;
 use loophp\collection\Operation\Shuffle;
+use loophp\collection\Operation\Since;
 use loophp\collection\Operation\Skip;
 use loophp\collection\Operation\Slice;
 use loophp\collection\Operation\Sort;
@@ -466,6 +467,14 @@ final class Collection extends Base implements CollectionInterface
     public function shuffle(): BaseInterface
     {
         return $this->run(new Shuffle());
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function since(callable ...$callbacks): BaseInterface
+    {
+        return $this->run(new Since(...$callbacks));
     }
 
     /**

@@ -658,6 +658,70 @@ Signature: ``Collection::scale(float $lowerBound, float $upperBound, ?float $wan
     $collection = Collection::range(0, 10, 2)
         ->scale(0, 10, 5, 15, 3);
 
+since
+~~~~~
+
+Skip items until callback is met.
+
+Interface: `Sinceable`_
+
+Signature: ``Collection::since(callable ...$callbacks);``
+
+.. code-block:: php
+
+    // Parse the composer.json of a package and get the require-dev dependencies.
+    $collection = Collection::with(fopen(__DIR__ . '/composer.json', 'rb'))
+        // Group items when EOL character is found.
+        ->split(
+            static function (string $character): bool {
+                return "\n" === $character;
+            }
+        )
+        // Implode characters to create a line string
+        ->map(
+            static function (array $characters): string {
+                return implode('', $characters);
+            }
+        )
+        // Skip items until the string "require-dev" is found.
+        ->since(
+            static function ($line) {
+                return false !== strpos($line, 'require-dev');
+            }
+        )
+        // Skip items after the string "}" is found.
+        ->until(
+            static function ($line) {
+                return false !== strpos($line, '}');
+            }
+        )
+        // Re-index the keys
+        ->normalize()
+        // Filter out the first line and the last line.
+        ->filter(
+            static function ($line, $index) {
+                return 0 !== $index;
+            },
+            static function ($line) {
+                return false === strpos($line, '}');
+            }
+        )
+        // Trim remaining results and explode the string on ':'.
+        ->map(
+            static function ($line) {
+                return trim($line);
+            },
+            static function ($line) {
+                return explode(':', $line);
+            }
+        )
+        // Take the first item.
+        ->pluck(0)
+        // Convert to array.
+        ->all();
+
+        print_r($collection);
+
 skip
 ~~~~
 
@@ -885,6 +949,7 @@ Work in progress... sorry.
 .. _Reverseable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Reverseable.php
 .. _Scaleable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Scaleable.php
 .. _Skipable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Skipable.php
+.. _Sinceable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Sinceable.php
 .. _Sliceable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Sliceable.php
 .. _Sortable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Sortable.php
 .. _Splitable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Splitable.php

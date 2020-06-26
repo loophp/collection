@@ -1234,6 +1234,41 @@ class CollectionSpec extends ObjectBehavior
             ->shouldNotIterateAs($data);
     }
 
+    public function it_can_since(): void
+    {
+        $this->beConstructedWith(range('a', 'z'));
+
+        $this
+            ->since(
+                static function ($letter) {
+                    return 'x' === $letter;
+                }
+            )
+            ->shouldIterateAs([23 => 'x', 24 => 'y', 25 => 'z']);
+
+        $this
+            ->since(
+                static function ($letter) {
+                    return 'b' === $letter;
+                },
+                static function ($letter) {
+                    return 'x' === $letter;
+                }
+            )
+            ->shouldIterateAs([23 => 'x', 24 => 'y', 25 => 'z']);
+
+        $this
+            ->since(
+                static function ($letter) {
+                    return 'foo' === $letter;
+                },
+                static function ($letter) {
+                    return 'x' === $letter;
+                }
+            )
+            ->shouldIterateAs([]);
+    }
+
     public function it_can_skip(): void
     {
         $this

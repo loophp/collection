@@ -40,6 +40,7 @@ use loophp\collection\Contract\Operation\Reverseable;
 use loophp\collection\Contract\Operation\RSampleable;
 use loophp\collection\Contract\Operation\Scaleable;
 use loophp\collection\Contract\Operation\Shuffleable;
+use loophp\collection\Contract\Operation\Sinceable;
 use loophp\collection\Contract\Operation\Skipable;
 use loophp\collection\Contract\Operation\Sliceable;
 use loophp\collection\Contract\Operation\Sortable;
@@ -113,6 +114,7 @@ interface Collection extends
     RSampleable,
     Scaleable,
     Shuffleable,
+    Sinceable,
     Skipable,
     Sliceable,
     Sortable,
