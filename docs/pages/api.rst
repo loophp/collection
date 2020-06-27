@@ -89,6 +89,8 @@ Signature: ``Collection::with($data = [], ...$parameters);``
 Methods (operations)
 --------------------
 
+Operations always returns a new collection object.
+
 append
 ~~~~~~
 
@@ -913,8 +915,79 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 Methods (transformations)
 -------------------------
 
-Work in progress... sorry.
+Transformations might returns something different from a collection.
 
+all
+~~~
+
+Interface: `Allable`_
+
+contains
+~~~~~~~~
+
+Interface: `Containsable`_
+
+falsy
+~~~~~
+
+Interface: `Falsyable`_
+
+first
+~~~~~
+
+Interface: `Firstable`_
+
+foldLeft
+~~~~~~~~
+
+Interface: `FoldLeftable`_
+
+foldRight
+~~~~~~~~~
+
+Interface: `FoldRightable`_
+
+get
+~~~
+
+Interface: `Getable`_
+
+implode
+~~~~~~~
+
+Interface: `Implodeable`_
+
+last
+~~~~
+
+Interface: `Lastable`_
+
+nullsy
+~~~~~~
+
+Interface: `Nullsyable`_
+
+reduce
+~~~~~~
+
+Interface: `Reduceable`_
+
+run
+~~~
+
+Interface: `Runable`_
+
+transform
+~~~~~~~~~
+
+Interface: `Transformable`_
+
+truthy
+~~~~~~
+
+Interface: `Truthyable`_
+
+.. _Allable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/Allable.php
 .. _Appendable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Appendable.php
 .. _Applyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Applyable.php
 .. _Chunkable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Chunkable.php
@@ -922,31 +995,42 @@ Work in progress... sorry.
 .. _Columnable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Columnable.php
 .. _Combinateable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Combinateable.php
 .. _Combineable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Combineable.php
+.. _Containsable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/Containsable.php
 .. _Cycleable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Cycleable.php
 .. _Distinctable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Distinctable.php
 .. _Explodeable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Explodeable.php
+.. _Falsyable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/Falsyable.php
 .. _Filterable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Filterable.php
+.. _Firstable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/Firstable.php
 .. _Flattenable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Flattenable.php
 .. _Flipable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Flipable.php
 .. _array_flip(): https://php.net/array_flip
+.. _FoldLeftable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/FoldLeftable.php
+.. _FoldRightable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/FoldRightable.php
 .. _Forgetable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Forgetable.php
 .. _Frequencyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Frequencyable.php
+.. _Getable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/Getable.php
+.. _Implodeable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/Implodeable.php
 .. _Intersperseable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Intersperseable.php
 .. _Keysable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Keysable.php
+.. _Lastable: https://github.com/loophp/collection/blob/master/src/Contract/Tranformation/Lastable.php
 .. _Limitable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Limitable.php
 .. _Loopable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Loopable.php
 .. _Mapable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Mapable.php
 .. _Mergeable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Mergeable.php
 .. _Normalizeable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Normalizeable.php
 .. _Nthable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Nthable.php
+.. _Nullsyable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/Nullsyable.php
 .. _Onlyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Onlyable.php
 .. _Padable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Padable.php
 .. _Permutateable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Permutateable.php
 .. _Pluckable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Pluckable.php
 .. _Prependable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Prependable.php
 .. _Productable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Productable.php
+.. _Reduceable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/Reduceable.php
 .. _Reductionable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Reductionable.php
 .. _Reverseable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Reverseable.php
+.. _Runable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/Runable.php
 .. _Scaleable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Scaleable.php
 .. _Skipable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Skipable.php
 .. _Sinceable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Sinceable.php
@@ -954,7 +1038,9 @@ Work in progress... sorry.
 .. _Sortable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Sortable.php
 .. _Splitable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Splitable.php
 .. _Tailable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Tailable.php
+.. _Transformable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/Transformable.php
 .. _Transposeable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Transposeable.php
+.. _Truthyable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/Truthyable.php
 .. _Untilable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Untilable.php
 .. _Walkable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Walkable.php
 .. _Windowable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Windowable.php
