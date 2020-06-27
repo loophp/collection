@@ -36,10 +36,8 @@ final class Reduction extends AbstractOperation implements Operation
              * @param mixed|null $initial
              */
             static function (iterable $collection, callable $callback, $initial): Generator {
-                $carry = $initial;
-
                 foreach ($collection as $key => $value) {
-                    yield $carry = $callback($carry, $value, $key);
+                    yield $initial = $callback($initial, $value, $key);
                 }
             };
     }
