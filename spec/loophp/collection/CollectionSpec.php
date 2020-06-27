@@ -1249,10 +1249,10 @@ class CollectionSpec extends ObjectBehavior
         $this
             ->since(
                 static function ($letter) {
-                    return 'b' === $letter;
+                    return 'x' === $letter;
                 },
                 static function ($letter) {
-                    return 'x' === $letter;
+                    return 1 === mb_strlen($letter);
                 }
             )
             ->shouldIterateAs([23 => 'x', 24 => 'y', 25 => 'z']);
