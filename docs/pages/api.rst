@@ -909,8 +909,13 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 
 .. code-block:: php
 
-     $collection = Collection::with([1, 2, 3])
-        ->zip([4, 5, 6]);
+    $even = Collection::range(0, INF, 2);
+    $odd = Collection::range(1, INF, 2);
+
+    $positiveIntegers = Collection::with($even)
+        ->zip($odd)
+        ->limit(100)
+        ->flatten();
 
 Methods (transformations)
 -------------------------
