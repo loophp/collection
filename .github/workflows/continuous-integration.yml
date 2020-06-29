@@ -26,8 +26,7 @@ jobs:
               uses: shivammathur/setup-php@master
               with:
                   php-version: ${{ matrix.php-versions }}
-                  extensions: ast,mbstring,xdebug
-                  tools: pecl
+                  extensions: mbstring,xdebug
 
             - name: Get Composer Cache Directory
               id: composer-cache
@@ -50,6 +49,12 @@ jobs:
 
             - name: Send PSALM data
               run: vendor/bin/psalm --shepherd --stats
+              continue-on-error: true
+
+            - name: PHP Insights report
+              run: |
+                  composer require nunomaduro/phpinsights --dev
+                  vendor/bin/phpinsights analyse src/ -n
               continue-on-error: true
 
             - name: Scrutinizer
