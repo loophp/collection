@@ -11,9 +11,6 @@ use loophp\collection\Iterator\IterableIterator;
 
 use function count;
 
-/**
- * Class Product.
- */
 final class Product extends AbstractOperation implements Operation
 {
     /**
@@ -31,9 +28,6 @@ final class Product extends AbstractOperation implements Operation
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function __invoke(): Closure
     {
         return static function (iterable $collection, array $iterables, callable $cartesian): Generator {
@@ -50,7 +44,7 @@ final class Product extends AbstractOperation implements Operation
     /**
      * @param array<iterable> $iterators
      *
-     * @return Generator<array>
+     * @return Generator<array<mixed>>
      */
     private function cartesian(array $iterators): Generator
     {

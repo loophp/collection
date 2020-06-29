@@ -16,9 +16,6 @@ final class Sort extends AbstractOperation implements Operation
         $this->storage['callback'] = $callback ?? Closure::fromCallable([$this, 'compare']);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function __invoke(): Closure
     {
         return static function (iterable $collection, callable $callback): Generator {
@@ -29,8 +26,6 @@ final class Sort extends AbstractOperation implements Operation
     /**
      * @param mixed $left
      * @param mixed $right
-     *
-     * @return int
      */
     private function compare($left, $right): int
     {

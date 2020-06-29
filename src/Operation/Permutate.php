@@ -11,9 +11,6 @@ use loophp\collection\Transformation\All;
 
 final class Permutate extends AbstractOperation implements Operation
 {
-    /**
-     * {@inheritdoc}
-     */
     public function __invoke(): Closure
     {
         $getPermutations = function (array $dataset): Generator {

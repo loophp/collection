@@ -6,9 +6,6 @@ namespace loophp\collection\Contract\Transformation;
 
 use loophp\collection\Contract\Transformation;
 
-/**
- * Interface Transformable.
- */
 interface Transformable
 {
     /**

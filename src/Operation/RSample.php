@@ -16,9 +16,6 @@ final class RSample extends AbstractOperation implements Operation
         $this->storage['probability'] = $probability;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function __invoke(): Closure
     {
         return static function (iterable $collection, float $probability): Generator {

@@ -6,14 +6,11 @@ namespace loophp\collection\Contract\Operation;
 
 use loophp\collection\Contract\Base;
 
-/**
- * Interface Iterateable.
- */
 interface Iterateable
 {
     /**
-     * @param callable $callback
      * @param mixed ...$parameters
+     * @param callable $callback
      *
      * @return \loophp\collection\Base|\loophp\collection\Contract\Collection
      */

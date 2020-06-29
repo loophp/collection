@@ -6,9 +6,6 @@ namespace loophp\collection\Transformation;
 
 use loophp\collection\Contract\Transformation;
 
-/**
- * Class Reduce.
- */
 final class Reduce implements Transformation
 {
     /**
@@ -24,8 +21,8 @@ final class Reduce implements Transformation
     /**
      * Reduce constructor.
      *
-     * @param callable $callback
      * @param mixed|null $initial
+     * @param callable $callback
      */
     public function __construct(callable $callback, $initial = null)
     {

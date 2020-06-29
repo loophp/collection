@@ -20,9 +20,6 @@ final class Merge extends AbstractOperation implements Operation
         $this->storage['sources'] = $sources;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function __invoke(): Closure
     {
         return static function (iterable $collection, array $sources): Generator {

@@ -22,9 +22,6 @@ final class Zip extends AbstractOperation implements Operation
         $this->storage['iterables'] = $iterables;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function __invoke(): Closure
     {
         return static function (iterable $collection, array $iterables): Generator {

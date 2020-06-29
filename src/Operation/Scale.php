@@ -11,20 +11,8 @@ use loophp\collection\Transformation\Run;
 
 use const INF;
 
-/**
- * Class Scale.
- */
 final class Scale extends AbstractOperation implements Operation
 {
-    /**
-     * Scale constructor.
-     *
-     * @param float $lowerBound
-     * @param float $upperBound
-     * @param float|null $wantedLowerBound
-     * @param float|null $wantedUpperBound
-     * @param float|null $base
-     */
     public function __construct(
         float $lowerBound,
         float $upperBound,
@@ -68,9 +56,6 @@ final class Scale extends AbstractOperation implements Operation
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function __invoke(): Closure
     {
         return static function (iterable $collection, Walk $mapper, Filter $filter): ClosureIterator {

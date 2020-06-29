@@ -19,9 +19,6 @@ final class Slice extends AbstractOperation implements Operation
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function __invoke(): Closure
     {
         return static function (iterable $collection, int $offset, ?int $length): Generator {

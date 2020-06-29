@@ -10,19 +10,11 @@ use loophp\collection\Contract\Operation;
 
 final class Apply extends AbstractOperation implements Operation
 {
-    /**
-     * Apply constructor.
-     *
-     * @param callable ...$callbacks
-     */
     public function __construct(callable ...$callbacks)
     {
         $this->storage['callbacks'] = $callbacks;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function __invoke(): Closure
     {
         return static function (iterable $collection, array $callbacks): Generator {

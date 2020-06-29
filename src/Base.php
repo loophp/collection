@@ -16,9 +16,6 @@ use loophp\collection\Transformation\Transform;
 use function is_resource;
 use function is_string;
 
-/**
- * Class Base.
- */
 abstract class Base implements BaseInterface
 {
     /**

@@ -6,9 +6,6 @@ namespace loophp\collection\Contract\Operation;
 
 use loophp\collection\Contract\Base;
 
-/**
- * Interface Permutateable.
- */
 interface Permutateable
 {
     /**

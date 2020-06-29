@@ -6,9 +6,6 @@ namespace loophp\collection\Transformation;
 
 use loophp\collection\Contract\Transformation;
 
-/**
- * Class Get.
- */
 final class Get implements Transformation
 {
     /**

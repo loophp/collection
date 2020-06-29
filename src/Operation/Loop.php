@@ -12,9 +12,6 @@ use loophp\collection\Iterator\IterableIterator;
 
 final class Loop extends AbstractOperation implements Operation
 {
-    /**
-     * {@inheritdoc}
-     */
     public function __invoke(): Closure
     {
         return static function (iterable $collection): Generator {

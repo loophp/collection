@@ -17,9 +17,6 @@ final class Filter extends AbstractOperation implements Operation
         $this->storage['callbacks'] = $callbacks;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function __invoke(): Closure
     {
         return static function (iterable $collection, array $callbacks): Generator {

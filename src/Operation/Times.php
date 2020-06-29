@@ -15,7 +15,7 @@ final class Times extends AbstractOperation implements Operation
      * Times constructor.
      *
      * @param float|int $number
-     * @param callable|null $callback
+     * @param ?callable $callback
      */
     public function __construct($number, ?callable $callback = null)
     {
@@ -31,9 +31,6 @@ final class Times extends AbstractOperation implements Operation
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function __invoke(): Closure
     {
         return

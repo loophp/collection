@@ -21,9 +21,6 @@ final class Range extends AbstractOperation implements Operation
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function __invoke(): Closure
     {
         return static function (iterable $collection, float $start, float $end, float $step): Generator {

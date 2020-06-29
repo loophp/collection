@@ -7,9 +7,6 @@ namespace loophp\collection\Transformation;
 use loophp\collection\Contract\Transformation;
 use loophp\collection\Operation\Reverse;
 
-/**
- * Class FoldRight.
- */
 final class FoldRight implements Transformation
 {
     /**
@@ -25,8 +22,8 @@ final class FoldRight implements Transformation
     /**
      * FoldRight constructor.
      *
-     * @param callable $callback
      * @param mixed|null $initial
+     * @param callable $callback
      */
     public function __construct(callable $callback, $initial = null)
     {

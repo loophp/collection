@@ -24,9 +24,6 @@ final class Combine extends AbstractOperation implements Operation
         $this->storage['keys'] = $keys;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function __invoke(): Closure
     {
         return static function (iterable $collection, array $keys): Generator {

@@ -6,9 +6,6 @@ namespace loophp\collection\Contract\Operation;
 
 use loophp\collection\Contract\Base;
 
-/**
- * Interface Scaleable.
- */
 interface Scaleable
 {
     /**
@@ -16,9 +13,9 @@ interface Scaleable
      *
      * @param float $lowerBound
      * @param float $upperBound
-     * @param float|null $wantedLowerBound
-     * @param float|null $wantedUpperBound
-     * @param float|null $base
+     * @param ?float $wantedLowerBound
+     * @param ?float $wantedUpperBound
+     * @param ?float $base
      *
      * @return \loophp\collection\Base|\loophp\collection\Contract\Collection
      */

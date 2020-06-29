@@ -18,9 +18,6 @@ final class Nth extends AbstractOperation implements Operation
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function __invoke(): Closure
     {
         return static function (iterable $collection, int $step, int $offset): Generator {

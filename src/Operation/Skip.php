@@ -15,9 +15,6 @@ final class Skip extends AbstractOperation implements Operation
         $this->storage['skip'] = $skip;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function __invoke(): Closure
     {
         return static function (iterable $collection, array $skip): Generator {

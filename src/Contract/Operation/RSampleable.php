@@ -6,15 +6,7 @@ namespace loophp\collection\Contract\Operation;
 
 use loophp\collection\Contract\Base;
 
-/**
- * Interface RSampleable.
- */
 interface RSampleable
 {
-    /**
-     * @param float $probability
-     *
-     * @return \loophp\collection\Contract\Base
-     */
-    public function rsample($probability): Base;
+    public function rsample(float $probability): Base;
 }

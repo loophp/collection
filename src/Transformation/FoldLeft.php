@@ -6,9 +6,6 @@ namespace loophp\collection\Transformation;
 
 use loophp\collection\Contract\Transformation;
 
-/**
- * Class FoldLeft.
- */
 final class FoldLeft implements Transformation
 {
     /**
@@ -24,8 +21,8 @@ final class FoldLeft implements Transformation
     /**
      * FoldLeft constructor.
      *
-     * @param callable $callback
      * @param mixed|null $initial
+     * @param callable $callback
      */
     public function __construct(callable $callback, $initial = null)
     {

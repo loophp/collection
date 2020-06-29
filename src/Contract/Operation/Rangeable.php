@@ -8,9 +8,6 @@ use loophp\collection\Contract\Base;
 
 use const INF;
 
-/**
- * Interface Rangeable.
- */
 interface Rangeable
 {
     /**

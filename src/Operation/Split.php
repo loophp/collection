@@ -15,17 +15,14 @@ final class Split extends AbstractOperation implements Operation
         $this->storage['callbacks'] = $callbacks;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function __invoke(): Closure
     {
         return
             /**
+             * @param array<int, callable> $callbacks
              * @param iterable $collection
-             * @param callable[] $callbacks
              */
-            static function (iterable $collection, $callbacks): Generator {
+            static function (iterable $collection, array $callbacks): Generator {
                 $carry = [];
 
                 foreach ($collection as $key => $value) {

@@ -6,9 +6,6 @@ namespace loophp\collection\Transformation;
 
 use loophp\collection\Contract\Transformation;
 
-/**
- * Class Implode.
- */
 final class Implode implements Transformation
 {
     /**
@@ -16,11 +13,6 @@ final class Implode implements Transformation
      */
     private $glue;
 
-    /**
-     * Implode constructor.
-     *
-     * @param string $glue
-     */
     public function __construct(string $glue = '')
     {
         $this->glue = $glue;

@@ -13,8 +13,8 @@ final class Iterate extends AbstractOperation implements Operation
     /**
      * Iterate constructor.
      *
-     * @param callable $callback
      * @param array<mixed> $parameters
+     * @param callable $callback
      */
     public function __construct(callable $callback, array $parameters = [])
     {
@@ -24,9 +24,6 @@ final class Iterate extends AbstractOperation implements Operation
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function __invoke(): Closure
     {
         return

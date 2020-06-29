@@ -6,15 +6,12 @@ namespace loophp\collection\Contract\Operation;
 
 use loophp\collection\Contract\Base;
 
-/**
- * Interface Sortable.
- */
 interface Sortable
 {
     /**
      * Sort a collection using a callback.
      *
-     * @param callable $callable
+     * @param ?callable $callable
      *
      * @return \loophp\collection\Base|\loophp\collection\Contract\Collection
      */

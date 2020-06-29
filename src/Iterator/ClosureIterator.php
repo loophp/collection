@@ -32,8 +32,8 @@ final class ClosureIterator implements Iterator
     /**
      * ClosureIterator constructor.
      *
-     * @param callable $callable
      * @param mixed ...$arguments
+     * @param callable $callable
      */
     public function __construct(callable $callable, ...$arguments)
     {
@@ -69,9 +69,6 @@ final class ClosureIterator implements Iterator
         $this->getGenerator()->next();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function rewind(): void
     {
         $this->generator = null;

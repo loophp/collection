@@ -8,9 +8,6 @@ use loophp\collection\Contract\Base;
 
 use const PHP_INT_MAX;
 
-/**
- * Interface Flattenable.
- */
 interface Flattenable
 {
     /**

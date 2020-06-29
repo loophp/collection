@@ -21,9 +21,6 @@ final class Column extends AbstractOperation implements Operation
         $this->storage['column'] = $column;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function __invoke(): Closure
     {
         return

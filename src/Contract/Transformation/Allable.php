@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Transformation;
 
-/**
- * Interface Allable.
- */
 interface Allable
 {
     /**

@@ -33,9 +33,6 @@ final class Intersperse extends AbstractOperation implements Operation
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function __invoke(): Closure
     {
         $every = $this->get('atEvery');

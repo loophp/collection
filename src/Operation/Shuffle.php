@@ -11,9 +11,6 @@ use loophp\collection\Transformation\All;
 
 final class Shuffle extends AbstractOperation implements Operation
 {
-    /**
-     * {@inheritdoc}
-     */
     public function __invoke(): Closure
     {
         return static function (iterable $collection): Generator {

@@ -20,9 +20,6 @@ final class Limit extends AbstractOperation implements Operation
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function __invoke(): Closure
     {
         return static function (iterable $collection, int $limit, int $offset): Generator {

@@ -11,8 +11,8 @@ interface Operation
     public function __invoke(): Closure;
 
     /**
-     * @param string $key
      * @param mixed|null $default
+     * @param string $key
      *
      * @return mixed|null
      */

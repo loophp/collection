@@ -21,9 +21,6 @@ final class Explode extends AbstractOperation implements Operation
         $this->storage['explodes'] = $explodes;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function __invoke(): Closure
     {
         return static function (iterable $collection, array $explodes): Generator {

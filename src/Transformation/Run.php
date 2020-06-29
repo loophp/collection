@@ -11,7 +11,7 @@ use loophp\collection\Iterator\ClosureIterator;
 final class Run implements Transformation
 {
     /**
-     * @var \loophp\collection\Contract\Operation[]
+     * @var array<int, \loophp\collection\Contract\Operation>
      */
     private $operations;
 

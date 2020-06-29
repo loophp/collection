@@ -6,11 +6,6 @@ namespace loophp\collection\Transformation;
 
 use loophp\collection\Contract\Transformation;
 
-/**
- * Class Last.
- *
- * Be careful, this will only work with finite collection sets.
- */
 final class Last implements Transformation
 {
     /**

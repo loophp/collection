@@ -10,9 +10,6 @@ use stdClass;
 use function is_callable;
 use function is_string;
 
-/**
- * Class Contains.
- */
 final class Contains implements Transformation
 {
     /**

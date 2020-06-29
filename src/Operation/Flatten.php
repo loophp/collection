@@ -16,9 +16,6 @@ final class Flatten extends AbstractOperation implements Operation
         $this->storage['depth'] = $depth;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function __invoke(): Closure
     {
         return static function (iterable $collection, int $depth): Generator {

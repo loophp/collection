@@ -18,9 +18,6 @@ final class Window extends AbstractOperation implements Operation
         $this->storage['length'] = $length;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function __invoke(): Closure
     {
         return static function (iterable $collection, array $length): Generator {

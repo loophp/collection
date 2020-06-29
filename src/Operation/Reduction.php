@@ -13,8 +13,8 @@ final class Reduction extends AbstractOperation implements Operation
     /**
      * Reduction constructor.
      *
-     * @param callable $callback
      * @param mixed|null $initial
+     * @param callable $callback
      */
     public function __construct(callable $callback, $initial = null)
     {
@@ -24,9 +24,6 @@ final class Reduction extends AbstractOperation implements Operation
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function __invoke(): Closure
     {
         return

@@ -132,8 +132,6 @@ interface Collection extends
 {
     /**
      * Create a new instance with no items.
-     *
-     * @return \loophp\collection\Contract\Collection
      */
     public static function empty(): Collection;
 
@@ -142,8 +140,6 @@ interface Collection extends
      *
      * @param mixed $data
      * @param mixed ...$parameters
-     *
-     * @return \loophp\collection\Contract\Collection
      */
     public static function with($data = [], ...$parameters): Collection;
 }

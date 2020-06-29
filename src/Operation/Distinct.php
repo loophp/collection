@@ -12,9 +12,6 @@ use function in_array;
 
 final class Distinct extends AbstractOperation implements Operation
 {
-    /**
-     * {@inheritdoc}
-     */
     public function __invoke(): Closure
     {
         return static function (iterable $collection): Generator {

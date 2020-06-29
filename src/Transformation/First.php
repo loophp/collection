@@ -6,9 +6,6 @@ namespace loophp\collection\Transformation;
 
 use loophp\collection\Contract\Transformation;
 
-/**
- * Class First.
- */
 final class First implements Transformation
 {
     /**
@@ -24,8 +21,8 @@ final class First implements Transformation
     /**
      * First constructor.
      *
-     * @param callable|null $callback
      * @param mixed|null $default
+     * @param ?callable $callback
      */
     public function __construct(?callable $callback = null, $default = null)
     {

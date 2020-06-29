@@ -7,15 +7,12 @@ namespace loophp\collection\Transformation;
 use loophp\collection\Contract\Transformation;
 use loophp\collection\Iterator\IterableIterator;
 
-/**
- * Class All.
- */
 final class All implements Transformation
 {
     /**
      * {@inheritdoc}
      *
-     * @return mixed[]
+     * @return array<mixed>
      */
     public function __invoke(iterable $collection): array
     {

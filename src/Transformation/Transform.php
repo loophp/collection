@@ -9,7 +9,7 @@ use loophp\collection\Contract\Transformation;
 final class Transform implements Transformation
 {
     /**
-     * @var \loophp\collection\Contract\Transformation[]
+     * @var array<int, \loophp\collection\Contract\Transformation>
      */
     private $transformers;
 

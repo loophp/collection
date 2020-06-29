@@ -10,9 +10,6 @@ use loophp\collection\Contract\Operation;
 
 final class Collapse extends AbstractOperation implements Operation
 {
-    /**
-     * {@inheritdoc}
-     */
     public function __invoke(): Closure
     {
         return static function (iterable $collection): Generator {

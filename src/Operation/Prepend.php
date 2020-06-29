@@ -20,9 +20,6 @@ final class Prepend extends AbstractOperation implements Operation
         $this->storage['items'] = $items;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function __invoke(): Closure
     {
         return static function (iterable $collection, array $items): Generator {

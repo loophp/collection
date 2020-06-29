@@ -15,15 +15,12 @@ final class Walk extends AbstractOperation implements Operation
         $this->storage['callbacks'] = $callbacks;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function __invoke(): Closure
     {
         return
             /**
+             * @param array<callable> $callbacks
              * @param iterable $collection
-             * @param callable[] $callbacks
              */
             static function (iterable $collection, array $callbacks): Generator {
                 foreach ($collection as $key => $value) {

@@ -13,8 +13,8 @@ final class Pad extends AbstractOperation implements Operation
     /**
      * Pad constructor.
      *
-     * @param int $size
      * @param mixed $value
+     * @param int $size
      */
     public function __construct(int $size, $value)
     {
@@ -24,16 +24,13 @@ final class Pad extends AbstractOperation implements Operation
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function __invoke(): Closure
     {
         return
             /**
+             * @param mixed $padValue
              * @param iterable $collection
              * @param int $size
-             * @param mixed $padValue
              */
             static function (iterable $collection, int $size, $padValue): Generator {
                 $y = 0;

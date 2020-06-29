@@ -14,8 +14,8 @@ abstract class AbstractOperation
     protected $storage = [];
 
     /**
-     * @param string $key
      * @param mixed|null $default
+     * @param string $key
      *
      * @return mixed|null
      */
