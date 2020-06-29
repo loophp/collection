@@ -53,6 +53,7 @@ jobs:
 
             - name: PHP Insights report
               run: |
+                  rm -rf composer.lock vendor
                   composer require nunomaduro/phpinsights --dev
                   vendor/bin/phpinsights analyse src/ -n
               continue-on-error: true
