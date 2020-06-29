@@ -759,6 +759,81 @@ class CollectionSpec extends ObjectBehavior
             ->shouldReturn(null);
     }
 
+    public function it_can_group()
+    {
+        $callback = static function () {
+            yield 1 => 'a';
+
+            yield 1 => 'b';
+
+            yield 1 => 'c';
+
+            yield 2 => 'd';
+
+            yield 2 => 'e';
+
+            yield 3 => 'f';
+
+            yield 4 => 'g';
+
+            yield 10 => 'h';
+        };
+
+        $this
+            ->beConstructedThrough('with', [$callback]);
+
+        $this
+            ->group()
+            ->shouldIterateAs([
+                1 => [
+                    'a',
+                    'b',
+                    'c',
+                ],
+                2 => [
+                    'd',
+                    'e',
+                ],
+                3 => 'f',
+                4 => 'g',
+                10 => 'h',
+            ]);
+
+        $callback = static function ($key, $value) {
+            return $value % 2;
+        };
+
+        $this::with(range(0, 20))
+            ->group($callback)
+            ->shouldIterateAs([
+                0 => [
+                    0,
+                    2,
+                    4,
+                    6,
+                    8,
+                    10,
+                    12,
+                    14,
+                    16,
+                    18,
+                    20,
+                ],
+                1 => [
+                    1,
+                    3,
+                    5,
+                    7,
+                    9,
+                    11,
+                    13,
+                    15,
+                    17,
+                    19,
+                ],
+            ]);
+    }
+
     public function it_can_implode(): void
     {
         $this

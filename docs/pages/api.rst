@@ -31,6 +31,17 @@ Signature: ``Collection::iterate(callable $callback, ...$parameters);``
     $collection = Collection::iterate($fibonacci)
         ->limit(10);
 
+Another example
+
+.. code-block:: php
+
+    $even = Collection::iterate(static function ($carry) {return $carry + 2;}, -2);
+    $odd = Collection::iterate(static function ($carry) {return $carry + 2;}, -1);
+    // Is the same as
+    $even = Collection::range(0, \INF, 2);
+    $odd = Collection::range(1, \INF, 2);
+
+
 range
 ~~~~~
 
@@ -44,8 +55,17 @@ Signature: ``Collection::range(int $start = 0, $end = INF, $step = 1);``
         return [$b, $a + $b];
     };
 
-    $collection = Collection::iterate($fibonacci)
-        ->limit(10);
+    $even = Collection::range(0, 20, 2); // [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+
+Another example
+
+.. code-block:: php
+
+    $even = Collection::iterate(static function ($carry) {return $carry + 2;}, -2);
+    $odd = Collection::iterate(static function ($carry) {return $carry + 2;}, -1);
+    // Is the same as
+    $even = Collection::range(0, \INF, 2);
+    $odd = Collection::range(1, \INF, 2);
 
 times
 ~~~~~
@@ -75,12 +95,14 @@ Signature: ``Collection::with($data = [], ...$parameters);``
     // With a string
     $collection = Collection::with('string');
 
-    $fileReader = static function ($file) {
-        yield from new SplFileObject($file);
+    $callback = static function () {
+        yield 'a';
+        yield 'b';
+        yield 'c';
     };
 
     // With a callback
-    $collection = Collection::with($fileReader, __DIR__ . '/vendor/autoload.php');
+    $collection = Collection::with($callback);
 
     // With a resource/stream
     $collection = Collection::with(fopen( __DIR__ . '/vendor/autoload.php', 'r'));
@@ -370,6 +392,35 @@ Signature: ``Collection::frequency();``
     $collection = Collection::with(['a', 'b', 'c', 'b', 'c', 'c')
         ->frequency()
         ->all(); // [1 => 'a', 2 => 'b', 3 => 'c'];
+
+group
+~~~~~
+
+Group items, the key used to group items can be customized in a callback.
+By default it's the key is the item's key.
+
+Interface: `Groupable`_
+
+Signature: ``Collection::group(callable $callable = null);``
+
+.. code-block:: php
+
+    $callback = static function () {
+            yield 1 => 'a';
+
+            yield 1 => 'b';
+
+            yield 1 => 'c';
+
+            yield 2 => 'd';
+
+            yield 2 => 'e';
+
+            yield 3 => 'f';
+    };
+
+    $collection = Collection::with($callback)
+        ->group();
 
 intersperse
 ~~~~~~~~~~~
@@ -1015,6 +1066,7 @@ Interface: `Truthyable`_
 .. _Forgetable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Forgetable.php
 .. _Frequencyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Frequencyable.php
 .. _Getable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/Getable.php
+.. _Groupable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Groupable.php
 .. _Implodeable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/Implodeable.php
 .. _Intersperseable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Intersperseable.php
 .. _Keysable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Keysable.php

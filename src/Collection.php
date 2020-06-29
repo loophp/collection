@@ -21,6 +21,7 @@ use loophp\collection\Operation\Flatten;
 use loophp\collection\Operation\Flip;
 use loophp\collection\Operation\Forget;
 use loophp\collection\Operation\Frequency;
+use loophp\collection\Operation\Group;
 use loophp\collection\Operation\Intersperse;
 use loophp\collection\Operation\Iterate;
 use loophp\collection\Operation\Keys;
@@ -262,6 +263,14 @@ final class Collection extends Base implements CollectionInterface
     public function get($key, $default = null)
     {
         return $this->transform(new Get($key, $default));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function group(?callable $callable = null): BaseInterface
+    {
+        return $this->run(new Group($callable));
     }
 
     /**

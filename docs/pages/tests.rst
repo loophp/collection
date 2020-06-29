@@ -4,10 +4,9 @@ Tests, code quality and code style
 Every time changes are introduced into the library, `Github Actions`_
 run the tests.
 
-Tests are written with `PHPSpec`_.
+Tests are written with `PHPSpec`_ and you can find the coverage percentage on a badge on the README file.
 
-`PHPInfection`_ is also triggered used to ensure that your code is properly
-tested.
+`PHPInfection`_ is also triggered used to ensure that your code is properly tested.
 
 The code style is based on `PSR-12`_ plus a set of custom rules.
 Find more about the code style in use in the package `drupol/php-conventions`_.
@@ -34,21 +33,21 @@ will check your code
 
     $ ./vendor/bin/grumphp run
     GrumPHP is sniffing your code!
-    Running task  1/13: SecurityChecker... ✔
-    Running task  2/13: Composer... ✔
-    Running task  3/13: ComposerNormalize... ✔
-    Running task  4/13: YamlLint... ✔
-    Running task  5/13: JsonLint... ✔
-    Running task  6/13: PhpLint... ✔
-    Running task  7/13: TwigCs... ✔
-    Running task  8/13: PhpCsAutoFixerV2... ✔
-    Running task  9/13: PhpCsFixerV2... ✔
-    Running task 10/13: Phpcs... ✔
-    Running task 11/13: PhpStan... ✔
-    Running task 12/13: Phpspec... ✔
-    Running task 13/13: Infection... ✔
+    Running task  1/14: SecurityChecker... ✔
+    Running task  2/14: Composer... ✔
+    Running task  3/14: ComposerNormalize... ✔
+    Running task  4/14: YamlLint... ✔
+    Running task  5/14: JsonLint... ✔
+    Running task  6/14: PhpLint... ✔
+    Running task  7/14: TwigCs... ✔
+    Running task  8/14: PhpCsAutoFixerV2... ✔
+    Running task  9/14: PhpCsFixerV2... ✔
+    Running task 10/14: Phpcs... ✔
+    Running task 11/14: Psalm... ✔
+    Running task 12/14: PhpStan... ✔
+    Running task 13/14: Phpspec... ✔
+    Running task 14/14: Infection... ✔
     $
-
 
 .. _PSR-12: https://www.php-fig.org/psr/psr-12/
 .. _drupol/php-conventions: https://github.com/drupol/php-conventions

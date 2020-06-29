@@ -19,6 +19,7 @@ use loophp\collection\Contract\Operation\Flattenable;
 use loophp\collection\Contract\Operation\Flipable;
 use loophp\collection\Contract\Operation\Forgetable;
 use loophp\collection\Contract\Operation\Frequencyable;
+use loophp\collection\Contract\Operation\Groupable;
 use loophp\collection\Contract\Operation\Intersperseable;
 use loophp\collection\Contract\Operation\Iterateable;
 use loophp\collection\Contract\Operation\Keysable;
@@ -89,6 +90,7 @@ interface Collection extends
     Forgetable,
     Frequencyable,
     Getable,
+    Groupable,
     Implodeable,
     Intersperseable,
     Iterateable,
