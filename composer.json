@@ -42,11 +42,9 @@
         }
     },
     "scripts": {
-        "bench": "./vendor/bin/phpbench run --report='generator: \"table\", cols: [ \"suite\", \"subject\", \"mean\", \"diff\", \"mem_peak\", \"mem_real\"], break: [\"benchmark\"]'",
-        "grumphp": "./vendor/bin/grumphp run",
-        "infection": "./vendor/bin/infection run -j 10",
-        "phpcbf": "./vendor/bin/phpcbf --ignore=vendor .",
-        "phpcs": "./vendor/bin/phpcs --ignore=vendor .",
-        "phpspec": "./vendor/bin/phpspec run"
+        "bench": "vendor/bin/phpbench run --report='generator: \"table\", cols: [ \"suite\", \"subject\", \"mean\", \"diff\", \"mem_peak\", \"mem_real\"], break: [\"benchmark\"]'",
+        "grumphp": "vendor/bin/grumphp run",
+        "infection": "vendor/bin/infection run -j 2",
+        "phpspec": "vendor/bin/phpspec run"
     }
 }

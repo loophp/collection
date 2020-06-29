@@ -76,9 +76,10 @@ The library has tests written with [PHPSpec](http://www.phpspec.net/).
 Feel free to check them out in the `spec` directory. Run `composer phpspec` to trigger the tests.
 
 Before each commit some inspections (_currently 14_) are executed with [GrumPHP](https://github.com/phpro/grumphp), 
-run `./vendor/bin/grumphp run` to check manually.
+run `composer grumphp` to check manually.
 
-The quality of the tests is tested with a PHP Mutation testing framework,  run `composer infection` to try it.
+The quality of the tests is tested with [Infection](https://github.com/infection/infection) a PHP Mutation testing
+framework,  run `composer infection` to try it.
 
 Static analysers are also controlling the code. [PHPStan](https://github.com/phpstan/phpstan) and
 [PSalm](https://github.com/vimeo/psalm) are enabled to their maximum level.
