@@ -24,17 +24,28 @@ On top of this, this library:
  * fully tested,
  * framework agnostic.
 
-Except a few methods, most of methods are `pure`_ and return a new Collection object.
+Except a few methods, most methods are `pure`_ and return a `new Collection object`_.
 
-This library has been inspired by the `Laravel Support Package`_, `Lazy.js`_ and `Ruby arrays`_.
+This library has been inspired by:
+* `Laravel Support Package`_
+* `Lazy.js`_
+* `Ruby Array`_
+* `mtdowling/transducers`_
+
+Similar libraries:
+* `DusanKasan/Knapsack`_
+* `nikic/iter`_
 
 It uses the following `PHP Standards Recommendations`_ :
 
 -  `PSR-4`_ for classes auto loading,
 -  `PSR-12`_ for coding standards.
 
-This library is framework agnostic and can be integrated in any PHP project, in any framework.
-
+.. _nikic/iter: https://github.com/nikic/iter
+.. _DusanKasan/Knapsack: https://github.com/DusanKasan/Knapsack
+.. _mtdowling/transducers: https://github.com/mtdowling/transducers.php
+.. _Ruby Array: https://ruby-doc.org/core-2.7.0/Array.html
+.. _new Collection object: https://github.com/loophp/collection/blob/master/src/Collection.php
 .. _Lazy.js: http://danieltao.com/lazy.js/
 .. _Laravel Support Package: https://github.com/illuminate/support
 .. _pure: https://en.wikipedia.org/wiki/Pure_function
