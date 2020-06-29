@@ -22,7 +22,7 @@ final class Frequency extends AbstractOperation implements Operation
                 $added = false;
 
                 foreach ($storage as $key => $data) {
-                    if ($storage[$key]['value'] !== $value) {
+                    if ($data['value'] !== $value) {
                         continue;
                     }
 

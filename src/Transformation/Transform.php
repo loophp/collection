@@ -6,9 +6,6 @@ namespace loophp\collection\Transformation;
 
 use loophp\collection\Contract\Transformation;
 
-/**
- * Class Transform.
- */
 final class Transform implements Transformation
 {
     /**
@@ -16,11 +13,6 @@ final class Transform implements Transformation
      */
     private $transformers;
 
-    /**
-     * Transform constructor.
-     *
-     * @param \loophp\collection\Contract\Transformation ...$transformers
-     */
     public function __construct(Transformation ...$transformers)
     {
         $this->transformers = $transformers;

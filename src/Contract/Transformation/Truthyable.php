@@ -6,8 +6,5 @@ namespace loophp\collection\Contract\Transformation;
 
 interface Truthyable
 {
-    /**
-     * @return bool
-     */
     public function truthy(): bool;
 }

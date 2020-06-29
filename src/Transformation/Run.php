@@ -8,9 +8,6 @@ use loophp\collection\Contract\Operation;
 use loophp\collection\Contract\Transformation;
 use loophp\collection\Iterator\ClosureIterator;
 
-/**
- * Class Run.
- */
 final class Run implements Transformation
 {
     /**
@@ -18,11 +15,6 @@ final class Run implements Transformation
      */
     private $operations;
 
-    /**
-     * Run constructor.
-     *
-     * @param \loophp\collection\Contract\Operation ...$operations
-     */
     public function __construct(Operation ...$operations)
     {
         $this->operations = $operations;

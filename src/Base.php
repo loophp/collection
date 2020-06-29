@@ -93,9 +93,6 @@ abstract class Base implements BaseInterface
         }
     }
 
-    /**
-     * @return ClosureIterator
-     */
     public function getIterator(): ClosureIterator
     {
         return new ClosureIterator($this->source);

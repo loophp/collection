@@ -7,7 +7,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use InvalidArgumentException;
-use loophp\collection\Collection;
 use loophp\collection\Contract\Operation;
 
 /**

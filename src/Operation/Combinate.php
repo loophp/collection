@@ -8,7 +8,6 @@ use Closure;
 use Generator;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Transformation\All;
-use loophp\collection\Transformation\Count;
 
 use function array_slice;
 use function count;
