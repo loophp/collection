@@ -24,16 +24,46 @@ class CollectionSpec extends ObjectBehavior
         $this
             ->beConstructedThrough('with', [['1', '2', '3']]);
 
+        $generator = static function (): Generator {
+            yield 0 => '1';
+
+            yield 1 => '2';
+
+            yield 2 => '3';
+
+            yield 0 => '4';
+        };
+
         $this
             ->append('4')
-            ->shouldIterateAs(['1', '2', '3', '4']);
+            ->shouldIterateAs($generator());
+
+        $generator = static function (): Generator {
+            yield 0 => '1';
+
+            yield 1 => '2';
+
+            yield 2 => '3';
+
+            yield 0 => '5';
+
+            yield 1 => '6';
+        };
 
         $this
             ->append('5', '6')
-            ->shouldIterateAs(['1', '2', '3', '5', '6']);
+            ->shouldIterateAs($generator());
+
+        $generator = static function (): Generator {
+            yield 0 => '1';
+
+            yield 1 => '2';
+
+            yield 2 => '3';
+        };
 
         $this
-            ->shouldIterateAs(['1', '2', '3']);
+            ->shouldIterateAs($generator());
     }
 
     public function it_can_apply(): void
@@ -1001,12 +1031,34 @@ class CollectionSpec extends ObjectBehavior
             ->beConstructedThrough('with', [range('A', 'E')]);
 
         $collection = Collection::with(static function () {
-            yield from range('F', 'J');
+            return yield from range('F', 'J');
         });
+
+        $generator = static function (): Generator {
+            yield 0 => 'A';
+
+            yield 1 => 'B';
+
+            yield 2 => 'C';
+
+            yield 3 => 'D';
+
+            yield 4 => 'E';
+
+            yield 0 => 'F';
+
+            yield 1 => 'G';
+
+            yield 2 => 'H';
+
+            yield 3 => 'I';
+
+            yield 4 => 'J';
+        };
 
         $this
             ->merge($collection->all())
-            ->shouldIterateAs(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']);
+            ->shouldIterateAs($generator());
     }
 
     public function it_can_nth(): void
@@ -1171,9 +1223,23 @@ class CollectionSpec extends ObjectBehavior
         $this
             ->beConstructedThrough('with', [range('D', 'F')]);
 
+        $generator = static function (): Generator {
+            yield 0 => 'A';
+
+            yield 1 => 'B';
+
+            yield 2 => 'C';
+
+            yield 0 => 'D';
+
+            yield 1 => 'E';
+
+            yield 2 => 'F';
+        };
+
         $this
             ->prepend('A', 'B', 'C')
-            ->shouldIterateAs(['A', 'B', 'C', 'D', 'E', 'F']);
+            ->shouldIterateAs($generator());
     }
 
     public function it_can_reduce(): void

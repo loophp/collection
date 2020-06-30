@@ -20,7 +20,6 @@ final class Skip extends AbstractOperation implements Operation
         return
             /**
              * @param array<int, int> $skip
-             * @param iterable $collection
              */
             static function (iterable $collection, array $skip): Generator {
                 $skip = array_sum($skip);

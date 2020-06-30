@@ -20,7 +20,6 @@ final class Walk extends AbstractOperation implements Operation
         return
             /**
              * @param array<int, callable> $callbacks
-             * @param iterable $collection
              */
             static function (iterable $collection, array $callbacks): Generator {
                 foreach ($collection as $key => $value) {

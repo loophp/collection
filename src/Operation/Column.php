@@ -26,7 +26,6 @@ final class Column extends AbstractOperation implements Operation
         return
             /**
              * @param int|string $column
-             * @param iterable $collection
              */
             static function (iterable $collection, $column): Generator {
                 foreach ((new Run((new Transpose())))($collection) as $key => $value) {

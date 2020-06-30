@@ -23,7 +23,6 @@ final class Window extends AbstractOperation implements Operation
         return
             /**
              * @param array<int, int> $length
-             * @param iterable $collection
              */
             static function (iterable $collection, array $length): Generator {
                 $i = 0;

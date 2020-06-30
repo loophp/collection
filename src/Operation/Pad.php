@@ -14,7 +14,6 @@ final class Pad extends AbstractOperation implements Operation
      * Pad constructor.
      *
      * @param mixed $value
-     * @param int $size
      */
     public function __construct(int $size, $value)
     {
@@ -29,8 +28,6 @@ final class Pad extends AbstractOperation implements Operation
         return
             /**
              * @param mixed $padValue
-             * @param iterable $collection
-             * @param int $size
              */
             static function (iterable $collection, int $size, $padValue): Generator {
                 $y = 0;

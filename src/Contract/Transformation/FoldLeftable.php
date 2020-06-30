@@ -10,7 +10,6 @@ interface FoldLeftable
      * Fold the collection from the left to the right.
      *
      * @param mixed $initial
-     * @param callable $callback
      *
      * @return mixed
      */

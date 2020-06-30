@@ -25,15 +25,14 @@ final class Append extends AbstractOperation implements Operation
         return
             /**
              * @param array<int, mixed> $items
-             * @param iterable $collection
              */
             static function (iterable $collection, array $items): Generator {
-                foreach ($collection as $value) {
-                    yield $value;
+                foreach ($collection as $key => $value) {
+                    yield $key => $value;
                 }
 
-                foreach ($items as $item) {
-                    yield $item;
+                foreach ($items as $key => $item) {
+                    yield $key => $item;
                 }
             };
     }

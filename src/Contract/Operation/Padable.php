@@ -12,7 +12,6 @@ interface Padable
      * Pad a collection to the given length with a given value.
      *
      * @param mixed $value
-     * @param int $size
      *
      * @return \loophp\collection\Base|\loophp\collection\Contract\Collection
      */

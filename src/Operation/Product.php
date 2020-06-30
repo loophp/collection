@@ -33,8 +33,6 @@ final class Product extends AbstractOperation implements Operation
         return
             /**
              * @param array<int, iterable> $iterables
-             * @param iterable $collection
-             * @param callable $cartesian
              */
             static function (iterable $collection, array $iterables, callable $cartesian): Generator {
                 $its = [$collection];

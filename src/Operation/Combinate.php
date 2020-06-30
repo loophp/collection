@@ -48,7 +48,6 @@ final class Combinate extends AbstractOperation implements Operation
 
     /**
      * @param array<mixed> $dataset
-     * @param int $length
      *
      * @return Generator<array<mixed>>
      */

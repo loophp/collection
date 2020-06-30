@@ -14,7 +14,6 @@ final class Reduction extends AbstractOperation implements Operation
      * Reduction constructor.
      *
      * @param mixed|null $initial
-     * @param callable $callback
      */
     public function __construct(callable $callback, $initial = null)
     {
@@ -28,8 +27,6 @@ final class Reduction extends AbstractOperation implements Operation
     {
         return
             /**
-             * @param iterable $collection
-             * @param callable $callback
              * @param mixed|null $initial
              */
             static function (iterable $collection, callable $callback, $initial): Generator {

@@ -21,8 +21,6 @@ final class Intersperse extends AbstractOperation implements Operation
      * Intersperse constructor.
      *
      * @param mixed $element
-     * @param int $atEvery
-     * @param int $startAt
      */
     public function __construct($element, int $atEvery = 1, int $startAt = 0)
     {
@@ -49,9 +47,6 @@ final class Intersperse extends AbstractOperation implements Operation
         return
             /**
              * @param mixed $element
-             * @param iterable $collection
-             * @param int $every
-             * @param int $startAt
              */
             static function (iterable $collection, $element, int $every, int $startAt): Generator {
                 foreach ($collection as $value) {

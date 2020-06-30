@@ -40,10 +40,8 @@ final class Pluck extends AbstractOperation implements Operation
     {
         return
             /**
-             * @param iterable $collection
              * @param array<int, string>|string $key
              * @param mixed $default
-             * @param callable $pick
              */
             static function (iterable $collection, $key, $default, callable $pick): Generator {
                 $key = true === is_scalar($key) ? explode('.', trim((string) $key, '.')) : $key;

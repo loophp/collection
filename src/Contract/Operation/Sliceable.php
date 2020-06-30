@@ -11,7 +11,6 @@ interface Sliceable
     /**
      * Get a slice of a collection.
      *
-     * @param int $offset
      * @param ?int $length
      *
      * @return \loophp\collection\Base|\loophp\collection\Contract\Collection

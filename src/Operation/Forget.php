@@ -27,7 +27,6 @@ final class Forget extends AbstractOperation implements Operation
         return
             /**
              * @param array<int, mixed> $keys
-             * @param iterable $collection
              */
             static function (iterable $collection, array $keys): Generator {
                 $keys = array_flip($keys);

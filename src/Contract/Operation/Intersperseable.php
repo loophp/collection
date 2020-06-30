@@ -13,8 +13,6 @@ interface Intersperseable
      * Indices are not preserved.
      *
      * @param mixed $element
-     * @param int $every
-     * @param int $startAt
      *
      * @return \loophp\collection\Base|\loophp\collection\Contract\Collection
      */

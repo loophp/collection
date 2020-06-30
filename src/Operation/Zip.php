@@ -27,7 +27,6 @@ final class Zip extends AbstractOperation implements Operation
         return
             /**
              * @param array<int, iterable> $iterables
-             * @param iterable $collection
              */
             static function (iterable $collection, array $iterables): Generator {
                 $mit = new MultipleIterator(MultipleIterator::MIT_NEED_ANY);

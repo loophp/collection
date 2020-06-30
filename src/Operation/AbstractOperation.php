@@ -15,7 +15,6 @@ abstract class AbstractOperation
 
     /**
      * @param mixed|null $default
-     * @param string $key
      *
      * @return mixed|null
      */

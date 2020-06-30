@@ -11,8 +11,6 @@ interface Scaleable
     /**
      * Scale/normalize values.
      *
-     * @param float $lowerBound
-     * @param float $upperBound
      * @param ?float $wantedLowerBound
      * @param ?float $wantedUpperBound
      * @param ?float $base

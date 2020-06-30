@@ -13,9 +13,6 @@ final class Times extends AbstractOperation implements Operation
 {
     /**
      * Times constructor.
-     *
-     * @param int $number
-     * @param callable|null $callback
      */
     public function __construct(int $number = 0, ?callable $callback = null)
     {
@@ -35,9 +32,7 @@ final class Times extends AbstractOperation implements Operation
     {
         return
             /**
-             * @param iterable $collection
              * @param float|int $number
-             * @param callable $callback
              */
             static function (iterable $collection, $number, callable $callback): Generator {
                 for ($current = 1; $current <= $number; ++$current) {

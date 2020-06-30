@@ -28,7 +28,6 @@ final class SortableIterableIterator implements IteratorAggregate
      * SortableIterator constructor.
      *
      * @param iterable<mixed> $iterable
-     * @param callable $callable
      */
     public function __construct(iterable $iterable, callable $callable)
     {

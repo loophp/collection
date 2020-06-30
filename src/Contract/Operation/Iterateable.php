@@ -10,7 +10,6 @@ interface Iterateable
 {
     /**
      * @param mixed ...$parameters
-     * @param callable $callback
      *
      * @return \loophp\collection\Base|\loophp\collection\Contract\Collection
      */

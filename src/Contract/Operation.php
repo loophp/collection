@@ -12,7 +12,6 @@ interface Operation
 
     /**
      * @param mixed|null $default
-     * @param string $key
      *
      * @return mixed|null
      */

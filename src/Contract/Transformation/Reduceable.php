@@ -10,7 +10,6 @@ interface Reduceable
      * Reduce the collection to a single value.
      *
      * @param mixed $initial
-     * @param callable $callback
      *
      * @return mixed
      */

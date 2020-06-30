@@ -12,7 +12,6 @@ interface Reductionable
      * Reduce a collection of items through a given callback.
      *
      * @param mixed $initial
-     * @param callable $callback
      *
      * @return \loophp\collection\Base|\loophp\collection\Contract\Collection
      */

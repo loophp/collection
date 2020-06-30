@@ -22,7 +22,6 @@ final class Reduce implements Transformation
      * Reduce constructor.
      *
      * @param mixed|null $initial
-     * @param callable $callback
      */
     public function __construct(callable $callback, $initial = null)
     {

@@ -25,16 +25,15 @@ final class Merge extends AbstractOperation implements Operation
         return
             /**
              * @param array<int, iterable> $sources
-             * @param iterable $collection
              */
             static function (iterable $collection, array $sources): Generator {
-                foreach ($collection as $value) {
-                    yield $value;
+                foreach ($collection as $key => $value) {
+                    yield $key => $value;
                 }
 
                 foreach ($sources as $source) {
-                    foreach ($source as $value) {
-                        yield $value;
+                    foreach ($source as $key => $value) {
+                        yield $key => $value;
                     }
                 }
             };

@@ -11,8 +11,6 @@ interface Limitable
     /**
      * Limit the first {$limit} items.
      *
-     * @param int $limit
-     *
      * @return \loophp\collection\Base|\loophp\collection\Contract\Collection
      */
     public function limit(int $limit): Base;

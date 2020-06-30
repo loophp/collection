@@ -21,7 +21,6 @@ final class First implements Transformation
     /**
      * First constructor.
      *
-     * @param callable|null $callback
      * @param mixed|null $default
      */
     public function __construct(?callable $callback = null, $default = null)

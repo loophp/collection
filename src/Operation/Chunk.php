@@ -24,7 +24,6 @@ final class Chunk extends AbstractOperation implements Operation
         return
             /**
              * @param array<int, int> $sizes
-             * @param iterable $collection
              */
             static function (iterable $collection, array $sizes): Generator {
                 $sizes = new IterableIterator(
