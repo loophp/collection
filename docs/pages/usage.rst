@@ -276,7 +276,7 @@ Advanced
 --------
 
 You can choose to build your own Collection object by extending the `Base Collection class`_ or
-by just creating a new Operation class.
+by just creating a new ``Operation`` class.
 
 Each already existing operations live in its own file.
 
@@ -291,17 +291,17 @@ the `Operation interface`_, then run it through the ``Collection::run(Operation 
 
     use loophp\collection\Collection;
     use loophp\collection\Contract\Operation;
-    use Closure
+    use loophp\collection\Operation\AbstractOperation;
 
     include 'vendor/autoload.php';
 
-    $square = new class implements Operation {
+    $square = new class extends AbstractOperation implements Operation {
         /**
          * {@inheritdoc}
          */
-        public function on(iterable $iterable): Closure
+        public function __invoke(): Closure
         {
-            return static function () use ($iterable) {
+            return static function (iterable $iterable) {
                 foreach ($iterable as $value) {
                     yield $value ** 2;
                 }
@@ -309,9 +309,11 @@ the `Operation interface`_, then run it through the ``Collection::run(Operation 
         }
     };
 
-    Collection::range(5, 15)
+    $c = Collection::range(5, 15)
         ->run($square)
         ->all();
+
+    print_r($c);
 
 Another way would be to create your own custom collection object:
 
@@ -327,11 +329,8 @@ transform any input (`iterable`) into a regular array.
     include 'vendor/autoload.php';
 
     use loophp\collection\Base;
-    use loophp\collection\Contract\Allable;
-    use loophp\collection\Contract\Runable;
+    use loophp\collection\Contract\Transformation\Allable;
     use loophp\collection\Transformation\All;
-    use loophp\collection\Transformation\Run;
-    use loophp\collection\Contract\Operation;
 
     $customCollectionClass = new class extends Base implements Allable {
 
@@ -348,16 +347,16 @@ transform any input (`iterable`) into a regular array.
     print_r($customCollection->all()); // ['A', 'B', 'C']
 
     $generator = function() {
-      yield 'A';
-      yield 'B';
-      yield 'C';
+        yield 'A';
+        yield 'B';
+        yield 'C';
     };
 
     $customCollection = new $customCollectionClass($generator);
 
     print_r($customCollection->all()); // ['A', 'B', 'C']
 
-The final Collection class implements by default all the interfaces available.
+The final ``Collection`` class implements by default all the interfaces available.
 
 Use it like it is or create your own object by using the same procedure as shown here.
 
