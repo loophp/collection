@@ -1299,7 +1299,7 @@ class CollectionSpec extends ObjectBehavior
 
     public function it_can_shuffle(): void
     {
-        $data = range('A', 'E');
+        $data = range('A', 'Z');
 
         $this
             ->beConstructedThrough('with', [$data]);
