@@ -18,26 +18,33 @@ final class Since extends AbstractOperation implements Operation
 
     public function __invoke(): Closure
     {
-        return static function (iterable $collection, array $callbacks): Generator {
-            $iterator = new IterableIterator($collection);
+        return
+            /**
+             * @param array<int, callable> $callbacks
+             * @param iterable $collection
+             */
+            static function (iterable $collection, array $callbacks): Generator {
+                $iterator = new IterableIterator($collection);
 
-            while ($iterator->valid()) {
-                $result = 1;
+                while ($iterator->valid()) {
+                    $result = array_reduce(
+                        $callbacks,
+                        static function (int $carry, callable $callable) use ($iterator): int {
+                            return $carry & $callable($iterator->current(), $iterator->key());
+                        },
+                        1
+                    );
 
-                foreach ($callbacks as $keyCallback => $callback) {
-                    $result &= $callback($iterator->current(), $iterator->key());
+                    if (1 === $result) {
+                        break;
+                    }
+
+                    $iterator->next();
                 }
 
-                if (1 === $result) {
-                    break;
+                for (; $iterator->valid(); $iterator->next()) {
+                    yield $iterator->key() => $iterator->current();
                 }
-
-                $iterator->next();
-            }
-
-            for (; $iterator->valid(); $iterator->next()) {
-                yield $iterator->key() => $iterator->current();
-            }
-        };
+            };
     }
 }

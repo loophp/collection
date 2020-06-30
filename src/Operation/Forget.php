@@ -24,14 +24,19 @@ final class Forget extends AbstractOperation implements Operation
 
     public function __invoke(): Closure
     {
-        return static function (iterable $collection, array $keys): Generator {
-            $keys = array_flip($keys);
+        return
+            /**
+             * @param array<int, mixed> $keys
+             * @param iterable $collection
+             */
+            static function (iterable $collection, array $keys): Generator {
+                $keys = array_flip($keys);
 
-            foreach ($collection as $key => $value) {
-                if (false === array_key_exists($key, $keys)) {
-                    yield $key => $value;
+                foreach ($collection as $key => $value) {
+                    if (false === array_key_exists($key, $keys)) {
+                        yield $key => $value;
+                    }
                 }
-            }
-        };
+            };
     }
 }

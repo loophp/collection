@@ -20,16 +20,21 @@ final class Window extends AbstractOperation implements Operation
 
     public function __invoke(): Closure
     {
-        return static function (iterable $collection, array $length): Generator {
-            $i = 0;
+        return
+            /**
+             * @param array<int, int> $length
+             * @param iterable $collection
+             */
+            static function (iterable $collection, array $length): Generator {
+                $i = 0;
 
-            $length = new IterableIterator((new Collection($length))->loop());
+                $length = new IterableIterator((new Collection($length))->loop());
 
-            // Todo: Find a way to get rid of unused variable $value.
-            foreach ($collection as $value) {
-                yield iterator_to_array((new Run(new Slice($i++, $length->current())))($collection));
-                $length->next();
-            }
-        };
+                // Todo: Find a way to get rid of unused variable $value.
+                foreach ($collection as $value) {
+                    yield iterator_to_array((new Run(new Slice($i++, $length->current())))($collection));
+                    $length->next();
+                }
+            };
     }
 }

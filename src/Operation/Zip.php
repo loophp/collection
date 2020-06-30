@@ -24,17 +24,22 @@ final class Zip extends AbstractOperation implements Operation
 
     public function __invoke(): Closure
     {
-        return static function (iterable $collection, array $iterables): Generator {
-            $mit = new MultipleIterator(MultipleIterator::MIT_NEED_ANY);
-            $mit->attachIterator(new IterableIterator($collection));
+        return
+            /**
+             * @param array<int, iterable> $iterables
+             * @param iterable $collection
+             */
+            static function (iterable $collection, array $iterables): Generator {
+                $mit = new MultipleIterator(MultipleIterator::MIT_NEED_ANY);
+                $mit->attachIterator(new IterableIterator($collection));
 
-            foreach ($iterables as $iterator) {
-                $mit->attachIterator(new IterableIterator($iterator));
-            }
+                foreach ($iterables as $iterator) {
+                    $mit->attachIterator(new IterableIterator($iterator));
+                }
 
-            foreach ($mit as $values) {
-                yield $values;
-            }
-        };
+                foreach ($mit as $values) {
+                    yield $values;
+                }
+            };
     }
 }

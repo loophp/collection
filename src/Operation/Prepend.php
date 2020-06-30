@@ -22,14 +22,19 @@ final class Prepend extends AbstractOperation implements Operation
 
     public function __invoke(): Closure
     {
-        return static function (iterable $collection, array $items): Generator {
-            foreach ($items as $item) {
-                yield $item;
-            }
+        return
+            /**
+             * @param array<int, mixed> $items
+             * @param iterable $collection
+             */
+            static function (iterable $collection, array $items): Generator {
+                foreach ($items as $item) {
+                    yield $item;
+                }
 
-            foreach ($collection as $value) {
-                yield $value;
-            }
-        };
+                foreach ($collection as $value) {
+                    yield $value;
+                }
+            };
     }
 }

@@ -9,8 +9,8 @@ interface Firstable
     /**
      * Get the first item from the collection passing the given truth test.
      *
+     * @param callable|null $callback
      * @param mixed $default
-     * @param ?callable $callback
      *
      * @return mixed
      */

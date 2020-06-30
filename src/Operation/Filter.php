@@ -19,14 +19,19 @@ final class Filter extends AbstractOperation implements Operation
 
     public function __invoke(): Closure
     {
-        return static function (iterable $collection, array $callbacks): Generator {
-            $iterator = new IterableIterator($collection);
+        return
+            /**
+             * @param array<int, callable> $callbacks
+             * @param iterable $collection
+             */
+            static function (iterable $collection, array $callbacks): Generator {
+                $iterator = new IterableIterator($collection);
 
-            foreach ($callbacks as $callback) {
-                $iterator = new CallbackFilterIterator($iterator, $callback);
-            }
+                foreach ($callbacks as $callback) {
+                    $iterator = new CallbackFilterIterator($iterator, $callback);
+                }
 
-            yield from $iterator;
-        };
+                yield from $iterator;
+            };
     }
 }

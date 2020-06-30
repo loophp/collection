@@ -424,7 +424,7 @@ final class Collection extends Base implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public static function times($number = INF, ?callable $callback = null): BaseInterface
+    public static function times(int $number = 0, ?callable $callback = null): BaseInterface
     {
         return (new self())->run(new Times($number, $callback));
     }

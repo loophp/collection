@@ -17,20 +17,27 @@ final class Until extends AbstractOperation implements Operation
 
     public function __invoke(): Closure
     {
-        return static function (iterable $collection, array $callbacks): Generator {
-            foreach ($collection as $key => $value) {
-                yield $key => $value;
+        return
+            /**
+             * @param array<int, callable> $callbacks
+             * @param iterable $collection
+             */
+            static function (iterable $collection, array $callbacks): Generator {
+                foreach ($collection as $key => $value) {
+                    yield $key => $value;
 
-                $result = 1;
+                    $result = array_reduce(
+                        $callbacks,
+                        static function (int $carry, callable $callable) use ($key, $value): int {
+                            return $carry & $callable($value, $key);
+                        },
+                        1
+                    );
 
-                foreach ($callbacks as $callback) {
-                    $result &= $callback($value, $key);
+                    if (1 === $result) {
+                        break;
+                    }
                 }
-
-                if (1 === $result) {
-                    break;
-                }
-            }
-        };
+            };
     }
 }

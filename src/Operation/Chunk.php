@@ -21,32 +21,37 @@ final class Chunk extends AbstractOperation implements Operation
 
     public function __invoke(): Closure
     {
-        return static function (iterable $collection, array $sizes): Generator {
-            $sizes = new IterableIterator(
-                (new Collection($sizes))->loop()
-            );
+        return
+            /**
+             * @param array<int, int> $sizes
+             * @param iterable $collection
+             */
+            static function (iterable $collection, array $sizes): Generator {
+                $sizes = new IterableIterator(
+                    (new Collection($sizes))->loop()
+                );
 
-            $values = [];
+                $values = [];
 
-            foreach ($collection as $value) {
-                if (0 >= $sizes->current()) {
-                    return yield from [];
+                foreach ($collection as $value) {
+                    if (0 >= $sizes->current()) {
+                        return yield from [];
+                    }
+
+                    if (count($values) !== $sizes->current()) {
+                        $values[] = $value;
+
+                        continue;
+                    }
+
+                    $sizes->next();
+
+                    yield $values;
+
+                    $values = [$value];
                 }
-
-                if (count($values) !== $sizes->current()) {
-                    $values[] = $value;
-
-                    continue;
-                }
-
-                $sizes->next();
 
                 yield $values;
-
-                $values = [$value];
-            }
-
-            yield $values;
-        };
+            };
     }
 }

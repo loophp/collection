@@ -17,18 +17,23 @@ final class Apply extends AbstractOperation implements Operation
 
     public function __invoke(): Closure
     {
-        return static function (iterable $collection, array $callbacks): Generator {
-            foreach ($collection as $key => $value) {
-                foreach ($callbacks as $callback) {
-                    if (true === $callback($value, $key)) {
-                        continue;
+        return
+            /**
+             * @param array<int, callable> $callbacks
+             * @param iterable $collection
+             */
+            static function (iterable $collection, array $callbacks): Generator {
+                foreach ($collection as $key => $value) {
+                    foreach ($callbacks as $callback) {
+                        if (true === $callback($value, $key)) {
+                            continue;
+                        }
+
+                        break;
                     }
 
-                    break;
+                    yield $key => $value;
                 }
-
-                yield $key => $value;
-            }
-        };
+            };
     }
 }

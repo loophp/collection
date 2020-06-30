@@ -26,7 +26,7 @@ abstract class Base implements BaseInterface
     /**
      * Base constructor.
      *
-     * @param Closure|iterable|mixed|resource $data
+     * @param Closure|iterable|mixed|resource|string $data
      * @param mixed ...$parameters
      */
     final public function __construct($data = [], ...$parameters)

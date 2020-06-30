@@ -28,7 +28,7 @@ final class Iterate extends AbstractOperation implements Operation
     {
         return
             /**
-             * @param array<mixed> $parameters
+             * @param array<mixed, mixed> $parameters
              * @param iterable $collection
              * @param callable $callback
              */

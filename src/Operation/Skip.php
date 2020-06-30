@@ -17,16 +17,21 @@ final class Skip extends AbstractOperation implements Operation
 
     public function __invoke(): Closure
     {
-        return static function (iterable $collection, array $skip): Generator {
-            $skip = array_sum($skip);
+        return
+            /**
+             * @param array<int, int> $skip
+             * @param iterable $collection
+             */
+            static function (iterable $collection, array $skip): Generator {
+                $skip = array_sum($skip);
 
-            foreach ($collection as $key => $value) {
-                if (0 < $skip--) {
-                    continue;
+                foreach ($collection as $key => $value) {
+                    if (0 < $skip--) {
+                        continue;
+                    }
+
+                    yield $key => $value;
                 }
-
-                yield $key => $value;
-            }
-        };
+            };
     }
 }

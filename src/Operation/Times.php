@@ -14,10 +14,10 @@ final class Times extends AbstractOperation implements Operation
     /**
      * Times constructor.
      *
-     * @param float|int $number
-     * @param ?callable $callback
+     * @param int $number
+     * @param callable|null $callback
      */
-    public function __construct($number, ?callable $callback = null)
+    public function __construct(int $number = 0, ?callable $callback = null)
     {
         if (1 > $number) {
             throw new InvalidArgumentException('Invalid parameter. $number must be greater than 1.');

@@ -11,7 +11,7 @@ interface Sortable
     /**
      * Sort a collection using a callback.
      *
-     * @param ?callable $callable
+     * @param callable|null $callable
      *
      * @return \loophp\collection\Base|\loophp\collection\Contract\Collection
      */

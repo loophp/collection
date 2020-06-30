@@ -30,15 +30,21 @@ final class Product extends AbstractOperation implements Operation
 
     public function __invoke(): Closure
     {
-        return static function (iterable $collection, array $iterables, callable $cartesian): Generator {
-            $its = [$collection];
+        return
+            /**
+             * @param array<int, iterable> $iterables
+             * @param iterable $collection
+             * @param callable $cartesian
+             */
+            static function (iterable $collection, array $iterables, callable $cartesian): Generator {
+                $its = [$collection];
 
-            foreach ($iterables as $iterable) {
-                $its[] = new IterableIterator($iterable);
-            }
+                foreach ($iterables as $iterable) {
+                    $its[] = new IterableIterator($iterable);
+                }
 
-            yield from $cartesian($its);
-        };
+                yield from $cartesian($its);
+            };
     }
 
     /**
