@@ -50,8 +50,10 @@ use loophp\collection\Contract\Operation\Tailable;
 use loophp\collection\Contract\Operation\Timesable;
 use loophp\collection\Contract\Operation\Transposeable;
 use loophp\collection\Contract\Operation\Untilable;
+use loophp\collection\Contract\Operation\Unwrapable;
 use loophp\collection\Contract\Operation\Walkable;
 use loophp\collection\Contract\Operation\Windowable;
+use loophp\collection\Contract\Operation\Wrapable;
 use loophp\collection\Contract\Operation\Zipable;
 use loophp\collection\Contract\Transformation\Allable;
 use loophp\collection\Contract\Transformation\Containsable;
@@ -126,8 +128,10 @@ interface Collection extends
     Transposeable,
     Truthyable,
     Untilable,
+    Unwrapable,
     Walkable,
     Windowable,
+    Wrapable,
     Zipable
 {
     /**

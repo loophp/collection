@@ -912,6 +912,22 @@ Signature: ``Collection::until(callable ...$callbacks);``
             return 1 === $number;
         });
 
+unwrap
+~~~~~~
+
+Unwrap every collection element.
+
+Interface: `Unwrapable`_
+
+Signature: ``Collection::unwrap();``
+
+.. code-block:: php
+
+     $data = [['a' => 'A'], ['b' => 'B'], ['c' => 'C']];
+
+     $collection = Collection::with($data)
+        ->unwrap();
+
 walk
 ~~~~
 
@@ -948,6 +964,22 @@ Signature: ``Collection::window(int ...$length);``
      $collection = Collection::with($data)
         ->window(2, 3)
         ->all();
+
+wrap
+~~~~
+
+Wrap every element into an array.
+
+Interface: `Wrapable`_
+
+Signature: ``Collection::wrap();``
+
+.. code-block:: php
+
+     $data = ['a' => 'A', 'b' => 'B', 'c' => 'C'];
+
+     $collection = Collection::with($data)
+        ->wrap();
 
 zip
 ~~~
@@ -1099,6 +1131,8 @@ Interface: `Truthyable`_
 .. _Transposeable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Transposeable.php
 .. _Truthyable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/Truthyable.php
 .. _Untilable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Untilable.php
+.. _Unwrapable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Unwrapable.php
 .. _Walkable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Walkable.php
 .. _Windowable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Windowable.php
+.. _Wrapable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Wrapable.php
 .. _Zipable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Zipable.php

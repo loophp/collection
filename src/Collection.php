@@ -51,8 +51,10 @@ use loophp\collection\Operation\Tail;
 use loophp\collection\Operation\Times;
 use loophp\collection\Operation\Transpose;
 use loophp\collection\Operation\Until;
+use loophp\collection\Operation\Unwrap;
 use loophp\collection\Operation\Walk;
 use loophp\collection\Operation\Window;
+use loophp\collection\Operation\Wrap;
 use loophp\collection\Operation\Zip;
 use loophp\collection\Transformation\All;
 use loophp\collection\Transformation\Contains;
@@ -444,6 +446,11 @@ final class Collection extends Base implements CollectionInterface
         return $this->run(new Until(...$callbacks));
     }
 
+    public function unwrap(): BaseInterface
+    {
+        return $this->run(new Unwrap());
+    }
+
     public function walk(callable ...$callbacks): BaseInterface
     {
         return $this->run(new Walk(...$callbacks));
@@ -460,6 +467,11 @@ final class Collection extends Base implements CollectionInterface
     public static function with($data = [], ...$parameters): CollectionInterface
     {
         return new self($data, ...$parameters);
+    }
+
+    public function wrap(): BaseInterface
+    {
+        return $this->run(new Wrap());
     }
 
     /**

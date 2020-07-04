@@ -1599,6 +1599,26 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs([5, 16, 8, 4, 2, 1]);
     }
 
+    public function it_can_unwrap()
+    {
+        $this::with([['a' => 'A'], ['b' => 'B'], ['c' => 'C']])
+            ->unwrap()
+            ->shouldIterateAs([
+                'a' => 'A',
+                'b' => 'B',
+                'c' => 'C',
+            ]);
+
+        $this::fromIterable(['foo' => ['a' => 'A'], 'bar' => ['b' => 'B'], 'foobar' => ['c' => 'C', 'd' => 'D']])
+            ->unwrap()
+            ->shouldIterateAs([
+                'a' => 'A',
+                'b' => 'B',
+                'c' => 'C',
+                'd' => 'D',
+            ]);
+    }
+
     public function it_can_use_range(): void
     {
         $this
@@ -1821,6 +1841,17 @@ class CollectionSpec extends ObjectBehavior
                 25 => [
                     25 => 'z',
                 ],
+            ]);
+    }
+
+    public function it_can_wrap()
+    {
+        $this::with(['a' => 'A', 'b' => 'B', 'c' => 'C'])
+            ->wrap()
+            ->shouldIterateAs([
+                ['a' => 'A'],
+                ['b' => 'B'],
+                ['c' => 'C'],
             ]);
     }
 
