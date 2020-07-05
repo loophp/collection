@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace spec\loophp\collection\Iterator;
 
+use Iterator;
 use loophp\collection\Iterator\ClosureIterator;
 use PhpSpec\ObjectBehavior;
 
@@ -94,5 +95,9 @@ class ClosureIteratorSpec extends ObjectBehavior
         $this
             ->current()
             ->shouldBeEqualTo('foo');
+
+        $this
+            ->getInnerIterator()
+            ->shouldImplement(Iterator::class);
     }
 }
