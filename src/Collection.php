@@ -4,8 +4,13 @@ declare(strict_types=1);
 
 namespace loophp\collection;
 
+use Generator;
 use loophp\collection\Contract\Base as BaseInterface;
 use loophp\collection\Contract\Collection as CollectionInterface;
+use loophp\collection\Iterator\ClosureIterator;
+use loophp\collection\Iterator\IterableIterator;
+use loophp\collection\Iterator\ResourceIterator;
+use loophp\collection\Iterator\StringIterator;
 use loophp\collection\Operation\Append;
 use loophp\collection\Operation\Apply;
 use loophp\collection\Operation\Chunk;
@@ -188,6 +193,42 @@ final class Collection extends Base implements CollectionInterface
     public function frequency(): BaseInterface
     {
         return $this->run(new Frequency());
+    }
+
+    public static function fromCallable(callable $callable, ...$parameters): CollectionInterface
+    {
+        return new self(
+            static function () use ($callable, $parameters): Generator {
+                return yield from new ClosureIterator($callable, ...$parameters);
+            }
+        );
+    }
+
+    public static function fromIterable(iterable $iterable): CollectionInterface
+    {
+        return new self(
+            static function () use ($iterable): Generator {
+                return yield from new IterableIterator($iterable);
+            }
+        );
+    }
+
+    public static function fromResource($resource): CollectionInterface
+    {
+        return new self(
+            static function () use ($resource): Generator {
+                return yield from new ResourceIterator($resource);
+            }
+        );
+    }
+
+    public static function fromString(string $string, string $delimiter = ''): CollectionInterface
+    {
+        return new self(
+            static function () use ($string, $delimiter): Generator {
+                return yield from new StringIterator($string, $delimiter);
+            }
+        );
     }
 
     public function get($key, $default = null)

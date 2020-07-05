@@ -140,6 +140,25 @@ interface Collection extends
     public static function empty(): Collection;
 
     /**
+     * @param mixed ...$parameters
+     *
+     * @return \loophp\collection\Contract\Collection
+     */
+    public static function fromCallable(callable $callable, ...$parameters): Collection;
+
+    /**
+     * @param iterable<mixed> $iterable
+     */
+    public static function fromIterable(iterable $iterable): Collection;
+
+    /**
+     * @param resource $resource
+     */
+    public static function fromResource($resource): Collection;
+
+    public static function fromString(string $string, string $delimiter = ''): Collection;
+
+    /**
      * Create a collection with the data.
      *
      * @param mixed $data

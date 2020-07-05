@@ -4,18 +4,20 @@ declare(strict_types=1);
 
 namespace loophp\collection\Iterator;
 
+use Closure;
 use Generator;
 use Iterator;
+use OuterIterator;
 
 /**
  * Class ClosureIterator.
  *
  * @implements Iterator<mixed>
  */
-final class ClosureIterator implements Iterator
+final class ClosureIterator extends ProxyIterator implements Iterator, OuterIterator
 {
     /**
-     * @var array<mixed>
+     * @var array<int, mixed>
      */
     private $arguments;
 
@@ -25,7 +27,7 @@ final class ClosureIterator implements Iterator
     private $callable;
 
     /**
-     * @var Generator<Generator<mixed>>|null
+     * @var Closure
      */
     private $generator;
 
@@ -38,49 +40,16 @@ final class ClosureIterator implements Iterator
     {
         $this->callable = $callable;
         $this->arguments = $arguments;
-    }
+        $this->generator = static function (callable $callable, array $arguments): Generator {
+            return yield from ($callable)(...$arguments);
+        };
 
-    /**
-     * {@inheritdoc}
-     */
-    public function current()
-    {
-        return $this->getGenerator()->current();
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @return int|string
-     */
-    public function key()
-    {
-        return $this->getGenerator()->key();
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @return void
-     */
-    public function next()
-    {
-        $this->getGenerator()->next();
+        $this->iterator = $this->getGenerator();
     }
 
     public function rewind(): void
     {
-        $this->generator = null;
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @return bool
-     */
-    public function valid()
-    {
-        return $this->getGenerator()->valid();
+        $this->iterator = $this->getGenerator();
     }
 
     /**
@@ -90,14 +59,6 @@ final class ClosureIterator implements Iterator
      */
     private function getGenerator(): Generator
     {
-        if (null === $this->generator) {
-            $this->generator = (
-                static function (callable $callable, array $arguments): Generator {
-                    yield from ($callable)(...$arguments);
-                }
-            )($this->callable, $this->arguments);
-        }
-
-        return $this->generator;
+        return ($this->generator)($this->callable, $this->arguments);
     }
 }
