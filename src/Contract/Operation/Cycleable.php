@@ -8,8 +8,5 @@ use loophp\collection\Contract\Base;
 
 interface Cycleable
 {
-    /**
-     * @return \loophp\collection\Base|\loophp\collection\Contract\Collection
-     */
-    public function cycle(int $length = 0): Base;
+    public function cycle(?int $length = null): Base;
 }

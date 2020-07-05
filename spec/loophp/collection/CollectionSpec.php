@@ -409,20 +409,21 @@ class CollectionSpec extends ObjectBehavior
 
     public function it_can_cycle(): void
     {
-        $this
-            ->beConstructedThrough('with', [['1', '2', '3']]);
-
-        $this
+        $this::with(['1', '2', '3'])
             ->cycle(3)
             ->shouldIterateAs(['1', '2', '3']);
 
-        $this
+        $this::with(['1', '2', '3'])
             ->cycle(6)
             ->shouldIterateAs(['1', '2', '3', '1', '2', '3']);
 
-        $this
+        $this::with(['1', '2', '3'])
             ->cycle(7)
             ->shouldIterateAs(['1', '2', '3', '1', '2', '3', '1']);
+
+        $this::with(['1', '2', '3'])
+            ->cycle()
+            ->shouldIterateAs([]);
     }
 
     public function it_can_distinct(): void

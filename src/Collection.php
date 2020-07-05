@@ -140,7 +140,7 @@ final class Collection extends Base implements CollectionInterface
         return $this->transform(new Count());
     }
 
-    public function cycle(int $length = 0): BaseInterface
+    public function cycle(?int $length = null): BaseInterface
     {
         return $this->run(new Cycle($length));
     }
