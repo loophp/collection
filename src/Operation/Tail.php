@@ -12,15 +12,15 @@ use loophp\collection\Transformation\Run;
 
 final class Tail extends AbstractOperation implements Operation
 {
-    public function __construct(int $length = 1)
+    public function __construct(?int $length = null)
     {
-        $this->storage['length'] = $length;
+        $this->storage['length'] = $length ?? 1;
     }
 
     public function __invoke(): Closure
     {
         return static function (iterable $collection, int $length): Generator {
-            yield from (
+            return yield from (
                 new Run(
                     new Skip(
                         (new Count())($collection) - $length

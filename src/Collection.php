@@ -418,7 +418,7 @@ final class Collection extends Base implements CollectionInterface
         return $this->run(new Split(...$callbacks));
     }
 
-    public function tail(int $length = 1): BaseInterface
+    public function tail(?int $length = null): BaseInterface
     {
         return $this->run(new Tail($length));
     }

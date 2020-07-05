@@ -10,8 +10,6 @@ interface Tailable
 {
     /**
      * Get last collection items of a collection.
-     *
-     * @return \loophp\collection\Base|\loophp\collection\Contract\Collection
      */
-    public function tail(int $length = 1): Base;
+    public function tail(?int $length = null): Base;
 }
