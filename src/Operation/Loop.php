@@ -15,8 +15,8 @@ final class Loop extends AbstractOperation implements Operation
     public function __invoke(): Closure
     {
         return static function (iterable $collection): Generator {
-            foreach (new InfiniteIterator(new IterableIterator($collection)) as $value) {
-                yield $value;
+            foreach (new InfiniteIterator(new IterableIterator($collection)) as $key => $value) {
+                yield $key => $value;
             }
         };
     }

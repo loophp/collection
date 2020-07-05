@@ -1002,13 +1002,24 @@ class CollectionSpec extends ObjectBehavior
 
     public function it_can_loop(): void
     {
-        $this
-            ->beConstructedThrough('with', [['1', '2', '3']]);
+        $generator = static function (): Generator {
+            yield 0 => 1;
 
-        $this
+            yield 1 => 2;
+
+            yield 2 => 3;
+
+            yield 0 => 1;
+
+            yield 1 => 2;
+
+            yield 2 => 3;
+        };
+
+        $this::with(range(1, 3))
             ->loop()
             ->limit(6)
-            ->shouldIterateAs(['1', '2', '3', '1', '2', '3']);
+            ->shouldIterateAs($generator());
     }
 
     public function it_can_map(): void
