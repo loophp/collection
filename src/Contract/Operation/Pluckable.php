@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
-use loophp\collection\Contract\Base;
+use loophp\collection\Contract\Collection;
 
 interface Pluckable
 {
@@ -13,8 +13,6 @@ interface Pluckable
      *
      * @param array<int, string>|string $pluck
      * @param mixed|null $default
-     *
-     * @return \loophp\collection\Base|\loophp\collection\Contract\Collection
      */
-    public function pluck($pluck, $default = null): Base;
+    public function pluck($pluck, $default = null): Collection;
 }

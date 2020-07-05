@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
-use loophp\collection\Contract\Base;
+use loophp\collection\Contract\Collection;
 
 interface RSampleable
 {
-    public function rsample(float $probability): Base;
+    public function rsample(float $probability): Collection;
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
-use loophp\collection\Contract\Base;
+use loophp\collection\Contract\Collection;
 
 interface Intersperseable
 {
@@ -13,8 +13,6 @@ interface Intersperseable
      * Indices are not preserved.
      *
      * @param mixed $element
-     *
-     * @return \loophp\collection\Base|\loophp\collection\Contract\Collection
      */
-    public function intersperse($element, int $every = 1, int $startAt = 0): Base;
+    public function intersperse($element, int $every = 1, int $startAt = 0): Collection;
 }

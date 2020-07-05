@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
-use loophp\collection\Contract\Base;
+use loophp\collection\Contract\Collection;
 
 interface Timesable
 {
     /**
      * Create a new instance by invoking the callback a given amount of times.
-     *
-     * @return \loophp\collection\Base|\loophp\collection\Contract\Collection
      */
-    public static function times(int $number = 0, ?callable $callback = null): Base;
+    public static function times(int $number = 0, ?callable $callback = null): Collection;
 }

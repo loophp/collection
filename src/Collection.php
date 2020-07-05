@@ -4,9 +4,13 @@ declare(strict_types=1);
 
 namespace loophp\collection;
 
+use ArrayAccess;
+use Exception;
 use Generator;
-use loophp\collection\Contract\Base as BaseInterface;
+use IteratorAggregate;
 use loophp\collection\Contract\Collection as CollectionInterface;
+use loophp\collection\Contract\Operation;
+use loophp\collection\Contract\Transformation;
 use loophp\collection\Iterator\ClosureIterator;
 use loophp\collection\Iterator\IterableIterator;
 use loophp\collection\Iterator\ResourceIterator;
@@ -80,60 +84,69 @@ use loophp\collection\Transformation\Implode;
 use loophp\collection\Transformation\Last;
 use loophp\collection\Transformation\Nullsy;
 use loophp\collection\Transformation\Reduce;
+use loophp\collection\Transformation\Run;
+use loophp\collection\Transformation\Transform;
 use loophp\collection\Transformation\Truthy;
 use Psr\Cache\CacheItemPoolInterface;
+use StdClass;
 
 use const INF;
 use const PHP_INT_MAX;
 
-final class Collection extends Base implements CollectionInterface
+/**
+ * Class Collection.
+ *
+ * @implements IteratorAggregate<mixed, mixed>
+ * @implements ArrayAccess<mixed, mixed>
+ */
+final class Collection implements ArrayAccess, CollectionInterface, IteratorAggregate
 {
     public function all(): array
     {
         return $this->transform(new All());
     }
 
-    public function append(...$items): BaseInterface
+    public function append(...$items): CollectionInterface
     {
         return $this->run(new Append(...$items));
     }
 
-    public function apply(callable ...$callables): BaseInterface
+    public function apply(callable ...$callables): CollectionInterface
     {
         return $this->run(new Apply(...$callables));
     }
 
-    public function cache(?CacheItemPoolInterface $cache = null): BaseInterface
+    public function cache(?CacheItemPoolInterface $cache = null): CollectionInterface
     {
         return $this->run(new Cache($cache));
     }
 
-    public function chunk(int ...$size): BaseInterface
+    public function chunk(int ...$size): CollectionInterface
     {
         return $this->run(new Chunk(...$size));
     }
 
-    public function collapse(): BaseInterface
+    public function collapse(): CollectionInterface
     {
         return $this->run(new Collapse());
     }
 
-    public function column($column): BaseInterface
+    public function column($column): CollectionInterface
     {
         return $this->run(new Column($column));
     }
 
-    public function combinate(?int $length = null): BaseInterface
+    public function combinate(?int $length = null): CollectionInterface
     {
         return $this->run(new Combinate($length));
     }
 
-    public function combine(...$keys): BaseInterface
+    public function combine(...$keys): CollectionInterface
     {
         return $this->run(new Combine(...$keys));
     }
 
-    public function compact(...$values): BaseInterface
+    public function compact(...$values): CollectionInterface
     {
         return $this->run(new Compact(...$values));
     }
@@ -148,32 +161,32 @@ final class Collection extends Base implements CollectionInterface
         return $this->transform(new Count());
     }
 
-    public function cycle(?int $length = null): BaseInterface
+    public function cycle(?int $length = null): CollectionInterface
     {
         return $this->run(new Cycle($length));
     }
 
-    public function diff(...$values): BaseInterface
+    public function diff(...$values): CollectionInterface
     {
         return $this->run(new Diff(...$values));
     }
 
-    public function diffKeys(...$values): BaseInterface
+    public function diffKeys(...$values): CollectionInterface
     {
         return $this->run(new DiffKeys(...$values));
     }
 
-    public function distinct(): BaseInterface
+    public function distinct(): CollectionInterface
     {
         return $this->run(new Distinct());
     }
 
     public static function empty(): CollectionInterface
     {
-        return new self();
+        return self::fromIterable([]);
     }
 
-    public function explode(...$explodes): BaseInterface
+    public function explode(...$explodes): CollectionInterface
     {
         return $this->run(new Explode(...$explodes));
     }
@@ -183,7 +196,7 @@ final class Collection extends Base implements CollectionInterface
         return $this->transform(new Falsy());
     }
 
-    public function filter(callable ...$callbacks): BaseInterface
+    public function filter(callable ...$callbacks): CollectionInterface
     {
         return $this->run(new Filter(...$callbacks));
     }
@@ -193,12 +206,12 @@ final class Collection extends Base implements CollectionInterface
         return $this->transform(new First($callback, $default));
     }
 
-    public function flatten(int $depth = PHP_INT_MAX): BaseInterface
+    public function flatten(int $depth = PHP_INT_MAX): CollectionInterface
     {
         return $this->run(new Flatten($depth));
     }
 
-    public function flip(): BaseInterface
+    public function flip(): CollectionInterface
     {
         return $this->run(new Flip());
     }
@@ -213,12 +226,12 @@ final class Collection extends Base implements CollectionInterface
         return $this->transform(new FoldRight($callback, $initial));
     }
 
-    public function forget(...$keys): BaseInterface
+    public function forget(...$keys): CollectionInterface
     {
         return $this->run(new Forget(...$keys));
     }
 
-    public function frequency(): BaseInterface
+    public function frequency(): CollectionInterface
     {
         return $this->run(new Frequency());
     }
@@ -264,7 +277,12 @@ final class Collection extends Base implements CollectionInterface
         return $this->transform(new Get($key, $default));
     }
 
-    public function group(?callable $callable = null): BaseInterface
+    public function getIterator(): ClosureIterator
+    {
+        return new ClosureIterator($this->source);
+    }
+
+    public function group(?callable $callable = null): CollectionInterface
     {
         return $this->run(new Group($callable));
     }
@@ -274,24 +292,24 @@ final class Collection extends Base implements CollectionInterface
         return $this->transform(new Implode($glue));
     }
 
-    public function intersect(...$values): BaseInterface
+    public function intersect(...$values): CollectionInterface
     {
         return $this->run(new Intersect(...$values));
     }
 
-    public function intersectKeys(...$values): BaseInterface
+    public function intersectKeys(...$values): CollectionInterface
     {
         return $this->run(new IntersectKeys(...$values));
     }
 
-    public function intersperse($element, int $every = 1, int $startAt = 0): BaseInterface
+    public function intersperse($element, int $every = 1, int $startAt = 0): CollectionInterface
     {
         return $this->run(new Intersperse($element, $every, $startAt));
     }
 
-    public static function iterate(callable $callback, ...$parameters): BaseInterface
+    public static function iterate(callable $callback, ...$parameters): CollectionInterface
     {
-        return (new self())->run(new Iterate($callback, $parameters));
+        return self::fromIterable([])->run(new Iterate($callback, $parameters));
     }
 
     /**
@@ -302,7 +320,7 @@ final class Collection extends Base implements CollectionInterface
         return $this->all();
     }
 
-    public function keys(): BaseInterface
+    public function keys(): CollectionInterface
     {
         return $this->run(new Keys());
     }
@@ -312,32 +330,32 @@ final class Collection extends Base implements CollectionInterface
         return $this->transform(new Last());
     }
 
-    public function limit(int $limit): BaseInterface
+    public function limit(int $limit): CollectionInterface
     {
         return $this->run(new Limit($limit));
     }
 
-    public function loop(): BaseInterface
+    public function loop(): CollectionInterface
     {
         return $this->run(new Loop());
     }
 
-    public function map(callable ...$callbacks): BaseInterface
+    public function map(callable ...$callbacks): CollectionInterface
     {
         return $this->run(new Walk(...$callbacks));
     }
 
-    public function merge(iterable ...$sources): BaseInterface
+    public function merge(iterable ...$sources): CollectionInterface
     {
         return $this->run(new Merge(...$sources));
     }
 
-    public function normalize(): BaseInterface
+    public function normalize(): CollectionInterface
     {
         return $this->run(new Normalize());
     }
 
-    public function nth(int $step, int $offset = 0): BaseInterface
+    public function nth(int $step, int $offset = 0): CollectionInterface
     {
         return $this->run(new Nth($step, $offset));
     }
@@ -347,44 +365,70 @@ final class Collection extends Base implements CollectionInterface
         return $this->transform(new Nullsy());
     }
 
-    public function only(...$keys): BaseInterface
+    public function offsetExists($offset)
+    {
+        $default = new StdClass();
+
+        return $this->get($offset, $default) !== $default;
+    }
+
+    public function offsetGet($offset)
+    {
+        if (!$this->offsetExists($offset)) {
+            throw new Exception('Unexisting offset.');
+        }
+
+        return $this->get($offset);
+    }
+
+    public function offsetSet($offset, $value)
+    {
+        throw new Exception('Not implemented.');
+    }
+
+    public function offsetUnset($offset)
+    {
+        throw new Exception('Not implemented.');
+    }
+
+    public function only(...$keys): CollectionInterface
     {
         return $this->run(new Only(...$keys));
     }
 
-    public function pad(int $size, $value): BaseInterface
+    public function pad(int $size, $value): CollectionInterface
     {
         return $this->run(new Pad($size, $value));
     }
 
-    public function permutate(): BaseInterface
+    public function permutate(): CollectionInterface
     {
         return $this->run(new Permutate());
     }
 
-    public function pluck($pluck, $default = null): BaseInterface
+    public function pluck($pluck, $default = null): CollectionInterface
     {
         return $this->run(new Pluck($pluck, $default));
     }
 
-    public function prepend(...$items): BaseInterface
+    public function prepend(...$items): CollectionInterface
     {
         return $this->run(new Prepend(...$items));
     }
 
-    public function product(iterable ...$iterables): BaseInterface
+    public function product(iterable ...$iterables): CollectionInterface
     {
         return $this->run(new Product(...$iterables));
     }
 
-    public function random(int $size = 1): BaseInterface
+    public function random(int $size = 1): CollectionInterface
     {
         return $this->run(new Random($size));
     }
 
-    public static function range(float $start = 0.0, float $end = INF, float $step = 1.0): BaseInterface
+    public static function range(float $start = 0.0, float $end = INF, float $step = 1.0): CollectionInterface
     {
-        return (new self())->run(new Range($start, $end, $step));
+        return self::fromIterable([])->run(new Range($start, $end, $step));
     }
 
     public function reduce(callable $callback, $initial = null)
@@ -392,19 +436,24 @@ final class Collection extends Base implements CollectionInterface
         return $this->transform(new Reduce($callback, $initial));
     }
 
-    public function reduction(callable $callback, $initial = null): BaseInterface
+    public function reduction(callable $callback, $initial = null): CollectionInterface
     {
         return $this->run(new Reduction($callback, $initial));
     }
 
-    public function reverse(): BaseInterface
+    public function reverse(): CollectionInterface
     {
         return $this->run(new Reverse());
     }
 
-    public function rsample(float $probability): BaseInterface
+    public function rsample(float $probability): CollectionInterface
     {
         return $this->run(new RSample($probability));
+    }
+
+    public function run(Operation ...$operations): CollectionInterface
+    {
+        return self::fromIterable((new Run(...$operations))($this));
     }
 
     public function scale(
@@ -413,7 +462,7 @@ final class Collection extends Base implements CollectionInterface
         ?float $wantedLowerBound = null,
         ?float $wantedUpperBound = null,
         ?float $base = null
-    ): BaseInterface {
+    ): CollectionInterface {
         return $this->run(new Scale($lowerBound, $upperBound, $wantedLowerBound, $wantedUpperBound, $base));
     }
 
@@ -422,42 +471,47 @@ final class Collection extends Base implements CollectionInterface
         return $this->run(new Shuffle());
     }
 
-    public function since(callable ...$callbacks): BaseInterface
+    public function since(callable ...$callbacks): CollectionInterface
     {
         return $this->run(new Since(...$callbacks));
     }
 
-    public function skip(int ...$counts): BaseInterface
+    public function skip(int ...$counts): CollectionInterface
     {
         return $this->run(new Skip(...$counts));
     }
 
-    public function slice(int $offset, ?int $length = null): BaseInterface
+    public function slice(int $offset, ?int $length = null): CollectionInterface
     {
         return $this->run(new Slice($offset, $length));
     }
 
-    public function sort(?callable $callback = null): BaseInterface
+    public function sort(?callable $callback = null): CollectionInterface
     {
         return $this->run(new Sort($callback));
     }
 
-    public function split(callable ...$callbacks): BaseInterface
+    public function split(callable ...$callbacks): CollectionInterface
     {
         return $this->run(new Split(...$callbacks));
     }
 
-    public function tail(?int $length = null): BaseInterface
+    public function tail(?int $length = null): CollectionInterface
     {
         return $this->run(new Tail($length));
     }
 
-    public static function times(int $number = 0, ?callable $callback = null): BaseInterface
+    public static function times(int $number = 0, ?callable $callback = null): CollectionInterface
     {
-        return (new self())->run(new Times($number, $callback));
+        return self::fromIterable([])->run(new Times($number, $callback));
     }
 
-    public function transpose(): BaseInterface
+    public function transform(Transformation ...$transformers)
+    {
+        return (new Transform(...$transformers))($this);
+    }
+
+    public function transpose(): CollectionInterface
     {
         return $this->run(new Transpose());
     }
@@ -467,22 +521,22 @@ final class Collection extends Base implements CollectionInterface
         return $this->transform(new Truthy());
     }
 
-    public function until(callable ...$callbacks): BaseInterface
+    public function until(callable ...$callbacks): CollectionInterface
     {
         return $this->run(new Until(...$callbacks));
     }
 
-    public function unwrap(): BaseInterface
+    public function unwrap(): CollectionInterface
     {
         return $this->run(new Unwrap());
     }
 
-    public function walk(callable ...$callbacks): BaseInterface
+    public function walk(callable ...$callbacks): CollectionInterface
     {
         return $this->run(new Walk(...$callbacks));
     }
 
-    public function window(int ...$length): BaseInterface
+    public function window(int ...$length): CollectionInterface
     {
         return $this->run(new Window(...$length));
     }
@@ -492,12 +546,12 @@ final class Collection extends Base implements CollectionInterface
         return new self($data, ...$parameters);
     }
 
-    public function wrap(): BaseInterface
+    public function wrap(): CollectionInterface
     {
         return $this->run(new Wrap());
     }
 
-    public function zip(iterable ...$iterables): BaseInterface
+    public function zip(iterable ...$iterables): CollectionInterface
     {
         return $this->run(new Zip(...$iterables));
     }

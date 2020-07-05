@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
-use loophp\collection\Contract\Base;
+use loophp\collection\Contract\Collection;
 
 interface Limitable
 {
     /**
      * Limit the first {$limit} items.
-     *
-     * @return \loophp\collection\Base|\loophp\collection\Contract\Collection
      */
-    public function limit(int $limit): Base;
+    public function limit(int $limit): Collection;
 }

@@ -4,16 +4,12 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
-use loophp\collection\Contract\Base;
+use loophp\collection\Contract\Collection;
 
 interface Sliceable
 {
     /**
      * Get a slice of a collection.
-     *
-     * @param ?int $length
-     *
-     * @return \loophp\collection\Base|\loophp\collection\Contract\Collection
      */
-    public function slice(int $offset, ?int $length = null): Base;
+    public function slice(int $offset, ?int $length = null): Collection;
 }

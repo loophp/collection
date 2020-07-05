@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
-use loophp\collection\Contract\Base;
+use loophp\collection\Contract\Collection;
 
 interface Sortable
 {
     /**
      * Sort a collection using a callback.
-     *
-     * @return \loophp\collection\Base|\loophp\collection\Contract\Collection
      */
-    public function sort(?callable $callable = null): Base;
+    public function sort(?callable $callable = null): Collection;
 }

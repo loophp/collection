@@ -74,13 +74,14 @@ use loophp\collection\Contract\Transformation\Implodeable;
 use loophp\collection\Contract\Transformation\Lastable;
 use loophp\collection\Contract\Transformation\Nullsyable;
 use loophp\collection\Contract\Transformation\Reduceable;
+use loophp\collection\Contract\Transformation\Runable;
+use loophp\collection\Contract\Transformation\Transformable;
 use loophp\collection\Contract\Transformation\Truthyable;
 
 interface Collection extends
     Allable,
     Appendable,
     Applyable,
-    Base,
     Cacheable,
     Chunkable,
     Collapseable,
@@ -132,6 +133,7 @@ interface Collection extends
     Reductionable,
     Reverseable,
     RSampleable,
+    Runable,
     Scaleable,
     Shuffleable,
     Sinceable,
@@ -141,6 +143,7 @@ interface Collection extends
     Splitable,
     Tailable,
     Timesable,
+    Transformable,
     Transposeable,
     Truthyable,
     Untilable,

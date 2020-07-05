@@ -4,12 +4,9 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
-use loophp\collection\Contract\Base;
+use loophp\collection\Contract\Collection;
 
 interface Loopable
 {
-    /**
-     * @return \loophp\collection\Base|\loophp\collection\Contract\Collection
-     */
-    public function loop(): Base;
+    public function loop(): Collection;
 }

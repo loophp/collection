@@ -1772,58 +1772,6 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs([1]);
     }
 
-    public function it_can_use_with(): void
-    {
-        $input = ['a' => 'A', 'b' => 'B', 'c' => 'C'];
-
-        $generator = static function () {
-            yield 'a' => 'A';
-
-            yield 'b' => 'B';
-
-            yield 'c' => 'C';
-        };
-
-        $this::with($input)
-            ->shouldIterateAs($generator());
-
-        $this::with($generator)
-            ->shouldIterateAs($generator());
-
-        $this::with('abc')
-            ->shouldIterateAs(['a', 'b', 'c']);
-
-        $this::with('abc def', ' ')
-            ->shouldIterateAs(['abc', 'def']);
-
-        $stream = static function () {
-            $stream = fopen(__DIR__ . '/../../../.editorconfig', 'rb');
-
-            while (false !== $chunk = fgetc($stream)) {
-                yield $chunk;
-            }
-
-            fclose($stream);
-        };
-
-        $this::with($stream)
-            ->split(static function ($v) {
-                return "\n" === $v;
-            })
-            ->tail(1)
-            ->unwrap()
-            ->implode()
-            ->shouldReturn('indent_size = 4');
-
-        $stream = fopen(__DIR__ . '/../../fixtures/sample.txt', 'rb');
-
-        $this::with($stream)
-            ->shouldIterateAs(['a', 'b', 'c']);
-
-        $this::with(1)
-            ->shouldIterateAs([1]);
-    }
-
     public function it_can_walk(): void
     {
         $input = array_combine(range('A', 'E'), range('A', 'E'));

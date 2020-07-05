@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
-use loophp\collection\Contract\Base;
+use loophp\collection\Contract\Collection;
 
 interface Forgetable
 {
@@ -12,8 +12,6 @@ interface Forgetable
      * Remove items having specific keys.
      *
      * @param mixed ...$keys
-     *
-     * @return \loophp\collection\Base|\loophp\collection\Contract\Collection
      */
-    public function forget(...$keys): Base;
+    public function forget(...$keys): Collection;
 }
