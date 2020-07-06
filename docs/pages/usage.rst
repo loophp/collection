@@ -272,6 +272,14 @@ Simple
         ->window(4, 2)
         ->all(); // [['a', 'b', 'c', 'd'], ['b', 'c'], ['c', 'd', 'e', 'f'], ['d', 'e'], ...]
 
+    Collection::with(range('a', 'd'))
+        ->wrap()
+        ->all(); // [['a'], ['b'], ['c'], ['d']]
+
+    Collection::with([['a'], ['b'], ['c'], ['d']])
+        ->unwrap()
+        ->all(); // ['a', 'b', 'c', 'd']
+
 Advanced
 --------
 

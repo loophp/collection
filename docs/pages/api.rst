@@ -13,6 +13,52 @@ Create an empty Collection.
 
     $collection = Collection::empty();
 
+fromCallable
+~~~~~~~~~~~~
+
+Create a collection from a callable.
+
+.. code-block:: php
+
+    $callback = static function () {
+        yield 'a';
+        yield 'b';
+        yield 'c';
+    };
+
+    $collection = Collection::fromCallable($callback);
+
+fromIterable
+~~~~~~~~~~~~
+
+Create a collection from an iterable.
+
+.. code-block:: php
+
+    $collection = Collection::fromIterable(['a', 'b', 'c']);
+
+fromResource
+~~~~~~~~~~~~
+
+Create a collection from a resource.
+
+.. code-block:: php
+
+    $stream = fopen('data://text/plain,' . $string, 'rb');
+
+    $collection = Collection::fromResource($stream);
+
+fromString
+~~~~~~~~~~
+
+Create a collection from a string.
+
+.. code-block:: php
+
+    $data = file_get_contents('http://loripsum.net/api');
+
+    $collection = Collection::fromString($data);
+
 iterate
 ~~~~~~~
 
