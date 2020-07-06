@@ -18,7 +18,7 @@ final class Permutate extends AbstractOperation implements Operation
         };
 
         return static function (iterable $collection) use ($getPermutations): Generator {
-            yield from $getPermutations((new All())($collection));
+            return yield from $getPermutations((new All())($collection));
         };
     }
 
