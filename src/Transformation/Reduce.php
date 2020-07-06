@@ -6,22 +6,31 @@ namespace loophp\collection\Transformation;
 
 use loophp\collection\Contract\Transformation;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ * @template U
+ * @template V
+ * @implements Transformation<TKey, T, U|null|V>
+ */
 final class Reduce implements Transformation
 {
     /**
-     * @var callable
+     * @var callable(U|V|null, T, TKey): V
      */
     private $callback;
 
     /**
-     * @var mixed
+     * @var U|null
      */
     private $initial;
 
     /**
      * Reduce constructor.
      *
-     * @param mixed|null $initial
+     * @param callable(U|V|null, T, TKey): V $callback
+     * @param U|null $initial
      */
     public function __construct(callable $callback, $initial = null)
     {
@@ -30,7 +39,9 @@ final class Reduce implements Transformation
     }
 
     /**
-     * {@inheritdoc}
+     * @param iterable<TKey, T> $collection
+     *
+     * @return U|V|null
      */
     public function __invoke(iterable $collection)
     {

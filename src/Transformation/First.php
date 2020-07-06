@@ -6,33 +6,44 @@ namespace loophp\collection\Transformation;
 
 use loophp\collection\Contract\Transformation;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ * @template V
+ * @implements Transformation<TKey, T, T|V|null>
+ */
 final class First implements Transformation
 {
     /**
-     * @var callable
+     * @var callable(T, TKey): bool | callable(): bool
      */
     private $callback;
 
     /**
-     * @var mixed|null
+     * @var V|null
      */
     private $default;
 
     /**
      * First constructor.
      *
-     * @param mixed|null $default
+     * @param null|\Closure(TKey, T): bool|callable(TKey, T): bool $callback
+     * @param V|null $default
      */
     public function __construct(?callable $callback = null, $default = null)
     {
-        $this->callback = $callback ?? static function (): bool {
-            return true;
-        };
+        $this->callback = $callback ??
+            static function (): bool {
+                return true;
+            };
         $this->default = $default;
     }
 
     /**
-     * {@inheritdoc}
+     * @param iterable<TKey, T> $collection
+     *
+     * @return T|V|null
      */
     public function __invoke(iterable $collection)
     {

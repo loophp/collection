@@ -6,12 +6,19 @@ namespace loophp\collection\Contract\Operation;
 
 use loophp\collection\Contract\Collection;
 
+/**
+ * @template T
+ * @template TKey
+ * @psalm-template TKey of array-key
+ */
 interface Onlyable
 {
     /**
      * Get items having corresponding given keys.
      *
-     * @param mixed ...$keys
+     * @param TKey ...$keys
+     *
+     * @return Collection<TKey, T>
      */
     public function only(...$keys): Collection;
 }

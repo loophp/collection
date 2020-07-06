@@ -9,13 +9,19 @@ use Iterator;
 use OuterIterator;
 
 /**
- * @implements Iterator<string>
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ * @implements Iterator<int, string>
  */
 final class StringIterator extends ProxyIterator implements Iterator, OuterIterator
 {
     public function __construct(string $data, string $delimiter = '')
     {
         $this->iterator = new ClosureIterator(
+            /**
+             * @return Generator<int, string>
+             */
             static function (string $input, string $delimiter): Generator {
                 $offset = 0;
 

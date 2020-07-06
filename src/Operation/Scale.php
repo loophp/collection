@@ -12,6 +12,14 @@ use loophp\collection\Transformation\Run;
 
 use const INF;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ * @template U
+ * @extends AbstractOperation<TKey, T, \Generator<TKey, U>>
+ * @implements Operation<TKey, T, \Generator<TKey, U>>
+ */
 final class Scale extends AbstractOperation implements Operation
 {
     public function __construct(
@@ -27,8 +35,9 @@ final class Scale extends AbstractOperation implements Operation
         $this->storage['mapper'] = new Walk(
             /**
              * @param float|int $v
+             * @param mixed $key
              */
-            static function ($v) use ($lowerBound, $upperBound, $wantedLowerBound, $wantedUpperBound, $base): float { // phpcs:ignore
+            static function ($v, $key) use ($lowerBound, $upperBound, $wantedLowerBound, $wantedUpperBound, $base): float { // phpcs:ignore
                 $mx = null === $base ?
                     ($v - $lowerBound) / ($upperBound - $lowerBound) :
                     log($v - $lowerBound, $base) / log($upperBound - $lowerBound, $base);
@@ -44,19 +53,24 @@ final class Scale extends AbstractOperation implements Operation
         $this->storage['filter'] = new Filter(
             /**
              * @param float|int $item
+             * @param mixed $key
              */
-            static function ($item) use ($lowerBound): bool {
+            static function ($item, $key) use ($lowerBound): bool {
                 return $item >= $lowerBound;
             },
             /**
              * @param float|int $item
+             * @param mixed $key
              */
-            static function ($item) use ($upperBound): bool {
+            static function ($item, $key) use ($upperBound): bool {
                 return $item <= $upperBound;
             }
         );
     }
 
+    /**
+     * @return Closure(\Iterator<TKey, T>, Walk<TKey, T, U>, Filter<TKey, T>): Generator<TKey, U>
+     */
     public function __invoke(): Closure
     {
         return static function (Iterator $iterator, Walk $mapper, Filter $filter): Generator {

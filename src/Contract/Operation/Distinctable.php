@@ -6,10 +6,17 @@ namespace loophp\collection\Contract\Operation;
 
 use loophp\collection\Contract\Collection;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ */
 interface Distinctable
 {
     /**
      * Remove duplicated values from a collection.
+     *
+     * @return Collection<TKey, T>
      */
     public function distinct(): Collection;
 }

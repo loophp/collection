@@ -485,12 +485,6 @@ class CollectionSpec extends ObjectBehavior
         $this::fromIterable(range('A', 'C'))
             ->contains('unknown')
             ->shouldReturn(false);
-
-        $this::fromIterable(range('A', 'C'))
-            ->contains(static function ($item) {
-                return 'A' === $item;
-            })
-            ->shouldReturn(true);
     }
 
     public function it_can_convert_use_a_string_as_parameter(): void

@@ -11,10 +11,18 @@ use loophp\collection\Contract\Operation;
 
 use function in_array;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ * @template U
+ * @extends AbstractOperation<TKey, T, Generator<TKey, T>>
+ * @implements Operation<TKey, T, Generator<TKey, T>>
+ */
 final class Intersect extends AbstractOperation implements Operation
 {
     /**
-     * @param mixed ...$values
+     * @param U ...$values
      */
     public function __construct(...$values)
     {
@@ -25,7 +33,10 @@ final class Intersect extends AbstractOperation implements Operation
     {
         return
             /**
-             * @param array<int, mixed> $values
+             * @param Iterator<TKey, T> $iterator
+             * @param list<U> $values
+             *
+             * @return Generator<TKey, T>
              */
             static function (Iterator $iterator, $values): Generator {
                 foreach ($iterator as $key => $value) {

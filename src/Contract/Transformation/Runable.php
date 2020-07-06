@@ -4,14 +4,20 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Transformation;
 
+use loophp\collection\Contract\Collection;
 use loophp\collection\Contract\Operation;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ */
 interface Runable
 {
     /**
-     * @param \loophp\collection\Contract\Operation ...$operations
+     * @param Operation ...$operations
      *
-     * @return \loophp\collection\Base|\loophp\collection\Collection
+     * @return Collection<TKey, T>
      */
-    public function run(Operation ...$operations);
+    public function run(Operation ...$operations): Collection;
 }

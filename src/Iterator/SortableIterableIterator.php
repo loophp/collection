@@ -25,7 +25,7 @@ final class SortableIterableIterator implements IteratorAggregate
     private $iterator;
 
     /**
-     * SortableIterator constructor.
+     * SortableIterableIterator constructor.
      *
      * @param iterable<mixed> $iterable
      */

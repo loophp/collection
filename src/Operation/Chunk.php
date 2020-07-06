@@ -13,6 +13,13 @@ use loophp\collection\Transformation\Run;
 
 use function count;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ * @extends AbstractOperation<TKey, T, \Generator<int, array<int, T>>>
+ * @implements Operation<TKey, T, \Generator<int, array<int, T>>>
+ */
 final class Chunk extends AbstractOperation implements Operation
 {
     public function __construct(int ...$size)
@@ -20,15 +27,20 @@ final class Chunk extends AbstractOperation implements Operation
         $this->storage['size'] = $size;
     }
 
+    /**
+     * @return Closure(\Iterator<TKey, T>, list<int>): Generator<int, list<T>>
+     */
     public function __invoke(): Closure
     {
         return
             /**
              * @param array<int, int> $sizes
+             *
+             * @return Generator<int, list<T>>
              */
             static function (Iterator $iterator, array $sizes): Generator {
                 $sizesIterator = new IterableIterator(
-                    (new Run(new Loop()))($sizes)
+                    (new Run(new Loop()))->__invoke($sizes)
                 );
 
                 $values = [];

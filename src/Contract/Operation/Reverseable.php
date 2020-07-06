@@ -6,10 +6,17 @@ namespace loophp\collection\Contract\Operation;
 
 use loophp\collection\Contract\Collection;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ */
 interface Reverseable
 {
     /**
      * Reverse order items of a collection.
+     *
+     * @return Collection<TKey, T>
      */
     public function reverse(): Collection;
 }

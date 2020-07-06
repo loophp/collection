@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace loophp\collection;
 
-use ArrayAccess;
 use Exception;
 use Generator;
-use IteratorAggregate;
 use loophp\collection\Contract\Collection as CollectionInterface;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Contract\Transformation;
@@ -89,6 +87,7 @@ use loophp\collection\Transformation\Transform;
 use loophp\collection\Transformation\Truthy;
 use Psr\Cache\CacheItemPoolInterface;
 use StdClass;
+use Traversable;
 
 use const INF;
 use const PHP_INT_MAX;
@@ -96,11 +95,35 @@ use const PHP_INT_MAX;
 /**
  * Class Collection.
  *
- * @implements IteratorAggregate<mixed, mixed>
- * @implements ArrayAccess<mixed, mixed>
+ * @template T
+ * @template TKey
+ * @psalm-template TKey of array-key
+ *
+ * @implements CollectionInterface<TKey, T>
  */
-final class Collection implements ArrayAccess, CollectionInterface, IteratorAggregate
+final class Collection implements CollectionInterface
 {
+    /**
+     * @var callable
+     */
+    private $source;
+
+    /**
+     * Base constructor.
+     */
+    public function __construct(?callable $callable = null)
+    {
+        $empty =
+        /**
+         * @return \Generator<empty, empty, mixed, empty>
+         */
+        static function (): Generator {
+            return yield from [];
+        };
+
+        $this->source = $callable ?? $empty;
+    }
+
     public function all(): array
     {
         return $this->transform(new All());
@@ -141,6 +164,9 @@ final class Collection implements ArrayAccess, CollectionInterface, IteratorAggr
         return $this->run(new Combinate($length));
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function combine(...$keys): CollectionInterface
     {
         return $this->run(new Combine(...$keys));
@@ -277,7 +303,7 @@ final class Collection implements ArrayAccess, CollectionInterface, IteratorAggr
         return $this->transform(new Get($key, $default));
     }
 
-    public function getIterator(): ClosureIterator
+    public function getIterator(): Traversable
     {
         return new ClosureIterator($this->source);
     }
@@ -365,6 +391,9 @@ final class Collection implements ArrayAccess, CollectionInterface, IteratorAggr
         return $this->transform(new Nullsy());
     }
 
+    /**
+     * @param TKey $offset
+     */
     public function offsetExists($offset)
     {
         $default = new StdClass();
@@ -372,6 +401,9 @@ final class Collection implements ArrayAccess, CollectionInterface, IteratorAggr
         return $this->get($offset, $default) !== $default;
     }
 
+    /**
+     * @param TKey $offset
+     */
     public function offsetGet($offset)
     {
         if (!$this->offsetExists($offset)) {
@@ -466,7 +498,7 @@ final class Collection implements ArrayAccess, CollectionInterface, IteratorAggr
         return $this->run(new Scale($lowerBound, $upperBound, $wantedLowerBound, $wantedUpperBound, $base));
     }
 
-    public function shuffle(): BaseInterface
+    public function shuffle(): CollectionInterface
     {
         return $this->run(new Shuffle());
     }
@@ -541,9 +573,9 @@ final class Collection implements ArrayAccess, CollectionInterface, IteratorAggr
         return $this->run(new Window(...$length));
     }
 
-    public static function with($data = [], ...$parameters): CollectionInterface
+    public static function with($data = []): CollectionInterface
     {
-        return new self($data, ...$parameters);
+        return new self($data);
     }
 
     public function wrap(): CollectionInterface

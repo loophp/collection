@@ -6,6 +6,12 @@ namespace loophp\collection\Operation;
 
 use function array_key_exists;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ * @template U
+ */
 abstract class AbstractOperation
 {
     /**
@@ -14,9 +20,9 @@ abstract class AbstractOperation
     protected $storage = [];
 
     /**
-     * @param mixed|null $default
+     * @param U|null $default
      *
-     * @return mixed|null
+     * @return T|U|null
      */
     public function get(string $key, $default = null)
     {

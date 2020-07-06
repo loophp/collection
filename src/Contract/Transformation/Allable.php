@@ -4,6 +4,13 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Transformation;
 
+/**
+ * Interface Allable.
+ *
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ */
 interface Allable
 {
     /**

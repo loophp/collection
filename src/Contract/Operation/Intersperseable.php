@@ -6,6 +6,12 @@ namespace loophp\collection\Contract\Operation;
 
 use loophp\collection\Contract\Collection;
 
+/**
+ * @template T
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template U
+ */
 interface Intersperseable
 {
     /**
@@ -13,6 +19,9 @@ interface Intersperseable
      * Indices are not preserved.
      *
      * @param mixed $element
+     * @psalm-param U $element
+     *
+     * @return Collection<int|TKey, T|U>
      */
     public function intersperse($element, int $every = 1, int $startAt = 0): Collection;
 }

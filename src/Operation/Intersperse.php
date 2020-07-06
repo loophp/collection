@@ -15,13 +15,20 @@ use loophp\collection\Contract\Operation;
  *
  * Insert a given value between each element of a collection.
  * Indices are not preserved.
+ *
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ * @template U
+ * @extends AbstractOperation<TKey, T, Generator<int|TKey, T|U>>
+ * @implements Operation<TKey, T, Generator<int|TKey, T|U>>
  */
 final class Intersperse extends AbstractOperation implements Operation
 {
     /**
      * Intersperse constructor.
      *
-     * @param mixed $element
+     * @param U $element
      */
     public function __construct($element, int $atEvery = 1, int $startAt = 0)
     {
@@ -32,9 +39,14 @@ final class Intersperse extends AbstractOperation implements Operation
         ];
     }
 
+    /**
+     * @return Closure(\Iterator<TKey, T>, U, int, int): Generator<int|TKey, T|U>
+     */
     public function __invoke(): Closure
     {
+        /** @psalm-var int $every */
         $every = $this->get('atEvery');
+        /** @psalm-var int $startAt */
         $startAt = $this->get('startAt');
 
         if (0 > $every) {
@@ -47,7 +59,12 @@ final class Intersperse extends AbstractOperation implements Operation
 
         return
             /**
-             * @param mixed $element
+             * @todo yield on $key and $value
+             *
+             * @param Iterator<TKey, T> $iterator
+             * @param U $element
+             *
+             * @return Generator<int|TKey, T|U>
              */
             static function (Iterator $iterator, $element, int $every, int $startAt): Generator {
                 foreach ($iterator as $value) {

@@ -6,10 +6,17 @@ namespace loophp\collection\Transformation;
 
 use loophp\collection\Contract\Transformation;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ * @template U
+ * @implements Transformation<TKey, T, T|U>
+ */
 final class Get implements Transformation
 {
     /**
-     * @var mixed
+     * @var U
      */
     private $default;
 
@@ -21,8 +28,8 @@ final class Get implements Transformation
     /**
      * Get constructor.
      *
-     * @param int|string $key
-     * @param mixed $default
+     * @param int|string|TKey $key
+     * @param U $default
      */
     public function __construct($key, $default)
     {
@@ -31,7 +38,9 @@ final class Get implements Transformation
     }
 
     /**
-     * {@inheritdoc}
+     * @param iterable<TKey, T> $collection
+     *
+     * @return T|U
      */
     public function __invoke(iterable $collection)
     {

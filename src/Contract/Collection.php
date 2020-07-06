@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract;
 
+use ArrayAccess;
+use IteratorAggregate;
 use JsonSerializable;
 use loophp\collection\Contract\Operation\Appendable;
 use loophp\collection\Contract\Operation\Applyable;
@@ -78,10 +80,16 @@ use loophp\collection\Contract\Transformation\Runable;
 use loophp\collection\Contract\Transformation\Transformable;
 use loophp\collection\Contract\Transformation\Truthyable;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ */
 interface Collection extends
     Allable,
     Appendable,
     Applyable,
+    ArrayAccess,
     Cacheable,
     Chunkable,
     Collapseable,
@@ -111,6 +119,7 @@ interface Collection extends
     Intersectkeysable,
     Intersperseable,
     Iterateable,
+    IteratorAggregate,
     JsonSerializable,
     Keysable,
     Lastable,
@@ -181,7 +190,6 @@ interface Collection extends
      * Create a collection with the data.
      *
      * @param mixed $data
-     * @param mixed ...$parameters
      */
-    public static function with($data = [], ...$parameters): Collection;
+    public static function with($data = []): Collection;
 }

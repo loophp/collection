@@ -10,31 +10,32 @@ use Iterator;
 use OuterIterator;
 
 /**
- * Class ClosureIterator.
- *
- * @implements Iterator<mixed>
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ * @template U
+ * @implements Iterator<TKey, T>
  */
 final class ClosureIterator extends ProxyIterator implements Iterator, OuterIterator
 {
     /**
-     * @var array<int, mixed>
+     * @var array<int, U>
      */
     private $arguments;
 
     /**
-     * @var callable
+     * @var callable(U...): (\Generator<TKey, T>)
      */
     private $callable;
 
     /**
-     * @var Closure
+     * @var Closure(callable(U...):(\Generator<TKey, T>), U): \Generator<TKey, T>
      */
     private $generator;
 
     /**
-     * ClosureIterator constructor.
-     *
-     * @param mixed ...$arguments
+     * @param callable(U...): (\Generator<TKey, T>) $callable
+     * @param U ...$arguments
      */
     public function __construct(callable $callable, ...$arguments)
     {
@@ -55,7 +56,7 @@ final class ClosureIterator extends ProxyIterator implements Iterator, OuterIter
     /**
      * Init the generator if not initialized yet.
      *
-     * @return Generator<Generator<mixed>>
+     * @return Generator<TKey, T>
      */
     private function getGenerator(): Generator
     {

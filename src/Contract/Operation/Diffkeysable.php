@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
-use loophp\collection\Contract\Base;
+use loophp\collection\Contract\Collection;
 
 interface Diffkeysable
 {
     /**
      * @param mixed ...$values
-     *
-     * @return \loophp\collection\Base|\loophp\collection\Contract\Collection
      */
-    public function diffKeys(...$values): Base;
+    public function diffKeys(...$values): Collection;
 }

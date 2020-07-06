@@ -12,28 +12,49 @@ use loophp\collection\Iterator\IterableIterator;
 
 use function count;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ * @template U
+ * @extends AbstractOperation<TKey, T, Generator<int, array<int, T>>>
+ * @implements Operation<TKey, T, Generator<int, array<int, T>>>
+ */
 final class Product extends AbstractOperation implements Operation
 {
     /**
      * Product constructor.
      *
-     * @param iterable<mixed> ...$iterables
+     * @param iterable<TKey, T> ...$iterables
      */
     public function __construct(iterable ...$iterables)
     {
         $this->storage = [
             'iterables' => $iterables,
-            'cartesian' => function (array $input): Generator {
-                return $this->cartesian($input);
-            },
+            'cartesian' =>
+                /**
+                 * @return Generator<int, array<int, T>>
+                 */
+                function (array $input): Generator {
+                    return $this->cartesian($input);
+                },
         ];
     }
 
+    // phpcs:disable
+    /**
+     * @return Closure(\Iterator<TKey, T>, array<int, iterable<TKey, T>>, callable(array<int, iterable<TKey, T>>): (array<int, T>)): Generator<int, array<int, T>>
+     */
+    // phpcs:enable
     public function __invoke(): Closure
     {
         return
             /**
-             * @param array<int, iterable> $iterables
+             * @param Iterator<TKey, T> $iterator
+             * @param array<int, iterable<TKey, T>> $iterables
+             * @param callable(array<int, iterable<TKey, T>>): (array<int, T>) $cartesian
+             *
+             * @return \Generator<mixed, mixed, mixed, void>
              */
             static function (Iterator $iterator, array $iterables, callable $cartesian): Generator {
                 $its = [$iterator];
@@ -47,9 +68,9 @@ final class Product extends AbstractOperation implements Operation
     }
 
     /**
-     * @param array<iterable> $iterators
+     * @param array<int, iterable<TKey, T>> $iterators
      *
-     * @return Generator<array<mixed>>
+     * @return Generator<int, array<int, T>>
      */
     private function cartesian(array $iterators): Generator
     {

@@ -12,6 +12,8 @@ interface Rangeable
 {
     /**
      * Create a new Collection with a range of number.
+     *
+     * @return Collection<int, float>
      */
     public static function range(float $start = 0.0, float $end = INF, float $step = 1.0): Collection;
 }

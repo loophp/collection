@@ -6,10 +6,16 @@ namespace loophp\collection\Transformation;
 
 use loophp\collection\Contract\Transformation;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ * @implements Transformation<TKey, T, bool>
+ */
 final class Falsy implements Transformation
 {
     /**
-     * {@inheritdoc}
+     * @param iterable<TKey, T> $collection
      */
     public function __invoke(iterable $collection): bool
     {

@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
-use loophp\collection\Contract\Base;
+use loophp\collection\Contract\Collection;
 
 interface Intersectable
 {
     /**
      * @param mixed ...$values
-     *
-     * @return \loophp\collection\Base|\loophp\collection\Contract\Collection
      */
-    public function intersect(...$values): Base;
+    public function intersect(...$values): Collection;
 }

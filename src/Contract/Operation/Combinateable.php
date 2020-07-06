@@ -6,12 +6,15 @@ namespace loophp\collection\Contract\Operation;
 
 use loophp\collection\Contract\Collection;
 
+/**
+ * @template T
+ */
 interface Combinateable
 {
     /**
      * Get all the combinations of a given length of a collection of items.
      *
-     * @param ?int $length
+     * @return Collection<int, list<T>>
      */
     public function combinate(?int $length = null): Collection;
 }

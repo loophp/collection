@@ -10,6 +10,14 @@ use InvalidArgumentException;
 use Iterator;
 use loophp\collection\Contract\Operation;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ * @template U
+ * @extends AbstractOperation<TKey, T, Generator<int, int|U>>
+ * @implements Operation<TKey, T, Generator<int, int|U>>
+ */
 final class Times extends AbstractOperation implements Operation
 {
     /**
@@ -31,11 +39,16 @@ final class Times extends AbstractOperation implements Operation
         ];
     }
 
+    /**
+     * @return Closure(\Iterator<TKey, T>, float|int, callable(int): (U)): Generator<int, int|U>
+     */
     public function __invoke(): Closure
     {
         return
             /**
              * @param float|int $number
+             *
+             * @return \Generator<int, mixed, mixed, void>
              */
             static function (Iterator $iterator, $number, callable $callback): Generator {
                 for ($current = 1; $current <= $number; ++$current) {

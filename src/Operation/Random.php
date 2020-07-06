@@ -10,6 +10,13 @@ use Iterator;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Transformation\Run;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ * @extends AbstractOperation<TKey, T, Generator<TKey, T>>
+ * @implements Operation<TKey, T, Generator<TKey, T>>
+ */
 final class Random extends AbstractOperation implements Operation
 {
     public function __construct(int $size = 1)

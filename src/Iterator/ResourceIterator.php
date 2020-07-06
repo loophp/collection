@@ -23,6 +23,8 @@ final class ResourceIterator extends ProxyIterator implements Iterator, OuterIte
         $closure =
             /**
              * @param resource $resource
+             *
+             * @return \Generator<int, string, mixed, void>
              */
             static function ($resource): Generator {
                 while (false !== $chunk = fgetc($resource)) {

@@ -6,12 +6,17 @@ namespace loophp\collection\Contract\Operation;
 
 use loophp\collection\Contract\Collection;
 
+/**
+ * @template T
+ */
 interface Columnable
 {
     /**
      * Return the values from a single column in the input iterables.
      *
      * @param int|string $index
+     *
+     * @return Collection<int, T>
      */
     public function column($index): Collection;
 }

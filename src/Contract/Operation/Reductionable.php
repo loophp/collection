@@ -6,12 +6,22 @@ namespace loophp\collection\Contract\Operation;
 
 use loophp\collection\Contract\Collection;
 
+/**
+ * @template T
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template U
+ * @template V
+ */
 interface Reductionable
 {
     /**
      * Reduce a collection of items through a given callback.
      *
-     * @param mixed $initial
+     * @param callable(U|V, T, TKey): (V) $callback
+     * @param U|null $initial
+     *
+     * @return Collection<int, T>
      */
     public function reduction(callable $callback, $initial = null): Collection;
 }

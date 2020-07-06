@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <psalm
-    errorLevel="7"
+    errorLevel="2"
     totallyTyped="true"
     resolveFromConfigFile="true"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -11,6 +11,8 @@
         <directory name="src" />
         <ignoreFiles>
             <directory name="vendor" />
+            <directory name="spec" />
+            <directory name="examples" />
         </ignoreFiles>
     </projectFiles>
 </psalm>

@@ -6,6 +6,12 @@ namespace loophp\collection\Transformation;
 
 use loophp\collection\Contract\Transformation;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ * @implements Transformation<TKey, T, string>
+ */
 final class Implode implements Transformation
 {
     /**
@@ -19,7 +25,7 @@ final class Implode implements Transformation
     }
 
     /**
-     * {@inheritdoc}
+     * @param iterable<TKey, T> $collection
      */
     public function __invoke(iterable $collection): string
     {

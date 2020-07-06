@@ -9,23 +9,37 @@ use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ * @template U
+ * @extends AbstractOperation<TKey, T, Generator<TKey, T>>
+ * @implements Operation<TKey, T, Generator<TKey, T>>
+ */
 final class Append extends AbstractOperation implements Operation
 {
     /**
      * Append constructor.
      *
-     * @param mixed ...$items
+     * @param U ...$items
      */
     public function __construct(...$items)
     {
         $this->storage['items'] = $items;
     }
 
+    /**
+     * @return Closure(\Iterator<TKey, T>, array<int, U>):Generator<TKey|int, T|U>
+     */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param array<int, mixed> $items
+             * @param Iterator<TKey, T> $iterator
+             * @param array<int, U> $items
+             *
+             * @return Generator<int|TKey, T|U>
              */
             static function (Iterator $iterator, array $items): Generator {
                 foreach ($iterator as $key => $value) {
