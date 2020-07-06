@@ -20,10 +20,9 @@ final class Shuffle extends AbstractOperation implements Operation
 
             while ([] !== $data) {
                 $randomKey = array_rand($data);
-                $randomValue = $data[$randomKey];
-                unset($data[$randomKey]);
 
-                yield key($randomValue) => current($randomValue);
+                yield key($data[$randomKey]) => current($data[$randomKey]);
+                unset($data[$randomKey]);
             }
         };
     }
