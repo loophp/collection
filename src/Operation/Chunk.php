@@ -50,7 +50,7 @@ final class Chunk extends AbstractOperation implements Operation
                     $values = [$value];
                 }
 
-                yield $values;
+                return yield $values;
             };
     }
 }
