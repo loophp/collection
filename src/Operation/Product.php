@@ -41,7 +41,7 @@ final class Product extends AbstractOperation implements Operation
                     $its[] = new IterableIterator($iterable);
                 }
 
-                yield from $cartesian($its);
+                return yield from $cartesian($its);
             };
     }
 
