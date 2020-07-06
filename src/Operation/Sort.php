@@ -19,7 +19,7 @@ final class Sort extends AbstractOperation implements Operation
     public function __invoke(): Closure
     {
         return static function (iterable $collection, callable $callback): Generator {
-            yield from new SortableIterableIterator($collection, $callback);
+            return yield from new SortableIterableIterator($collection, $callback);
         };
     }
 
