@@ -19,7 +19,7 @@ final class RSample extends AbstractOperation implements Operation
     public function __invoke(): Closure
     {
         return static function (iterable $collection, float $probability): Generator {
-            yield from (new Run(
+            return yield from (new Run(
                 new Filter(
                     static function () use ($probability): bool {
                         return (mt_rand() / mt_getrandmax()) < $probability;
