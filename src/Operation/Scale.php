@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
+use Generator;
 use loophp\collection\Contract\Operation;
-use loophp\collection\Iterator\ClosureIterator;
 use loophp\collection\Transformation\Run;
 
 use const INF;
@@ -58,8 +58,8 @@ final class Scale extends AbstractOperation implements Operation
 
     public function __invoke(): Closure
     {
-        return static function (iterable $collection, Walk $mapper, Filter $filter): ClosureIterator {
-            return (new Run($filter, $mapper))($collection);
+        return static function (iterable $collection, Walk $mapper, Filter $filter): Generator {
+            return yield from (new Run($filter, $mapper))($collection);
         };
     }
 }
