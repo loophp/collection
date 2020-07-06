@@ -30,7 +30,6 @@ final class Combinate extends AbstractOperation implements Operation
             $dataset = (new All())($collection);
 
             if (0 < $length) {
-                // TODO: Investigate why it's calling issues with PHPStan.
                 return yield from $getCombinations($dataset, $length);
             }
 
