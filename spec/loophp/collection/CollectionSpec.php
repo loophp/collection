@@ -218,10 +218,26 @@ class CollectionSpec extends ObjectBehavior
 
     public function it_can_collapse(): void
     {
-        $this::fromIterable(range('A', 'J'))
-            ->chunk(2)
+        $generator = static function () {
+            yield 0 => 'A';
+
+            yield 1 => 'B';
+
+            yield 'foo' => 'C';
+
+            yield 0 => 'E';
+
+            yield 1 => 'F';
+        };
+
+        $this::fromIterable([
+            ['A', 'B', 'foo' => 'C'],
+            'D',
+            ['E', 'F'],
+            'G',
+        ])
             ->collapse()
-            ->shouldIterateAs(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']);
+            ->shouldIterateAs($generator());
 
         $this::fromIterable(range('A', 'E'))
             ->collapse()

@@ -18,8 +18,8 @@ final class Collapse extends AbstractOperation implements Operation
                     continue;
                 }
 
-                foreach ($value as $subValue) {
-                    yield $subValue;
+                foreach ($value as $subKey => $subValue) {
+                    yield $subKey => $subValue;
                 }
             }
         };
