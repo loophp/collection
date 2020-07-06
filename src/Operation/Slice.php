@@ -28,7 +28,7 @@ final class Slice extends AbstractOperation implements Operation
                 return yield from (new Run($skip))($collection);
             }
 
-            yield from (new Run($skip, new Limit($length)))($collection);
+            return yield from (new Run($skip, new Limit($length)))($collection);
         };
     }
 }
