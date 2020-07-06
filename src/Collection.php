@@ -75,17 +75,11 @@ use const PHP_INT_MAX;
 
 final class Collection extends Base implements CollectionInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function all(): array
     {
         return $this->transform(new All());
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function append(...$items): BaseInterface
     {
         return $this->run(new Append(...$items));
@@ -106,9 +100,6 @@ final class Collection extends Base implements CollectionInterface
         return $this->run(new Collapse());
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function column($column): BaseInterface
     {
         return $this->run(new Column($column));
@@ -119,17 +110,11 @@ final class Collection extends Base implements CollectionInterface
         return $this->run(new Combinate($length));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function combine(...$keys): BaseInterface
     {
         return $this->run(new Combine(...$keys));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function contains($key): bool
     {
         return $this->transform(new Contains($key));
@@ -155,9 +140,6 @@ final class Collection extends Base implements CollectionInterface
         return new self();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function explode(...$explodes): BaseInterface
     {
         return $this->run(new Explode(...$explodes));
@@ -173,9 +155,6 @@ final class Collection extends Base implements CollectionInterface
         return $this->run(new Filter(...$callbacks));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function first(?callable $callback = null, $default = null)
     {
         return $this->transform(new First($callback, $default));
@@ -191,17 +170,11 @@ final class Collection extends Base implements CollectionInterface
         return $this->run(new Flip());
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function foldLeft(callable $callback, $initial = null)
     {
         return $this->transform(new FoldLeft($callback, $initial));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function foldRight(callable $callback, $initial = null)
     {
         return $this->transform(new FoldRight($callback, $initial));
@@ -217,9 +190,6 @@ final class Collection extends Base implements CollectionInterface
         return $this->run(new Frequency());
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function get($key, $default = null)
     {
         return $this->transform(new Get($key, $default));
@@ -235,17 +205,11 @@ final class Collection extends Base implements CollectionInterface
         return $this->transform(new Implode($glue));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function intersperse($element, int $every = 1, int $startAt = 0): BaseInterface
     {
         return $this->run(new Intersperse($element, $every, $startAt));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public static function iterate(callable $callback, ...$parameters): BaseInterface
     {
         return (new self())->run(new Iterate($callback, $parameters));
@@ -256,9 +220,6 @@ final class Collection extends Base implements CollectionInterface
         return $this->run(new Keys());
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function last()
     {
         return $this->transform(new Last());
@@ -279,9 +240,6 @@ final class Collection extends Base implements CollectionInterface
         return $this->run(new Walk(...$callbacks), new Normalize());
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function merge(iterable ...$sources): BaseInterface
     {
         return $this->run(new Merge(...$sources));
@@ -302,17 +260,11 @@ final class Collection extends Base implements CollectionInterface
         return $this->transform(new Nullsy());
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function only(...$keys): BaseInterface
     {
         return $this->run(new Only(...$keys));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function pad(int $size, $value): BaseInterface
     {
         return $this->run(new Pad($size, $value));
@@ -323,25 +275,16 @@ final class Collection extends Base implements CollectionInterface
         return $this->run(new Permutate());
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function pluck($pluck, $default = null): BaseInterface
     {
         return $this->run(new Pluck($pluck, $default));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function prepend(...$items): BaseInterface
     {
         return $this->run(new Prepend(...$items));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function product(iterable ...$iterables): BaseInterface
     {
         return $this->run(new Product(...$iterables));
@@ -352,17 +295,11 @@ final class Collection extends Base implements CollectionInterface
         return (new self())->run(new Range($start, $end, $step));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function reduce(callable $callback, $initial = null)
     {
         return $this->transform(new Reduce($callback, $initial));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function reduction(callable $callback, $initial = null): BaseInterface
     {
         return $this->run(new Reduction($callback, $initial));
@@ -423,9 +360,6 @@ final class Collection extends Base implements CollectionInterface
         return $this->run(new Tail($length));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public static function times(int $number = 0, ?callable $callback = null): BaseInterface
     {
         return (new self())->run(new Times($number, $callback));
@@ -461,9 +395,6 @@ final class Collection extends Base implements CollectionInterface
         return $this->run(new Window(...$length));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public static function with($data = [], ...$parameters): CollectionInterface
     {
         return new self($data, ...$parameters);
@@ -474,9 +405,6 @@ final class Collection extends Base implements CollectionInterface
         return $this->run(new Wrap());
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function zip(iterable ...$iterables): BaseInterface
     {
         return $this->run(new Zip(...$iterables));
