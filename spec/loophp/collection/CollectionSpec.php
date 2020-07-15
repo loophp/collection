@@ -10,8 +10,10 @@ use Exception;
 use Generator;
 use InvalidArgumentException;
 use Iterator;
+use JsonSerializable;
 use loophp\collection\Collection;
 use loophp\collection\Contract\Operation;
+use loophp\collection\Contract\Transformation;
 use loophp\collection\Operation\AbstractOperation;
 use OutOfRangeException;
 use PhpSpec\ObjectBehavior;
@@ -189,6 +191,31 @@ class CollectionSpec extends ObjectBehavior
         $this::fromCallable($fibonacci, 0, 1)
             ->limit(10)
             ->shouldIterateAs([0, 1, 1, 2, 3, 5, 8, 13, 21, 34]);
+    }
+
+    public function it_can_be_json_encoded()
+    {
+        $input = ['a' => 'A', 'b' => 'B', 'c' => 'C'];
+
+        $this->beConstructedThrough('fromIterable', [$input]);
+
+        $this
+            ->jsonSerialize()
+            ->shouldReturn($this->all());
+
+        $this
+            ->shouldImplement(JsonSerializable::class);
+
+        $this
+            ->transform(
+                new class() implements Transformation {
+                    public function __invoke(iterable $collection)
+                    {
+                        return '{"a":"A","b":"B","c":"C"}';
+                    }
+                }
+            )
+            ->shouldReturn(json_encode($this->getWrappedObject()));
     }
 
     public function it_can_be_returned_as_an_array(): void

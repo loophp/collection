@@ -256,6 +256,14 @@ final class Collection extends Base implements CollectionInterface
         return (new self())->run(new Iterate($callback, $parameters));
     }
 
+    /**
+     * @return array<mixed>
+     */
+    public function jsonSerialize(): array
+    {
+        return $this->all();
+    }
+
     public function keys(): BaseInterface
     {
         return $this->run(new Keys());

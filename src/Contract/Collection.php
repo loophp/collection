@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract;
 
+use JsonSerializable;
 use loophp\collection\Contract\Operation\Appendable;
 use loophp\collection\Contract\Operation\Applyable;
 use loophp\collection\Contract\Operation\Chunkable;
@@ -96,6 +97,7 @@ interface Collection extends
     Implodeable,
     Intersperseable,
     Iterateable,
+    JsonSerializable,
     Keysable,
     Lastable,
     Limitable,
