@@ -304,12 +304,15 @@ Remove all the null values from the collection.
 
 Interface: `Compactable`_
 
-Signature: ``Collection::compact();``
+Signature: ``Collection::compact(...$values);``
 
 .. code-block:: php
 
     $collection = Collection::with(['a', 1 => 'b', null, false, 0, 'c'];)
-        ->combine();
+        ->compact(); // ['a', 1 => 'b', 3 => false, 4 => 0, 5 => 'c']
+
+    $collection = Collection::with(['a', 1 => 'b', null, false, 0, 'c'];)
+        ->compact(null, 0); // ['a', 1 => 'b', 3 => false, 5 => 'c']
 
 cycle
 ~~~~~

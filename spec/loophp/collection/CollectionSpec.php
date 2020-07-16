@@ -379,6 +379,10 @@ class CollectionSpec extends ObjectBehavior
         $this::fromIterable($input)
             ->compact()
             ->shouldIterateAs(['a', 1 => 'b', 3 => false, 4 => 0, 5 => 'c']);
+
+        $this::fromIterable($input)
+            ->compact(null, 0)
+            ->shouldIterateAs(['a', 1 => 'b', 3 => false, 5 => 'c']);
     }
 
     public function it_can_contains(): void

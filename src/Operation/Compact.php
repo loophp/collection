@@ -9,20 +9,37 @@ use Generator;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Transformation\Run;
 
+use function in_array;
+
 final class Compact extends AbstractOperation implements Operation
 {
+    /**
+     * @param mixed ...$values
+     */
+    public function __construct(...$values)
+    {
+        $this->storage['values'] = [] === $values ? [null] : $values;
+    }
+
     public function __invoke(): Closure
     {
-        return static function (iterable $collection): Generator {
-            return yield from
-            (new Run(
-                new Filter(
-                    static function ($item): bool {
-                        return null !== $item;
-                    }
+        return
+            /**
+             * @param array<int, mixed> $values
+             */
+            static function (iterable $collection, $values): Generator {
+                return yield from
+                (new Run(
+                    new Filter(
+                    /**
+                     * @param mixed $item
+                     */
+                        static function ($item) use ($values): bool {
+                            return !in_array($item, $values, true);
+                        }
+                    )
                 )
-            )
-            )($collection);
-        };
+                )($collection);
+            };
     }
 }

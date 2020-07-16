@@ -121,9 +121,9 @@ final class Collection extends Base implements CollectionInterface
         return $this->run(new Combine(...$keys));
     }
 
-    public function compact(): BaseInterface
+    public function compact(...$values): BaseInterface
     {
-        return $this->run(new Compact());
+        return $this->run(new Compact(...$values));
     }
 
     public function contains($key): bool
