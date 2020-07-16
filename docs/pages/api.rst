@@ -300,7 +300,7 @@ Signature: ``Collection::combine(...$keys);``
 compact
 ~~~~~~~
 
-Remove all the null values from the collection.
+Remove given values from the collection, if no values are provided, it removes only the null value.
 
 Interface: `Compactable`_
 
