@@ -18,6 +18,7 @@ use loophp\collection\Operation\Collapse;
 use loophp\collection\Operation\Column;
 use loophp\collection\Operation\Combinate;
 use loophp\collection\Operation\Combine;
+use loophp\collection\Operation\Compact;
 use loophp\collection\Operation\Cycle;
 use loophp\collection\Operation\Distinct;
 use loophp\collection\Operation\Explode;
@@ -118,6 +119,11 @@ final class Collection extends Base implements CollectionInterface
     public function combine(...$keys): BaseInterface
     {
         return $this->run(new Combine(...$keys));
+    }
+
+    public function compact(): BaseInterface
+    {
+        return $this->run(new Compact());
     }
 
     public function contains($key): bool

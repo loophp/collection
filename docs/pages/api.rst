@@ -297,6 +297,20 @@ Signature: ``Collection::combine(...$keys);``
     $collection = Collection::with(['a', 'b', 'c', 'd'])
         ->combine('w', 'x', 'y', 'z')
 
+compact
+~~~~~~~
+
+Remove all the null values from the collection.
+
+Interface: `Compactable`_
+
+Signature: ``Collection::compact();``
+
+.. code-block:: php
+
+    $collection = Collection::with(['a', 1 => 'b', null, false, 0, 'c'];)
+        ->combine();
+
 cycle
 ~~~~~
 
@@ -1129,6 +1143,7 @@ Interface: `Truthyable`_
 .. _Columnable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Columnable.php
 .. _Combinateable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Combinateable.php
 .. _Combineable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Combineable.php
+.. _Compactable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Compactable.php
 .. _Containsable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/Containsable.php
 .. _Cycleable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Cycleable.php
 .. _Distinctable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Distinctable.php

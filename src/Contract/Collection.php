@@ -12,6 +12,7 @@ use loophp\collection\Contract\Operation\Collapseable;
 use loophp\collection\Contract\Operation\Columnable;
 use loophp\collection\Contract\Operation\Combinateable;
 use loophp\collection\Contract\Operation\Combineable;
+use loophp\collection\Contract\Operation\Compactable;
 use loophp\collection\Contract\Operation\Cycleable;
 use loophp\collection\Contract\Operation\Distinctable;
 use loophp\collection\Contract\Operation\Explodeable;
@@ -79,6 +80,7 @@ interface Collection extends
     Columnable,
     Combinateable,
     Combineable,
+    Compactable,
     Containsable,
     Cycleable,
     Distinctable,
