@@ -28,13 +28,15 @@ final class Since extends AbstractOperation implements Operation
                 while ($iterator->valid()) {
                     $result = array_reduce(
                         $callbacks,
-                        static function (int $carry, callable $callable) use ($iterator): int {
-                            return $carry & $callable($iterator->current(), $iterator->key());
+                        static function (bool $carry, callable $callable) use ($iterator): bool {
+                            return ($callable($iterator->current(), $iterator->key())) ?
+                                $carry :
+                                false;
                         },
-                        1
+                        true
                     );
 
-                    if (1 === $result) {
+                    if (true === $result) {
                         break;
                     }
 

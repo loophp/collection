@@ -31,9 +31,9 @@ final class Compact extends AbstractOperation implements Operation
                 return yield from
                 (new Run(
                     new Filter(
-                    /**
-                     * @param mixed $item
-                     */
+                        /**
+                         * @param mixed $item
+                         */
                         static function ($item) use ($values): bool {
                             return !in_array($item, $values, true);
                         }

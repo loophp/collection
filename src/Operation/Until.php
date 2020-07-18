@@ -27,13 +27,15 @@ final class Until extends AbstractOperation implements Operation
 
                     $result = array_reduce(
                         $callbacks,
-                        static function (int $carry, callable $callable) use ($key, $value): int {
-                            return $carry & $callable($value, $key);
+                        static function (bool $carry, callable $callable) use ($key, $value): bool {
+                            return ($callable($value, $key)) ?
+                                $carry :
+                                false;
                         },
-                        1
+                        true
                     );
 
-                    if (1 === $result) {
+                    if (true === $result) {
                         break;
                     }
                 }
