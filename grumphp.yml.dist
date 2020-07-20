@@ -8,7 +8,7 @@ parameters:
     phpspec:
       verbose: true
     infection:
-      threads: 1
+      threads: 10
       test_framework: phpspec
       configuration: infection.json.dist
       min_msi: 90
