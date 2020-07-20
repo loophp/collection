@@ -2,22 +2,14 @@ imports:
   - { resource: vendor/drupol/php-conventions/config/php71/grumphp.yml }
 
 parameters:
-  process_timeout: 1200
   extra_tasks:
     psalm:
       show_info: true
-      metadata:
-        priority: 3500
     phpspec:
       verbose: true
-      metadata:
-        priority: 3000
     infection:
       threads: 1
       test_framework: phpspec
       configuration: infection.json.dist
       min_msi: 90
       min_covered_msi: 90
-      metadata:
-        priority: 2000
-

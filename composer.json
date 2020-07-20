@@ -19,7 +19,7 @@
         "php": ">= 7.1.3"
     },
     "require-dev": {
-        "drupol/php-conventions": "^1.7.1",
+        "drupol/php-conventions": "^1.8.1",
         "friends-of-phpspec/phpspec-code-coverage": "^4.3.2",
         "infection/infection": ">= 0.13.6",
         "phpbench/phpbench": "^0.16.10 || ^0.17.1",
