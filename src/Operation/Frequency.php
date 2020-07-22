@@ -6,16 +6,17 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
+use Iterator;
 use loophp\collection\Contract\Operation;
 
 final class Frequency extends AbstractOperation implements Operation
 {
     public function __invoke(): Closure
     {
-        return static function (iterable $collection): Generator {
+        return static function (Iterator $iterator): Generator {
             $storage = [];
 
-            foreach ($collection as $value) {
+            foreach ($iterator as $value) {
                 $added = false;
 
                 foreach ($storage as $key => $data) {

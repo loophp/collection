@@ -6,6 +6,7 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
+use Iterator;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Transformation\Run;
 
@@ -27,8 +28,8 @@ final class Column extends AbstractOperation implements Operation
             /**
              * @param int|string $column
              */
-            static function (iterable $collection, $column): Generator {
-                foreach ((new Run((new Transpose())))($collection) as $key => $value) {
+            static function (Iterator $iterator, $column): Generator {
+                foreach ((new Run(new Transpose()))($iterator) as $key => $value) {
                     if ($key === $column) {
                         return yield from $value;
                     }

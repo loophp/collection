@@ -6,6 +6,7 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
+use Iterator;
 use loophp\collection\Contract\Operation;
 
 final class Walk extends AbstractOperation implements Operation
@@ -21,8 +22,8 @@ final class Walk extends AbstractOperation implements Operation
             /**
              * @param array<int, callable> $callbacks
              */
-            static function (iterable $collection, array $callbacks): Generator {
-                foreach ($collection as $key => $value) {
+            static function (Iterator $iterator, array $callbacks): Generator {
+                foreach ($iterator as $key => $value) {
                     // Custom array_reduce function with the key passed in argument.
                     foreach ($callbacks as $callback) {
                         $value = $callback($value, $key);

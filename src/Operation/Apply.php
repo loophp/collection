@@ -6,6 +6,7 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
+use Iterator;
 use loophp\collection\Contract\Operation;
 
 final class Apply extends AbstractOperation implements Operation
@@ -21,8 +22,8 @@ final class Apply extends AbstractOperation implements Operation
             /**
              * @param array<int, callable> $callbacks
              */
-            static function (iterable $collection, array $callbacks): Generator {
-                foreach ($collection as $key => $value) {
+            static function (Iterator $iterator, array $callbacks): Generator {
+                foreach ($iterator as $key => $value) {
                     foreach ($callbacks as $callback) {
                         if (true === $callback($value, $key)) {
                             continue;

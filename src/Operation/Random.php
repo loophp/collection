@@ -6,6 +6,7 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
+use Iterator;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Transformation\Run;
 
@@ -20,8 +21,8 @@ final class Random extends AbstractOperation implements Operation
 
     public function __invoke(): Closure
     {
-        return static function (iterable $collection, int $size): Generator {
-            yield from (new Run(new Limit($size)))((new Run(new Shuffle()))($collection));
+        return static function (Iterator $iterator, int $size): Generator {
+            yield from (new Run(new Limit($size)))((new Run(new Shuffle()))($iterator));
         };
     }
 }

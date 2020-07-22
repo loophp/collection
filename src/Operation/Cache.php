@@ -6,8 +6,8 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
+use Iterator;
 use loophp\collection\Contract\Operation;
-use loophp\collection\Iterator\IterableIterator;
 use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
 
@@ -22,9 +22,7 @@ final class Cache extends AbstractOperation implements Operation
     {
         $iteratorIndex = 0;
 
-        return static function (iterable $collection, CacheItemPoolInterface $cache) use (&$iteratorIndex): Generator {
-            $iterator = new IterableIterator($collection);
-
+        return static function (Iterator $iterator, CacheItemPoolInterface $cache) use (&$iteratorIndex): Generator {
             for ($index = 0; true; ++$index) {
                 $item = $cache->getItem((string) $index);
 

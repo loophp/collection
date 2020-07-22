@@ -6,6 +6,7 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
+use Iterator;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Iterator\IterableIterator;
 
@@ -34,8 +35,8 @@ final class Product extends AbstractOperation implements Operation
             /**
              * @param array<int, iterable> $iterables
              */
-            static function (iterable $collection, array $iterables, callable $cartesian): Generator {
-                $its = [$collection];
+            static function (Iterator $iterator, array $iterables, callable $cartesian): Generator {
+                $its = [$iterator];
 
                 foreach ($iterables as $iterable) {
                     $its[] = new IterableIterator($iterable);

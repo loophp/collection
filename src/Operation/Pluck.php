@@ -7,6 +7,7 @@ namespace loophp\collection\Operation;
 use ArrayAccess;
 use Closure;
 use Generator;
+use Iterator;
 use loophp\collection\Contract\Collection;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Transformation\Get;
@@ -43,11 +44,11 @@ final class Pluck extends AbstractOperation implements Operation
              * @param array<int, string>|string $key
              * @param mixed $default
              */
-            static function (iterable $collection, $key, $default, callable $pick): Generator {
+            static function (Iterator $iterator, $key, $default, callable $pick): Generator {
                 $key = true === is_scalar($key) ? explode('.', trim((string) $key, '.')) : $key;
 
-                foreach ($collection as $value) {
-                    yield $pick($collection, $value, $key, $default);
+                foreach ($iterator as $value) {
+                    yield $pick($iterator, $value, $key, $default);
                 }
             };
     }
@@ -55,7 +56,7 @@ final class Pluck extends AbstractOperation implements Operation
     /**
      * Get an item from an array or object using "dot" notation.
      *
-     * @param iterable<mixed> $collection
+     * @param Iterator<mixed> $iterator
      * @param mixed $target
      * @param array<string> $key
      * @param mixed $default
@@ -64,7 +65,7 @@ final class Pluck extends AbstractOperation implements Operation
      *
      * @return mixed
      */
-    private function pick(iterable $collection, $target, array $key, $default = null)
+    private function pick(Iterator $iterator, $target, array $key, $default = null)
     {
         while (null !== $segment = array_shift($key)) {
             if ('*' === $segment) {
@@ -75,7 +76,7 @@ final class Pluck extends AbstractOperation implements Operation
                 $result = [];
 
                 foreach ($target as $item) {
-                    $result[] = $this->pick($collection, $item, $key);
+                    $result[] = $this->pick($iterator, $item, $key);
                 }
 
                 return in_array('*', $key, true) ? (new Run((new Collapse())))($result) : $result;

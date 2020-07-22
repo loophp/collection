@@ -6,6 +6,7 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
+use Iterator;
 use loophp\collection\Contract\Operation;
 
 use function array_key_exists;
@@ -26,14 +27,14 @@ final class Only extends AbstractOperation implements Operation
 
     public function __invoke(): Closure
     {
-        return static function (iterable $collection, array $keys): Generator {
+        return static function (Iterator $iterator, array $keys): Generator {
             if ([] === $keys) {
-                return yield from $collection;
+                return yield from $iterator;
             }
 
             $keys = array_flip($keys);
 
-            foreach ($collection as $key => $value) {
+            foreach ($iterator as $key => $value) {
                 if (true === array_key_exists($key, $keys)) {
                     yield $key => $value;
                 }

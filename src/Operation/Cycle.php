@@ -7,9 +7,9 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use InfiniteIterator;
+use Iterator;
 use LimitIterator;
 use loophp\collection\Contract\Operation;
-use loophp\collection\Iterator\IterableIterator;
 
 final class Cycle extends AbstractOperation implements Operation
 {
@@ -20,22 +20,16 @@ final class Cycle extends AbstractOperation implements Operation
 
     public function __invoke(): Closure
     {
-        return static function (iterable $collection, int $length): Generator {
+        return static function (Iterator $iterator, int $length): Generator {
             if (0 === $length) {
                 return yield from [];
             }
 
-            $iterator = new LimitIterator(
-                new InfiniteIterator(
-                    new IterableIterator($collection)
-                ),
+            yield from new LimitIterator(
+                new InfiniteIterator($iterator),
                 0,
                 $length
             );
-
-            foreach ($iterator as $key => $value) {
-                yield $key => $value;
-            }
         };
     }
 }

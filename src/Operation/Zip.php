@@ -6,6 +6,7 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
+use Iterator;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Iterator\IterableIterator;
 use MultipleIterator;
@@ -28,12 +29,12 @@ final class Zip extends AbstractOperation implements Operation
             /**
              * @param array<int, iterable> $iterables
              */
-            static function (iterable $collection, array $iterables): Generator {
+            static function (Iterator $iterator, array $iterables): Generator {
                 $mit = new MultipleIterator(MultipleIterator::MIT_NEED_ANY);
-                $mit->attachIterator(new IterableIterator($collection));
+                $mit->attachIterator($iterator);
 
-                foreach ($iterables as $iterator) {
-                    $mit->attachIterator(new IterableIterator($iterator));
+                foreach ($iterables as $iterableIterator) {
+                    $mit->attachIterator(new IterableIterator($iterableIterator));
                 }
 
                 foreach ($mit as $values) {

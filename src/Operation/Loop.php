@@ -7,15 +7,15 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use InfiniteIterator;
+use Iterator;
 use loophp\collection\Contract\Operation;
-use loophp\collection\Iterator\IterableIterator;
 
 final class Loop extends AbstractOperation implements Operation
 {
     public function __invoke(): Closure
     {
-        return static function (iterable $collection): Generator {
-            foreach (new InfiniteIterator(new IterableIterator($collection)) as $key => $value) {
+        return static function (Iterator $iterator): Generator {
+            foreach (new InfiniteIterator($iterator) as $key => $value) {
                 yield $key => $value;
             }
         };

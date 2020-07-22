@@ -6,6 +6,7 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
+use Iterator;
 use loophp\collection\Contract\Operation;
 
 use function in_array;
@@ -26,8 +27,8 @@ final class Intersect extends AbstractOperation implements Operation
             /**
              * @param array<int, mixed> $values
              */
-            static function (iterable $collection, $values): Generator {
-                foreach ($collection as $key => $value) {
+            static function (Iterator $iterator, $values): Generator {
+                foreach ($iterator as $key => $value) {
                     if (true === in_array($value, $values, true)) {
                         yield $key => $value;
                     }

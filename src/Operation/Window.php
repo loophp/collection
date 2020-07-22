@@ -6,6 +6,7 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
+use Iterator;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Iterator\IterableIterator;
 use loophp\collection\Transformation\Run;
@@ -23,14 +24,11 @@ final class Window extends AbstractOperation implements Operation
             /**
              * @param array<int, int> $length
              */
-            static function (iterable $collection, array $length): Generator {
-                $i = 0;
-
+            static function (Iterator $iterator, array $length): Generator {
                 $length = new IterableIterator((new Run(new Loop()))($length));
 
-                // Todo: Find a way to get rid of unused variable $value.
-                foreach ($collection as $value) {
-                    yield iterator_to_array((new Run(new Slice($i++, $length->current())))($collection));
+                for ($i = 0; iterator_count($iterator) > $i; ++$i) {
+                    yield iterator_to_array((new Run(new Slice($i, $length->current())))($iterator));
                     $length->next();
                 }
             };

@@ -6,6 +6,7 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
+use Iterator;
 use loophp\collection\Contract\Operation;
 
 final class Append extends AbstractOperation implements Operation
@@ -26,8 +27,8 @@ final class Append extends AbstractOperation implements Operation
             /**
              * @param array<int, mixed> $items
              */
-            static function (iterable $collection, array $items): Generator {
-                foreach ($collection as $key => $value) {
+            static function (Iterator $iterator, array $items): Generator {
+                foreach ($iterator as $key => $value) {
                     yield $key => $value;
                 }
 

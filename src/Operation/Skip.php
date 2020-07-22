@@ -6,6 +6,7 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
+use Iterator;
 use loophp\collection\Contract\Operation;
 
 final class Skip extends AbstractOperation implements Operation
@@ -21,10 +22,10 @@ final class Skip extends AbstractOperation implements Operation
             /**
              * @param array<int, int> $skip
              */
-            static function (iterable $collection, array $skip): Generator {
+            static function (Iterator $iterator, array $skip): Generator {
                 $skip = array_sum($skip);
 
-                foreach ($collection as $key => $value) {
+                foreach ($iterator as $key => $value) {
                     if (0 < $skip--) {
                         continue;
                     }

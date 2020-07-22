@@ -6,6 +6,7 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
+use Iterator;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Transformation\Run;
 
@@ -23,7 +24,7 @@ final class Explode extends AbstractOperation implements Operation
 
     public function __invoke(): Closure
     {
-        return static function (iterable $collection, array $explodes): Generator {
+        return static function (Iterator $iterator, array $explodes): Generator {
             yield from (new Run(
                 new Split(
                     ...array_map(
@@ -40,7 +41,7 @@ final class Explode extends AbstractOperation implements Operation
                         $explodes
                     )
                 )
-            ))($collection);
+            ))($iterator);
         };
     }
 }

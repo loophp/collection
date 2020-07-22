@@ -6,6 +6,7 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
+use Iterator;
 use loophp\collection\Contract\Operation;
 
 final class Nth extends AbstractOperation implements Operation
@@ -20,10 +21,10 @@ final class Nth extends AbstractOperation implements Operation
 
     public function __invoke(): Closure
     {
-        return static function (iterable $collection, int $step, int $offset): Generator {
+        return static function (Iterator $iterator, int $step, int $offset): Generator {
             $position = 0;
 
-            foreach ($collection as $key => $value) {
+            foreach ($iterator as $key => $value) {
                 if ($position++ % $step !== $offset) {
                     continue;
                 }

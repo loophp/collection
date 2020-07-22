@@ -6,6 +6,7 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
+use Iterator;
 use loophp\collection\Contract\Operation;
 
 final class Iterate extends AbstractOperation implements Operation
@@ -29,7 +30,7 @@ final class Iterate extends AbstractOperation implements Operation
             /**
              * @param array<mixed, mixed> $parameters
              */
-            static function (iterable $collection, callable $callback, array $parameters): Generator {
+            static function (Iterator $iterator, callable $callback, array $parameters): Generator {
                 while (true) {
                     yield $parameters = $callback(...array_values((array) $parameters));
                 }
