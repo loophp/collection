@@ -6,6 +6,7 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
+use Iterator;
 use loophp\collection\Contract\Operation;
 
 final class Pad extends AbstractOperation implements Operation
@@ -29,10 +30,10 @@ final class Pad extends AbstractOperation implements Operation
             /**
              * @param mixed $padValue
              */
-            static function (iterable $collection, int $size, $padValue): Generator {
+            static function (Iterator $iterator, int $size, $padValue): Generator {
                 $y = 0;
 
-                foreach ($collection as $key => $value) {
+                foreach ($iterator as $key => $value) {
                     ++$y;
 
                     yield $key => $value;

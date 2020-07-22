@@ -6,6 +6,7 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
+use Iterator;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Iterator\IterableIterator;
 use loophp\collection\Transformation\Run;
@@ -25,14 +26,14 @@ final class Chunk extends AbstractOperation implements Operation
             /**
              * @param array<int, int> $sizes
              */
-            static function (iterable $collection, array $sizes): Generator {
+            static function (Iterator $iterator, array $sizes): Generator {
                 $sizesIterator = new IterableIterator(
                     (new Run(new Loop()))($sizes)
                 );
 
                 $values = [];
 
-                foreach ($collection as $value) {
+                foreach ($iterator as $value) {
                     if (0 >= $sizesIterator->current()) {
                         return yield from [];
                     }

@@ -6,6 +6,7 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
+use Iterator;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Iterator\SortableIterableIterator;
 
@@ -18,8 +19,8 @@ final class Sort extends AbstractOperation implements Operation
 
     public function __invoke(): Closure
     {
-        return static function (iterable $collection, callable $callback): Generator {
-            return yield from new SortableIterableIterator($collection, $callback);
+        return static function (Iterator $iterator, callable $callback): Generator {
+            return yield from new SortableIterableIterator($iterator, $callback);
         };
     }
 

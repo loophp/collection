@@ -6,6 +6,7 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
+use Iterator;
 use loophp\collection\Contract\Operation;
 
 final class Merge extends AbstractOperation implements Operation
@@ -26,8 +27,8 @@ final class Merge extends AbstractOperation implements Operation
             /**
              * @param array<int, iterable> $sources
              */
-            static function (iterable $collection, array $sources): Generator {
-                foreach ($collection as $key => $value) {
+            static function (Iterator $iterator, array $sources): Generator {
+                foreach ($iterator as $key => $value) {
                     yield $key => $value;
                 }
 

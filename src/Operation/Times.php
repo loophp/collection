@@ -7,6 +7,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use InvalidArgumentException;
+use Iterator;
 use loophp\collection\Contract\Operation;
 
 final class Times extends AbstractOperation implements Operation
@@ -36,7 +37,7 @@ final class Times extends AbstractOperation implements Operation
             /**
              * @param float|int $number
              */
-            static function (iterable $collection, $number, callable $callback): Generator {
+            static function (Iterator $iterator, $number, callable $callback): Generator {
                 for ($current = 1; $current <= $number; ++$current) {
                     yield $callback($current);
                 }

@@ -6,6 +6,7 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
+use Iterator;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Transformation\Run;
 
@@ -27,7 +28,7 @@ final class Compact extends AbstractOperation implements Operation
             /**
              * @param array<int, mixed> $values
              */
-            static function (iterable $collection, $values): Generator {
+            static function (Iterator $iterator, $values): Generator {
                 return yield from
                 (new Run(
                     new Filter(
@@ -39,7 +40,7 @@ final class Compact extends AbstractOperation implements Operation
                         }
                     )
                 )
-                )($collection);
+                )($iterator);
             };
     }
 }

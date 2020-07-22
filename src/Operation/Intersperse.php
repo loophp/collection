@@ -7,6 +7,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use InvalidArgumentException;
+use Iterator;
 use loophp\collection\Contract\Operation;
 
 /**
@@ -48,8 +49,8 @@ final class Intersperse extends AbstractOperation implements Operation
             /**
              * @param mixed $element
              */
-            static function (iterable $collection, $element, int $every, int $startAt): Generator {
-                foreach ($collection as $value) {
+            static function (Iterator $iterator, $element, int $every, int $startAt): Generator {
+                foreach ($iterator as $value) {
                     if (0 === $startAt++ % $every) {
                         yield $element;
                     }

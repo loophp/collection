@@ -6,6 +6,7 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
+use Iterator;
 use loophp\collection\Contract\Operation;
 
 final class Split extends AbstractOperation implements Operation
@@ -21,10 +22,10 @@ final class Split extends AbstractOperation implements Operation
             /**
              * @param array<int, callable> $callbacks
              */
-            static function (iterable $collection, array $callbacks): Generator {
+            static function (Iterator $iterator, array $callbacks): Generator {
                 $carry = [];
 
-                foreach ($collection as $key => $value) {
+                foreach ($iterator as $key => $value) {
                     $carry[] = $value;
 
                     foreach ($callbacks as $callback) {

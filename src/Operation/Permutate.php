@@ -6,8 +6,8 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
+use Iterator;
 use loophp\collection\Contract\Operation;
-use loophp\collection\Transformation\All;
 
 final class Permutate extends AbstractOperation implements Operation
 {
@@ -17,8 +17,8 @@ final class Permutate extends AbstractOperation implements Operation
             return $this->getPermutations($dataset);
         };
 
-        return static function (iterable $collection) use ($getPermutations): Generator {
-            return yield from $getPermutations((new All())($collection));
+        return static function (Iterator $iterator) use ($getPermutations): Generator {
+            return yield from $getPermutations(iterator_to_array($iterator));
         };
     }
 

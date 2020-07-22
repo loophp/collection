@@ -6,6 +6,7 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
+use Iterator;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Transformation\Run;
 
@@ -21,14 +22,14 @@ final class Slice extends AbstractOperation implements Operation
 
     public function __invoke(): Closure
     {
-        return static function (iterable $collection, int $offset, ?int $length): Generator {
-            $skip = new Skip($offset);
+        return static function (Iterator $iterator, int $offset, ?int $length): Generator {
+            $skip = (new Run(new Skip($offset)))($iterator);
 
             if (null === $length) {
-                return yield from (new Run($skip))($collection);
+                return yield from $skip;
             }
 
-            return yield from (new Run($skip, new Limit($length)))($collection);
+            return yield from (new Run(new Limit($length)))($skip);
         };
     }
 }

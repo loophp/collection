@@ -6,6 +6,7 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
+use Iterator;
 use loophp\collection\Contract\Operation;
 
 use function array_key_exists;
@@ -28,10 +29,10 @@ final class Forget extends AbstractOperation implements Operation
             /**
              * @param array<int, mixed> $keys
              */
-            static function (iterable $collection, array $keys): Generator {
+            static function (Iterator $iterator, array $keys): Generator {
                 $keys = array_flip($keys);
 
-                foreach ($collection as $key => $value) {
+                foreach ($iterator as $key => $value) {
                     if (false === array_key_exists($key, $keys)) {
                         yield $key => $value;
                     }

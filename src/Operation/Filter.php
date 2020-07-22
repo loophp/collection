@@ -7,8 +7,8 @@ namespace loophp\collection\Operation;
 use CallbackFilterIterator;
 use Closure;
 use Generator;
+use Iterator;
 use loophp\collection\Contract\Operation;
-use loophp\collection\Iterator\IterableIterator;
 
 final class Filter extends AbstractOperation implements Operation
 {
@@ -29,9 +29,7 @@ final class Filter extends AbstractOperation implements Operation
             /**
              * @param array<int, callable> $callbacks
              */
-            static function (iterable $collection, array $callbacks): Generator {
-                $iterator = new IterableIterator($collection);
-
+            static function (Iterator $iterator, array $callbacks): Generator {
                 foreach ($callbacks as $callback) {
                     $iterator = new CallbackFilterIterator($iterator, $callback);
                 }

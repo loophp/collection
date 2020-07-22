@@ -6,6 +6,7 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
+use Iterator;
 use loophp\collection\Contract\Operation;
 
 final class Reduction extends AbstractOperation implements Operation
@@ -29,8 +30,8 @@ final class Reduction extends AbstractOperation implements Operation
             /**
              * @param mixed|null $initial
              */
-            static function (iterable $collection, callable $callback, $initial): Generator {
-                foreach ($collection as $key => $value) {
+            static function (Iterator $iterator, callable $callback, $initial): Generator {
+                foreach ($iterator as $key => $value) {
                     yield $initial = $callback($initial, $value, $key);
                 }
             };

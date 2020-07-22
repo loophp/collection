@@ -6,9 +6,9 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
+use Iterator;
 use LimitIterator;
 use loophp\collection\Contract\Operation;
-use loophp\collection\Iterator\IterableIterator;
 
 final class Limit extends AbstractOperation implements Operation
 {
@@ -22,8 +22,8 @@ final class Limit extends AbstractOperation implements Operation
 
     public function __invoke(): Closure
     {
-        return static function (iterable $collection, int $limit, int $offset): Generator {
-            yield from new LimitIterator(new IterableIterator($collection), $offset, $limit);
+        return static function (Iterator $iterator, int $limit, int $offset): Generator {
+            yield from new LimitIterator($iterator, $offset, $limit);
         };
     }
 }

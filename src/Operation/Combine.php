@@ -7,8 +7,8 @@ namespace loophp\collection\Operation;
 use ArrayIterator;
 use Closure;
 use Generator;
+use Iterator;
 use loophp\collection\Contract\Operation;
-use loophp\collection\Iterator\IterableIterator;
 
 use const E_USER_WARNING;
 
@@ -26,18 +26,17 @@ final class Combine extends AbstractOperation implements Operation
 
     public function __invoke(): Closure
     {
-        return static function (iterable $collection, array $keys): Generator {
-            $original = new IterableIterator($collection);
+        return static function (Iterator $iterator, array $keys): Generator {
             $keysIterator = new ArrayIterator($keys);
 
-            while ($original->valid() && $keysIterator->valid()) {
-                yield $keysIterator->current() => $original->current();
+            while ($iterator->valid() && $keysIterator->valid()) {
+                yield $keysIterator->current() => $iterator->current();
 
-                $original->next();
+                $iterator->next();
                 $keysIterator->next();
             }
 
-            if ($original->valid() !== $keysIterator->valid()) {
+            if ($iterator->valid() !== $keysIterator->valid()) {
                 trigger_error('Both keys and values must have the same amount of items.', E_USER_WARNING);
             }
         };

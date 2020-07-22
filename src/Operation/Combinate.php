@@ -6,8 +6,8 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
+use Iterator;
 use loophp\collection\Contract\Operation;
-use loophp\collection\Transformation\All;
 
 use function array_slice;
 use function count;
@@ -26,8 +26,8 @@ final class Combinate extends AbstractOperation implements Operation
 
     public function __invoke(): Closure
     {
-        return static function (iterable $collection, ?int $length, callable $getCombinations): Generator {
-            $dataset = (new All())($collection);
+        return static function (Iterator $iterator, ?int $length, callable $getCombinations): Generator {
+            $dataset = iterator_to_array($iterator);
 
             if (0 < $length) {
                 return yield from $getCombinations($dataset, $length);
