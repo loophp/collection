@@ -21,6 +21,8 @@ use loophp\collection\Operation\Combinate;
 use loophp\collection\Operation\Combine;
 use loophp\collection\Operation\Compact;
 use loophp\collection\Operation\Cycle;
+use loophp\collection\Operation\Diff;
+use loophp\collection\Operation\DiffKeys;
 use loophp\collection\Operation\Distinct;
 use loophp\collection\Operation\Explode;
 use loophp\collection\Operation\Filter;
@@ -147,6 +149,16 @@ final class Collection extends Base implements CollectionInterface
     public function cycle(?int $length = null): BaseInterface
     {
         return $this->run(new Cycle($length));
+    }
+
+    public function diff(...$values): BaseInterface
+    {
+        return $this->run(new Diff(...$values));
+    }
+
+    public function diffKeys(...$values): BaseInterface
+    {
+        return $this->run(new DiffKeys(...$values));
     }
 
     public function distinct(): BaseInterface

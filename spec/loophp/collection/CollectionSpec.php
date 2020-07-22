@@ -568,6 +568,30 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs($generator());
     }
 
+    public function it_can_diff(): void
+    {
+        $this::fromIterable(range(1, 5))
+            ->diff(1, 2, 3, 9)
+            ->shouldIterateAs([3 => 4, 4 => 5]);
+
+        $this::fromIterable(range(1, 5))
+            ->diff()
+            ->shouldIterateAs(range(1, 5));
+    }
+
+    public function it_can_diffKeys(): void
+    {
+        $input = array_combine(range('a', 'e'), range(1, 5));
+
+        $this::fromIterable($input)
+            ->diffKeys('b', 'd')
+            ->shouldIterateAs(['a' => 1, 'c' => 3, 'e' => 5]);
+
+        $this::fromIterable($input)
+            ->diffKeys()
+            ->shouldIterateAs($input);
+    }
+
     public function it_can_distinct(): void
     {
         $stdclass = new stdClass();

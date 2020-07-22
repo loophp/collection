@@ -15,6 +15,8 @@ use loophp\collection\Contract\Operation\Combinateable;
 use loophp\collection\Contract\Operation\Combineable;
 use loophp\collection\Contract\Operation\Compactable;
 use loophp\collection\Contract\Operation\Cycleable;
+use loophp\collection\Contract\Operation\Diffable;
+use loophp\collection\Contract\Operation\Diffkeysable;
 use loophp\collection\Contract\Operation\Distinctable;
 use loophp\collection\Contract\Operation\Explodeable;
 use loophp\collection\Contract\Operation\Filterable;
@@ -86,6 +88,8 @@ interface Collection extends
     Compactable,
     Containsable,
     Cycleable,
+    Diffable,
+    Diffkeysable,
     Distinctable,
     Explodeable,
     Falsyable,
