@@ -202,6 +202,22 @@ Signature: ``Collection::apply(...$callbacks);``
     $collection
         ->apply($callback);
 
+cache
+~~~~~
+
+Useful when using a resource as input and you need to run through the collection multiple times.
+
+Interface: `Cacheable`_
+
+Signature: ``Collection::cache(CacheItemPoolInterface $cache = null);``
+
+.. code-block:: php
+
+    $fopen = fopen(__DIR__ . '/vendor/autoload.php', 'r');
+
+    $collection = Collection::withResource($fopen)
+        ->cache();
+
 chunk
 ~~~~~
 
@@ -327,6 +343,36 @@ Signature: ``Collection::cycle(int $length = 0);``
 
     $collection = Collection::with(['a', 'b', 'c', 'd'])
         ->cycle(10)
+
+diff
+~~~~
+
+It compares the collection against another collection or a plain array based on its values.
+This method will return the values in the original collection that are not present in the given collection.
+
+Interface: `Diffable`_
+
+Signature: ``Collection::diff(...$values);``
+
+.. code-block:: php
+
+    $collection = Collection::with(['a', 'b', 'c', 'd', 'e'])
+        ->diff('a', 'b', 'c', 'x'); // [3 => 'd', 4 => 'e']
+
+diffKeys
+~~~~~~~~
+
+It compares the collection against another collection or a plain object based on its keys.
+This method will return the key / value pairs in the original collection that are not present in the given collection.
+
+Interface: `Diffkeysable`_
+
+Signature: ``Collection::diffKeys(...$values);``
+
+.. code-block:: php
+
+    $collection = Collection::with(['a', 'b', 'c', 'd', 'e'])
+        ->diffKeys(1, 2); // [0 => 'a', 3 => 'd', 4 => 'e']
 
 distinct
 ~~~~~~~~
@@ -484,6 +530,34 @@ Signature: ``Collection::group(callable $callable = null);``
 
     $collection = Collection::with($callback)
         ->group();
+
+intersect
+~~~~~~~~~
+
+Removes any values from the original collection that are not present in the given collection.
+
+Interface: `Intersectable`_
+
+Signature: ``Collection::intersect(...$values);``
+
+.. code-block:: php
+
+    $collection = Collection::with(range('a', 'e'))
+        ->intersect('a', 'b', 'c'); // ['a', 'b', 'c']
+
+intersectKeys
+~~~~~~~~~~~~~
+
+Removes any keys from the original collection that are not present in the given collection.
+
+Interface: `Intersectkeysable`_
+
+Signature: ``Collection::intersectKeys(...$values);``
+
+.. code-block:: php
+
+    $collection = Collection::with(range('a', 'e'))
+        ->intersectKeys(0, 2, 4); // ['a', 'c', 'e']
 
 intersperse
 ~~~~~~~~~~~
@@ -700,6 +774,21 @@ Signature: ``Collection::product(iterable ...$iterables);``
 
     $collection = Collection::with(['4', '5', '6'])
         ->product(['1', '2', '3'], ['a', 'b'], ['foo', 'bar']);
+
+random
+~~~~~~
+
+It returns a random item from the collection.
+An optional integer can be passed to random to specify how many items you would like to randomly retrieve.
+
+Interface: `Randomable`_
+
+Signature: ``Collection::random(int $size = 1);``
+
+.. code-block:: php
+
+    $collection = Collection::with(['4', '5', '6'])
+        ->random(); // ['6']
 
 reduction
 ~~~~~~~~~
@@ -1141,6 +1230,7 @@ Interface: `Truthyable`_
 .. _Allable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/Allable.php
 .. _Appendable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Appendable.php
 .. _Applyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Applyable.php
+.. _Cacheable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Cacheable.php
 .. _Chunkable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Chunkable.php
 .. _Collapseable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Collapseable.php
 .. _Columnable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Columnable.php
@@ -1149,6 +1239,8 @@ Interface: `Truthyable`_
 .. _Compactable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Compactable.php
 .. _Containsable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/Containsable.php
 .. _Cycleable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Cycleable.php
+.. _Diffable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Diffable.php
+.. _Diffkeysable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Diffkeysable.php
 .. _Distinctable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Distinctable.php
 .. _Explodeable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Explodeable.php
 .. _Falsyable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/Falsyable.php
@@ -1164,6 +1256,8 @@ Interface: `Truthyable`_
 .. _Getable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/Getable.php
 .. _Groupable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Groupable.php
 .. _Implodeable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/Implodeable.php
+.. _Intersectable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Intersectable.php
+.. _Intersectkeysable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Intersectkeysable.php
 .. _Intersperseable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Intersperseable.php
 .. _Keysable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Keysable.php
 .. _Lastable: https://github.com/loophp/collection/blob/master/src/Contract/Tranformation/Lastable.php
@@ -1180,6 +1274,7 @@ Interface: `Truthyable`_
 .. _Pluckable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Pluckable.php
 .. _Prependable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Prependable.php
 .. _Productable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Productable.php
+.. _Randomable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Randomable.php
 .. _Reduceable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/Reduceable.php
 .. _Reductionable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Reductionable.php
 .. _Reverseable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Reverseable.php
