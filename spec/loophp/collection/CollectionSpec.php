@@ -998,6 +998,30 @@ class CollectionSpec extends ObjectBehavior
             ->shouldReturn('ABC');
     }
 
+    public function it_can_intersect(): void
+    {
+        $this::fromIterable(range(1, 5))
+            ->intersect(1, 2, 3, 9)
+            ->shouldIterateAs([0 => 1, 1 => 2, 2 => 3]);
+
+        $this::fromIterable(range(1, 5))
+            ->intersect()
+            ->shouldIterateAs([]);
+    }
+
+    public function it_can_intersectKeys(): void
+    {
+        $input = array_combine(range('a', 'e'), range(1, 5));
+
+        $this::fromIterable($input)
+            ->intersectKeys('b', 'd')
+            ->shouldIterateAs(['b' => 2, 'd' => 4]);
+
+        $this::fromIterable($input)
+            ->intersectKeys()
+            ->shouldIterateAs([]);
+    }
+
     public function it_can_intersperse(): void
     {
         $this::fromIterable(range('A', 'F'))

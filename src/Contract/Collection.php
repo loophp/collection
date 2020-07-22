@@ -25,6 +25,8 @@ use loophp\collection\Contract\Operation\Flipable;
 use loophp\collection\Contract\Operation\Forgetable;
 use loophp\collection\Contract\Operation\Frequencyable;
 use loophp\collection\Contract\Operation\Groupable;
+use loophp\collection\Contract\Operation\Intersectable;
+use loophp\collection\Contract\Operation\Intersectkeysable;
 use loophp\collection\Contract\Operation\Intersperseable;
 use loophp\collection\Contract\Operation\Iterateable;
 use loophp\collection\Contract\Operation\Keysable;
@@ -104,6 +106,8 @@ interface Collection extends
     Getable,
     Groupable,
     Implodeable,
+    Intersectable,
+    Intersectkeysable,
     Intersperseable,
     Iterateable,
     JsonSerializable,

@@ -31,6 +31,8 @@ use loophp\collection\Operation\Flip;
 use loophp\collection\Operation\Forget;
 use loophp\collection\Operation\Frequency;
 use loophp\collection\Operation\Group;
+use loophp\collection\Operation\Intersect;
+use loophp\collection\Operation\IntersectKeys;
 use loophp\collection\Operation\Intersperse;
 use loophp\collection\Operation\Iterate;
 use loophp\collection\Operation\Keys;
@@ -270,6 +272,16 @@ final class Collection extends Base implements CollectionInterface
     public function implode(string $glue = ''): string
     {
         return $this->transform(new Implode($glue));
+    }
+
+    public function intersect(...$values): BaseInterface
+    {
+        return $this->run(new Intersect(...$values));
+    }
+
+    public function intersectKeys(...$values): BaseInterface
+    {
+        return $this->run(new IntersectKeys(...$values));
     }
 
     public function intersperse($element, int $every = 1, int $startAt = 0): BaseInterface
