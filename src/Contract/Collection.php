@@ -7,6 +7,7 @@ namespace loophp\collection\Contract;
 use JsonSerializable;
 use loophp\collection\Contract\Operation\Appendable;
 use loophp\collection\Contract\Operation\Applyable;
+use loophp\collection\Contract\Operation\Cacheable;
 use loophp\collection\Contract\Operation\Chunkable;
 use loophp\collection\Contract\Operation\Collapseable;
 use loophp\collection\Contract\Operation\Columnable;
@@ -76,6 +77,7 @@ interface Collection extends
     Appendable,
     Applyable,
     Base,
+    Cacheable,
     Chunkable,
     Collapseable,
     Columnable,

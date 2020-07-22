@@ -13,6 +13,7 @@ use loophp\collection\Iterator\ResourceIterator;
 use loophp\collection\Iterator\StringIterator;
 use loophp\collection\Operation\Append;
 use loophp\collection\Operation\Apply;
+use loophp\collection\Operation\Cache;
 use loophp\collection\Operation\Chunk;
 use loophp\collection\Operation\Collapse;
 use loophp\collection\Operation\Column;
@@ -76,6 +77,7 @@ use loophp\collection\Transformation\Last;
 use loophp\collection\Transformation\Nullsy;
 use loophp\collection\Transformation\Reduce;
 use loophp\collection\Transformation\Truthy;
+use Psr\Cache\CacheItemPoolInterface;
 
 use const INF;
 use const PHP_INT_MAX;
@@ -95,6 +97,11 @@ final class Collection extends Base implements CollectionInterface
     public function apply(callable ...$callables): BaseInterface
     {
         return $this->run(new Apply(...$callables));
+    }
+
+    public function cache(?CacheItemPoolInterface $cache = null): BaseInterface
+    {
+        return $this->run(new Cache($cache));
     }
 
     public function chunk(int ...$size): BaseInterface
