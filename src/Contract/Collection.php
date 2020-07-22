@@ -37,6 +37,7 @@ use loophp\collection\Contract\Operation\Permutateable;
 use loophp\collection\Contract\Operation\Pluckable;
 use loophp\collection\Contract\Operation\Prependable;
 use loophp\collection\Contract\Operation\Productable;
+use loophp\collection\Contract\Operation\Randomable;
 use loophp\collection\Contract\Operation\Rangeable;
 use loophp\collection\Contract\Operation\Reductionable;
 use loophp\collection\Contract\Operation\Reverseable;
@@ -115,6 +116,7 @@ interface Collection extends
     Pluckable,
     Prependable,
     Productable,
+    Randomable,
     Rangeable,
     Reduceable,
     Reductionable,

@@ -42,6 +42,7 @@ use loophp\collection\Operation\Permutate;
 use loophp\collection\Operation\Pluck;
 use loophp\collection\Operation\Prepend;
 use loophp\collection\Operation\Product;
+use loophp\collection\Operation\Random;
 use loophp\collection\Operation\Range;
 use loophp\collection\Operation\Reduction;
 use loophp\collection\Operation\Reverse;
@@ -343,6 +344,11 @@ final class Collection extends Base implements CollectionInterface
     public function product(iterable ...$iterables): BaseInterface
     {
         return $this->run(new Product(...$iterables));
+    }
+
+    public function random(int $size = 1): BaseInterface
+    {
+        return $this->run(new Random($size));
     }
 
     public static function range(float $start = 0.0, float $end = INF, float $step = 1.0): BaseInterface
