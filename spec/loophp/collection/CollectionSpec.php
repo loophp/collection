@@ -1023,7 +1023,7 @@ class CollectionSpec extends ObjectBehavior
             ->map(static function (string $item): string {
                 return $item . $item;
             })
-            ->shouldIterateAs([0 => 'AA', 1 => 'BB', 2 => 'CC', 3 => 'DD', 4 => 'EE']);
+            ->shouldIterateAs(['A' => 'AA', 'B' => 'BB', 'C' => 'CC', 'D' => 'DD', 'E' => 'EE']);
     }
 
     public function it_can_merge(): void

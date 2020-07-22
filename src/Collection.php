@@ -293,7 +293,7 @@ final class Collection extends Base implements CollectionInterface
 
     public function map(callable ...$callbacks): BaseInterface
     {
-        return $this->run(new Walk(...$callbacks), new Normalize());
+        return $this->run(new Walk(...$callbacks));
     }
 
     public function merge(iterable ...$sources): BaseInterface
