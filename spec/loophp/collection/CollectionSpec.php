@@ -590,8 +590,11 @@ class CollectionSpec extends ObjectBehavior
                     return mb_strlen($value) - 1 === mb_strpos($value, 'o');
                 }
             )
-            ->normalize()
-            ->shouldIterateAs(['allo']);
+            ->shouldIterateAs([2 => 'allo']);
+
+        $this::fromIterable([true, false, 0, '', null])
+            ->filter()
+            ->shouldIterateAs([true]);
     }
 
     public function it_can_flatten(): void

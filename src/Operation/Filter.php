@@ -14,7 +14,13 @@ final class Filter extends AbstractOperation implements Operation
 {
     public function __construct(callable ...$callbacks)
     {
-        $this->storage['callbacks'] = $callbacks;
+        $defaultCallback = static function ($item): bool {
+            return true === (bool) $item;
+        };
+
+        $this->storage['callbacks'] = [] === $callbacks ?
+            [$defaultCallback] :
+            $callbacks;
     }
 
     public function __invoke(): Closure
