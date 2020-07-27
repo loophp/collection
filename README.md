@@ -42,13 +42,11 @@ Except a few methods, most methods are [pure](https://en.wikipedia.org/wiki/Pure
 This library has been inspired by:
 * [Laravel Support Package](https://github.com/illuminate/support)
 * [mtdowling/transducers](https://github.com/mtdowling/transducers.php)
+* [DusanKasan/Knapsack](https://github.com/DusanKasan/Knapsack)
 * [Ruby Array](https://ruby-doc.org/core-2.7.0/Array.html)
 * [Collect.js](https://collect.js.org/)
-* [Lazy.js](http://danieltao.com/lazy.js/)
-
-Similar libraries:
-* [DusanKasan/Knapsack](https://github.com/DusanKasan/Knapsack)
 * [nikic/iter](https://github.com/nikic/iter)
+* [Lazy.js](http://danieltao.com/lazy.js/)
 
 ## Installation
 
