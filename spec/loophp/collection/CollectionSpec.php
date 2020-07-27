@@ -1367,6 +1367,29 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs($generator());
     }
 
+    public function it_can_random(): void
+    {
+        $input = range('a', 'z');
+
+        $generator = static function (array $input): Generator {
+            yield from $input;
+        };
+
+        $this::fromIterable($input)
+            ->random()
+            ->count()
+            ->shouldBeEqualTo(1);
+
+        $this::fromIterable($input)
+            ->random(100)
+            ->count()
+            ->shouldBeEqualTo(26);
+
+        $this::fromIterable($input)
+            ->random(26)
+            ->shouldNotIterateAs($generator($input));
+    }
+
     public function it_can_reduce(): void
     {
         $this::fromIterable(range(1, 100))
