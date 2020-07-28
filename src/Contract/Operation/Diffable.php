@@ -6,10 +6,18 @@ namespace loophp\collection\Contract\Operation;
 
 use loophp\collection\Contract\Collection;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ * @template U
+ */
 interface Diffable
 {
     /**
-     * @param mixed ...$values
+     * @param U ...$values
+     *
+     * @return \loophp\collection\Contract\Collection<TKey, T>
      */
     public function diff(...$values): Collection;
 }

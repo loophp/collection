@@ -9,7 +9,12 @@ use Iterator;
 use OuterIterator;
 
 /**
- * @implements Iterator<mixed>
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ *
+ * @extends ProxyIterator<TKey, T>
+ * @implements Iterator<int, string>
  */
 final class ResourceIterator extends ProxyIterator implements Iterator, OuterIterator
 {

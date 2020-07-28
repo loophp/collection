@@ -7,9 +7,9 @@ namespace loophp\collection\Contract\Operation;
 use loophp\collection\Contract\Collection;
 
 /**
+ * @template TKey
  * @psalm-template TKey of array-key
  * @template T
- * @template TKey
  */
 interface Explodeable
 {

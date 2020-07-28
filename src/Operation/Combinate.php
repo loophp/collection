@@ -45,7 +45,7 @@ final class Combinate extends AbstractOperation implements Operation
         return
             /**
              * @param Iterator<TKey, T> $iterator
-             * @param callable(list<T>, int): \Generator<int, list<T>>
+             * @param callable(list<T>, int): \Generator<int, list<T>> $getCombinations
              */
             static function (Iterator $iterator, ?int $length, callable $getCombinations): Generator {
                 $dataset = iterator_to_array($iterator);

@@ -7,8 +7,8 @@ namespace loophp\collection\Contract\Operation;
 use loophp\collection\Contract\Collection;
 
 /**
- * @template T
  * @template TKey
+ * @template T
  * @psalm-template T of array-key
  */
 interface Flipable

@@ -16,7 +16,8 @@ interface Filterable
     /**
      * Filter collection items Collection on one or more callbacks.
      *
-     * @param callable(T, TKey, \Iterator<TKey, T>): bool ...$callbacks
+     * @param callable ...$callbacks
+     * @psalm-param callable(T, TKey, \Iterator<TKey, T>): bool ...$callbacks
      *
      * @return Collection<TKey, T>
      */

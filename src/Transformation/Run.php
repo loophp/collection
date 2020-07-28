@@ -32,6 +32,11 @@ final class Run implements Transformation
         $this->operations = $operations;
     }
 
+    /**
+     * @param iterable<TKey, T> $collection
+     *
+     * @return \loophp\collection\Iterator\ClosureIterator<TKey, T, U>
+     */
     public function __invoke(iterable $collection): ClosureIterator
     {
         $iterableIterator = new IterableIterator($collection);
@@ -39,8 +44,13 @@ final class Run implements Transformation
         return (new FoldLeft(
             /**
              * @param iterable<TKey, T> $collection
+             * @param mixed $key
              */
-            static function (iterable $collection, Operation $operation) use ($iterableIterator): ClosureIterator {
+            static function (
+                iterable $collection,
+                Operation $operation,
+                $key
+            ) use ($iterableIterator): ClosureIterator {
                 return new ClosureIterator(
                     $operation(),
                     $iterableIterator,

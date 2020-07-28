@@ -14,6 +14,8 @@ use OuterIterator;
  * @template TKey
  * @psalm-template TKey of array-key
  * @template T
+ *
+ * @extends ProxyIterator<TKey, T>
  * @implements Iterator<TKey, T>
  */
 final class IterableIterator extends ProxyIterator implements Iterator, OuterIterator

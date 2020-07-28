@@ -16,7 +16,8 @@ interface Applyable
     /**
      * Execute a callback for each element of the collection.
      *
-     * @param callable(T, TKey): bool ...$callables
+     * @param callable ...$callables
+     * @psalm-param callable(T, TKey): bool ...$callables
      *
      * @return Collection<TKey, T>
      */

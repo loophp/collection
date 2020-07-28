@@ -7,11 +7,12 @@ namespace loophp\collection\Contract\Operation;
 use loophp\collection\Contract\Collection;
 
 /**
- * @template T
  * @template TKey
  * @psalm-template TKey of array-key
+ * @template T
  * @template U
  * @template UKey
+ * @psalm-template UKey of array-key
  */
 interface Zipable
 {
@@ -20,7 +21,7 @@ interface Zipable
      *
      * @param iterable<UKey, U> ...$iterables
      *
-     * @return Collection<int, array<T, U>|false>>
+     * @return Collection<int, array<T, U>|false>
      */
     public function zip(iterable ...$iterables): Collection;
 }

@@ -8,9 +8,11 @@ use ArrayIterator;
 use IteratorAggregate;
 
 /**
- * Class SortableIterableIterator.
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
  *
- * @implements IteratorAggregate<ArrayIterator>
+ * @implements IteratorAggregate<ArrayIterator<TKey, T>>
  */
 final class SortableIterableIterator implements IteratorAggregate
 {
@@ -20,14 +22,14 @@ final class SortableIterableIterator implements IteratorAggregate
     private $callable;
 
     /**
-     * @var \loophp\collection\Iterator\IterableIterator
+     * @var \loophp\collection\Iterator\IterableIterator<TKey, T>
      */
     private $iterator;
 
     /**
      * SortableIterableIterator constructor.
      *
-     * @param iterable<mixed> $iterable
+     * @param iterable<TKey, T> $iterable
      */
     public function __construct(iterable $iterable, callable $callable)
     {

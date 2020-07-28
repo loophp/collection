@@ -14,9 +14,6 @@ use Closure;
  */
 interface Operation
 {
-    /**
-     * @return \Closure<TKey, T>: \Generator<TKey, T>
-     */
     public function __invoke(): Closure;
 
     /**

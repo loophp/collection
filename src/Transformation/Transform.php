@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace loophp\collection\Transformation;
 
+use Iterator;
 use loophp\collection\Contract\Transformation;
 
 /**
@@ -17,7 +18,7 @@ use loophp\collection\Contract\Transformation;
 final class Transform implements Transformation
 {
     /**
-     * @var array<int, \loophp\collection\Contract\Transformation>
+     * @var array<int, \loophp\collection\Contract\Transformation<TKey, T, U>>
      */
     private $transformers;
 
@@ -29,16 +30,22 @@ final class Transform implements Transformation
         $this->transformers = $transformers;
     }
 
+    /**
+     * @param iterable<TKey, T> $collection
+     *
+     * @return iterable<TKey, T>|U
+     */
     public function __invoke(iterable $collection)
     {
         return (new FoldLeft(
             /**
              * @param iterable<TKey, T> $collection
              * @param \loophp\collection\Contract\Transformation<TKey, T, U> $transformer
+             * @param mixed $key
              *
-             * @return iterable<TKey, T>|U
+             * @return Iterator<TKey, T>|U
              */
-            static function (iterable $collection, Transformation $transformer) {
+            static function (iterable $collection, Transformation $transformer, $key) {
                 return $transformer($collection);
             },
             $collection

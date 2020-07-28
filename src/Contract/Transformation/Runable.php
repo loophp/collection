@@ -11,11 +11,12 @@ use loophp\collection\Contract\Operation;
  * @template TKey
  * @psalm-template TKey of array-key
  * @template T
+ * @template U
  */
 interface Runable
 {
     /**
-     * @param Operation ...$operations
+     * @param Operation<TKey, T, U> ...$operations
      *
      * @return Collection<TKey, T>
      */

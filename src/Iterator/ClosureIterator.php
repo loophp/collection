@@ -14,6 +14,7 @@ use OuterIterator;
  * @psalm-template TKey of array-key
  * @template T
  * @template U
+ * @extends ProxyIterator<TKey, T>
  * @implements Iterator<TKey, T>
  */
 final class ClosureIterator extends ProxyIterator implements Iterator, OuterIterator
@@ -29,7 +30,7 @@ final class ClosureIterator extends ProxyIterator implements Iterator, OuterIter
     private $callable;
 
     /**
-     * @var Closure(callable(U...):(\Generator<TKey, T>), U): \Generator<TKey, T>
+     * @var Closure(callable(U...):(\Generator<TKey, T>), array<int, U>): \Generator<TKey, T>
      */
     private $generator;
 

@@ -7,10 +7,10 @@ namespace loophp\collection\Contract\Operation;
 use loophp\collection\Contract\Collection;
 
 /**
- * @template T
  * @template TKey
- * @template U
  * @psalm-template TKey of array-key
+ * @template T
+ * @template U
  */
 interface Mapable
 {

@@ -84,6 +84,69 @@ use loophp\collection\Contract\Transformation\Truthyable;
  * @template TKey
  * @psalm-template TKey of array-key
  * @template T
+ * @template U
+ * @template V
+ * @template-extends Allable<TKey, T>
+ * @template-extends ArrayAccess<TKey, T>
+ * @template-extends IteratorAggregate<TKey, T>
+ * @template-extends Appendable<TKey, T>
+ * @template-extends Applyable<TKey, T>
+ * @template-extends Cacheable<TKey, T>
+ * @template-extends Chunkable<T>
+ * @template-extends Collapseable<TKey, T>
+ * @template-extends Columnable<T>
+ * @template-extends Combinateable<T>
+ * @template-extends Combineable<TKey, T>
+ * @template-extends Compactable<TKey, T>
+ * @template-extends Cycleable<TKey, T>
+ * @template-extends Diffable<TKey, T, U>
+ * @template-extends Diffkeysable<TKey, T, U>
+ * @template-extends Distinctable<TKey, T>
+ * @template-extends Explodeable<TKey, T>
+ * @template-extends Filterable<TKey, T>
+ * @template-extends Flattenable<T>
+ * @template-extends Flipable<TKey, T>
+ * @template-extends Forgetable<TKey, T>
+ * @template-extends Frequencyable<T>
+ * @template-extends Getable<TKey, T>
+ * @template-extends Groupable<TKey, T, U>
+ * @template-extends Intersectable<TKey, T, U>
+ * @template-extends Intersectkeysable<TKey, T, U>
+ * @template-extends Intersperseable<TKey, T, U>
+ * @template-extends Keysable<TKey, T>
+ * @template-extends Limitable<TKey, T>
+ * @template-extends Loopable<TKey, T>
+ * @template-extends Mapable<TKey, T, U>
+ * @template-extends Mergeable<TKey, T>
+ * @template-extends Normalizeable<T>
+ * @template-extends Nthable<TKey, T>
+ * @template-extends Onlyable<TKey, T>
+ * @template-extends Padable<TKey, T, U>
+ * @template-extends Permutateable<T>
+ * @template-extends Pluckable<T, U, V>
+ * @template-extends Prependable<TKey, T>
+ * @template-extends Productable<TKey, T>
+ * @template-extends RSampleable<TKey, T>
+ * @template-extends Randomable<TKey, T>
+ * @template-extends Reductionable<TKey, T, U, V>
+ * @template-extends Reverseable<TKey, T>
+ * @template-extends Runable<TKey, T, U>
+ * @template-extends Scaleable<TKey, T>
+ * @template-extends Shuffleable<TKey, T>
+ * @template-extends Sinceable<TKey, T>
+ * @template-extends Skipable<TKey, T>
+ * @template-extends Sliceable<TKey, T>
+ * @template-extends Sortable<TKey, T>
+ * @template-extends Splitable<TKey, T, U>
+ * @template-extends Tailable<TKey, T>
+ * @template-extends Transformable<TKey, T, U>
+ * @template-extends Transposeable<TKey, T>
+ * @template-extends Untilable<TKey, T>
+ * @template-extends Unwrapable<TKey, T>
+ * @template-extends Walkable<TKey, T, U>
+ * @template-extends Windowable<TKey, T>
+ * @template-extends Wrapable<TKey, T>
+ * @template-extends Zipable<TKey, T, U, V>
  */
 interface Collection extends
     Allable,
@@ -163,33 +226,76 @@ interface Collection extends
     Zipable
 {
     /**
-     * Create a new instance with no items.
+     * @template NewT
+     * @template NewTKey
+     * @psalm-template NewTKey of array-key
+     * @template NewU
+     * @template NewV
+     *
+     * @return \loophp\collection\Contract\Collection<NewTKey, NewT, NewU, NewV>
      */
     public static function empty(): Collection;
 
     /**
+     * @template NewT
+     * @template NewTKey
+     * @psalm-template NewTKey of array-key
+     * @template NewU
+     * @template NewV
+     *
      * @param mixed ...$parameters
      *
-     * @return \loophp\collection\Contract\Collection
+     * @return \loophp\collection\Contract\Collection<NewTKey, NewT, NewU, NewV>
      */
     public static function fromCallable(callable $callable, ...$parameters): Collection;
 
     /**
+     * @template NewT
+     * @template NewTKey
+     * @psalm-template NewTKey of array-key
+     * @template NewU
+     * @template NewV
+     *
      * @param iterable<mixed> $iterable
+     *
+     * @return \loophp\collection\Contract\Collection<NewTKey, NewT, NewU, NewV>
      */
     public static function fromIterable(iterable $iterable): Collection;
 
     /**
+     * @template NewT
+     * @template NewTKey
+     * @psalm-template NewTKey of array-key
+     * @template NewU
+     * @template NewV
+     *
      * @param resource $resource
+     *
+     * @return \loophp\collection\Contract\Collection<NewTKey, NewT, NewU, NewV>
      */
     public static function fromResource($resource): Collection;
 
+    /**
+     * @template NewT
+     * @template NewTKey
+     * @psalm-template NewTKey of array-key
+     * @template NewU
+     * @template NewV
+     *
+     * @return \loophp\collection\Contract\Collection<NewTKey, NewT, NewU, NewV>
+     */
     public static function fromString(string $string, string $delimiter = ''): Collection;
 
     /**
-     * Create a collection with the data.
+     * @template NewT
+     * @template NewTKey
+     * @psalm-template NewTKey of array-key
+     * @template NewU
+     * @template NewV
      *
      * @param mixed $data
+     *
+     * @return \loophp\collection\Contract\Collection<NewTKey, NewT, NewU, NewV>
      */
     public static function with($data = []): Collection;
 }
