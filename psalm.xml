@@ -11,6 +11,8 @@
         <directory name="src" />
         <ignoreFiles>
             <directory name="vendor" />
+            <directory name="benchmarks" />
+            <directory name="spec" />
         </ignoreFiles>
     </projectFiles>
 </psalm>
