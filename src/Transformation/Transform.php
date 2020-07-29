@@ -28,10 +28,21 @@ final class Transform implements Transformation
         $this->transformers = $transformers;
     }
 
+    /**
+     * @psalm-param iterable<TKey, T> $collection
+     *
+     * @return mixed|null
+     * @psalm-return T|null
+     */
     public function __invoke(iterable $collection)
     {
         return (new FoldLeft(
-            /** @return mixed */
+            /**
+             * @psalm-param iterable<TKey, T> $collection
+             * @psalm-param Transformation<TKey, T> $transformer
+             *
+             * @psalm-return T
+             */
             static function (iterable $collection, Transformation $transformer) {
                 return $transformer($collection);
             },

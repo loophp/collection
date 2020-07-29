@@ -29,6 +29,11 @@ final class Has implements Transformation
         $this->callback = $callback;
     }
 
+    /**
+     * @param iterable<TKey, T> $collection
+     *
+     * @return bool
+     */
     public function __invoke(iterable $collection)
     {
         $callback = $this->callback;

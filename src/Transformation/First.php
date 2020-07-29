@@ -17,25 +17,36 @@ final class First implements Transformation
 {
     /**
      * @var callable
+     * @psalm-var callable(T, TKey):(bool)
      */
     private $callback;
 
     /**
      * @var mixed|null
+     * @psalm-var T|null
      */
     private $default;
 
     /**
+     * @psalm-param callable(T, TKey):(bool)|null $callback
+     *
      * @param mixed|null $default
+     * @psalm-param T|null $default
      */
     public function __construct(?callable $callback = null, $default = null)
     {
-        $this->callback = $callback ?? static function (): bool {
+        $this->callback = $callback ?? static function ($key, $value): bool {
             return true;
         };
         $this->default = $default;
     }
 
+    /**
+     * @param iterable<TKey, T> $collection
+     *
+     * @return mixed|null
+     * @psalm-return T|null
+     */
     public function __invoke(iterable $collection)
     {
         $callback = $this->callback;

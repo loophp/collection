@@ -30,11 +30,16 @@ final class Contains implements Transformation
         $this->value = $value;
     }
 
+    /**
+     * @param iterable<TKey, T> $collection
+     *
+     * @return bool
+     */
     public function __invoke(iterable $collection)
     {
         $value = $this->value;
 
-        return (
+        return (bool) (
         new Transform(
             new Has(
                 /**

@@ -93,22 +93,28 @@ use loophp\collection\Contract\Transformation\Truthyable;
  * @template-extends Combinateable<TKey, T>
  * @template-extends Combineable<TKey, T>
  * @template-extends Compactable<TKey, T>
+ * @template-extends Containsable<TKey, T>
  * @template-extends Cycleable<TKey, T>
  * @template-extends Diffable<TKey, T>
  * @template-extends Diffkeysable<TKey, T>
  * @template-extends Distinctable<TKey, T>
  * @template-extends Explodeable<TKey, T>
  * @template-extends Filterable<TKey, T>
+ * @template-extends Firstable<TKey, T>
  * @template-extends Flattenable<TKey, T>
  * @template-extends Flipable<TKey, T>
+ * @template-extends Foldleftable<TKey, T>
+ * @template-extends Foldrightable<TKey, T>
  * @template-extends Forgetable<TKey, T>
  * @template-extends Frequencyable<TKey, T>
+ * @template-extends Getable<TKey, T>
  * @template-extends Groupable<TKey, T>
  * @template-extends Hasable<TKey, T>
  * @template-extends Intersectable<TKey, T>
  * @template-extends Intersectkeysable<TKey, T>
  * @template-extends Intersperseable<TKey, T>
  * @template-extends Keysable<TKey, T>
+ * @template-extends Lastable<TKey, T>
  * @template-extends Limitable<TKey, T>
  * @template-extends Loopable<TKey, T>
  * @template-extends Mapable<TKey, T>
@@ -123,6 +129,7 @@ use loophp\collection\Contract\Transformation\Truthyable;
  * @template-extends Productable<TKey, T>
  * @template-extends RSampleable<TKey, T>
  * @template-extends Randomable<TKey, T>
+ * @template-extends Reduceable<TKey, T>
  * @template-extends Reductionable<TKey, T>
  * @template-extends Reverseable<TKey, T>
  * @template-extends Scaleable<TKey, T>

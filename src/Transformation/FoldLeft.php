@@ -17,16 +17,21 @@ final class FoldLeft implements Transformation
 {
     /**
      * @var callable
+     * @psalm-var callable(T|null, T, TKey):(T|null)
      */
     private $callback;
 
     /**
-     * @var mixed
+     * @var mixed|null
+     * @psalm-var T|null
      */
     private $initial;
 
     /**
+     * @psalm-param callable(T|null, T, TKey):(T|null) $callback
+     *
      * @param mixed|null $initial
+     * @psalm-param T|null $initial
      */
     public function __construct(callable $callback, $initial = null)
     {
@@ -34,6 +39,12 @@ final class FoldLeft implements Transformation
         $this->initial = $initial;
     }
 
+    /**
+     * @psalm-param iterable<TKey, T> $collection
+     *
+     * @return mixed|null
+     * @psalm-return T|null
+     */
     public function __invoke(iterable $collection)
     {
         $callback = $this->callback;

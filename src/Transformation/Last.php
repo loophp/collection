@@ -15,16 +15,29 @@ use loophp\collection\Contract\Transformation;
  */
 final class Last implements Transformation
 {
+    /**
+     * @param iterable<TKey, T> $collection
+     *
+     * @return mixed|null
+     * @psalm-return T|null
+     */
     public function __invoke(iterable $collection)
     {
         return (new FoldLeft(
             /**
              * @param mixed $carry
+             * @psalm-param null|T $carry
+             *
              * @param mixed $item
+             * @psalm-param T $item
+             *
+             * @param mixed $key
+             * @psalm-param TKey $key
              *
              * @return mixed
+             * @psalm-return T
              */
-            static function ($carry, $item) {
+            static function ($carry, $item, $key) {
                 return $item;
             }
         ))($collection);

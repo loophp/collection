@@ -17,6 +17,7 @@ final class Get implements Transformation
 {
     /**
      * @var mixed
+     * @psalm-var T
      */
     private $default;
 
@@ -26,10 +27,9 @@ final class Get implements Transformation
     private $key;
 
     /**
-     * Get constructor.
-     *
      * @param int|string $key
      * @param mixed $default
+     * @psalm-param T $default
      */
     public function __construct($key, $default)
     {
@@ -37,6 +37,11 @@ final class Get implements Transformation
         $this->default = $default;
     }
 
+    /**
+     * @param iterable<TKey, T> $collection
+     *
+     * @return T
+     */
     public function __invoke(iterable $collection)
     {
         $keyToGet = $this->key;
