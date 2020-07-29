@@ -20,7 +20,7 @@
         "psr/cache": "^1.0"
     },
     "require-dev": {
-        "drupol/php-conventions": "^1.7.2 || ^1.8.5",
+        "drupol/php-conventions": "^1.7.2 || ^1.8.6",
         "friends-of-phpspec/phpspec-code-coverage": "^4.3.2",
         "infection/infection": "^0.13.6 || ^0.15.3",
         "phpbench/phpbench": "^0.16.10 || ^0.17.1",
