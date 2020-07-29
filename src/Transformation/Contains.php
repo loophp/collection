@@ -5,47 +5,49 @@ declare(strict_types=1);
 namespace loophp\collection\Transformation;
 
 use loophp\collection\Contract\Transformation;
-use stdClass;
 
-use function is_callable;
-use function is_string;
-
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ *
+ * @implements Transformation<TKey, T>
+ */
 final class Contains implements Transformation
 {
     /**
      * @var mixed
+     * @psalm-var T
      */
-    private $key;
+    private $value;
 
     /**
-     * Contains constructor.
-     *
-     * @param mixed $key
+     * @param mixed $value
+     * @psalm-param T $value
      */
-    public function __construct($key)
+    public function __construct($value)
     {
-        $this->key = $key;
+        $this->value = $value;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function __invoke(iterable $collection)
     {
-        $key = $this->key;
+        $value = $this->value;
 
-        if ((false === is_string($key)) && (true === is_callable($key))) {
-            $placeholder = new stdClass();
-
-            return (new First($key, $placeholder))($collection) !== $placeholder;
-        }
-
-        foreach ($collection as $value) {
-            if ($value === $key) {
-                return true;
-            }
-        }
-
-        return false;
+        return (
+        new Transform(
+            new Has(
+                /**
+                 * @param TKey $k
+                 * @param T $v
+                 *
+                 * @return T
+                 */
+                static function ($k, $v) use ($value) {
+                    return $value;
+                }
+            )
+        )
+        )($collection);
     }
 }
