@@ -7,11 +7,15 @@ namespace loophp\collection\Transformation;
 use loophp\collection\Contract\Transformation;
 use loophp\collection\Iterator\IterableIterator;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ *
+ * @implements Transformation<TKey, T>
+ */
 final class Count implements Transformation
 {
-    /**
-     * {@inheritdoc}
-     */
     public function __invoke(iterable $collection)
     {
         return iterator_count(new IterableIterator($collection));

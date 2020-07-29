@@ -87,6 +87,17 @@ use Psr\Cache\CacheItemPoolInterface;
 use const INF;
 use const PHP_INT_MAX;
 
+/**
+ * Class Collection.
+ *
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ *
+ * @extends \loophp\collection\Base<TKey, T>
+ *
+ * @implements \loophp\collection\Contract\Collection<TKey, T>
+ */
 final class Collection extends Base implements CollectionInterface
 {
     public function all(): array

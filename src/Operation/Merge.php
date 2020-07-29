@@ -9,12 +9,16 @@ use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ */
 final class Merge extends AbstractOperation implements Operation
 {
     /**
-     * Merge constructor.
-     *
-     * @param iterable<mixed> ...$sources
+     * @param iterable<int|string, mixed> ...$sources
+     * @psalm-param iterable<TKey, T> ...$sources
      */
     public function __construct(iterable ...$sources)
     {
@@ -25,7 +29,10 @@ final class Merge extends AbstractOperation implements Operation
     {
         return
             /**
-             * @param array<int, iterable> $sources
+             * @psalm-param \Iterator<TKey, T> $iterator
+             * @psalm-param list<iterable<TKey, T>> $sources
+             *
+             * @psalm-return \Generator<TKey, T>
              */
             static function (Iterator $iterator, array $sources): Generator {
                 foreach ($iterator as $key => $value) {

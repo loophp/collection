@@ -11,6 +11,11 @@ use loophp\collection\Contract\Operation;
 
 use function array_key_exists;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ */
 final class Group extends AbstractOperation implements Operation
 {
     public function __construct(?callable $callable = null)
@@ -18,9 +23,13 @@ final class Group extends AbstractOperation implements Operation
         $this->storage['callable'] = $callable ??
             /**
              * @param mixed $key
+             * @psalm-param TKey $key
+             *
              * @param mixed $value
+             * @psalm-param T $value
              *
              * @return mixed
+             * @psalm-return TKey
              */
             static function ($key, $value) {
                 return $key;
@@ -29,23 +38,29 @@ final class Group extends AbstractOperation implements Operation
 
     public function __invoke(): Closure
     {
-        return static function (Iterator $iterator, callable $callable): Generator {
-            $data = [];
+        return
+            /**
+             * @psalm-param \Iterator<TKey, T> $iterator
+             *
+             * @psalm-return \Generator<int, list<T>>
+             */
+            static function (Iterator $iterator, callable $callable): Generator {
+                $data = [];
 
-            foreach ($iterator as $key => $value) {
-                $key = ($callable)($key, $value);
+                foreach ($iterator as $key => $value) {
+                    $key = ($callable)($key, $value);
 
-                if (false === array_key_exists($key, $data)) {
-                    $data[$key] = $value;
+                    if (false === array_key_exists($key, $data)) {
+                        $data[$key] = $value;
 
-                    continue;
+                        continue;
+                    }
+
+                    $data[$key] = (array) $data[$key];
+                    $data[$key][] = $value;
                 }
 
-                $data[$key] = (array) $data[$key];
-                $data[$key][] = $value;
-            }
-
-            return yield from $data;
-        };
+                return yield from $data;
+            };
     }
 }

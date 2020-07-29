@@ -10,19 +10,30 @@ use Iterator;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Transformation\Run;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ */
 final class Shuffle extends AbstractOperation implements Operation
 {
     public function __invoke(): Closure
     {
-        return static function (Iterator $iterator): Generator {
-            $data = iterator_to_array((new Run(new Wrap()))($iterator));
+        return
+            /**
+             * @psalm-param \Iterator<TKey, T> $iterator
+             *
+             * @psalm-return \Generator<TKey, T, mixed, void>
+             */
+            static function (Iterator $iterator): Generator {
+                $data = iterator_to_array((new Run(new Wrap()))($iterator));
 
-            while ([] !== $data) {
-                $randomKey = array_rand($data);
+                while ([] !== $data) {
+                    $randomKey = array_rand($data);
 
-                yield key($data[$randomKey]) => current($data[$randomKey]);
-                unset($data[$randomKey]);
-            }
-        };
+                    yield key($data[$randomKey]) => current($data[$randomKey]);
+                    unset($data[$randomKey]);
+                }
+            };
     }
 }

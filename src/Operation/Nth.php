@@ -9,6 +9,11 @@ use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ */
 final class Nth extends AbstractOperation implements Operation
 {
     public function __construct(int $step, int $offset)
@@ -21,16 +26,22 @@ final class Nth extends AbstractOperation implements Operation
 
     public function __invoke(): Closure
     {
-        return static function (Iterator $iterator, int $step, int $offset): Generator {
-            $position = 0;
+        return
+            /**
+             * @psalm-param \Iterator<TKey, T> $iterator
+             *
+             * @psalm-return \Generator<TKey, T>
+             */
+            static function (Iterator $iterator, int $step, int $offset): Generator {
+                $position = 0;
 
-            foreach ($iterator as $key => $value) {
-                if ($position++ % $step !== $offset) {
-                    continue;
+                foreach ($iterator as $key => $value) {
+                    if ($position++ % $step !== $offset) {
+                        continue;
+                    }
+
+                    yield $key => $value;
                 }
-
-                yield $key => $value;
-            }
-        };
+            };
     }
 }

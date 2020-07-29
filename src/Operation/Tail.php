@@ -10,6 +10,11 @@ use Iterator;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Transformation\Run;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ */
 final class Tail extends AbstractOperation implements Operation
 {
     public function __construct(?int $length = null)
@@ -19,13 +24,19 @@ final class Tail extends AbstractOperation implements Operation
 
     public function __invoke(): Closure
     {
-        return static function (Iterator $iterator, int $length): Generator {
-            return yield from (
+        return
+            /**
+             * @psalm-param \Iterator<TKey, T> $iterator
+             *
+             * @psalm-return \Generator<Tkey, T>
+             */
+            static function (Iterator $iterator, int $length): Generator {
+                return yield from (
                 new Run(
                     new Limit($length)
                 ))(
                     (new Run(new Skip(iterator_count($iterator) - $length)))($iterator)
                 );
-        };
+            };
     }
 }

@@ -9,14 +9,25 @@ use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ */
 final class Normalize extends AbstractOperation implements Operation
 {
     public function __invoke(): Closure
     {
-        return static function (Iterator $iterator): Generator {
-            foreach ($iterator as $value) {
-                yield $value;
-            }
-        };
+        return
+            /**
+             * @psalm-param \Iterator<TKey, T> $iterator
+             *
+             * @psalm-return \Generator<int, T>
+             */
+            static function (Iterator $iterator): Generator {
+                foreach ($iterator as $value) {
+                    yield $value;
+                }
+            };
     }
 }

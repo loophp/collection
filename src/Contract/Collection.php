@@ -70,12 +70,77 @@ use loophp\collection\Contract\Transformation\Firstable;
 use loophp\collection\Contract\Transformation\FoldLeftable;
 use loophp\collection\Contract\Transformation\FoldRightable;
 use loophp\collection\Contract\Transformation\Getable;
+use loophp\collection\Contract\Transformation\Hasable;
 use loophp\collection\Contract\Transformation\Implodeable;
 use loophp\collection\Contract\Transformation\Lastable;
 use loophp\collection\Contract\Transformation\Nullsyable;
 use loophp\collection\Contract\Transformation\Reduceable;
 use loophp\collection\Contract\Transformation\Truthyable;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ *
+ * @template-extends Allable<TKey, T>
+ * @template-extends Appendable<TKey, T>
+ * @template-extends Applyable<TKey, T>
+ * @template-extends Base<TKey, T>
+ * @template-extends Cacheable<TKey, T>
+ * @template-extends Chunkable<TKey, T>
+ * @template-extends Collapseable<TKey, T>
+ * @template-extends Columnable<TKey, T>
+ * @template-extends Combinateable<TKey, T>
+ * @template-extends Combineable<TKey, T>
+ * @template-extends Compactable<TKey, T>
+ * @template-extends Cycleable<TKey, T>
+ * @template-extends Diffable<TKey, T>
+ * @template-extends Diffkeysable<TKey, T>
+ * @template-extends Distinctable<TKey, T>
+ * @template-extends Explodeable<TKey, T>
+ * @template-extends Filterable<TKey, T>
+ * @template-extends Flattenable<TKey, T>
+ * @template-extends Flipable<TKey, T>
+ * @template-extends Forgetable<TKey, T>
+ * @template-extends Frequencyable<TKey, T>
+ * @template-extends Groupable<TKey, T>
+ * @template-extends Hasable<TKey, T>
+ * @template-extends Intersectable<TKey, T>
+ * @template-extends Intersectkeysable<TKey, T>
+ * @template-extends Intersperseable<TKey, T>
+ * @template-extends Keysable<TKey, T>
+ * @template-extends Limitable<TKey, T>
+ * @template-extends Loopable<TKey, T>
+ * @template-extends Mapable<TKey, T>
+ * @template-extends Mergeable<TKey, T>
+ * @template-extends Normalizeable<TKey, T>
+ * @template-extends Nthable<TKey, T>
+ * @template-extends Onlyable<TKey, T>
+ * @template-extends Padable<TKey, T>
+ * @template-extends Permutateable<TKey, T>
+ * @template-extends Pluckable<TKey, T>
+ * @template-extends Prependable<TKey, T>
+ * @template-extends Productable<TKey, T>
+ * @template-extends RSampleable<TKey, T>
+ * @template-extends Randomable<TKey, T>
+ * @template-extends Reductionable<TKey, T>
+ * @template-extends Reverseable<TKey, T>
+ * @template-extends Scaleable<TKey, T>
+ * @template-extends Shuffleable<TKey, T>
+ * @template-extends Sinceable<TKey, T>
+ * @template-extends Skipable<TKey, T>
+ * @template-extends Sliceable<TKey, T>
+ * @template-extends Sortable<TKey, T>
+ * @template-extends Splitable<TKey, T>
+ * @template-extends Tailable<TKey, T>
+ * @template-extends Transposeable<TKey, T>
+ * @template-extends Untilable<TKey, T>
+ * @template-extends Unwrapable<TKey, T>
+ * @template-extends Walkable<TKey, T>
+ * @template-extends Windowable<TKey, T>
+ * @template-extends Wrapable<TKey, T>
+ * @template-extends Zipable<TKey, T>
+ */
 interface Collection extends
     Allable,
     Appendable,
@@ -105,6 +170,7 @@ interface Collection extends
     Frequencyable,
     Getable,
     Groupable,
+    Hasable,
     Implodeable,
     Intersectable,
     Intersectkeysable,
@@ -152,33 +218,70 @@ interface Collection extends
 {
     /**
      * Create a new instance with no items.
+     *
+     * @template NewTKey
+     * @psalm-template NewTKey of array-key
+     * @template NewT
+     *
+     * @psalm-return Collection<NewTKey, NewT>
      */
     public static function empty(): Collection;
 
     /**
+     * @template NewTKey
+     * @psalm-template NewTKey of array-key
+     * @template NewT
+     *
      * @param mixed ...$parameters
      *
      * @return \loophp\collection\Contract\Collection
+     * @psalm-return Collection<NewTKey, NewT>
      */
     public static function fromCallable(callable $callable, ...$parameters): Collection;
 
     /**
+     * @template NewTKey
+     * @psalm-template NewTKey of array-key
+     * @template NewT
+     *
      * @param iterable<mixed> $iterable
+     * @psalm-param iterable<NewTKey, NewT> $iterable
+     *
+     * @psalm-return Collection<NewTKey, NewT>
      */
     public static function fromIterable(iterable $iterable): Collection;
 
     /**
+     * @template NewTKey
+     * @psalm-template NewTKey of array-key
+     * @template NewT
+     *
      * @param resource $resource
+     *
+     * @psalm-return Collection<NewTKey, NewT>
      */
     public static function fromResource($resource): Collection;
 
+    /**
+     * @template NewTKey
+     * @psalm-template NewTKey of array-key
+     * @template NewT
+     *
+     * @psalm-return Collection<NewTKey, NewT>
+     */
     public static function fromString(string $string, string $delimiter = ''): Collection;
 
     /**
+     * @template NewTKey
+     * @psalm-template NewTKey of array-key
+     * @template NewT
+     *
      * Create a collection with the data.
      *
      * @param mixed $data
      * @param mixed ...$parameters
+     *
+     * @psalm-return Collection<NewTKey, NewT>
      */
     public static function with($data = [], ...$parameters): Collection;
 }

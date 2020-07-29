@@ -11,6 +11,11 @@ use loophp\collection\Contract\Operation;
 use loophp\collection\Iterator\IterableIterator;
 use loophp\collection\Transformation\Run;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ */
 final class Window extends AbstractOperation implements Operation
 {
     public function __construct(int ...$length)
@@ -22,7 +27,10 @@ final class Window extends AbstractOperation implements Operation
     {
         return
             /**
-             * @param array<int, int> $length
+             * @psalm-param \Iterator<TKey, T> $iterator
+             * @psalm-param list<int> $length
+             *
+             * @psalm-return \Generator<int, list<T>>
              */
             static function (Iterator $iterator, array $length): Generator {
                 $length = new IterableIterator((new Run(new Loop()))($length));

@@ -6,6 +6,13 @@ namespace loophp\collection\Transformation;
 
 use loophp\collection\Contract\Transformation;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ *
+ * @implements Transformation<TKey, T>
+ */
 final class First implements Transformation
 {
     /**
@@ -19,8 +26,6 @@ final class First implements Transformation
     private $default;
 
     /**
-     * First constructor.
-     *
      * @param mixed|null $default
      */
     public function __construct(?callable $callback = null, $default = null)
@@ -31,9 +36,6 @@ final class First implements Transformation
         $this->default = $default;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function __invoke(iterable $collection)
     {
         $callback = $this->callback;

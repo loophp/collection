@@ -11,6 +11,11 @@ use loophp\collection\Contract\Operation;
 use loophp\collection\Iterator\IterableIterator;
 use MultipleIterator;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ */
 final class Zip extends AbstractOperation implements Operation
 {
     /**
@@ -27,7 +32,10 @@ final class Zip extends AbstractOperation implements Operation
     {
         return
             /**
-             * @param array<int, iterable> $iterables
+             * @psalm-param \Iterator<TKey, T> $iterator
+             * @psalm-param list<iterable<TKey, T>> $iterables
+             *
+             * @psalm-return \Generator<int, list<T>>
              */
             static function (Iterator $iterator, array $iterables): Generator {
                 $mit = new MultipleIterator(MultipleIterator::MIT_NEED_ANY);

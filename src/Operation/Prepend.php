@@ -9,12 +9,16 @@ use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ */
 final class Prepend extends AbstractOperation implements Operation
 {
     /**
-     * Prepend constructor.
-     *
      * @param mixed ...$items
+     * @psalm-param T ...$items
      */
     public function __construct(...$items)
     {
@@ -25,7 +29,10 @@ final class Prepend extends AbstractOperation implements Operation
     {
         return
             /**
-             * @param array<int, mixed> $items
+             * @psalm-param \Iterator<TKey, T> $iterator
+             * @psalm-param list<T> $items
+             *
+             * @psalm-return \Generator<TKey|int, T>
              */
             static function (Iterator $iterator, array $items): Generator {
                 foreach ($items as $key => $item) {

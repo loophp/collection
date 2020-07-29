@@ -11,22 +11,33 @@ use loophp\collection\Contract\Operation;
 
 use function in_array;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ */
 final class Distinct extends AbstractOperation implements Operation
 {
     public function __invoke(): Closure
     {
-        return static function (Iterator $iterator): Generator {
-            $seen = [];
+        return
+            /**
+             * @psalm-param \Iterator<TKey, T> $iterator
+             *
+             * @psalm-return \Generator<TKey, T>
+             */
+            static function (Iterator $iterator): Generator {
+                $seen = [];
 
-            foreach ($iterator as $key => $value) {
-                if (true === in_array($value, $seen, true)) {
-                    continue;
+                foreach ($iterator as $key => $value) {
+                    if (false !== in_array($value, $seen, true)) {
+                        continue;
+                    }
+
+                    $seen[] = $value;
+
+                    yield $key => $value;
                 }
-
-                $seen[] = $value;
-
-                yield $key => $value;
-            }
-        };
+            };
     }
 }

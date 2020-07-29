@@ -12,10 +12,16 @@ use loophp\collection\Transformation\Run;
 
 use function in_array;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ */
 final class Compact extends AbstractOperation implements Operation
 {
     /**
      * @param mixed ...$values
+     * @psalm-param T ...$values
      */
     public function __construct(...$values)
     {
@@ -26,9 +32,12 @@ final class Compact extends AbstractOperation implements Operation
     {
         return
             /**
-             * @param array<int, mixed> $values
+             * @psalm-param \Iterator<TKey, T> $iterator
+             * @psalm-param list<T|null> $values
+             *
+             * @psalm-return \Generator<TKey, T>
              */
-            static function (Iterator $iterator, $values): Generator {
+            static function (Iterator $iterator, array $values): Generator {
                 return yield from
                 (new Run(
                     new Filter(

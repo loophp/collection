@@ -9,16 +9,27 @@ use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ */
 final class Unwrap extends AbstractOperation implements Operation
 {
     public function __invoke(): Closure
     {
-        return static function (Iterator $iterator): Generator {
-            foreach ($iterator as $key => $value) {
-                foreach ((array) $value as $k => $v) {
-                    yield $k => $v;
+        return
+            /**
+             * @psalm-param \Iterator<int, array<TKey, T>> $iterator
+             *
+             * @psalm-return \Generator<TKey, T>
+             */
+            static function (Iterator $iterator): Generator {
+                foreach ($iterator as $key => $value) {
+                    foreach ((array) $value as $k => $v) {
+                        yield $k => $v;
+                    }
                 }
-            }
-        };
+            };
     }
 }
