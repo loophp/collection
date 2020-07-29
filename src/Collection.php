@@ -180,7 +180,7 @@ final class Collection extends Base implements CollectionInterface
         return $this->run(new Distinct());
     }
 
-    public static function empty(): CollectionInterface
+    public static function empty(): Collection
     {
         return new self();
     }
@@ -235,7 +235,7 @@ final class Collection extends Base implements CollectionInterface
         return $this->run(new Frequency());
     }
 
-    public static function fromCallable(callable $callable, ...$parameters): CollectionInterface
+    public static function fromCallable(callable $callable, ...$parameters): Collection
     {
         return new self(
             static function () use ($callable, $parameters): Generator {
@@ -244,7 +244,7 @@ final class Collection extends Base implements CollectionInterface
         );
     }
 
-    public static function fromIterable(iterable $iterable): CollectionInterface
+    public static function fromIterable(iterable $iterable): Collection
     {
         return new self(
             static function () use ($iterable): Generator {
@@ -253,7 +253,7 @@ final class Collection extends Base implements CollectionInterface
         );
     }
 
-    public static function fromResource($resource): CollectionInterface
+    public static function fromResource($resource): Collection
     {
         return new self(
             static function () use ($resource): Generator {
@@ -262,7 +262,7 @@ final class Collection extends Base implements CollectionInterface
         );
     }
 
-    public static function fromString(string $string, string $delimiter = ''): CollectionInterface
+    public static function fromString(string $string, string $delimiter = ''): Collection
     {
         return new self(
             static function () use ($string, $delimiter): Generator {
@@ -504,7 +504,7 @@ final class Collection extends Base implements CollectionInterface
         return $this->run(new Window(...$length));
     }
 
-    public static function with($data = [], ...$parameters): CollectionInterface
+    public static function with($data = [], ...$parameters): Collection
     {
         return new self($data, ...$parameters);
     }

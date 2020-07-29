@@ -23,7 +23,6 @@ final class All implements Transformation
      */
     public function __invoke(iterable $collection): array
     {
-        /** @var array<TKey, T> $array */
         return iterator_to_array(new IterableIterator($collection));
     }
 }

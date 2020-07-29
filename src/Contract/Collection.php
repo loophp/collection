@@ -223,9 +223,9 @@ interface Collection extends
      * @psalm-template NewTKey of array-key
      * @template NewT
      *
-     * @psalm-return Collection<NewTKey, NewT>
+     * @psalm-return \loophp\collection\Collection<NewTKey, NewT>
      */
-    public static function empty(): Collection;
+    public static function empty(): \loophp\collection\Collection;
 
     /**
      * @template NewTKey
@@ -234,10 +234,9 @@ interface Collection extends
      *
      * @param mixed ...$parameters
      *
-     * @return \loophp\collection\Contract\Collection
-     * @psalm-return Collection<NewTKey, NewT>
+     * @psalm-return \loophp\collection\Collection<NewTKey, NewT>
      */
-    public static function fromCallable(callable $callable, ...$parameters): Collection;
+    public static function fromCallable(callable $callable, ...$parameters): \loophp\collection\Collection;
 
     /**
      * @template NewTKey
@@ -247,9 +246,9 @@ interface Collection extends
      * @param iterable<mixed> $iterable
      * @psalm-param iterable<NewTKey, NewT> $iterable
      *
-     * @psalm-return Collection<NewTKey, NewT>
+     * @psalm-return \loophp\collection\Collection<NewTKey, NewT>
      */
-    public static function fromIterable(iterable $iterable): Collection;
+    public static function fromIterable(iterable $iterable): \loophp\collection\Collection;
 
     /**
      * @template NewTKey
@@ -258,18 +257,18 @@ interface Collection extends
      *
      * @param resource $resource
      *
-     * @psalm-return Collection<NewTKey, NewT>
+     * @psalm-return \loophp\collection\Collection<NewTKey, NewT>
      */
-    public static function fromResource($resource): Collection;
+    public static function fromResource($resource): \loophp\collection\Collection;
 
     /**
      * @template NewTKey
      * @psalm-template NewTKey of array-key
      * @template NewT
      *
-     * @psalm-return Collection<NewTKey, NewT>
+     * @psalm-return \loophp\collection\Collection<NewTKey, NewT>
      */
-    public static function fromString(string $string, string $delimiter = ''): Collection;
+    public static function fromString(string $string, string $delimiter = ''): \loophp\collection\Collection;
 
     /**
      * @template NewTKey
@@ -281,7 +280,7 @@ interface Collection extends
      * @param mixed $data
      * @param mixed ...$parameters
      *
-     * @psalm-return Collection<NewTKey, NewT>
+     * @psalm-return \loophp\collection\Collection<NewTKey, NewT>
      */
-    public static function with($data = [], ...$parameters): Collection;
+    public static function with($data = [], ...$parameters): \loophp\collection\Collection;
 }
