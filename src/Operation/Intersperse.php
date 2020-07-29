@@ -51,11 +51,11 @@ final class Intersperse extends AbstractOperation implements Operation
         return
             /**
              * @psalm-param \Iterator<TKey, T> $iterator
+             *
+             * @param mixed $element
              * @psalm-param T $element
              *
              * @psalm-return \Generator<int, T>
-             *
-             * @param mixed $element
              */
             static function (Iterator $iterator, $element, int $every, int $startAt): Generator {
                 foreach ($iterator as $value) {

@@ -26,6 +26,10 @@ final class Loop extends AbstractOperation implements Operation
              * @psalm-return \Generator<TKey, T>
              */
             static function (Iterator $iterator): Generator {
+                /**
+                 * @var TKey $key
+                 * @var T $value
+                 */
                 foreach (new InfiniteIterator($iterator) as $key => $value) {
                     yield $key => $value;
                 }

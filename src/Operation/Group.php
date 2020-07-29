@@ -41,6 +41,7 @@ final class Group extends AbstractOperation implements Operation
         return
             /**
              * @psalm-param \Iterator<TKey, T> $iterator
+             * @psalm-param callable(TKey, T):(TKey) $callable
              *
              * @psalm-return \Generator<int, list<T>>
              */
