@@ -1,0 +1,3 @@
+parameters:
+	ignoreErrors:
+		- '#with bound type \(int\|string\) is not supported.#'

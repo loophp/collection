@@ -12,20 +12,31 @@ use loophp\collection\Iterator\IterableIterator;
 
 use function count;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ */
 final class Product extends AbstractOperation implements Operation
 {
     /**
-     * Product constructor.
-     *
      * @param iterable<mixed> ...$iterables
+     * @psalm-param iterable<TKey, T> ...$iterables
      */
     public function __construct(iterable ...$iterables)
     {
         $this->storage = [
             'iterables' => $iterables,
-            'cartesian' => function (array $input): Generator {
-                return $this->cartesian($input);
-            },
+            'cartesian' =>
+                /**
+                 * @param array<int, mixed> $input
+                 * @psalm-param array<int, \Iterator<TKey, T>> $input
+                 *
+                 * @psalm-return \Generator<array<int, T>>
+                 */
+                function (array $input): Generator {
+                    return $this->cartesian($input);
+                },
         ];
     }
 
@@ -33,7 +44,10 @@ final class Product extends AbstractOperation implements Operation
     {
         return
             /**
-             * @param array<int, iterable> $iterables
+             * @psalm-param \Iterator<TKey, T> $iterator
+             * @psalm-param array<int, iterable<TKey, T>> $iterables
+             *
+             * @psalm-return \Generator<int, array<int, T>>
              */
             static function (Iterator $iterator, array $iterables, callable $cartesian): Generator {
                 $its = [$iterator];
@@ -47,9 +61,10 @@ final class Product extends AbstractOperation implements Operation
     }
 
     /**
-     * @param array<iterable> $iterators
+     * @param array<int, iterable> $iterators
+     * @psalm-param array<int, \Iterator<TKey, T>> $iterators
      *
-     * @return Generator<array<mixed>>
+     * @psalm-return \Generator<int, array<int, T>>
      */
     private function cartesian(array $iterators): Generator
     {

@@ -7,6 +7,13 @@ namespace loophp\collection\Transformation;
 use loophp\collection\Contract\Transformation;
 use loophp\collection\Operation\Reverse;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ *
+ * @implements Transformation<TKey, T>
+ */
 final class FoldRight implements Transformation
 {
     /**
@@ -20,8 +27,6 @@ final class FoldRight implements Transformation
     private $initial;
 
     /**
-     * FoldRight constructor.
-     *
      * @param mixed|null $initial
      */
     public function __construct(callable $callback, $initial = null)
@@ -30,9 +35,6 @@ final class FoldRight implements Transformation
         $this->initial = $initial;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function __invoke(iterable $collection)
     {
         $callback = $this->callback;

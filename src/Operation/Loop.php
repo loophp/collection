@@ -10,14 +10,25 @@ use InfiniteIterator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ */
 final class Loop extends AbstractOperation implements Operation
 {
     public function __invoke(): Closure
     {
-        return static function (Iterator $iterator): Generator {
-            foreach (new InfiniteIterator($iterator) as $key => $value) {
-                yield $key => $value;
-            }
-        };
+        return
+            /**
+             * @psalm-param \Iterator<TKey, T> $iterator
+             *
+             * @psalm-return \Generator<TKey, T>
+             */
+            static function (Iterator $iterator): Generator {
+                foreach (new InfiniteIterator($iterator) as $key => $value) {
+                    yield $key => $value;
+                }
+            };
     }
 }

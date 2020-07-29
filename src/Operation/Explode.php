@@ -10,12 +10,16 @@ use Iterator;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Transformation\Run;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ */
 final class Explode extends AbstractOperation implements Operation
 {
     /**
-     * Explode constructor.
-     *
-     * @param float|int|string ...$explodes
+     * @param mixed ...$explodes
+     * @psalm-param T ...$explodes
      */
     public function __construct(...$explodes)
     {
@@ -24,24 +28,35 @@ final class Explode extends AbstractOperation implements Operation
 
     public function __invoke(): Closure
     {
-        return static function (Iterator $iterator, array $explodes): Generator {
-            yield from (new Run(
-                new Split(
-                    ...array_map(
-                        /**
-                         * @param float|int|string $explode
-                         */
-                        static function ($explode) {
-                            return
-                                /** @param mixed $value */
-                                static function ($value) use ($explode): bool {
-                                    return $value === $explode;
-                                };
-                        },
-                        $explodes
+        return
+            /**
+             * @psalm-param \Iterator<TKey, T> $iterator
+             * @psalm-param list<T> $explodes
+             *
+             * @psalm-return \Generator<int, list<T>>
+             */
+            static function (Iterator $iterator, array $explodes): Generator {
+                yield from (new Run(
+                    new Split(
+                        ...array_map(
+                            /**
+                             * @param mixed $explode
+                             * @psalm-param T $explode
+                             */
+                            static function ($explode): Closure {
+                                return
+                                    /**
+                                     * @param mixed $value
+                                     * @psalm-param T $value
+                                     */
+                                    static function ($value) use ($explode): bool {
+                                        return $value === $explode;
+                                    };
+                            },
+                            $explodes
+                        )
                     )
-                )
-            ))($iterator);
-        };
+                ))($iterator);
+            };
     }
 }

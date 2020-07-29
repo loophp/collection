@@ -10,13 +10,23 @@ use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ */
 final class Filter extends AbstractOperation implements Operation
 {
     public function __construct(callable ...$callbacks)
     {
-        $defaultCallback = static function ($item): bool {
-            return true === (bool) $item;
-        };
+        $defaultCallback =
+            /**
+             * @param mixed $item
+             * @psalm-param T $item
+             */
+            static function ($item): bool {
+                return (bool) $item;
+            };
 
         $this->storage['callbacks'] = [] === $callbacks ?
             [$defaultCallback] :
@@ -27,14 +37,17 @@ final class Filter extends AbstractOperation implements Operation
     {
         return
             /**
-             * @param array<int, callable> $callbacks
+             * @psalm-param \Iterator<TKey, T> $iterator
+             * @psalm-param list<callable(T, TKey, \Iterator<TKey, T>):(bool)> $callbacks
+             *
+             * @psalm-return \Generator<TKey, T>
              */
             static function (Iterator $iterator, array $callbacks): Generator {
                 foreach ($callbacks as $callback) {
                     $iterator = new CallbackFilterIterator($iterator, $callback);
                 }
 
-                yield from $iterator;
+                return yield from $iterator;
             };
     }
 }

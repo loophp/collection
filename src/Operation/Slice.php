@@ -10,6 +10,11 @@ use Iterator;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Transformation\Run;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ */
 final class Slice extends AbstractOperation implements Operation
 {
     public function __construct(int $offset, ?int $length = null)
@@ -22,14 +27,20 @@ final class Slice extends AbstractOperation implements Operation
 
     public function __invoke(): Closure
     {
-        return static function (Iterator $iterator, int $offset, ?int $length): Generator {
-            $skip = (new Run(new Skip($offset)))($iterator);
+        return
+            /**
+             * @psalm-param \Iterator<TKey, T> $iterator
+             *
+             * @psalm-return \Generator<TKey, T>
+             */
+            static function (Iterator $iterator, int $offset, ?int $length): Generator {
+                $skip = (new Run(new Skip($offset)))($iterator);
 
-            if (null === $length) {
-                return yield from $skip;
-            }
+                if (null === $length) {
+                    return yield from $skip;
+                }
 
-            return yield from (new Run(new Limit($length)))($skip);
-        };
+                return yield from (new Run(new Limit($length)))($skip);
+            };
     }
 }

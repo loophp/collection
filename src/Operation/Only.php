@@ -11,12 +11,16 @@ use loophp\collection\Contract\Operation;
 
 use function array_key_exists;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ */
 final class Only extends AbstractOperation implements Operation
 {
     /**
-     * Only constructor.
-     *
      * @param mixed ...$keys
+     * @psalm-param TKey ...$keys
      */
     public function __construct(...$keys)
     {
@@ -27,18 +31,27 @@ final class Only extends AbstractOperation implements Operation
 
     public function __invoke(): Closure
     {
-        return static function (Iterator $iterator, array $keys): Generator {
-            if ([] === $keys) {
-                return yield from $iterator;
-            }
+        return
+            /**
+             * @psalm-param \Iterator<TKey, T> $iterator
+             * @psalm-param list<TKey> $keys
+             *
+             * @psalm-return \Generator<TKey, T>
+             */
+            static function (Iterator $iterator, array $keys): Generator {
+                if ([] === $keys) {
+                    return yield from $iterator;
+                }
 
-            $keys = array_flip($keys);
+                $keys = array_flip($keys);
 
-            foreach ($iterator as $key => $value) {
-                if (true === array_key_exists($key, $keys)) {
+                foreach ($iterator as $key => $value) {
+                    if (false === array_key_exists($key, $keys)) {
+                        continue;
+                    }
+
                     yield $key => $value;
                 }
-            }
-        };
+            };
     }
 }

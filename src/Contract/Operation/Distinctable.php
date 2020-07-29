@@ -6,10 +6,15 @@ namespace loophp\collection\Contract\Operation;
 
 use loophp\collection\Contract\Base;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ */
 interface Distinctable
 {
     /**
-     * Remove duplicated values from a collection.
+     * @return \loophp\collection\Base<TKey, T>|\loophp\collection\Contract\Collection<TKey, T>
      */
     public function distinct(): Base;
 }

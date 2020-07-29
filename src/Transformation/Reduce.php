@@ -6,6 +6,13 @@ namespace loophp\collection\Transformation;
 
 use loophp\collection\Contract\Transformation;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ *
+ * @implements Transformation<TKey, T>
+ */
 final class Reduce implements Transformation
 {
     /**
@@ -29,9 +36,6 @@ final class Reduce implements Transformation
         $this->initial = $initial;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function __invoke(iterable $collection)
     {
         $callback = $this->callback;

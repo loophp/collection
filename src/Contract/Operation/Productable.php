@@ -6,6 +6,11 @@ namespace loophp\collection\Contract\Operation;
 
 use loophp\collection\Contract\Base;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ */
 interface Productable
 {
     /**
@@ -13,7 +18,7 @@ interface Productable
      *
      * @param iterable<mixed> ...$iterables
      *
-     * @return \loophp\collection\Base|\loophp\collection\Contract\Collection
+     * @return \loophp\collection\Base<TKey, T>|\loophp\collection\Contract\Collection<TKey, T>
      */
     public function product(iterable ...$iterables): Base;
 }

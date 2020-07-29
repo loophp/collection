@@ -9,6 +9,11 @@ use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ */
 final class Skip extends AbstractOperation implements Operation
 {
     public function __construct(int ...$skip)
@@ -20,7 +25,10 @@ final class Skip extends AbstractOperation implements Operation
     {
         return
             /**
-             * @param array<int, int> $skip
+             * @psalm-param \Iterator<TKey, T> $iterator
+             * @psalm-param list<int> $skip
+             *
+             * @psalm-return \Generator<TKey, T>
              */
             static function (Iterator $iterator, array $skip): Generator {
                 $skip = array_sum($skip);

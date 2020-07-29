@@ -11,7 +11,11 @@ interface Timesable
     /**
      * Create a new instance by invoking the callback a given amount of times.
      *
-     * @return \loophp\collection\Base|\loophp\collection\Contract\Collection
+     * @template TKey
+     * @psalm-template TKey of array-key
+     * @template T
+     *
+     * @return \loophp\collection\Base<TKey, T>|\loophp\collection\Contract\Collection<TKey, T>
      */
     public static function times(int $number = 0, ?callable $callback = null): Base;
 }

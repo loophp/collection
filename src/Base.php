@@ -16,6 +16,13 @@ use loophp\collection\Transformation\Transform;
 use function is_resource;
 use function is_string;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ *
+ * @implements \loophp\collection\Contract\Base<TKey, T>
+ */
 abstract class Base implements BaseInterface
 {
     /**
@@ -95,17 +102,11 @@ abstract class Base implements BaseInterface
         return new ClosureIterator($this->source);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function run(Operation ...$operations)
     {
         return new static((new Run(...$operations))($this));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function transform(Transformation ...$transformers)
     {
         return (new Transform(...$transformers))($this);

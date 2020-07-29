@@ -9,14 +9,26 @@ use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 
+/**
+ * @template TKey
+ * @template T
+ * @template T of array-key
+ */
 final class Flip extends AbstractOperation implements Operation
 {
     public function __invoke(): Closure
     {
-        return static function (Iterator $iterator): Generator {
-            foreach ($iterator as $key => $value) {
-                yield (string) $value => $key;
-            }
-        };
+        return
+            /**
+             * @psalm-param \Iterator<TKey, T> $iterator
+             *
+             * @psalm-return \Generator<string, TKey>
+             */
+            static function (Iterator $iterator): Generator {
+                foreach ($iterator as $key => $value) {
+                    // Todo: Remove the cast to string.
+                    yield (string) $value => $key;
+                }
+            };
     }
 }

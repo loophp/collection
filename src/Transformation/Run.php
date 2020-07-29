@@ -9,6 +9,13 @@ use loophp\collection\Contract\Transformation;
 use loophp\collection\Iterator\ClosureIterator;
 use loophp\collection\Iterator\IterableIterator;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ *
+ * @implements Transformation<TKey, T>
+ */
 final class Run implements Transformation
 {
     /**
@@ -21,9 +28,6 @@ final class Run implements Transformation
         $this->operations = $operations;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function __invoke(iterable $collection): ClosureIterator
     {
         $iterableIterator = new IterableIterator($collection);

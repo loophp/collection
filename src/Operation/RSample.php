@@ -10,6 +10,11 @@ use Iterator;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Transformation\Run;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ */
 final class RSample extends AbstractOperation implements Operation
 {
     public function __construct(float $probability)
@@ -19,14 +24,20 @@ final class RSample extends AbstractOperation implements Operation
 
     public function __invoke(): Closure
     {
-        return static function (Iterator $iterator, float $probability): Generator {
-            return yield from (new Run(
-                new Filter(
-                    static function () use ($probability): bool {
-                        return (mt_rand() / mt_getrandmax()) < $probability;
-                    }
-                )
-            ))($iterator);
-        };
+        return
+            /**
+             * @psalm-param \Iterator<TKey, T> $iterator
+             *
+             * @psalm-return \Generator<TKey, T>
+             */
+            static function (Iterator $iterator, float $probability): Generator {
+                return yield from (new Run(
+                    new Filter(
+                        static function () use ($probability): bool {
+                            return (mt_rand() / mt_getrandmax()) < $probability;
+                        }
+                    )
+                ))($iterator);
+            };
     }
 }

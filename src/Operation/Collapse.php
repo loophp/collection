@@ -9,20 +9,31 @@ use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ */
 final class Collapse extends AbstractOperation implements Operation
 {
     public function __invoke(): Closure
     {
-        return static function (Iterator $iterator): Generator {
-            foreach ($iterator as $value) {
-                if (true !== is_iterable($value)) {
-                    continue;
-                }
+        return
+            /**
+             * @psalm-param \Iterator<TKey, T|iterable<TKey, T>> $iterator
+             *
+             * @psalm-return \Generator<TKey, T>
+             */
+            static function (Iterator $iterator): Generator {
+                foreach ($iterator as $value) {
+                    if (false === is_iterable($value)) {
+                        continue;
+                    }
 
-                foreach ($value as $subKey => $subValue) {
-                    yield $subKey => $subValue;
+                    foreach ($value as $subKey => $subValue) {
+                        yield $subKey => $subValue;
+                    }
                 }
-            }
-        };
+            };
     }
 }

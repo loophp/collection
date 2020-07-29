@@ -9,9 +9,13 @@ use loophp\collection\Contract\Base;
 interface Iterateable
 {
     /**
+     * @template TKey
+     * @psalm-template TKey of array-key
+     * @template T
+     *
      * @param mixed ...$parameters
      *
-     * @return \loophp\collection\Base|\loophp\collection\Contract\Collection
+     * @return \loophp\collection\Base<TKey, T>|\loophp\collection\Contract\Collection<TKey, T>
      */
     public static function iterate(callable $callback, ...$parameters): Base;
 }

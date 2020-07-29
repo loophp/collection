@@ -9,8 +9,17 @@ use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ */
 final class Until extends AbstractOperation implements Operation
 {
+    /**
+     * @param callable ...$callbacks
+     * @psalm-param callable(T, TKey):(bool) ...$callbacks
+     */
     public function __construct(callable ...$callbacks)
     {
         $this->storage['callbacks'] = $callbacks;
@@ -20,7 +29,10 @@ final class Until extends AbstractOperation implements Operation
     {
         return
             /**
-             * @param array<int, callable> $callbacks
+             * @psalm-param \Iterator<TKey, T> $iterator
+             * @psalm-param list<callable(T, TKey):(bool)> $callbacks
+             *
+             * @psalm-return \Generator<TKey, T>
              */
             static function (Iterator $iterator, array $callbacks): Generator {
                 foreach ($iterator as $key => $value) {
@@ -36,7 +48,7 @@ final class Until extends AbstractOperation implements Operation
                         true
                     );
 
-                    if (true === $result) {
+                    if (false !== $result) {
                         break;
                     }
                 }

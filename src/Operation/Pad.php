@@ -9,12 +9,16 @@ use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ */
 final class Pad extends AbstractOperation implements Operation
 {
     /**
-     * Pad constructor.
-     *
      * @param mixed $value
+     * @psalm-param T $value
      */
     public function __construct(int $size, $value)
     {
@@ -28,6 +32,11 @@ final class Pad extends AbstractOperation implements Operation
     {
         return
             /**
+             * @psalm-param \Iterator<TKey, T> $iterator
+             * @psalm-param T $padValue
+             *
+             * @psalm-return \Generator<TKey|int, T>
+             *
              * @param mixed $padValue
              */
             static function (Iterator $iterator, int $size, $padValue): Generator {

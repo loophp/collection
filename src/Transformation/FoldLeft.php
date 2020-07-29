@@ -6,6 +6,13 @@ namespace loophp\collection\Transformation;
 
 use loophp\collection\Contract\Transformation;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ *
+ * @implements Transformation<TKey, T>
+ */
 final class FoldLeft implements Transformation
 {
     /**
@@ -19,8 +26,6 @@ final class FoldLeft implements Transformation
     private $initial;
 
     /**
-     * FoldLeft constructor.
-     *
      * @param mixed|null $initial
      */
     public function __construct(callable $callback, $initial = null)
@@ -29,9 +34,6 @@ final class FoldLeft implements Transformation
         $this->initial = $initial;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function __invoke(iterable $collection)
     {
         $callback = $this->callback;

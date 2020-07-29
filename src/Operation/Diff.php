@@ -11,10 +11,16 @@ use loophp\collection\Contract\Operation;
 
 use function in_array;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ */
 final class Diff extends AbstractOperation implements Operation
 {
     /**
      * @param mixed ...$values
+     * @psalm-param T ...$values
      */
     public function __construct(...$values)
     {
@@ -25,9 +31,12 @@ final class Diff extends AbstractOperation implements Operation
     {
         return
             /**
-             * @param array<int, mixed> $values
+             * @psalm-param \Iterator<TKey, T> $iterator
+             * @psalm-param list<T> $values
+             *
+             * @psalm-return \Generator<TKey, T>
              */
-            static function (Iterator $iterator, $values): Generator {
+            static function (Iterator $iterator, array $values): Generator {
                 foreach ($iterator as $key => $value) {
                     if (false === in_array($value, $values, true)) {
                         yield $key => $value;
