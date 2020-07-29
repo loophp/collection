@@ -76,6 +76,7 @@ use loophp\collection\Transformation\First;
 use loophp\collection\Transformation\FoldLeft;
 use loophp\collection\Transformation\FoldRight;
 use loophp\collection\Transformation\Get;
+use loophp\collection\Transformation\Has;
 use loophp\collection\Transformation\Implode;
 use loophp\collection\Transformation\Last;
 use loophp\collection\Transformation\Nullsy;
@@ -267,6 +268,11 @@ final class Collection extends Base implements CollectionInterface
     public function group(?callable $callable = null): BaseInterface
     {
         return $this->run(new Group($callable));
+    }
+
+    public function has(callable $callback): bool
+    {
+        return $this->transform(new Has($callback));
     }
 
     public function implode(string $glue = ''): string

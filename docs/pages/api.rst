@@ -1192,6 +1192,11 @@ get
 
 Interface: `Getable`_
 
+has
+~~~
+
+Interface: `Hasable`_
+
 implode
 ~~~~~~~
 
@@ -1255,6 +1260,7 @@ Interface: `Truthyable`_
 .. _Frequencyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Frequencyable.php
 .. _Getable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/Getable.php
 .. _Groupable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Groupable.php
+.. _Hasable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/Hasable.php
 .. _Implodeable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/Implodeable.php
 .. _Intersectable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Intersectable.php
 .. _Intersectkeysable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Intersectkeysable.php
