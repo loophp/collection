@@ -18,7 +18,7 @@ final class FoldRight implements Transformation
 {
     /**
      * @var callable
-     * @psalm-var callable(T|null, T, TKey):(T|null)
+     * @psalm-var callable(T|null, T|null, TKey):(T|null)
      */
     private $callback;
 
@@ -29,7 +29,7 @@ final class FoldRight implements Transformation
     private $initial;
 
     /**
-     * @psalm-param callable(T|null, T, TKey):(T|null) $callback
+     * @psalm-param callable(T|null, T|null, TKey):(T|null) $callback
      *
      * @param mixed|null $initial
      * @psalm-param T|null $initial

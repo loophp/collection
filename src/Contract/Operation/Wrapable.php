@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
-use loophp\collection\Contract\Base;
+use loophp\collection\Contract\Collection;
 
 /**
  * @template TKey
@@ -14,7 +14,7 @@ use loophp\collection\Contract\Base;
 interface Wrapable
 {
     /**
-     * @return \loophp\collection\Base<TKey, T>|\loophp\collection\Contract\Collection<TKey, T>
+     * @return \loophp\collection\Contract\Collection<TKey, T>
      */
-    public function wrap(): Base;
+    public function wrap(): Collection;
 }

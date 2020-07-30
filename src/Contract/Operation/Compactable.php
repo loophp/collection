@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
-use loophp\collection\Contract\Base;
+use loophp\collection\Contract\Collection;
 
 /**
  * @template TKey
@@ -18,7 +18,7 @@ interface Compactable
      *
      * @param mixed ...$values
      *
-     * @return \loophp\collection\Base<TKey, T>|\loophp\collection\Contract\Collection<TKey, T>
+     * @return \loophp\collection\Contract\Collection<TKey, T>
      */
-    public function compact(...$values): Base;
+    public function compact(...$values): Collection;
 }

@@ -4,10 +4,14 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Transformation;
 
+/**
+ * @template T
+ */
 interface Containsable
 {
     /**
-     * @param mixed $key
+     * @param mixed $value
+     * @psalm-param T $value
      */
-    public function contains($key): bool;
+    public function contains($value): bool;
 }

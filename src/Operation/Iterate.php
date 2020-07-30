@@ -9,12 +9,18 @@ use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 
+/**
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ */
 final class Iterate extends AbstractOperation implements Operation
 {
     /**
-     * Iterate constructor.
+     * @param array<mixed, mixed> $parameters
+     * @psalm-param array<array-key, T> $parameters
      *
-     * @param array<mixed> $parameters
+     * @psalm-param callable(...list<T>):(array<array-key, T>) $callback
      */
     public function __construct(callable $callback, array $parameters = [])
     {
@@ -28,7 +34,11 @@ final class Iterate extends AbstractOperation implements Operation
     {
         return
             /**
-             * @param array<mixed, mixed> $parameters
+             * @param Iterator<TKey, T> $iterator
+             * @psalm-param callable(...list<T>):(array<array-key, T>) $callback
+             *
+             * @param array<int, mixed> $parameters
+             * @psalm-param array<array-key, T> $parameters
              */
             static function (Iterator $iterator, callable $callback, array $parameters): Generator {
                 while (true) {

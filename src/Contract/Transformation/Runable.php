@@ -16,7 +16,7 @@ interface Runable
     /**
      * @param \loophp\collection\Contract\Operation ...$operations
      *
-     * @return \loophp\collection\Base<TKey, T>|\loophp\collection\Collection<TKey, T>
+     * @return \loophp\collection\Collection<TKey, T>
      */
     public function run(Operation ...$operations);
 }

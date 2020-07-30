@@ -20,7 +20,7 @@ final class Collapse extends AbstractOperation implements Operation
     {
         return
             /**
-             * @psalm-param \Iterator<TKey, T|iterable<TKey, T>> $iterator
+             * @psalm-param \Iterator<array-key, T|iterable<TKey, T>> $iterator
              *
              * @psalm-return \Generator<TKey, T>
              */

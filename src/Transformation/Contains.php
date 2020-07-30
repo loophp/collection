@@ -39,20 +39,21 @@ final class Contains implements Transformation
     {
         $value = $this->value;
 
-        return (bool) (
-        new Transform(
-            new Has(
-                /**
-                 * @param TKey $k
-                 * @param T $v
-                 *
-                 * @return T
-                 */
-                static function ($k, $v) use ($value) {
-                    return $value;
-                }
-            )
-        )
-        )($collection);
+        $hasCallback =
+            /**
+             * @param mixed $k
+             * @psalm-param TKey $k
+             *
+             * @param mixed $v
+             * @psalm-param T $v
+             *
+             * @return mixed
+             * @psalm-return T
+             */
+            static function ($k, $v) use ($value) {
+                return $value;
+            };
+
+        return (bool) (new Transform(new Has($hasCallback)))($collection);
     }
 }

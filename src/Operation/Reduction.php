@@ -19,7 +19,7 @@ final class Reduction extends AbstractOperation implements Operation
     /**
      * @param mixed|null $initial
      * @psalm-param T|null $initial
-     * @psalm-param callable(T, T, TKey):(T|null) $callback
+     * @psalm-param callable(T|null, T, TKey):(T|null) $callback
      */
     public function __construct(callable $callback, $initial = null)
     {
@@ -34,7 +34,7 @@ final class Reduction extends AbstractOperation implements Operation
         return
             /**
              * @psalm-param \Iterator<TKey, T> $iterator
-             * @psalm-param callable(T, T, TKey):(T|null) $callable
+             * @psalm-param callable(T|null, T, TKey):(T|null) $callable
              *
              * @param mixed $initial
              * @psalm-param T|null $initial

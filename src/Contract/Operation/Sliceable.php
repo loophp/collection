@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
-use loophp\collection\Contract\Base;
+use loophp\collection\Contract\Collection;
 
 /**
  * @template TKey
@@ -18,7 +18,7 @@ interface Sliceable
      *
      * @param ?int $length
      *
-     * @return \loophp\collection\Base<TKey, T>|\loophp\collection\Contract\Collection<TKey, T>
+     * @return \loophp\collection\Contract\Collection<TKey, T>
      */
-    public function slice(int $offset, ?int $length = null): Base;
+    public function slice(int $offset, ?int $length = null): Collection;
 }

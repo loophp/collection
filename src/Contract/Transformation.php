@@ -16,7 +16,7 @@ interface Transformation
      * @psalm-param iterable<TKey, T> $collection
      *
      * @return mixed
-     * @psalm-return T|scalar|\Iterator<TKey, T>|array<TKey, T>
+     * @psalm-return T|scalar|\Iterator<TKey, T>|array<TKey, T>|null
      */
     public function __invoke(iterable $collection);
 }

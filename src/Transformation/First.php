@@ -35,9 +35,19 @@ final class First implements Transformation
      */
     public function __construct(?callable $callback = null, $default = null)
     {
-        $this->callback = $callback ?? static function ($key, $value): bool {
-            return true;
-        };
+        $defaultCallback =
+            /**
+             * @param mixed $key
+             * @psalm-param TKey $key
+             *
+             * @param mixed $value
+             * @psalm-param T $value
+             */
+            static function ($key, $value): bool {
+                return true;
+            };
+
+        $this->callback = $callback ?? $defaultCallback;
         $this->default = $default;
     }
 

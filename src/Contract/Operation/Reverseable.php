@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
-use loophp\collection\Contract\Base;
+use loophp\collection\Contract\Collection;
 
 /**
  * @template TKey
@@ -16,7 +16,7 @@ interface Reverseable
     /**
      * Reverse order items of a collection.
      *
-     * @return \loophp\collection\Base<TKey, T>|\loophp\collection\Contract\Collection<TKey, T>
+     * @return \loophp\collection\Contract\Collection<TKey, T>
      */
-    public function reverse(): Base;
+    public function reverse(): Collection;
 }

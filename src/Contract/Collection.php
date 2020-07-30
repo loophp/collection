@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract;
 
+use IteratorAggregate;
 use JsonSerializable;
 use loophp\collection\Contract\Operation\Appendable;
 use loophp\collection\Contract\Operation\Applyable;
@@ -75,6 +76,8 @@ use loophp\collection\Contract\Transformation\Implodeable;
 use loophp\collection\Contract\Transformation\Lastable;
 use loophp\collection\Contract\Transformation\Nullsyable;
 use loophp\collection\Contract\Transformation\Reduceable;
+use loophp\collection\Contract\Transformation\Runable;
+use loophp\collection\Contract\Transformation\Transformable;
 use loophp\collection\Contract\Transformation\Truthyable;
 
 /**
@@ -85,7 +88,6 @@ use loophp\collection\Contract\Transformation\Truthyable;
  * @template-extends Allable<TKey, T>
  * @template-extends Appendable<TKey, T>
  * @template-extends Applyable<TKey, T>
- * @template-extends Base<TKey, T>
  * @template-extends Cacheable<TKey, T>
  * @template-extends Chunkable<TKey, T>
  * @template-extends Collapseable<TKey, T>
@@ -93,7 +95,7 @@ use loophp\collection\Contract\Transformation\Truthyable;
  * @template-extends Combinateable<TKey, T>
  * @template-extends Combineable<TKey, T>
  * @template-extends Compactable<TKey, T>
- * @template-extends Containsable<TKey, T>
+ * @template-extends Containsable<T>
  * @template-extends Cycleable<TKey, T>
  * @template-extends Diffable<TKey, T>
  * @template-extends Diffkeysable<TKey, T>
@@ -114,7 +116,7 @@ use loophp\collection\Contract\Transformation\Truthyable;
  * @template-extends Intersectkeysable<TKey, T>
  * @template-extends Intersperseable<TKey, T>
  * @template-extends Keysable<TKey, T>
- * @template-extends Lastable<TKey, T>
+ * @template-extends Lastable<T>
  * @template-extends Limitable<TKey, T>
  * @template-extends Loopable<TKey, T>
  * @template-extends Mapable<TKey, T>
@@ -147,12 +149,14 @@ use loophp\collection\Contract\Transformation\Truthyable;
  * @template-extends Windowable<TKey, T>
  * @template-extends Wrapable<TKey, T>
  * @template-extends Zipable<TKey, T>
+ * @template-extends \IteratorAggregate<TKey, T>
+ * @template-extends Runable<TKey, T>
+ * @template-extends Transformable<TKey, T>
  */
 interface Collection extends
     Allable,
     Appendable,
     Applyable,
-    Base,
     Cacheable,
     Chunkable,
     Collapseable,
@@ -183,6 +187,7 @@ interface Collection extends
     Intersectkeysable,
     Intersperseable,
     Iterateable,
+    IteratorAggregate,
     JsonSerializable,
     Keysable,
     Lastable,
@@ -205,6 +210,7 @@ interface Collection extends
     Reductionable,
     Reverseable,
     RSampleable,
+    Runable,
     Scaleable,
     Shuffleable,
     Sinceable,
@@ -214,6 +220,7 @@ interface Collection extends
     Splitable,
     Tailable,
     Timesable,
+    Transformable,
     Transposeable,
     Truthyable,
     Untilable,

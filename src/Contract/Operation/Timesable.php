@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
-use loophp\collection\Contract\Base;
+use loophp\collection\Contract\Collection;
 
 interface Timesable
 {
@@ -15,7 +15,7 @@ interface Timesable
      * @psalm-template TKey of array-key
      * @template T
      *
-     * @return \loophp\collection\Base<TKey, T>|\loophp\collection\Contract\Collection<TKey, T>
+     * @return \loophp\collection\Contract\Collection<TKey, T>
      */
-    public static function times(int $number = 0, ?callable $callback = null): Base;
+    public static function times(int $number = 0, ?callable $callback = null): Collection;
 }
