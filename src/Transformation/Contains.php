@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace loophp\collection\Transformation;
 
+use Iterator;
 use loophp\collection\Contract\Transformation;
 
 /**
@@ -31,11 +32,11 @@ final class Contains implements Transformation
     }
 
     /**
-     * @param iterable<TKey, T> $collection
+     * @param Iterator<TKey, T> $collection
      *
      * @return bool
      */
-    public function __invoke(iterable $collection)
+    public function __invoke(Iterator $collection)
     {
         $value = $this->value;
 

@@ -18,7 +18,7 @@ final class Merge extends AbstractOperation implements Operation
 {
     /**
      * @param iterable<int|string, mixed> ...$sources
-     * @psalm-param iterable<TKey, T> ...$sources
+     * @psalm-param \Iterator<TKey, T> ...$sources
      */
     public function __construct(iterable ...$sources)
     {

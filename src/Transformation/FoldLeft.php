@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace loophp\collection\Transformation;
 
+use Iterator;
 use loophp\collection\Contract\Transformation;
 
 /**
@@ -40,12 +41,12 @@ final class FoldLeft implements Transformation
     }
 
     /**
-     * @psalm-param iterable<TKey, T> $collection
+     * @psalm-param \Iterator<TKey, T> $collection
      *
      * @return mixed|null
      * @psalm-return T|null
      */
-    public function __invoke(iterable $collection)
+    public function __invoke(Iterator $collection)
     {
         $callback = $this->callback;
         $initial = $this->initial;

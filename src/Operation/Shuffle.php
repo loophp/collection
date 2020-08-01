@@ -23,7 +23,7 @@ final class Shuffle extends AbstractOperation implements Operation
             /**
              * @psalm-param \Iterator<TKey, T> $iterator
              *
-             * @psalm-return \Generator<TKey, T, mixed, void>
+             * @psalm-return \Generator<TKey|null, T, mixed, void>
              */
             static function (Iterator $iterator): Generator {
                 /** @psalm-var array<TKey, T>  $data */
@@ -33,6 +33,7 @@ final class Shuffle extends AbstractOperation implements Operation
                     $randomKey = array_rand($data);
 
                     yield key($data[$randomKey]) => current($data[$randomKey]);
+
                     unset($data[$randomKey]);
                 }
             };

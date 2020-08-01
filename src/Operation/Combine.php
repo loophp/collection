@@ -27,7 +27,7 @@ final class Combine extends AbstractOperation implements Operation
      */
     public function __construct(...$keys)
     {
-        $this->storage['keys'] = $keys;
+        $this->storage['keys'] = new ArrayIterator($keys);
     }
 
     public function __invoke(): Closure
@@ -35,21 +35,19 @@ final class Combine extends AbstractOperation implements Operation
         return
             /**
              * @psalm-param \Iterator<TKey, T> $iterator
-             * @psalm-param list<TKey> $keys
+             * @psalm-param ArrayIterator<int, TKey> $keys
              *
              * @psalm-return \Generator<TKey, T>
              */
-            static function (Iterator $iterator, array $keys): Generator {
-                $keysIterator = new ArrayIterator($keys);
-
-                while ($iterator->valid() && $keysIterator->valid()) {
-                    yield $keysIterator->current() => $iterator->current();
+            static function (Iterator $iterator, ArrayIterator $keys): Generator {
+                while ($iterator->valid() && $keys->valid()) {
+                    yield $keys->current() => $iterator->current();
 
                     $iterator->next();
-                    $keysIterator->next();
+                    $keys->next();
                 }
 
-                if ($iterator->valid() !== $keysIterator->valid()) {
+                if ($iterator->valid() !== $keys->valid()) {
                     trigger_error('Both keys and values must have the same amount of items.', E_USER_WARNING);
                 }
             };

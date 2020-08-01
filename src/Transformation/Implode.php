@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace loophp\collection\Transformation;
 
+use Iterator;
 use loophp\collection\Contract\Transformation;
 
 /**
@@ -25,7 +26,7 @@ final class Implode implements Transformation
         $this->glue = $glue;
     }
 
-    public function __invoke(iterable $collection): string
+    public function __invoke(Iterator $collection): string
     {
         $result = '';
 

@@ -21,7 +21,7 @@ final class Product extends AbstractOperation implements Operation
 {
     /**
      * @param iterable<mixed> ...$iterables
-     * @psalm-param iterable<TKey, T> ...$iterables
+     * @psalm-param \Iterator<TKey, T> ...$iterables
      */
     public function __construct(iterable ...$iterables)
     {

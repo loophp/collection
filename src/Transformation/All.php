@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace loophp\collection\Transformation;
 
+use Iterator;
 use loophp\collection\Contract\Transformation;
-use loophp\collection\Iterator\IterableIterator;
 
 /**
  * @template TKey
@@ -21,8 +21,8 @@ final class All implements Transformation
      * @phpstan-return array<TKey, T>
      * @psalm-return array<TKey, T>
      */
-    public function __invoke(iterable $collection): array
+    public function __invoke(Iterator $collection): array
     {
-        return iterator_to_array(new IterableIterator($collection));
+        return iterator_to_array($collection);
     }
 }

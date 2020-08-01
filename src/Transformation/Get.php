@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace loophp\collection\Transformation;
 
+use Iterator;
 use loophp\collection\Contract\Transformation;
 
 /**
@@ -38,11 +39,11 @@ final class Get implements Transformation
     }
 
     /**
-     * @param iterable<TKey, T> $collection
+     * @param Iterator<TKey, T> $collection
      *
      * @return T
      */
-    public function __invoke(iterable $collection)
+    public function __invoke(Iterator $collection)
     {
         $keyToGet = $this->key;
         $default = $this->default;

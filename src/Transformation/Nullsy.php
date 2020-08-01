@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace loophp\collection\Transformation;
 
+use Iterator;
 use loophp\collection\Contract\Transformation;
 
 /**
@@ -16,9 +17,9 @@ use loophp\collection\Contract\Transformation;
 final class Nullsy implements Transformation
 {
     /**
-     * @psalm-param iterable<TKey, T|null> $collection
+     * @psalm-param \Iterator<TKey, T|null> $collection
      */
-    public function __invoke(iterable $collection): bool
+    public function __invoke(Iterator $collection): bool
     {
         foreach ($collection as $key => $value) {
             if (null !== $value) {

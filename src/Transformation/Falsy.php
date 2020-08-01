@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace loophp\collection\Transformation;
 
+use Iterator;
 use loophp\collection\Contract\Transformation;
 
 /**
@@ -15,7 +16,7 @@ use loophp\collection\Contract\Transformation;
  */
 final class Falsy implements Transformation
 {
-    public function __invoke(iterable $collection): bool
+    public function __invoke(Iterator $collection): bool
     {
         foreach ($collection as $key => $value) {
             if (false !== (bool) $value) {

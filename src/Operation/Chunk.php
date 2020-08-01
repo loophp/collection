@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace loophp\collection\Operation;
 
+use ArrayIterator;
 use Closure;
 use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
-use loophp\collection\Iterator\IterableIterator;
 use loophp\collection\Transformation\Run;
 
 use function count;
@@ -22,7 +22,7 @@ final class Chunk extends AbstractOperation implements Operation
 {
     public function __construct(int ...$size)
     {
-        $this->storage['size'] = $size;
+        $this->storage['size'] = new ArrayIterator($size);
     }
 
     /**
@@ -35,14 +35,12 @@ final class Chunk extends AbstractOperation implements Operation
         return
             /**
              * @psalm-param \Iterator<TKey, T> $iterator
-             * @psalm-param list<int> $sizes
+             * @psalm-param ArrayIterator<int, int> $sizes
              *
              * @psalm-return \Generator<int, list<T>>
              */
-            static function (Iterator $iterator, array $sizes): Generator {
-                $sizesIterator = new IterableIterator(
-                    (new Run(new Loop()))($sizes)
-                );
+            static function (Iterator $iterator, ArrayIterator $sizes): Generator {
+                $sizesIterator = (new Run(new Loop()))($sizes);
 
                 $values = [];
 

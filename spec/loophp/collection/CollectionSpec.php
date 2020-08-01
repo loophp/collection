@@ -211,7 +211,7 @@ class CollectionSpec extends ObjectBehavior
         $this
             ->transform(
                 new class() implements Transformation {
-                    public function __invoke(iterable $collection)
+                    public function __invoke(Iterator $collection)
                     {
                         return '{"a":"A","b":"B","c":"C"}';
                     }

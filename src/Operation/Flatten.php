@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace loophp\collection\Operation;
 
+use ArrayIterator;
 use Closure;
 use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Transformation\Run;
+
+use function is_array;
 
 /**
  * @template TKey
@@ -38,8 +41,8 @@ final class Flatten extends AbstractOperation implements Operation
                         foreach ($value as $subValue) {
                             yield $subValue;
                         }
-                    } else {
-                        foreach ((new Run(new Flatten($depth - 1)))($value) as $subValue) {
+                    } elseif (is_array($value)) {
+                        foreach ((new Run(new Flatten($depth - 1)))(new ArrayIterator($value)) as $subValue) {
                             yield $subValue;
                         }
                     }

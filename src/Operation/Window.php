@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace loophp\collection\Operation;
 
+use ArrayIterator;
 use Closure;
 use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
-use loophp\collection\Iterator\IterableIterator;
 use loophp\collection\Transformation\Run;
 
 /**
@@ -20,7 +20,7 @@ final class Window extends AbstractOperation implements Operation
 {
     public function __construct(int ...$length)
     {
-        $this->storage['length'] = $length;
+        $this->storage['length'] = new ArrayIterator($length);
     }
 
     public function __invoke(): Closure
@@ -28,13 +28,13 @@ final class Window extends AbstractOperation implements Operation
         return
             /**
              * @psalm-param \Iterator<TKey, T> $iterator
-             * @psalm-param list<int> $length
+             * @psalm-param \ArrayIterator<int, int> $length
              *
              * @psalm-return \Generator<int, list<T>>
              */
-            static function (Iterator $iterator, array $length): Generator {
+            static function (Iterator $iterator, ArrayIterator $length): Generator {
                 /** @psalm-var \Iterator<int, int> $length */
-                $length = new IterableIterator((new Run(new Loop()))($length));
+                $length = (new Run(new Loop()))($length);
 
                 for ($i = 0; iterator_count($iterator) > $i; ++$i) {
                     /** @psalm-var list<T> $window */
