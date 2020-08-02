@@ -22,12 +22,11 @@ final class Flip extends AbstractOperation implements Operation
             /**
              * @psalm-param \Iterator<TKey, T> $iterator
              *
-             * @psalm-return \Generator<string, TKey>
+             * @psalm-return \Generator<int|string, TKey>
              */
             static function (Iterator $iterator): Generator {
                 foreach ($iterator as $key => $value) {
-                    // Todo: Remove the cast to string.
-                    yield (string) $value => $key;
+                    yield $value => $key;
                 }
             };
     }
