@@ -9,7 +9,11 @@ use Iterator;
 use OuterIterator;
 
 /**
- * @implements Iterator<string>
+ * @template TKey
+ * @psalm-template TKey of array-key
+ * @template T
+ *
+ * @implements \Iterator<TKey, T>
  */
 final class StringIterator extends ProxyIterator implements Iterator, OuterIterator
 {

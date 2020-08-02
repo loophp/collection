@@ -30,6 +30,10 @@ final class Collapse extends AbstractOperation implements Operation
                         continue;
                     }
 
+                    /**
+                     * @var TKey $subKey
+                     * @var T $subValue
+                     */
                     foreach ($value as $subKey => $subValue) {
                         yield $subKey => $subValue;
                     }

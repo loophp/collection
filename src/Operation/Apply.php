@@ -26,18 +26,16 @@ final class Apply extends AbstractOperation implements Operation
     }
 
     /**
-     * @psalm-template U
-     *
-     * @psalm-return \Closure(\Iterator<TKey, T>, list<callable(T, TKey):(U)>):(\Generator<TKey, T>)
+     * @psalm-return \Closure(\Iterator<TKey, T>, list<callable(T, TKey):(bool)>):(\Generator<TKey, T>)
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-template U
+             * @psalm-template bool
              *
              * @psalm-param \Iterator<TKey, T> $iterator
-             * @psalm-param list<callable(T, TKey):(U)> $callbacks
+             * @psalm-param list<callable(T, TKey):(bool)> $callbacks
              */
             static function (Iterator $iterator, array $callbacks): Generator {
                 foreach ($iterator as $key => $value) {
