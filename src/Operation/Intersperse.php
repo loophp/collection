@@ -58,13 +58,12 @@ final class Intersperse extends AbstractOperation implements Operation
              * @psalm-return \Generator<int, T>
              */
             static function (Iterator $iterator, $element, int $every, int $startAt): Generator {
-                foreach ($iterator as $value) {
+                foreach ($iterator as $key => $value) {
                     if (0 === $startAt++ % $every) {
                         yield $element;
                     }
 
-                    // Todo: Add the $key
-                    yield $value;
+                    yield $key => $value;
                 }
             };
     }

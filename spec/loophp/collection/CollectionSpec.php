@@ -1020,64 +1020,107 @@ class CollectionSpec extends ObjectBehavior
 
     public function it_can_intersperse(): void
     {
+        $generator = static function () {
+            yield 0 => 'foo';
+
+            yield 0 => 'A';
+
+            yield 1 => 'foo';
+
+            yield 1 => 'B';
+
+            yield 2 => 'foo';
+
+            yield 2 => 'C';
+
+            yield 3 => 'foo';
+
+            yield 3 => 'D';
+
+            yield 4 => 'foo';
+
+            yield 4 => 'E';
+
+            yield 5 => 'foo';
+
+            yield 5 => 'F';
+        };
+
         $this::fromIterable(range('A', 'F'))
             ->intersperse('foo')
-            ->shouldIterateAs([
-                0 => 'foo',
-                1 => 'A',
-                2 => 'foo',
-                3 => 'B',
-                4 => 'foo',
-                5 => 'C',
-                6 => 'foo',
-                7 => 'D',
-                8 => 'foo',
-                9 => 'E',
-                10 => 'foo',
-                11 => 'F',
-            ]);
+            ->shouldIterateAs($generator());
+
+        $generator = static function () {
+            yield 0 => 'foo';
+
+            yield 0 => 'A';
+
+            yield 1 => 'B';
+
+            yield 2 => 'foo';
+
+            yield 2 => 'C';
+
+            yield 3 => 'D';
+
+            yield 4 => 'foo';
+
+            yield 4 => 'E';
+
+            yield 5 => 'F';
+        };
 
         $this::fromIterable(range('A', 'F'))
             ->intersperse('foo', 2, 0)
-            ->shouldIterateAs([
-                0 => 'foo',
-                1 => 'A',
-                2 => 'B',
-                3 => 'foo',
-                4 => 'C',
-                5 => 'D',
-                6 => 'foo',
-                7 => 'E',
-                8 => 'F',
-            ]);
+            ->shouldIterateAs($generator());
+
+        $generator = static function () {
+            yield 0 => 'A';
+
+            yield 1 => 'foo';
+
+            yield 1 => 'B';
+
+            yield 2 => 'C';
+
+            yield 3 => 'foo';
+
+            yield 3 => 'D';
+
+            yield 4 => 'E';
+
+            yield 5 => 'foo';
+
+            yield 5 => 'F';
+        };
 
         $this::fromIterable(range('A', 'F'))
             ->intersperse('foo', 2, 1)
-            ->shouldIterateAs([
-                0 => 'A',
-                1 => 'foo',
-                2 => 'B',
-                3 => 'C',
-                4 => 'foo',
-                5 => 'D',
-                6 => 'E',
-                7 => 'foo',
-                8 => 'F',
-            ]);
+            ->shouldIterateAs($generator());
+
+        $generator = static function () {
+            yield 0 => 'foo';
+
+            yield 0 => 'A';
+
+            yield 1 => 'B';
+
+            yield 2 => 'foo';
+
+            yield 2 => 'C';
+
+            yield 3 => 'D';
+
+            yield 4 => 'foo';
+
+            yield 4 => 'E';
+
+            yield 5 => 'F';
+        };
 
         $this::fromIterable(range('A', 'F'))
             ->intersperse('foo', 2, 2)
-            ->shouldIterateAs([
-                0 => 'foo',
-                1 => 'A',
-                2 => 'B',
-                3 => 'foo',
-                4 => 'C',
-                5 => 'D',
-                6 => 'foo',
-                7 => 'E',
-                8 => 'F',
-            ]);
+            ->shouldIterateAs($generator());
 
         $this::fromIterable(range('A', 'F'))
             ->shouldThrow(Exception::class)
