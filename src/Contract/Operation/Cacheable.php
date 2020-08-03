@@ -8,9 +8,9 @@ use loophp\collection\Contract\Collection;
 use Psr\Cache\CacheItemPoolInterface;
 
 /**
- * @template TKey
+ * @psalm-template TKey
  * @psalm-template TKey of array-key
- * @template T
+ * @psalm-template T
  */
 interface Cacheable
 {

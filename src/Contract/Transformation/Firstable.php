@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace loophp\collection\Contract\Transformation;
 
 /**
- * @template TKey
+ * @psalm-template TKey
  * @psalm-template TKey of array-key
- * @template T
+ * @psalm-template T
  */
 interface Firstable
 {

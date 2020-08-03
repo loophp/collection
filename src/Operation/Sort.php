@@ -11,9 +11,9 @@ use loophp\collection\Contract\Operation;
 use loophp\collection\Iterator\SortableIterableIterator;
 
 /**
- * @template TKey
+ * @psalm-template TKey
  * @psalm-template TKey of array-key
- * @template T
+ * @psalm-template T
  */
 final class Sort extends AbstractOperation implements Operation
 {

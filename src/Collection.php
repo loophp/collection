@@ -97,9 +97,9 @@ use const PHP_INT_MAX;
 /**
  * Class Collection.
  *
- * @template TKey
+ * @psalm-template TKey
  * @psalm-template TKey of array-key
- * @template T
+ * @psalm-template T
  *
  * @implements \loophp\collection\Contract\Collection<TKey, T>
  */

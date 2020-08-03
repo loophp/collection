@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace loophp\collection\Contract\Transformation;
 
 /**
- * @template T
+ * @psalm-template T
  */
 interface Lastable
 {

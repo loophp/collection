@@ -9,9 +9,9 @@ use Iterator;
 use loophp\collection\Contract\Transformation;
 
 /**
- * @template TKey
+ * @psalm-template TKey
  * @psalm-template TKey of array-key
- * @template T
+ * @psalm-template T
  *
  * @implements Transformation<TKey, T>
  */

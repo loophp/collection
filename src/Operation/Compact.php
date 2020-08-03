@@ -13,9 +13,9 @@ use loophp\collection\Transformation\Run;
 use function in_array;
 
 /**
- * @template TKey
+ * @psalm-template TKey
  * @psalm-template TKey of array-key
- * @template T
+ * @psalm-template T
  */
 final class Compact extends AbstractOperation implements Operation
 {

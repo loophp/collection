@@ -9,9 +9,9 @@ use loophp\collection\Contract\Collection;
 use const PHP_INT_MAX;
 
 /**
- * @template TKey
+ * @psalm-template TKey
  * @psalm-template TKey of array-key
- * @template T
+ * @psalm-template T
  */
 interface Flattenable
 {

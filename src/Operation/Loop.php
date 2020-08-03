@@ -11,9 +11,9 @@ use Iterator;
 use loophp\collection\Contract\Operation;
 
 /**
- * @template TKey
+ * @psalm-template TKey
  * @psalm-template TKey of array-key
- * @template T
+ * @psalm-template T
  */
 final class Loop extends AbstractOperation implements Operation
 {

@@ -14,9 +14,9 @@ use loophp\collection\Transformation\Run;
 use function count;
 
 /**
- * @template TKey
+ * @psalm-template TKey
  * @psalm-template TKey of array-key
- * @template T
+ * @psalm-template T
  */
 final class Chunk extends AbstractOperation implements Operation
 {

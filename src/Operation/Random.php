@@ -11,9 +11,9 @@ use loophp\collection\Contract\Operation;
 use loophp\collection\Transformation\Run;
 
 /**
- * @template TKey
+ * @psalm-template TKey
  * @psalm-template TKey of array-key
- * @template T
+ * @psalm-template T
  */
 final class Random extends AbstractOperation implements Operation
 {

@@ -11,9 +11,9 @@ interface Timesable
     /**
      * Create a new instance by invoking the callback a given amount of times.
      *
-     * @template TKey
+     * @psalm-template TKey
      * @psalm-template TKey of array-key
-     * @template T
+     * @psalm-template T
      *
      * @return \loophp\collection\Contract\Collection<TKey, T>
      */

@@ -13,9 +13,9 @@ use loophp\collection\Contract\Operation;
 use const E_USER_WARNING;
 
 /**
- * @template TKey
+ * @psalm-template TKey
  * @psalm-template TKey of array-key
- * @template T
+ * @psalm-template T
  */
 final class Combine extends AbstractOperation implements Operation
 {

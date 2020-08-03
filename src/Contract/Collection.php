@@ -81,9 +81,9 @@ use loophp\collection\Contract\Transformation\Transformable;
 use loophp\collection\Contract\Transformation\Truthyable;
 
 /**
- * @template TKey
+ * @psalm-template TKey
  * @psalm-template TKey of array-key
- * @template T
+ * @psalm-template T
  *
  * @template-extends Allable<TKey, T>
  * @template-extends Appendable<TKey, T>
@@ -233,18 +233,18 @@ interface Collection extends
     /**
      * Create a new instance with no items.
      *
-     * @template NewTKey
+     * @psalm-template NewTKey
      * @psalm-template NewTKey of array-key
-     * @template NewT
+     * @psalm-template NewT
      *
      * @psalm-return \loophp\collection\Collection<NewTKey, NewT>
      */
     public static function empty(): \loophp\collection\Collection;
 
     /**
-     * @template NewTKey
+     * @psalm-template NewTKey
      * @psalm-template NewTKey of array-key
-     * @template NewT
+     * @psalm-template NewT
      *
      * @param mixed ...$parameters
      *
@@ -253,9 +253,9 @@ interface Collection extends
     public static function fromCallable(callable $callable, ...$parameters): \loophp\collection\Collection;
 
     /**
-     * @template NewTKey
+     * @psalm-template NewTKey
      * @psalm-template NewTKey of array-key
-     * @template NewT
+     * @psalm-template NewT
      *
      * @param iterable<mixed> $iterable
      * @psalm-param iterable<NewTKey, NewT> $iterable
@@ -265,9 +265,9 @@ interface Collection extends
     public static function fromIterable(iterable $iterable): \loophp\collection\Collection;
 
     /**
-     * @template NewTKey
+     * @psalm-template NewTKey
      * @psalm-template NewTKey of array-key
-     * @template NewT
+     * @psalm-template NewT
      *
      * @param resource $resource
      *
@@ -276,18 +276,18 @@ interface Collection extends
     public static function fromResource($resource): \loophp\collection\Collection;
 
     /**
-     * @template NewTKey
+     * @psalm-template NewTKey
      * @psalm-template NewTKey of array-key
-     * @template NewT
+     * @psalm-template NewT
      *
      * @psalm-return \loophp\collection\Collection<NewTKey, NewT>
      */
     public static function fromString(string $string, string $delimiter = ''): \loophp\collection\Collection;
 
     /**
-     * @template NewTKey
+     * @psalm-template NewTKey
      * @psalm-template NewTKey of array-key
-     * @template NewT
+     * @psalm-template NewT
      *
      * Create a collection with the data.
      *

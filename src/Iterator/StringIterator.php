@@ -9,9 +9,9 @@ use Iterator;
 use OuterIterator;
 
 /**
- * @template TKey
+ * @psalm-template TKey
  * @psalm-template TKey of array-key
- * @template T
+ * @psalm-template T
  *
  * @implements \Iterator<TKey, T>
  */

@@ -12,9 +12,9 @@ use loophp\collection\Contract\Operation;
 use function in_array;
 
 /**
- * @template TKey
+ * @psalm-template TKey
  * @psalm-template TKey of array-key
- * @template T
+ * @psalm-template T
  */
 final class DiffKeys extends AbstractOperation implements Operation
 {

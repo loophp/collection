@@ -7,9 +7,9 @@ namespace loophp\collection\Contract\Transformation;
 use loophp\collection\Contract\Operation;
 
 /**
- * @template TKey
+ * @psalm-template TKey
  * @psalm-template TKey of array-key
- * @template T
+ * @psalm-template T
  */
 interface Runable
 {

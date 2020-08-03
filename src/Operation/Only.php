@@ -12,9 +12,9 @@ use loophp\collection\Contract\Operation;
 use function array_key_exists;
 
 /**
- * @template TKey
+ * @psalm-template TKey
  * @psalm-template TKey of array-key
- * @template T
+ * @psalm-template T
  */
 final class Only extends AbstractOperation implements Operation
 {

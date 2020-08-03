@@ -7,9 +7,9 @@ namespace loophp\collection\Contract;
 use Iterator;
 
 /**
- * @template TKey
+ * @psalm-template TKey
  * @psalm-template TKey of array-key
- * @template T
+ * @psalm-template T
  */
 interface Transformation
 {

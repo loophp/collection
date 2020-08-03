@@ -16,9 +16,9 @@ use loophp\collection\Contract\Operation;
  * Insert a given value between each element of a collection.
  * Indices are not preserved.
  *
- * @template TKey
+ * @psalm-template TKey
  * @psalm-template TKey of array-key
- * @template T
+ * @psalm-template T
  */
 final class Intersperse extends AbstractOperation implements Operation
 {

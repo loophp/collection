@@ -9,9 +9,9 @@ use loophp\collection\Contract\Transformation;
 use loophp\collection\Operation\Reverse;
 
 /**
- * @template TKey
+ * @psalm-template TKey
  * @psalm-template TKey of array-key
- * @template T
+ * @psalm-template T
  *
  * @implements Transformation<TKey, T>
  */

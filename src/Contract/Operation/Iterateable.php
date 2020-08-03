@@ -9,9 +9,9 @@ use loophp\collection\Contract\Collection;
 interface Iterateable
 {
     /**
-     * @template TKey
+     * @psalm-template TKey
      * @psalm-template TKey of array-key
-     * @template T
+     * @psalm-template T
      *
      * @param mixed ...$parameters
      *

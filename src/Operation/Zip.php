@@ -12,9 +12,9 @@ use loophp\collection\Iterator\IterableIterator;
 use MultipleIterator;
 
 /**
- * @template TKey
+ * @psalm-template TKey
  * @psalm-template TKey of array-key
- * @template T
+ * @psalm-template T
  */
 final class Zip extends AbstractOperation implements Operation
 {

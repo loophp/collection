@@ -10,9 +10,9 @@ use Iterator;
 use loophp\collection\Contract\Operation;
 
 /**
- * @template TKey
- * @template T
- * @template T of array-key
+ * @psalm-template TKey
+ * @psalm-template T
+ * @psalm-template T of array-key
  */
 final class Flip extends AbstractOperation implements Operation
 {
