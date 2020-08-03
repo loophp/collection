@@ -13,7 +13,7 @@
 
 ## Description
 
-Collection is a functional utility library for PHP greater than 7.2.5.
+Collection is a functional utility library for PHP greater than 7.1.3.
 
 It's similar to [other collection libraries](https://packagist.org/?query=collection) based on regular PHP arrays,
 but with a lazy mechanism under the hood that strives to do as little work as possible while being as flexible
@@ -34,6 +34,7 @@ On top of this, this library:
  * uses [S.O.L.I.D. principles](https://en.wikipedia.org/wiki/SOLID),
  * does not have any external dependency,
  * fully tested,
+ * type safe (_type safe @ > 98%_),
  * framework agnostic.
  
 Except a few methods, most methods are [pure](https://en.wikipedia.org/wiki/Pure_function) and return a
@@ -41,8 +42,8 @@ Except a few methods, most methods are [pure](https://en.wikipedia.org/wiki/Pure
 
 This library has been inspired by:
 * [Laravel Support Package](https://github.com/illuminate/support)
-* [mtdowling/transducers](https://github.com/mtdowling/transducers.php)
 * [DusanKasan/Knapsack](https://github.com/DusanKasan/Knapsack)
+* [mtdowling/transducers](https://github.com/mtdowling/transducers.php)
 * [Ruby Array](https://ruby-doc.org/core-2.7.0/Array.html)
 * [Collect.js](https://collect.js.org/)
 * [nikic/iter](https://github.com/nikic/iter)
