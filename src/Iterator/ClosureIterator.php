@@ -26,7 +26,7 @@ final class ClosureIterator extends ProxyIterator implements Iterator, OuterIter
 
     /**
      * @var callable
-     * @psalm-var callable(T...):(Generator<TKey, T>)
+     * @psalm-var callable(mixed...):(Generator<TKey, T>)
      */
     private $callable;
 
@@ -39,7 +39,7 @@ final class ClosureIterator extends ProxyIterator implements Iterator, OuterIter
     /**
      * @param mixed ...$arguments
      * @psalm-param T ...$arguments
-     * @psalm-param callable(T...):(Generator<TKey,T>) $callable
+     * @psalm-param callable(mixed...):(Generator<TKey,T>) $callable
      */
     public function __construct(callable $callable, ...$arguments)
     {

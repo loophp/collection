@@ -17,8 +17,6 @@ use loophp\collection\Contract\Transformation;
 use loophp\collection\Operation\AbstractOperation;
 use OutOfRangeException;
 use PhpSpec\ObjectBehavior;
-use Psr\Cache\CacheItemInterface;
-use Psr\Cache\CacheItemPoolInterface;
 use stdClass;
 
 class CollectionSpec extends ObjectBehavior
@@ -226,86 +224,31 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs(['1', '2', '3']);
     }
 
-    public function it_can_cache(CacheItemPoolInterface $cache, CacheItemInterface $cacheItemFound0, CacheItemInterface $cacheItemNotFound1, CacheItemInterface $cacheItemNotFound2, CacheItemInterface $cacheItemNotFound3): void
+    public function it_can_cache(): void
     {
         $fhandle = fopen(__DIR__ . '/../../fixtures/sample.txt', 'rb');
 
-        $cache
-            ->getItem('1')
-            ->shouldBeCalledOnce();
-        $cache
-            ->getItem('2')
-            ->shouldBeCalledOnce();
-        $cache
-            ->getItem('3')
-            ->shouldBeCalledOnce();
+        $this::fromResource($fhandle)
+            ->window(2)
+            ->shouldIterateAs([
+                [],
+            ]);
 
-        $cache
-            ->getItem('0')
-            ->willReturn($cacheItemFound0);
-
-        $cache
-            ->getItem('1')
-            ->willReturn($cacheItemNotFound1);
-
-        $cache
-            ->getItem('2')
-            ->willReturn($cacheItemNotFound2);
-
-        $cache
-            ->getItem('3')
-            ->willReturn($cacheItemNotFound3);
-
-        $cacheItemFound0
-            ->isHit()
-            ->willReturn(true);
-
-        $cacheItemNotFound1
-            ->isHit()
-            ->willReturn(false);
-
-        $cacheItemNotFound2
-            ->isHit()
-            ->willReturn(false);
-
-        $cacheItemNotFound3
-            ->isHit()
-            ->willReturn(false);
-
-        $cacheItemNotFound1
-            ->set([1, 'b'])
-            ->shouldBeCalledOnce();
-
-        $cacheItemNotFound2
-            ->set([2, 'c'])
-            ->shouldBeCalledOnce();
-
-        $cache
-            ->save($cacheItemNotFound1)
-            ->shouldBeCalledOnce();
-
-        $cacheItemFound0
-            ->get()
-            ->willReturn([0, 'a']);
-
-        $cache
-            ->save($cacheItemNotFound1)
-            ->shouldBeCalled();
-
-        $cacheItemNotFound1
-            ->get()
-            ->willReturn([1, 'b']);
-
-        $cache
-            ->save($cacheItemNotFound2)
-            ->shouldBeCalled();
-
-        $cacheItemNotFound2
-            ->get()
-            ->willReturn([2, 'c']);
+        $fhandle = fopen(__DIR__ . '/../../fixtures/sample.txt', 'rb');
 
         $this::fromResource($fhandle)
-            ->cache($cache)
+            ->cache()
+            ->window(2)
+            ->shouldIterateAs([
+                [0 => 'a', 1 => 'b'],
+                [1 => 'b', 2 => 'c'],
+                [2 => 'c'],
+            ]);
+
+        $fhandle = fopen(__DIR__ . '/../../fixtures/sample.txt', 'rb');
+
+        $this::fromResource($fhandle)
+            ->cache()
             ->shouldIterateAs(['a', 'b', 'c']);
 
         $fhandle = fopen(__DIR__ . '/../../fixtures/sample.txt', 'rb');
