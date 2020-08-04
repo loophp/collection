@@ -1211,6 +1211,49 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs(['A' => 'A', 'B' => 'B', 'C' => 'C', 'D' => 'D', 'E' => 'E', 0 => 'foo', 1 => 'foo', 2 => 'foo', 3 => 'foo', 4 => 'foo']);
     }
 
+    public function it_can_pair(): void
+    {
+        $input = [
+            [
+                'key' => 'k1',
+                'value' => 'v1',
+            ],
+            [
+                'key' => 'k2',
+                'value' => 'v2',
+            ],
+            [
+                'key' => 'k3',
+                'value' => 'v3',
+            ],
+            [
+                'key' => 'k4',
+                'value' => 'v4',
+            ],
+            [
+                'key' => 'k4',
+                'value' => 'v5',
+            ],
+        ];
+
+        $gen = static function () {
+            yield 'k1' => 'v1';
+
+            yield 'k2' => 'v2';
+
+            yield 'k3' => 'v3';
+
+            yield 'k4' => 'v4';
+
+            yield 'k4' => 'v5';
+        };
+
+        $this::fromIterable($input)
+            ->unwrap()
+            ->pair()
+            ->shouldIterateAs($gen());
+    }
+
     public function it_can_permutate(): void
     {
         $this::fromIterable(range('a', 'c'))

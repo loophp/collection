@@ -45,6 +45,7 @@ use loophp\collection\Operation\Normalize;
 use loophp\collection\Operation\Nth;
 use loophp\collection\Operation\Only;
 use loophp\collection\Operation\Pad;
+use loophp\collection\Operation\Pair;
 use loophp\collection\Operation\Permutate;
 use loophp\collection\Operation\Pluck;
 use loophp\collection\Operation\Prepend;
@@ -452,6 +453,11 @@ final class Collection implements CollectionInterface
     public function pad(int $size, $value): CollectionInterface
     {
         return $this->run(new Pad($size, $value));
+    }
+
+    public function pair(): CollectionInterface
+    {
+        return $this->run(new Pair());
     }
 
     public function permutate(): CollectionInterface

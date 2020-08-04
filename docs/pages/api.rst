@@ -714,6 +714,56 @@ Signature: ``Collection::pad(int $size, $value);``
     $collection = Collection::with(range(1, 5))
         ->pad(10, 'foo');
 
+pair
+~~~~
+
+Make an associative collection from pairs of values.
+
+Interface: `Pairable`_
+
+Signature: ``Collection::pair();``
+
+.. code-block:: php
+
+    $input = [
+        [
+            'key' => 'k1',
+            'value' => 'v1',
+        ],
+        [
+            'key' => 'k2',
+            'value' => 'v2',
+        ],
+        [
+            'key' => 'k3',
+            'value' => 'v3',
+        ],
+        [
+            'key' => 'k4',
+            'value' => 'v4',
+        ],
+        [
+            'key' => 'k4',
+            'value' => 'v5',
+        ],
+    ];
+
+    $c = Collection::fromIterable($input)
+        ->unwrap()
+        ->pair()
+        ->group()
+        ->all();
+
+    // [
+    //    [k1] => v1
+    //    [k2] => v2
+    //    [k3] => v3
+    //    [k4] => [
+    //        [0] => v4
+    //        [1] => v5
+    //    ]
+    // ]
+
 permutate
 ~~~~~~~~~
 
@@ -1276,6 +1326,7 @@ Interface: `Truthyable`_
 .. _Nullsyable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/Nullsyable.php
 .. _Onlyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Onlyable.php
 .. _Padable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Padable.php
+.. _Pairable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Pairable.php
 .. _Permutateable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Permutateable.php
 .. _Pluckable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Pluckable.php
 .. _Prependable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Prependable.php

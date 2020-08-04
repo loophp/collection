@@ -39,6 +39,7 @@ use loophp\collection\Contract\Operation\Normalizeable;
 use loophp\collection\Contract\Operation\Nthable;
 use loophp\collection\Contract\Operation\Onlyable;
 use loophp\collection\Contract\Operation\Padable;
+use loophp\collection\Contract\Operation\Pairable;
 use loophp\collection\Contract\Operation\Permutateable;
 use loophp\collection\Contract\Operation\Pluckable;
 use loophp\collection\Contract\Operation\Prependable;
@@ -125,6 +126,7 @@ use loophp\collection\Contract\Transformation\Truthyable;
  * @template-extends Nthable<TKey, T>
  * @template-extends Onlyable<TKey, T>
  * @template-extends Padable<TKey, T>
+ * @template-extends Pairable<TKey, T>
  * @template-extends Permutateable<TKey, T>
  * @template-extends Pluckable<TKey, T>
  * @template-extends Prependable<TKey, T>
@@ -200,6 +202,7 @@ interface Collection extends
     Nullsyable,
     Onlyable,
     Padable,
+    Pairable,
     Permutateable,
     Pluckable,
     Prependable,
