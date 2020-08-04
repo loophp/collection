@@ -1090,6 +1090,34 @@ Signature: ``Collection::transpose();``
     $result = Collection::with($records)
         ->transpose();
 
+unpair
+~~~~~~
+
+Unpair a collection of pairs.
+
+Interface: `Unpairable`_
+
+Signature: ``Collection::unpair();``
+
+.. code-block:: php
+
+    $input = [
+        'k1' => 'v1',
+        'k2' => 'v2',
+        'k3' => 'v3',
+        'k4' => 'v4',
+    ];
+
+    $c = Collection::fromIterable($input)
+        ->unpair();
+
+    // [
+    //     ['k1', 'v1'],
+    //     ['k2', 'v2'],
+    //     ['k3', 'v3'],
+    //     ['k4', 'v4'],
+    // ];
+
 until
 ~~~~~
 
@@ -1346,6 +1374,7 @@ Interface: `Truthyable`_
 .. _Transformable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/Transformable.php
 .. _Transposeable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Transposeable.php
 .. _Truthyable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/Truthyable.php
+.. _Unpair: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Unpairable.php
 .. _Untilable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Untilable.php
 .. _Unwrapable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Unwrapable.php
 .. _Walkable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Walkable.php

@@ -59,6 +59,7 @@ use loophp\collection\Contract\Operation\Splitable;
 use loophp\collection\Contract\Operation\Tailable;
 use loophp\collection\Contract\Operation\Timesable;
 use loophp\collection\Contract\Operation\Transposeable;
+use loophp\collection\Contract\Operation\Unpairable;
 use loophp\collection\Contract\Operation\Untilable;
 use loophp\collection\Contract\Operation\Unwrapable;
 use loophp\collection\Contract\Operation\Walkable;
@@ -226,6 +227,7 @@ interface Collection extends
     Transformable,
     Transposeable,
     Truthyable,
+    Unpairable,
     Untilable,
     Unwrapable,
     Walkable,

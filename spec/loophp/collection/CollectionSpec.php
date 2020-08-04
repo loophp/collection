@@ -1715,6 +1715,25 @@ class CollectionSpec extends ObjectBehavior
             ->shouldReturn(false);
     }
 
+    public function it_can_unpair(): void
+    {
+        $input = [
+            'k1' => 'v1',
+            'k2' => 'v2',
+            'k3' => 'v3',
+            'k4' => 'v4',
+        ];
+
+        $this::fromIterable($input)
+            ->unpair()
+            ->shouldIterateAs([
+                ['k1', 'v1'],
+                ['k2', 'v2'],
+                ['k3', 'v3'],
+                ['k4', 'v4'],
+            ]);
+    }
+
     public function it_can_until(): void
     {
         $collatz = static function (int $initial = 1): int {
