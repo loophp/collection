@@ -38,10 +38,12 @@ final class Flatten extends AbstractOperation implements Operation
                     if (false === is_iterable($value)) {
                         yield $value;
                     } elseif (1 === $depth) {
+                        /** @psalm-var T $subValue */
                         foreach ($value as $subValue) {
                             yield $subValue;
                         }
                     } elseif (is_array($value)) {
+                        /** @psalm-var T $subValue */
                         foreach ((new Run(new Flatten($depth - 1)))(new ArrayIterator($value)) as $subValue) {
                             yield $subValue;
                         }

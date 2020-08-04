@@ -22,7 +22,7 @@ final class Unpair extends AbstractOperation implements Operation
             /**
              * @psalm-param \Iterator<TKey, T> $iterator
              *
-             * @psalm-return \Generator<TKey, T>
+             * @psalm-return \Generator<int, array{TKey, T}>
              */
             static function (Iterator $iterator): Generator {
                 foreach ($iterator as $key => $value) {

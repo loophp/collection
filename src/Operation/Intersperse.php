@@ -37,7 +37,9 @@ final class Intersperse extends AbstractOperation implements Operation
 
     public function __invoke(): Closure
     {
+        /** @var int $every */
         $every = $this->get('atEvery');
+        /** @var int $startAt */
         $startAt = $this->get('startAt');
 
         if (0 > $every) {
@@ -55,7 +57,7 @@ final class Intersperse extends AbstractOperation implements Operation
              * @param mixed $element
              * @psalm-param T $element
              *
-             * @psalm-return \Generator<int, T>
+             * @psalm-return \Generator<int|TKey, T>
              */
             static function (Iterator $iterator, $element, int $every, int $startAt): Generator {
                 foreach ($iterator as $key => $value) {

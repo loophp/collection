@@ -34,16 +34,16 @@ final class Reduction extends AbstractOperation implements Operation
         return
             /**
              * @psalm-param \Iterator<TKey, T> $iterator
-             * @psalm-param callable(T|null, T, TKey):(T|null) $callable
+             * @psalm-param callable(T|null, T, TKey):(T|null) $callback
              *
              * @param mixed $initial
              * @psalm-param T|null $initial
              *
-             * @psalm-return \Generator<int, T|null>
+             * @psalm-return \Generator<TKey, T|null>
              */
             static function (Iterator $iterator, callable $callback, $initial): Generator {
                 foreach ($iterator as $key => $value) {
-                    yield $initial = $callback($initial, $value, $key);
+                    yield $key => ($initial = $callback($initial, $value, $key));
                 }
             };
     }
