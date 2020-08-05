@@ -32,8 +32,6 @@ final class Apply extends AbstractOperation implements Operation
     {
         return
             /**
-             * @psalm-template bool
-             *
              * @psalm-param \Iterator<TKey, T> $iterator
              * @psalm-param list<callable(T, TKey):(bool)> $callbacks
              */
