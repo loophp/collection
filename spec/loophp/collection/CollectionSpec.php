@@ -113,6 +113,39 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs([1, 2, 3, 4, 5, 6]);
     }
 
+    public function it_can_associate(): void
+    {
+        $input = range(1, 10);
+
+        $this::fromIterable($input)
+            ->associate()
+            ->shouldIterateAs($input);
+
+        $this::fromIterable($input)
+            ->associate(
+                static function ($key, $value) {
+                    return $key * 2;
+                },
+                static function ($key, $value) {
+                    return $value * 2;
+                }
+            )
+            ->shouldIterateAs(
+                [
+                    0 => 2,
+                    2 => 4,
+                    4 => 6,
+                    6 => 8,
+                    8 => 10,
+                    10 => 12,
+                    12 => 14,
+                    14 => 16,
+                    16 => 18,
+                    18 => 20,
+                ]
+            );
+    }
+
     public function it_can_be_constructed_from_a_stream(): void
     {
         $string = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';

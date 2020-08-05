@@ -202,6 +202,42 @@ Signature: ``Collection::apply(...$callbacks);``
     $collection
         ->apply($callback);
 
+associate
+~~~~~~~~~
+
+Transform keys and values of the collection independently and combine them.
+
+Interface: `Associateable`_
+
+Signature: ``Collection::associate(?callable $callbackForKeys = null, ?callable $callbackForValues = null);``
+
+.. code-block:: php
+
+    $input = range(1, 10);
+
+    Collection::fromIterable($input)
+        ->associate(
+            static function ($key, $value) {
+                return $key * 2;
+            },
+            static function ($key, $value) {
+                return $value * 2;
+            }
+        );
+
+    // [
+    //   0 => 2,
+    //   2 => 4,
+    //   4 => 6,
+    //   6 => 8,
+    //   8 => 10,
+    //   10 => 12,
+    //   12 => 14,
+    //   14 => 16,
+    //   16 => 18,
+    //   18 => 20,
+    // ]
+
 cache
 ~~~~~
 
@@ -1313,6 +1349,7 @@ Interface: `Truthyable`_
 .. _Allable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/Allable.php
 .. _Appendable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Appendable.php
 .. _Applyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Applyable.php
+.. _Associateable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Associateable.php
 .. _Cacheable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Cacheable.php
 .. _Chunkable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Chunkable.php
 .. _Collapseable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Collapseable.php

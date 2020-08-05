@@ -15,6 +15,7 @@ use loophp\collection\Iterator\ResourceIterator;
 use loophp\collection\Iterator\StringIterator;
 use loophp\collection\Operation\Append;
 use loophp\collection\Operation\Apply;
+use loophp\collection\Operation\Associate;
 use loophp\collection\Operation\Cache;
 use loophp\collection\Operation\Chunk;
 use loophp\collection\Operation\Collapse;
@@ -190,6 +191,13 @@ final class Collection implements CollectionInterface
     public function apply(callable ...$callables): CollectionInterface
     {
         return $this->run(new Apply(...$callables));
+    }
+
+    public function associate(
+        ?callable $callbackForKeys = null,
+        ?callable $callbackForValues = null
+    ): CollectionInterface {
+        return $this->run(new Associate($callbackForKeys, $callbackForValues));
     }
 
     public function cache(?CacheItemPoolInterface $cache = null): CollectionInterface

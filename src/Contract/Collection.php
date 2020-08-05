@@ -8,6 +8,7 @@ use IteratorAggregate;
 use JsonSerializable;
 use loophp\collection\Contract\Operation\Appendable;
 use loophp\collection\Contract\Operation\Applyable;
+use loophp\collection\Contract\Operation\Associateable;
 use loophp\collection\Contract\Operation\Cacheable;
 use loophp\collection\Contract\Operation\Chunkable;
 use loophp\collection\Contract\Operation\Collapseable;
@@ -90,6 +91,7 @@ use loophp\collection\Contract\Transformation\Truthyable;
  * @template-extends Allable<TKey, T>
  * @template-extends Appendable<TKey, T>
  * @template-extends Applyable<TKey, T>
+ * @template-extends Associateable<TKey, T>
  * @template-extends Cacheable<TKey, T>
  * @template-extends Chunkable<TKey, T>
  * @template-extends Collapseable<TKey, T>
@@ -160,6 +162,7 @@ interface Collection extends
     Allable,
     Appendable,
     Applyable,
+    Associateable,
     Cacheable,
     Chunkable,
     Collapseable,
