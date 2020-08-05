@@ -1628,20 +1628,87 @@ class CollectionSpec extends ObjectBehavior
 
     public function it_can_sort(): void
     {
-        $input = range('A', 'E');
-        $input = array_combine($input, $input);
+        $input = array_combine(range('A', 'E'), range('E', 'A'));
+
+        $this::fromIterable($input)
+            ->sort(3)
+            ->shouldThrow(Exception::class)
+            ->during('all');
 
         $this::fromIterable($input)
             ->sort()
-            ->shouldIterateAs($input);
+            ->shouldIterateAs(array_combine(range('E', 'A'), range('A', 'E')));
+
+        $this::fromIterable($input)
+            ->sort(Operation\Sortable::BY_VALUES)
+            ->shouldIterateAs(array_combine(range('E', 'A'), range('A', 'E')));
+
+        $this::fromIterable($input)
+            ->sort(Operation\Sortable::BY_KEYS)
+            ->shouldIterateAs(array_combine(range('A', 'E'), range('E', 'A')));
 
         $this::fromIterable($input)
             ->sort(
-                static function ($left, $right): int {
-                    return $right <=> $left;
+                Operation\Sortable::BY_VALUES,
+                static function (array $left, array $right): int {
+                    return current($right) <=> current($left);
                 }
             )
-            ->shouldIterateAs(array_reverse($input, true));
+            ->shouldIterateAs(array_combine(range('A', 'E'), range('E', 'A')));
+
+        $this::fromIterable($input)
+            ->sort(Operation\Sortable::BY_KEYS)
+            ->shouldIterateAs(array_combine(range('A', 'E'), range('E', 'A')));
+
+        $inputGen = static function () {
+            yield 'k1' => 'v1';
+
+            yield 'k2' => 'v2';
+
+            yield 'k3' => 'v3';
+
+            yield 'k4' => 'v4';
+
+            yield 'k1' => 'v1';
+
+            yield 'k2' => 'v2';
+
+            yield 'k3' => 'v3';
+
+            yield 'k4' => 'v4';
+
+            yield 'a' => 'z';
+        };
+
+        $output = static function () {
+            yield 'a' => 'z';
+
+            yield 'k1' => 'v1';
+
+            yield 'k1' => 'v1';
+
+            yield 'k2' => 'v2';
+
+            yield 'k2' => 'v2';
+
+            yield 'k3' => 'v3';
+
+            yield 'k3' => 'v3';
+
+            yield 'k4' => 'v4';
+
+            yield 'k4' => 'v4';
+        };
+
+        $this::fromIterable($inputGen())
+            ->sort(Operation\Sortable::BY_KEYS)
+            ->shouldIterateAs($output());
+
+        $this::fromIterable($inputGen())
+            ->flip()
+            ->sort(Operation\Sortable::BY_VALUES)
+            ->flip()
+            ->shouldIterateAs($output());
     }
 
     public function it_can_split(): void

@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace loophp\collection\Operation;
 
+use ArrayIterator;
 use Closure;
+use Exception;
 use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
-use loophp\collection\Iterator\SortableIterableIterator;
+use loophp\collection\Transformation\Run;
 
 /**
  * @psalm-template TKey
@@ -17,9 +19,12 @@ use loophp\collection\Iterator\SortableIterableIterator;
  */
 final class Sort extends AbstractOperation implements Operation
 {
-    public function __construct(?callable $callback = null)
+    public function __construct(int $type = Operation\Sortable::BY_VALUES, ?callable $callback = null)
     {
-        $this->storage['callback'] = $callback ?? Closure::fromCallable([$this, 'compare']);
+        $this->storage = [
+            'type' => $type,
+            'callback' => $callback ?? Closure::fromCallable([$this, 'compare']),
+        ];
     }
 
     public function __invoke(): Closure
@@ -31,20 +36,47 @@ final class Sort extends AbstractOperation implements Operation
              *
              * @psalm-return \Generator<TKey, T>
              */
-            static function (Iterator $iterator, callable $callback): Generator {
-                return yield from (new SortableIterableIterator($iterator, $callback));
+            static function (Iterator $iterator, int $type, callable $callback): Generator {
+                $operations = [
+                    'before' => [],
+                    'after' => [],
+                ];
+
+                switch ($type) {
+                    case Operation\Sortable::BY_VALUES:
+                        $operations = [
+                            'before' => [new Wrap()],
+                            'after' => [new Unwrap()],
+                        ];
+
+                        break;
+                    case Operation\Sortable::BY_KEYS:
+                        $operations = [
+                            'before' => [new Flip(), new Wrap()],
+                            'after' => [new Unwrap(), new Flip()],
+                        ];
+
+                        break;
+
+                    default:
+                        throw new Exception('Invalid sort type.');
+                }
+
+                $arrayIterator = new ArrayIterator(iterator_to_array((new Run(...$operations['before']))($iterator)));
+                $arrayIterator->uasort($callback);
+                $arrayIterator = (new Run(...$operations['after']))($arrayIterator);
+
+                return yield from $arrayIterator;
             };
     }
 
     /**
-     * @param mixed $left
-     * @psalm-param T $left
+     * @psalm-param array{TKey, T} $left
      *
-     * @param mixed $right
-     * @psalm-param T $right
+     * @psalm-param array{TKey, T} $right
      */
-    private function compare($left, $right): int
+    private function compare(array $left, array $right): int
     {
-        return $left <=> $right;
+        return current($left) <=> current($right);
     }
 }

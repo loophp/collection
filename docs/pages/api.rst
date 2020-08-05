@@ -1044,9 +1044,10 @@ Signature: ``Collection::slice(int $offset, ?int $length = null);``
 sort
 ~~~~
 
-Sort a collection using a callback.
+Sort a collection using a callback. If no callback is provided, it will sort using natural order.
 
-If no callback is provided, it will sort using natural order.
+By default, it will sort by values and using a callback. If you want to sort by keys, you can pass a parameter to change
+the behavior or use twice the flip operation. See the example below.
 
 Interface: `Sortable`_
 
@@ -1054,8 +1055,35 @@ Signature: ``Collection::sort(?callable $callback = null);``
 
 .. code-block:: php
 
+    // Regular values sorting
     $collection = Collection::with(['z', 'y', 'x'])
         ->sort();
+
+    // Regular values sorting
+    $collection = Collection::with(['z', 'y', 'x'])
+        ->sort(Operation\Sortable::BY_VALUES);
+
+    // Regular values sorting with a custom callback
+    $collection = Collection::with(['z', 'y', 'x'])
+        ->sort(
+                Operation\Sortable::BY_VALUES,
+                static function ($left, $right): int {
+                    // Do the comparison here.
+                }
+        );
+
+    // Regular keys sorting (no callback is needed here)
+    $collection = Collection::with(['z', 'y', 'x'])
+        ->sort(
+                Operation\Sortable::BY_KEYS
+        );
+
+    // Regular keys sorting using flip() operations.
+    $collection = Collection::with(['z', 'y', 'x'])
+        ->flip() // Exchange values and keys
+        ->sort() // Sort the values (which are now the keys)
+        ->flip(); // Flip again to put back the keys and values, sorted by keys.
+
 
 split
 ~~~~~

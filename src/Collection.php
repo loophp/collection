@@ -554,9 +554,9 @@ final class Collection implements CollectionInterface
         return $this->run(new Slice($offset, $length));
     }
 
-    public function sort(?callable $callback = null): CollectionInterface
+    public function sort(int $type = Operation\Sortable::BY_VALUES, ?callable $callback = null): CollectionInterface
     {
-        return $this->run(new Sort($callback));
+        return $this->run(new Sort($type, $callback));
     }
 
     public function split(callable ...$callbacks): CollectionInterface

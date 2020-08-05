@@ -13,10 +13,14 @@ use loophp\collection\Contract\Collection;
  */
 interface Sortable
 {
+    public const BY_KEYS = 1;
+
+    public const BY_VALUES = 0;
+
     /**
      * Sort a collection using a callback.
      *
      * @return \loophp\collection\Contract\Collection<TKey, T>
      */
-    public function sort(?callable $callable = null): Collection;
+    public function sort(int $type = Sortable::BY_VALUES, ?callable $callback = null): Collection;
 }
