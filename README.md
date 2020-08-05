@@ -49,6 +49,8 @@ This library has been inspired by:
 * [nikic/iter](https://github.com/nikic/iter)
 * [Lazy.js](http://danieltao.com/lazy.js/)
 
+Also, last but not least, collection keys are preserved in most operations.
+
 ## Installation
 
 ```composer require loophp/collection```
@@ -96,3 +98,4 @@ If you can't contribute to the code, you can also sponsor me on [Github](https:/
 
 ## On the internet
 * [Reddit announcement thread](https://www.reddit.com/r/PHP/comments/csxw23/a_stateless_and_modular_collection_class/)
+* [Reddit release 2.0.0 thread](https://www.reddit.com/r/PHP/comments/i2u2le/release_of_version_200_of_loophpcollection/)
