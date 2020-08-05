@@ -14,7 +14,9 @@ use OuterIterator;
  * @psalm-template TKey of array-key
  * @psalm-template T
  *
+ * @extends ProxyIterator<TKey, T>
  * @implements \Iterator<TKey, T>
+ * @implements \OuterIterator<TKey, T>
  */
 final class ClosureIterator extends ProxyIterator implements Iterator, OuterIterator
 {
@@ -26,20 +28,20 @@ final class ClosureIterator extends ProxyIterator implements Iterator, OuterIter
 
     /**
      * @var callable
-     * @psalm-var callable(mixed...):(Generator<TKey, T>)
+     * @psalm-var callable(T...):(\Generator<TKey, T>)
      */
     private $callable;
 
     /**
      * @var Closure
-     * @psalm-var Closure(callable(T...):Generator<TKey, T>, list<T>):(Generator<TKey, T>)
+     * @psalm-var Closure(callable(T...):\Generator<TKey, T>, list<T>):(\Generator<TKey, T>)
      */
     private $generator;
 
     /**
      * @param mixed ...$arguments
      * @psalm-param T ...$arguments
-     * @psalm-param callable(mixed...):(Generator<TKey,T>) $callable
+     * @psalm-param callable(T...):(\Generator<TKey,T>) $callable
      */
     public function __construct(callable $callable, ...$arguments)
     {
@@ -60,7 +62,7 @@ final class ClosureIterator extends ProxyIterator implements Iterator, OuterIter
     /**
      * Init the generator if not initialized yet.
      *
-     * @return Generator<Generator<TKey, T>>
+     * @psalm-return \Generator<TKey, T>
      */
     private function getGenerator(): Generator
     {

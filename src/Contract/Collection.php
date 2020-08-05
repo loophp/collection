@@ -148,6 +148,7 @@ use loophp\collection\Contract\Transformation\Truthyable;
  * @template-extends Splitable<TKey, T>
  * @template-extends Tailable<TKey, T>
  * @template-extends Transposeable<TKey, T>
+ * @template-extends Unpairable<TKey, T>
  * @template-extends Untilable<TKey, T>
  * @template-extends Unwrapable<TKey, T>
  * @template-extends Walkable<TKey, T>

@@ -9,13 +9,17 @@ use Iterator;
 use OuterIterator;
 
 /**
- * @implements Iterator<mixed>
+ * @psalm-template TKey
+ * @psalm-template TKey of array-key
+ * @psalm-template T
+ *
+ * @extends ProxyIterator<TKey, T>
+ * @implements \Iterator<TKey, T>
+ * @implements \OuterIterator<TKey, T>
  */
 final class ResourceIterator extends ProxyIterator implements Iterator, OuterIterator
 {
     /**
-     * ResourceIterator constructor.
-     *
      * @param resource $resource
      */
     public function __construct($resource)
@@ -23,6 +27,8 @@ final class ResourceIterator extends ProxyIterator implements Iterator, OuterIte
         $closure =
             /**
              * @param resource $resource
+             *
+             * @psalm-return \Generator<int, T>
              */
             static function ($resource): Generator {
                 while (false !== $chunk = fgetc($resource)) {

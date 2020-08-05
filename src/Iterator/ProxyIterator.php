@@ -7,15 +7,21 @@ namespace loophp\collection\Iterator;
 use Generator;
 use Iterator;
 
+/**
+ * @psalm-template TKey
+ * @psalm-template TKey of array-key
+ * @psalm-template T
+ */
 abstract class ProxyIterator
 {
     /**
-     * @var Generator<mixed>|\loophp\collection\Iterator\ClosureIterator
+     * @var Generator<TKey, T>|Iterator<TKey, T>
      */
     protected $iterator;
 
     /**
      * @return mixed
+     * @psalm-return T
      */
     public function current()
     {
@@ -23,7 +29,7 @@ abstract class ProxyIterator
     }
 
     /**
-     * @return Iterator<mixed>
+     * @psalm-return \Iterator<TKey, T>
      */
     public function getInnerIterator(): Iterator
     {
@@ -32,6 +38,7 @@ abstract class ProxyIterator
 
     /**
      * @return mixed
+     * @psalm-return TKey
      */
     public function key()
     {

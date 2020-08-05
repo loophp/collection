@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace loophp\collection\Iterator;
 
 use Iterator;
+use OuterIterator;
 use Psr\Cache\CacheItemInterface;
 use Psr\Cache\CacheItemPoolInterface;
 
@@ -14,8 +15,9 @@ use Psr\Cache\CacheItemPoolInterface;
  * @psalm-template T
  *
  * @implements \Iterator<TKey, T>
+ * @implements \OuterIterator<TKey, T>
  */
-final class CacheIterator implements Iterator
+final class CacheIterator implements Iterator, OuterIterator
 {
     /**
      * @var CacheItemPoolInterface
@@ -34,7 +36,7 @@ final class CacheIterator implements Iterator
     private $key;
 
     /**
-     * @psalm-param \Iterator<TKey, T> $iterator
+     * @psalm-param Iterator<TKey, T> $iterator
      */
     public function __construct(Iterator $iterator, CacheItemPoolInterface $cache)
     {
@@ -48,7 +50,15 @@ final class CacheIterator implements Iterator
      */
     public function current()
     {
-        return $this->getItemOrSave((string) $this->key)->get()[1];
+        /** @psalm-var array{TKey, T} $data */
+        $data = $this->getItemOrSave((string) $this->key)->get();
+
+        return $data[1];
+    }
+
+    public function getInnerIterator(): Iterator
+    {
+        return $this->inner;
     }
 
     /**
@@ -56,7 +66,10 @@ final class CacheIterator implements Iterator
      */
     public function key()
     {
-        return $this->getItemOrSave((string) $this->key)->get()[0];
+        /** @psalm-var array{TKey, T} $data */
+        $data = $this->getItemOrSave((string) $this->key)->get();
+
+        return $data[0];
     }
 
     public function next(): void
