@@ -406,3 +406,71 @@ Text analysis
         ->all();
 
     print_r($collection);
+
+Random number distribution
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: php
+
+    <?php
+
+    declare(strict_types=1);
+
+    include 'vendor/autoload.php';
+
+    use loophp\collection\Collection;
+    use loophp\collection\Contract\Operation\Sortable;
+
+    $min = 0;
+    $max = 1000;
+    $groups = 100;
+
+    $randomGenerator = static function () use ($min, $max): int {
+        return random_int($min, $max);
+    };
+
+    $distribution = Collection::iterate($randomGenerator)
+        ->limit($max * $max)
+        ->associate(
+            static function ($key, $value) use ($max, $groups): string {
+                for ($i = 0; ($max / $groups) > $i; ++$i) {
+                    if ($i * $groups <= $value && ($i + 1) * $groups >= $value) {
+                        return sprintf('%s <= x <= %s', $i * $groups, ($i + 1) * $groups);
+                    }
+                }
+            }
+        )
+        ->group()
+        ->map(
+            static function ($value): int {
+                return \count($value);
+            }
+        )
+        ->sort(
+            Sortable::BY_KEYS,
+            static function (array $left, array $right): int {
+                $left = current($left);
+                $right = current($right);
+
+                [$left_min_limit] = explode(' ', $left);
+                [$right_min_limit] = explode(' ', $right);
+
+                return $left_min_limit <=> $right_min_limit;
+            }
+        );
+
+    /*
+    Array
+    (
+        [0 <= x <= 100] => 101086
+        [100 <= x <= 200] => 100144
+        [200 <= x <= 300] => 99408
+        [300 <= x <= 400] => 100079
+        [400 <= x <= 500] => 99514
+        [500 <= x <= 600] => 100227
+        [600 <= x <= 700] => 99983
+        [700 <= x <= 800] => 99942
+        [800 <= x <= 900] => 99429
+        [900 <= x <= 1000] => 100188
+    )
+    */
