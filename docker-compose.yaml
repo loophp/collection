@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+    doc:
+        container_name: sphinx_documentation
+        build: docker/doc
+        volumes:
+            - ./docs:/etc/Sphinx/source
+        ports:
+            - 8100:80

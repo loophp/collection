@@ -8,3 +8,5 @@ phpunit.xml.dist export-ignore
 infection.json.dist export-ignore
 grumphp.yml.dist export-ignore
 phpspec.yml.dist export-ignore
+/docker export-ignore
+docker-composer.yaml export-ignore
