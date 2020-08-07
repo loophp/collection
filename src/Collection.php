@@ -91,6 +91,7 @@ use loophp\collection\Transformation\Transform;
 use loophp\collection\Transformation\Truthy;
 use Psr\Cache\CacheItemPoolInterface;
 
+use function is_callable;
 use function is_resource;
 use function is_string;
 
@@ -98,8 +99,6 @@ use const INF;
 use const PHP_INT_MAX;
 
 /**
- * Class Collection.
- *
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
@@ -109,44 +108,73 @@ use const PHP_INT_MAX;
 final class Collection implements CollectionInterface
 {
     /**
+     * @var mixed[]
+     * @psalm-var array<int, Closure|callable|iterable|mixed|resource|scalar|T>
+     */
+    private $parameters;
+
+    /**
      * @var Closure
+     * @psalm-var Closure(Closure|callable|iterable|mixed|resource|scalar|T):(T)
      */
     private $source;
 
     /**
-     * @param Closure|iterable|mixed|resource|string $data
-     * @param mixed ...$parameters
+     * @param callable|Closure|iterable|mixed|resource|scalar $data
+     * @param callable|Closure|iterable|mixed|resource|scalar|T ...$parameters
      */
     public function __construct($data = [], ...$parameters)
     {
         switch (true) {
             case is_resource($data) && 'stream' === get_resource_type($data):
-                $this->source = static function () use ($data): Generator {
-                    while (false !== $chunk = fgetc($data)) {
-                        yield $chunk;
-                    }
-                };
+                $this->source =
+                    /**
+                     * @psalm-param resource $data
+                     *
+                     * @param mixed $data
+                     */
+                    static function ($data): Generator {
+                        while (false !== $chunk = fgetc($data)) {
+                            yield $chunk;
+                        }
+                    };
+                $this->parameters = [
+                    $data,
+                ];
 
                 break;
-            case $data instanceof Closure:
-                $this->source = static function () use ($data, $parameters): Generator {
-                    yield from $data(...$parameters);
-                };
+            case is_callable($data):
+                $this->source =
+                    /**
+                     * @psalm-var callable(mixed...):(T)
+                     * @psalm-var array<int, mixed>
+                     */
+                    static function (callable $data, array $parameters): Generator {
+                        return yield from $data(...$parameters);
+                    };
+                $this->parameters = [
+                    $data,
+                    $parameters,
+                ];
 
                 break;
             case is_iterable($data):
-                $this->source = static function () use ($data): Generator {
+                $this->source = static function (iterable $data): Generator {
                     foreach ($data as $key => $value) {
                         yield $key => $value;
                     }
                 };
+                $this->parameters = [
+                    $data,
+                ];
 
                 break;
             case is_string($data):
+                /** @psalm-var array{scalar} $parameters */
                 $parameters += [0 => null];
                 $separator = (string) $parameters[0];
 
-                $this->source = static function () use ($data, $separator): Generator {
+                $this->source = static function (string $data, string $separator): Generator {
                     $offset = 0;
 
                     $nextOffset = '' !== $separator ?
@@ -166,15 +194,28 @@ final class Collection implements CollectionInterface
                         yield mb_substr($data, $offset);
                     }
                 };
+                $this->parameters = [
+                    $data,
+                    $separator,
+                ];
 
                 break;
 
             default:
-                $this->source = static function () use ($data): Generator {
-                    foreach ((array) $data as $key => $value) {
-                        yield $key => $value;
-                    }
-                };
+                $this->source =
+                    /**
+                     * @psalm-param mixed|scalar $data
+                     *
+                     * @param mixed $data
+                     */
+                    static function ($data): Generator {
+                        foreach ((array) $data as $key => $value) {
+                            yield $key => $value;
+                        }
+                    };
+                $this->parameters = [
+                    $data,
+                ];
         }
     }
 
@@ -323,36 +364,42 @@ final class Collection implements CollectionInterface
     public static function fromCallable(callable $callable, ...$parameters): Collection
     {
         return new self(
-            static function () use ($callable, $parameters): Generator {
+            static function (callable $callable, array $parameters): Generator {
                 return yield from new ClosureIterator($callable, ...$parameters);
-            }
+            },
+            $callable,
+            $parameters
         );
     }
 
     public static function fromIterable(iterable $iterable): Collection
     {
         return new self(
-            static function () use ($iterable): Generator {
+            static function (iterable $iterable): Generator {
                 return yield from new IterableIterator($iterable);
-            }
+            },
+            $iterable
         );
     }
 
     public static function fromResource($resource): Collection
     {
         return new self(
-            static function () use ($resource): Generator {
+            static function ($resource): Generator {
                 return yield from new ResourceIterator($resource);
-            }
+            },
+            $resource
         );
     }
 
     public static function fromString(string $string, string $delimiter = ''): Collection
     {
         return new self(
-            static function () use ($string, $delimiter): Generator {
+            static function (string $string, string $delimiter): Generator {
                 return yield from new StringIterator($string, $delimiter);
-            }
+            },
+            $string,
+            $delimiter
         );
     }
 
@@ -363,7 +410,7 @@ final class Collection implements CollectionInterface
 
     public function getIterator(): ClosureIterator
     {
-        return new ClosureIterator($this->source);
+        return new ClosureIterator($this->source, ...$this->parameters);
     }
 
     public function group(?callable $callable = null): CollectionInterface
