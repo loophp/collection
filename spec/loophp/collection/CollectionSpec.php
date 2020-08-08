@@ -13,9 +13,7 @@ use Iterator;
 use JsonSerializable;
 use loophp\collection\Collection;
 use loophp\collection\Contract\Operation;
-use loophp\collection\Contract\Transformation;
 use loophp\collection\Operation\AbstractOperation;
-use loophp\collection\Transformation\AbstractTransformation;
 use OutOfRangeException;
 use PhpSpec\ObjectBehavior;
 use stdClass;
@@ -242,8 +240,8 @@ class CollectionSpec extends ObjectBehavior
 
         $this
             ->transform(
-                new class() extends AbstractTransformation implements Transformation {
-                    public function __invoke()
+                new class() extends AbstractOperation implements Operation {
+                    public function __invoke(): Closure
                     {
                         return static function (Iterator $collection) {
                             return '{"a":"A","b":"B","c":"C"}';

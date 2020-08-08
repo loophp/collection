@@ -1,0 +1,45 @@
+<?php
+
+declare(strict_types=1);
+
+namespace loophp\collection\Operation;
+
+use Closure;
+use Iterator;
+use loophp\collection\Contract\Operation;
+use loophp\collection\Iterator\ClosureIterator;
+
+/**
+ * @psalm-template TKey
+ * @psalm-template TKey of array-key
+ * @psalm-template T
+ *
+ * @implements Operation<TKey, T>
+ */
+final class Run extends AbstractOperation implements Operation
+{
+    public function __construct(Operation ...$operations)
+    {
+        $this->storage['operations'] = $operations;
+        $this->storage['wrapper'] = static function (callable $callable, ...$arguments) {
+            return new ClosureIterator($callable, ...$arguments);
+        };
+    }
+
+    public function __invoke(): Closure
+    {
+        return function (Iterator $collection) {
+            return array_reduce(
+                $this->get('operations', []),
+                function (Iterator $collection, Operation $operation) {
+                    return ($this->get('wrapper'))(
+                        $operation(),
+                        $collection,
+                        ...array_values($operation->getArguments())
+                    );
+                },
+                $collection
+            );
+        };
+    }
+}
