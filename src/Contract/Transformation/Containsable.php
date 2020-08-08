@@ -10,8 +10,8 @@ namespace loophp\collection\Contract\Transformation;
 interface Containsable
 {
     /**
-     * @param mixed $value
-     * @psalm-param T $value
+     * @param mixed ...$value
+     * @psalm-param T ...$value
      */
-    public function contains($value): bool;
+    public function contains(...$value): bool;
 }

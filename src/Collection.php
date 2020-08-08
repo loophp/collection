@@ -276,9 +276,9 @@ final class Collection implements CollectionInterface
         return $this->run(new Compact(...$values));
     }
 
-    public function contains($value): bool
+    public function contains(...$value): bool
     {
-        return $this->transform(new Contains($value));
+        return $this->transform(new Contains(...$value));
     }
 
     public function count(): int
