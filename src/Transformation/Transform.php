@@ -7,6 +7,7 @@ namespace loophp\collection\Transformation;
 use ArrayIterator;
 use Iterator;
 use loophp\collection\Contract\Transformation;
+use loophp\collection\Transformation\AbstractTransformation;
 
 /**
  * @psalm-template TKey
@@ -15,19 +16,14 @@ use loophp\collection\Contract\Transformation;
  *
  * @implements Transformation<TKey, T>
  */
-final class Transform implements Transformation
+final class Transform extends AbstractTransformation implements Transformation
 {
-    /**
-     * @var ArrayIterator<int, \loophp\collection\Contract\Transformation<TKey, T>>
-     */
-    private $transformers;
-
     /**
      * @param \loophp\collection\Contract\Transformation<TKey, T> ...$transformers
      */
     public function __construct(Transformation ...$transformers)
     {
-        $this->transformers = new ArrayIterator($transformers);
+        $this->storage['transformers'] = new ArrayIterator($transformers);
     }
 
     /**
@@ -38,24 +34,25 @@ final class Transform implements Transformation
      */
     public function __invoke()
     {
-        return array_reduce(
-
-        );
-
-        return (new FoldLeft(
-            /**
-             * @psalm-param \Iterator<TKey, T> $collection
-             * @psalm-param Transformation<TKey, T> $transformer
-             * @psalm-param TKey $key
-             *
-             * @param mixed $key
-             *
-             * @psalm-return T
-             */
-            static function (Iterator $collection, Transformation $transformer, $key) {
-                return $transformer($collection);
-            },
-            $collection
-        ))($this->transformers);
+        return static function (Iterator $collection) {
+            return (new FoldLeft(
+                /**
+                 * @psalm-param \Iterator<TKey, T> $collection
+                 * @psalm-param Transformation<TKey, T> $transformer
+                 * @psalm-param TKey $key
+                 *
+                 * @param mixed $key
+                 *
+                 * @psalm-return T
+                 */
+                static function (Iterator $collection, Transformation $transformer, $key) {
+                    return ($transformer)()(
+                        $collection,
+                        ...array_values($transformer->getArguments())
+                    );
+                },
+                $collection
+            ));
+        };
     }
 }
