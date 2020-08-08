@@ -21,6 +21,9 @@ final class Run extends AbstractTransformation implements Transformation
     public function __construct(Operation ...$operations)
     {
         $this->storage['operations'] = $operations;
+        $this->storage['wrapper'] = static function (callable $callable, ...$arguments) {
+            return new ClosureIterator($callable, ...$arguments);
+        };
     }
 
     public function __invoke()
@@ -28,8 +31,8 @@ final class Run extends AbstractTransformation implements Transformation
         return function (Iterator $collection) {
             return array_reduce(
                 $this->get('operations', []),
-                static function (Iterator $collection, Operation $operation) {
-                    return new ClosureIterator(
+                function (Iterator $collection, Operation $operation) {
+                    return ($this->get('wrapper'))(
                         $operation(),
                         $collection,
                         ...array_values($operation->getArguments())

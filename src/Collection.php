@@ -6,6 +6,7 @@ namespace loophp\collection;
 
 use Closure;
 use Generator;
+use Iterator;
 use loophp\collection\Contract\Collection as CollectionInterface;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Contract\Transformation;
@@ -574,7 +575,19 @@ final class Collection implements CollectionInterface
 
     public function run(Operation ...$operations)
     {
-        return self::fromIterable((new Run(...$operations))()($this->getIterator()));
+        return self::fromIterable(
+            array_reduce(
+                $operations,
+                static function (Iterator $collection, Operation $operation) {
+                    return new ClosureIterator(
+                        $operation(),
+                        $collection,
+                        ...array_values($operation->getArguments())
+                    );
+                },
+                $this->getIterator()
+            )
+        );
     }
 
     public function scale(
@@ -629,7 +642,16 @@ final class Collection implements CollectionInterface
 
     public function transform(Transformation ...$transformers)
     {
-        return (new Transform(...$transformers))()($this->getIterator());
+        return array_reduce(
+            $transformers,
+            static function (Iterator $collection, Transformation $transformer) {
+                return ($transformer)()(
+                    $collection,
+                    ...array_values($transformer->getArguments())
+                );
+            },
+            $this->getIterator()
+        );
     }
 
     public function transpose(): CollectionInterface
