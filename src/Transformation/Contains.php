@@ -7,6 +7,7 @@ namespace loophp\collection\Transformation;
 use ArrayIterator;
 use Iterator;
 use loophp\collection\Contract\Transformation;
+use loophp\collection\Transformation\AbstractTransformation;
 
 /**
  * @psalm-template TKey
@@ -15,44 +16,32 @@ use loophp\collection\Contract\Transformation;
  *
  * @implements Transformation<TKey, T>
  */
-final class Contains implements Transformation
+final class Contains extends AbstractTransformation implements Transformation
 {
-    /**
-     * @var ArrayIterator<int, mixed>
-     * @psalm-var \ArrayIterator<int, T>
-     */
-    private $values;
-
     /**
      * @param mixed ...$values
      * @psalm-param T ...$values
      */
     public function __construct(...$values)
     {
-        $this->values = new ArrayIterator($values);
+        $this->storage['values'] = new ArrayIterator($values);
     }
 
-    /**
-     * @param Iterator<TKey, T> $collection
-     *
-     * @return bool
-     */
-    public function __invoke(Iterator $collection)
+    public function __invoke()
     {
-        $values = $this->values;
+        return static function (Iterator $collection, ArrayIterator $values): bool {
+            return (new FoldLeft(
+                static function (bool $carry, $item, $key) use ($collection) {
+                    $hasCallback = static function ($k, $v) use ($item) {
+                        return $item;
+                    };
 
-        foreach ($collection as $key => $value) {
-            foreach ($values as $k => $v) {
-                if ($v === $value) {
-                    unset($values[$k]);
-                }
-
-                if (0 === $values->count()) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
+                    return ((new Transform(new Has($hasCallback)))($collection)) ?
+                        $carry :
+                        false;
+                },
+                true
+            ))($values);
+        };
     }
 }

@@ -7,6 +7,7 @@ namespace loophp\collection\Transformation;
 use CachingIterator;
 use Iterator;
 use loophp\collection\Contract\Transformation;
+use loophp\collection\Transformation\AbstractTransformation;
 
 /**
  * @psalm-template TKey
@@ -15,40 +16,35 @@ use loophp\collection\Contract\Transformation;
  *
  * @implements Transformation<TKey, T>
  */
-final class Implode implements Transformation
+final class Implode extends AbstractTransformation implements Transformation
 {
-    /**
-     * @var string
-     */
-    private $glue;
-
     public function __construct(string $glue)
     {
-        $this->glue = $glue;
+        $this->storage['glue'] = $glue;
     }
 
-    public function __invoke(Iterator $collection): string
+    public function __invoke()
     {
-        $glue = $this->glue;
+        return static function (Iterator $collection, string $glue): string {
+            $callback =
+                /**
+                 * @psalm-param TKey $key
+                 * @psalm-param \CachingIterator<TKey, T> $iterator
+                 *
+                 * @param mixed $key
+                 * @param mixed $iterator
+                 */
+                static function (string $carry, string $item, $key, $iterator) use ($glue): string {
+                    $carry .= $item;
 
-        $callback =
-            /**
-             * @psalm-param TKey $key
-             * @psalm-param \CachingIterator $iterator
-             *
-             * @param mixed $key
-             * @param mixed $iterator
-             */
-            static function (string $carry, string $item, $key, CachingIterator $iterator) use ($glue): string {
-                $carry .= $item;
+                    if ($iterator->hasNext()) {
+                        $carry .= $glue;
+                    }
 
-                if ($iterator->hasNext()) {
-                    $carry .= $glue;
-                }
+                    return $carry;
+                };
 
-                return $carry;
-            };
-
-        return (string) (new Transform(new FoldLeft($callback, '')))(new CachingIterator($collection));
+            return (new Transform(new FoldLeft($callback, '')))(new CachingIterator($collection));
+        };
     }
 }

@@ -6,6 +6,7 @@ namespace loophp\collection\Transformation;
 
 use Iterator;
 use loophp\collection\Contract\Transformation;
+use loophp\collection\Transformation\AbstractTransformation;
 
 /**
  * @psalm-template TKey
@@ -14,19 +15,8 @@ use loophp\collection\Contract\Transformation;
  *
  * @implements Transformation<TKey, T>
  */
-final class Get implements Transformation
+final class Get extends AbstractTransformation implements Transformation
 {
-    /**
-     * @var mixed
-     * @psalm-var T
-     */
-    private $default;
-
-    /**
-     * @var int|string
-     */
-    private $key;
-
     /**
      * @param int|string $key
      * @param mixed $default
@@ -34,26 +24,20 @@ final class Get implements Transformation
      */
     public function __construct($key, $default)
     {
-        $this->key = $key;
-        $this->default = $default;
+        $this->storage['key'] = $key;
+        $this->storage['default'] = $default;
     }
 
-    /**
-     * @param Iterator<TKey, T> $collection
-     *
-     * @return T
-     */
-    public function __invoke(Iterator $collection)
+    public function __invoke()
     {
-        $keyToGet = $this->key;
-        $default = $this->default;
-
-        foreach ($collection as $key => $value) {
-            if ($key === $keyToGet) {
-                return $value;
+        return static function (Iterator $collection, $keyToGet, $default) {
+            foreach ($collection as $key => $value) {
+                if ($key === $keyToGet) {
+                    return $value;
+                }
             }
-        }
 
-        return $default;
+            return $default;
+        };
     }
 }

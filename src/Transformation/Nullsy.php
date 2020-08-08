@@ -6,6 +6,7 @@ namespace loophp\collection\Transformation;
 
 use Iterator;
 use loophp\collection\Contract\Transformation;
+use loophp\collection\Transformation\AbstractTransformation;
 
 /**
  * @psalm-template TKey
@@ -14,19 +15,18 @@ use loophp\collection\Contract\Transformation;
  *
  * @implements Transformation<TKey, T>
  */
-final class Nullsy implements Transformation
+final class Nullsy extends AbstractTransformation implements Transformation
 {
-    /**
-     * @psalm-param \Iterator<TKey, T|null> $collection
-     */
-    public function __invoke(Iterator $collection): bool
+    public function __invoke()
     {
-        foreach ($collection as $key => $value) {
-            if (null !== $value) {
-                return false;
+        return static function (Iterator $collection): bool {
+            foreach ($collection as $key => $value) {
+                if (null !== $value) {
+                    return false;
+                }
             }
-        }
 
-        return true;
+            return true;
+        };
     }
 }

@@ -6,6 +6,7 @@ namespace loophp\collection\Transformation;
 
 use Iterator;
 use loophp\collection\Contract\Transformation;
+use loophp\collection\Transformation\AbstractTransformation;
 
 /**
  * @psalm-template TKey
@@ -14,15 +15,12 @@ use loophp\collection\Contract\Transformation;
  *
  * @implements Transformation<TKey, T>
  */
-final class All implements Transformation
+final class All extends AbstractTransformation implements Transformation
 {
-    /**
-     * @return array<TKey, T>
-     * @phpstan-return array<TKey, T>
-     * @psalm-return array<TKey, T>
-     */
-    public function __invoke(Iterator $collection): array
+    public function __invoke()
     {
-        return iterator_to_array($collection);
+        return static function (Iterator $collection): array {
+            return iterator_to_array($collection);
+        };
     }
 }
