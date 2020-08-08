@@ -15,6 +15,7 @@ use loophp\collection\Collection;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Contract\Transformation;
 use loophp\collection\Operation\AbstractOperation;
+use loophp\collection\Transformation\AbstractTransformation;
 use PhpSpec\ObjectBehavior;
 use stdClass;
 
@@ -240,10 +241,12 @@ class CollectionSpec extends ObjectBehavior
 
         $this
             ->transform(
-                new class() implements Transformation {
-                    public function __invoke(Iterator $collection)
+                new class() extends AbstractTransformation implements Transformation {
+                    public function __invoke()
                     {
-                        return '{"a":"A","b":"B","c":"C"}';
+                        return static function (Iterator $collection) {
+                            return '{"a":"A","b":"B","c":"C"}';
+                        };
                     }
                 }
             )

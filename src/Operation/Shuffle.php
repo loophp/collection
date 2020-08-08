@@ -27,7 +27,7 @@ final class Shuffle extends AbstractOperation implements Operation
              */
             static function (Iterator $iterator): Generator {
                 /** @psalm-var array<TKey, T>  $data */
-                $data = iterator_to_array((new Run(new Wrap()))($iterator));
+                $data = iterator_to_array((new Run(new Wrap()))()($iterator));
 
                 while ([] !== $data) {
                     $randomKey = array_rand($data);

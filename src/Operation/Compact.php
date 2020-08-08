@@ -49,7 +49,7 @@ final class Compact extends AbstractOperation implements Operation
                         }
                     )
                 )
-                )($iterator);
+                )()($iterator);
             };
     }
 }

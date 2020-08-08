@@ -56,7 +56,7 @@ final class Explode extends AbstractOperation implements Operation
                             $explodes
                         )
                     )
-                ))($iterator);
+                ))()($iterator);
             };
     }
 }

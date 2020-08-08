@@ -6,7 +6,6 @@ namespace loophp\collection\Transformation;
 
 use Iterator;
 use loophp\collection\Contract\Transformation;
-use loophp\collection\Transformation\AbstractTransformation;
 use loophp\collection\Operation\Reverse;
 
 /**
@@ -39,7 +38,7 @@ final class FoldRight extends AbstractTransformation implements Transformation
     public function __invoke()
     {
         return static function (Iterator $collection, callable $callback, $initial) {
-            return (new Transform(new FoldLeft($callback, $initial)))((new Run(new Reverse()))($collection));
+            return (new Transform(new FoldLeft($callback, $initial)))()((new Run(new Reverse()))()($collection));
         };
     }
 }
