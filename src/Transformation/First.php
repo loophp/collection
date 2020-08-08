@@ -6,6 +6,7 @@ namespace loophp\collection\Transformation;
 
 use Iterator;
 use loophp\collection\Contract\Transformation;
+use loophp\collection\Transformation\AbstractTransformation;
 
 /**
  * @psalm-template TKey
@@ -14,20 +15,8 @@ use loophp\collection\Contract\Transformation;
  *
  * @implements Transformation<TKey, T>
  */
-final class First implements Transformation
+final class First extends AbstractTransformation implements Transformation
 {
-    /**
-     * @var callable
-     * @psalm-var callable(T, TKey):(bool)
-     */
-    private $callback;
-
-    /**
-     * @var mixed|null
-     * @psalm-var T|null
-     */
-    private $default;
-
     /**
      * @psalm-param callable(T, TKey):(bool)|null $callback
      *
@@ -48,27 +37,20 @@ final class First implements Transformation
                 return true;
             };
 
-        $this->callback = $callback ?? $defaultCallback;
-        $this->default = $default;
+        $this->storage['callback'] = $callback ?? $defaultCallback;
+        $this->storage['default'] = $default;
     }
 
-    /**
-     * @param Iterator<TKey, T> $collection
-     *
-     * @return mixed|null
-     * @psalm-return T|null
-     */
-    public function __invoke(Iterator $collection)
+    public function __invoke()
     {
-        $callback = $this->callback;
-        $default = $this->default;
-
-        foreach ($collection as $key => $value) {
-            if (true === $callback($value, $key)) {
-                return $value;
+        return static function (Iterator $collection, callable $callback, $default) {
+            foreach ($collection as $key => $value) {
+                if (true === $callback($value, $key)) {
+                    return $value;
+                }
             }
-        }
 
-        return $default;
+            return $default;
+        };
     }
 }

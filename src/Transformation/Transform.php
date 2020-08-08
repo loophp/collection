@@ -36,8 +36,12 @@ final class Transform implements Transformation
      * @return mixed|null
      * @psalm-return T|null|\Iterator<TKey, T>
      */
-    public function __invoke(Iterator $collection)
+    public function __invoke()
     {
+        return array_reduce(
+
+        );
+
         return (new FoldLeft(
             /**
              * @psalm-param \Iterator<TKey, T> $collection

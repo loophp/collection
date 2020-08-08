@@ -9,6 +9,7 @@ use Iterator;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Contract\Transformation;
 use loophp\collection\Iterator\ClosureIterator;
+use loophp\collection\Transformation\AbstractTransformation;
 
 /**
  * @psalm-template TKey
@@ -17,31 +18,28 @@ use loophp\collection\Iterator\ClosureIterator;
  *
  * @implements Transformation<TKey, T>
  */
-final class Run implements Transformation
+final class Run extends AbstractTransformation implements Transformation
 {
-    /**
-     * @var ArrayIterator<int, \loophp\collection\Contract\Operation>
-     */
-    private $operations;
-
     public function __construct(Operation ...$operations)
     {
-        $this->operations = new ArrayIterator($operations);
+        $this->storage['operations'] = new ArrayIterator($operations);
     }
 
-    public function __invoke(Iterator $collection): Iterator
+    public function __invoke()
     {
-        return (
-            new FoldLeft(
-                static function (Iterator $collection, Operation $operation): ClosureIterator {
-                    return new ClosureIterator(
-                        $operation(),
-                        $collection,
-                        ...array_values($operation->getArguments())
-                    );
-                },
-                $collection
-            )
-        )($this->operations);
+        return static function (Iterator $collection, ArrayIterator $operations) {
+            return (new Transform(
+                new FoldLeft(
+                    static function (Iterator $collection, Operation $operation): ClosureIterator {
+                        return new ClosureIterator(
+                            $operation(),
+                            $collection,
+                            ...array_values($operation->getArguments())
+                        );
+                    },
+                    $collection
+                )
+            ))($operations);
+        };
     }
 }

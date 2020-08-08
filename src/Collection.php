@@ -623,7 +623,7 @@ final class Collection implements CollectionInterface
 
     public function transform(Transformation ...$transformers)
     {
-        return (new Transform(...$transformers))($this->getIterator());
+        return (new Transform())()($this->getIterator(), new \ArrayIterator($transformers));
     }
 
     public function transpose(): CollectionInterface

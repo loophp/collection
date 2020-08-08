@@ -6,6 +6,7 @@ namespace loophp\collection\Transformation;
 
 use Iterator;
 use loophp\collection\Contract\Transformation;
+use loophp\collection\Transformation\AbstractTransformation;
 
 /**
  * @psalm-template TKey
@@ -14,26 +15,23 @@ use loophp\collection\Contract\Transformation;
  *
  * @implements Transformation<TKey, T>
  */
-final class Implode implements Transformation
+final class Implode extends AbstractTransformation implements Transformation
 {
-    /**
-     * @var string
-     */
-    private $glue;
-
     public function __construct(string $glue = '')
     {
-        $this->glue = $glue;
+        $this->storage['glue'] = $glue;
     }
 
-    public function __invoke(Iterator $collection): string
+    public function __invoke()
     {
-        $result = '';
+        return static function (Iterator $collection, string $glue): string {
+            $result = '';
 
-        foreach ($collection as $value) {
-            $result .= $value . $this->glue;
-        }
+            foreach ($collection as $value) {
+                $result .= $value . $glue;
+            }
 
-        return rtrim($result, $this->glue);
+            return rtrim($result, $glue);
+        };
     }
 }

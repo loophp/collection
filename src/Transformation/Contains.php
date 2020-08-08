@@ -7,6 +7,7 @@ namespace loophp\collection\Transformation;
 use ArrayIterator;
 use Iterator;
 use loophp\collection\Contract\Transformation;
+use loophp\collection\Transformation\AbstractTransformation;
 
 /**
  * @psalm-template TKey
@@ -15,43 +16,32 @@ use loophp\collection\Contract\Transformation;
  *
  * @implements Transformation<TKey, T>
  */
-final class Contains implements Transformation
+final class Contains extends AbstractTransformation implements Transformation
 {
-    /**
-     * @var ArrayIterator<int, mixed>
-     * @psalm-var \ArrayIterator<int, T>
-     */
-    private $value;
-
     /**
      * @param mixed ...$value
      * @psalm-param T ...$value
      */
     public function __construct(...$value)
     {
-        $this->value = new ArrayIterator($value);
+        $this->storage['value'] = new ArrayIterator($value);
     }
 
-    /**
-     * @param Iterator<TKey, T> $collection
-     *
-     * @return bool
-     */
-    public function __invoke(Iterator $collection)
+    public function __invoke()
     {
-        $value = $this->value;
+        return static function (Iterator $collection, ArrayIterator $values): bool {
+            return (new FoldLeft(
+                static function (bool $carry, $item, $key) use ($collection) {
+                    $hasCallback = static function ($k, $v) use ($item) {
+                        return $item;
+                    };
 
-        return (new FoldLeft(
-            static function (bool $carry, $item, $key) use ($collection) {
-                $hasCallback = static function ($k, $v) use ($item) {
-                    return $item;
-                };
-
-                return ((new Transform(new Has($hasCallback)))($collection)) ?
-                    $carry :
-                    false;
-            },
-            true
-        ))($value);
+                    return ((new Transform(new Has($hasCallback)))($collection)) ?
+                        $carry :
+                        false;
+                },
+                true
+            ))($values);
+        };
     }
 }
