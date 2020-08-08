@@ -27,7 +27,7 @@ final class Reverse extends AbstractOperation implements Operation
              */
             static function (Iterator $iterator): Generator {
                 /** @psalm-var array<TKey, T> $all */
-                $all = iterator_to_array((new Run(new Wrap()))($iterator));
+                $all = iterator_to_array((new Run(new Wrap()))()($iterator));
 
                 for (end($all); null !== key($all); prev($all)) {
                     $item = current($all);

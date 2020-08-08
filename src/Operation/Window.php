@@ -34,11 +34,11 @@ final class Window extends AbstractOperation implements Operation
              */
             static function (Iterator $iterator, ArrayIterator $length): Generator {
                 /** @psalm-var \Iterator<int, int> $length */
-                $length = (new Run(new Loop()))($length);
+                $length = (new Run(new Loop()))()($length);
 
                 for ($i = 0; iterator_count($iterator) > $i; ++$i) {
                     /** @psalm-var list<T> $window */
-                    $window = iterator_to_array((new Run(new Slice($i, $length->current())))($iterator));
+                    $window = iterator_to_array((new Run(new Slice($i, $length->current())))()($iterator));
 
                     $length->next();
 

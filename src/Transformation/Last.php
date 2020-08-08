@@ -6,7 +6,6 @@ namespace loophp\collection\Transformation;
 
 use Iterator;
 use loophp\collection\Contract\Transformation;
-use loophp\collection\Transformation\AbstractTransformation;
 
 /**
  * @psalm-template TKey
@@ -25,8 +24,8 @@ final class Last extends AbstractTransformation implements Transformation
      */
     public function __invoke()
     {
-        return static function () {
-            return new Transform(new FoldLeft(
+        return static function (Iterator $collection) {
+            return (new Transform(new FoldLeft(
                 /**
                  * @param mixed $carry
                  * @psalm-param null|T $carry
@@ -43,7 +42,7 @@ final class Last extends AbstractTransformation implements Transformation
                 static function ($carry, $item, $key) {
                     return $item;
                 }
-            ));
+            )))()($collection);
         };
     }
 }

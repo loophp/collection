@@ -47,7 +47,7 @@ final class Column extends AbstractOperation implements Operation
                  * @var array-key $key
                  * @var iterable<TKey, T> $value
                  */
-                foreach ((new Run(new Transpose()))($iterator) as $key => $value) {
+                foreach ((new Run(new Transpose()))()($iterator) as $key => $value) {
                     if ($key === $column) {
                         return yield from $value;
                     }

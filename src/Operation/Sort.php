@@ -66,10 +66,10 @@ final class Sort extends AbstractOperation implements Operation
                         return $callback(current($left), current($right));
                     };
 
-                $arrayIterator = new ArrayIterator(iterator_to_array((new Run(...$operations['before']))($iterator)));
+                $arrayIterator = new ArrayIterator(iterator_to_array((new Run(...$operations['before']))()($iterator)));
                 $arrayIterator->uasort($callback);
 
-                return yield from (new Run(...$operations['after']))($arrayIterator);
+                return yield from (new Run(...$operations['after']))()($arrayIterator);
             };
     }
 

@@ -34,8 +34,8 @@ final class Tail extends AbstractOperation implements Operation
                 return yield from (
                 new Run(
                     new Limit($length)
-                ))(
-                    (new Run(new Skip(iterator_count($iterator) - $length)))($iterator)
+                ))()(
+                    (new Run(new Skip(iterator_count($iterator) - $length)))()($iterator)
                 );
             };
     }

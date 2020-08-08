@@ -6,7 +6,6 @@ namespace loophp\collection\Transformation;
 
 use Iterator;
 use loophp\collection\Contract\Transformation;
-use loophp\collection\Transformation\AbstractTransformation;
 
 /**
  * @psalm-template TKey

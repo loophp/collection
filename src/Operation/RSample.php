@@ -37,7 +37,7 @@ final class RSample extends AbstractOperation implements Operation
                             return (mt_rand() / mt_getrandmax()) < $probability;
                         }
                     )
-                ))($iterator);
+                ))()($iterator);
             };
     }
 }
