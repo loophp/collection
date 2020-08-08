@@ -1650,8 +1650,8 @@ class CollectionSpec extends ObjectBehavior
         $this::fromIterable($input)
             ->sort(
                 Operation\Sortable::BY_VALUES,
-                static function (array $left, array $right): int {
-                    return current($right) <=> current($left);
+                static function ($left, $right): int {
+                    return $right <=> $left;
                 }
             )
             ->shouldIterateAs(array_combine(range('A', 'E'), range('E', 'A')));

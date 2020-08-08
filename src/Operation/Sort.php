@@ -37,11 +37,6 @@ final class Sort extends AbstractOperation implements Operation
              * @psalm-return \Generator<TKey, T>
              */
             static function (Iterator $iterator, int $type, callable $callback): Generator {
-                $operations = [
-                    'before' => [],
-                    'after' => [],
-                ];
-
                 switch ($type) {
                     case Operation\Sortable::BY_VALUES:
                         $operations = [
@@ -62,21 +57,31 @@ final class Sort extends AbstractOperation implements Operation
                         throw new Exception('Invalid sort type.');
                 }
 
+                $callback =
+                    /**
+                     * @psalm-param array{TKey, T} $left
+                     * @psalm-param array{TKey, T} $right
+                     */
+                    static function (array $left, array $right) use ($callback): int {
+                        return $callback(current($left), current($right));
+                    };
+
                 $arrayIterator = new ArrayIterator(iterator_to_array((new Run(...$operations['before']))($iterator)));
                 $arrayIterator->uasort($callback);
-                $arrayIterator = (new Run(...$operations['after']))($arrayIterator);
 
-                return yield from $arrayIterator;
+                return yield from (new Run(...$operations['after']))($arrayIterator);
             };
     }
 
     /**
-     * @psalm-param array{TKey, T} $left
+     * @psalm-param T $left
+     * @psalm-param T $right
      *
-     * @psalm-param array{TKey, T} $right
+     * @param mixed $left
+     * @param mixed $right
      */
-    private function compare(array $left, array $right): int
+    private function compare($left, $right): int
     {
-        return current($left) <=> current($right);
+        return $left <=> $right;
     }
 }

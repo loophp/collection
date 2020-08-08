@@ -1069,6 +1069,7 @@ Signature: ``Collection::sort(?callable $callback = null);``
                 Operation\Sortable::BY_VALUES,
                 static function ($left, $right): int {
                     // Do the comparison here.
+                    return $left <=> $right;
                 }
         );
 
