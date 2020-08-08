@@ -2,27 +2,28 @@
 
 declare(strict_types=1);
 
-namespace loophp\collection\Transformation;
+namespace loophp\collection\Operation;
 
+use Closure;
 use CachingIterator;
 use Iterator;
-use loophp\collection\Contract\Transformation;
+use loophp\collection\Contract\Operation;
 
 /**
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
  *
- * @implements Transformation<TKey, T>
+ * @implements Operation<TKey, T>
  */
-final class Implode extends AbstractTransformation implements Transformation
+final class Implode extends AbstractOperation implements Operation
 {
     public function __construct(string $glue)
     {
         $this->storage['glue'] = $glue;
     }
 
-    public function __invoke()
+    public function __invoke(): Closure
     {
         return static function (Iterator $collection, string $glue): string {
             $callback =

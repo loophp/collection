@@ -2,21 +2,22 @@
 
 declare(strict_types=1);
 
-namespace loophp\collection\Transformation;
+namespace loophp\collection\Operation;
 
+use Closure;
 use Iterator;
-use loophp\collection\Contract\Transformation;
+use loophp\collection\Contract\Operation;
 
 /**
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
  *
- * @implements Transformation<TKey, T>
+ * @implements Operation<TKey, T>
  */
-final class Count extends AbstractTransformation implements Transformation
+final class Count extends AbstractOperation implements Operation
 {
-    public function __invoke()
+    public function __invoke(): Closure
     {
         return static function (Iterator $collection): int {
             return iterator_count($collection);

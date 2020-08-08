@@ -2,19 +2,20 @@
 
 declare(strict_types=1);
 
-namespace loophp\collection\Transformation;
+namespace loophp\collection\Operation;
 
+use Closure;
 use Iterator;
-use loophp\collection\Contract\Transformation;
+use loophp\collection\Contract\Operation;
 
 /**
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
  *
- * @implements Transformation<TKey, T>
+ * @implements Operation<TKey, T>
  */
-final class Has extends AbstractTransformation implements Transformation
+final class Has extends AbstractOperation implements Operation
 {
     /**
      * @psalm-param callable(TKey, T):(bool) $callback
@@ -24,7 +25,7 @@ final class Has extends AbstractTransformation implements Transformation
         $this->storage['callback'] = $callback;
     }
 
-    public function __invoke()
+    public function __invoke(): Closure
     {
         return static function (Iterator $collection, callable $callback) {
             foreach ($collection as $key => $value) {

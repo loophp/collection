@@ -12,9 +12,6 @@ use Iterator;
 use loophp\collection\Contract\Collection;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Iterator\IterableIterator;
-use loophp\collection\Transformation\Get;
-use loophp\collection\Transformation\Run;
-use loophp\collection\Transformation\Transform;
 use ReflectionClass;
 use ReflectionException;
 

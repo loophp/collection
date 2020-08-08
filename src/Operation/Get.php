@@ -2,19 +2,20 @@
 
 declare(strict_types=1);
 
-namespace loophp\collection\Transformation;
+namespace loophp\collection\Operation;
 
+use Closure;
 use Iterator;
-use loophp\collection\Contract\Transformation;
+use loophp\collection\Contract\Operation;
 
 /**
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
  *
- * @implements Transformation<TKey, T>
+ * @implements Operation<TKey, T>
  */
-final class Get extends AbstractTransformation implements Transformation
+final class Get extends AbstractOperation implements Operation
 {
     /**
      * @param int|string $key
@@ -27,7 +28,7 @@ final class Get extends AbstractTransformation implements Transformation
         $this->storage['default'] = $default;
     }
 
-    public function __invoke()
+    public function __invoke(): Closure
     {
         return static function (Iterator $collection, $keyToGet, $default) {
             foreach ($collection as $key => $value) {

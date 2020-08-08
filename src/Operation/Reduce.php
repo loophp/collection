@@ -2,22 +2,23 @@
 
 declare(strict_types=1);
 
-namespace loophp\collection\Transformation;
+namespace loophp\collection\Operation;
 
+use Closure;
 use Iterator;
-use loophp\collection\Contract\Transformation;
+use loophp\collection\Contract\Operation;
 
 /**
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
  *
- * @implements Transformation<TKey, T>
+ * @implements Operation<TKey, T>
  */
-final class FoldLeft extends AbstractTransformation implements Transformation
+final class Reduce extends AbstractOperation implements Operation
 {
     /**
-     * @psalm-param callable(T|null, T, TKey, \Iterator<TKey, T>):(T|null) $callback
+     * @psalm-param callable(T|null, T|null, TKey):(T|null) $callback
      *
      * @param mixed|null $initial
      * @psalm-param T|null $initial
@@ -28,14 +29,10 @@ final class FoldLeft extends AbstractTransformation implements Transformation
         $this->storage['initial'] = $initial;
     }
 
-    public function __invoke()
+    public function __invoke(): Closure
     {
         return static function (Iterator $collection, callable $callback, $initial) {
-            foreach ($collection as $key => $value) {
-                $initial = $callback($initial, $value, $key, $collection);
-            }
-
-            return $initial;
+            return (new Transform(new FoldLeft($callback, $initial)))()($collection);
         };
     }
 }

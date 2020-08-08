@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace loophp\collection\Transformation;
+namespace loophp\collection\Operation;
 
+use Closure;
 use Iterator;
 use loophp\collection\Contract\Operation;
-use loophp\collection\Contract\Transformation;
 use loophp\collection\Iterator\ClosureIterator;
 
 /**
@@ -14,9 +14,9 @@ use loophp\collection\Iterator\ClosureIterator;
  * @psalm-template TKey of array-key
  * @psalm-template T
  *
- * @implements Transformation<TKey, T>
+ * @implements Operation<TKey, T>
  */
-final class Run extends AbstractTransformation implements Transformation
+final class Run extends AbstractOperation implements Operation
 {
     public function __construct(Operation ...$operations)
     {
@@ -26,7 +26,7 @@ final class Run extends AbstractTransformation implements Transformation
         };
     }
 
-    public function __invoke()
+    public function __invoke(): Closure
     {
         return function (Iterator $collection) {
             return array_reduce(

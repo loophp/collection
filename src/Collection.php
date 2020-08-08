@@ -6,14 +6,13 @@ namespace loophp\collection;
 
 use Closure;
 use Generator;
-use Iterator;
 use loophp\collection\Contract\Collection as CollectionInterface;
 use loophp\collection\Contract\Operation;
-use loophp\collection\Contract\Transformation;
 use loophp\collection\Iterator\ClosureIterator;
 use loophp\collection\Iterator\IterableIterator;
 use loophp\collection\Iterator\ResourceIterator;
 use loophp\collection\Iterator\StringIterator;
+use loophp\collection\Operation\All;
 use loophp\collection\Operation\Append;
 use loophp\collection\Operation\Apply;
 use loophp\collection\Operation\Associate;
@@ -24,19 +23,27 @@ use loophp\collection\Operation\Column;
 use loophp\collection\Operation\Combinate;
 use loophp\collection\Operation\Combine;
 use loophp\collection\Operation\Compact;
+use loophp\collection\Operation\Contains;
+use loophp\collection\Operation\Count;
 use loophp\collection\Operation\Cycle;
 use loophp\collection\Operation\Diff;
 use loophp\collection\Operation\DiffKeys;
 use loophp\collection\Operation\Distinct;
 use loophp\collection\Operation\Explode;
+use loophp\collection\Operation\Falsy;
 use loophp\collection\Operation\Filter;
 use loophp\collection\Operation\First;
 use loophp\collection\Operation\Flatten;
 use loophp\collection\Operation\Flip;
+use loophp\collection\Operation\FoldLeft;
+use loophp\collection\Operation\FoldRight;
 use loophp\collection\Operation\Forget;
 use loophp\collection\Operation\Frequency;
+use loophp\collection\Operation\Get;
 use loophp\collection\Operation\Group;
 use loophp\collection\Operation\Head;
+use loophp\collection\Operation\Has;
+use loophp\collection\Operation\Implode;
 use loophp\collection\Operation\Intersect;
 use loophp\collection\Operation\IntersectKeys;
 use loophp\collection\Operation\Intersperse;
@@ -49,6 +56,7 @@ use loophp\collection\Operation\Map;
 use loophp\collection\Operation\Merge;
 use loophp\collection\Operation\Normalize;
 use loophp\collection\Operation\Nth;
+use loophp\collection\Operation\Nullsy;
 use loophp\collection\Operation\Only;
 use loophp\collection\Operation\Pad;
 use loophp\collection\Operation\Pair;
@@ -58,9 +66,11 @@ use loophp\collection\Operation\Prepend;
 use loophp\collection\Operation\Product;
 use loophp\collection\Operation\Random;
 use loophp\collection\Operation\Range;
+use loophp\collection\Operation\Reduce;
 use loophp\collection\Operation\Reduction;
 use loophp\collection\Operation\Reverse;
 use loophp\collection\Operation\RSample;
+use loophp\collection\Operation\Run;
 use loophp\collection\Operation\Scale;
 use loophp\collection\Operation\Shuffle;
 use loophp\collection\Operation\Since;
@@ -70,27 +80,15 @@ use loophp\collection\Operation\Sort;
 use loophp\collection\Operation\Split;
 use loophp\collection\Operation\Tail;
 use loophp\collection\Operation\Times;
+use loophp\collection\Operation\Transform;
 use loophp\collection\Operation\Transpose;
+use loophp\collection\Operation\Truthy;
 use loophp\collection\Operation\Unpair;
 use loophp\collection\Operation\Until;
 use loophp\collection\Operation\Unwrap;
 use loophp\collection\Operation\Window;
 use loophp\collection\Operation\Wrap;
 use loophp\collection\Operation\Zip;
-use loophp\collection\Transformation\All;
-use loophp\collection\Transformation\Contains;
-use loophp\collection\Transformation\Count;
-use loophp\collection\Transformation\Falsy;
-use loophp\collection\Transformation\FoldLeft;
-use loophp\collection\Transformation\FoldRight;
-use loophp\collection\Transformation\Get;
-use loophp\collection\Transformation\Has;
-use loophp\collection\Transformation\Implode;
-use loophp\collection\Transformation\Nullsy;
-use loophp\collection\Transformation\Reduce;
-use loophp\collection\Transformation\Run;
-use loophp\collection\Transformation\Transform;
-use loophp\collection\Transformation\Truthy;
 use Psr\Cache\CacheItemPoolInterface;
 
 use function is_callable;
@@ -575,19 +573,7 @@ final class Collection implements CollectionInterface
 
     public function run(Operation ...$operations)
     {
-        return self::fromIterable(
-            array_reduce(
-                $operations,
-                static function (Iterator $collection, Operation $operation) {
-                    return new ClosureIterator(
-                        $operation(),
-                        $collection,
-                        ...array_values($operation->getArguments())
-                    );
-                },
-                $this->getIterator()
-            )
-        );
+        return self::fromIterable((new Run(...$operations))()($this->getIterator()));
     }
 
     public function scale(
@@ -640,18 +626,9 @@ final class Collection implements CollectionInterface
         return (new self())->run(new Times($number, $callback));
     }
 
-    public function transform(Transformation ...$transformers)
+    public function transform(Operation ...$operations)
     {
-        return array_reduce(
-            $transformers,
-            static function (Iterator $collection, Transformation $transformer) {
-                return ($transformer)()(
-                    $collection,
-                    ...array_values($transformer->getArguments())
-                );
-            },
-            $this->getIterator()
-        );
+        return (new Transform(...$operations))()($this->getIterator());
     }
 
     public function transpose(): CollectionInterface
