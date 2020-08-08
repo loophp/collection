@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace loophp\collection\Transformation;
 
+use ArrayIterator;
 use Iterator;
 use loophp\collection\Contract\Transformation;
 
@@ -17,18 +18,18 @@ use loophp\collection\Contract\Transformation;
 final class Contains implements Transformation
 {
     /**
-     * @var mixed
-     * @psalm-var T
+     * @var ArrayIterator<int, mixed>
+     * @psalm-var \ArrayIterator<int, T>
      */
     private $value;
 
     /**
-     * @param mixed $value
-     * @psalm-param T $value
+     * @param mixed ...$value
+     * @psalm-param T ...$value
      */
-    public function __construct($value)
+    public function __construct(...$value)
     {
-        $this->value = $value;
+        $this->value = new ArrayIterator($value);
     }
 
     /**
@@ -40,21 +41,17 @@ final class Contains implements Transformation
     {
         $value = $this->value;
 
-        $hasCallback =
-            /**
-             * @param mixed $k
-             * @psalm-param TKey $k
-             *
-             * @param mixed $v
-             * @psalm-param T $v
-             *
-             * @return mixed
-             * @psalm-return T
-             */
-            static function ($k, $v) use ($value) {
-                return $value;
-            };
+        return (new FoldLeft(
+            static function (bool $carry, $item, $key) use ($collection) {
+                $hasCallback = static function ($k, $v) use ($item) {
+                    return $item;
+                };
 
-        return (bool) (new Transform(new Has($hasCallback)))($collection);
+                return ((new Transform(new Has($hasCallback)))($collection)) ?
+                    $carry :
+                    false;
+            },
+            true
+        ))($value);
     }
 }
