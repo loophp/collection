@@ -22,6 +22,9 @@ final class Transform extends AbstractTransformation implements Transformation
     public function __construct(Transformation ...$transformers)
     {
         $this->storage['transformers'] = $transformers;
+        $this->storage['wrapper'] = static function (callable $callable, ...$arguments) {
+            return $callable(...$arguments);
+        };
     }
 
     public function __invoke()
@@ -29,8 +32,9 @@ final class Transform extends AbstractTransformation implements Transformation
         return function (Iterator $collection) {
             return array_reduce(
                 $this->get('transformers', []),
-                static function (Iterator $collection, Transformation $transformer) {
-                    return ($transformer)()(
+                function (Iterator $collection, Transformation $transformer) {
+                    return ($this->get('wrapper'))(
+                        $transformer(),
                         $collection,
                         ...array_values($transformer->getArguments())
                     );
