@@ -7,7 +7,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Iterator;
 use loophp\collection\Contract\Operation;
-use loophp\collection\Iterator\ClosureIterator;
 
 /**
  * @psalm-template TKey
@@ -16,14 +15,11 @@ use loophp\collection\Iterator\ClosureIterator;
  *
  * @implements Operation<TKey, T>
  */
-final class Run extends AbstractOperation implements Operation
+final class Run extends AbstractGeneratorOperation implements Operation
 {
     public function __construct(Operation ...$operations)
     {
         $this->storage['operations'] = $operations;
-        $this->storage['wrapper'] = static function (callable $callable, ...$arguments) {
-            return new ClosureIterator($callable, ...$arguments);
-        };
     }
 
     public function __invoke(): Closure
@@ -32,7 +28,7 @@ final class Run extends AbstractOperation implements Operation
             return array_reduce(
                 $this->get('operations', []),
                 function (Iterator $collection, Operation $operation) {
-                    return ($this->get('wrapper'))(
+                    return ($this->getWrapper())(
                         $operation(),
                         $collection,
                         ...array_values($operation->getArguments())

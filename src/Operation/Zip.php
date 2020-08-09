@@ -16,7 +16,7 @@ use MultipleIterator;
  * @psalm-template TKey of array-key
  * @psalm-template T
  */
-final class Zip extends AbstractOperation implements Operation
+final class Zip extends AbstractGeneratorOperation implements Operation
 {
     /**
      * Zip constructor.

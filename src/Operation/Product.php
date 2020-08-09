@@ -17,7 +17,7 @@ use function count;
  * @psalm-template TKey of array-key
  * @psalm-template T
  */
-final class Product extends AbstractOperation implements Operation
+final class Product extends AbstractGeneratorOperation implements Operation
 {
     /**
      * @param iterable<mixed> ...$iterables

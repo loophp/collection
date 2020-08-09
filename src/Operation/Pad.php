@@ -14,7 +14,7 @@ use loophp\collection\Contract\Operation;
  * @psalm-template TKey of array-key
  * @psalm-template T
  */
-final class Pad extends AbstractOperation implements Operation
+final class Pad extends AbstractGeneratorOperation implements Operation
 {
     /**
      * @param mixed $value

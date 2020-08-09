@@ -17,7 +17,7 @@ use const E_USER_WARNING;
  * @psalm-template TKey of array-key
  * @psalm-template T
  */
-final class Combine extends AbstractOperation implements Operation
+final class Combine extends AbstractGeneratorOperation implements Operation
 {
     /**
      * Combine constructor.

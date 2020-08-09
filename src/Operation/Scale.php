@@ -11,7 +11,7 @@ use loophp\collection\Contract\Operation;
 
 use const INF;
 
-final class Scale extends AbstractOperation implements Operation
+final class Scale extends AbstractGeneratorOperation implements Operation
 {
     public function __construct(
         float $lowerBound,

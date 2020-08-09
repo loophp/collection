@@ -16,7 +16,7 @@ use function array_key_exists;
  * @psalm-template TKey of array-key
  * @psalm-template T
  */
-final class Only extends AbstractOperation implements Operation
+final class Only extends AbstractGeneratorOperation implements Operation
 {
     /**
      * @param mixed ...$keys

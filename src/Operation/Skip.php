@@ -14,7 +14,7 @@ use loophp\collection\Contract\Operation;
  * @psalm-template TKey of array-key
  * @psalm-template T
  */
-final class Skip extends AbstractOperation implements Operation
+final class Skip extends AbstractGeneratorOperation implements Operation
 {
     public function __construct(int ...$skip)
     {

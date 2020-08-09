@@ -14,7 +14,7 @@ use loophp\collection\Contract\Operation;
  * @psalm-template TKey of array-key
  * @psalm-template T
  */
-final class Keys extends AbstractOperation implements Operation
+final class Keys extends AbstractGeneratorOperation implements Operation
 {
     public function __invoke(): Closure
     {

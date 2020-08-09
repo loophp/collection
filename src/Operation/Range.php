@@ -11,7 +11,7 @@ use loophp\collection\Contract\Operation;
 
 use const INF;
 
-final class Range extends AbstractOperation implements Operation
+final class Range extends AbstractGeneratorOperation implements Operation
 {
     public function __construct(float $start = 0.0, float $end = INF, float $step = 1.0)
     {

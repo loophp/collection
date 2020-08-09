@@ -16,7 +16,7 @@ use loophp\collection\Contract\Operation;
  * @psalm-template TKey of array-key
  * @psalm-template T
  */
-final class Sort extends AbstractOperation implements Operation
+final class Sort extends AbstractGeneratorOperation implements Operation
 {
     public function __construct(int $type = Operation\Sortable::BY_VALUES, ?callable $callback = null)
     {

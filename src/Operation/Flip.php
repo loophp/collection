@@ -14,7 +14,7 @@ use loophp\collection\Contract\Operation;
  * @psalm-template T
  * @psalm-template T of array-key
  */
-final class Flip extends AbstractOperation implements Operation
+final class Flip extends AbstractGeneratorOperation implements Operation
 {
     public function __invoke(): Closure
     {

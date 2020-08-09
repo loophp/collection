@@ -17,7 +17,7 @@ use Symfony\Component\Cache\Adapter\ArrayAdapter;
  * @psalm-template TKey of array-key
  * @psalm-template T
  */
-final class Cache extends AbstractOperation implements Operation
+final class Cache extends AbstractGeneratorOperation implements Operation
 {
     public function __construct(?CacheItemPoolInterface $cache = null)
     {

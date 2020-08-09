@@ -16,7 +16,7 @@ use MultipleIterator;
  * @psalm-template TKey of array-key
  * @psalm-template T
  */
-final class Transpose extends AbstractOperation implements Operation
+final class Transpose extends AbstractGeneratorOperation implements Operation
 {
     public function __invoke(): Closure
     {

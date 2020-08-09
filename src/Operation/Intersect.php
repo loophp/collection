@@ -16,7 +16,7 @@ use function in_array;
  * @psalm-template TKey of array-key
  * @psalm-template T
  */
-final class Intersect extends AbstractOperation implements Operation
+final class Intersect extends AbstractGeneratorOperation implements Operation
 {
     /**
      * @param mixed ...$values
