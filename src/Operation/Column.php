@@ -14,7 +14,7 @@ use loophp\collection\Contract\Operation;
  * @psalm-template TKey of array-key
  * @psalm-template T
  */
-final class Column extends AbstractOperation implements Operation
+final class Column extends AbstractGeneratorOperation implements Operation
 {
     /**
      * Column constructor.

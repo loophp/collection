@@ -17,7 +17,7 @@ use function count;
  * @psalm-template TKey of array-key
  * @psalm-template T
  */
-final class Chunk extends AbstractOperation implements Operation
+final class Chunk extends AbstractGeneratorOperation implements Operation
 {
     public function __construct(int ...$size)
     {

@@ -20,7 +20,7 @@ use loophp\collection\Contract\Operation;
  * @psalm-template TKey of array-key
  * @psalm-template T
  */
-final class Intersperse extends AbstractOperation implements Operation
+final class Intersperse extends AbstractGeneratorOperation implements Operation
 {
     /**
      * @param mixed $element

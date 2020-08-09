@@ -16,7 +16,7 @@ use function in_array;
  * @psalm-template TKey of array-key
  * @psalm-template T
  */
-final class Distinct extends AbstractOperation implements Operation
+final class Distinct extends AbstractGeneratorOperation implements Operation
 {
     public function __invoke(): Closure
     {

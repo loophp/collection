@@ -14,7 +14,7 @@ use loophp\collection\Contract\Operation;
  * @psalm-template TKey of array-key
  * @psalm-template T
  */
-final class Walk extends AbstractOperation implements Operation
+final class Walk extends AbstractGeneratorOperation implements Operation
 {
     public function __construct(callable ...$callbacks)
     {

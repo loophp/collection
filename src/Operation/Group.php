@@ -16,7 +16,7 @@ use function array_key_exists;
  * @psalm-template TKey of array-key
  * @psalm-template T
  */
-final class Group extends AbstractOperation implements Operation
+final class Group extends AbstractGeneratorOperation implements Operation
 {
     public function __construct(?callable $callable = null)
     {

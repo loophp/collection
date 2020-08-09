@@ -15,7 +15,7 @@ use loophp\collection\Contract\Operation;
  *
  * @implements Operation<TKey, T>
  */
-final class Implode extends AbstractOperation implements Operation
+final class Implode extends AbstractGeneratorOperation implements Operation
 {
     public function __construct(string $glue = '')
     {

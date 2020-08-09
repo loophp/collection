@@ -15,7 +15,7 @@ use loophp\collection\Contract\Operation;
  * @psalm-template TKey of array-key
  * @psalm-template T
  */
-final class Limit extends AbstractOperation implements Operation
+final class Limit extends AbstractGeneratorOperation implements Operation
 {
     public function __construct(int $limit, int $offset = 0)
     {

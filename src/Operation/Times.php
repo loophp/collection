@@ -15,7 +15,7 @@ use loophp\collection\Contract\Operation;
  * @psalm-template TKey of array-key
  * @psalm-template T
  */
-final class Times extends AbstractOperation implements Operation
+final class Times extends AbstractGeneratorOperation implements Operation
 {
     public function __construct(?int $number = null, ?callable $callback = null)
     {

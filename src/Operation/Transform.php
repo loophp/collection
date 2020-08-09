@@ -23,9 +23,6 @@ final class Transform extends AbstractOperation implements Operation
     public function __construct(Operation ...$transformers)
     {
         $this->storage['transformers'] = $transformers;
-        $this->storage['wrapper'] = static function (callable $callable, ...$arguments) {
-            return $callable(...$arguments);
-        };
     }
 
     public function __invoke(): Closure
@@ -34,7 +31,7 @@ final class Transform extends AbstractOperation implements Operation
             return array_reduce(
                 $this->get('transformers', []),
                 function (Iterator $collection, Operation $operation) {
-                    return ($this->get('wrapper'))(
+                    return ($this->getWrapper())(
                         $operation(),
                         $collection,
                         ...array_values($operation->getArguments())

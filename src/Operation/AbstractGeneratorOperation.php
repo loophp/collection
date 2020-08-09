@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
+use loophp\collection\Iterator\ClosureIterator;
 
 use function array_key_exists;
 
-abstract class AbstractOperation
+abstract class AbstractGeneratorOperation
 {
     /**
      * @var array<string, mixed>
@@ -38,7 +39,7 @@ abstract class AbstractOperation
     public function getWrapper(): Closure
     {
         return static function (callable $callable, ...$arguments) {
-            return ($callable)(...$arguments);
+            return new ClosureIterator($callable, ...$arguments);
         };
     }
 }

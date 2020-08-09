@@ -14,7 +14,7 @@ use loophp\collection\Contract\Operation;
  * @psalm-template TKey of array-key
  * @psalm-template T
  */
-final class Iterate extends AbstractOperation implements Operation
+final class Iterate extends AbstractGeneratorOperation implements Operation
 {
     /**
      * @param array<mixed, mixed> $parameters

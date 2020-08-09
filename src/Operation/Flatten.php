@@ -17,7 +17,7 @@ use function is_array;
  * @psalm-template TKey of array-key
  * @psalm-template T
  */
-final class Flatten extends AbstractOperation implements Operation
+final class Flatten extends AbstractGeneratorOperation implements Operation
 {
     public function __construct(int $depth)
     {

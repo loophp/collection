@@ -17,7 +17,7 @@ use function count;
  * @psalm-template TKey of array-key
  * @psalm-template T
  */
-final class Combinate extends AbstractOperation implements Operation
+final class Combinate extends AbstractGeneratorOperation implements Operation
 {
     public function __construct(?int $length = null)
     {
