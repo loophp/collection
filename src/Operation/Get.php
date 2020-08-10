@@ -30,14 +30,23 @@ final class Get extends AbstractOperation implements Operation
 
     public function __invoke(): Closure
     {
-        return static function (Iterator $collection, $keyToGet, $default) {
-            foreach ($collection as $key => $value) {
-                if ($key === $keyToGet) {
-                    return $value;
+        return
+            /**
+             * @psalm-param \Iterator<TKey, T> $collection
+             * @psalm-param TKey $keyToGet
+             * @psalm-param T $default
+             *
+             * @param mixed $keyToGet
+             * @param mixed $default
+             */
+            static function (Iterator $collection, $keyToGet, $default) {
+                foreach ($collection as $key => $value) {
+                    if ($key === $keyToGet) {
+                        return $value;
+                    }
                 }
-            }
 
-            return $default;
-        };
+                return $default;
+            };
     }
 }

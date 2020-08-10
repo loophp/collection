@@ -43,14 +43,22 @@ final class First extends AbstractOperation implements Operation
 
     public function __invoke(): Closure
     {
-        return static function (Iterator $collection, callable $callback, $default) {
-            foreach ($collection as $key => $value) {
-                if (true === $callback($value, $key)) {
-                    return $value;
+        return
+            /**
+             * @psalm-param \Iterator<TKey, T> $collection
+             * @psalm-param callable(T, TKey):(bool) $callback
+             * @psalm-param T|null $initial
+             *
+             * @param mixed $default
+             */
+            static function (Iterator $collection, callable $callback, $default) {
+                foreach ($collection as $key => $value) {
+                    if (true === $callback($value, $key)) {
+                        return $value;
+                    }
                 }
-            }
 
-            return $default;
-        };
+                return $default;
+            };
     }
 }

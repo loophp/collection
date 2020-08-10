@@ -26,25 +26,18 @@ final class Window extends AbstractGeneratorOperation implements Operation
 
     public function __invoke(): Closure
     {
-        return
-            /**
-             * @psalm-param \Iterator<TKey, T> $iterator
-             * @psalm-param \ArrayIterator<int, int> $length
-             *
-             * @psalm-return \Generator<int, list<T>>
-             */
-            static function (Iterator $iterator, ArrayIterator $length): Generator {
-                /** @psalm-var \Iterator<int, int> $length */
-                $length = (new Run())()($length, new Loop());
+        return static function (Iterator $iterator, ArrayIterator $length): Generator {
+            /** @psalm-var \Iterator<int, int> $length */
+            $length = (new Run())()($length, new Loop());
 
-                for ($i = 0; iterator_count($iterator) > $i; ++$i) {
-                    /** @psalm-var list<T> $window */
-                    $window = iterator_to_array((new Run())()($iterator, new Slice($i, $length->current())));
+            for ($i = 0; iterator_count($iterator) > $i; ++$i) {
+                /** @psalm-var \Iterator<TKey, T> $windowIterator */
+                $windowIterator = (new Run())()($iterator, new Slice($i, $length->current()));
 
-                    $length->next();
+                yield iterator_to_array($windowIterator);
 
-                    yield $window;
-                }
-            };
+                $length->next();
+            }
+        };
     }
 }

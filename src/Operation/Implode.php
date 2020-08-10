@@ -24,14 +24,18 @@ final class Implode extends AbstractOperation implements Operation
 
     public function __invoke(): Closure
     {
-        return static function (Iterator $collection, string $glue): string {
-            $result = '';
+        return
+            /**
+             * @psalm-param \Iterator<TKey, T> $collection
+             */
+            static function (Iterator $collection, string $glue): string {
+                $result = '';
 
-            foreach ($collection as $value) {
-                $result .= $value . $glue;
-            }
+                foreach ($collection as $value) {
+                    $result .= $value . $glue;
+                }
 
-            return rtrim($result, $glue);
-        };
+                return rtrim($result, $glue);
+            };
     }
 }

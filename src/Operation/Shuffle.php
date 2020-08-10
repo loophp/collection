@@ -27,8 +27,10 @@ final class Shuffle extends AbstractGeneratorOperation implements Operation
              * @psalm-return \Generator<TKey|null, T, mixed, void>
              */
             static function (Iterator $iterator): Generator {
-                /** @psalm-var array<TKey, T>  $data */
-                $data = iterator_to_array((new Run())()($iterator, new Wrap()));
+                /** @psalm-var \Iterator<TKey, T> $newIterator */
+                $newIterator = (new Run())()($iterator, new Wrap());
+
+                $data = iterator_to_array($newIterator);
 
                 while ([] !== $data) {
                     $randomKey = array_rand($data);

@@ -18,7 +18,7 @@ use loophp\collection\Contract\Operation;
 final class Has extends AbstractOperation implements Operation
 {
     /**
-     * @psalm-param callable(TKey, T):(bool) $callback
+     * @psalm-param callable(TKey, T):(T) $callback
      */
     public function __construct(callable $callback)
     {
@@ -27,14 +27,19 @@ final class Has extends AbstractOperation implements Operation
 
     public function __invoke(): Closure
     {
-        return static function (Iterator $collection, callable $callback) {
-            foreach ($collection as $key => $value) {
-                if ($callback($key, $value) === $value) {
-                    return true;
+        return
+            /**
+             * @psalm-param \Iterator<TKey, T> $collection
+             * @psalm-param callable(TKey, T):(T) $callback
+             */
+            static function (Iterator $collection, callable $callback) {
+                foreach ($collection as $key => $value) {
+                    if ($callback($key, $value) === $value) {
+                        return true;
+                    }
                 }
-            }
 
-            return false;
-        };
+                return false;
+            };
     }
 }
