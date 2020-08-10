@@ -26,7 +26,7 @@ final class Last extends AbstractOperation implements Operation
     public function __invoke(): Closure
     {
         return static function (Iterator $collection) {
-            return (new Transform(new FoldLeft(
+            return (new Run(new FoldLeft(
                 /**
                  * @param mixed $carry
                  * @psalm-param null|T $carry
