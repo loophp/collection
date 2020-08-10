@@ -33,10 +33,11 @@ final class Tail extends AbstractGeneratorOperation implements Operation
              */
             static function (Iterator $iterator, int $length): Generator {
                 return yield from (
-                new Run(
+                new Run())()(
+                    $iterator,
                     (new Skip(iterator_count($iterator) - $length)),
                     new Limit($length)
-                ))()($iterator);
+                );
             };
     }
 }

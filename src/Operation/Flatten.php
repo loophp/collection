@@ -45,7 +45,7 @@ final class Flatten extends AbstractGeneratorOperation implements Operation
                         }
                     } elseif (is_array($value)) {
                         /** @psalm-var T $subValue */
-                        foreach ((new Run(new Flatten($depth - 1)))()(new ArrayIterator($value)) as $subValue) {
+                        foreach ((new Run())()(new ArrayIterator($value), new Flatten($depth - 1)) as $subValue) {
                             yield $subValue;
                         }
                     }

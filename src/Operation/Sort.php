@@ -67,10 +67,10 @@ final class Sort extends AbstractGeneratorOperation implements Operation
                         return $callback(current($left), current($right));
                     };
 
-                $arrayIterator = new ArrayIterator(iterator_to_array((new Run(...$operations['before']))()($iterator)));
+                $arrayIterator = new ArrayIterator(iterator_to_array((new Run())()($iterator, ...$operations['before'])));
                 $arrayIterator->uasort($callback);
 
-                return yield from (new Run(...$operations['after']))()($arrayIterator);
+                return yield from (new Run())()($arrayIterator, ...$operations['after']);
             };
     }
 

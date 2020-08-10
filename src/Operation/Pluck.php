@@ -79,7 +79,7 @@ final class Pluck extends AbstractOperation implements Operation
                     $result[] = $this->pick($iterator, $item, $key);
                 }
 
-                return in_array('*', $key, true) ? (new Run((new Collapse())))(new ArrayIterator($result)) : $result;
+                return in_array('*', $key, true) ? (new Run())()(new ArrayIterator($result), new Collapse()) : $result;
             }
 
             if ((true === is_array($target)) && (true === array_key_exists($segment, $target))) {
@@ -87,7 +87,7 @@ final class Pluck extends AbstractOperation implements Operation
             } elseif (($target instanceof ArrayAccess) && (true === $target->offsetExists($segment))) {
                 $target = $target[$segment];
             } elseif ($target instanceof Collection) {
-                $target = (new Run(new Get($segment, $default)))()(new IterableIterator($target));
+                $target = (new Run())()(new IterableIterator($target), new Get($segment, $default));
             } elseif ((true === is_object($target)) && (true === property_exists($target, $segment))) {
                 $target = (new ReflectionClass($target))->getProperty($segment)->getValue($target);
             } else {

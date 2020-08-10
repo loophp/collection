@@ -17,16 +17,10 @@ use loophp\collection\Contract\Operation;
  */
 final class Last extends AbstractOperation implements Operation
 {
-    /**
-     * @param Iterator<TKey, T> $collection
-     *
-     * @return mixed|null
-     * @psalm-return T|null
-     */
     public function __invoke(): Closure
     {
         return static function (Iterator $collection) {
-            return (new Run(new FoldLeft(
+            return (new Run())()($collection, new FoldLeft(
                 /**
                  * @param mixed $carry
                  * @psalm-param null|T $carry
@@ -43,7 +37,7 @@ final class Last extends AbstractOperation implements Operation
                 static function ($carry, $item, $key) {
                     return $item;
                 }
-            )))()($collection);
+            ));
         };
     }
 }

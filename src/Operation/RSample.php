@@ -32,13 +32,14 @@ final class RSample extends AbstractGeneratorOperation implements Operation
              * @psalm-return \Generator<TKey, T>
              */
             static function (Iterator $iterator, float $probability): Generator {
-                return yield from (new Run(
+                return yield from (new Run())()(
+                    $iterator,
                     new Filter(
                         static function () use ($probability): bool {
                             return (mt_rand() / mt_getrandmax()) < $probability;
                         }
                     )
-                ))()($iterator);
+                );
             };
     }
 }
