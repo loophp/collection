@@ -15,6 +15,8 @@ use function array_key_exists;
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
+ *
+ * @implements Operation<TKey, T>
  */
 final class Group extends AbstractGeneratorOperation implements Operation
 {

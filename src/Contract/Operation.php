@@ -6,6 +6,11 @@ namespace loophp\collection\Contract;
 
 use Closure;
 
+/**
+ * @psalm-template TKey
+ * @psalm-template TKey of array-key
+ * @psalm-template T
+ */
 interface Operation
 {
     public function __invoke(): Closure;

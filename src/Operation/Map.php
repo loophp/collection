@@ -16,6 +16,8 @@ use loophp\collection\Transformation\Transform;
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
+ *
+ * @implements Operation<TKey, T>
  */
 final class Map extends AbstractOperation implements Operation
 {

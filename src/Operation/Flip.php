@@ -13,6 +13,8 @@ use loophp\collection\Contract\Operation;
  * @psalm-template TKey
  * @psalm-template T
  * @psalm-template T of array-key
+ *
+ * @implements Operation<TKey, T>
  */
 final class Flip extends AbstractGeneratorOperation implements Operation
 {

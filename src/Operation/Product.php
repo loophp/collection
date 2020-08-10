@@ -16,6 +16,8 @@ use function count;
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
+ *
+ * @implements Operation<TKey, T>
  */
 final class Product extends AbstractGeneratorOperation implements Operation
 {

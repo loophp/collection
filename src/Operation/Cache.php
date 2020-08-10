@@ -16,6 +16,8 @@ use Symfony\Component\Cache\Adapter\ArrayAdapter;
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
+ *
+ * @implements Operation<TKey, T>
  */
 final class Cache extends AbstractGeneratorOperation implements Operation
 {
