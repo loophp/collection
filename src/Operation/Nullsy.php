@@ -19,14 +19,18 @@ final class Nullsy extends AbstractOperation implements Operation
 {
     public function __invoke(): Closure
     {
-        return static function (Iterator $collection): bool {
-            foreach ($collection as $key => $value) {
-                if (null !== $value) {
-                    return false;
+        return
+            /**
+             * @psalm-param \Iterator<TKey, T> $collection
+             */
+            static function (Iterator $collection): bool {
+                foreach ($collection as $key => $value) {
+                    if (null !== $value) {
+                        return false;
+                    }
                 }
-            }
 
-            return true;
-        };
+                return true;
+            };
     }
 }

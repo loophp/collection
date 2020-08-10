@@ -31,12 +31,20 @@ final class FoldLeft extends AbstractOperation implements Operation
 
     public function __invoke(): Closure
     {
-        return static function (Iterator $collection, callable $callback, $initial) {
-            foreach ($collection as $key => $value) {
-                $initial = $callback($initial, $value, $key, $collection);
-            }
+        return
+            /**
+             * @psalm-param \Iterator<TKey, T> $collection
+             * @psalm-param callable(T, T, TKey):(T|null|scalar) $callback
+             * @psalm-param T|null $initial
+             *
+             * @param mixed $initial
+             */
+            static function (Iterator $collection, callable $callback, $initial) {
+                foreach ($collection as $key => $value) {
+                    $initial = $callback($initial, $value, $key, $collection);
+                }
 
-            return $initial;
-        };
+                return $initial;
+            };
     }
 }

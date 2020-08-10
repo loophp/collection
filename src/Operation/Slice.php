@@ -35,6 +35,7 @@ final class Slice extends AbstractGeneratorOperation implements Operation
              * @psalm-return \Generator<TKey, T>
              */
             static function (Iterator $iterator, int $offset, ?int $length): Generator {
+                /** @psalm-var \Iterator<TKey, T> $skip */
                 $skip = (new Run())()(
                     $iterator,
                     new Skip($offset)

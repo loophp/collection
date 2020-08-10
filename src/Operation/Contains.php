@@ -29,19 +29,48 @@ final class Contains extends AbstractOperation implements Operation
 
     public function __invoke(): Closure
     {
-        return static function (Iterator $collection, ArrayIterator $values): bool {
-            return (new Run())()($values, new FoldLeft(
-                static function (bool $carry, $item, $key) use ($collection) {
-                    $hasCallback = static function ($k, $v) use ($item) {
-                        return $item;
-                    };
+        return
+            /**
+             * @psalm-param \Iterator<TKey, T> $collection
+             */
+            static function (Iterator $collection, ArrayIterator $values): bool {
+                return (new Run())()(
+                    $values,
+                    new FoldLeft(
+                        /**
+                         * @psalm-param T $item
+                         * @psalm-param TKey $key
+                         *
+                         * @param mixed $item
+                         * @param mixed $key
+                         */
+                        static function (bool $carry, $item, $key) use ($collection): bool {
+                            $hasCallback =
+                                /**
+                                 * @psalm-param TKey $k
+                                 * @psalm-param T $v
+                                 *
+                                 * @psalm-return T
+                                 *
+                                 * @param mixed $k
+                                 * @param mixed $v
+                                 *
+                                 * @return mixed
+                                 */
+                                static function ($k, $v) use ($item) {
+                                    return $item;
+                                };
 
-                    return ((new Run()))()($collection, new Has($hasCallback)) ?
-                        $carry :
-                        false;
-                },
-                true
-            ));
-        };
+                            /** @psalm-var bool $return */
+                            $return = ((new Run()))()($collection, new Has($hasCallback));
+
+                            return $return ?
+                                $carry :
+                                false;
+                        },
+                        true
+                    )
+                );
+            };
     }
 }

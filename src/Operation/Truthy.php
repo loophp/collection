@@ -17,6 +17,9 @@ use loophp\collection\Contract\Operation;
  */
 final class Truthy extends AbstractOperation implements Operation
 {
+    /**
+     * @psalm-return \Closure(\Iterator<TKey, T>): bool
+     */
     public function __invoke(): Closure
     {
         return static function (Iterator $collection): bool {

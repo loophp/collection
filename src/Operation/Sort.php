@@ -72,7 +72,9 @@ final class Sort extends AbstractGeneratorOperation implements Operation
                         return $callback($left, $right);
                     };
 
-                $arrayIterator = new ArrayIterator(iterator_to_array((new Run())()($iterator, ...$operations['before'])));
+                /** @psalm-var \Iterator<int, array{TKey, T}> $newIterator */
+                $newIterator = (new Run())()($iterator, ...$operations['before']);
+                $arrayIterator = new ArrayIterator(iterator_to_array($newIterator));
                 $arrayIterator->uasort($callback);
 
                 return yield from (new Run())()($arrayIterator, ...$operations['after']);
