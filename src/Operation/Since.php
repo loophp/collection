@@ -13,6 +13,8 @@ use loophp\collection\Contract\Operation;
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
+ *
+ * @implements Operation<TKey, T>
  */
 final class Since extends AbstractGeneratorOperation implements Operation
 {

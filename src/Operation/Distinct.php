@@ -15,6 +15,8 @@ use function in_array;
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
+ *
+ * @implements Operation<TKey, T>
  */
 final class Distinct extends AbstractGeneratorOperation implements Operation
 {

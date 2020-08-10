@@ -18,11 +18,11 @@ use loophp\collection\Contract\Operation;
 final class Run extends AbstractOperation implements Operation
 {
     /**
-     * @param \loophp\collection\Contract\Operation<TKey, T> ...$transformers
+     * @param \loophp\collection\Contract\Operation<TKey, T> ...$operations
      */
-    public function __construct(Operation ...$transformers)
+    public function __construct(Operation ...$operations)
     {
-        $this->storage['operations'] = $transformers;
+        $this->storage['operations'] = $operations;
     }
 
     public function __invoke(): Closure

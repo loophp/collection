@@ -16,6 +16,8 @@ use function is_array;
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
+ *
+ * @implements Operation<TKey, T>
  */
 final class Flatten extends AbstractGeneratorOperation implements Operation
 {
