@@ -6,21 +6,8 @@ namespace loophp\collection\Operation;
 
 use Closure;
 
-abstract class AbstractOperation
+abstract class AbstractOperation extends AbstractParametrizedOperation
 {
-    /**
-     * @var array<string, mixed>
-     */
-    protected $storage = [];
-
-    /**
-     * @return array<string, mixed>
-     */
-    public function getArguments(): array
-    {
-        return $this->storage;
-    }
-
     public function getWrapper(): Closure
     {
         return static function (callable $callable, ...$arguments) {

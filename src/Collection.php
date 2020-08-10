@@ -80,7 +80,6 @@ use loophp\collection\Operation\Sort;
 use loophp\collection\Operation\Split;
 use loophp\collection\Operation\Tail;
 use loophp\collection\Operation\Times;
-use loophp\collection\Operation\Transform;
 use loophp\collection\Operation\Transpose;
 use loophp\collection\Operation\Truthy;
 use loophp\collection\Operation\Unpair;
@@ -628,7 +627,7 @@ final class Collection implements CollectionInterface
 
     public function transform(Operation ...$operations)
     {
-        return (new Transform(...$operations))()($this->getIterator());
+        return (new Run(...$operations))()($this->getIterator());
     }
 
     public function transpose(): CollectionInterface

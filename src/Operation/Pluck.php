@@ -87,7 +87,7 @@ final class Pluck extends AbstractOperation implements Operation
             } elseif (($target instanceof ArrayAccess) && (true === $target->offsetExists($segment))) {
                 $target = $target[$segment];
             } elseif ($target instanceof Collection) {
-                $target = (new Transform(new Get($segment, $default)))()(new IterableIterator($target));
+                $target = (new Run(new Get($segment, $default)))()(new IterableIterator($target));
             } elseif ((true === is_object($target)) && (true === property_exists($target, $segment))) {
                 $target = (new ReflectionClass($target))->getProperty($segment)->getValue($target);
             } else {

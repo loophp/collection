@@ -32,7 +32,7 @@ final class Reduce extends AbstractOperation implements Operation
     public function __invoke(): Closure
     {
         return static function (Iterator $collection, callable $callback, $initial) {
-            return (new Transform(new FoldLeft($callback, $initial)))()($collection);
+            return (new Run(new FoldLeft($callback, $initial)))()($collection);
         };
     }
 }

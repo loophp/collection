@@ -15,11 +15,14 @@ use loophp\collection\Contract\Operation;
  *
  * @implements Operation<TKey, T>
  */
-final class Run extends AbstractGeneratorOperation implements Operation
+final class Run extends AbstractOperation implements Operation
 {
-    public function __construct(Operation ...$operations)
+    /**
+     * @param \loophp\collection\Contract\Operation<TKey, T> ...$transformers
+     */
+    public function __construct(Operation ...$transformers)
     {
-        $this->storage['operations'] = $operations;
+        $this->storage['operations'] = $transformers;
     }
 
     public function __invoke(): Closure
@@ -27,8 +30,8 @@ final class Run extends AbstractGeneratorOperation implements Operation
         return function (Iterator $collection) {
             return array_reduce(
                 $this->get('operations', []),
-                function (Iterator $collection, Operation $operation) {
-                    return ($this->getWrapper())(
+                static function (Iterator $collection, Operation $operation) {
+                    return ($operation->getWrapper())(
                         $operation(),
                         $collection,
                         ...array_values($operation->getArguments())

@@ -38,7 +38,7 @@ final class FoldRight extends AbstractOperation implements Operation
     public function __invoke(): Closure
     {
         return static function (Iterator $collection, callable $callback, $initial) {
-            return (new Transform(new FoldLeft($callback, $initial)))()((new Run(new Reverse()))()($collection));
+            return (new Run(new FoldLeft($callback, $initial)))()((new Run(new Reverse()))()($collection));
         };
     }
 }
