@@ -26,7 +26,7 @@ final class Run extends AbstractOperation implements Operation
                     return ($operation->getWrapper())(
                         $operation(),
                         $collection,
-                        ...array_values($operation->getArguments())
+                        ...$operation->getArguments()
                     );
                 },
                 $collection

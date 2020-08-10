@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace loophp\collection\Operation;
 
+use Generator;
+
 use function array_key_exists;
 
 abstract class AbstractParametrizedOperation
@@ -26,10 +28,10 @@ abstract class AbstractParametrizedOperation
     }
 
     /**
-     * @return array<string, mixed>
+     * @psalm-return Generator<int, mixed>
      */
-    public function getArguments(): array
+    public function getArguments(): Generator
     {
-        return $this->storage;
+        return yield from array_values($this->storage);
     }
 }
