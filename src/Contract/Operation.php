@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace loophp\collection\Contract;
 
 use Closure;
+use Generator;
 
 /**
  * @psalm-template TKey
@@ -16,7 +17,7 @@ interface Operation
     public function __invoke(): Closure;
 
     /**
-     * @return array<string, mixed>
+     * @return Generator<int, mixed>
      */
-    public function getArguments(): array;
+    public function getArguments(): Generator;
 }
