@@ -35,13 +35,15 @@ final class Window extends AbstractGeneratorOperation implements Operation
              */
             static function (Iterator $iterator, ArrayIterator $length): Generator {
                 /** @psalm-var \Iterator<int, int> $length */
-                $length = (new Run(new Loop()))($length);
+                $length = (new Run())()($length, new Loop());
 
                 for ($i = 0; iterator_count($iterator) > $i; ++$i) {
                     /** @psalm-var list<T> $window */
-                    yield iterator_to_array((new Run(new Slice($i, $length->current())))($iterator));
+                    $window = iterator_to_array((new Run())()($iterator, new Slice($i, $length->current())));
 
                     $length->next();
+
+                    yield $window;
                 }
             };
     }

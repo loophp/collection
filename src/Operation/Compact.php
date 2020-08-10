@@ -40,7 +40,8 @@ final class Compact extends AbstractGeneratorOperation implements Operation
              */
             static function (Iterator $iterator, array $values): Generator {
                 return yield from
-                (new Run(
+                (new Run())()(
+                    $iterator,
                     new Filter(
                         /**
                          * @param mixed $item
@@ -49,8 +50,7 @@ final class Compact extends AbstractGeneratorOperation implements Operation
                             return !in_array($item, $values, true);
                         }
                     )
-                )
-                )()($iterator);
+                );
             };
     }
 }

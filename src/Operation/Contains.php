@@ -30,18 +30,18 @@ final class Contains extends AbstractOperation implements Operation
     public function __invoke(): Closure
     {
         return static function (Iterator $collection, ArrayIterator $values): bool {
-            return (new Run(new FoldLeft(
+            return (new Run())()($values, new FoldLeft(
                 static function (bool $carry, $item, $key) use ($collection) {
                     $hasCallback = static function ($k, $v) use ($item) {
                         return $item;
                     };
 
-                    return ((new Run(new Has($hasCallback))))()($collection) ?
+                    return ((new Run()))()($collection, new Has($hasCallback)) ?
                         $carry :
                         false;
                 },
                 true
-            )))()($values);
+            ));
         };
     }
 }

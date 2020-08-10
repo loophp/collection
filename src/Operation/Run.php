@@ -17,19 +17,11 @@ use loophp\collection\Contract\Operation;
  */
 final class Run extends AbstractOperation implements Operation
 {
-    /**
-     * @param \loophp\collection\Contract\Operation<TKey, T> ...$operations
-     */
-    public function __construct(Operation ...$operations)
-    {
-        $this->storage['operations'] = $operations;
-    }
-
     public function __invoke(): Closure
     {
-        return function (Iterator $collection) {
+        return static function (Iterator $collection, Operation ...$operations) {
             return array_reduce(
-                $this->get('operations', []),
+                $operations,
                 static function (Iterator $collection, Operation $operation) {
                     return ($operation->getWrapper())(
                         $operation(),

@@ -59,7 +59,7 @@ final class Scale extends AbstractGeneratorOperation implements Operation
     public function __invoke(): Closure
     {
         return static function (Iterator $iterator, Map $mapper, Filter $filter): Generator {
-            return yield from (new Run($filter, $mapper))()($iterator);
+            return yield from (new Run())()($iterator, $filter, $mapper);
         };
     }
 }

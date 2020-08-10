@@ -572,7 +572,7 @@ final class Collection implements CollectionInterface
 
     public function run(Operation ...$operations)
     {
-        return self::fromIterable((new Run(...$operations))()($this->getIterator()));
+        return self::fromIterable((new Run())()($this->getIterator(), ...$operations));
     }
 
     public function scale(
@@ -627,7 +627,7 @@ final class Collection implements CollectionInterface
 
     public function transform(Operation ...$operations)
     {
-        return (new Run(...$operations))()($this->getIterator());
+        return (new Run())()($this->getIterator(), ...$operations);
     }
 
     public function transpose(): CollectionInterface

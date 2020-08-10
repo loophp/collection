@@ -41,7 +41,7 @@ final class Chunk extends AbstractGeneratorOperation implements Operation
              * @psalm-return \Generator<int, list<T>>
              */
             static function (Iterator $iterator, ArrayIterator $sizes): Generator {
-                $sizesIterator = (new Run(new Loop()))()($sizes);
+                $sizesIterator = (new Run())()($sizes, new Loop());
 
                 $values = [];
 

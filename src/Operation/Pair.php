@@ -28,7 +28,7 @@ final class Pair extends AbstractGeneratorOperation implements Operation
              */
             static function (Iterator $iterator): Generator {
                 /** @psalm-var list<int, list<T|TKey>> $chunk */
-                foreach ((new Run(new Chunk(2)))()($iterator) as $chunk) {
+                foreach ((new Run())()($iterator, new Chunk(2)) as $chunk) {
                     /** @psalm-var array{TKey, T} $chunk */
                     $chunk = array_values($chunk);
 
