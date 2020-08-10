@@ -27,4 +27,6 @@ interface Operation
      * @return Generator<int, mixed>
      */
     public function getArguments(): Generator;
+
+    public function getWrapper(): Closure;
 }
