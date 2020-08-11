@@ -29,12 +29,6 @@ final class FoldRight extends AbstractOperation implements Operation
         $this->storage['initial'] = $initial;
     }
 
-    /**
-     * @psalm-param \Iterator<TKey, T> $collection
-     *
-     * @return mixed|null
-     * @psalm-return T|null
-     */
     public function __invoke(): Closure
     {
         return static function (Iterator $collection, callable $callback, $initial) {

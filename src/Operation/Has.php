@@ -32,7 +32,7 @@ final class Has extends AbstractOperation implements Operation
              * @psalm-param \Iterator<TKey, T> $collection
              * @psalm-param callable(TKey, T):(T) $callback
              */
-            static function (Iterator $collection, callable $callback) {
+            static function (Iterator $collection, callable $callback): bool {
                 foreach ($collection as $key => $value) {
                     if ($callback($key, $value) === $value) {
                         return true;

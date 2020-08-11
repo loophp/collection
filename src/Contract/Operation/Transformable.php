@@ -15,7 +15,7 @@ interface Transformable
 {
     /**
      * @param \loophp\collection\Contract\Operation<TKey, T> ...$operations
-     * @psalm-param \loophp\collection\Contract\Operation<TKey, T> ...$transformers
+     * @psalm-param \loophp\collection\Contract\Operation<TKey, T> ...$operations
      *
      * @return \loophp\collection\Iterator\ClosureIterator|mixed
      */

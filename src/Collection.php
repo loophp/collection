@@ -384,6 +384,11 @@ final class Collection implements CollectionInterface
     public static function fromResource($resource): Collection
     {
         return new self(
+            /**
+             * @psalm-param resource $resource
+             *
+             * @param mixed $resource
+             */
             static function ($resource): Generator {
                 return yield from new ResourceIterator($resource);
             },

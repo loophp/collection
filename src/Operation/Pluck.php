@@ -20,6 +20,13 @@ use function in_array;
 use function is_array;
 use function is_object;
 
+/**
+ * @psalm-template TKey
+ * @psalm-template TKey of array-key
+ * @psalm-template T
+ *
+ * @implements Operation<TKey, T>
+ */
 final class Pluck extends AbstractOperation implements Operation
 {
     /**
@@ -41,8 +48,12 @@ final class Pluck extends AbstractOperation implements Operation
     {
         return
             /**
+             * @psalm-param \Iterator<TKey, T> $iterator
              * @param array<int, string>|string $key
              * @param mixed $default
+             * @psalm-param callable(\Iterator<TKey, T>, T, array<int, string>, T):(array<int, T>|T) $pick
+             *
+             * @psalm-return \Generator<int, T|array<int, T>>
              */
             static function (Iterator $iterator, $key, $default, callable $pick): Generator {
                 $key = true === is_scalar($key) ? explode('.', trim((string) $key, '.')) : $key;
@@ -57,13 +68,18 @@ final class Pluck extends AbstractOperation implements Operation
      * Get an item from an array or object using "dot" notation.
      *
      * @param Iterator<mixed> $iterator
+     * @psalm-param Iterator<TKey, T> $iterator
      * @param mixed $target
+     * @psalm-param T $target
      * @param array<string> $key
+     * @psalm-param array<int, string> $key
      * @param mixed $default
+     * @psalm-param T $default
      *
      * @throws ReflectionException
      *
      * @return mixed
+     * @psalm-return T|array<int, T>
      */
     private function pick(Iterator $iterator, $target, array $key, $default = null)
     {

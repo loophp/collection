@@ -11,8 +11,12 @@ abstract class AbstractGeneratorOperation extends AbstractParametrizedOperation
 {
     public function getWrapper(): Closure
     {
-        return static function (callable $callable, ...$arguments) {
-            return new ClosureIterator($callable, ...$arguments);
-        };
+        return
+            /**
+             * @psalm-return ClosureIterator<TKey, T>
+             */
+            static function (callable $callable, ...$arguments): ClosureIterator {
+                return new ClosureIterator($callable, ...$arguments);
+            };
     }
 }
