@@ -49,6 +49,7 @@ final class Pluck extends AbstractOperation implements Operation
         return
             /**
              * @psalm-param \Iterator<TKey, T> $iterator
+             *
              * @param array<int, string>|string $key
              * @param mixed $default
              * @psalm-param callable(\Iterator<TKey, T>, T, array<int, string>, T):(array<int, T>|T) $pick
@@ -69,10 +70,13 @@ final class Pluck extends AbstractOperation implements Operation
      *
      * @param Iterator<mixed> $iterator
      * @psalm-param Iterator<TKey, T> $iterator
+     *
      * @param mixed $target
      * @psalm-param T $target
+     *
      * @param array<string> $key
      * @psalm-param array<int, string> $key
+     *
      * @param mixed $default
      * @psalm-param T $default
      *
