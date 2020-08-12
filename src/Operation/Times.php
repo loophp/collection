@@ -8,16 +8,16 @@ use Closure;
 use Generator;
 use InvalidArgumentException;
 use Iterator;
-use loophp\collection\Contract\Operation;
+use loophp\collection\Contract\LazyOperation;
 
 /**
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
  *
- * @implements Operation<TKey, T>
+ * @implements LazyOperation<TKey, T>
  */
-final class Times extends AbstractGeneratorOperation implements Operation
+final class Times extends AbstractLazyOperation implements LazyOperation
 {
     public function __construct(?int $number = null, ?callable $callback = null)
     {

@@ -15,9 +15,9 @@ use loophp\collection\Transformation\Run;
  * @psalm-template TKey of array-key
  * @psalm-template T
  *
- * @implements Operation<TKey, T>
+ * @implements EagerOperation<TKey, T>
  */
-final class Last extends AbstractOperation implements Operation
+final class Last extends AbstractEagerOperation implements EagerOperation
 {
     /**
      * @var callable|Closure
@@ -70,7 +70,7 @@ final class Last extends AbstractOperation implements Operation
                         return true === $callback($value, $key, $iterator);
                     };
 
-                return yield from (new Run(new Filter($callback), new Reverse(), new Limit($size)))($iterator);
+                return yield from (new Run())()($iterator, new Filter($callback), new Reverse(), new Limit($size));
             };
     }
 }

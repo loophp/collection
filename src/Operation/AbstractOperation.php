@@ -4,14 +4,20 @@ declare(strict_types=1);
 
 namespace loophp\collection\Operation;
 
-use Closure;
+use Generator;
 
-abstract class AbstractOperation extends AbstractParametrizedOperation
+abstract class AbstractOperation
 {
-    public function getWrapper(): Closure
+    /**
+     * @var array<string, mixed>
+     */
+    protected $storage = [];
+
+    /**
+     * @psalm-return Generator<int, mixed>
+     */
+    public function getArguments(): Generator
     {
-        return static function (callable $callable, ...$arguments) {
-            return ($callable)(...$arguments);
-        };
+        return yield from array_values($this->storage);
     }
 }

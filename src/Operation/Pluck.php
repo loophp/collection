@@ -10,7 +10,7 @@ use Closure;
 use Generator;
 use Iterator;
 use loophp\collection\Contract\Collection;
-use loophp\collection\Contract\Operation;
+use loophp\collection\Contract\LazyOperation;
 use loophp\collection\Iterator\IterableIterator;
 use ReflectionClass;
 use ReflectionException;
@@ -25,13 +25,11 @@ use function is_object;
  * @psalm-template TKey of array-key
  * @psalm-template T
  *
- * @implements Operation<TKey, T>
+ * @implements LazyOperation<TKey, T>
  */
-final class Pluck extends AbstractOperation implements Operation
+final class Pluck extends AbstractLazyOperation implements LazyOperation
 {
     /**
-     * Pluck constructor.
-     *
      * @param array<int, string>|string $key
      * @param mixed $default
      */

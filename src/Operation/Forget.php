@@ -7,7 +7,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
+use loophp\collection\Contract\LazyOperation;
 
 use function array_key_exists;
 
@@ -16,9 +16,9 @@ use function array_key_exists;
  * @psalm-template TKey of array-key
  * @psalm-template T
  *
- * @implements Operation<TKey, T>
+ * @implements LazyOperation<TKey, T>
  */
-final class Forget extends AbstractGeneratorOperation implements Operation
+final class Forget extends AbstractLazyOperation implements LazyOperation
 {
     /**
      * @param mixed ...$keys

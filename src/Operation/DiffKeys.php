@@ -7,7 +7,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
+use loophp\collection\Contract\LazyOperation;
 
 use function in_array;
 
@@ -16,9 +16,9 @@ use function in_array;
  * @psalm-template TKey of array-key
  * @psalm-template T
  *
- * @implements Operation<TKey, T>
+ * @implements LazyOperation<TKey, T>
  */
-final class DiffKeys extends AbstractGeneratorOperation implements Operation
+final class DiffKeys extends AbstractLazyOperation implements LazyOperation
 {
     /**
      * @param mixed ...$values

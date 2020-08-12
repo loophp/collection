@@ -9,6 +9,7 @@ use Closure;
 use Exception;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\LazyOperation;
 use loophp\collection\Contract\Operation;
 
 /**
@@ -16,9 +17,9 @@ use loophp\collection\Contract\Operation;
  * @psalm-template TKey of array-key
  * @psalm-template T
  *
- * @implements Operation<TKey, T>
+ * @implements LazyOperation<TKey, T>
  */
-final class Sort extends AbstractGeneratorOperation implements Operation
+final class Sort extends AbstractLazyOperation implements LazyOperation
 {
     public function __construct(int $type = Operation\Sortable::BY_VALUES, ?callable $callback = null)
     {

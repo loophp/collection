@@ -6,16 +6,16 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Iterator;
-use loophp\collection\Contract\Operation;
+use loophp\collection\Contract\EagerOperation;
 
 /**
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
  *
- * @implements Operation<TKey, T>
+ * @implements EagerOperation<TKey, T>
  */
-final class Get extends AbstractOperation implements Operation
+final class Get extends AbstractEagerOperation implements EagerOperation
 {
     /**
      * @param int|string $key

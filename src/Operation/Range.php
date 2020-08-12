@@ -7,11 +7,11 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
+use loophp\collection\Contract\LazyOperation;
 
 use const INF;
 
-final class Range extends AbstractGeneratorOperation implements Operation
+final class Range extends AbstractLazyOperation implements LazyOperation
 {
     public function __construct(float $start = 0.0, float $end = INF, float $step = 1.0)
     {

@@ -8,7 +8,7 @@ use ArrayIterator;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
+use loophp\collection\Contract\LazyOperation;
 
 use function count;
 
@@ -17,9 +17,9 @@ use function count;
  * @psalm-template TKey of array-key
  * @psalm-template T
  *
- * @implements Operation<TKey, T>
+ * @implements LazyOperation<TKey, T>
  */
-final class Chunk extends AbstractGeneratorOperation implements Operation
+final class Chunk extends AbstractLazyOperation implements LazyOperation
 {
     public function __construct(int ...$size)
     {

@@ -8,7 +8,7 @@ use ArrayIterator;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
+use loophp\collection\Contract\LazyOperation;
 
 use function is_array;
 
@@ -17,9 +17,9 @@ use function is_array;
  * @psalm-template TKey of array-key
  * @psalm-template T
  *
- * @implements Operation<TKey, T>
+ * @implements LazyOperation<TKey, T>
  */
-final class Flatten extends AbstractGeneratorOperation implements Operation
+final class Flatten extends AbstractLazyOperation implements LazyOperation
 {
     public function __construct(int $depth)
     {

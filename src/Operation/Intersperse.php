@@ -8,7 +8,7 @@ use Closure;
 use Generator;
 use InvalidArgumentException;
 use Iterator;
-use loophp\collection\Contract\Operation;
+use loophp\collection\Contract\LazyOperation;
 
 /**
  * Class Intersperse.
@@ -20,9 +20,9 @@ use loophp\collection\Contract\Operation;
  * @psalm-template TKey of array-key
  * @psalm-template T
  *
- * @implements Operation<TKey, T>
+ * @implements LazyOperation<TKey, T>
  */
-final class Intersperse extends AbstractGeneratorOperation implements Operation
+final class Intersperse extends AbstractLazyOperation implements LazyOperation
 {
     /**
      * @param mixed $element

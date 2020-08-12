@@ -7,16 +7,16 @@ namespace loophp\collection\Operation;
 use Closure;
 use CachingIterator;
 use Iterator;
-use loophp\collection\Contract\Operation;
+use loophp\collection\Contract\EagerOperation;
 
 /**
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
  *
- * @implements Operation<TKey, T>
+ * @implements EagerOperation<TKey, T>
  */
-final class Implode extends AbstractOperation implements Operation
+final class Implode extends AbstractEagerOperation implements EagerOperation
 {
     public function __construct(string $glue)
     {

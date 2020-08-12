@@ -7,7 +7,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
+use loophp\collection\Contract\LazyOperation;
 use loophp\collection\Iterator\CacheIterator;
 use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
@@ -17,9 +17,9 @@ use Symfony\Component\Cache\Adapter\ArrayAdapter;
  * @psalm-template TKey of array-key
  * @psalm-template T
  *
- * @implements Operation<TKey, T>
+ * @implements LazyOperation<TKey, T>
  */
-final class Cache extends AbstractGeneratorOperation implements Operation
+final class Cache extends AbstractLazyOperation implements LazyOperation
 {
     public function __construct(?CacheItemPoolInterface $cache = null)
     {

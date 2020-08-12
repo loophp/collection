@@ -6,6 +6,7 @@ namespace loophp\collection;
 
 use Closure;
 use Generator;
+use Iterator;
 use loophp\collection\Contract\Collection as CollectionInterface;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Iterator\ClosureIterator;
@@ -577,7 +578,11 @@ final class Collection implements CollectionInterface
 
     public function run(Operation ...$operations)
     {
-        return self::fromIterable((new Run())()($this->getIterator(), ...$operations));
+        $return = (new Run())()($this->getIterator(), ...$operations);
+
+        return ($return instanceof Iterator) ?
+            self::fromIterable($return) :
+            $return;
     }
 
     public function scale(

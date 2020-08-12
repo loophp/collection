@@ -8,6 +8,7 @@ use ArrayIterator;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\LazyOperation;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Transformation\FoldLeft;
 use loophp\collection\Transformation\Transform;
@@ -17,9 +18,9 @@ use loophp\collection\Transformation\Transform;
  * @psalm-template TKey of array-key
  * @psalm-template T
  *
- * @implements Operation<TKey, T>
+ * @implements LazyOperation<TKey, T>
  */
-final class Map extends AbstractOperation implements Operation
+final class Map extends AbstractLazyOperation implements LazyOperation
 {
     public function __construct(callable ...$callbacks)
     {

@@ -16,10 +16,11 @@ interface Operation
 {
     public function __invoke(): Closure;
 
+    public function call(callable $callable, ...$arguments);
+
     /**
      * @return Generator<int, mixed>
+     * @psalm-return Generator<int, T>
      */
     public function getArguments(): Generator;
-
-    public function getWrapper(): Closure;
 }

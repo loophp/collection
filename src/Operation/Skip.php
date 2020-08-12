@@ -7,16 +7,16 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
+use loophp\collection\Contract\LazyOperation;
 
 /**
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
  *
- * @implements Operation<TKey, T>
+ * @implements LazyOperation<TKey, T>
  */
-final class Skip extends AbstractGeneratorOperation implements Operation
+final class Skip extends AbstractLazyOperation implements LazyOperation
 {
     public function __construct(int ...$skip)
     {

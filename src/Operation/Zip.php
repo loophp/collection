@@ -7,7 +7,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
+use loophp\collection\Contract\LazyOperation;
 use loophp\collection\Iterator\IterableIterator;
 use MultipleIterator;
 
@@ -16,9 +16,9 @@ use MultipleIterator;
  * @psalm-template TKey of array-key
  * @psalm-template T
  *
- * @implements Operation<TKey, T>
+ * @implements LazyOperation<TKey, T>
  */
-final class Zip extends AbstractGeneratorOperation implements Operation
+final class Zip extends AbstractLazyOperation implements LazyOperation
 {
     /**
      * Zip constructor.

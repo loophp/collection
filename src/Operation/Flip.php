@@ -7,16 +7,16 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
+use loophp\collection\Contract\LazyOperation;
 
 /**
  * @psalm-template TKey
  * @psalm-template T
  * @psalm-template T of array-key
  *
- * @implements Operation<TKey, T>
+ * @implements LazyOperation<TKey, T>
  */
-final class Flip extends AbstractGeneratorOperation implements Operation
+final class Flip extends AbstractLazyOperation implements LazyOperation
 {
     public function __invoke(): Closure
     {

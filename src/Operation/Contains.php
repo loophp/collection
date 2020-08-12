@@ -7,16 +7,16 @@ namespace loophp\collection\Operation;
 use ArrayIterator;
 use Closure;
 use Iterator;
-use loophp\collection\Contract\Operation;
+use loophp\collection\Contract\EagerOperation;
 
 /**
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
  *
- * @implements Operation<TKey, T>
+ * @implements EagerOperation<TKey, T>
  */
-final class Contains extends AbstractOperation implements Operation
+final class Contains extends AbstractEagerOperation implements EagerOperation
 {
     /**
      * @param mixed ...$values

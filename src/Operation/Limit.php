@@ -8,16 +8,16 @@ use Closure;
 use Generator;
 use Iterator;
 use LimitIterator;
-use loophp\collection\Contract\Operation;
+use loophp\collection\Contract\LazyOperation;
 
 /**
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
  *
- * @implements Operation<TKey, T>
+ * @implements LazyOperation<TKey, T>
  */
-final class Limit extends AbstractGeneratorOperation implements Operation
+final class Limit extends AbstractLazyOperation implements LazyOperation
 {
     public function __construct(int $limit, int $offset = 0)
     {

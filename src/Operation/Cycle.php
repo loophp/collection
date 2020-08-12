@@ -9,16 +9,16 @@ use Generator;
 use InfiniteIterator;
 use Iterator;
 use LimitIterator;
-use loophp\collection\Contract\Operation;
+use loophp\collection\Contract\LazyOperation;
 
 /**
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
  *
- * @implements Operation<TKey, T>
+ * @implements LazyOperation<TKey, T>
  */
-final class Cycle extends AbstractGeneratorOperation implements Operation
+final class Cycle extends AbstractLazyOperation implements LazyOperation
 {
     public function __construct(?int $length = null)
     {

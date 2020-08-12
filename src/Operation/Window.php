@@ -8,16 +8,16 @@ use ArrayIterator;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
+use loophp\collection\Contract\LazyOperation;
 
 /**
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
  *
- * @implements Operation<TKey, T>
+ * @implements LazyOperation<TKey, T>
  */
-final class Window extends AbstractGeneratorOperation implements Operation
+final class Window extends AbstractLazyOperation implements LazyOperation
 {
     public function __construct(int ...$length)
     {

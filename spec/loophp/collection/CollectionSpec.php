@@ -12,9 +12,14 @@ use InvalidArgumentException;
 use Iterator;
 use JsonSerializable;
 use loophp\collection\Collection;
+use loophp\collection\Contract\EagerOperation;
+use loophp\collection\Contract\LazyOperation;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Operation\AbstractOperation;
 use loophp\collection\Transformation\AbstractTransformation;
+use loophp\collection\Operation\AbstractEagerOperation;
+use loophp\collection\Operation\AbstractLazyOperation;
+use OutOfRangeException;
 use PhpSpec\ObjectBehavior;
 use stdClass;
 
@@ -240,7 +245,7 @@ class CollectionSpec extends ObjectBehavior
 
         $this
             ->transform(
-                new class() extends AbstractOperation implements Operation {
+                new class() extends AbstractEagerOperation implements EagerOperation {
                     public function __invoke(): Closure
                     {
                         return static function (Iterator $collection) {
@@ -1575,7 +1580,7 @@ class CollectionSpec extends ObjectBehavior
 
     public function it_can_run_an_operation(Operation $operation): void
     {
-        $square = new class() extends AbstractOperation implements Operation {
+        $square = new class() extends AbstractLazyOperation implements LazyOperation {
             public function __invoke(): Closure
             {
                 return static function ($collection): Generator {
@@ -1586,7 +1591,7 @@ class CollectionSpec extends ObjectBehavior
             }
         };
 
-        $sqrt = new class() extends AbstractOperation implements Operation {
+        $sqrt = new class() extends AbstractLazyOperation implements LazyOperation {
             public function __invoke(): Closure
             {
                 return static function ($collection) {
@@ -1597,7 +1602,7 @@ class CollectionSpec extends ObjectBehavior
             }
         };
 
-        $map = new class() extends AbstractOperation implements Operation {
+        $map = new class() extends AbstractLazyOperation implements LazyOperation {
             public function __invoke(): Closure
             {
                 return static function ($collection) {

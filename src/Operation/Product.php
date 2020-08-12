@@ -7,7 +7,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
+use loophp\collection\Contract\LazyOperation;
 use loophp\collection\Iterator\IterableIterator;
 
 use function count;
@@ -17,9 +17,9 @@ use function count;
  * @psalm-template TKey of array-key
  * @psalm-template T
  *
- * @implements Operation<TKey, T>
+ * @implements LazyOperation<TKey, T>
  */
-final class Product extends AbstractGeneratorOperation implements Operation
+final class Product extends AbstractLazyOperation implements LazyOperation
 {
     /**
      * @param iterable<mixed> ...$iterables
