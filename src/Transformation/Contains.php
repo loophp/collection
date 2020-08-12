@@ -21,15 +21,15 @@ final class Contains implements Transformation
      * @var ArrayIterator<int, mixed>
      * @psalm-var \ArrayIterator<int, T>
      */
-    private $value;
+    private $values;
 
     /**
-     * @param mixed ...$value
-     * @psalm-param T ...$value
+     * @param mixed ...$values
+     * @psalm-param T ...$values
      */
-    public function __construct(...$value)
+    public function __construct(...$values)
     {
-        $this->value = new ArrayIterator($value);
+        $this->values = new ArrayIterator($values);
     }
 
     /**
@@ -39,19 +39,20 @@ final class Contains implements Transformation
      */
     public function __invoke(Iterator $collection)
     {
-        $value = $this->value;
+        $values = $this->values;
 
-        return (new FoldLeft(
-            static function (bool $carry, $item, $key) use ($collection) {
-                $hasCallback = static function ($k, $v) use ($item) {
-                    return $item;
-                };
+        foreach ($collection as $key => $value) {
+            foreach ($values as $k => $v) {
+                if ($v === $value) {
+                    unset($values[$k]);
+                }
 
-                return ((new Transform(new Has($hasCallback)))($collection)) ?
-                    $carry :
-                    false;
-            },
-            true
-        ))($value);
+                if (0 === $values->count()) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }

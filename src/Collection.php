@@ -466,9 +466,9 @@ final class Collection implements CollectionInterface
         return $this->transform(new Last());
     }
 
-    public function limit(int $limit): CollectionInterface
+    public function limit(int $limit, int $offset = 0): CollectionInterface
     {
-        return $this->run(new Limit($limit));
+        return $this->run(new Limit($limit, $offset));
     }
 
     public function loop(): CollectionInterface

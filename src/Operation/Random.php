@@ -17,7 +17,7 @@ use loophp\collection\Transformation\Run;
  */
 final class Random extends AbstractOperation implements Operation
 {
-    public function __construct(int $size = 1)
+    public function __construct(int $size)
     {
         $this->storage = [
             'size' => $size,
@@ -33,7 +33,7 @@ final class Random extends AbstractOperation implements Operation
              * @psalm-return \Generator<TKey, T>
              */
             static function (Iterator $iterator, int $size): Generator {
-                yield from (new Run(new Limit($size)))((new Run(new Shuffle()))($iterator));
+                yield from (new Run(new Limit($size), new Shuffle()))($iterator);
             };
     }
 }

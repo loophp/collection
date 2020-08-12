@@ -16,7 +16,6 @@ use OuterIterator;
  *
  * @extends ProxyIterator<TKey, T>
  * @implements \Iterator<TKey, T>
- * @implements \OuterIterator<TKey, T>
  */
 final class ClosureIterator extends ProxyIterator implements Iterator, OuterIterator
 {

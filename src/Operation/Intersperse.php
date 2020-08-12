@@ -26,8 +26,16 @@ final class Intersperse extends AbstractOperation implements Operation
      * @param mixed $element
      * @psalm-param T $element
      */
-    public function __construct($element, int $atEvery = 1, int $startAt = 0)
+    public function __construct($element, int $atEvery, int $startAt)
     {
+        if (0 > $atEvery) {
+            throw new InvalidArgumentException('The second parameter must be a positive integer.');
+        }
+
+        if (0 > $startAt) {
+            throw new InvalidArgumentException('The third parameter must be a positive integer.');
+        }
+
         $this->storage = [
             'element' => $element,
             'atEvery' => $atEvery,
@@ -37,19 +45,6 @@ final class Intersperse extends AbstractOperation implements Operation
 
     public function __invoke(): Closure
     {
-        /** @var int $every */
-        $every = $this->get('atEvery');
-        /** @var int $startAt */
-        $startAt = $this->get('startAt');
-
-        if (0 > $every) {
-            throw new InvalidArgumentException('The second parameter must be a positive integer.');
-        }
-
-        if (0 > $startAt) {
-            throw new InvalidArgumentException('The third parameter must be a positive integer.');
-        }
-
         return
             /**
              * @psalm-param \Iterator<TKey, T> $iterator

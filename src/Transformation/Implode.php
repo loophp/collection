@@ -21,7 +21,7 @@ final class Implode implements Transformation
      */
     private $glue;
 
-    public function __construct(string $glue = '')
+    public function __construct(string $glue)
     {
         $this->glue = $glue;
     }

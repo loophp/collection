@@ -15,7 +15,6 @@ use Psr\Cache\CacheItemPoolInterface;
  * @psalm-template T
  *
  * @implements \Iterator<TKey, T>
- * @implements \OuterIterator<TKey, T>
  */
 final class CacheIterator implements Iterator, OuterIterator
 {

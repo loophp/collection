@@ -11,13 +11,6 @@ interface Operation
     public function __invoke(): Closure;
 
     /**
-     * @param mixed|null $default
-     *
-     * @return mixed|null
-     */
-    public function get(string $key, $default = null);
-
-    /**
      * @return array<string, mixed>
      */
     public function getArguments(): array;

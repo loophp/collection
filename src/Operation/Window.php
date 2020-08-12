@@ -38,11 +38,9 @@ final class Window extends AbstractOperation implements Operation
 
                 for ($i = 0; iterator_count($iterator) > $i; ++$i) {
                     /** @psalm-var list<T> $window */
-                    $window = iterator_to_array((new Run(new Slice($i, $length->current())))($iterator));
+                    yield iterator_to_array((new Run(new Slice($i, $length->current())))($iterator));
 
                     $length->next();
-
-                    yield $window;
                 }
             };
     }

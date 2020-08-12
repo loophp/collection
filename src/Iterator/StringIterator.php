@@ -15,7 +15,6 @@ use OuterIterator;
  *
  * @extends ProxyIterator<TKey, T>
  * @implements \Iterator<TKey, T>
- * @implements \OuterIterator<TKey, T>
  */
 final class StringIterator extends ProxyIterator implements Iterator, OuterIterator
 {
