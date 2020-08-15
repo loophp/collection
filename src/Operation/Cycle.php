@@ -36,7 +36,7 @@ final class Cycle extends AbstractOperation implements Operation
                     return yield from [];
                 }
 
-                yield from new LimitIterator(
+                return yield from new LimitIterator(
                     new InfiniteIterator($iterator),
                     0,
                     $length

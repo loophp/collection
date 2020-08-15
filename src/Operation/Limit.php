@@ -34,7 +34,7 @@ final class Limit extends AbstractOperation implements Operation
              * @psalm-return \Generator<TKey, T>
              */
             static function (Iterator $iterator, int $limit, int $offset): Generator {
-                yield from new LimitIterator($iterator, $offset, $limit);
+                return yield from new LimitIterator($iterator, $offset, $limit);
             };
     }
 }

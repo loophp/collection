@@ -36,7 +36,7 @@ final class Explode extends AbstractOperation implements Operation
              * @psalm-return \Generator<int, list<T>>
              */
             static function (Iterator $iterator, array $explodes): Generator {
-                yield from (new Run(
+                return yield from (new Run(
                     new Split(
                         ...array_map(
                             /**
