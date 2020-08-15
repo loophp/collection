@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace loophp\collection\Operation;
 
-use Closure;
 use CachingIterator;
+use Closure;
 use Iterator;
 use loophp\collection\Contract\EagerOperation;
 
@@ -44,7 +44,7 @@ final class Implode extends AbstractEagerOperation implements EagerOperation
                     return $carry;
                 };
 
-            return (new Transform(new FoldLeft($callback, '')))(new CachingIterator($collection));
+            return (new Run())()(new CachingIterator($collection), new FoldLeft($callback, ''));
         };
     }
 }

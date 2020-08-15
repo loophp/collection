@@ -7,8 +7,10 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\EagerOperation;
+use loophp\collection\Transformation\AbstractTransformation;
+use StdClass;
 use loophp\collection\Contract\Operation;
-use loophp\collection\Transformation\Run;
 
 /**
  * @psalm-template TKey
