@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace loophp\collection\Transformation;
 
+use CachingIterator;
 use Iterator;
 use loophp\collection\Contract\Transformation;
 
@@ -28,12 +29,26 @@ final class Implode implements Transformation
 
     public function __invoke(Iterator $collection): string
     {
-        $result = '';
+        $glue = $this->glue;
 
-        foreach ($collection as $value) {
-            $result .= $value . $this->glue;
-        }
+        $callback =
+            /**
+             * @psalm-param TKey $key
+             * @psalm-param \CachingIterator<TKey, T> $iterator
+             *
+             * @param mixed $key
+             * @param mixed $iterator
+             */
+            static function (string $carry, string $item, $key, $iterator) use ($glue): string {
+                $carry .= $item;
 
-        return rtrim($result, $this->glue);
+                if ($iterator->hasNext()) {
+                    $carry .= $glue;
+                }
+
+                return $carry;
+            };
+
+        return (new Transform(new FoldLeft($callback, '')))(new CachingIterator($collection));
     }
 }
