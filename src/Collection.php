@@ -461,9 +461,9 @@ final class Collection implements CollectionInterface
         return $this->run(new Keys());
     }
 
-    public function last()
+    public function last(?callable $callback = null, $default = null)
     {
-        return $this->transform(new Last());
+        return $this->transform(new Last($callback, $default));
     }
 
     public function limit(int $limit, int $offset = 0): CollectionInterface

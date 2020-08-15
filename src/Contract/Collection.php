@@ -120,7 +120,7 @@ use loophp\collection\Contract\Transformation\Truthyable;
  * @template-extends Intersectkeysable<TKey, T>
  * @template-extends Intersperseable<TKey, T>
  * @template-extends Keysable<TKey, T>
- * @template-extends Lastable<T>
+ * @template-extends Lastable<TKey, T>
  * @template-extends Limitable<TKey, T>
  * @template-extends Loopable<TKey, T>
  * @template-extends Mapable<TKey, T>

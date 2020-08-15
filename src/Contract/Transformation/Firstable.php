@@ -14,13 +14,12 @@ interface Firstable
     /**
      * Get the first item from the collection passing the given truth test.
      *
-     * @param callable $callback
-     * @psalm-param callable(T, TKey):(bool) $callback
+     * @psalm-param null|callable(T, TKey):(bool) $callback
      *
      * @param mixed $default
      * @psalm-param T|null $default
      *
-     * @return mixed
+     * @return mixed|null
      * @psalm-return T|null
      */
     public function first(?callable $callback = null, $default = null);

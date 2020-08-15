@@ -6,6 +6,7 @@ namespace loophp\collection\Transformation;
 
 use Iterator;
 use loophp\collection\Contract\Transformation;
+use StdClass;
 
 /**
  * @psalm-template TKey
@@ -17,6 +18,45 @@ use loophp\collection\Contract\Transformation;
 final class Last implements Transformation
 {
     /**
+     * @var callable
+     * @psalm-var callable(T, TKey):(bool)
+     */
+    private $callback;
+
+    /**
+     * @var mixed|null
+     * @psalm-var T|null
+     */
+    private $default;
+
+    /**
+     * @psalm-param callable(T, TKey):(bool)|null $callback
+     *
+     * @param mixed|null $default
+     *
+     * @psalm-param T|null $default
+     */
+    public function __construct(?callable $callback = null, $default = null)
+    {
+        $defaultCallback =
+            /**
+             * @param mixed $key
+             *
+             * @psalm-param TKey $key
+             *
+             * @param mixed $value
+             *
+             * @psalm-param T $value
+             */
+            static function ($key, $value): bool {
+                return true;
+            };
+
+        $this->callback = $callback ?? $defaultCallback;
+        $this->default = $default;
+    }
+
+    /**
      * @param Iterator<TKey, T> $collection
      *
      * @return mixed|null
@@ -24,23 +64,18 @@ final class Last implements Transformation
      */
     public function __invoke(Iterator $collection)
     {
-        return (new FoldLeft(
-            /**
-             * @param mixed $carry
-             * @psalm-param null|T $carry
-             *
-             * @param mixed $item
-             * @psalm-param T $item
-             *
-             * @param mixed $key
-             * @psalm-param TKey $key
-             *
-             * @return mixed
-             * @psalm-return T
-             */
-            static function ($carry, $item, $key) {
-                return $item;
+        $callback = $this->callback;
+        $default = $this->default;
+        $return = $nothing = new StdClass();
+
+        foreach ($collection as $key => $value) {
+            if (true === $callback($value, $key)) {
+                $return = $value;
             }
-        ))($collection);
+        }
+
+        return ($return !== $nothing) ?
+            $return :
+            $default;
     }
 }
