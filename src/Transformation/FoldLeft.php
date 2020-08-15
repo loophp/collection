@@ -18,7 +18,7 @@ final class FoldLeft implements Transformation
 {
     /**
      * @var callable
-     * @psalm-var callable(T|null, T, TKey):(T|null)
+     * @psalm-var callable(T|null, T, TKey, \Iterator<TKey, T>):(T|null)
      */
     private $callback;
 
@@ -29,7 +29,7 @@ final class FoldLeft implements Transformation
     private $initial;
 
     /**
-     * @psalm-param callable(T|null, T, TKey):(T|null) $callback
+     * @psalm-param callable(T|null, T, TKey, \Iterator<TKey, T>):(T|null) $callback
      *
      * @param mixed|null $initial
      * @psalm-param T|null $initial
@@ -52,7 +52,7 @@ final class FoldLeft implements Transformation
         $initial = $this->initial;
 
         foreach ($collection as $key => $value) {
-            $initial = $callback($initial, $value, $key);
+            $initial = $callback($initial, $value, $key, $collection);
         }
 
         return $initial;
