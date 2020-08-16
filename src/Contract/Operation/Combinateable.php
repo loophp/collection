@@ -19,7 +19,7 @@ interface Combinateable
      * @param int $length
      *   The length.
      *
-     * @return \loophp\collection\Contract\Collection<TKey, T>
+     * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
      */
     public function combinate(?int $length = null): Collection;
 }

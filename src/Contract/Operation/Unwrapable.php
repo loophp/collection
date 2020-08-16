@@ -14,7 +14,7 @@ use loophp\collection\Contract\Collection;
 interface Unwrapable
 {
     /**
-     * @return \loophp\collection\Contract\Collection<TKey, T>
+     * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
      */
     public function unwrap(): Collection;
 }

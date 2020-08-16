@@ -16,7 +16,7 @@ interface Windowable
     /**
      * @param int ...$length
      *
-     * @return \loophp\collection\Contract\Collection<TKey, T>
+     * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
      */
     public function window(int ...$length): Collection;
 }

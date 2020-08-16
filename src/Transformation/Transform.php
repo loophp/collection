@@ -34,7 +34,7 @@ final class Transform implements Transformation
      * @psalm-param \Iterator<TKey, T> $collection
      *
      * @return mixed|null
-     * @psalm-return T|null|\Iterator<TKey, T>
+     * @psalm-return T|scalar|null|\Iterator<TKey, T>
      */
     public function __invoke(Iterator $collection)
     {

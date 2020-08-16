@@ -34,12 +34,12 @@ final class Implode implements Transformation
         $callback =
             /**
              * @psalm-param TKey $key
-             * @psalm-param \CachingIterator<TKey, T> $iterator
+             * @psalm-param \CachingIterator $iterator
              *
              * @param mixed $key
              * @param mixed $iterator
              */
-            static function (string $carry, string $item, $key, $iterator) use ($glue): string {
+            static function (string $carry, string $item, $key, CachingIterator $iterator) use ($glue): string {
                 $carry .= $item;
 
                 if ($iterator->hasNext()) {
@@ -49,6 +49,6 @@ final class Implode implements Transformation
                 return $carry;
             };
 
-        return (new Transform(new FoldLeft($callback, '')))(new CachingIterator($collection));
+        return (string) (new Transform(new FoldLeft($callback, '')))(new CachingIterator($collection));
     }
 }

@@ -44,7 +44,7 @@ final class Reduce implements Transformation
      * @psalm-param \Iterator<TKey, T> $collection
      *
      * @return mixed|null
-     * @psalm-return T|null
+     * @psalm-return T|scalar|null|\Iterator<TKey, T>
      */
     public function __invoke(Iterator $collection)
     {

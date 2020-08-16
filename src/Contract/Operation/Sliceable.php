@@ -18,7 +18,7 @@ interface Sliceable
      *
      * @param ?int $length
      *
-     * @return \loophp\collection\Contract\Collection<TKey, T>
+     * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
      */
     public function slice(int $offset, ?int $length = null): Collection;
 }

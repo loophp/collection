@@ -18,7 +18,7 @@ interface Productable
      *
      * @param iterable<mixed> ...$iterables
      *
-     * @return \loophp\collection\Contract\Collection<TKey, T>
+     * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
      */
     public function product(iterable ...$iterables): Collection;
 }

@@ -18,7 +18,7 @@ interface Mapable
      *
      * @param callable ...$callbacks
      *
-     * @return \loophp\collection\Contract\Collection<TKey, T>
+     * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
      */
     public function map(callable ...$callbacks): Collection;
 }

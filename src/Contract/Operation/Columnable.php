@@ -18,7 +18,7 @@ interface Columnable
      *
      * @param int|string $index
      *
-     * @return \loophp\collection\Contract\Collection<TKey, T>
+     * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
      */
     public function column($index): Collection;
 }

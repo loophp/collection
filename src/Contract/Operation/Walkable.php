@@ -18,7 +18,7 @@ interface Walkable
      *
      * @param callable ...$callbacks
      *
-     * @return \loophp\collection\Contract\Collection<TKey, T>
+     * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
      */
     public function walk(callable ...$callbacks): Collection;
 }

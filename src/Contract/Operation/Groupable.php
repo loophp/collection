@@ -14,7 +14,7 @@ use loophp\collection\Contract\Collection;
 interface Groupable
 {
     /**
-     * @return \loophp\collection\Contract\Collection<TKey, T>
+     * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
      */
     public function group(?callable $callback = null): Collection;
 }

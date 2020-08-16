@@ -16,7 +16,7 @@ interface Tailable
     /**
      * Get last collection items of a collection.
      *
-     * @return \loophp\collection\Contract\Collection<TKey, T>
+     * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
      */
     public function tail(?int $length = null): Collection;
 }

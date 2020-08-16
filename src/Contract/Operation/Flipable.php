@@ -16,7 +16,7 @@ interface Flipable
     /**
      * Flip keys and items in a collection.
      *
-     * @return \loophp\collection\Contract\Collection<TKey, T>
+     * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
      */
     public function flip(): Collection;
 }

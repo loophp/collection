@@ -18,7 +18,7 @@ interface Chunkable
      *
      * @param int ...$size
      *
-     * @return \loophp\collection\Contract\Collection<TKey, T>
+     * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
      */
     public function chunk(int ...$size): Collection;
 }

@@ -18,8 +18,8 @@ use StdClass;
 final class Last implements Transformation
 {
     /**
-     * @var callable
-     * @psalm-var callable(T, TKey):(bool)
+     * @var callable|\Closure
+     * @psalm-var callable(T, TKey):(bool)|\Closure(T, TKey):(bool)
      */
     private $callback;
 
@@ -30,10 +30,9 @@ final class Last implements Transformation
     private $default;
 
     /**
-     * @psalm-param callable(T, TKey):(bool)|null $callback
-     *
      * @param mixed|null $default
      *
+     * @psalm-param \Closure(T, TKey):(bool)|callable(T, TKey):(bool)|null $callback
      * @psalm-param T|null $default
      */
     public function __construct(?callable $callback = null, $default = null)
@@ -41,11 +40,9 @@ final class Last implements Transformation
         $defaultCallback =
             /**
              * @param mixed $key
-             *
-             * @psalm-param TKey $key
-             *
              * @param mixed $value
              *
+             * @psalm-param TKey $key
              * @psalm-param T $value
              */
             static function ($key, $value): bool {
@@ -57,7 +54,7 @@ final class Last implements Transformation
     }
 
     /**
-     * @param Iterator<TKey, T> $collection
+     * @psalm-param Iterator<TKey, T> $collection
      *
      * @return mixed|null
      * @psalm-return T|null

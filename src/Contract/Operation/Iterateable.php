@@ -15,7 +15,7 @@ interface Iterateable
      *
      * @param mixed ...$parameters
      *
-     * @return \loophp\collection\Contract\Collection<TKey, T>
+     * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
      */
     public static function iterate(callable $callback, ...$parameters): Collection;
 }

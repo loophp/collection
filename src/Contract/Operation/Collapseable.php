@@ -16,7 +16,7 @@ interface Collapseable
     /**
      * Collapse a collection of items into a simple flat collection.
      *
-     * @return \loophp\collection\Contract\Collection<TKey, T>
+     * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
      */
     public function collapse(): Collection;
 }

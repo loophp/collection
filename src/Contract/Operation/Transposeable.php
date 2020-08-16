@@ -16,7 +16,7 @@ interface Transposeable
     /**
      * Matrix transposition.
      *
-     * @return \loophp\collection\Contract\Collection<TKey, T>
+     * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
      */
     public function transpose(): Collection;
 }

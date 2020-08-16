@@ -18,7 +18,7 @@ interface Splitable
      *
      * @param callable ...$callbacks
      *
-     * @return \loophp\collection\Contract\Collection<TKey, T>
+     * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
      */
     public function split(callable ...$callbacks): Collection;
 }

@@ -34,7 +34,7 @@ final class Iterate extends AbstractOperation implements Operation
     {
         return
             /**
-             * @param Iterator<TKey, T> $iterator
+             * @psalm-param Iterator<TKey, T> $iterator
              * @psalm-param callable(...list<T>):(array<array-key, T>) $callback
              *
              * @param array<int, mixed> $parameters

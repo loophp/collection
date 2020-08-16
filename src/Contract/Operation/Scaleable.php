@@ -20,7 +20,7 @@ interface Scaleable
      * @param ?float $wantedUpperBound
      * @param ?float $base
      *
-     * @return \loophp\collection\Contract\Collection<TKey, T>
+     * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
      */
     public function scale(
         float $lowerBound,

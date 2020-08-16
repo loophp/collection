@@ -20,7 +20,7 @@ interface Sortable
     /**
      * Sort a collection using a callback.
      *
-     * @return \loophp\collection\Contract\Collection<TKey, T>
+     * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
      */
     public function sort(int $type = Sortable::BY_VALUES, ?callable $callback = null): Collection;
 }

@@ -18,7 +18,7 @@ interface Onlyable
      *
      * @param mixed ...$keys
      *
-     * @return \loophp\collection\Contract\Collection<TKey, T>
+     * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
      */
     public function only(...$keys): Collection;
 }

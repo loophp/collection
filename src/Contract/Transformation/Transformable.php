@@ -14,7 +14,7 @@ use loophp\collection\Contract\Transformation;
 interface Transformable
 {
     /**
-     * @param \loophp\collection\Contract\Transformation<TKey, T> ...$transformers
+     * @param \loophp\collection\Contract\Transformation ...$transformers
      * @psalm-param \loophp\collection\Contract\Transformation<TKey, T> ...$transformers
      *
      * @return \loophp\collection\Iterator\ClosureIterator|mixed

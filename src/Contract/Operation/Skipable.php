@@ -18,7 +18,7 @@ interface Skipable
      *
      * @param int ...$counts
      *
-     * @return \loophp\collection\Contract\Collection<TKey, T>
+     * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
      */
     public function skip(int ...$counts): Collection;
 }

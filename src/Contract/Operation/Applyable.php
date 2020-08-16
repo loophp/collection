@@ -19,7 +19,7 @@ interface Applyable
      * @param callable ...$callables
      * @psalm-param callable(TKey, T):(bool) ...$callables
      *
-     * @return \loophp\collection\Contract\Collection<TKey, T>
+     * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
      */
     public function apply(callable ...$callables): Collection;
 }

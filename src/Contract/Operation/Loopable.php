@@ -14,7 +14,7 @@ use loophp\collection\Contract\Collection;
 interface Loopable
 {
     /**
-     * @return \loophp\collection\Contract\Collection<TKey, T>
+     * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
      */
     public function loop(): Collection;
 }
