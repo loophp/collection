@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace loophp\collection\Transformation;
 
+use Closure;
 use Iterator;
 use loophp\collection\Contract\Transformation;
 use StdClass;
@@ -18,7 +19,7 @@ use StdClass;
 final class Last implements Transformation
 {
     /**
-     * @var callable|\Closure
+     * @var callable|Closure
      * @psalm-var callable(T, TKey):(bool)|\Closure(T, TKey):(bool)
      */
     private $callback;
