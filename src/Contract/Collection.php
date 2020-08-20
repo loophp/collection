@@ -63,7 +63,6 @@ use loophp\collection\Contract\Operation\Transposeable;
 use loophp\collection\Contract\Operation\Unpairable;
 use loophp\collection\Contract\Operation\Untilable;
 use loophp\collection\Contract\Operation\Unwrapable;
-use loophp\collection\Contract\Operation\Walkable;
 use loophp\collection\Contract\Operation\Windowable;
 use loophp\collection\Contract\Operation\Wrapable;
 use loophp\collection\Contract\Operation\Zipable;
@@ -151,7 +150,6 @@ use loophp\collection\Contract\Transformation\Truthyable;
  * @template-extends Unpairable<TKey, T>
  * @template-extends Untilable<TKey, T>
  * @template-extends Unwrapable<TKey, T>
- * @template-extends Walkable<TKey, T>
  * @template-extends Windowable<TKey, T>
  * @template-extends Wrapable<TKey, T>
  * @template-extends Zipable<TKey, T>
@@ -234,7 +232,6 @@ interface Collection extends
     Unpairable,
     Untilable,
     Unwrapable,
-    Walkable,
     Windowable,
     Wrapable,
     Zipable

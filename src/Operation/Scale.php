@@ -24,7 +24,7 @@ final class Scale extends AbstractOperation implements Operation
         $wantedLowerBound = $wantedLowerBound ?? (null === $base ? 0.0 : 1.0);
         $wantedUpperBound = $wantedUpperBound ?? ($base ?? 1.0);
 
-        $this->storage['mapper'] = new Walk(
+        $this->storage['mapper'] = new Map(
             /**
              * @param float|int $v
              */
@@ -59,7 +59,7 @@ final class Scale extends AbstractOperation implements Operation
 
     public function __invoke(): Closure
     {
-        return static function (Iterator $iterator, Walk $mapper, Filter $filter): Generator {
+        return static function (Iterator $iterator, Map $mapper, Filter $filter): Generator {
             return yield from (new Run($filter, $mapper))($iterator);
         };
     }

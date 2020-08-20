@@ -41,6 +41,7 @@ use loophp\collection\Operation\Iterate;
 use loophp\collection\Operation\Keys;
 use loophp\collection\Operation\Limit;
 use loophp\collection\Operation\Loop;
+use loophp\collection\Operation\Map;
 use loophp\collection\Operation\Merge;
 use loophp\collection\Operation\Normalize;
 use loophp\collection\Operation\Nth;
@@ -69,7 +70,6 @@ use loophp\collection\Operation\Transpose;
 use loophp\collection\Operation\Unpair;
 use loophp\collection\Operation\Until;
 use loophp\collection\Operation\Unwrap;
-use loophp\collection\Operation\Walk;
 use loophp\collection\Operation\Window;
 use loophp\collection\Operation\Wrap;
 use loophp\collection\Operation\Zip;
@@ -478,7 +478,7 @@ final class Collection implements CollectionInterface
 
     public function map(callable ...$callbacks): CollectionInterface
     {
-        return $this->run(new Walk(...$callbacks));
+        return $this->run(new Map(...$callbacks));
     }
 
     public function merge(iterable ...$sources): CollectionInterface
@@ -649,11 +649,6 @@ final class Collection implements CollectionInterface
     public function unwrap(): CollectionInterface
     {
         return $this->run(new Unwrap());
-    }
-
-    public function walk(callable ...$callbacks): CollectionInterface
-    {
-        return $this->run(new Walk(...$callbacks));
     }
 
     public function window(int ...$length): CollectionInterface

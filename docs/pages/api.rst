@@ -665,7 +665,7 @@ map
 
 Apply one or more supplied callbacks to every item of a collection and use the return value.
 
-.. warning:: Unlike the Collection::walk() operation, keys are not preserved!
+.. warning:: Keys are preserved, use the "normalize" operation if you want to re-index the keys.
 
 Interface: `Mapable`_
 
@@ -1223,26 +1223,6 @@ Signature: ``Collection::unwrap();``
      $collection = Collection::with($data)
         ->unwrap();
 
-walk
-~~~~
-
-Apply one or more supplied callbacks to every item of a collection and use the return value.
-
-.. warning:: Unlike the Collection::map() operation, keys are preserved!
-
-Interface: `Walkable`_
-
-Signature: ``Collection::walk(callable ...$callbacks);``
-
-.. code-block:: php
-
-    $walker = static function($value, $key) {
-        return $value * 2;
-    };
-
-    $collection = Collection::with(range(10, 20))
-        ->walk($walker);
-
 window
 ~~~~~~
 
@@ -1443,7 +1423,6 @@ Interface: `Truthyable`_
 .. _Unpair: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Unpairable.php
 .. _Untilable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Untilable.php
 .. _Unwrapable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Unwrapable.php
-.. _Walkable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Walkable.php
 .. _Windowable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Windowable.php
 .. _Wrapable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Wrapable.php
 .. _Zipable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Zipable.php

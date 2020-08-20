@@ -1554,7 +1554,7 @@ class CollectionSpec extends ObjectBehavior
 
         $this::fromIterable($input)
             ->scale(0, 10, 5, 15, 3)
-            ->walk(static function ($value) {
+            ->map(static function ($value) {
                 return (float) round($value, 2);
             })
             // @todo: For some reason, using shouldIterateAs does not work here.
@@ -1974,33 +1974,6 @@ class CollectionSpec extends ObjectBehavior
 
         $this::with(1)
             ->shouldIterateAs([1]);
-    }
-
-    public function it_can_walk(): void
-    {
-        $input = array_combine(range('A', 'E'), range('A', 'E'));
-
-        $this::fromIterable($input)
-            ->walk(static function (string $item) {
-                return $item . $item;
-            })
-            ->shouldIterateAs(['A' => 'AA', 'B' => 'BB', 'C' => 'CC', 'D' => 'DD', 'E' => 'EE']);
-
-        $this::fromIterable(range(1, 10))
-            ->walk(static function ($item) {
-                return $item * 2;
-            }, static function ($item) {
-                return $item + 1;
-            })
-            ->shouldIterateAs(range(3, 21, 2));
-
-        $this::fromIterable(range(1, 10))
-            ->walk(static function ($item) {
-                return $item;
-            }, static function ($item) {
-                return $item;
-            })
-            ->shouldIterateAs(range(1, 10));
     }
 
     public function it_can_window(): void
