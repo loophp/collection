@@ -546,3 +546,103 @@ Random number distribution
         [900 <= x <= 1000] => 100188
     )
     */
+
+Parse git log
+~~~~~~~~~~~~~
+
+.. code-block:: php
+
+    <?php
+
+    declare(strict_types=1);
+
+    include 'vendor/autoload.php';
+
+    use loophp\collection\Collection;
+    use loophp\collection\Contract\Operation\Sortable;
+
+    $commandStream = static function (string $command): Generator {
+        $fh = popen($command, 'r');
+
+        while (false !== $line = fgets($fh)) {
+            yield $line;
+        }
+
+        fclose($fh);
+    };
+
+    $c = Collection::fromIterable($commandStream('git log'))
+        ->compact('', "\n")
+        ->map(
+            static function (string $value): string {
+                return trim($value);
+            }
+        )
+        ->associate(
+            static function (int $key, string $value) use (&$lastCommitId): string {
+                if (0 === mb_strpos($value, 'commit ')) {
+                    [, $commitId] = explode('commit ', $value, 2);
+
+                    $lastCommitId = $commitId;
+                }
+
+                return $lastCommitId;
+            }
+        )
+        ->group()
+        ->map(
+            static function (array $values, string $commitId): array {
+                $callbackFilter = static function ($value): bool {
+                    return 1 !== preg_match('/^commit \b[0-9a-f]{5,40}\b/', $value);
+                };
+
+                $callbackMap1 = static function ($value, $key) {
+                    $modifiers = [
+                        'Signed-off-by',
+                        'Date',
+                        'Author',
+                    ];
+
+                    $delimiter = ':';
+
+                    foreach ($modifiers as $modifier) {
+                        $searchItemWithColumn = sprintf('%s%s', $modifier, $delimiter);
+
+                        if (0 === mb_strpos($value, $searchItemWithColumn)) {
+                            [,$data] = explode($searchItemWithColumn, $value, 2);
+
+                            return [
+                                mb_strtolower($modifier) => trim($data),
+                            ];
+                        }
+                    }
+
+                    return $value;
+                };
+
+                $callbackMap2 = static function ($value) {
+                    return \is_string($value) ?
+                        ['log' => $value] :
+                        $value;
+                };
+
+                $callbackMap3 = static function ($value): string {
+                    return \is_array($value) ?
+                        implode(\PHP_EOL, $value) :
+                        $value;
+                };
+
+                return Collection::fromIterable($values)
+                    ->filter($callbackFilter)
+                    ->map($callbackMap1)
+                    ->map($callbackMap2)
+                    ->unwrap()
+                    ->group()
+                    ->map($callbackMap3)
+                    ->merge(['commit' => $commitId])
+                    ->sort(Sortable::BY_KEYS)
+                    ->all();
+            }
+        )
+        ->normalize()
+        ->limit(20);
