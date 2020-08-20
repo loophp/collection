@@ -34,17 +34,24 @@ final class Split extends AbstractOperation implements Operation
                 $carry = [];
 
                 foreach ($iterator as $key => $value) {
+                    $callbackReturn = array_reduce(
+                        $callbacks,
+                        static function ($carry, callable $callback) use ($key, $value): bool {
+                            // @todo : Do this everywhere.
+                            return $callback($value, $key) !== $carry;
+                        },
+                        true
+                    );
+
                     $carry[] = $value;
 
-                    foreach ($callbacks as $callback) {
-                        if (true !== $callback($value, $key)) {
-                            continue;
-                        }
-
-                        yield $carry;
-
-                        $carry = [];
+                    if (true === $callbackReturn) {
+                        continue;
                     }
+
+                    yield $carry;
+
+                    $carry = [];
                 }
 
                 if ([] !== $carry) {
