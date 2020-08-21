@@ -64,6 +64,10 @@ This library has been inspired by:
 
 ```composer require loophp/collection```
 
+## Usage
+
+Check out the [usage][collection usage] and [examples][collection examples] pages. 
+
 ## Documentation
 
 On top of a complete documented code, the package include a full documentation that gets automatically compiled
@@ -71,9 +75,6 @@ and published upon each commit at [https://loophp-collection.rtfd.io][collection
 
 [The API][collection api] will give you a pretty good idea of the
 existing methods and what you can do with it.
-
-Do not forget to check out the [usage][collection usage] and
-[examples][collection examples] pages. 
 
 I'm doing my best to keep the documentation up to date, if you found something odd, please let me know in the [issue
 queue][collection issue queue].
@@ -108,6 +109,7 @@ If you can't contribute to the code, you can also sponsor me on [Github][github 
 ## On the internet
 * [Reddit announcement thread][reddit announcement]
 * [Reddit release 2.0.0 thread][reddit release 2.0.0]
+* [Featured in PHPStorm Annotated August 2020][phpstorm annotated august 2020]
 
 [packagist collection]: https://packagist.org/packages/loophp/collection
 [latest stable version]: https://img.shields.io/packagist/v/loophp/collection.svg?style=flat-square
@@ -158,3 +160,4 @@ If you can't contribute to the code, you can also sponsor me on [Github][github 
 [paypal sponsor]: https://www.paypal.me/drupol
 [reddit announcement]: https://www.reddit.com/r/PHP/comments/csxw23/a_stateless_and_modular_collection_class/
 [reddit release 2.0.0]: https://www.reddit.com/r/PHP/comments/i2u2le/release_of_version_200_of_loophpcollection/
+[phpstorm annotated august 2020]: https://blog.jetbrains.com/phpstorm/2020/08/php-annotated-august-2020/
