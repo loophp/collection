@@ -878,6 +878,12 @@ class CollectionSpec extends ObjectBehavior
         $this::fromIterable([])
             ->last()
             ->shouldReturn(null);
+
+        $this::fromIterable(range('A', 'F'))
+            ->last(static function ($value, $key) {
+                return false;
+            }, 'foo')
+            ->shouldReturn('foo');
     }
 
     public function it_can_group()

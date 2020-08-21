@@ -63,17 +63,27 @@ final class Last implements Transformation
     public function __invoke(Iterator $collection)
     {
         $callback = $this->callback;
-        $default = $this->default;
-        $return = $nothing = new StdClass();
+        $nothing = new StdClass();
 
-        foreach ($collection as $key => $value) {
-            if (true === $callback($value, $key)) {
-                $return = $value;
-            }
-        }
+        $callback =
+            /**
+             * @param mixed|stdClass $carry
+             * @param mixed $value
+             * @param mixed $key
+             * @psalm-param stdClass|T $carry
+             * @psalm-param T $value
+             * @psalm-param TKey $key
+             */
+            static function ($carry, $value, $key) use ($callback) {
+                return true === $callback($value, $key) ?
+                    $value :
+                    $carry;
+            };
+
+        $return = (new Transform(new FoldLeft($callback, $nothing)))($collection);
 
         return ($return !== $nothing) ?
             $return :
-            $default;
+            $this->default;
     }
 }
