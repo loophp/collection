@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace loophp\collection\Operation;
 
+use ArrayIterator;
 use Closure;
 use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
+use loophp\collection\Transformation\FoldLeft;
+use loophp\collection\Transformation\Transform;
 
 /**
  * @psalm-template TKey
@@ -18,7 +21,7 @@ final class Map extends AbstractOperation implements Operation
 {
     public function __construct(callable ...$callbacks)
     {
-        $this->storage['callbacks'] = $callbacks;
+        $this->storage['callbacks'] = new ArrayIterator($callbacks);
     }
 
     public function __invoke(): Closure
@@ -30,14 +33,13 @@ final class Map extends AbstractOperation implements Operation
              *
              * @psalm-return \Generator<TKey, T>
              */
-            static function (Iterator $iterator, array $callbacks): Generator {
+            static function (Iterator $iterator, ArrayIterator $callbacks): Generator {
                 foreach ($iterator as $key => $value) {
-                    // Custom array_reduce function with the key passed in argument.
-                    foreach ($callbacks as $callback) {
-                        $value = $callback($value, $key);
-                    }
+                    $callback = static function ($carry, callable $callback) use ($value, $key) {
+                        return $callback($value, $key);
+                    };
 
-                    yield $key => $value;
+                    yield $key => (new Transform(new FoldLeft($callback, $value)))($callbacks);
                 }
             };
     }
