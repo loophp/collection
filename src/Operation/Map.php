@@ -9,9 +9,6 @@ use Closure;
 use Generator;
 use Iterator;
 use loophp\collection\Contract\LazyOperation;
-use loophp\collection\Contract\Operation;
-use loophp\collection\Transformation\FoldLeft;
-use loophp\collection\Transformation\Transform;
 
 /**
  * @psalm-template TKey
@@ -42,7 +39,7 @@ final class Map extends AbstractLazyOperation implements LazyOperation
                         return $callback($value, $key);
                     };
 
-                    yield $key => (new Transform(new FoldLeft($callback, $value)))($callbacks);
+                    yield $key => (new Run())()($callbacks, new FoldLeft($callback, $value));
                 }
             };
     }
