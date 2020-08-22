@@ -7,6 +7,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\LazyOperation;
 use loophp\collection\Contract\Operation;
 
 /**
@@ -16,7 +17,7 @@ use loophp\collection\Contract\Operation;
  *
  * @implements Operation<TKey, T>
  */
-final class Head extends AbstractOperation implements Operation
+final class Head extends AbstractLazyOperation implements LazyOperation
 {
     /**
      * @psalm-return Closure(Iterator<TKey, T>): (Generator<TKey, T>)

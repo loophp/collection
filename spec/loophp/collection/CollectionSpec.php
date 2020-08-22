@@ -15,11 +15,8 @@ use loophp\collection\Collection;
 use loophp\collection\Contract\EagerOperation;
 use loophp\collection\Contract\LazyOperation;
 use loophp\collection\Contract\Operation;
-use loophp\collection\Operation\AbstractOperation;
-use loophp\collection\Transformation\AbstractTransformation;
 use loophp\collection\Operation\AbstractEagerOperation;
 use loophp\collection\Operation\AbstractLazyOperation;
-use OutOfRangeException;
 use PhpSpec\ObjectBehavior;
 use stdClass;
 
