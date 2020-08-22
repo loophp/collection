@@ -567,6 +567,27 @@ Signature: ``Collection::group(callable $callable = null);``
     $collection = Collection::with($callback)
         ->group();
 
+head
+~~~~
+
+Interface: `Headable`_
+
+Signature: ``Collection::head();``
+
+.. code-block:: php
+
+    $generator = static function (): \Generator {
+            yield 1 => 'a';
+            yield 1 => 'b';
+            yield 1 => 'c';
+            yield 2 => 'd';
+            yield 2 => 'e';
+            yield 3 => 'f';
+    };
+
+    Collection::fromIterable($generator())
+        ->head(); // [1 => 'a']
+
 intersect
 ~~~~~~~~~
 
@@ -1385,6 +1406,7 @@ Interface: `Truthyable`_
 .. _Getable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/Getable.php
 .. _Groupable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Groupable.php
 .. _Hasable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/Hasable.php
+.. _Headable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Headable.php
 .. _Implodeable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/Implodeable.php
 .. _Intersectable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Intersectable.php
 .. _Intersectkeysable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Intersectkeysable.php

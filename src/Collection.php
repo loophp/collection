@@ -34,6 +34,7 @@ use loophp\collection\Operation\Flip;
 use loophp\collection\Operation\Forget;
 use loophp\collection\Operation\Frequency;
 use loophp\collection\Operation\Group;
+use loophp\collection\Operation\Head;
 use loophp\collection\Operation\Intersect;
 use loophp\collection\Operation\IntersectKeys;
 use loophp\collection\Operation\Intersperse;
@@ -421,6 +422,11 @@ final class Collection implements CollectionInterface
     public function has(callable $callback): bool
     {
         return $this->transform(new Has($callback));
+    }
+
+    public function head(): CollectionInterface
+    {
+        return $this->run(new Head());
     }
 
     public function implode(string $glue = ''): string

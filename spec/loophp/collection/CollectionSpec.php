@@ -973,6 +973,15 @@ class CollectionSpec extends ObjectBehavior
             ->shouldReturn(false);
     }
 
+    public function it_can_head(): void
+    {
+        $input = range('A', 'E');
+
+        $this::fromIterable($input)
+            ->head()
+            ->shouldIterateAs([0 => 'A']);
+    }
+
     public function it_can_implode(): void
     {
         $this::fromIterable(range('A', 'C'))

@@ -27,6 +27,7 @@ use loophp\collection\Contract\Operation\Flipable;
 use loophp\collection\Contract\Operation\Forgetable;
 use loophp\collection\Contract\Operation\Frequencyable;
 use loophp\collection\Contract\Operation\Groupable;
+use loophp\collection\Contract\Operation\Headable;
 use loophp\collection\Contract\Operation\Intersectable;
 use loophp\collection\Contract\Operation\Intersectkeysable;
 use loophp\collection\Contract\Operation\Intersperseable;
@@ -115,6 +116,7 @@ use loophp\collection\Contract\Transformation\Truthyable;
  * @template-extends Getable<TKey, T>
  * @template-extends Groupable<TKey, T>
  * @template-extends Hasable<TKey, T>
+ * @template-extends Headable<TKey, T>
  * @template-extends Intersectable<TKey, T>
  * @template-extends Intersectkeysable<TKey, T>
  * @template-extends Intersperseable<TKey, T>
@@ -187,6 +189,7 @@ interface Collection extends
     Getable,
     Groupable,
     Hasable,
+    Headable,
     Implodeable,
     Intersectable,
     Intersectkeysable,
