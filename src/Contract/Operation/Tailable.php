@@ -14,9 +14,7 @@ use loophp\collection\Contract\Collection;
 interface Tailable
 {
     /**
-     * Get last collection items of a collection.
-     *
      * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
      */
-    public function tail(?int $length = null): Collection;
+    public function tail(): Collection;
 }

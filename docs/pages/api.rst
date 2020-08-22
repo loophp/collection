@@ -1163,16 +1163,16 @@ Signature: ``Collection::split(callable ...$callbacks);``
 tail
 ~~~~
 
-Get last collection items of a collection.
+Get the collection items except the first.
 
 Interface: `Tailable`_
 
-Signature: ``Collection::tail(int $length = 1);``
+Signature: ``Collection::tail();``
 
 .. code-block:: php
 
-    $collection = Collection::with(['a', 'b', 'c'])
-        ->tail(2);
+    Collection::with(['a', 'b', 'c'])
+        ->tail(); // [1 => 'b', 2 => 'c']
 
 transpose
 ~~~~~~~~~

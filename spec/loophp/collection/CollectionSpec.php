@@ -15,7 +15,6 @@ use loophp\collection\Collection;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Contract\Transformation;
 use loophp\collection\Operation\AbstractOperation;
-use OutOfRangeException;
 use PhpSpec\ObjectBehavior;
 use stdClass;
 
@@ -1785,27 +1784,7 @@ class CollectionSpec extends ObjectBehavior
     {
         $this::fromIterable(range('A', 'F'))
             ->tail()
-            ->shouldIterateAs([5 => 'F']);
-
-        $this::fromIterable(range('A', 'F'))
-            ->tail(3)
-            ->shouldIterateAs([3 => 'D', 4 => 'E', 5 => 'F']);
-
-        $this::fromIterable(range('A', 'F'))
-            ->tail(-5)
-            ->shouldThrow(OutOfRangeException::class)
-            ->during('all');
-
-        $this::fromIterable(range('A', 'F'))
-            ->tail(100)
-            ->shouldIterateAs(range('A', 'F'));
-
-        $this::fromIterable(['a', 'b', 'c', 'd', 'a'])
-            ->flip()
-            ->flip()
-            ->tail(2)
-            ->all()
-            ->shouldIterateAs([3 => 'd', 4 => 'a']);
+            ->shouldIterateAs([1 => 'B', 2 => 'C', 3 => 'D', 4 => 'E', 5 => 'F']);
     }
 
     public function it_can_transpose(): void

@@ -617,9 +617,9 @@ final class Collection implements CollectionInterface
         return $this->run(new Split(...$callbacks));
     }
 
-    public function tail(?int $length = null): CollectionInterface
+    public function tail(): CollectionInterface
     {
-        return $this->run(new Tail($length));
+        return $this->run(new Tail());
     }
 
     public static function times(int $number = 0, ?callable $callback = null): CollectionInterface
