@@ -869,21 +869,53 @@ class CollectionSpec extends ObjectBehavior
     {
         $this::fromIterable(range('A', 'F'))
             ->last()
-            ->shouldReturn('F');
+            ->shouldIterateAs([5 => 'F']);
 
         $this::fromIterable(['A'])
             ->last()
-            ->shouldReturn('A');
+            ->shouldIterateAs([0 => 'A']);
 
         $this::fromIterable([])
             ->last()
-            ->shouldReturn(null);
+            ->shouldIterateAs([]);
 
         $this::fromIterable(range('A', 'F'))
             ->last(static function ($value, $key) {
                 return false;
-            }, 'foo')
-            ->shouldReturn('foo');
+            })
+            ->shouldIterateAs([]);
+
+        $generator = static function (): Generator {
+            yield 'a' => 'a';
+
+            yield 'b' => 'b';
+
+            yield 'c' => 'c';
+
+            yield 'a' => 'd';
+
+            yield 'b' => 'e';
+
+            yield 'c' => 'f';
+        };
+
+        $this::fromIterable($generator())
+            ->last(static function ($value, $key) {
+                return 'b' === $key;
+            })
+            ->shouldIterateAs(['b' => 'e']);
+
+        $output = static function (): Generator {
+            yield 'b' => 'e';
+
+            yield 'b' => 'b';
+        };
+
+        $this::fromIterable($generator())
+            ->last(static function ($value, $key) {
+                return 'b' === $key;
+            }, 2)
+            ->shouldIterateAs($output());
     }
 
     public function it_can_group()
@@ -1977,7 +2009,7 @@ class CollectionSpec extends ObjectBehavior
             ->split(static function ($v) {
                 return "\n" === $v;
             })
-            ->tail(1)
+            ->last()
             ->unwrap()
             ->implode()
             ->shouldReturn('indent_size = 4');

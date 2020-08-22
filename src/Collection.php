@@ -40,6 +40,7 @@ use loophp\collection\Operation\IntersectKeys;
 use loophp\collection\Operation\Intersperse;
 use loophp\collection\Operation\Iterate;
 use loophp\collection\Operation\Keys;
+use loophp\collection\Operation\Last;
 use loophp\collection\Operation\Limit;
 use loophp\collection\Operation\Loop;
 use loophp\collection\Operation\Map;
@@ -84,7 +85,6 @@ use loophp\collection\Transformation\FoldRight;
 use loophp\collection\Transformation\Get;
 use loophp\collection\Transformation\Has;
 use loophp\collection\Transformation\Implode;
-use loophp\collection\Transformation\Last;
 use loophp\collection\Transformation\Nullsy;
 use loophp\collection\Transformation\Reduce;
 use loophp\collection\Transformation\Run;
@@ -467,9 +467,9 @@ final class Collection implements CollectionInterface
         return $this->run(new Keys());
     }
 
-    public function last(?callable $callback = null, $default = null)
+    public function last(?callable $callback = null, int $size = 1): CollectionInterface
     {
-        return $this->transform(new Last($callback, $default));
+        return $this->run(new Last($callback, $size));
     }
 
     public function limit(int $limit, int $offset = 0): CollectionInterface

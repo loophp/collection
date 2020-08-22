@@ -644,6 +644,41 @@ Signature: ``Collection::keys();``
     $collection = Collection::with(range('a', 'z'))
         ->keys();
 
+last
+~~~~
+
+Get the last items from the collection passing the given truth test.
+
+Interface: `Lastable`_
+
+Signature: ``Collection::last(?callable $callback = null, int $size = 1);``
+
+.. code-block:: php
+
+        $generator = static function (): Generator {
+            yield 'a' => 'a';
+            yield 'b' => 'b';
+            yield 'c' => 'c';
+            yield 'a' => 'd';
+            yield 'b' => 'e';
+            yield 'c' => 'f';
+        };
+
+        Collection::fromIterable($generator())
+            ->last(
+                static function ($value, $key) {
+                    return 'b' === $key;
+                }
+            ); // ['b' => 'e']
+
+        Collection::fromIterable($generator())
+            ->last(
+                static function ($value, $key) {
+                    return 'b' === $key;
+                },
+                2
+            ); // ['b' => 'e', 'b' => 'b']
+
 limit
 ~~~~~
 
@@ -1346,11 +1381,6 @@ implode
 
 Interface: `Implodeable`_
 
-last
-~~~~
-
-Interface: `Lastable`_
-
 nullsy
 ~~~~~~
 
@@ -1412,7 +1442,7 @@ Interface: `Truthyable`_
 .. _Intersectkeysable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Intersectkeysable.php
 .. _Intersperseable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Intersperseable.php
 .. _Keysable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Keysable.php
-.. _Lastable: https://github.com/loophp/collection/blob/master/src/Contract/Tranformation/Lastable.php
+.. _Lastable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Lastable.php
 .. _Limitable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Limitable.php
 .. _Loopable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Loopable.php
 .. _Mapable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Mapable.php
