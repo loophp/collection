@@ -29,6 +29,7 @@ use loophp\collection\Operation\DiffKeys;
 use loophp\collection\Operation\Distinct;
 use loophp\collection\Operation\Explode;
 use loophp\collection\Operation\Filter;
+use loophp\collection\Operation\First;
 use loophp\collection\Operation\Flatten;
 use loophp\collection\Operation\Flip;
 use loophp\collection\Operation\Forget;
@@ -79,7 +80,6 @@ use loophp\collection\Transformation\All;
 use loophp\collection\Transformation\Contains;
 use loophp\collection\Transformation\Count;
 use loophp\collection\Transformation\Falsy;
-use loophp\collection\Transformation\First;
 use loophp\collection\Transformation\FoldLeft;
 use loophp\collection\Transformation\FoldRight;
 use loophp\collection\Transformation\Get;
@@ -327,9 +327,9 @@ final class Collection implements CollectionInterface
         return $this->run(new Filter(...$callbacks));
     }
 
-    public function first(?callable $callback = null, $default = null)
+    public function first(?callable $callback = null, int $size = 1): CollectionInterface
     {
-        return $this->transform(new First($callback, $default));
+        return $this->run(new First($callback, $size));
     }
 
     public function flatten(int $depth = PHP_INT_MAX): CollectionInterface

@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-namespace loophp\collection\Contract\Transformation;
+namespace loophp\collection\Contract\Operation;
+
+use loophp\collection\Contract\Collection;
 
 /**
  * @psalm-template TKey
@@ -16,11 +18,7 @@ interface Firstable
      *
      * @psalm-param null|callable(T, TKey):(bool) $callback
      *
-     * @param mixed $default
-     * @psalm-param T|null $default
-     *
-     * @return mixed|null
-     * @psalm-return T|null
+     * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
      */
-    public function first(?callable $callback = null, $default = null);
+    public function first(?callable $callback = null, int $size = 1): Collection;
 }

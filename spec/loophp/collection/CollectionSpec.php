@@ -836,11 +836,11 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs([0 => 'A', 1 => 'B', 2 => 'C', 3 => 'D', 4 => 'E']);
     }
 
-    public function it_can_get_its_first_value(): void
+    public function it_can_get_the_first_item(): void
     {
         $this::fromIterable(range(1, 10))
             ->first()
-            ->shouldReturn(1);
+            ->shouldIterateAs([0 => 1]);
 
         $this::fromIterable(range(1, 10))
             ->first(
@@ -848,20 +848,43 @@ class CollectionSpec extends ObjectBehavior
                     return 0 === $value % 5;
                 }
             )
-            ->shouldReturn(5);
-
-        $this::fromIterable(range(1, 10))
-            ->first(
-                static function ($value) {
-                    return 0 === $value % 11;
-                },
-                'foo'
-            )
-            ->shouldReturn('foo');
+            ->shouldIterateAs([4 => 5]);
 
         $this::fromIterable([])
             ->first()
-            ->shouldBe(null);
+            ->shouldIterateAs([]);
+
+        $generator = static function (): Generator {
+            yield 'a' => 'a';
+
+            yield 'b' => 'b';
+
+            yield 'c' => 'c';
+
+            yield 'a' => 'd';
+
+            yield 'b' => 'e';
+
+            yield 'c' => 'f';
+        };
+
+        $this::fromIterable($generator())
+            ->first(static function ($value, $key) {
+                return 'b' === $key;
+            })
+            ->shouldIterateAs(['b' => 'b']);
+
+        $output = static function (): Generator {
+            yield 'b' => 'b';
+
+            yield 'b' => 'e';
+        };
+
+        $this::fromIterable($generator())
+            ->first(static function ($value, $key) {
+                return 'b' === $key;
+            }, 2)
+            ->shouldIterateAs($output());
     }
 
     public function it_can_get_the_last_item(): void

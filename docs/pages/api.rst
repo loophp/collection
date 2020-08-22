@@ -458,6 +458,46 @@ Signature: ``Collection::filter(callable ...$callbacks);``
     $collection = Collection::with(range(1, 100))
         ->filter($callback);
 
+first
+~~~~~
+
+Get the first items from the collection passing the given truth test.
+
+Interface: `Firstable`_
+
+Signature: ``Collection::first(?callable $callback = null, int $size = 1);``
+
+.. code-block:: php
+
+        $generator = static function (): Generator {
+            yield 'a' => 'a';
+            yield 'b' => 'b';
+            yield 'c' => 'c';
+            yield 'a' => 'd';
+            yield 'b' => 'e';
+            yield 'c' => 'f';
+        };
+
+        Collection::fromIterable($generator())
+            ->first(
+                static function ($value, $key) {
+                    return 'b' === $key;
+                }
+            ); // ['b' => 'b']
+
+        $output = static function (): Generator {
+            yield 'b' => 'b';
+            yield 'b' => 'e';
+        };
+
+        Collection::fromIterable($generator())
+            ->first(
+                static function ($value, $key) {
+                    return 'b' === $key;
+                },
+                2
+            ); // ['b' => 'b', 'b' => 'e']
+
 flatten
 ~~~~~~~
 
@@ -1351,11 +1391,6 @@ falsy
 
 Interface: `Falsyable`_
 
-first
-~~~~~
-
-Interface: `Firstable`_
-
 foldLeft
 ~~~~~~~~
 
@@ -1425,7 +1460,7 @@ Interface: `Truthyable`_
 .. _Explodeable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Explodeable.php
 .. _Falsyable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/Falsyable.php
 .. _Filterable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Filterable.php
-.. _Firstable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/Firstable.php
+.. _Firstable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Firstable.php
 .. _Flattenable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Flattenable.php
 .. _Flipable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Flipable.php
 .. _array_flip(): https://php.net/array_flip
