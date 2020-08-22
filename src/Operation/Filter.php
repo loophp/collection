@@ -21,11 +21,14 @@ final class Filter extends AbstractOperation implements Operation
     {
         $defaultCallback =
             /**
-             * @param mixed $item
-             * @psalm-param T $item
+             * @param mixed $value
+             * @param mixed $key
+             * @psalm-param T $value
+             * @psalm-param TKey $key
+             * @psalm-param Iterator<TKey, T> $iterator
              */
-            static function ($item): bool {
-                return (bool) $item;
+            static function ($value, $key, Iterator $iterator): bool {
+                return (bool) $value;
             };
 
         $this->storage['callbacks'] = [] === $callbacks ?
