@@ -15,7 +15,7 @@ use loophp\collection\Contract\Operation;
  * @psalm-template TKey of array-key
  * @psalm-template T
  *
- * @implements Operation<TKey, T>
+ * @implements LazyOperation<TKey, T>
  */
 final class Head extends AbstractLazyOperation implements LazyOperation
 {
