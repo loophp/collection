@@ -1273,6 +1273,28 @@ Signature: ``Collection::transpose();``
     $result = Collection::with($records)
         ->transpose();
 
+unpack
+~~~~~~
+
+Unpack items.
+
+Interface: `Unpackable`_
+
+Signature: ``Collection::unpack();``
+
+.. code-block:: php
+
+    $input = [['a', 'b'], ['c', 'd'], ['e', 'f']];
+
+    $c = Collection::fromIterable($input)
+        ->unpack();
+
+    // [
+    //     ['a' => 'b'],
+    //     ['c' => 'd'],
+    //     ['e' => 'f'],
+    // ];
+
 unpair
 ~~~~~~
 
@@ -1508,6 +1530,7 @@ Interface: `Truthyable`_
 .. _Nthable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Nthable.php
 .. _Nullsyable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/Nullsyable.php
 .. _Onlyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Onlyable.php
+.. _Packable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Packable.php
 .. _Padable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Padable.php
 .. _Pairable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Pairable.php
 .. _Permutateable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Permutateable.php
@@ -1529,7 +1552,8 @@ Interface: `Truthyable`_
 .. _Transformable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/Transformable.php
 .. _Transposeable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Transposeable.php
 .. _Truthyable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/Truthyable.php
-.. _Unpair: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Unpairable.php
+.. _Unpackable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Unpackagle.php
+.. _Unpairable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Unpairable.php
 .. _Untilable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Untilable.php
 .. _Unwrapable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Unwrapable.php
 .. _Windowable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Windowable.php

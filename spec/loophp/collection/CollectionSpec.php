@@ -1896,6 +1896,45 @@ class CollectionSpec extends ObjectBehavior
             ->shouldReturn(false);
     }
 
+    public function it_can_unpack(): void
+    {
+        $input = [
+            ['a', 'a'],
+            ['b', 'b'],
+            ['c', 'c'],
+            ['d', 'd'],
+            ['e', 'e'],
+            'bar',
+        ];
+
+        $this::fromIterable($input)
+            ->unpack()
+            ->shouldIterateAs([
+                'a' => 'a',
+                'b' => 'b',
+                'c' => 'c',
+                'd' => 'd',
+                'e' => 'e',
+            ]);
+
+        $input = [
+            ['a', 'b', 'c' => 'c', 'd' => 'd'],
+            ['e', 'f', 'g' => 'g', 'h' => 'h'],
+            ['i', 'j'],
+            'foo',
+        ];
+
+        $this::fromIterable($input)
+            ->unpack()
+            ->shouldIterateAs([
+                'a' => 'b',
+                'c' => 'd',
+                'e' => 'f',
+                'g' => 'h',
+                'i' => 'j',
+            ]);
+    }
+
     public function it_can_unpair(): void
     {
         $input = [

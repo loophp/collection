@@ -71,6 +71,7 @@ use loophp\collection\Operation\Split;
 use loophp\collection\Operation\Tail;
 use loophp\collection\Operation\Times;
 use loophp\collection\Operation\Transpose;
+use loophp\collection\Operation\Unpack;
 use loophp\collection\Operation\Unpair;
 use loophp\collection\Operation\Until;
 use loophp\collection\Operation\Unwrap;
@@ -646,6 +647,11 @@ final class Collection implements CollectionInterface
     public function truthy(): bool
     {
         return $this->transform(new Truthy());
+    }
+
+    public function unpack(): CollectionInterface
+    {
+        return $this->run(new Unpack());
     }
 
     public function unpair(): CollectionInterface
