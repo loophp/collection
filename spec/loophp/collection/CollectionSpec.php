@@ -1884,10 +1884,10 @@ class CollectionSpec extends ObjectBehavior
         $this::fromIterable($input)
             ->unpair()
             ->shouldIterateAs([
-                ['k1', 'v1'],
-                ['k2', 'v2'],
-                ['k3', 'v3'],
-                ['k4', 'v4'],
+                'k1', 'v1',
+                'k2', 'v2',
+                'k3', 'v3',
+                'k4', 'v4',
             ]);
     }
 

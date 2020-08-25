@@ -20,13 +20,15 @@ final class Unpair extends AbstractOperation implements Operation
     {
         return
             /**
-             * @psalm-param \Iterator<TKey, T> $iterator
+             * @psalm-param Iterator<TKey, T> $iterator
              *
-             * @psalm-return \Generator<int, array{TKey, T}>
+             * @psalm-return Generator<int, array{TKey, T}>
              */
             static function (Iterator $iterator): Generator {
                 foreach ($iterator as $key => $value) {
-                    yield [$key, $value];
+                    yield $key;
+
+                    yield $value;
                 }
             };
     }
