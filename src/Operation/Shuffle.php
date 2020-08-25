@@ -23,16 +23,16 @@ final class Shuffle extends AbstractOperation implements Operation
             /**
              * @psalm-param \Iterator<TKey, T> $iterator
              *
-             * @psalm-return \Generator<TKey|null, T, mixed, void>
+             * @psalm-return \Generator<TKey, T, mixed, void>
              */
             static function (Iterator $iterator): Generator {
-                /** @psalm-var array<TKey, T>  $data */
-                $data = iterator_to_array((new Run(new Wrap()))($iterator));
+                /** @psalm-var array<int, array{0: TKey, 1: T}>  $data */
+                $data = iterator_to_array((new Run(new Pack()))($iterator));
 
                 while ([] !== $data) {
                     $randomKey = array_rand($data);
 
-                    yield key($data[$randomKey]) => current($data[$randomKey]);
+                    yield $data[$randomKey][0] => $data[$randomKey][1];
 
                     unset($data[$randomKey]);
                 }

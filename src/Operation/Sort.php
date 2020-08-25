@@ -31,44 +31,33 @@ final class Sort extends AbstractOperation implements Operation
     {
         return
             /**
-             * @psalm-param \Iterator<TKey, T> $iterator
+             * @psalm-param Iterator<TKey, T> $iterator
              * @psalm-param callable(T, T):(int) $callback
              *
-             * @psalm-return \Generator<TKey, T>
+             * @psalm-return Generator<TKey, T>
              */
             static function (Iterator $iterator, int $type, callable $callback): Generator {
-                switch ($type) {
-                    case Operation\Sortable::BY_VALUES:
-                        $operations = [
-                            'before' => [new Wrap()],
-                            'after' => [new Unwrap()],
-                        ];
-
-                        break;
-                    case Operation\Sortable::BY_KEYS:
-                        $operations = [
-                            'before' => [new Flip(), new Wrap()],
-                            'after' => [new Unwrap(), new Flip()],
-                        ];
-
-                        break;
-
-                    default:
-                        throw new Exception('Invalid sort type.');
+                if (Operation\Sortable::BY_VALUES !== $type && Operation\Sortable::BY_KEYS !== $type) {
+                    throw new Exception('Invalid sort type.');
                 }
+
+                $operations = Operation\Sortable::BY_VALUES === $type ?
+                    [
+                        'before' => [new Pack()],
+                        'after' => [new Unpack()],
+                    ] :
+                    [
+                        'before' => [new Flip(), new Pack()],
+                        'after' => [new Unpack(), new Flip()],
+                    ];
 
                 $callback =
                     /**
-                     * @psalm-param array{TKey, T} $left
-                     * @psalm-param array{TKey, T} $right
+                     * @psalm-param array{0:TKey, 1:T} $left
+                     * @psalm-param array{0:TKey, 1:T} $right
                      */
                     static function (array $left, array $right) use ($callback): int {
-                        /** @psalm-var T $left */
-                        $left = current($left);
-                        /** @psalm-var T $right */
-                        $right = current($right);
-
-                        return $callback($left, $right);
+                        return $callback($left[1], $right[1]);
                     };
 
                 $arrayIterator = new ArrayIterator(iterator_to_array((new Run(...$operations['before']))($iterator)));
