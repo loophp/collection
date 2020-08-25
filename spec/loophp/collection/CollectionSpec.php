@@ -1312,6 +1312,30 @@ class CollectionSpec extends ObjectBehavior
             ->shouldReturn(false);
     }
 
+    public function it_can_pack(): void
+    {
+        $input = array_combine(range('a', 'c'), range('a', 'c'));
+
+        $this::fromIterable($input)
+            ->pack()
+            ->shouldIterateAs(
+                [
+                    0 => [
+                        0 => 'a',
+                        1 => 'a',
+                    ],
+                    1 => [
+                        0 => 'b',
+                        1 => 'b',
+                    ],
+                    2 => [
+                        0 => 'c',
+                        1 => 'c',
+                    ],
+                ]
+            );
+    }
+
     public function it_can_pad(): void
     {
         $input = array_combine(range('A', 'E'), range('A', 'E'));

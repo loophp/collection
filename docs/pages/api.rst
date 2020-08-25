@@ -153,7 +153,6 @@ Signature: ``Collection::with($data = [], ...$parameters);``
     // With a resource/stream
     $collection = Collection::with(fopen( __DIR__ . '/vendor/autoload.php', 'r'));
 
-
 Methods (operations)
 --------------------
 
@@ -831,6 +830,29 @@ Signature: ``Collection::only(...$keys);``
 
     $collection = Collection::with(range(10, 100))
         ->only(3, 10, 'a', 9);
+
+pack
+~~~~
+
+Wrap each items into an array containing 2 items: the key and the value.
+
+Interface: `Packable`_
+
+Signature: ``Collection::pack();``
+
+.. code-block:: php
+
+    $input = ['a' => 'b', 'c' => 'd', 'e' => 'f'];
+
+    $c = Collection::fromIterable($input)
+        ->pack();
+
+     // [
+     //   ['a', 'b'],
+     //   ['c', 'd'],
+     //   ['e', 'f'],
+     // ]
+
 
 pad
 ~~~
