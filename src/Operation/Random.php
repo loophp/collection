@@ -28,9 +28,9 @@ final class Random extends AbstractOperation implements Operation
     {
         return
             /**
-             * @psalm-param \Iterator<TKey, T> $iterator
+             * @psalm-param Iterator<TKey, T> $iterator
              *
-             * @psalm-return \Generator<TKey, T>
+             * @psalm-return Generator<TKey, T>
              */
             static function (Iterator $iterator, int $size): Generator {
                 return yield from (new Run(new Limit($size), new Shuffle()))($iterator);

@@ -33,13 +33,13 @@ final class Associate extends AbstractOperation implements Operation
     }
 
     /**
-     * @psalm-return \Closure(\Iterator<TKey, T>, callable(TKey, T):(TKey), callable(TKey, T):(T)):(\Generator<TKey, T>)
+     * @psalm-return Closure(Iterator<TKey, T>, callable(TKey, T):(TKey), callable(TKey, T):(T)):(Generator<TKey, T>)
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param \Iterator<TKey, T> $iterator
+             * @psalm-param Iterator<TKey, T> $iterator
              * @psalm-param callable(TKey, T):(TKey) $callbackForKeys
              * @psalm-param callable(TKey, T):(T) $callbackForValues
              */

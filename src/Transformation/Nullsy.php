@@ -17,7 +17,7 @@ use loophp\collection\Contract\Transformation;
 final class Nullsy implements Transformation
 {
     /**
-     * @psalm-param \Iterator<TKey, T|null> $collection
+     * @psalm-param Iterator<TKey, T|null> $collection
      */
     public function __invoke(Iterator $collection): bool
     {

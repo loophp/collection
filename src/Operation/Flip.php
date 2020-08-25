@@ -20,9 +20,9 @@ final class Flip extends AbstractOperation implements Operation
     {
         return
             /**
-             * @psalm-param \Iterator<TKey, T> $iterator
+             * @psalm-param Iterator<TKey, T> $iterator
              *
-             * @psalm-return \Generator<int|string, TKey>
+             * @psalm-return Generator<int|string, TKey>
              */
             static function (Iterator $iterator): Generator {
                 foreach ($iterator as $key => $value) {

@@ -20,9 +20,9 @@ final class Collapse extends AbstractOperation implements Operation
     {
         return
             /**
-             * @psalm-param \Iterator<array-key, T|iterable<TKey, T>> $iterator
+             * @psalm-param Iterator<array-key, T|iterable<TKey, T>> $iterator
              *
-             * @psalm-return \Generator<TKey, T>
+             * @psalm-return Generator<TKey, T>
              */
             static function (Iterator $iterator): Generator {
                 foreach ($iterator as $value) {
@@ -31,8 +31,8 @@ final class Collapse extends AbstractOperation implements Operation
                     }
 
                     /**
-                     * @var TKey $subKey
-                     * @var T $subValue
+                     * @psalm-var TKey $subKey
+                     * @psalm-var T $subValue
                      */
                     foreach ($value as $subKey => $subValue) {
                         yield $subKey => $subValue;

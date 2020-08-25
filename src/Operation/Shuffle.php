@@ -21,9 +21,9 @@ final class Shuffle extends AbstractOperation implements Operation
     {
         return
             /**
-             * @psalm-param \Iterator<TKey, T> $iterator
+             * @psalm-param Iterator<TKey, T> $iterator
              *
-             * @psalm-return \Generator<TKey, T, mixed, void>
+             * @psalm-return Generator<TKey, T, mixed, void>
              */
             static function (Iterator $iterator): Generator {
                 /** @psalm-var array<int, array{0: TKey, 1: T}>  $data */

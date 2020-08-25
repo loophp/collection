@@ -31,10 +31,10 @@ final class Diff extends AbstractOperation implements Operation
     {
         return
             /**
-             * @psalm-param \Iterator<TKey, T> $iterator
+             * @psalm-param Iterator<TKey, T> $iterator
              * @psalm-param list<T> $values
              *
-             * @psalm-return \Generator<TKey, T>
+             * @psalm-return Generator<TKey, T>
              */
             static function (Iterator $iterator, array $values): Generator {
                 foreach ($iterator as $key => $value) {

@@ -21,12 +21,12 @@ final class Last extends AbstractOperation implements Operation
 {
     /**
      * @var callable|Closure
-     * @psalm-var callable(T, TKey):(bool)|\Closure(T, TKey):(bool)
+     * @psalm-var callable(T, TKey):(bool)|Closure(T, TKey):(bool)
      */
     private $callback;
 
     /**
-     * @psalm-param \Closure(T, TKey):(bool)|callable(T, TKey):(bool)|null $callback
+     * @psalm-param Closure(T, TKey):(bool)|callable(T, TKey):(bool)|null $callback
      * @psalm-param T|null $default
      */
     public function __construct(?callable $callback = null, int $size = 1)
@@ -53,9 +53,9 @@ final class Last extends AbstractOperation implements Operation
     {
         return
             /**
-             * @psalm-param \Iterator<TKey, T> $iterator
+             * @psalm-param Iterator<TKey, T> $iterator
              *
-             * @psalm-return \Generator<TKey, T>
+             * @psalm-return Generator<TKey, T>
              */
             static function (Iterator $iterator, callable $callback, int $size): Generator {
                 $callback =

@@ -29,16 +29,16 @@ final class Column extends AbstractOperation implements Operation
     }
 
     /**
-     * @return \Closure(\Iterator<TKey, T>, array-key):(\Generator<int, iterable<TKey, T>>)
+     * @psalm-return Closure(Iterator<TKey, T>, array-key):(Generator<int, iterable<TKey, T>>)
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param \Iterator<TKey, T> $iterator
+             * @psalm-param Iterator<TKey, T> $iterator
              * @psalm-param array-key $column
              *
-             * @psalm-return \Generator<int, iterable<TKey, T>>
+             * @psalm-return Generator<int, iterable<TKey, T>>
              *
              * @param mixed $column
              */

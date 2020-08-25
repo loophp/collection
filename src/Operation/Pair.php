@@ -21,14 +21,13 @@ final class Pair extends AbstractOperation implements Operation
     {
         return
             /**
-             * @psalm-param \Iterator<TKey, T> $iterator
+             * @psalm-param Iterator<TKey, T> $iterator
              *
-             * @psalm-return \Generator<TKey, T>
+             * @psalm-return Generator<T, T>
              */
             static function (Iterator $iterator): Generator {
-                /** @psalm-var list<int, list<T|TKey>> $chunk */
+                /** @psalm-var list<T> $chunk */
                 foreach ((new Run(new Chunk(2)))($iterator) as $chunk) {
-                    /** @psalm-var array{TKey, T} $chunk */
                     $chunk = array_values($chunk);
 
                     yield $chunk[0] => $chunk[1];

@@ -19,7 +19,7 @@ final class Contains implements Transformation
 {
     /**
      * @var ArrayIterator<int, mixed>
-     * @psalm-var \ArrayIterator<int, T>
+     * @psalm-var ArrayIterator<int, T>
      */
     private $values;
 

@@ -26,15 +26,22 @@ final class Map extends AbstractOperation implements Operation
         return
             /**
              * @psalm-param Iterator<TKey, T> $iterator
-             * @psalm-param list<callable(T, TKey):(T)> $callbacks
+             * @psalm-param list<callable(T, TKey): T> $callbacks
              *
              * @psalm-return Generator<TKey, T>
              */
             static function (Iterator $iterator, array $callbacks): Generator {
                 foreach ($iterator as $key => $value) {
-                    $callback = static function ($carry, callable $callback) use ($value, $key) {
-                        return $callback($value, $key);
-                    };
+                    $callback =
+                        /**
+                         * @param mixed $carry
+                         * @psalm-param T $carry
+                         * @psalm-param callable(T, TKey): T $callback
+                         * @psalm-return T
+                         */
+                        static function ($carry, callable $callback) use ($value, $key) {
+                            return $callback($value, $key);
+                        };
 
                     yield $key => array_reduce($callbacks, $callback, $value);
                 }

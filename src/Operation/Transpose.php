@@ -22,9 +22,9 @@ final class Transpose extends AbstractOperation implements Operation
     {
         return
             /**
-             * @psalm-param \Iterator<TKey, T> $iterator
+             * @psalm-param Iterator<TKey, T> $iterator
              *
-             * @psalm-return \Generator<TKey, list<T>>
+             * @psalm-return Generator<TKey, list<T>>
              */
             static function (Iterator $iterator): Generator {
                 $mit = new MultipleIterator(MultipleIterator::MIT_NEED_ANY);

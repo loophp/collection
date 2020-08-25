@@ -32,10 +32,10 @@ final class Pad extends AbstractOperation implements Operation
     {
         return
             /**
-             * @psalm-param \Iterator<TKey, T> $iterator
+             * @psalm-param Iterator<TKey, T> $iterator
              * @psalm-param T $padValue
              *
-             * @psalm-return \Generator<TKey|int, T>
+             * @psalm-return Generator<TKey|int, T>
              *
              * @param mixed $padValue
              */
