@@ -973,9 +973,9 @@ class CollectionSpec extends ObjectBehavior
                     'd',
                     'e',
                 ],
-                3 => 'f',
-                4 => 'g',
-                10 => 'h',
+                3 => ['f'],
+                4 => ['g'],
+                10 => ['h'],
             ]);
 
         $callback = static function ($key, $value) {

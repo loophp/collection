@@ -8,8 +8,8 @@ use Closure;
 use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
-
-use function array_key_exists;
+use loophp\collection\Transformation\FoldLeft;
+use loophp\collection\Transformation\Transform;
 
 /**
  * @psalm-template TKey
@@ -46,22 +46,27 @@ final class Group extends AbstractOperation implements Operation
              * @psalm-return Generator<int, list<T>>
              */
             static function (Iterator $iterator, callable $callable): Generator {
-                $data = [];
+                $callback =
+                    /**
+                     * @psalm-param array<TKey, list<T>> $collect
+                     *
+                     * @param mixed $value
+                     * @psalm-param T $value
+                     *
+                     * @param mixed $key
+                     * @psalm-param TKey $key
+                     *
+                     * @psalm-return array<TKey, list<T>>
+                     */
+                    static function (array $collect, $value, $key) use ($callable): array {
+                        if (null !== $groupKey = $callable($key, $value)) {
+                            $collect[$groupKey][] = $value;
+                        }
 
-                foreach ($iterator as $key => $value) {
-                    $key = ($callable)($key, $value);
+                        return $collect;
+                    };
 
-                    if (false === array_key_exists($key, $data)) {
-                        $data[$key] = $value;
-
-                        continue;
-                    }
-
-                    $data[$key] = (array) $data[$key];
-                    $data[$key][] = $value;
-                }
-
-                return yield from $data;
+                return yield from (new Transform(new FoldLeft($callback, [])))($iterator);
             };
     }
 }
