@@ -12,30 +12,33 @@ use loophp\collection\Transformation\Run;
 
 use const INF;
 
+/**
+ * @psalm-template TKey
+ * @psalm-template TKey of array-key
+ * @psalm-template T
+ */
 final class Scale extends AbstractOperation implements Operation
 {
     public function __construct(
         float $lowerBound,
         float $upperBound,
-        ?float $wantedLowerBound = null,
-        ?float $wantedUpperBound = null,
-        ?float $base = null
+        float $wantedLowerBound = 0.0,
+        float $wantedUpperBound = 1.0,
+        float $base = 0.0
     ) {
-        $wantedLowerBound = $wantedLowerBound ?? (null === $base ? 0.0 : 1.0);
-        $wantedUpperBound = $wantedUpperBound ?? ($base ?? 1.0);
+        $wantedLowerBound = (0.0 === $wantedLowerBound) ? (0.0 === $base ? 0.0 : 1.0) : $wantedLowerBound; // phpcs:ignore
+        $wantedUpperBound = (1.0 === $wantedUpperBound) ? (0.0 === $base ? 1.0 : $base) : $wantedUpperBound; // phpcs:ignore
 
         $this->storage['mapper'] = new Map(
             /**
              * @param float|int $v
              */
             static function ($v) use ($lowerBound, $upperBound, $wantedLowerBound, $wantedUpperBound, $base): float { // phpcs:ignore
-                $mx = null === $base ?
+                $mx = 0.0 === $base ?
                     ($v - $lowerBound) / ($upperBound - $lowerBound) :
                     log($v - $lowerBound, $base) / log($upperBound - $lowerBound, $base);
 
-                if ($mx === -INF) {
-                    $mx = 0;
-                }
+                $mx = $mx === -INF ? 0 : $mx;
 
                 return $wantedLowerBound + $mx * ($wantedUpperBound - $wantedLowerBound);
             }

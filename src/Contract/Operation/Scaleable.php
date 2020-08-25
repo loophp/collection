@@ -16,17 +16,13 @@ interface Scaleable
     /**
      * Scale/normalize values.
      *
-     * @param ?float $wantedLowerBound
-     * @param ?float $wantedUpperBound
-     * @param ?float $base
-     *
      * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
      */
     public function scale(
         float $lowerBound,
         float $upperBound,
-        ?float $wantedLowerBound = null,
-        ?float $wantedUpperBound = null,
-        ?float $base = null
+        float $wantedLowerBound = 0.0,
+        float $wantedUpperBound = 1.0,
+        float $base = 0.0
     ): Collection;
 }

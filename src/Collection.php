@@ -587,9 +587,9 @@ final class Collection implements CollectionInterface
     public function scale(
         float $lowerBound,
         float $upperBound,
-        ?float $wantedLowerBound = null,
-        ?float $wantedUpperBound = null,
-        ?float $base = null
+        float $wantedLowerBound = 0.0,
+        float $wantedUpperBound = 1.0,
+        float $base = 0.0
     ): CollectionInterface {
         return $this->run(new Scale($lowerBound, $upperBound, $wantedLowerBound, $wantedUpperBound, $base));
     }
