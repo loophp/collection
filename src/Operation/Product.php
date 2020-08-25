@@ -21,7 +21,7 @@ final class Product extends AbstractOperation implements Operation
 {
     /**
      * @param iterable<mixed> ...$iterables
-     * @psalm-param \Iterator<TKey, T> ...$iterables
+     * @psalm-param Iterator<TKey, T> ...$iterables
      */
     public function __construct(iterable ...$iterables)
     {
@@ -32,7 +32,7 @@ final class Product extends AbstractOperation implements Operation
                  * @param array<int, mixed> $input
                  * @psalm-param array<int, \Iterator<TKey, T>> $input
                  *
-                 * @psalm-return \Generator<array<int, T>>
+                 * @psalm-return Generator<array<int, T>>
                  */
                 function (array $input): Generator {
                     return $this->cartesian($input);
@@ -44,10 +44,10 @@ final class Product extends AbstractOperation implements Operation
     {
         return
             /**
-             * @psalm-param \Iterator<TKey, T> $iterator
+             * @psalm-param Iterator<TKey, T> $iterator
              * @psalm-param array<int, iterable<TKey, T>> $iterables
              *
-             * @psalm-return \Generator<int, array<int, T>>
+             * @psalm-return Generator<int, array<int, T>>
              */
             static function (Iterator $iterator, array $iterables, callable $cartesian): Generator {
                 $its = [$iterator];
@@ -64,7 +64,7 @@ final class Product extends AbstractOperation implements Operation
      * @param array<int, iterable> $iterators
      * @psalm-param array<int, \Iterator<TKey, T>> $iterators
      *
-     * @psalm-return \Generator<int, array<int, T>>
+     * @psalm-return Generator<int, array<int, T>>
      */
     private function cartesian(array $iterators): Generator
     {

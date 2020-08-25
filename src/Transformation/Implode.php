@@ -34,7 +34,7 @@ final class Implode implements Transformation
         $callback =
             /**
              * @psalm-param TKey $key
-             * @psalm-param \CachingIterator $iterator
+             * @psalm-param CachingIterator $iterator
              *
              * @param mixed $key
              * @param mixed $iterator

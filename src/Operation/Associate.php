@@ -39,7 +39,7 @@ final class Associate extends AbstractOperation implements Operation
     {
         return
             /**
-             * @psalm-param \Iterator<TKey, T> $iterator
+             * @psalm-param Iterator<TKey, T> $iterator
              * @psalm-param callable(TKey, T):(TKey) $callbackForKeys
              * @psalm-param callable(TKey, T):(T) $callbackForValues
              */

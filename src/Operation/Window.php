@@ -27,10 +27,10 @@ final class Window extends AbstractOperation implements Operation
     {
         return
             /**
-             * @psalm-param \Iterator<TKey, T> $iterator
+             * @psalm-param Iterator<TKey, T> $iterator
              * @psalm-param \ArrayIterator<int, int> $length
              *
-             * @psalm-return \Generator<int, list<T>>
+             * @psalm-return Generator<int, list<T>>
              */
             static function (Iterator $iterator, ArrayIterator $length): Generator {
                 /** @psalm-var \Iterator<int, int> $length */

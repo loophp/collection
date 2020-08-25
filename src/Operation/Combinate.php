@@ -33,10 +33,10 @@ final class Combinate extends AbstractOperation implements Operation
     {
         return
             /**
-             * @psalm-param \Iterator<TKey, T> $iterator
+             * @psalm-param Iterator<TKey, T> $iterator
              * @psalm-param callable(array<int, T>, int): (array<int, T>) $getCombinations
              *
-             * @psalm-return \Generator<int, list<T>>
+             * @psalm-return Generator<int, list<T>>
              */
             static function (Iterator $iterator, ?int $length, callable $getCombinations): Generator {
                 $dataset = iterator_to_array($iterator);
@@ -62,7 +62,7 @@ final class Combinate extends AbstractOperation implements Operation
      * @psalm-param array<int, T> $dataset
      *
      * @return Generator<array<mixed>>
-     * @psalm-return \Generator<array<int, T>>
+     * @psalm-return Generator<array<int, T>>
      */
     private function getCombinations(array $dataset, int $length): Generator
     {

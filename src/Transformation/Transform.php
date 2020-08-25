@@ -31,16 +31,16 @@ final class Transform implements Transformation
     }
 
     /**
-     * @psalm-param \Iterator<TKey, T> $collection
+     * @psalm-param Iterator<TKey, T> $collection
      *
      * @return mixed|null
-     * @psalm-return T|scalar|null|\Iterator<TKey, T>
+     * @psalm-return Iterator<TKey, T>|T
      */
     public function __invoke(Iterator $collection)
     {
         return (new FoldLeft(
             /**
-             * @psalm-param \Iterator<TKey, T> $collection
+             * @psalm-param Iterator<TKey, T> $collection
              * @psalm-param Transformation<TKey, T> $transformer
              * @psalm-param TKey $key
              *

@@ -25,10 +25,10 @@ final class Split extends AbstractOperation implements Operation
     {
         return
             /**
-             * @psalm-param \Iterator<TKey, T> $iterator
+             * @psalm-param Iterator<TKey, T> $iterator
              * @psalm-param list<callable(T, TKey):(bool)> $callbacks
              *
-             * @psalm-return \Generator<int, list<T>>
+             * @psalm-return Generator<int, list<T>>
              */
             static function (Iterator $iterator, array $callbacks): Generator {
                 $carry = [];
@@ -36,8 +36,7 @@ final class Split extends AbstractOperation implements Operation
                 foreach ($iterator as $key => $value) {
                     $callbackReturn = array_reduce(
                         $callbacks,
-                        static function ($carry, callable $callback) use ($key, $value): bool {
-                            // @todo : Do this everywhere.
+                        static function (bool $carry, callable $callback) use ($key, $value): bool {
                             return $callback($value, $key) !== $carry;
                         },
                         false

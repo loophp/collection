@@ -21,9 +21,9 @@ final class Tail extends AbstractOperation implements Operation
     {
         return
             /**
-             * @psalm-param \Iterator<TKey, T> $iterator
+             * @psalm-param Iterator<TKey, T> $iterator
              *
-             * @psalm-return \Generator<Tkey, T>
+             * @psalm-return Generator<Tkey, T>
              */
             static function (Iterator $iterator): Generator {
                 return yield from (new Run(new Skip(1)))($iterator);

@@ -31,14 +31,14 @@ final class DiffKeys extends AbstractOperation implements Operation
     {
         return
             /**
-             * @psalm-param \Iterator<TKey, T> $iterator
+             * @psalm-param Iterator<TKey, T> $iterator
              * @psalm-param list<TKey> $values
              *
-             * @psalm-return \Generator<TKey, T>
+             * @psalm-return Generator<TKey, T>
              *
              * @param mixed $values
              */
-            static function (Iterator $iterator, $values): Generator {
+            static function (Iterator $iterator, array $values): Generator {
                 foreach ($iterator as $key => $value) {
                     if (false === in_array($key, $values, true)) {
                         yield $key => $value;

@@ -40,10 +40,10 @@ final class Filter extends AbstractOperation implements Operation
     {
         return
             /**
-             * @psalm-param \Iterator<TKey, T> $iterator
+             * @psalm-param Iterator<TKey, T> $iterator
              * @psalm-param list<callable(T, TKey, \Iterator<TKey, T>):(bool)> $callbacks
              *
-             * @psalm-return \Generator<TKey, T>
+             * @psalm-return Generator<TKey, T>
              */
             static function (Iterator $iterator, array $callbacks): Generator {
                 yield from array_reduce(

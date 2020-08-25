@@ -18,7 +18,7 @@ final class Merge extends AbstractOperation implements Operation
 {
     /**
      * @param iterable<int|string, mixed> ...$sources
-     * @psalm-param \Iterator<TKey, T> ...$sources
+     * @psalm-param Iterator<TKey, T> ...$sources
      */
     public function __construct(iterable ...$sources)
     {
@@ -29,10 +29,10 @@ final class Merge extends AbstractOperation implements Operation
     {
         return
             /**
-             * @psalm-param \Iterator<TKey, T> $iterator
+             * @psalm-param Iterator<TKey, T> $iterator
              * @psalm-param list<iterable<TKey, T>> $sources
              *
-             * @psalm-return \Generator<TKey, T>
+             * @psalm-return Generator<TKey, T>
              */
             static function (Iterator $iterator, array $sources): Generator {
                 foreach ($iterator as $key => $value) {

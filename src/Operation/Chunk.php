@@ -34,10 +34,10 @@ final class Chunk extends AbstractOperation implements Operation
     {
         return
             /**
-             * @psalm-param \Iterator<TKey, T> $iterator
+             * @psalm-param Iterator<TKey, T> $iterator
              * @psalm-param ArrayIterator<int, int> $sizes
              *
-             * @psalm-return \Generator<int, list<T>>
+             * @psalm-return Generator<int, list<T>>
              */
             static function (Iterator $iterator, ArrayIterator $sizes): Generator {
                 $sizesIterator = (new Run(new Loop()))($sizes);

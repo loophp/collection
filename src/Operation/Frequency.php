@@ -20,9 +20,9 @@ final class Frequency extends AbstractOperation implements Operation
     {
         return
             /**
-             * @psalm-param \Iterator<TKey, T> $iterator
+             * @psalm-param Iterator<TKey, T> $iterator
              *
-             * @psalm-return \Generator<int, T>
+             * @psalm-return Generator<int, T>
              */
             static function (Iterator $iterator): Generator {
                 $storage = [];

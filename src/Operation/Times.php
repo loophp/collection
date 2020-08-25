@@ -37,10 +37,10 @@ final class Times extends AbstractOperation implements Operation
     {
         return
             /**
-             * @psalm-param \Iterator<TKey, T> $iterator
+             * @psalm-param Iterator<TKey, T> $iterator
              * @psalm-param callable(int):(int) $callback
              *
-             * @psalm-return \Generator<int, int>
+             * @psalm-return Generator<int, int>
              */
             static function (Iterator $iterator, ?int $number, callable $callback): Generator {
                 for ($current = 1; $current <= $number; ++$current) {

@@ -24,7 +24,7 @@ final class Unpack extends AbstractOperation implements Operation
             /**
              * @psalm-param Iterator<int, array{0:TKey, 1:T}|T> $iterator
              *
-             * @psalm-return Generator<TKey, T>
+             * @psalm-return Generator<T, T, mixed, void>
              */
             static function (Iterator $iterator): Generator {
                 foreach ($iterator as $key => $value) {

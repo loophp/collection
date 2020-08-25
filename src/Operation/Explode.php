@@ -30,10 +30,10 @@ final class Explode extends AbstractOperation implements Operation
     {
         return
             /**
-             * @psalm-param \Iterator<TKey, T> $iterator
+             * @psalm-param Iterator<TKey, T> $iterator
              * @psalm-param list<T> $explodes
              *
-             * @psalm-return \Generator<int, list<T>>
+             * @psalm-return Generator<int, list<T>>
              */
             static function (Iterator $iterator, array $explodes): Generator {
                 return yield from (new Run(

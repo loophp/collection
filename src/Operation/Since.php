@@ -29,10 +29,10 @@ final class Since extends AbstractOperation implements Operation
     {
         return
             /**
-             * @psalm-param \Iterator<TKey, T> $iterator
+             * @psalm-param Iterator<TKey, T> $iterator
              * @psalm-param list<callable(T, TKey):(bool)> $callbacks
              *
-             * @psalm-return \Generator<TKey, T>
+             * @psalm-return Generator<TKey, T>
              */
             static function (Iterator $iterator, array $callbacks): Generator {
                 while ($iterator->valid()) {

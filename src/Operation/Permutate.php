@@ -23,7 +23,7 @@ final class Permutate extends AbstractOperation implements Operation
              * @param array<int, mixed> $dataset
              * @psalm-param list<T> $dataset
              *
-             * @psalm-return \Generator<int, list<T>>
+             * @psalm-return Generator<int, list<T>>
              */
             function (array $dataset): Generator {
                 return $this->getPermutations($dataset);
@@ -31,9 +31,9 @@ final class Permutate extends AbstractOperation implements Operation
 
         return
             /**
-             * @psalm-param \Iterator<TKey, T> $iterator
+             * @psalm-param Iterator<TKey, T> $iterator
              *
-             * @psalm-return \Generator<int, list<T>>
+             * @psalm-return Generator<int, list<T>>
              */
             static function (Iterator $iterator) use ($getPermutations): Generator {
                 return yield from $getPermutations(iterator_to_array($iterator));
@@ -45,7 +45,7 @@ final class Permutate extends AbstractOperation implements Operation
      * @psalm-param list<T> $dataset
      *
      * @return Generator<array<mixed>>
-     * @psalm-return \Generator<int, list<T>>
+     * @psalm-return Generator<int, list<T>>
      */
     private function getPermutations(array $dataset): Generator
     {

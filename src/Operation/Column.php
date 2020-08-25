@@ -35,10 +35,10 @@ final class Column extends AbstractOperation implements Operation
     {
         return
             /**
-             * @psalm-param \Iterator<TKey, T> $iterator
+             * @psalm-param Iterator<TKey, T> $iterator
              * @psalm-param array-key $column
              *
-             * @psalm-return \Generator<int, iterable<TKey, T>>
+             * @psalm-return Generator<int, iterable<TKey, T>>
              *
              * @param mixed $column
              */
