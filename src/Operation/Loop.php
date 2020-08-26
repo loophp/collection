@@ -19,14 +19,8 @@ final class Loop extends AbstractOperation implements Operation
 {
     public function __invoke(): Closure
     {
-        return
-            /**
-             * @psalm-param Iterator<TKey, T> $iterator
-             *
-             * @psalm-return Generator<TKey, T>
-             */
-            static function (Iterator $iterator): Generator {
-                return yield from new InfiniteIterator($iterator);
-            };
+        return static function (Iterator $iterator): Generator {
+            return yield from new InfiniteIterator($iterator);
+        };
     }
 }

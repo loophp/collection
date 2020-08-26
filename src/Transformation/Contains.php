@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace loophp\collection\Transformation;
 
 use ArrayIterator;
+use Closure;
 use Iterator;
 use loophp\collection\Contract\Transformation;
 
@@ -32,27 +33,24 @@ final class Contains implements Transformation
         $this->values = new ArrayIterator($values);
     }
 
-    /**
-     * @param Iterator<TKey, T> $collection
-     *
-     * @return bool
-     */
-    public function __invoke(Iterator $collection)
+    public function __invoke()
     {
-        $values = $this->values;
+        return static function (...$values): Closure {
+            return static function (Iterator $iterator) use ($values): bool {
+                foreach ($iterator as $key => $value) {
+                    foreach ($values as $k => $v) {
+                        if ($v === $value) {
+                            unset($values[$k]);
+                        }
 
-        foreach ($collection as $key => $value) {
-            foreach ($values as $k => $v) {
-                if ($v === $value) {
-                    unset($values[$k]);
+                        if ([] === $values) {
+                            return true;
+                        }
+                    }
                 }
 
-                if (0 === $values->count()) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
+                return false;
+            };
+        };
     }
 }

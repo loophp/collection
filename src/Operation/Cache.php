@@ -18,21 +18,18 @@ use Psr\Cache\CacheItemPoolInterface;
  */
 final class Cache extends AbstractOperation implements Operation
 {
-    public function __construct(CacheItemPoolInterface $cache)
-    {
-        $this->storage['cache'] = $cache;
-    }
-
     public function __invoke(): Closure
     {
-        return
-            /**
-             * @psalm-param Iterator<TKey, T> $iterator
-             *
-             * @psalm-return Generator<TKey, T>
-             */
-            static function (Iterator $iterator, CacheItemPoolInterface $cache): Generator {
-                return yield from new CacheIterator($iterator, $cache);
-            };
+        return static function (CacheItemPoolInterface $cache): Closure {
+            return
+                /**
+                 * @psalm-param Iterator<TKey, T> $iterator
+                 *
+                 * @psalm-return Generator<TKey, T>
+                 */
+                static function (Iterator $iterator) use ($cache): Generator {
+                    return yield from new CacheIterator($iterator, $cache);
+                };
+        };
     }
 }

@@ -6,7 +6,6 @@ namespace loophp\collection\Transformation;
 
 use Iterator;
 use loophp\collection\Contract\Transformation;
-use loophp\collection\Iterator\IterableIterator;
 
 /**
  * @psalm-template TKey
@@ -17,8 +16,10 @@ use loophp\collection\Iterator\IterableIterator;
  */
 final class Count implements Transformation
 {
-    public function __invoke(Iterator $collection)
+    public function __invoke()
     {
-        return iterator_count(new IterableIterator($collection));
+        return static function (Iterator $iterator): int {
+            return iterator_count($iterator);
+        };
     }
 }

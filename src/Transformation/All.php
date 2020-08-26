@@ -21,8 +21,10 @@ final class All implements Transformation
      * @phpstan-return array<TKey, T>
      * @psalm-return array<TKey, T>
      */
-    public function __invoke(Iterator $collection): array
+    public function __invoke()
     {
-        return iterator_to_array($collection);
+        return static function (Iterator $iterator): array {
+            return iterator_to_array($iterator);
+        };
     }
 }

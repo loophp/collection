@@ -16,25 +16,10 @@ use loophp\collection\Contract\Operation;
  */
 final class Merge extends AbstractOperation implements Operation
 {
-    /**
-     * @param iterable<int|string, mixed> ...$sources
-     * @psalm-param Iterator<TKey, T> ...$sources
-     */
-    public function __construct(iterable ...$sources)
-    {
-        $this->storage['sources'] = $sources;
-    }
-
     public function __invoke(): Closure
     {
-        return
-            /**
-             * @psalm-param Iterator<TKey, T> $iterator
-             * @psalm-param list<iterable<TKey, T>> $sources
-             *
-             * @psalm-return Generator<TKey, T>
-             */
-            static function (Iterator $iterator, array $sources): Generator {
+        return static function (...$sources): Closure {
+            return static function (Iterator $iterator) use ($sources): Generator {
                 foreach ($iterator as $key => $value) {
                     yield $key => $value;
                 }
@@ -45,5 +30,6 @@ final class Merge extends AbstractOperation implements Operation
                     }
                 }
             };
+        };
     }
 }

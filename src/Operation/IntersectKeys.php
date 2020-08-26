@@ -18,27 +18,10 @@ use function in_array;
  */
 final class IntersectKeys extends AbstractOperation implements Operation
 {
-    /**
-     * @param mixed ...$values
-     * @psalm-param TKey ...$values
-     */
-    public function __construct(...$values)
-    {
-        $this->storage['values'] = $values;
-    }
-
     public function __invoke(): Closure
     {
-        return
-            /**
-             * @psalm-param Iterator<TKey, T> $iterator
-             * @psalm-param list<TKey> $values
-             *
-             * @psalm-return Generator<TKey, T>
-             *
-             * @param mixed $values
-             */
-            static function (Iterator $iterator, array $values): Generator {
+        return static function (...$values): Closure {
+            return static function (Iterator $iterator) use ($values): Generator {
                 foreach ($iterator as $key => $value) {
                     if (false === in_array($key, $values, true)) {
                         continue;
@@ -47,5 +30,6 @@ final class IntersectKeys extends AbstractOperation implements Operation
                     yield $key => $value;
                 }
             };
+        };
     }
 }

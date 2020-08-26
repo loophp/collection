@@ -19,37 +19,23 @@ use function in_array;
  */
 final class Compact extends AbstractOperation implements Operation
 {
-    /**
-     * @param mixed ...$values
-     * @psalm-param T ...$values
-     */
-    public function __construct(...$values)
-    {
-        $this->storage['values'] = [] === $values ? [null] : $values;
-    }
-
     public function __invoke(): Closure
     {
-        return
-            /**
-             * @psalm-param Iterator<TKey, T> $iterator
-             * @psalm-param list<T|null> $values
-             *
-             * @psalm-return Generator<TKey, T>
-             */
-            static function (Iterator $iterator, array $values): Generator {
-                return yield from
-                (new Run(
-                    new Filter(
-                        /**
-                         * @param mixed $item
-                         */
-                        static function ($item) use ($values): bool {
-                            return !in_array($item, $values, true);
-                        }
-                    )
-                )
-                )($iterator);
+        return static function (...$values): Closure {
+            return static function (Iterator $iterator) use ($values): Generator {
+                $values = [] === $values ? [null] : $values;
+
+                $filter = (new Filter())()(
+                    /**
+                     * @param mixed $item
+                     */
+                    static function ($item) use ($values): bool {
+                        return !in_array($item, $values, true);
+                    }
+                );
+
+                return yield from (new Run())()($filter)($iterator);
             };
+        };
     }
 }

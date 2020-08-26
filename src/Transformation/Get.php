@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace loophp\collection\Transformation;
 
+use Closure;
 use Iterator;
 use loophp\collection\Contract\Transformation;
 
@@ -16,44 +17,20 @@ use loophp\collection\Contract\Transformation;
  */
 final class Get implements Transformation
 {
-    /**
-     * @var mixed
-     * @psalm-var T
-     */
-    private $default;
-
-    /**
-     * @var int|string
-     */
-    private $key;
-
-    /**
-     * @param int|string $key
-     * @param mixed $default
-     * @psalm-param T $default
-     */
-    public function __construct($key, $default)
+    public function __invoke()
     {
-        $this->key = $key;
-        $this->default = $default;
-    }
+        return static function ($keyToGet): Closure {
+            return static function ($default) use ($keyToGet): Closure {
+                return static function (Iterator $collection) use ($keyToGet, $default) {
+                    foreach ($collection as $key => $value) {
+                        if ($key === $keyToGet) {
+                            return $value;
+                        }
+                    }
 
-    /**
-     * @param Iterator<TKey, T> $collection
-     *
-     * @return T
-     */
-    public function __invoke(Iterator $collection)
-    {
-        $keyToGet = $this->key;
-        $default = $this->default;
-
-        foreach ($collection as $key => $value) {
-            if ($key === $keyToGet) {
-                return $value;
-            }
-        }
-
-        return $default;
+                    return $default;
+                };
+            };
+        };
     }
 }

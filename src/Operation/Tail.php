@@ -26,7 +26,7 @@ final class Tail extends AbstractOperation implements Operation
              * @psalm-return Generator<Tkey, T>
              */
             static function (Iterator $iterator): Generator {
-                return yield from (new Run(new Skip(1)))($iterator);
+                return yield from (new Run())()((new Skip())()(1))($iterator);
             };
     }
 }

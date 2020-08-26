@@ -18,20 +18,10 @@ use loophp\collection\Contract\Operation;
  */
 final class Cycle extends AbstractOperation implements Operation
 {
-    public function __construct(int $length)
-    {
-        $this->storage['length'] = $length;
-    }
-
     public function __invoke(): Closure
     {
-        return
-            /**
-             * @psalm-param Iterator<TKey, T> $iterator
-             *
-             * @psalm-return Generator<TKey, T>
-             */
-            static function (Iterator $iterator, int $length): Generator {
+        return static function (int $length): Closure {
+            return static function (Iterator $iterator) use ($length): Generator {
                 if (0 === $length) {
                     return yield from [];
                 }
@@ -42,5 +32,6 @@ final class Cycle extends AbstractOperation implements Operation
                     $length
                 );
             };
+        };
     }
 }

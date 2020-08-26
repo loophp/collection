@@ -17,27 +17,18 @@ use loophp\collection\Transformation\Run;
  */
 final class RSample extends AbstractOperation implements Operation
 {
-    public function __construct(float $probability)
-    {
-        $this->storage['probability'] = $probability;
-    }
-
     public function __invoke(): Closure
     {
-        return
-            /**
-             * @psalm-param Iterator<TKey, T> $iterator
-             *
-             * @psalm-return Generator<TKey, T>
-             */
-            static function (Iterator $iterator, float $probability): Generator {
-                return yield from (new Run(
-                    new Filter(
-                        static function () use ($probability): bool {
-                            return (mt_rand() / mt_getrandmax()) < $probability;
-                        }
-                    )
-                ))($iterator);
+        return static function (float $probability): Closure {
+            return static function (Iterator $iterator) use ($probability): Generator {
+                $filter = (new Filter())()(
+                    static function () use ($probability): bool {
+                        return (mt_rand() / mt_getrandmax()) < $probability;
+                    }
+                );
+
+                return yield from (new Run())()($filter)($iterator);
             };
+        };
     }
 }

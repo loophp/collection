@@ -16,33 +16,43 @@ use loophp\collection\Contract\Operation;
  */
 final class IfThenElse extends AbstractOperation implements Operation
 {
-    /**
-     * @psalm-param callable(T, TKey): bool $condition
-     * @psalm-param callable(T, TKey): (T|TKey) $then
-     * @psalm-param callable(T, TKey): (T|TKey) $else
-     */
-    public function __construct(callable $condition, callable $then, callable $else)
-    {
-        $this->storage = [
-            'condition' => $condition,
-            'then' => $then,
-            'else' => $else,
-        ];
-    }
-
     // phpcs:disable
     /**
-     * @psalm-return Closure(Iterator<TKey, T>, callable(T, TKey): bool, callable(T, TKey): (T|TKey), callable(T, TKey): (T|TKey)): Generator<TKey, T>
+     * @psalm-return Closure(callable(T, TKey): bool): Closure(callable(T, TKey): (T|TKey)): Closure(callable(T, TKey): (T|TKey)): Generator<TKey, T>
      */
     // phpcs:enable
     public function __invoke(): Closure
     {
-        return static function (Iterator $iterator, callable $condition, callable $then, callable $else): Generator {
-            foreach ($iterator as $key => $value) {
-                yield $key => $condition($value, $key) ?
-                    $then($value, $key) :
-                    $else($value, $key);
-            }
-        };
+        return
+            /**
+             * @psalm-param callable(T, TKey): bool $condition
+             */
+            static function (callable $condition): Closure {
+                return
+                    /**
+                     * @psalm-param callable(T, TKey): (T|TKey) $then
+                     */
+                    static function (callable $then) use ($condition): Closure {
+                        return
+                            /**
+                             * @psalm-param callable(T, TKey): (T|TKey) $else
+                             */
+                            static function (callable $else) use ($condition, $then): Closure {
+                                return
+                                    /**
+                                     * @psalm-param Iterator<TKey, T> $iterator
+                                     *
+                                     * @psalm-return Generator<TKey, T>
+                                     */
+                                    static function (Iterator $iterator) use ($condition, $then, $else): Generator {
+                                        foreach ($iterator as $key => $value) {
+                                            yield $key => $condition($value, $key) ?
+                                                $then($value, $key) :
+                                                $else($value, $key);
+                                        }
+                                    };
+                            };
+                    };
+            };
     }
 }

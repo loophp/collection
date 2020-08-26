@@ -16,14 +16,16 @@ use loophp\collection\Contract\Transformation;
  */
 final class Falsy implements Transformation
 {
-    public function __invoke(Iterator $collection): bool
+    public function __invoke()
     {
-        foreach ($collection as $key => $value) {
-            if (false !== (bool) $value) {
-                return false;
+        return static function (Iterator $iterator): bool {
+            foreach ($iterator as $key => $value) {
+                if (false !== (bool) $value) {
+                    return false;
+                }
             }
-        }
 
-        return true;
+            return true;
+        };
     }
 }

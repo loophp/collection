@@ -17,46 +17,32 @@ use loophp\collection\Transformation\Run;
  */
 final class Explode extends AbstractOperation implements Operation
 {
-    /**
-     * @param mixed ...$explodes
-     * @psalm-param T ...$explodes
-     */
-    public function __construct(...$explodes)
-    {
-        $this->storage['explodes'] = $explodes;
-    }
-
     public function __invoke(): Closure
     {
-        return
-            /**
-             * @psalm-param Iterator<TKey, T> $iterator
-             * @psalm-param list<T> $explodes
-             *
-             * @psalm-return Generator<int, list<T>>
-             */
-            static function (Iterator $iterator, array $explodes): Generator {
-                return yield from (new Run(
-                    new Split(
-                        ...array_map(
-                            /**
-                             * @param mixed $explode
-                             * @psalm-param T $explode
-                             */
-                            static function ($explode): Closure {
-                                return
-                                    /**
-                                     * @param mixed $value
-                                     * @psalm-param T $value
-                                     */
-                                    static function ($value) use ($explode): bool {
-                                        return $value === $explode;
-                                    };
-                            },
-                            $explodes
-                        )
+        return static function (...$explodes): Closure {
+            return static function (Iterator $iterator) use ($explodes): Generator {
+                $split = (new Split())()(
+                    ...array_map(
+                        /**
+                         * @param mixed $explode
+                         * @psalm-param T $explode
+                         */
+                        static function ($explode): Closure {
+                            return
+                                /**
+                                 * @param mixed $value
+                                 * @psalm-param T $value
+                                 */
+                                static function ($value) use ($explode): bool {
+                                    return $value === $explode;
+                                };
+                        },
+                        $explodes
                     )
-                ))($iterator);
+                );
+
+                return yield from (new Run())()($split)($iterator);
             };
+        };
     }
 }

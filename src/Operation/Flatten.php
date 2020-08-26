@@ -18,20 +18,10 @@ use loophp\collection\Transformation\Run;
  */
 final class Flatten extends AbstractOperation implements Operation
 {
-    public function __construct(int $depth)
-    {
-        $this->storage['depth'] = $depth;
-    }
-
     public function __invoke(): Closure
     {
-        return
-            /**
-             * @psalm-param Iterator<TKey, T> $iterator
-             *
-             * @psalm-return Generator<int, T>
-             */
-            static function (Iterator $iterator, int $depth): Generator {
+        return static function (int $depth): Closure {
+            return static function (Iterator $iterator) use ($depth): Generator {
                 foreach ($iterator as $key => $value) {
                     if (false === is_iterable($value)) {
                         yield $key => $value;
@@ -41,14 +31,15 @@ final class Flatten extends AbstractOperation implements Operation
                             yield $subKey => $subValue;
                         }
                     } else {
-                        /** @psalm-var IterableIterator<TKey, T> $iterable */
-                        $iterable = (new Run(new Flatten($depth - 1)))(new IterableIterator($value));
+                        /** @psalm-var IterableIterator<TKey, T> $flatten */
+                        $flatten = (new Flatten())()($depth - 1);
 
-                        foreach ($iterable as $subKey => $subValue) {
+                        foreach ((new Run())()($flatten)(new IterableIterator($value)) as $subKey => $subValue) {
                             yield $subKey => $subValue;
                         }
                     }
                 }
             };
+        };
     }
 }

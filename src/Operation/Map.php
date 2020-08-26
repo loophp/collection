@@ -16,21 +16,10 @@ use loophp\collection\Contract\Operation;
  */
 final class Map extends AbstractOperation implements Operation
 {
-    public function __construct(callable ...$callbacks)
-    {
-        $this->storage['callbacks'] = $callbacks;
-    }
-
     public function __invoke(): Closure
     {
-        return
-            /**
-             * @psalm-param Iterator<TKey, T> $iterator
-             * @psalm-param list<callable(T, TKey): T> $callbacks
-             *
-             * @psalm-return Generator<TKey, T>
-             */
-            static function (Iterator $iterator, array $callbacks): Generator {
+        return static function (callable ...$callbacks): Closure {
+            return static function (Iterator $iterator) use ($callbacks): Generator {
                 foreach ($iterator as $key => $value) {
                     $callback =
                         /**
@@ -46,5 +35,6 @@ final class Map extends AbstractOperation implements Operation
                     yield $key => array_reduce($callbacks, $callback, $value);
                 }
             };
+        };
     }
 }

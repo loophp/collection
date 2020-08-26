@@ -17,30 +17,28 @@ use loophp\collection\Transformation\Run;
  */
 final class Slice extends AbstractOperation implements Operation
 {
-    public function __construct(int $offset, int $length = -1)
-    {
-        $this->storage = [
-            'offset' => $offset,
-            'length' => $length,
-        ];
-    }
-
     public function __invoke(): Closure
     {
-        return
-            /**
-             * @psalm-param Iterator<TKey, T> $iterator
-             *
-             * @psalm-return Generator<TKey, T>
-             */
-            static function (Iterator $iterator, int $offset, int $length): Generator {
-                $skip = (new Run(new Skip($offset)))($iterator);
+        return static function (int $offset): Closure {
+            return static function (int $length = -1) use ($offset): Closure {
+                return
+                    /**
+                     * @psalm-param Iterator<TKey, T> $iterator
+                     *
+                     * @psalm-return Generator<TKey, T>
+                     */
+                    static function (Iterator $iterator) use ($offset, $length): Generator {
+                        $skip = (new Skip())()($offset);
 
-                if (-1 === $length) {
-                    return yield from $skip;
-                }
+                        if (-1 === $length) {
+                            return yield from (new Run())()($skip)($iterator);
+                        }
 
-                return yield from (new Run(new Limit($length)))($skip);
+                        $limit = (new Limit())()($length)(0);
+
+                        return yield from (new Run())()($skip, $limit)($iterator);
+                    };
             };
+        };
     }
 }

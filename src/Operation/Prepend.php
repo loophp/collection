@@ -16,25 +16,10 @@ use loophp\collection\Contract\Operation;
  */
 final class Prepend extends AbstractOperation implements Operation
 {
-    /**
-     * @param mixed ...$items
-     * @psalm-param T ...$items
-     */
-    public function __construct(...$items)
-    {
-        $this->storage['items'] = $items;
-    }
-
     public function __invoke(): Closure
     {
-        return
-            /**
-             * @psalm-param Iterator<TKey, T> $iterator
-             * @psalm-param list<T> $items
-             *
-             * @psalm-return Generator<TKey|int, T>
-             */
-            static function (Iterator $iterator, array $items): Generator {
+        return static function (...$items): Closure {
+            return static function (Iterator $iterator) use ($items): Generator {
                 foreach ($items as $key => $item) {
                     yield $key => $item;
                 }
@@ -43,5 +28,6 @@ final class Prepend extends AbstractOperation implements Operation
                     yield $key => $value;
                 }
             };
+        };
     }
 }

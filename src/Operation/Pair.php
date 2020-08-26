@@ -15,7 +15,7 @@ use loophp\collection\Transformation\Run;
  * @psalm-template TKey of array-key
  * @psalm-template T
  */
-final class Pair extends AbstractOperation implements Operation
+final class Pair extends AbstractOperation extends AbstractOperation implements Operation
 {
     public function __invoke(): Closure
     {
@@ -26,8 +26,10 @@ final class Pair extends AbstractOperation implements Operation
              * @psalm-return Generator<T, T>
              */
             static function (Iterator $iterator): Generator {
+                $chunk = (new Chunk())()(2);
+
                 /** @psalm-var list<T> $chunk */
-                foreach ((new Run(new Chunk(2)))($iterator) as $chunk) {
+                foreach ((new Run())()($chunk)($iterator) as $chunk) {
                     $chunk = array_values($chunk);
 
                     yield $chunk[0] => $chunk[1];

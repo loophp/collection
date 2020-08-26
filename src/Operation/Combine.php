@@ -19,27 +19,12 @@ use const E_USER_WARNING;
  */
 final class Combine extends AbstractOperation implements Operation
 {
-    /**
-     * Combine constructor.
-     *
-     * @param mixed ...$keys
-     * @psalm-param TKey ...$keys
-     */
-    public function __construct(...$keys)
-    {
-        $this->storage['keys'] = new ArrayIterator($keys);
-    }
-
     public function __invoke(): Closure
     {
-        return
-            /**
-             * @psalm-param Iterator<TKey, T> $iterator
-             * @psalm-param ArrayIterator<int, TKey> $keys
-             *
-             * @psalm-return Generator<TKey, T>
-             */
-            static function (Iterator $iterator, ArrayIterator $keys): Generator {
+        return static function (...$keys): Closure {
+            return static function (Iterator $iterator) use ($keys): Generator {
+                $keys = new ArrayIterator($keys);
+
                 while ($iterator->valid() && $keys->valid()) {
                     yield $keys->current() => $iterator->current();
 
@@ -51,5 +36,6 @@ final class Combine extends AbstractOperation implements Operation
                     trigger_error('Both keys and values must have the same amount of items.', E_USER_WARNING);
                 }
             };
+        };
     }
 }

@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract;
 
-use Iterator;
-
 /**
  * @psalm-template TKey
  * @psalm-template TKey of array-key
@@ -14,11 +12,10 @@ use Iterator;
 interface Transformation
 {
     /**
-     * @param iterable<mixed> $collection
      * @psalm-param \Iterator<TKey, T> $collection
      *
      * @return mixed
      * @psalm-return T|scalar|\Iterator<TKey, T>|array<TKey, T>|null
      */
-    public function __invoke(Iterator $collection);
+    public function __invoke();
 }

@@ -16,35 +16,16 @@ use loophp\collection\Contract\Operation;
  */
 final class Reduction extends AbstractOperation implements Operation
 {
-    /**
-     * @param mixed|null $initial
-     * @psalm-param T|null $initial
-     * @psalm-param callable(T|null, T, TKey):(T|null) $callback
-     */
-    public function __construct(callable $callback, $initial = null)
-    {
-        $this->storage = [
-            'callback' => $callback,
-            'initial' => $initial,
-        ];
-    }
-
     public function __invoke(): Closure
     {
-        return
-            /**
-             * @psalm-param Iterator<TKey, T> $iterator
-             * @psalm-param callable(T|null, T, TKey):(T|null) $callback
-             *
-             * @param mixed $initial
-             * @psalm-param T|null $initial
-             *
-             * @psalm-return Generator<TKey, T|null>
-             */
-            static function (Iterator $iterator, callable $callback, $initial): Generator {
-                foreach ($iterator as $key => $value) {
-                    yield $key => ($initial = $callback($initial, $value, $key));
-                }
+        return static function (callable $callback): Closure {
+            return static function ($initial = null) use ($callback): Closure {
+                return static function (Iterator $iterator) use ($callback, $initial): Generator {
+                    foreach ($iterator as $key => $value) {
+                        yield $key => ($initial = $callback($initial, $value, $key));
+                    }
+                };
             };
+        };
     }
 }

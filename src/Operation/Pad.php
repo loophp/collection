@@ -16,41 +16,24 @@ use loophp\collection\Contract\Operation;
  */
 final class Pad extends AbstractOperation implements Operation
 {
-    /**
-     * @param mixed $value
-     * @psalm-param T $value
-     */
-    public function __construct(int $size, $value)
-    {
-        $this->storage = [
-            'size' => $size,
-            'value' => $value,
-        ];
-    }
-
     public function __invoke(): Closure
     {
-        return
-            /**
-             * @psalm-param Iterator<TKey, T> $iterator
-             * @psalm-param T $padValue
-             *
-             * @psalm-return Generator<TKey|int, T>
-             *
-             * @param mixed $padValue
-             */
-            static function (Iterator $iterator, int $size, $padValue): Generator {
-                $y = 0;
+        return static function (int $size): Closure {
+            return static function ($padValue) use ($size): Closure {
+                return static function (Iterator $iterator) use ($size, $padValue): Generator {
+                    $y = 0;
 
-                foreach ($iterator as $key => $value) {
-                    ++$y;
+                    foreach ($iterator as $key => $value) {
+                        ++$y;
 
-                    yield $key => $value;
-                }
+                        yield $key => $value;
+                    }
 
-                while ($y++ < $size) {
-                    yield $padValue;
-                }
+                    while ($y++ < $size) {
+                        yield $padValue;
+                    }
+                };
             };
+        };
     }
 }

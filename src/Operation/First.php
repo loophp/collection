@@ -19,59 +19,37 @@ use loophp\collection\Transformation\Run;
  */
 final class First extends AbstractOperation implements Operation
 {
-    /**
-     * @var callable
-     * @psalm-var callable(T, TKey):(bool)
-     */
-    private $callback;
-
-    /**
-     * @psalm-param callable(T, TKey):(bool)|null $callback
-     *
-     * @psalm-param T|null $default
-     */
-    public function __construct(?callable $callback = null, int $size = 1)
-    {
-        $defaultCallback =
-            /**
-             * @param mixed $value
-             * @param mixed $key
-             * @psalm-param T $value
-             * @psalm-param TKey $key
-             * @psalm-param Iterator<TKey, T> $iterator
-             */
-            static function ($value, $key, Iterator $iterator): bool {
-                return true;
-            };
-
-        $this->storage = [
-            'callback' => $callback ?? $defaultCallback,
-            'size' => $size,
-        ];
-    }
-
     public function __invoke(): Closure
     {
-        return
-            /**
-             * @psalm-param Iterator<TKey, T> $iterator
-             *
-             * @psalm-return Generator<TKey, T>
-             */
-            static function (Iterator $iterator, callable $callback, int $size): Generator {
-                $callback =
+        return static function (?callable $callback = null): Closure {
+            return static function (int $size = 1) use ($callback): Closure {
+                return
                     /**
-                     * @param mixed $value
-                     * @param mixed $key
-                     * @psalm-param T $value
-                     * @psalm-param TKey $key
-                     * @psalm-param Iterator<TKey, T> $iterator
+                     * @psalm-param \Iterator<TKey, T> $iterator
+                     *
+                     * @psalm-return \Generator<TKey, T>
                      */
-                    static function ($value, $key, Iterator $iterator) use ($callback): bool {
-                        return true === $callback($value, $key, $iterator);
-                    };
+                    static function (Iterator $iterator) use ($callback, $size): Generator {
+                        $defaultCallback =
+                            /**
+                             * @param mixed $value
+                             * @param mixed $key
+                             * @psalm-param T $value
+                             * @psalm-param TKey $key
+                             * @psalm-param Iterator<TKey, T> $iterator
+                             */
+                            static function ($value, $key, Iterator $iterator): bool {
+                                return true;
+                            };
 
-                return yield from (new Run(new Filter($callback), new Limit($size)))($iterator);
+                        $callback = $callback ?? $defaultCallback;
+
+                        $filter = (new Filter())()($callback);
+                        $limit = (new Limit())()($size)(0);
+
+                        return yield from (new Run())()($filter, $limit)($iterator);
+                    };
             };
+        };
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace loophp\collection\Transformation;
 
+use Closure;
 use Iterator;
 use loophp\collection\Contract\Transformation;
 
@@ -17,40 +18,21 @@ use loophp\collection\Contract\Transformation;
 final class Reduce implements Transformation
 {
     /**
-     * @var callable
-     * @psalm-var callable(T|null, T|null, TKey):(T|null)
-     */
-    private $callback;
-
-    /**
-     * @var mixed|null
-     * @psalm-var T|null
-     */
-    private $initial;
-
-    /**
-     * @psalm-param callable(T|null, T|null, TKey):(T|null) $callback
-     *
-     * @param mixed|null $initial
-     * @psalm-param T|null $initial
-     */
-    public function __construct(callable $callback, $initial = null)
-    {
-        $this->callback = $callback;
-        $this->initial = $initial;
-    }
-
-    /**
-     * @psalm-param Iterator<TKey, T> $collection
+     * @psalm-param \Iterator<TKey, T> $collection
      *
      * @return mixed|null
      * @psalm-return T|scalar|null|\Iterator<TKey, T>
      */
-    public function __invoke(Iterator $collection)
+    public function __invoke()
     {
-        $callback = $this->callback;
-        $initial = $this->initial;
-
-        return (new Transform(new FoldLeft($callback, $initial)))($collection);
+        return static function (callable $callback): Closure {
+            return static function ($initial = null) use ($callback): Closure {
+                return static function (Iterator $iterator) use ($callback, $initial) {
+                    return (new Transform())()(
+                        (new FoldLeft())()($callback)($initial)
+                    )($iterator);
+                };
+            };
+        };
     }
 }

@@ -16,36 +16,18 @@ use loophp\collection\Contract\Operation;
  */
 final class Iterate extends AbstractOperation implements Operation
 {
-    /**
-     * @param array<mixed, mixed> $parameters
-     * @psalm-param array<array-key, T> $parameters
-     *
-     * @psalm-param callable(...list<T>):(array<array-key, T>) $callback
-     */
-    public function __construct(callable $callback, array $parameters = [])
-    {
-        $this->storage = [
-            'callback' => $callback,
-            'parameters' => $parameters,
-        ];
-    }
-
     public function __invoke(): Closure
     {
-        return
-            /**
-             * @psalm-param Iterator<TKey, T> $iterator
-             * @psalm-param callable(...list<T>):(array<array-key, T>) $callback
-             *
-             * @param array<int, mixed> $parameters
-             * @psalm-param array<array-key, T> $parameters
-             */
-            static function (Iterator $iterator, callable $callback, array $parameters): Generator {
-                while (true) {
-                    yield current(
-                        $parameters = (array) $callback(...array_values((array) $parameters))
-                    );
-                }
+        return static function (callable $callback): Closure {
+            return static function (...$parameters) use ($callback): Closure {
+                return static function (Iterator $iterator) use ($callback, $parameters): Generator {
+                    while (true) {
+                        yield current(
+                            $parameters = (array) $callback(...array_values((array) $parameters))
+                        );
+                    }
+                };
             };
+        };
     }
 }

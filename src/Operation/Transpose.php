@@ -20,22 +20,16 @@ final class Transpose extends AbstractOperation implements Operation
 {
     public function __invoke(): Closure
     {
-        return
-            /**
-             * @psalm-param Iterator<TKey, T> $iterator
-             *
-             * @psalm-return Generator<TKey, list<T>>
-             */
-            static function (Iterator $iterator): Generator {
-                $mit = new MultipleIterator(MultipleIterator::MIT_NEED_ANY);
+        return static function (Iterator $iterator): Generator {
+            $mit = new MultipleIterator(MultipleIterator::MIT_NEED_ANY);
 
-                foreach ($iterator as $collectionItem) {
-                    $mit->attachIterator(new IterableIterator($collectionItem));
-                }
+            foreach ($iterator as $collectionItem) {
+                $mit->attachIterator(new IterableIterator($collectionItem));
+            }
 
-                foreach ($mit as $key => $value) {
-                    yield current($key) => $value;
-                }
-            };
+            foreach ($mit as $key => $value) {
+                yield current($key) => $value;
+            }
+        };
     }
 }

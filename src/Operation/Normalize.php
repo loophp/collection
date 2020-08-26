@@ -18,16 +18,10 @@ final class Normalize extends AbstractOperation implements Operation
 {
     public function __invoke(): Closure
     {
-        return
-            /**
-             * @psalm-param Iterator<TKey, T> $iterator
-             *
-             * @psalm-return Generator<int, T>
-             */
-            static function (Iterator $iterator): Generator {
-                foreach ($iterator as $value) {
-                    yield $value;
-                }
-            };
+        return static function (Iterator $iterator): Generator {
+            foreach ($iterator as $value) {
+                yield $value;
+            }
+        };
     }
 }

@@ -16,25 +16,10 @@ use loophp\collection\Contract\Operation;
  */
 final class Since extends AbstractOperation implements Operation
 {
-    /**
-     * @param callable ...$callbacks
-     * @psalm-param callable(T, TKey):(bool) ...$callbacks
-     */
-    public function __construct(callable ...$callbacks)
-    {
-        $this->storage['callbacks'] = $callbacks;
-    }
-
     public function __invoke(): Closure
     {
-        return
-            /**
-             * @psalm-param Iterator<TKey, T> $iterator
-             * @psalm-param list<callable(T, TKey):(bool)> $callbacks
-             *
-             * @psalm-return Generator<TKey, T>
-             */
-            static function (Iterator $iterator, array $callbacks): Generator {
+        return static function (callable ...$callbacks): Closure {
+            return static function (Iterator $iterator) use ($callbacks): Generator {
                 while ($iterator->valid()) {
                     $result = array_reduce(
                         $callbacks,
@@ -57,5 +42,6 @@ final class Since extends AbstractOperation implements Operation
                     yield $iterator->key() => $iterator->current();
                 }
             };
+        };
     }
 }

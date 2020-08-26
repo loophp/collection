@@ -16,44 +16,41 @@ use loophp\collection\Contract\Operation;
  */
 final class Split extends AbstractOperation implements Operation
 {
-    public function __construct(callable ...$callbacks)
-    {
-        $this->storage['callbacks'] = $callbacks;
-    }
-
     public function __invoke(): Closure
     {
-        return
-            /**
-             * @psalm-param Iterator<TKey, T> $iterator
-             * @psalm-param list<callable(T, TKey):(bool)> $callbacks
-             *
-             * @psalm-return Generator<int, list<T>>
-             */
-            static function (Iterator $iterator, array $callbacks): Generator {
-                $carry = [];
+        return static function (callable ...$callbacks): Closure {
+            return
+                /**
+                 * @psalm-param \Iterator<TKey, T> $iterator
+                 * @psalm-param list<callable(T, TKey):(bool)> $callbacks
+                 *
+                 * @psalm-return \Generator<int, list<T>>
+                 */
+                static function (Iterator $iterator) use ($callbacks): Generator {
+                    $carry = [];
 
-                foreach ($iterator as $key => $value) {
-                    $callbackReturn = array_reduce(
-                        $callbacks,
-                        static function (bool $carry, callable $callback) use ($key, $value): bool {
-                            return $callback($value, $key) !== $carry;
-                        },
-                        false
-                    );
+                    foreach ($iterator as $key => $value) {
+                        $callbackReturn = array_reduce(
+                            $callbacks,
+                            static function (bool $carry, callable $callback) use ($key, $value): bool {
+                                return $callback($value, $key) !== $carry;
+                            },
+                            false
+                        );
 
-                    if (true === $callbackReturn && [] !== $carry) {
-                        yield $carry;
+                        if (true === $callbackReturn && [] !== $carry) {
+                            yield $carry;
 
-                        $carry = [];
+                            $carry = [];
+                        }
+
+                        $carry[] = $value;
                     }
 
-                    $carry[] = $value;
-                }
-
-                if ([] !== $carry) {
-                    yield $carry;
-                }
-            };
+                    if ([] !== $carry) {
+                        yield $carry;
+                    }
+                };
+        };
     }
 }

@@ -19,51 +19,50 @@ use const INF;
  */
 final class Scale extends AbstractOperation implements Operation
 {
-    public function __construct(
-        float $lowerBound,
-        float $upperBound,
-        float $wantedLowerBound = 0.0,
-        float $wantedUpperBound = 1.0,
-        float $base = 0.0
-    ) {
-        $wantedLowerBound = (0.0 === $wantedLowerBound) ? (0.0 === $base ? 0.0 : 1.0) : $wantedLowerBound; // phpcs:ignore
-        $wantedUpperBound = (1.0 === $wantedUpperBound) ? (0.0 === $base ? 1.0 : $base) : $wantedUpperBound; // phpcs:ignore
-
-        $this->storage['mapper'] = new Map(
-            /**
-             * @param float|int $v
-             */
-            static function ($v) use ($lowerBound, $upperBound, $wantedLowerBound, $wantedUpperBound, $base): float { // phpcs:ignore
-                $mx = 0.0 === $base ?
-                    ($v - $lowerBound) / ($upperBound - $lowerBound) :
-                    log($v - $lowerBound, $base) / log($upperBound - $lowerBound, $base);
-
-                $mx = $mx === -INF ? 0 : $mx;
-
-                return $wantedLowerBound + $mx * ($wantedUpperBound - $wantedLowerBound);
-            }
-        );
-
-        $this->storage['filter'] = new Filter(
-            /**
-             * @param float|int $item
-             */
-            static function ($item) use ($lowerBound): bool {
-                return $item >= $lowerBound;
-            },
-            /**
-             * @param float|int $item
-             */
-            static function ($item) use ($upperBound): bool {
-                return $item <= $upperBound;
-            }
-        );
-    }
-
     public function __invoke(): Closure
     {
-        return static function (Iterator $iterator, Map $mapper, Filter $filter): Generator {
-            return yield from (new Run($filter, $mapper))($iterator);
+        return static function (float $lowerBound): Closure {
+            return static function (float $upperBound) use ($lowerBound): Closure {
+                return static function (float $wantedLowerBound = 0.0) use ($lowerBound, $upperBound): Closure {
+                    return static function (float $wantedUpperBound = 1.0) use ($lowerBound, $upperBound, $wantedLowerBound): Closure {  // phpcs:ignore
+                        return static function (float $base = 0.0) use ($lowerBound, $upperBound, $wantedLowerBound, $wantedUpperBound): Closure { // phpcs:ignore
+                            return static function (Iterator $iterator) use ($lowerBound, $upperBound, $wantedLowerBound, $wantedUpperBound, $base): Generator { // phpcs:ignore
+                                $wantedLowerBound = (0.0 === $wantedLowerBound) ? (0.0 === $base ? 0.0 : 1.0) : $wantedLowerBound; // phpcs:ignore
+                                $wantedUpperBound = (1.0 === $wantedUpperBound) ? (0.0 === $base ? 1.0 : $base) : $wantedUpperBound; // phpcs:ignore
+
+                                $mapper = (new Map())()(
+                                    static function ($v) use ($lowerBound, $upperBound, $wantedLowerBound, $wantedUpperBound, $base): float { // phpcs:ignore
+                                        $mx = 0.0 === $base ?
+                                            ($v - $lowerBound) / ($upperBound - $lowerBound) :
+                                            log($v - $lowerBound, $base) / log($upperBound - $lowerBound, $base);
+
+                                        $mx = $mx === -INF ? 0 : $mx;
+
+                                        return $wantedLowerBound + $mx * ($wantedUpperBound - $wantedLowerBound);
+                                    }
+                                );
+
+                                $filter = (new Filter())()(
+                                    /**
+                                     * @param float|int $item
+                                     */
+                                    static function ($item) use ($lowerBound): bool {
+                                        return $item >= $lowerBound;
+                                    },
+                                    /**
+                                     * @param float|int $item
+                                     */
+                                    static function ($item) use ($upperBound): bool {
+                                        return $item <= $upperBound;
+                                    }
+                                );
+
+                                return yield from (new Run())()($filter, $mapper)($iterator);
+                            };
+                        };
+                    };
+                };
+            };
         };
     }
 }

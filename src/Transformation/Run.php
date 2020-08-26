@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace loophp\collection\Transformation;
 
-use ArrayIterator;
+use Closure;
 use Iterator;
-use loophp\collection\Contract\Operation;
 use loophp\collection\Contract\Transformation;
 use loophp\collection\Iterator\ClosureIterator;
 
@@ -19,29 +18,19 @@ use loophp\collection\Iterator\ClosureIterator;
  */
 final class Run implements Transformation
 {
-    /**
-     * @var ArrayIterator<int, \loophp\collection\Contract\Operation>
-     */
-    private $operations;
-
-    public function __construct(Operation ...$operations)
+    public function __invoke(): Closure
     {
-        $this->operations = new ArrayIterator($operations);
-    }
-
-    public function __invoke(Iterator $collection): Iterator
-    {
-        return (
-            new FoldLeft(
-                static function (Iterator $collection, Operation $operation): ClosureIterator {
-                    return new ClosureIterator(
-                        $operation(),
-                        $collection,
-                        ...array_values($operation->getArguments())
-                    );
-                },
-                $collection
-            )
-        )($this->operations);
+        return static function (callable ...$operations): Closure {
+            return static function (Iterator $iterator) use ($operations) {
+                return (new FoldLeft())()(
+                    static function (Iterator $collection, callable $operation): ClosureIterator {
+                        return new ClosureIterator(
+                            $operation,
+                            $collection,
+                        );
+                    }
+                )($iterator)($operations);
+            };
+        };
     }
 }

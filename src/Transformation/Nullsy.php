@@ -16,17 +16,16 @@ use loophp\collection\Contract\Transformation;
  */
 final class Nullsy implements Transformation
 {
-    /**
-     * @psalm-param Iterator<TKey, T|null> $collection
-     */
-    public function __invoke(Iterator $collection): bool
+    public function __invoke()
     {
-        foreach ($collection as $key => $value) {
-            if (null !== $value) {
-                return false;
+        return static function (Iterator $iterator): bool {
+            foreach ($iterator as $key => $value) {
+                if (null !== $value) {
+                    return false;
+                }
             }
-        }
 
-        return true;
+            return true;
+        };
     }
 }

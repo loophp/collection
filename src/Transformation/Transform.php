@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace loophp\collection\Transformation;
 
-use ArrayIterator;
+use Closure;
 use Iterator;
 use loophp\collection\Contract\Transformation;
 
@@ -18,40 +18,21 @@ use loophp\collection\Contract\Transformation;
 final class Transform implements Transformation
 {
     /**
-     * @var ArrayIterator<int, \loophp\collection\Contract\Transformation<TKey, T>>
-     */
-    private $transformers;
-
-    /**
-     * @param \loophp\collection\Contract\Transformation<TKey, T> ...$transformers
-     */
-    public function __construct(Transformation ...$transformers)
-    {
-        $this->transformers = new ArrayIterator($transformers);
-    }
-
-    /**
-     * @psalm-param Iterator<TKey, T> $collection
+     * @psalm-param \Iterator<TKey, T> $collection
      *
      * @return mixed|null
-     * @psalm-return Iterator<TKey, T>|T
+     * @psalm-return T|scalar|null|\Iterator<TKey, T>
      */
-    public function __invoke(Iterator $collection)
+    public function __invoke()
     {
-        return (new FoldLeft(
-            /**
-             * @psalm-param Iterator<TKey, T> $collection
-             * @psalm-param Transformation<TKey, T> $transformer
-             * @psalm-param TKey $key
-             *
-             * @param mixed $key
-             *
-             * @psalm-return T
-             */
-            static function (Iterator $collection, Transformation $transformer, $key) {
-                return $transformer($collection);
-            },
-            $collection
-        ))($this->transformers);
+        return static function (callable ...$transformers): Closure {
+            return static function (Iterator $iterator) use ($transformers) {
+                return (new FoldLeft())()(
+                    static function (Iterator $collection, callable $transformer, $key) {
+                        return $transformer($collection);
+                    }
+                )($iterator)($transformers);
+            };
+        };
     }
 }
