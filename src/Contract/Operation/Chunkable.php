@@ -16,9 +16,7 @@ interface Chunkable
     /**
      * Chunk the collection into chunks of the given size.
      *
-     * @param int ...$size
-     *
      * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
      */
-    public function chunk(int ...$size): Collection;
+    public function chunk(int ...$sizes): Collection;
 }
