@@ -17,6 +17,7 @@ use loophp\collection\Contract\Transformation;
 use loophp\collection\Operation\AbstractOperation;
 use PhpSpec\ObjectBehavior;
 use stdClass;
+use const INF;
 
 class CollectionSpec extends ObjectBehavior
 {
@@ -1903,6 +1904,14 @@ class CollectionSpec extends ObjectBehavior
         $this::fromIterable([true, false, true])
             ->truthy()
             ->shouldReturn(false);
+
+        $this::fromIterable([1, 2, 3])
+            ->truthy()
+            ->shouldReturn(true);
+
+        $this::fromIterable([1, 2, 3, 0])
+            ->truthy()
+            ->shouldReturn(false);
     }
 
     public function it_can_unpack(): void
@@ -2014,12 +2023,31 @@ class CollectionSpec extends ObjectBehavior
         $this::range()
             ->limit(10)
             ->shouldIterateAs([0 => (float) 0, 1 => (float) 1, 2 => (float) 2, 3 => (float) 3, 4 => (float) 4, 5 => (float) 5, 6 => (float) 6, 7 => (float) 7, 8 => (float) 8, 9 => (float) 9]);
+
+        $this::range(0, INF, 0)
+            ->limit(10)
+            ->shouldIterateAs([
+                (float) 0,
+                (float) 0,
+                (float) 0,
+                (float) 0,
+                (float) 0,
+                (float) 0,
+                (float) 0,
+                (float) 0,
+                (float) 0,
+                (float) 0,
+            ]);
     }
 
     public function it_can_use_range_with_value_1(): void
     {
         $this::range(0, 1)
             ->shouldIterateAs([(float) 0]);
+
+        $this::range()
+            ->limit(5)
+            ->shouldIterateAs([(float) 0, (float) 1, (float) 2, (float) 3, (float) 4]);
     }
 
     public function it_can_use_times_with_a_callback(): void
