@@ -17,7 +17,7 @@ use loophp\collection\Transformation\Run;
  */
 final class Slice extends AbstractOperation implements Operation
 {
-    public function __construct(int $offset, ?int $length = null)
+    public function __construct(int $offset, int $length = -1)
     {
         $this->storage = [
             'offset' => $offset,
@@ -33,10 +33,10 @@ final class Slice extends AbstractOperation implements Operation
              *
              * @psalm-return Generator<TKey, T>
              */
-            static function (Iterator $iterator, int $offset, ?int $length): Generator {
+            static function (Iterator $iterator, int $offset, int $length): Generator {
                 $skip = (new Run(new Skip($offset)))($iterator);
 
-                if (null === $length) {
+                if (-1 === $length) {
                     return yield from $skip;
                 }
 
