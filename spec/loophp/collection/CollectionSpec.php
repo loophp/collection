@@ -1651,18 +1651,14 @@ class CollectionSpec extends ObjectBehavior
 
         $this::fromIterable($input)
             ->scale(0, 10)
-            // @todo: For some reason, using shouldIterateAs does not work here.
-            ->all()
-            ->shouldReturn([0.0, 0.2, 0.4, 0.6, 0.8, 1.0]);
+            ->shouldIterateAs([0.0, 0.2, 0.4, 0.6, 0.8, 1.0]);
 
         $this::fromIterable($input)
             ->scale(0, 10, 5, 15, 3)
             ->map(static function ($value) {
                 return (float) round($value, 2);
             })
-            // @todo: For some reason, using shouldIterateAs does not work here.
-            ->all()
-            ->shouldReturn([5.0, 8.01, 11.02, 12.78, 14.03, 15.0]);
+            ->shouldIterateAs([5.0, 8.01, 11.02, 12.78, 14.03, 15.0]);
     }
 
     public function it_can_shuffle(): void
