@@ -14,7 +14,7 @@ use loophp\collection\Contract\Transformation;
  *
  * @implements Transformation<TKey, T>
  */
-final class All implements Transformation
+final class All extends AbstractTransformation implements Transformation
 {
     /**
      * @return array<TKey, T>

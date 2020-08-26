@@ -33,7 +33,7 @@ final class Unpack extends AbstractOperation implements Operation
                     }
 
                     /** @psalm-var array<int, array<TKey, T>> $chunks */
-                    $chunks = (new Run((new Chunk(2))))(new IterableIterator($value));
+                    $chunks = Chunk::of()(2)(new IterableIterator($value));
 
                     foreach ($chunks as [$k, $v]) {
                         yield $k => $v;

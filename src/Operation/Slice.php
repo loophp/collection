@@ -8,7 +8,6 @@ use Closure;
 use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
-use loophp\collection\Transformation\Run;
 
 /**
  * @psalm-template TKey
@@ -28,15 +27,13 @@ final class Slice extends AbstractOperation implements Operation
                      * @psalm-return Generator<TKey, T>
                      */
                     static function (Iterator $iterator) use ($offset, $length): Generator {
-                        $skip = (new Skip())()($offset);
+                        $skip = Skip::of()($offset);
 
                         if (-1 === $length) {
-                            return yield from (new Run())()($skip)($iterator);
+                            return yield from $skip($iterator);
                         }
 
-                        $limit = (new Limit())()($length)(0);
-
-                        return yield from (new Run())()($skip, $limit)($iterator);
+                        return yield from Compose::of()($skip, Limit::of()($length)(0))($iterator);
                     };
             };
         };

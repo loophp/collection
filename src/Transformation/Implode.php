@@ -16,7 +16,7 @@ use loophp\collection\Contract\Transformation;
  *
  * @implements Transformation<TKey, T>
  */
-final class Implode implements Transformation
+final class Implode extends AbstractTransformation implements Transformation
 {
     public function __invoke()
     {
@@ -40,9 +40,7 @@ final class Implode implements Transformation
                         return $carry;
                     };
 
-                $foldLeft = (new FoldLeft())()($callback)('');
-
-                return (string) (new Transform())()($foldLeft)(new CachingIterator($iterator));
+                return (string) Transform::of()(FoldLeft::of()($callback)(''))(new CachingIterator($iterator));
             };
         };
     }

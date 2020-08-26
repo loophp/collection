@@ -8,8 +8,6 @@ use Closure;
 use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
-use loophp\collection\Transformation\FoldLeft;
-use loophp\collection\Transformation\Transform;
 
 /**
  * @psalm-template TKey
@@ -72,7 +70,7 @@ final class Group extends AbstractOperation implements Operation
                                 return $collect;
                             };
 
-                        return yield from (new Transform(new FoldLeft($callback, [])))($iterator);
+                        return yield from (FoldLeft::of()($callback)([])($iterator))->current();
                     };
             };
     }

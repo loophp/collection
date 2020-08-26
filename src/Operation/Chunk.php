@@ -9,7 +9,6 @@ use Closure;
 use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
-use loophp\collection\Transformation\Run;
 
 use function count;
 
@@ -37,7 +36,8 @@ final class Chunk extends AbstractOperation implements Operation
                      * @psalm-return Generator<int, list<T>>
                      */
                     static function (Iterator $iterator) use ($sizes): Generator {
-                        $sizesIterator = (new Run())()((new Loop())())(new ArrayIterator($sizes));
+                        /** @var Iterator<int, int> $sizesIterator */
+                        $sizesIterator = Loop::of()(new ArrayIterator($sizes));
 
                         $values = [];
 

@@ -14,7 +14,7 @@ use loophp\collection\Contract\Transformation;
  *
  * @implements Transformation<TKey, T>
  */
-final class FoldLeft implements Transformation
+final class FoldLeft extends AbstractTransformation implements Transformation
 {
     /**
      * @psalm-param \Iterator<TKey, T> $collection

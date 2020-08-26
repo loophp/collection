@@ -9,7 +9,6 @@ use Closure;
 use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
-use loophp\collection\Transformation\Run;
 
 /**
  * @psalm-template TKey
@@ -18,6 +17,9 @@ use loophp\collection\Transformation\Run;
  */
 final class Window extends AbstractOperation implements Operation
 {
+    /**
+     * @psalm-return Closure(int...): Closure(Iterator<TKey, T>): Generator<int, list<T>>
+     */
     public function __invoke(): Closure
     {
         return static function (int ...$lengths): Closure {
@@ -29,15 +31,13 @@ final class Window extends AbstractOperation implements Operation
                  * @psalm-return Generator<int, list<T>>
                  */
                 static function (Iterator $iterator) use ($lengths): Generator {
-                    $loop = (new Loop())();
-
-                    /** @psalm-var Iterator<int, int> $lengths */
-                    $lengths = (new Run())()($loop)(new ArrayIterator($lengths));
+                    /** @psalm-var \Iterator<int, int> $lengths */
+                    $lengths = Loop::of()(new ArrayIterator($lengths));
 
                     for ($i = 0; iterator_count($iterator) > $i; ++$i) {
-                        $slice = (new Slice())()($i)($lengths->current());
-
-                        yield iterator_to_array((new Run())()($slice)($iterator));
+                        yield iterator_to_array(
+                            Slice::of()($i)($lengths->current())($iterator)
+                        );
 
                         $lengths->next();
                     }

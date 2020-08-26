@@ -8,7 +8,6 @@ use Closure;
 use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
-use loophp\collection\Transformation\Run;
 
 /**
  * @psalm-template TKey
@@ -42,11 +41,11 @@ final class Last extends AbstractOperation implements Operation
 
                         $callback = $callback ?? $defaultCallback;
 
-                        $filter = (new Filter())()($callback);
-                        $reverse = (new Reverse())();
-                        $limit = (new Limit())()($size)(0);
-
-                        return yield from (new Run())()($filter, $reverse, $limit)($iterator);
+                        return yield from Compose::of()(
+                            Filter::of()($callback),
+                            Reverse::of(),
+                            Limit::of()($size)(0)
+                        )($iterator);
                     };
             };
         };

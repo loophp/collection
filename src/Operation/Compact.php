@@ -8,7 +8,6 @@ use Closure;
 use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
-use loophp\collection\Transformation\Run;
 
 use function in_array;
 
@@ -19,23 +18,37 @@ use function in_array;
  */
 final class Compact extends AbstractOperation implements Operation
 {
+    /**
+     * @psalm-return Closure(T...): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     */
     public function __invoke(): Closure
     {
-        return static function (...$values): Closure {
-            return static function (Iterator $iterator) use ($values): Generator {
-                $values = [] === $values ? [null] : $values;
-
-                $filter = (new Filter())()(
+        return
+            /**
+             * @psalm-param T ...$values
+             */
+            static function (...$values): Closure {
+                return
                     /**
-                     * @param mixed $item
+                     * @psalm-param Iterator<TKey, T> $iterator
+                     * @psalm-return Generator<TKey, T>
                      */
-                    static function ($item) use ($values): bool {
-                        return !in_array($item, $values, true);
-                    }
-                );
+                    static function (Iterator $iterator) use ($values): Generator {
+                        $values = [] === $values ? [null] : $values;
 
-                return yield from (new Run())()($filter)($iterator);
+                        /** @psalm-var callable(Iterator<TKey, T>):Generator<TKey, T> $filter */
+                        $filter = Filter::of()(
+                            /**
+                             * @param mixed $value
+                             * @psalm-param T $value
+                             */
+                            static function ($value) use ($values): bool {
+                                return !in_array($value, $values, true);
+                            }
+                        );
+
+                        return yield from $filter($iterator);
+                    };
             };
-        };
     }
 }

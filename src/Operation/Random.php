@@ -8,7 +8,6 @@ use Closure;
 use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
-use loophp\collection\Transformation\Run;
 
 /**
  * @psalm-template TKey
@@ -21,10 +20,10 @@ final class Random extends AbstractOperation implements Operation
     {
         return static function (int $size): Closure {
             return static function (Iterator $iterator) use ($size): Generator {
-                $limit = (new Limit())()($size)(0);
-                $shuffle = (new Shuffle())();
-
-                return yield from (new Run())()($limit, $shuffle)($iterator);
+                return yield from (Compose::of()(
+                    Limit::of()($size)(0),
+                    Shuffle::of()
+                )($iterator));
             };
         };
     }

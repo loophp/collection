@@ -15,7 +15,7 @@ use loophp\collection\Contract\Transformation;
  *
  * @implements Transformation<TKey, T>
  */
-final class Transform implements Transformation
+final class Transform extends AbstractTransformation implements Transformation
 {
     /**
      * @psalm-param \Iterator<TKey, T> $collection
@@ -27,7 +27,7 @@ final class Transform implements Transformation
     {
         return static function (callable ...$transformers): Closure {
             return static function (Iterator $iterator) use ($transformers) {
-                return (new FoldLeft())()(
+                return FoldLeft::of()(
                     static function (Iterator $collection, callable $transformer, $key) {
                         return $transformer($collection);
                     }

@@ -225,89 +225,89 @@ final class Collection implements CollectionInterface
 
     public function all(): array
     {
-        return $this->transform((new All())());
+        return $this->transform(All::of());
     }
 
     public function append(...$items): CollectionInterface
     {
-        return $this->run((new Append())()(...$items));
+        return $this->run(Append::of()(...$items));
     }
 
     public function apply(callable ...$callables): CollectionInterface
     {
-        return $this->run((new Apply())()(...$callables));
+        return $this->run(Apply::of()(...$callables));
     }
 
     public function associate(
         ?callable $callbackForKeys = null,
         ?callable $callbackForValues = null
     ): CollectionInterface {
-        return $this->run((new Associate())()($callbackForKeys)($callbackForValues));
+        return $this->run(Associate::of()($callbackForKeys)($callbackForValues));
     }
 
     public function cache(?CacheItemPoolInterface $cache = null): CollectionInterface
     {
-        return $this->run((new Cache())()($cache ?? new ArrayAdapter()));
+        return $this->run(Cache::of()($cache ?? new ArrayAdapter()));
     }
 
     public function chunk(int ...$sizes): CollectionInterface
     {
-        return $this->run((new Chunk())()(...$sizes));
+        return $this->run(Chunk::of()(...$sizes));
     }
 
     public function collapse(): CollectionInterface
     {
-        return $this->run((new Collapse())());
+        return $this->run(Collapse::of());
     }
 
     public function column($column): CollectionInterface
     {
-        return $this->run((new Column())()($column));
+        return $this->run(Column::of()($column));
     }
 
     public function combinate(?int $length = null): CollectionInterface
     {
-        return $this->run((new Combinate())()($length));
+        return $this->run(Combinate::of()($length));
     }
 
     public function combine(...$keys): CollectionInterface
     {
-        return $this->run((new Combine())()(...$keys));
+        return $this->run(Combine::of()(...$keys));
     }
 
     public function compact(...$values): CollectionInterface
     {
-        return $this->run((new Compact())()(...$values));
+        return $this->run(Compact::of()(...$values));
     }
 
     public function contains(...$value): bool
     {
-        return $this->transform((new Contains())()(...$value));
+        return $this->transform(Contains::of()(...$value));
     }
 
     public function count(): int
     {
-        return $this->transform((new Count())());
+        return $this->transform(Count::of());
     }
 
     public function cycle(int $length = 0): CollectionInterface
     {
-        return $this->run((new Cycle())()($length));
+        return $this->run(Cycle::of()($length));
     }
 
     public function diff(...$values): CollectionInterface
     {
-        return $this->run((new Diff())()(...$values));
+        return $this->run(Diff::of()(...$values));
     }
 
     public function diffKeys(...$values): CollectionInterface
     {
-        return $this->run((new DiffKeys())()(...$values));
+        return $this->run(DiffKeys::of()(...$values));
     }
 
     public function distinct(): CollectionInterface
     {
-        return $this->run((new Distinct())());
+        return $this->run(Distinct::of());
     }
 
     public static function empty(): Collection
@@ -317,52 +317,52 @@ final class Collection implements CollectionInterface
 
     public function explode(...$explodes): CollectionInterface
     {
-        return $this->run((new Explode())()(...$explodes));
+        return $this->run(Explode::of()(...$explodes));
     }
 
     public function falsy(): bool
     {
-        return $this->transform((new Falsy())());
+        return $this->transform(Falsy::of());
     }
 
     public function filter(callable ...$callbacks): CollectionInterface
     {
-        return $this->run((new Filter())()(...$callbacks));
+        return $this->run(Filter::of()(...$callbacks));
     }
 
     public function first(?callable $callback = null, int $size = 1): CollectionInterface
     {
-        return $this->run((new First())()($callback)($size));
+        return $this->run(First::of()($callback)($size));
     }
 
     public function flatten(int $depth = PHP_INT_MAX): CollectionInterface
     {
-        return $this->run((new Flatten())()($depth));
+        return $this->run(Flatten::of()($depth));
     }
 
     public function flip(): CollectionInterface
     {
-        return $this->run((new Flip())());
+        return $this->run(Flip::of());
     }
 
     public function foldLeft(callable $callback, $initial = null)
     {
-        return $this->transform((new FoldLeft())()($callback)($initial));
+        return $this->transform(FoldLeft::of()($callback)($initial));
     }
 
     public function foldRight(callable $callback, $initial = null)
     {
-        return $this->transform((new FoldRight())()($callback)($initial));
+        return $this->transform(Foldright::of()($callback)($initial));
     }
 
     public function forget(...$keys): CollectionInterface
     {
-        return $this->run((new Forget())()(...$keys));
+        return $this->run(Forget::of()(...$keys));
     }
 
     public function frequency(): CollectionInterface
     {
-        return $this->run((new Frequency())());
+        return $this->run(Frequency::of());
     }
 
     public static function fromCallable(callable $callable, ...$parameters): Collection
@@ -409,7 +409,7 @@ final class Collection implements CollectionInterface
 
     public function get($key, $default = null)
     {
-        return $this->transform((new Get())()($key)($default));
+        return $this->transform(Get::of()($key)($default));
     }
 
     public function getIterator(): ClosureIterator
@@ -419,17 +419,17 @@ final class Collection implements CollectionInterface
 
     public function group(?callable $callable = null): CollectionInterface
     {
-        return $this->run((new Group())()($callable));
+        return $this->run(Group::of()($callable));
     }
 
     public function has(callable $callback): bool
     {
-        return $this->transform((new Has())()($callback));
+        return $this->transform(Has::of()($callback));
     }
 
     public function head(): CollectionInterface
     {
-        return $this->run((new Head())());
+        return $this->run(Head::of());
     }
 
     public function ifThenElse(callable $condition, callable $then, ?callable $else = null): CollectionInterface
@@ -438,32 +438,32 @@ final class Collection implements CollectionInterface
             return $value;
         };
 
-        return $this->run(new IfThenElse($condition, $then, $else));
+        return $this->run(IfThenElse::of()($condition)($then)($else));
     }
 
     public function implode(string $glue = ''): string
     {
-        return $this->transform((new Implode())()($glue));
+        return $this->transform(Implode::of()($glue));
     }
 
     public function intersect(...$values): CollectionInterface
     {
-        return $this->run((new Intersect())()(...$values));
+        return $this->run(Intersect::of()(...$values));
     }
 
     public function intersectKeys(...$values): CollectionInterface
     {
-        return $this->run((new IntersectKeys())()(...$values));
+        return $this->run(IntersectKeys::of()(...$values));
     }
 
     public function intersperse($element, int $every = 1, int $startAt = 0): CollectionInterface
     {
-        return $this->run((new Intersperse())()($element)($every)($startAt));
+        return $this->run(Intersperse::of()($element)($every)($startAt));
     }
 
     public static function iterate(callable $callback, ...$parameters): CollectionInterface
     {
-        return (new self())->run((new Iterate())()($callback)($parameters));
+        return (new self())->run(Iterate::of()($callback)(...$parameters));
     }
 
     /**
@@ -476,122 +476,122 @@ final class Collection implements CollectionInterface
 
     public function keys(): CollectionInterface
     {
-        return $this->run((new Keys())());
+        return $this->run(Keys::of());
     }
 
     public function last(?callable $callback = null, int $size = 1): CollectionInterface
     {
-        return $this->run((new Last())()($callback)($size));
+        return $this->run(Last::of()($callback)($size));
     }
 
     public function limit(int $limit = -1, int $offset = 0): CollectionInterface
     {
-        return $this->run((new Limit())()($limit)($offset));
+        return $this->run(Limit::of()($limit)($offset));
     }
 
     public function loop(): CollectionInterface
     {
-        return $this->run((new Loop())());
+        return $this->run(Loop::of());
     }
 
     public function map(callable ...$callbacks): CollectionInterface
     {
-        return $this->run((new Map())()(...$callbacks));
+        return $this->run(Map::of()(...$callbacks));
     }
 
     public function merge(iterable ...$sources): CollectionInterface
     {
-        return $this->run((new Merge())()(...$sources));
+        return $this->run(Merge::of()(...$sources));
     }
 
     public function normalize(): CollectionInterface
     {
-        return $this->run((new Normalize())());
+        return $this->run(Normalize::of());
     }
 
     public function nth(int $step, int $offset = 0): CollectionInterface
     {
-        return $this->run((new Nth())()($step)($offset));
+        return $this->run(Nth::of()($step)($offset));
     }
 
     public function nullsy(): bool
     {
-        return $this->transform((new Nullsy())());
+        return $this->transform(Nullsy::of());
     }
 
     public function only(...$keys): CollectionInterface
     {
-        return $this->run((new Only())()(...$keys));
+        return $this->run(Only::of()(...$keys));
     }
 
     public function pack(): CollectionInterface
     {
-        return $this->run(new Pack());
+        return $this->run(Pack::of());
     }
 
     public function pad(int $size, $value): CollectionInterface
     {
-        return $this->run((new Pad())()($size)($value));
+        return $this->run(Pad::of()($size)($value));
     }
 
     public function pair(): CollectionInterface
     {
-        return $this->run((new Pair())());
+        return $this->run(Pair::of());
     }
 
     public function permutate(): CollectionInterface
     {
-        return $this->run((new Permutate())());
+        return $this->run(Permutate::of());
     }
 
     public function pluck($pluck, $default = null): CollectionInterface
     {
-        return $this->run((new Pluck())()($pluck)($default));
+        return $this->run(Pluck::of()($pluck)($default));
     }
 
     public function prepend(...$items): CollectionInterface
     {
-        return $this->run((new Prepend())()(...$items));
+        return $this->run(Prepend::of()(...$items));
     }
 
     public function product(iterable ...$iterables): CollectionInterface
     {
-        return $this->run((new Product())()(...$iterables));
+        return $this->run(Product::of()(...$iterables));
     }
 
     public function random(int $size = 1): CollectionInterface
     {
-        return $this->run((new Random())()($size));
+        return $this->run(Random::of()($size));
     }
 
     public static function range(float $start = 0.0, float $end = INF, float $step = 1.0): CollectionInterface
     {
-        return (new self())->run((new Range())()($start)($end)($step));
+        return (new self())->run(Range::of()($start)($end)($step));
     }
 
     public function reduce(callable $callback, $initial = null)
     {
-        return $this->transform((new Reduce())()($callback)($initial));
+        return $this->transform(Reduce::of()($callback)($initial));
     }
 
     public function reduction(callable $callback, $initial = null): CollectionInterface
     {
-        return $this->run((new Reduction())()($callback)($initial));
+        return $this->run(Reduction::of()($callback)($initial));
     }
 
     public function reverse(): CollectionInterface
     {
-        return $this->run((new Reverse())());
+        return $this->run(Reverse::of());
     }
 
     public function rsample(float $probability): CollectionInterface
     {
-        return $this->run((new RSample())()($probability));
+        return $this->run(RSample::of()($probability));
     }
 
     public function run(callable ...$operations)
     {
-        return self::fromIterable((new Run())()(...$operations)($this->getIterator()));
+        return self::fromIterable(Run::of()(...$operations)($this->getIterator()));
     }
 
     public function scale(
@@ -601,87 +601,87 @@ final class Collection implements CollectionInterface
         float $wantedUpperBound = 1.0,
         float $base = 0.0
     ): CollectionInterface {
-        return $this->run((new Scale())()($lowerBound)($upperBound)($wantedLowerBound)($wantedUpperBound)($base));
+        return $this->run(Scale::of()($lowerBound)($upperBound)($wantedLowerBound)($wantedUpperBound)($base));
     }
 
     public function shuffle(): CollectionInterface
     {
-        return $this->run((new Shuffle())());
+        return $this->run(Shuffle::of());
     }
 
     public function since(callable ...$callbacks): CollectionInterface
     {
-        return $this->run((new Since())()(...$callbacks));
+        return $this->run(Since::of()(...$callbacks));
     }
 
     public function skip(int ...$counts): CollectionInterface
     {
-        return $this->run((new Skip())()(...$counts));
+        return $this->run(Skip::of()(...$counts));
     }
 
     public function slice(int $offset, int $length = -1): CollectionInterface
     {
-        return $this->run((new Slice())()($offset)($length));
+        return $this->run(Slice::of()($offset)($length));
     }
 
     public function sort(int $type = Operation\Sortable::BY_VALUES, ?callable $callback = null): CollectionInterface
     {
-        return $this->run((new Sort())()($type)($callback));
+        return $this->run(Sort::of()($type)($callback));
     }
 
     public function split(callable ...$callbacks): CollectionInterface
     {
-        return $this->run((new Split())()(...$callbacks));
+        return $this->run(Split::of()(...$callbacks));
     }
 
     public function tail(): CollectionInterface
     {
-        return $this->run((new Tail())());
+        return $this->run(Tail::of());
     }
 
     public static function times(int $number = 0, ?callable $callback = null): CollectionInterface
     {
-        return (new self())->run((new Times())()($number)($callback));
+        return (new self())->run(Times::of()($number)($callback));
     }
 
     public function transform(callable ...$transformers)
     {
-        return (new Transform())()(...$transformers)($this->getIterator());
+        return Transform::of()(...$transformers)($this->getIterator());
     }
 
     public function transpose(): CollectionInterface
     {
-        return $this->run((new Transpose())());
+        return $this->run(Transpose::of());
     }
 
     public function truthy(): bool
     {
-        return $this->transform((new Truthy())());
+        return $this->transform(Truthy::of());
     }
 
     public function unpack(): CollectionInterface
     {
-        return $this->run(new Unpack());
+        return $this->run(Unpack::of());
     }
 
     public function unpair(): CollectionInterface
     {
-        return $this->run((new Unpair())());
+        return $this->run(Unpair::of());
     }
 
     public function until(callable ...$callbacks): CollectionInterface
     {
-        return $this->run((new Until())()(...$callbacks));
+        return $this->run(Until::of()(...$callbacks));
     }
 
     public function unwrap(): CollectionInterface
     {
-        return $this->run((new Unwrap())());
+        return $this->run(Unwrap::of());
     }
 
     public function window(int ...$length): CollectionInterface
     {
-        return $this->run((new Window())()(...$length));
+        return $this->run(Window::of()(...$length));
     }
 
     public static function with($data = [], ...$parameters): Collection
@@ -691,11 +691,11 @@ final class Collection implements CollectionInterface
 
     public function wrap(): CollectionInterface
     {
-        return $this->run((new Wrap())());
+        return $this->run(Wrap::of());
     }
 
     public function zip(iterable ...$iterables): CollectionInterface
     {
-        return $this->run((new Zip())()(...$iterables));
+        return $this->run(Zip::of()(...$iterables));
     }
 }

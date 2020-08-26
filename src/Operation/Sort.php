@@ -10,7 +10,6 @@ use Exception;
 use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
-use loophp\collection\Transformation\Run;
 
 /**
  * @psalm-template TKey
@@ -23,16 +22,24 @@ final class Sort extends AbstractOperation implements Operation
     {
         return static function (int $type = Operation\Sortable::BY_VALUES): Closure {
             return static function (?callable $callback = null) use ($type): Closure {
-                $callback = $callback ?? static function ($left, $right): int {
-                    return $left <=> $right;
-                };
+                $callback = $callback ??
+                    /**
+                     * @param mixed $left
+                     * @psalm-param T $left
+                     *
+                     * @param mixed $right
+                     * @psalm-param T $right
+                     */
+                    static function ($left, $right): int {
+                        return $left <=> $right;
+                    };
 
                 return
                     /**
-                     * @psalm-param \Iterator<TKey, T> $iterator
+                     * @psalm-param Iterator<TKey, T> $iterator
                      * @psalm-param callable(T, T):(int) $callback
                      *
-                     * @psalm-return \Generator<TKey, T>
+                     * @psalm-return Generator<TKey, T>
                      */
                     static function (Iterator $iterator) use ($type, $callback): Generator {
                         if (Operation\Sortable::BY_VALUES !== $type && Operation\Sortable::BY_KEYS !== $type) {
@@ -41,29 +48,28 @@ final class Sort extends AbstractOperation implements Operation
 
                         $operations = Operation\Sortable::BY_VALUES === $type ?
                             [
-                                'before' => [new Pack()],
-                                'after' => [new Unpack()],
+                                'before' => [Pack::of()],
+                                'after' => [Unpack::of()],
                             ] :
                             [
-                                'before' => [new Flip(), new Pack()],
-                                'after' => [new Unpack(), new Flip()],
+                                'before' => [Flip::of(), Pack::of()],
+                                'after' => [Unpack::of(), Flip::of()],
                             ];
 
-                        $callback =
+                        $arrayIterator = new ArrayIterator(
+                            iterator_to_array(Compose::of()(...$operations['before'])($iterator))
+                        );
+                        $arrayIterator->uasort(
                             /**
                              * @psalm-param array{0:TKey, 1:T} $left
                              * @psalm-param array{0:TKey, 1:T} $right
                              */
-                            static function (array $left, array $right) use ($defaultCallback): int {
-                                return $defaultCallback($left[1], $right[1]);
-                            };
-
-                        $arrayIterator = new ArrayIterator(iterator_to_array((new Run())()(...$operations['before'])($iterator)));
-                        $arrayIterator->uasort($callback);
-
-                        return yield from (
-                            (new Run())()(...$operations['after'])($arrayIterator)
+                            static function (array $left, array $right) use ($callback): int {
+                                return $callback($left[1], $right[1]);
+                            }
                         );
+
+                        return yield from Compose::of()(...$operations['after'])($arrayIterator);
                     };
             };
         };

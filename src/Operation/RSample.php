@@ -8,7 +8,6 @@ use Closure;
 use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
-use loophp\collection\Transformation\Run;
 
 /**
  * @psalm-template TKey
@@ -21,13 +20,11 @@ final class RSample extends AbstractOperation implements Operation
     {
         return static function (float $probability): Closure {
             return static function (Iterator $iterator) use ($probability): Generator {
-                $filter = (new Filter())()(
-                    static function () use ($probability): bool {
-                        return (mt_rand() / mt_getrandmax()) < $probability;
-                    }
-                );
+                $callback = static function () use ($probability): bool {
+                    return (mt_rand() / mt_getrandmax()) < $probability;
+                };
 
-                return yield from (new Run())()($filter)($iterator);
+                return yield from Filter::of()($callback)($iterator);
             };
         };
     }

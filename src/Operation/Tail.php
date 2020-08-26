@@ -8,7 +8,6 @@ use Closure;
 use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
-use loophp\collection\Transformation\Run;
 
 /**
  * @psalm-template TKey
@@ -26,7 +25,7 @@ final class Tail extends AbstractOperation implements Operation
              * @psalm-return Generator<Tkey, T>
              */
             static function (Iterator $iterator): Generator {
-                return yield from (new Run())()((new Skip())()(1))($iterator);
+                return yield from Skip::of()(1)($iterator);
             };
     }
 }

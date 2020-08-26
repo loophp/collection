@@ -9,4 +9,6 @@ use Closure;
 interface Operation
 {
     public function __invoke(): Closure;
+
+    public static function of(): Closure;
 }

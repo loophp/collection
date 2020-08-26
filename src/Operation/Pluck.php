@@ -12,9 +12,6 @@ use Iterator;
 use loophp\collection\Contract\Collection;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Iterator\IterableIterator;
-use loophp\collection\Transformation\Get;
-use loophp\collection\Transformation\Run;
-use loophp\collection\Transformation\Transform;
 use ReflectionClass;
 
 use function array_key_exists;
@@ -42,9 +39,7 @@ final class Pluck extends AbstractOperation implements Operation
                                     $result[] = $pick($iterator, $item, $key);
                                 }
 
-                                $collapse = (new Collapse())();
-
-                                return in_array('*', $key, true) ? (new Run())()($collapse)(new ArrayIterator($result)) : $result;
+                                return in_array('*', $key, true) ? Collapse::of()(new ArrayIterator($result)) : $result;
                             }
 
                             if ((true === is_array($target)) && (true === array_key_exists($segment, $target))) {
@@ -52,8 +47,7 @@ final class Pluck extends AbstractOperation implements Operation
                             } elseif (($target instanceof ArrayAccess) && (true === $target->offsetExists($segment))) {
                                 $target = $target[$segment];
                             } elseif ($target instanceof Collection) {
-                                $get = (new Get())()($segment)($default);
-                                $target = (new Transform())()($get)(new IterableIterator($target));
+                                $target = (Get::of()($segment)($default)(new IterableIterator($target)))->current();
                             } elseif ((true === is_object($target)) && (true === property_exists($target, $segment))) {
                                 $target = (new ReflectionClass($target))->getProperty($segment)->getValue($target);
                             } else {

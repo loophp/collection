@@ -14,7 +14,7 @@ use loophp\collection\Contract\Transformation;
  *
  * @implements Transformation<TKey, T>
  */
-final class Nullsy implements Transformation
+final class Nullsy extends AbstractTransformation implements Transformation
 {
     public function __invoke()
     {

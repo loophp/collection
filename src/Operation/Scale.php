@@ -8,7 +8,6 @@ use Closure;
 use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
-use loophp\collection\Transformation\Run;
 
 use const INF;
 
@@ -30,7 +29,8 @@ final class Scale extends AbstractOperation implements Operation
                                 $wantedLowerBound = (0.0 === $wantedLowerBound) ? (0.0 === $base ? 0.0 : 1.0) : $wantedLowerBound; // phpcs:ignore
                                 $wantedUpperBound = (1.0 === $wantedUpperBound) ? (0.0 === $base ? 1.0 : $base) : $wantedUpperBound; // phpcs:ignore
 
-                                $mapper = (new Map())()(
+                                /** @psalm-var callable(Generator<TKey, float|int>): Generator<TKey, float> $mapper */
+                                $mapper = Map::of()(
                                     static function ($v) use ($lowerBound, $upperBound, $wantedLowerBound, $wantedUpperBound, $base): float { // phpcs:ignore
                                         $mx = 0.0 === $base ?
                                             ($v - $lowerBound) / ($upperBound - $lowerBound) :
@@ -42,7 +42,8 @@ final class Scale extends AbstractOperation implements Operation
                                     }
                                 );
 
-                                $filter = (new Filter())()(
+                                /** @psalm-var callable(Iterator<TKey, float|int>): Generator<TKey, float|int> $filter */
+                                $filter = Filter::of()(
                                     /**
                                      * @param float|int $item
                                      */
@@ -57,7 +58,7 @@ final class Scale extends AbstractOperation implements Operation
                                     }
                                 );
 
-                                return yield from (new Run())()($filter, $mapper)($iterator);
+                                return yield from Compose::of()($filter, $mapper)($iterator);
                             };
                         };
                     };

@@ -15,7 +15,7 @@ use loophp\collection\Operation\Reverse;
  *
  * @implements Transformation<TKey, T>
  */
-final class FoldRight implements Transformation
+final class FoldRight extends AbstractTransformation implements Transformation
 {
     /**
      * @psalm-param \Iterator<TKey, T> $collection
@@ -28,10 +28,8 @@ final class FoldRight implements Transformation
         return static function (callable $callback): Closure {
             return static function ($initial = null) use ($callback): Closure {
                 return static function (iterable $iterable) use ($callback, $initial) {
-                    $foldLeft = (new FoldLeft())()($callback)($initial);
-                    $reverse = (new Reverse())();
-
-                    return (new Transform())()($foldLeft)((new Run())()($reverse)($iterable));
+                    // @todo: Unify this when operation and transformation are the same.
+                    return Transform::of()(FoldLeft::of()($callback)($initial))(Run::of()(Reverse::of())($iterable));
                 };
             };
         };

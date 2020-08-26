@@ -16,18 +16,35 @@ use loophp\collection\Contract\Operation;
  */
 final class Iterate extends AbstractOperation implements Operation
 {
+    /**
+     * @psalm-return Closure(callable(T...):(array<TKey, T>)): Closure(T...): Generator<TKey, T>
+     */
     public function __invoke(): Closure
     {
-        return static function (callable $callback): Closure {
-            return static function (...$parameters) use ($callback): Closure {
-                return static function (Iterator $iterator) use ($callback, $parameters): Generator {
-                    while (true) {
-                        yield current(
-                            $parameters = (array) $callback(...array_values((array) $parameters))
-                        );
-                    }
-                };
+        return
+            /**
+             * @psalm-param callable(T...):(array<TKey, T>) $callback
+             */
+            static function (callable $callback): Closure {
+                return
+                    /**
+                     * @psalm-param T ...$parameters
+                     */
+                    static function (...$parameters) use ($callback): Closure {
+                        return
+                            /**
+                             * @psalm-param Iterator<TKey, T> $iterator
+                             *
+                             * @psalm-return Generator<TKey, T>
+                             */
+                            static function (Iterator $iterator) use ($callback, $parameters): Generator {
+                                while (true) {
+                                    yield current(
+                                        $parameters = (array) $callback(...array_values((array) $parameters))
+                                    );
+                                }
+                            };
+                    };
             };
-        };
     }
 }

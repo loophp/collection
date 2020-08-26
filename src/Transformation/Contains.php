@@ -16,7 +16,7 @@ use loophp\collection\Contract\Transformation;
  *
  * @implements Transformation<TKey, T>
  */
-final class Contains implements Transformation
+final class Contains extends AbstractTransformation implements Transformation
 {
     /**
      * @var ArrayIterator<int, mixed>
