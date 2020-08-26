@@ -46,7 +46,7 @@ final class Filter extends AbstractOperation implements Operation
              * @psalm-return Generator<TKey, T>
              */
             static function (Iterator $iterator, array $callbacks): Generator {
-                yield from array_reduce(
+                return yield from array_reduce(
                     $callbacks,
                     static function (Iterator $carry, callable $callback): CallbackFilterIterator {
                         return new CallbackFilterIterator($carry, $callback);
