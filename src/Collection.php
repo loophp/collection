@@ -93,6 +93,7 @@ use loophp\collection\Transformation\Run;
 use loophp\collection\Transformation\Transform;
 use loophp\collection\Transformation\Truthy;
 use Psr\Cache\CacheItemPoolInterface;
+use Symfony\Component\Cache\Adapter\ArrayAdapter;
 
 use function is_callable;
 use function is_resource;
@@ -246,7 +247,7 @@ final class Collection implements CollectionInterface
 
     public function cache(?CacheItemPoolInterface $cache = null): CollectionInterface
     {
-        return $this->run(new Cache($cache));
+        return $this->run(new Cache($cache ?? new ArrayAdapter()));
     }
 
     public function chunk(int ...$size): CollectionInterface
