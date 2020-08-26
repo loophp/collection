@@ -14,9 +14,9 @@ use loophp\collection\Contract\Collection;
 interface Limitable
 {
     /**
-     * Limit the first {$limit} items.
+     * Limit the amount of items in the collection to...
      *
      * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
      */
-    public function limit(int $limit): Collection;
+    public function limit(int $limit = -1): Collection;
 }

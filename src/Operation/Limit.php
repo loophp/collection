@@ -29,11 +29,15 @@ final class Limit extends AbstractOperation implements Operation
     {
         return
             /**
-             * @psalm-param \Iterator<TKey, T> $iterator
+             * @psalm-param Iterator<TKey, T> $iterator
              *
-             * @psalm-return \Generator<TKey, T>
+             * @psalm-return Generator<TKey, T>
              */
             static function (Iterator $iterator, int $limit, int $offset): Generator {
+                if (0 === $limit) {
+                    return yield from [];
+                }
+
                 return yield from new LimitIterator($iterator, $offset, $limit);
             };
     }

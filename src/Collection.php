@@ -474,7 +474,7 @@ final class Collection implements CollectionInterface
         return $this->run(new Last($callback, $size));
     }
 
-    public function limit(int $limit, int $offset = 0): CollectionInterface
+    public function limit(int $limit = -1, int $offset = 0): CollectionInterface
     {
         return $this->run(new Limit($limit, $offset));
     }

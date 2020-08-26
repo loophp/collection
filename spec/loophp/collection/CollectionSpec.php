@@ -1215,13 +1215,22 @@ class CollectionSpec extends ObjectBehavior
 
     public function it_can_limit(): void
     {
-        $this::fromIterable(range('A', 'F'))
+        $input = range('A', 'E');
+        $this::fromIterable($input)
             ->limit(3)
             ->shouldHaveCount(3);
 
-        $this::fromIterable(range('A', 'F'))
+        $this::fromIterable($input)
             ->limit(3)
             ->shouldIterateAs(['A', 'B', 'C']);
+
+        $this::fromIterable($input)
+            ->limit(0)
+            ->shouldIterateAs([]);
+
+        $this::fromIterable($input)
+            ->limit()
+            ->shouldIterateAs($input);
     }
 
     public function it_can_loop(): void
