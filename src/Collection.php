@@ -289,7 +289,7 @@ final class Collection implements CollectionInterface
         return $this->transform(new Count());
     }
 
-    public function cycle(?int $length = null): CollectionInterface
+    public function cycle(int $length = 0): CollectionInterface
     {
         return $this->run(new Cycle($length));
     }
