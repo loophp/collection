@@ -609,7 +609,7 @@ final class Collection implements CollectionInterface
         return $this->run(new Skip(...$counts));
     }
 
-    public function slice(int $offset, ?int $length = null): CollectionInterface
+    public function slice(int $offset, int $length = -1): CollectionInterface
     {
         return $this->run(new Slice($offset, $length));
     }
