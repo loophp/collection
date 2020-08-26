@@ -18,9 +18,9 @@ use loophp\collection\Contract\Operation;
  */
 final class Cycle extends AbstractOperation implements Operation
 {
-    public function __construct(?int $length = null)
+    public function __construct(int $length)
     {
-        $this->storage['length'] = $length ?? 0;
+        $this->storage['length'] = $length;
     }
 
     public function __invoke(): Closure

@@ -16,5 +16,5 @@ interface Cycleable
     /**
      * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
      */
-    public function cycle(?int $length = null): Collection;
+    public function cycle(int $length = 0): Collection;
 }
