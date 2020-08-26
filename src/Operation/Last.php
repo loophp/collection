@@ -14,8 +14,6 @@ use loophp\collection\Transformation\Run;
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
- *
- * @implements Operation<TKey, T>
  */
 final class Last extends AbstractOperation implements Operation
 {
