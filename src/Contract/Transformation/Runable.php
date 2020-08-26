@@ -14,8 +14,6 @@ use loophp\collection\Contract\Operation;
 interface Runable
 {
     /**
-     * @param \loophp\collection\Contract\Operation ...$operations
-     *
      * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
      */
     public function run(Operation ...$operations);
