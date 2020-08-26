@@ -2,20 +2,18 @@
 
 declare(strict_types=1);
 
-namespace loophp\collection\Transformation;
+namespace loophp\collection\Operation;
 
 use Closure;
 use Iterator;
-use loophp\collection\Contract\Transformation;
+use loophp\collection\Contract\Operation;
 
 /**
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
- *
- * @implements Transformation<TKey, T>
  */
-final class Reduce extends AbstractTransformation implements Transformation
+final class Reduce extends AbstractOperation implements Operation
 {
     /**
      * @psalm-param \Iterator<TKey, T> $collection
@@ -23,12 +21,12 @@ final class Reduce extends AbstractTransformation implements Transformation
      * @return mixed|null
      * @psalm-return T|scalar|null|\Iterator<TKey, T>
      */
-    public function __invoke()
+    public function __invoke(): Closure
     {
         return static function (callable $callback): Closure {
             return static function ($initial = null) use ($callback): Closure {
                 return static function (Iterator $iterator) use ($callback, $initial) {
-                    return Transform::of()(FoldLeft::of()($callback)($initial))($iterator);
+                    return yield from FoldLeft::of()($callback)($initial)($iterator);
                 };
             };
         };

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace loophp\collection\Contract\Transformation;
+namespace loophp\collection\Contract\Operation;
 
 /**
  * @psalm-template TKey

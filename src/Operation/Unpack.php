@@ -9,7 +9,6 @@ use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Iterator\IterableIterator;
-use loophp\collection\Transformation\Run;
 
 /**
  * @psalm-template TKey

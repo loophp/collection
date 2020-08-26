@@ -2,30 +2,29 @@
 
 declare(strict_types=1);
 
-namespace loophp\collection\Transformation;
+namespace loophp\collection\Operation;
 
 use CachingIterator;
 use Closure;
+use Generator;
 use Iterator;
-use loophp\collection\Contract\Transformation;
+use loophp\collection\Contract\Operation;
 
 /**
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
- *
- * @implements Transformation<TKey, T>
  */
-final class Implode extends AbstractTransformation implements Transformation
+final class Implode extends AbstractOperation implements Operation
 {
-    public function __invoke()
+    public function __invoke(): Closure
     {
         return static function (string $glue): Closure {
-            return static function (Iterator $iterator) use ($glue): string {
+            return static function (Iterator $iterator) use ($glue): Generator {
                 $callback =
                     /**
                      * @psalm-param TKey $key
-                     * @psalm-param \CachingIterator $iterator
+                     * @psalm-param CachingIterator $iterator
                      *
                      * @param mixed $key
                      * @param mixed $iterator
@@ -40,7 +39,7 @@ final class Implode extends AbstractTransformation implements Transformation
                         return $carry;
                     };
 
-                return (string) Transform::of()(FoldLeft::of()($callback)(''))(new CachingIterator($iterator));
+                return yield from FoldLeft::of()($callback)('')(new CachingIterator($iterator));
             };
         };
     }

@@ -1517,7 +1517,7 @@ truthy
 
 Interface: `Truthyable`_
 
-.. _Allable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/Allable.php
+.. _Allable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Allable.php
 .. _Appendable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Appendable.php
 .. _Applyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Applyable.php
 .. _Associateable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Associateable.php
@@ -1528,28 +1528,28 @@ Interface: `Truthyable`_
 .. _Combinateable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Combinateable.php
 .. _Combineable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Combineable.php
 .. _Compactable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Compactable.php
-.. _Containsable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/Containsable.php
+.. _Containsable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Containsable.php
 .. _Cycleable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Cycleable.php
 .. _Diffable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Diffable.php
 .. _Diffkeysable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Diffkeysable.php
 .. _Distinctable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Distinctable.php
 .. _Explodeable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Explodeable.php
-.. _Falsyable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/Falsyable.php
+.. _Falsyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Falsyable.php
 .. _Filterable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Filterable.php
 .. _Firstable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Firstable.php
 .. _Flattenable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Flattenable.php
 .. _Flipable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Flipable.php
 .. _array_flip(): https://php.net/array_flip
-.. _FoldLeftable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/FoldLeftable.php
-.. _FoldRightable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/FoldRightable.php
+.. _FoldLeftable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/FoldLeftable.php
+.. _FoldRightable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/FoldRightable.php
 .. _Forgetable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Forgetable.php
 .. _Frequencyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Frequencyable.php
-.. _Getable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/Getable.php
+.. _Getable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Getable.php
 .. _Groupable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Groupable.php
-.. _Hasable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/Hasable.php
+.. _Hasable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Hasable.php
 .. _Headable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Headable.php
 .. _IfThenElseable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/IfThenElseable.php
-.. _Implodeable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/Implodeable.php
+.. _Implodeable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Implodeable.php
 .. _Intersectable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Intersectable.php
 .. _Intersectkeysable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Intersectkeysable.php
 .. _Intersperseable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Intersperseable.php
@@ -1561,7 +1561,7 @@ Interface: `Truthyable`_
 .. _Mergeable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Mergeable.php
 .. _Normalizeable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Normalizeable.php
 .. _Nthable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Nthable.php
-.. _Nullsyable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/Nullsyable.php
+.. _Nullsyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Nullsyable.php
 .. _Onlyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Onlyable.php
 .. _Packable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Packable.php
 .. _Padable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Padable.php
@@ -1571,10 +1571,10 @@ Interface: `Truthyable`_
 .. _Prependable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Prependable.php
 .. _Productable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Productable.php
 .. _Randomable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Randomable.php
-.. _Reduceable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/Reduceable.php
+.. _Reduceable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Reduceable.php
 .. _Reductionable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Reductionable.php
 .. _Reverseable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Reverseable.php
-.. _Runable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/Runable.php
+.. _Runable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Runable.php
 .. _Scaleable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Scaleable.php
 .. _Skipable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Skipable.php
 .. _Sinceable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Sinceable.php
@@ -1582,9 +1582,9 @@ Interface: `Truthyable`_
 .. _Sortable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Sortable.php
 .. _Splitable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Splitable.php
 .. _Tailable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Tailable.php
-.. _Transformable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/Transformable.php
+.. _Transformable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Transformable.php
 .. _Transposeable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Transposeable.php
-.. _Truthyable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/Truthyable.php
+.. _Truthyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Truthyable.php
 .. _Unpackable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Unpackagle.php
 .. _Unpairable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Unpairable.php
 .. _Untilable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Untilable.php

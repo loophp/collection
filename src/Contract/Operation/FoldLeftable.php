@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace loophp\collection\Contract\Transformation;
+namespace loophp\collection\Contract\Operation;
 
 /**
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
  */
-interface FoldRightable
+interface FoldLeftable
 {
     /**
-     * Fold the collection from the right to the left.
+     * Fold the collection from the left to the right.
      *
      * @param mixed $initial
      * @psalm-param T|null $initial
@@ -20,5 +20,5 @@ interface FoldRightable
      * @return mixed
      * @psalm-return T|null
      */
-    public function foldRight(callable $callback, $initial = null);
+    public function foldLeft(callable $callback, $initial = null);
 }

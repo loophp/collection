@@ -22,20 +22,28 @@ use loophp\collection\Operation\Column;
 use loophp\collection\Operation\Combinate;
 use loophp\collection\Operation\Combine;
 use loophp\collection\Operation\Compact;
+use loophp\collection\Operation\Compose;
+use loophp\collection\Operation\Contains;
 use loophp\collection\Operation\Cycle;
 use loophp\collection\Operation\Diff;
 use loophp\collection\Operation\DiffKeys;
 use loophp\collection\Operation\Distinct;
 use loophp\collection\Operation\Explode;
+use loophp\collection\Operation\Falsy;
 use loophp\collection\Operation\Filter;
 use loophp\collection\Operation\First;
 use loophp\collection\Operation\Flatten;
 use loophp\collection\Operation\Flip;
+use loophp\collection\Operation\FoldLeft;
+use loophp\collection\Operation\FoldRight;
 use loophp\collection\Operation\Forget;
 use loophp\collection\Operation\Frequency;
+use loophp\collection\Operation\Get;
 use loophp\collection\Operation\Group;
+use loophp\collection\Operation\Has;
 use loophp\collection\Operation\Head;
 use loophp\collection\Operation\IfThenElse;
+use loophp\collection\Operation\Implode;
 use loophp\collection\Operation\Intersect;
 use loophp\collection\Operation\IntersectKeys;
 use loophp\collection\Operation\Intersperse;
@@ -48,6 +56,7 @@ use loophp\collection\Operation\Map;
 use loophp\collection\Operation\Merge;
 use loophp\collection\Operation\Normalize;
 use loophp\collection\Operation\Nth;
+use loophp\collection\Operation\Nullsy;
 use loophp\collection\Operation\Only;
 use loophp\collection\Operation\Pack;
 use loophp\collection\Operation\Pad;
@@ -58,9 +67,11 @@ use loophp\collection\Operation\Prepend;
 use loophp\collection\Operation\Product;
 use loophp\collection\Operation\Random;
 use loophp\collection\Operation\Range;
+use loophp\collection\Operation\Reduce;
 use loophp\collection\Operation\Reduction;
 use loophp\collection\Operation\Reverse;
 use loophp\collection\Operation\RSample;
+use loophp\collection\Operation\Run;
 use loophp\collection\Operation\Scale;
 use loophp\collection\Operation\Shuffle;
 use loophp\collection\Operation\Since;
@@ -71,6 +82,7 @@ use loophp\collection\Operation\Split;
 use loophp\collection\Operation\Tail;
 use loophp\collection\Operation\Times;
 use loophp\collection\Operation\Transpose;
+use loophp\collection\Operation\Truthy;
 use loophp\collection\Operation\Unpack;
 use loophp\collection\Operation\Unpair;
 use loophp\collection\Operation\Until;
@@ -78,20 +90,6 @@ use loophp\collection\Operation\Unwrap;
 use loophp\collection\Operation\Window;
 use loophp\collection\Operation\Wrap;
 use loophp\collection\Operation\Zip;
-use loophp\collection\Transformation\All;
-use loophp\collection\Transformation\Contains;
-use loophp\collection\Transformation\Count;
-use loophp\collection\Transformation\Falsy;
-use loophp\collection\Transformation\FoldLeft;
-use loophp\collection\Transformation\FoldRight;
-use loophp\collection\Transformation\Get;
-use loophp\collection\Transformation\Has;
-use loophp\collection\Transformation\Implode;
-use loophp\collection\Transformation\Nullsy;
-use loophp\collection\Transformation\Reduce;
-use loophp\collection\Transformation\Run;
-use loophp\collection\Transformation\Transform;
-use loophp\collection\Transformation\Truthy;
 use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
 
@@ -225,7 +223,7 @@ final class Collection implements CollectionInterface
 
     public function all(): array
     {
-        return $this->transform(All::of());
+        return iterator_to_array($this);
     }
 
     public function append(...$items): CollectionInterface
@@ -282,12 +280,12 @@ final class Collection implements CollectionInterface
 
     public function contains(...$value): bool
     {
-        return $this->transform(Contains::of()(...$value));
+        return $this->run(Contains::of()(...$value))->getIterator()->current();
     }
 
     public function count(): int
     {
-        return $this->transform(Count::of());
+        return iterator_count($this);
     }
 
     public function cycle(int $length = 0): CollectionInterface
@@ -322,7 +320,7 @@ final class Collection implements CollectionInterface
 
     public function falsy(): bool
     {
-        return $this->transform(Falsy::of());
+        return $this->run(Falsy::of())->getIterator()->current();
     }
 
     public function filter(callable ...$callbacks): CollectionInterface
@@ -347,12 +345,12 @@ final class Collection implements CollectionInterface
 
     public function foldLeft(callable $callback, $initial = null)
     {
-        return $this->transform(FoldLeft::of()($callback)($initial));
+        return $this->run(FoldLeft::of()($callback)($initial))->getIterator()->current();
     }
 
     public function foldRight(callable $callback, $initial = null)
     {
-        return $this->transform(Foldright::of()($callback)($initial));
+        return $this->run(Foldright::of()($callback)($initial))->getIterator()->current();
     }
 
     public function forget(...$keys): CollectionInterface
@@ -409,7 +407,7 @@ final class Collection implements CollectionInterface
 
     public function get($key, $default = null)
     {
-        return $this->transform(Get::of()($key)($default));
+        return $this->run(Get::of()($key)($default))->getIterator()->current();
     }
 
     public function getIterator(): ClosureIterator
@@ -424,7 +422,7 @@ final class Collection implements CollectionInterface
 
     public function has(callable $callback): bool
     {
-        return $this->transform(Has::of()($callback));
+        return $this->run(Has::of()($callback))->getIterator()->current();
     }
 
     public function head(): CollectionInterface
@@ -443,7 +441,7 @@ final class Collection implements CollectionInterface
 
     public function implode(string $glue = ''): string
     {
-        return $this->transform(Implode::of()($glue));
+        return $this->run(Implode::of()($glue))->getIterator()->current();
     }
 
     public function intersect(...$values): CollectionInterface
@@ -516,7 +514,7 @@ final class Collection implements CollectionInterface
 
     public function nullsy(): bool
     {
-        return $this->transform(Nullsy::of());
+        return $this->run(Nullsy::of())->getIterator()->current();
     }
 
     public function only(...$keys): CollectionInterface
@@ -571,7 +569,7 @@ final class Collection implements CollectionInterface
 
     public function reduce(callable $callback, $initial = null)
     {
-        return $this->transform(Reduce::of()($callback)($initial));
+        return $this->run(Reduce::of()($callback)($initial))->getIterator()->current();
     }
 
     public function reduction(callable $callback, $initial = null): CollectionInterface
@@ -589,9 +587,12 @@ final class Collection implements CollectionInterface
         return $this->run(RSample::of()($probability));
     }
 
-    public function run(callable ...$operations)
+    public function run(callable ...$operations): CollectionInterface
     {
-        return self::fromIterable(Run::of()(...$operations)($this->getIterator()));
+        return self::fromCallable(
+            Compose::of()(...$operations),
+            $this->getIterator()
+        );
     }
 
     public function scale(
@@ -644,11 +645,6 @@ final class Collection implements CollectionInterface
         return (new self())->run(Times::of()($number)($callback));
     }
 
-    public function transform(callable ...$transformers)
-    {
-        return Transform::of()(...$transformers)($this->getIterator());
-    }
-
     public function transpose(): CollectionInterface
     {
         return $this->run(Transpose::of());
@@ -656,7 +652,7 @@ final class Collection implements CollectionInterface
 
     public function truthy(): bool
     {
-        return $this->transform(Truthy::of());
+        return $this->run(Truthy::of())->getIterator()->current();
     }
 
     public function unpack(): CollectionInterface
