@@ -18,8 +18,6 @@ use loophp\collection\Transformation\Run;
 final class Column extends AbstractOperation implements Operation
 {
     /**
-     * Column constructor.
-     *
      * @param int|string $column
      * @psalm-param array-key $column
      */
@@ -44,8 +42,8 @@ final class Column extends AbstractOperation implements Operation
              */
             static function (Iterator $iterator, $column): Generator {
                 /**
-                 * @var array-key $key
-                 * @var iterable<TKey, T> $value
+                 * @psalm-var array-key $key
+                 * @psalm-var iterable<TKey, T> $value
                  */
                 foreach ((new Run(new Transpose()))($iterator) as $key => $value) {
                     if ($key === $column) {
