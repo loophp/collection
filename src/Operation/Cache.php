@@ -10,7 +10,6 @@ use Iterator;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Iterator\CacheIterator;
 use Psr\Cache\CacheItemPoolInterface;
-use Symfony\Component\Cache\Adapter\ArrayAdapter;
 
 /**
  * @psalm-template TKey
@@ -19,9 +18,9 @@ use Symfony\Component\Cache\Adapter\ArrayAdapter;
  */
 final class Cache extends AbstractOperation implements Operation
 {
-    public function __construct(?CacheItemPoolInterface $cache = null)
+    public function __construct(CacheItemPoolInterface $cache)
     {
-        $this->storage['cache'] = $cache ?? new ArrayAdapter();
+        $this->storage['cache'] = $cache;
     }
 
     public function __invoke(): Closure
