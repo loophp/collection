@@ -250,9 +250,9 @@ final class Collection implements CollectionInterface
         return $this->run(new Cache($cache ?? new ArrayAdapter()));
     }
 
-    public function chunk(int ...$size): CollectionInterface
+    public function chunk(int ...$sizes): CollectionInterface
     {
-        return $this->run(new Chunk(...$size));
+        return $this->run(new Chunk(...$sizes));
     }
 
     public function collapse(): CollectionInterface
