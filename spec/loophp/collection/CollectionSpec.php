@@ -13,7 +13,6 @@ use Iterator;
 use JsonSerializable;
 use loophp\collection\Collection;
 use loophp\collection\Contract\Operation;
-use loophp\collection\Contract\Transformation;
 use loophp\collection\Operation\AbstractOperation;
 use PhpSpec\ObjectBehavior;
 use stdClass;
@@ -238,17 +237,6 @@ class CollectionSpec extends ObjectBehavior
 
         $this
             ->shouldImplement(JsonSerializable::class);
-
-        $this
-            ->transform(
-                new class() implements Transformation {
-                    public function __invoke(Iterator $collection)
-                    {
-                        return '{"a":"A","b":"B","c":"C"}';
-                    }
-                }
-            )
-            ->shouldReturn(json_encode($this->getWrappedObject()));
     }
 
     public function it_can_be_returned_as_an_array(): void
@@ -1212,12 +1200,14 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs($generator());
 
         $this::fromIterable(range('A', 'F'))
+            ->intersperse('foo', -1, 1)
             ->shouldThrow(Exception::class)
-            ->during('intersperse', ['foo', -1, 1]);
+            ->during('all');
 
         $this::fromIterable(range('A', 'F'))
+            ->intersperse('foo', 1, -1)
             ->shouldThrow(Exception::class)
-            ->during('intersperse', ['foo', 1, -1]);
+            ->during('all');
     }
 
     public function it_can_iterate(): void
@@ -1673,7 +1663,7 @@ class CollectionSpec extends ObjectBehavior
         };
 
         $this::fromIterable(range(1, 5))
-            ->run($square, $sqrt, $map)
+            ->run($square(), $sqrt(), $map())
             ->shouldIterateAs(range(1, 5));
     }
 
@@ -2087,6 +2077,10 @@ class CollectionSpec extends ObjectBehavior
             return range(1, 5);
         })
             ->shouldIterateAs($a);
+
+        $this::times(-1, 'count')
+            ->shouldThrow(InvalidArgumentException::class)
+            ->during('all');
     }
 
     public function it_can_use_times_without_a_callback(): void
@@ -2094,9 +2088,9 @@ class CollectionSpec extends ObjectBehavior
         $this::times(10)
             ->shouldIterateAs(range(1, 10));
 
-        $this::times(10)
+        $this::times(-5)
             ->shouldThrow(InvalidArgumentException::class)
-            ->during('times', [-5]);
+            ->during('all');
 
         $this::times(1)
             ->shouldIterateAs([1]);
