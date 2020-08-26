@@ -615,27 +615,27 @@ class CollectionSpec extends ObjectBehavior
                         13 => 'a',
                         14 => 'n',
                         15 => 'd',
-                        16 => 'o',
                     ],
                     1 => [
-                        0 => 'm',
-                        1 => ' ',
-                        2 => 'p',
-                        3 => 'i',
-                        4 => 'e',
-                        5 => 'c',
-                        6 => 'e',
-                        7 => ' ',
-                        8 => 'o',
+                        0 => 'o',
+                        1 => 'm',
+                        2 => ' ',
+                        3 => 'p',
+                        4 => 'i',
+                        5 => 'e',
+                        6 => 'c',
+                        7 => 'e',
+                        8 => ' ',
                     ],
                     2 => [
-                        0 => 'f',
-                        1 => ' ',
-                        2 => 't',
-                        3 => 'e',
-                        4 => 'x',
-                        5 => 't',
-                        6 => '.',
+                        0 => 'o',
+                        1 => 'f',
+                        2 => ' ',
+                        3 => 't',
+                        4 => 'e',
+                        5 => 'x',
+                        6 => 't',
+                        7 => '.',
                     ],
                 ]
             );
@@ -1828,13 +1828,14 @@ class CollectionSpec extends ObjectBehavior
             ->split(static function ($value) {
                 return 0 === $value % 3;
             })
-            ->shouldIterateAs([0 => [1, 2, 3], 1 => [4, 5, 6], 2 => [7, 8, 9], 3 => [10, 11, 12], 4 => [13, 14, 15], 5 => [16, 17]]);
-
-        $this::fromIterable(range(1, 15))
-            ->split(static function ($value) {
-                return 0 === $value % 3;
-            })
-            ->shouldIterateAs([0 => [1, 2, 3], 1 => [4, 5, 6], 2 => [7, 8, 9], 3 => [10, 11, 12], 4 => [13, 14, 15]]);
+            ->shouldIterateAs([
+                0 => [1, 2],
+                1 => [3, 4, 5],
+                2 => [6, 7, 8],
+                3 => [9, 10, 11],
+                4 => [12, 13, 14],
+                5 => [15, 16, 17],
+            ]);
     }
 
     public function it_can_tail(): void
@@ -2108,10 +2109,15 @@ class CollectionSpec extends ObjectBehavior
         };
 
         $this::with($stream)
-            ->split(static function ($v) {
+            ->split(static function ($v): bool {
                 return "\n" === $v;
             })
             ->last()
+            ->map(static function (array $value): array {
+                array_shift($value);
+
+                return $value;
+            })
             ->unwrap()
             ->implode()
             ->shouldReturn('indent_size = 4');

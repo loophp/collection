@@ -40,18 +40,16 @@ final class Split extends AbstractOperation implements Operation
                             // @todo : Do this everywhere.
                             return $callback($value, $key) !== $carry;
                         },
-                        true
+                        false
                     );
 
-                    $carry[] = $value;
+                    if (true === $callbackReturn && [] !== $carry) {
+                        yield $carry;
 
-                    if (true === $callbackReturn) {
-                        continue;
+                        $carry = [];
                     }
 
-                    yield $carry;
-
-                    $carry = [];
+                    $carry[] = $value;
                 }
 
                 if ([] !== $carry) {
