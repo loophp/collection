@@ -31,7 +31,7 @@ final class Group extends AbstractOperation implements Operation
              * @return mixed
              * @psalm-return TKey
              */
-            static function ($key, $value) {
+            static function ($value, $key) {
                 return $key;
             };
     }
@@ -59,8 +59,10 @@ final class Group extends AbstractOperation implements Operation
                      * @psalm-return array<TKey, list<T>>
                      */
                     static function (array $collect, $value, $key) use ($callable): array {
-                        if (null !== $groupKey = $callable($key, $value)) {
+                        if (null !== $groupKey = $callable($value, $key)) {
                             $collect[$groupKey][] = $value;
+                        } else {
+                            $collect[$key] = $value;
                         }
 
                         return $collect;

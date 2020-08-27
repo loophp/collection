@@ -978,14 +978,14 @@ class CollectionSpec extends ObjectBehavior
                 10 => ['h'],
             ]);
 
-        $callback = static function ($key, $value) {
-            return $value % 2;
+        $callback = static function (int $value, int $key) {
+            return 0 === ($value % 2) ? 'even' : 'odd';
         };
 
         $this::fromIterable(range(0, 20))
             ->group($callback)
             ->shouldIterateAs([
-                0 => [
+                'even' => [
                     0,
                     2,
                     4,
@@ -998,7 +998,7 @@ class CollectionSpec extends ObjectBehavior
                     18,
                     20,
                 ],
-                1 => [
+                'odd' => [
                     1,
                     3,
                     5,
