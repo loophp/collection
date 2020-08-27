@@ -1043,6 +1043,35 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs([0 => 'A']);
     }
 
+    public function it_can_if_then_else()
+    {
+        $input = range(1, 5);
+
+        $condition = static function ($value) {
+            return 0 === $value % 2;
+        };
+
+        $then = static function ($value) {
+            return $value * $value;
+        };
+
+        $else = static function ($value) {
+            return $value + 2;
+        };
+
+        $this::fromIterable($input)
+            ->ifThenElse($condition, $then)
+            ->shouldIterateAs([
+                1, 4, 3, 16, 5,
+            ]);
+
+        $this::fromIterable($input)
+            ->ifThenElse($condition, $then, $else)
+            ->shouldIterateAs([
+                3, 4, 5, 16, 7,
+            ]);
+    }
+
     public function it_can_implode(): void
     {
         $this::fromIterable(range('A', 'C'))

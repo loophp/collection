@@ -36,6 +36,7 @@ use loophp\collection\Operation\Forget;
 use loophp\collection\Operation\Frequency;
 use loophp\collection\Operation\Group;
 use loophp\collection\Operation\Head;
+use loophp\collection\Operation\IfThenElse;
 use loophp\collection\Operation\Intersect;
 use loophp\collection\Operation\IntersectKeys;
 use loophp\collection\Operation\Intersperse;
@@ -430,6 +431,15 @@ final class Collection implements CollectionInterface
     public function head(): CollectionInterface
     {
         return $this->run(new Head());
+    }
+
+    public function ifThenElse(callable $condition, callable $then, ?callable $else = null): CollectionInterface
+    {
+        $else = $else ?? static function ($value, $key) {
+            return $value;
+        };
+
+        return $this->run(new IfThenElse($condition, $then, $else));
     }
 
     public function implode(string $glue = ''): string

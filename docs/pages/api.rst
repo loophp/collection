@@ -627,6 +627,37 @@ Signature: ``Collection::head();``
     Collection::fromIterable($generator())
         ->head(); // [1 => 'a']
 
+ifThenElse
+~~~~~~~~~~
+
+Execute a callback when a condition is met.
+
+Interface: `IfThenElseable`_
+
+Signature: ``Collection::ifThenElse(callable $condition, callable $then, ?callable $else = null);``
+
+.. code-block:: php
+
+    $input = range(1, 5);
+
+    $condition = static function (int $value): bool {
+        return 0 === $value % 2;
+    };
+
+    $then = static function (int $value): int {
+        return $value * $value;
+    };
+
+    $else = static function (int $value): int {
+        return $value + 2;
+    };
+
+    Collection::fromIterable($input)
+        ->ifThenElse($condition, $then); // [1, 4, 3, 16, 5]
+
+    Collection::fromIterable($input)
+        ->ifThenElse($condition, $then, $else) // [3, 4, 5, 16, 7]
+
 intersect
 ~~~~~~~~~
 
@@ -1516,6 +1547,7 @@ Interface: `Truthyable`_
 .. _Groupable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Groupable.php
 .. _Hasable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/Hasable.php
 .. _Headable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Headable.php
+.. _IfThenElseable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/IfThenElseable.php
 .. _Implodeable: https://github.com/loophp/collection/blob/master/src/Contract/Transformation/Implodeable.php
 .. _Intersectable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Intersectable.php
 .. _Intersectkeysable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Intersectkeysable.php
