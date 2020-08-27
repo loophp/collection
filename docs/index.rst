@@ -58,7 +58,7 @@ This library has been inspired by:
 .. _Collect.js: https://collect.js.org
 .. _new Collection object: https://github.com/loophp/collection/blob/master/src/Collection.php
 .. _SplObjectStorage: https://www.php.net/manual/en/class.splobjectstorage.php
-.. _this example: https://loophp-collection.readthedocs.io/en/latest/pages/examples.html#manipulate-keys-and-values
+.. _this example: https://loophp-collection.readthedocs.io/en/latest/pages/usage.html#manipulate-keys-and-values
 .. _Lazy.js: http://danieltao.com/lazy.js/
 .. _Laravel Support Package: https://github.com/illuminate/support
 .. _pure: https://en.wikipedia.org/wiki/Pure_function
@@ -84,7 +84,6 @@ This library has been inspired by:
    Requirements <pages/requirements>
    Installation <pages/installation>
    Usage <pages/usage>
-   Examples <pages/examples>
    API <pages/api>
    Tests <pages/tests>
    Contributing <pages/contributing>

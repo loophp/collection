@@ -275,50 +275,182 @@ Simple
 Advanced
 --------
 
-You can choose to build your own Collection object by extending the `Base Collection class`_ or
-by just creating a new ``Operation`` class.
+Manipulate keys and values
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Each already existing operations live in its own file.
+This example show the power of a lazy library and highlight also how to use
+it in a wrong way.
 
-In order to extend the Collection features, create your own custom operation by creating an object implementing
-the `Operation interface`_, then run it through the ``Collection::run(Operation ...$operations)`` method.
+Unlike regular PHP arrays where there can only be one key of type int or
+string, a lazy library can have multiple times the same keys and they can
+be of any type !
 
-.. code-block:: php
+.. code-block:: bash
+
+    // This following example is perfectly valid, despite that having array for keys
+    // in a regular PHP arrays is impossible.
+    $input = static function () {
+        yield ['a'] => 'a';
+        yield ['b'] => 'b';
+        yield ['c'] => 'c';
+    };
+    Collection::fromIterable($input());
+
+A lazy collection library can also have multiple times the same key.
+
+Here we are going to make a frequency analysis on the text and see the
+result. We can see that some data are missing, why ?
+
+.. code-block:: bash
+
+    $string = 'aaaaabbbbcccddddeeeee';
+
+    $collection = Collection::with($string)
+        // Run the frequency analysis tool.
+        ->frequency()
+        // Convert to regular array.
+        ->all(); // [5 => 'e', 4 => 'd', 3 => 'c']
+
+The reason that the frequency analysis for letters 'a' and 'b' are missing
+is because when you call the method ->all(), the collection converts the
+lazy collection into a regular PHP array, and PHP doesn't allow having
+multiple time the same key, so it overrides the previous data and there are
+missing information in the resulting array.
+
+In order to circumvent this, you can either wrap the final result or
+normalize it.
+A better way would be to not convert this into an array and use the lazy
+collection as an iterator.
+
+Wrapping the result will wrap each result into a PHP array.
+Normalizing the result will replace keys with a numerical index, but then
+you might lose some information then.
+
+It's up to you to decide which one you want to use.
+
+.. code-block:: bash
+
+    $collection = Collection::with($string)
+        // Run the frequency analysis tool.
+        ->frequency()
+        // Wrap each result into an array.
+        ->wrap()
+        // Convert to regular array.
+        ->all();
+    /**
+     * [
+     *   [5 => 'a'],
+     *   [4 => 'b'],
+     *   [3 => 'c'],
+     *   [4 => 'd'],
+     *   [5 => 'e'],
+     * ]
+     */
+
+Manipulate strings
+~~~~~~~~~~~~~~~~~~
+
+.. code-block:: bash
 
     <?php
 
     declare(strict_types=1);
+
+    include 'vendor/autoload.php';
 
     use loophp\collection\Collection;
-    use loophp\collection\Contract\Operation;
-    use loophp\collection\Operation\AbstractOperation;
+
+    $string = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          Quisque feugiat tincidunt sodales.
+          Donec ut laoreet lectus, quis mollis nisl.
+          Aliquam maximus, orci vel placerat dapibus, libero erat aliquet nibh, nec imperdiet felis dui quis est.
+          Vestibulum non ante sit amet neque tincidunt porta et sit amet neque.
+          In a tempor ipsum. Duis scelerisque libero sit amet enim pretium pulvinar.
+          Duis vitae lorem convallis, egestas mauris at, sollicitudin sem.
+          Fusce molestie rutrum faucibus.';
+
+    // By default will have the same behavior as str_split().
+    Collection::with($string)
+        ->explode(' ')
+        ->count(); // 71
+
+    // Or add a separator if needed, same behavior as explode().
+    Collection::with($string, ',')
+        ->count(); // 9
+
+
+Random number generation
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: bash
+
+    <?php
+
+    declare(strict_types=1);
 
     include 'vendor/autoload.php';
 
-    $square = new class extends AbstractOperation implements Operation {
-        /**
-         * {@inheritdoc}
-         */
-        public function __invoke(): Closure
-        {
-            return static function (iterable $iterable) {
-                foreach ($iterable as $value) {
-                    yield $value ** 2;
-                }
-            };
-        }
+    use loophp\collection\Collection;
+
+    // Generate 300 distinct random numbers between 0 and 1000
+    $random = static function() {
+        return mt_rand() / mt_getrandmax();
     };
 
-    $c = Collection::range(5, 15)
-        ->run($square)
+    $random_numbers = Collection::iterate($random)
+        ->map(
+            static function ($value) {
+                return floor($value * 1000) + 1;
+            }
+        )
+        ->distinct()
+        ->limit(300)
+        ->normalize()
         ->all();
 
-    print_r($c);
+    print_r($random_numbers);
 
-Another way would be to create your own custom collection object:
+Approximate the number e
+~~~~~~~~~~~~~~~~~~~~~~~~
 
-In the following example and just for didactic purposes, the custom collection object will only be able to
-transform any input (`iterable`) into a regular array.
+.. code-block:: bash
+
+    <?php
+
+    declare(strict_types=1);
+
+    include 'vendor/autoload.php';
+
+    use loophp\collection\Collection;
+
+    $multiplication = static function ($value1, $value2) {
+        return $value1 * $value2;
+    };
+
+    $addition = static function ($value1, $value2) {
+        return $value1 + $value2;
+    };
+
+    $fact = static function (int $number) use ($multiplication) {
+        return Collection::range(1, $number + 1)
+            ->reduce(
+                $multiplication,
+                1
+            );
+    };
+
+    $e = static function (int $value) use ($fact): float {
+        return $value / $fact($value);
+    };
+
+    $number_e_approximation = Collection::times(PHP_INT_MAX, $e)
+        ->until(static function (float $value): bool {return $value < 10 ** -12;})
+        ->reduce($addition);
+
+    var_dump($number_e_approximation); // 2.718281828459
+
+Approximate the number Pi
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: php
 
@@ -328,37 +460,478 @@ transform any input (`iterable`) into a regular array.
 
     include 'vendor/autoload.php';
 
-    use loophp\collection\Base;
-    use loophp\collection\Contract\Transformation\Allable;
-    use loophp\collection\Transformation\All;
+    use loophp\collection\Collection;
 
-    $customCollectionClass = new class extends Base implements Allable {
+    $monteCarloMethod = static function (array $out = [], $in = 0, $total = 1) {
+        $randomNumber1 = mt_rand(0, mt_getrandmax() - 1) / mt_getrandmax();
+        $randomNumber2 = mt_rand(0, mt_getrandmax() - 1) / mt_getrandmax();
+
+        if (1 >= (($randomNumber1 ** 2) + ($randomNumber2 ** 2))) {
+            ++$in;
+        }
+
+        return [[$in, ++$total], $in, $total];
+    };
+
+    $precision = new class() {
 
         /**
-         * {@inheritdoc}
+         * @var array
          */
-        public function all(): array {
-            return $this->transform(new All());
+        private $state;
+
+        /**
+         * @var float
+         */
+        private $precision;
+
+        /**
+         * @var int
+         */
+        private $row;
+
+        /**
+         * Precision constructor.
+         *
+         * @param float $precision
+         * @param int $row
+         */
+        public function __construct(float $precision = 10 ** -5, int $row = 20)
+        {
+            $this->precision = $precision;
+            $this->row = $row;
+            $this->state = [
+                'prev' => null,
+                'found' => 0,
+            ];
+        }
+
+        /**
+         * @param float $value
+         *
+         * @return bool
+         */
+        public function __invoke(float $value): bool
+        {
+            if (null === $this->state['prev']) {
+                $this->state['prev'] = $value;
+                $this->state['found'] = 0;
+
+                return false;
+            }
+
+            if ($value === $this->state['prev']) {
+                $this->state['found'] = 0;
+
+                return false;
+            }
+
+            if (abs($value - $this->state['prev']) <= $this->precision) {
+                ++$this->state['found'];
+
+                return false;
+            }
+
+            if ($this->state['found'] >= $this->row) {
+                $this->state['found'] = 0;
+
+                return true;
+            }
+
+            $this->state['prev'] = $value;
+            $this->state['found'] = 0;
+
+            return false;
         }
     };
 
-    $customCollection = new $customCollectionClass(new ArrayObject(['A', 'B', 'C']));
+    $pi_approximation = Collection::iterate($monteCarloMethod)
+        ->map(
+            static function (array $value) {
+                return 4 * $value[0] / $value[1];
+            }
+        )
+        ->nth(50)
+        ->until($precision)
+        ->last()
+        ->all();
 
-    print_r($customCollection->all()); // ['A', 'B', 'C']
+    print_r($pi_approximation);
 
-    $generator = function() {
-        yield 'A';
-        yield 'B';
-        yield 'C';
+Prime numbers
+~~~~~~~~~~~~~
+
+.. code-block:: php
+
+    <?php
+
+    /**
+     * Run this code with: "php -n <file.php>" to make sure no configuration will be used
+     * so xdebug will not be used either.
+     */
+
+    declare(strict_types=1);
+
+    include 'vendor/autoload.php';
+
+    use loophp\collection\Collection;
+
+    function llist($init, callable $succ): Generator
+    {
+        for ($v = $init; ; $v = $succ($v)) {
+            yield $v;
+        }
+    }
+
+    function not(callable $test): Closure
+    {
+        return static function (...$arguments) use ($test): bool {
+            return !$test(...$arguments);
+        };
     };
 
-    $customCollection = new $customCollectionClass($generator);
+    function multipleOf(int $a): Closure
+    {
+        return static function (int $b) use ($a): bool {
+            return 0 === ($b % $a);
+        };
+    };
 
-    print_r($customCollection->all()); // ['A', 'B', 'C']
+    function filter(Generator $generator, callable $filter): Generator
+    {
+        for (; true === $generator->valid(); $generator->next()) {
+            $n = $generator->current();
 
-The final ``Collection`` class implements by default all the interfaces available.
+            if (true === $filter($n)) {
+                yield $n;
+            }
+        }
+    }
 
-Use it like it is or create your own object by using the same procedure as shown here.
+    function headTail(Generator $generator): array
+    {
+        $head = $generator->current();
 
-.. _Base Collection class: https://github.com/loophp/collection/blob/master/src/Base.php
-.. _Operation interface: https://github.com/loophp/collection/blob/master/src/Contract/Operation.php
+        $generator->next();
+
+        return [$head, $generator];
+    }
+
+    function primesGeneratorBuilder(Generator $n): Generator
+    {
+        [$primeNumber, $tail] = headTail($n);
+
+        yield $primeNumber;
+
+        return yield from primesGeneratorBuilder(
+            filter(
+                $tail,
+                not(multipleOf($primeNumber))
+            )
+        );
+    };
+
+    $limit = 1000000;
+
+    // Create a lazy collection of Prime numbers from 2 to infinity.
+    $lazyPrimeNumbersCollection = Collection::fromIterable(
+        primesGeneratorBuilder(
+            llist(2, static fn ($n) => $n + 1)
+        )
+    );
+
+    // Print out the first 1 million of prime numbers.
+    $lazyPrimeNumbersCollection
+        ->limit($limit)
+        ->apply(static fn ($value) => var_dump($value))
+        ->all();
+
+    // Create a lazy collection of Prime numbers from 2 to infinity.
+    $lazyPrimeNumbersCollection = Collection::fromIterable(
+        primesGeneratorBuilder(
+            llist(2, static fn ($n) => $n + 1)
+        )
+    );
+
+    // Find out the Twin Prime numbers by filtering out unwanted values.
+    $lazyTwinPrimeNumbersCollection = Collection::fromIterable($lazyPrimeNumbersCollection)
+        ->zip($lazyPrimeNumbersCollection->tail())
+        ->filter(static fn (array $chunk) => 2 === $chunk[1] - $chunk[0]);
+
+    // Print out the first 1 million Twin Prime numbers.
+    $lazyTwinPrimeNumbersCollection
+        ->limit($limit)
+        ->apply(static fn ($value) => var_dump($value))
+        ->all();
+
+Text analysis
+~~~~~~~~~~~~~
+
+.. code-block:: php
+
+    <?php
+
+    declare(strict_types=1);
+
+    include __DIR__ . '/vendor/autoload.php';
+
+    use loophp\collection\Collection;
+
+    $collection = Collection::with(file_get_contents('http://loripsum.net/api'))
+        // Filter out some characters.
+        ->filter(
+            static function ($item, $key): bool {
+                return (bool) preg_match('/^[a-zA-Z]+$/', $item);
+            }
+        )
+        // Lowercase each character.
+        ->map(static function (string $letter): string {
+            return mb_strtolower($letter);
+        })
+        // Run the frequency tool.
+        ->frequency()
+        // Flip keys and values.
+        ->flip()
+        // Sort values.
+        ->sort()
+        // Convert to array.
+        ->all();
+
+    print_r($collection);
+
+Random number distribution
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: php
+
+    <?php
+
+    declare(strict_types=1);
+
+    include 'vendor/autoload.php';
+
+    use loophp\collection\Collection;
+    use loophp\collection\Contract\Operation\Sortable;
+
+    $min = 0;
+    $max = 1000;
+    $groups = 100;
+
+    $randomGenerator = static function () use ($min, $max): int {
+        return random_int($min, $max);
+    };
+
+    $distribution = Collection::iterate($randomGenerator)
+        ->limit($max * $max)
+        ->associate(
+            static function ($key, $value) use ($max, $groups): string {
+                for ($i = 0; ($max / $groups) > $i; ++$i) {
+                    if ($i * $groups <= $value && ($i + 1) * $groups >= $value) {
+                        return sprintf('%s <= x <= %s', $i * $groups, ($i + 1) * $groups);
+                    }
+                }
+            }
+        )
+        ->group()
+        ->map(
+            static function ($value): int {
+                return \count($value);
+            }
+        )
+        ->sort(
+            Sortable::BY_KEYS,
+            static function (array $left, array $right): int {
+                [$left_min_limit] = explode(' ', $left);
+                [$right_min_limit] = explode(' ', $right);
+
+                return $left_min_limit <=> $right_min_limit;
+            }
+        );
+
+    /*
+    Array
+    (
+        [0 <= x <= 100] => 101086
+        [100 <= x <= 200] => 100144
+        [200 <= x <= 300] => 99408
+        [300 <= x <= 400] => 100079
+        [400 <= x <= 500] => 99514
+        [500 <= x <= 600] => 100227
+        [600 <= x <= 700] => 99983
+        [700 <= x <= 800] => 99942
+        [800 <= x <= 900] => 99429
+        [900 <= x <= 1000] => 100188
+    )
+    */
+
+Parse git log
+~~~~~~~~~~~~~
+
+.. code-block:: php
+
+    <?php
+
+    declare(strict_types=1);
+
+    include 'vendor/autoload.php';
+
+    use loophp\collection\Collection;
+    use loophp\collection\Contract\Collection as CollectionInterface;
+
+    $commandStream = static function (string $command): Generator {
+        $fh = popen($command, 'r');
+
+        while (false !== $line = fgets($fh)) {
+            yield $line;
+        }
+
+        fclose($fh);
+    };
+
+    $buildIfThenElseCallbacks = static function (string $lineStart): array {
+        return [
+            static function ($line) use ($lineStart): bool {
+                return \is_string($line) && 0 === mb_strpos($line, $lineStart);
+            },
+            static function ($line) use ($lineStart): array {
+                [, $line] = explode($lineStart, $line);
+
+                return [
+                    sprintf(
+                        '%s:%s',
+                        mb_strtolower(str_replace(':', '', $lineStart)),
+                        trim($line)
+                    ),
+                ];
+            },
+        ];
+    };
+
+    $c = Collection::fromIterable($commandStream('git log'))
+        ->map(
+            static function (string $value): string {
+                return trim($value);
+            }
+        )
+        ->compact('', ' ', "\n")
+        ->ifThenElse(...$buildIfThenElseCallbacks('commit'))
+        ->ifThenElse(...$buildIfThenElseCallbacks('Date:'))
+        ->ifThenElse(...$buildIfThenElseCallbacks('Author:'))
+        ->ifThenElse(...$buildIfThenElseCallbacks('Merge:'))
+        ->ifThenElse(...$buildIfThenElseCallbacks('Signed-off-by:'))
+        ->split(
+            static function ($value): bool {
+                return \is_array($value) ?
+                    (1 === preg_match('/^commit:\b[0-9a-f]{5,40}\b/', $value[0])) :
+                    false;
+            }
+        )
+        ->map(
+            static function (array $value): CollectionInterface {
+                return Collection::fromIterable($value);
+            }
+        )
+        ->map(
+            static function (CollectionInterface $collection): CollectionInterface {
+                return $collection
+                    ->group(
+                        static function ($value): ?string {
+                            return \is_array($value) ? 'headers' : null;
+                        }
+                    )
+                    ->group(
+                        static function ($value): ?string {
+                            return \is_string($value) ? 'log' : null;
+                        }
+                    )
+                    ->ifThenElse(
+                        static function ($value, $key): bool {
+                            return 'headers' === $key;
+                        },
+                        static function ($value, $key): array {
+                            return Collection::fromIterable($value)
+                                ->unwrap()
+                                ->associate(
+                                    static function ($key, string $value): string {
+                                        [$key, $line] = explode(':', $value, 2);
+
+                                        return $key;
+                                    },
+                                    static function ($key, string $value): string {
+                                        [$key, $line] = explode(':', $value, 2);
+
+                                        return trim($line);
+                                    }
+                                )
+                                ->all();
+                        }
+                    );
+            }
+        )
+        ->map(
+            static function (CollectionInterface $collection): CollectionInterface {
+                return $collection
+                    ->flatten()
+                    ->group(
+                        static function ($value, $key): ?string {
+                            if (is_numeric($key)) {
+                                return 'log';
+                            }
+
+                            return null;
+                        }
+                    );
+            }
+        )
+        ->map(
+            static function (CollectionInterface $collection): array {
+                return $collection->all();
+            }
+        )
+        ->limit(52);
+
+    print_r($c->all());
+
+Collatz conjecture
+~~~~~~~~~~~~~~~~~~
+
+.. code-block:: php
+
+    <?php
+
+    declare(strict_types=1);
+
+    include 'vendor/autoload.php';
+
+    use loophp\collection\Collection;
+
+    // The Collatz conjecture (https://en.wikipedia.org/wiki/Collatz_conjecture)
+    function collatz(int $initial): Generator
+    {
+        yield $initial;
+
+        return yield from collatz(
+            0 === $initial % 2 ?
+                $initial / 2:
+                $initial * 3 + 1
+        );
+    };
+
+    $c = Collection::fromIterable(collatz(25))
+        ->normalize()
+        ->until(fn(int $number): bool => 1 === $number)
+        ->all(); // [25, 76, 38, 19, 58, 29, 88, 44, 22, 11, 34, 17, 52, 26, 13, 40, 20, 10, 5, 16, 8, 4, 2, 1]
+
+                            return null;
+                        }
+                    );
+            }
+        )
+        ->map(
+            static function (CollectionInterface $collection): array {
+                return $collection->all();
+            }
+        )
+        ->limit(52);
+
+    print_r($c->all());

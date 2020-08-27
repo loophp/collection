@@ -89,7 +89,6 @@ Another example
     $even = Collection::range(0, \INF, 2);
     $odd = Collection::range(1, \INF, 2);
 
-
 range
 ~~~~~
 

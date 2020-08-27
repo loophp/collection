@@ -66,7 +66,7 @@ This library has been inspired by:
 
 ## Usage
 
-Check out the [usage][collection usage] and [examples][collection examples] pages. 
+Check out the [usage][collection usage] page, it contains trivial and more advanced use cases.
 
 ## Documentation
 
