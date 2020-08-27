@@ -1227,9 +1227,6 @@ class CollectionSpec extends ObjectBehavior
         };
 
         $this::iterate($fibonacci, 0, 1)
-            ->map(static function ($item) {
-                return $item['previous'];
-            })
             ->limit(10)
             ->shouldIterateAs([1, 1, 2, 3, 5, 8, 13, 21, 34, 55]);
 

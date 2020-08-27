@@ -42,7 +42,9 @@ final class Iterate extends AbstractOperation implements Operation
              */
             static function (Iterator $iterator, callable $callback, array $parameters): Generator {
                 while (true) {
-                    yield $parameters = $callback(...array_values((array) $parameters));
+                    yield current(
+                        $parameters = (array) $callback(...array_values((array) $parameters))
+                    );
                 }
             };
     }

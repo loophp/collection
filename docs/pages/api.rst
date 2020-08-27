@@ -68,14 +68,16 @@ Signature: ``Collection::iterate(callable $callback, ...$parameters);``
 
 .. warning:: The callback return values are reused as callback arguments at the next callback call.
 
+.. warning:: When the callback return is an array, only the first value is yielded.
+
 .. code-block:: php
 
     $fibonacci = static function ($a = 0, $b = 1): array {
         return [$b, $a + $b];
     };
 
-    $collection = Collection::iterate($fibonacci)
-        ->limit(10);
+    Collection::iterate($fibonacci)
+        ->limit(10); // [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
 
 Another example
 
