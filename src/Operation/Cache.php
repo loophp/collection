@@ -18,6 +18,9 @@ use Psr\Cache\CacheItemPoolInterface;
  */
 final class Cache extends AbstractOperation implements Operation
 {
+    /**
+     * @psalm-return Closure(CacheItemPoolInterface): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     */
     public function __invoke(): Closure
     {
         return static function (CacheItemPoolInterface $cache): Closure {

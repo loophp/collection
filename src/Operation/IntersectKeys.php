@@ -18,18 +18,31 @@ use function in_array;
  */
 final class IntersectKeys extends AbstractOperation implements Operation
 {
+    /**
+     * @psalm-return Closure(TKey...): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     */
     public function __invoke(): Closure
     {
-        return static function (...$values): Closure {
-            return static function (Iterator $iterator) use ($values): Generator {
-                foreach ($iterator as $key => $value) {
-                    if (false === in_array($key, $values, true)) {
-                        continue;
-                    }
+        return
+            /**
+             * @psalm-param TKey ...$values
+             */
+            static function (...$values): Closure {
+                return
+                    /**
+                     * @psalm-param Iterator<TKey, T> $iterator
+                     *
+                     * @psalm-return Generator<TKey, T>
+                     */
+                    static function (Iterator $iterator) use ($values): Generator {
+                        foreach ($iterator as $key => $value) {
+                            if (false === in_array($key, $values, true)) {
+                                continue;
+                            }
 
-                    yield $key => $value;
-                }
+                            yield $key => $value;
+                        }
+                    };
             };
-        };
     }
 }

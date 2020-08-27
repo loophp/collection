@@ -18,6 +18,11 @@ use const INF;
  */
 final class Scale extends AbstractOperation implements Operation
 {
+    // phpcs:disable
+    /**
+     * @psalm-return Closure(float): Closure(float): Closure(float): Closure(float): Closure(float): Closure(Iterator<TKey, float|int>): Generator<TKey, float|int>
+     */
+    // phpcs:enable
     public function __invoke(): Closure
     {
         return static function (float $lowerBound): Closure {
@@ -31,6 +36,10 @@ final class Scale extends AbstractOperation implements Operation
 
                                 /** @psalm-var callable(Generator<TKey, float|int>): Generator<TKey, float> $mapper */
                                 $mapper = Map::of()(
+                                    /**
+                                     * @param mixed $v
+                                     * @psalm-param float|int $v
+                                     */
                                     static function ($v) use ($lowerBound, $upperBound, $wantedLowerBound, $wantedUpperBound, $base): float { // phpcs:ignore
                                         $mx = 0.0 === $base ?
                                             ($v - $lowerBound) / ($upperBound - $lowerBound) :

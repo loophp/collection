@@ -31,13 +31,14 @@ final class Window extends AbstractOperation implements Operation
                  * @psalm-return Generator<int, list<T>>
                  */
                 static function (Iterator $iterator) use ($lengths): Generator {
-                    /** @psalm-var \Iterator<int, int> $lengths */
+                    /** @psalm-var Iterator<int, int> $lengths */
                     $lengths = Loop::of()(new ArrayIterator($lengths));
 
                     for ($i = 0; iterator_count($iterator) > $i; ++$i) {
-                        yield iterator_to_array(
-                            Slice::of()($i)($lengths->current())($iterator)
-                        );
+                        /** @psalm-var Generator<TKey, T> $slice */
+                        $slice = Slice::of()($i)($lengths->current())($iterator);
+
+                        yield iterator_to_array($slice);
 
                         $lengths->next();
                     }

@@ -16,6 +16,9 @@ use loophp\collection\Contract\Operation;
  */
 final class Pack extends AbstractOperation implements Operation
 {
+    /**
+     * @psalm-return Closure(Iterator<TKey, T>): Generator<int, array{0:TKey, 1:T}>
+     */
     public function __invoke(): Closure
     {
         return

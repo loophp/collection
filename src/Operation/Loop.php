@@ -17,10 +17,19 @@ use loophp\collection\Contract\Operation;
  */
 final class Loop extends AbstractOperation implements Operation
 {
+    /**
+     * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
+     */
     public function __invoke(): Closure
     {
-        return static function (Iterator $iterator): Generator {
-            return yield from new InfiniteIterator($iterator);
-        };
+        return
+            /**
+             * @psalm-param Iterator<TKey, T> $iterator
+             *
+             * @psalm-return Iterator<TKey, T>
+             */
+            static function (Iterator $iterator): Generator {
+                return yield from new InfiniteIterator($iterator);
+            };
     }
 }

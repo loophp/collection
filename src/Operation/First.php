@@ -13,20 +13,20 @@ use loophp\collection\Contract\Operation;
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
- *
- * @implements Operation<TKey, T>
  */
 final class First extends AbstractOperation implements Operation
 {
     public function __invoke(): Closure
     {
-        return static function (?callable $callback = null): Closure {
-            return static function (int $size = 1) use ($callback): Closure {
-                return
+        return
+            /**
+             * @psalm-param callable(T, TKey):(bool)|null $callback
+             */
+            static function (?callable $callback = null): Closure {
+                return static function (int $size = 1) use ($callback): Closure {
+                    return
                     /**
-                     * @psalm-param \Iterator<TKey, T> $iterator
-                     *
-                     * @psalm-return \Generator<TKey, T>
+                     * @psalm-param Iterator<TKey, T> $iterator
                      */
                     static function (Iterator $iterator) use ($callback, $size): Generator {
                         $defaultCallback =
@@ -48,7 +48,7 @@ final class First extends AbstractOperation implements Operation
                             Limit::of()($size)(0)
                         )($iterator);
                     };
+                };
             };
-        };
     }
 }

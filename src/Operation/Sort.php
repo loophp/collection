@@ -25,10 +25,10 @@ final class Sort extends AbstractOperation implements Operation
                 $callback = $callback ??
                     /**
                      * @param mixed $left
-                     * @psalm-param T $left
+                     * @psalm-param T|TKey $left
                      *
                      * @param mixed $right
-                     * @psalm-param T $right
+                     * @psalm-param T|TKey $right
                      */
                     static function ($left, $right): int {
                         return $left <=> $right;
@@ -56,13 +56,14 @@ final class Sort extends AbstractOperation implements Operation
                                 'after' => [Unpack::of(), Flip::of()],
                             ];
 
-                        $arrayIterator = new ArrayIterator(
-                            iterator_to_array(Compose::of()(...$operations['before'])($iterator))
-                        );
+                        /** @psalm-var callable(Iterator<TKey, T>): Generator<int, array{0:TKey, 1:T}> | callable(Iterator<TKey, T>): Generator<int, array{0:T, 1:TKey}> $before */
+                        $before = Compose::of()(...$operations['before']);
+
+                        $arrayIterator = new ArrayIterator(iterator_to_array($before($iterator)));
                         $arrayIterator->uasort(
                             /**
-                             * @psalm-param array{0:TKey, 1:T} $left
-                             * @psalm-param array{0:TKey, 1:T} $right
+                             * @psalm-param array{0:TKey|T, 1:T|TKey} $left
+                             * @psalm-param array{0:TKey|T, 1:T|TKey} $right
                              */
                             static function (array $left, array $right) use ($callback): int {
                                 return $callback($left[1], $right[1]);

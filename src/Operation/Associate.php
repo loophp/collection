@@ -17,13 +17,13 @@ use loophp\collection\Contract\Operation;
 final class Associate extends AbstractOperation implements Operation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, T>, callable(TKey, T):(TKey), callable(TKey, T):(T)):(Generator<TKey, T>)
+     * @psalm-return Closure(null|callable(TKey, T):(TKey)): Closure(null|callable(TKey, T):(T)): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param callable(TKey, T):(TKey) $callbackForKeys
+             * @psalm-param null|callable(TKey, T):(TKey) $callbackForKeys
              */
             static function (?callable $callbackForKeys = null): Closure {
                 $callbackForKeys = $callbackForKeys ?? static function ($key, $value) {
@@ -32,7 +32,7 @@ final class Associate extends AbstractOperation implements Operation
 
                 return
                     /**
-                     * @psalm-param callable(TKey, T):(T) $callbackForValues
+                     * @psalm-param null|callable(TKey, T):(T) $callbackForValues
                      */
                     static function (?callable $callbackForValues = null) use ($callbackForKeys): Closure {
                         $callbackForValues = $callbackForValues ?? static function ($key, $value) {
@@ -41,7 +41,9 @@ final class Associate extends AbstractOperation implements Operation
 
                         return
                             /**
-                             * @psalm-param \Iterator<TKey, T> $iterator
+                             * @psalm-param Iterator<TKey, T> $iterator
+                             *
+                             * @psalm-return Generator<TKey, T>
                              */
                             static function (Iterator $iterator) use ($callbackForKeys, $callbackForValues): Generator {
                                 foreach ($iterator as $key => $value) {

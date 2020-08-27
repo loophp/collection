@@ -70,7 +70,10 @@ final class Group extends AbstractOperation implements Operation
                                 return $collect;
                             };
 
-                        return yield from (FoldLeft::of()($callback)([])($iterator))->current();
+                        /** @psalm-var callable(Iterator<TKey, T>): Generator<TKey, T> $foldLeft */
+                        $foldLeft = FoldLeft::of()($callback)([]);
+
+                        return yield from ($foldLeft($iterator))->current();
                     };
             };
     }

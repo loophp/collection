@@ -117,7 +117,7 @@ final class Collection implements CollectionInterface
 
     /**
      * @var Closure
-     * @psalm-var Closure(Closure|callable|iterable|mixed|resource|scalar|T):(T)
+     * @psalm-var Closure((Closure|callable|iterable|mixed|resource|scalar|T)...):Generator
      */
     private $source;
 
@@ -387,6 +387,11 @@ final class Collection implements CollectionInterface
     public static function fromResource($resource): Collection
     {
         return new self(
+            /**
+             * @psalm-param resource $resource
+             *
+             * @param mixed $resource
+             */
             static function ($resource): Generator {
                 return yield from new ResourceIterator($resource);
             },
@@ -397,6 +402,9 @@ final class Collection implements CollectionInterface
     public static function fromString(string $string, string $delimiter = ''): Collection
     {
         return new self(
+            /**
+             * @psalm-return Generator<int, string>
+             */
             static function (string $string, string $delimiter): Generator {
                 return yield from new StringIterator($string, $delimiter);
             },
@@ -432,9 +440,19 @@ final class Collection implements CollectionInterface
 
     public function ifThenElse(callable $condition, callable $then, ?callable $else = null): CollectionInterface
     {
-        $else = $else ?? static function ($value, $key) {
-            return $value;
-        };
+        $else = $else ??
+            /**
+             * @psalm-param T $value
+             * @psalm-param TKey $key
+             *
+             * @psalm-return T
+             *
+             * @param mixed $value
+             * @param mixed $key
+             */
+            static function ($value, $key) {
+                return $value;
+            };
 
         return $this->run(IfThenElse::of()($condition)($then)($else));
     }

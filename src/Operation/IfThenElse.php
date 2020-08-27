@@ -18,7 +18,7 @@ final class IfThenElse extends AbstractOperation implements Operation
 {
     // phpcs:disable
     /**
-     * @psalm-return Closure(callable(T, TKey): bool): Closure(callable(T, TKey): (T|TKey)): Closure(callable(T, TKey): (T|TKey)): Generator<TKey, T>
+     * @psalm-return Closure(callable(T, TKey): bool): Closure(callable(T, TKey): (T)): Closure(callable(T, TKey): (T)): Generator<TKey, T>
      */
     // phpcs:enable
     public function __invoke(): Closure
@@ -30,12 +30,12 @@ final class IfThenElse extends AbstractOperation implements Operation
             static function (callable $condition): Closure {
                 return
                     /**
-                     * @psalm-param callable(T, TKey): (T|TKey) $then
+                     * @psalm-param callable(T, TKey): (T) $then
                      */
                     static function (callable $then) use ($condition): Closure {
                         return
                             /**
-                             * @psalm-param callable(T, TKey): (T|TKey) $else
+                             * @psalm-param callable(T, TKey): (T) $else
                              */
                             static function (callable $else) use ($condition, $then): Closure {
                                 return

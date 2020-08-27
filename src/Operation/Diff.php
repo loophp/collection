@@ -18,16 +18,29 @@ use function in_array;
  */
 final class Diff extends AbstractOperation implements Operation
 {
+    /**
+     * @psalm-return Closure(T...): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     */
     public function __invoke(): Closure
     {
-        return static function (...$values): Closure {
-            return static function (Iterator $iterator) use ($values): Generator {
-                foreach ($iterator as $key => $value) {
-                    if (false === in_array($value, $values, true)) {
-                        yield $key => $value;
-                    }
-                }
+        return
+            /**
+             * @psalm-param T ...$values
+             */
+            static function (...$values): Closure {
+                return
+                    /**
+                     * @psalm-param Iterator<TKey, T> $iterator
+                     *
+                     * @psalm-return Generator<TKey, T>
+                     */
+                    static function (Iterator $iterator) use ($values): Generator {
+                        foreach ($iterator as $key => $value) {
+                            if (false === in_array($value, $values, true)) {
+                                yield $key => $value;
+                            }
+                        }
+                    };
             };
-        };
     }
 }

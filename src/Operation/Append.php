@@ -16,18 +16,29 @@ use loophp\collection\Contract\Operation;
  */
 final class Append extends AbstractOperation implements Operation
 {
+    /**
+     * @psalm-return Closure(T...): Closure(Iterator<TKey, T>): Generator<int|TKey, T>
+     */
     public function __invoke(): Closure
     {
-        return static function (...$items): Closure {
-            return static function (Iterator $iterator) use ($items): Generator {
-                foreach ($iterator as $key => $value) {
-                    yield $key => $value;
-                }
+        return
+            /**
+             * @psalm-param T ...$items
+             */
+            static function (...$items): Closure {
+                return
+                    /**
+                     * @psalm-param Iterator<TKey, T> $iterator
+                     */
+                    static function (Iterator $iterator) use ($items): Generator {
+                        foreach ($iterator as $key => $value) {
+                            yield $key => $value;
+                        }
 
-                foreach ($items as $key => $item) {
-                    yield $key => $item;
-                }
+                        foreach ($items as $key => $item) {
+                            yield $key => $item;
+                        }
+                    };
             };
-        };
     }
 }

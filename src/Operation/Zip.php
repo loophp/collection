@@ -23,10 +23,10 @@ final class Zip extends AbstractOperation implements Operation
         return static function (iterable ...$iterables): Closure {
             return
                 /**
-                 * @psalm-param \Iterator<TKey, T> $iterator
+                 * @psalm-param Iterator<TKey, T> $iterator
                  * @psalm-param list<iterable<TKey, T>> $iterables
                  *
-                 * @psalm-return \Generator<int, list<T>>
+                 * @psalm-return Generator<int, list<T>>
                  */
                 static function (Iterator $iterator) use ($iterables): Generator {
                     $mit = new MultipleIterator(MultipleIterator::MIT_NEED_ANY);

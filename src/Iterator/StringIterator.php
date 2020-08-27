@@ -14,7 +14,7 @@ use OuterIterator;
  * @psalm-template T of string
  *
  * @extends ProxyIterator<TKey, T>
- * @implements \Iterator<TKey, T>
+ * @implements Iterator<TKey, T>
  */
 final class StringIterator extends ProxyIterator implements Iterator, OuterIterator
 {
@@ -22,7 +22,7 @@ final class StringIterator extends ProxyIterator implements Iterator, OuterItera
     {
         $this->iterator = new ClosureIterator(
             /**
-             * @psalm-return \Generator<int, string>
+             * @psalm-return Generator<int, string>
              */
             static function (string $input, string $delimiter): Generator {
                 $offset = 0;

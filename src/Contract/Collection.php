@@ -82,6 +82,7 @@ use loophp\collection\Contract\Operation\Unwrapable;
 use loophp\collection\Contract\Operation\Windowable;
 use loophp\collection\Contract\Operation\Wrapable;
 use loophp\collection\Contract\Operation\Zipable;
+use loophp\collection\Iterator\ClosureIterator;
 
 /**
  * @psalm-template TKey
@@ -273,24 +274,21 @@ interface Collection extends
     public static function fromIterable(iterable $iterable): \loophp\collection\Collection;
 
     /**
-     * @psalm-template NewTKey
-     * @psalm-template NewTKey of array-key
-     * @psalm-template NewT
-     *
      * @param resource $resource
      *
-     * @psalm-return \loophp\collection\Collection<NewTKey, NewT>
+     * @psalm-return \loophp\collection\Collection<int, string>
      */
     public static function fromResource($resource): \loophp\collection\Collection;
 
     /**
-     * @psalm-template NewTKey
-     * @psalm-template NewTKey of array-key
-     * @psalm-template NewT
-     *
-     * @psalm-return \loophp\collection\Collection<NewTKey, NewT>
+     * @psalm-return \loophp\collection\Collection<int, string>
      */
     public static function fromString(string $string, string $delimiter = ''): \loophp\collection\Collection;
+
+    /**
+     * @psalm-return \loophp\collection\Iterator\ClosureIterator<TKey, T>
+     */
+    public function getIterator(): ClosureIterator;
 
     /**
      * @psalm-template NewTKey

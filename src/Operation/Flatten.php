@@ -34,6 +34,7 @@ final class Flatten extends AbstractOperation implements Operation
                         if (false === is_iterable($value)) {
                             yield $key => $value;
                         } elseif (1 === $depth) {
+                            /** @psalm-var TKey $subKey */
                             /** @psalm-var T $subValue */
                             foreach ($value as $subKey => $subValue) {
                                 yield $subKey => $subValue;
@@ -42,6 +43,10 @@ final class Flatten extends AbstractOperation implements Operation
                             /** @psalm-var callable(Iterator<TKey, T>): Generator<TKey, T> $flatten */
                             $flatten = Flatten::of()($depth - 1);
 
+                            /**
+                             * @psalm-var TKey $subKey
+                             * @psalm-var T $subValue
+                             */
                             foreach ($flatten(new IterableIterator($value)) as $subKey => $subValue) {
                                 yield $subKey => $subValue;
                             }

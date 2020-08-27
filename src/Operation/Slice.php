@@ -16,17 +16,27 @@ use loophp\collection\Contract\Operation;
  */
 final class Slice extends AbstractOperation implements Operation
 {
+    /**
+     * @psalm-return Closure(int): Closure(int|null): Generator<TKey, T>
+     */
     public function __invoke(): Closure
     {
         return static function (int $offset): Closure {
-            return static function (int $length = -1) use ($offset): Closure {
-                return
+            return
+                /**
+                 * @psalm-param int|null $length
+                 *
+                 * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
+                 */
+                static function (int $length = -1) use ($offset): Closure {
+                    return
                     /**
                      * @psalm-param Iterator<TKey, T> $iterator
                      *
                      * @psalm-return Generator<TKey, T>
                      */
                     static function (Iterator $iterator) use ($offset, $length): Generator {
+                        /** @psalm-var callable(Iterator<TKey, T>): Generator<TKey, T> $skip */
                         $skip = Skip::of()($offset);
 
                         if (-1 === $length) {
@@ -35,7 +45,7 @@ final class Slice extends AbstractOperation implements Operation
 
                         return yield from Compose::of()($skip, Limit::of()($length)(0))($iterator);
                     };
-            };
+                };
         };
     }
 }

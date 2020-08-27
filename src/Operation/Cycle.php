@@ -18,20 +18,29 @@ use loophp\collection\Contract\Operation;
  */
 final class Cycle extends AbstractOperation implements Operation
 {
+    /**
+     * @psalm-return Closure(int): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     */
     public function __invoke(): Closure
     {
         return static function (int $length): Closure {
-            return static function (Iterator $iterator) use ($length): Generator {
-                if (0 === $length) {
-                    return yield from [];
-                }
+            return
+                /**
+                 * @psalm-param Iterator<TKey, T> $iterator
+                 *
+                 * @psalm-return Generator<TKey, T>
+                 */
+                static function (Iterator $iterator) use ($length): Generator {
+                    if (0 === $length) {
+                        return yield from [];
+                    }
 
-                return yield from new LimitIterator(
-                    new InfiniteIterator($iterator),
-                    0,
-                    $length
-                );
-            };
+                    return yield from new LimitIterator(
+                        new InfiniteIterator($iterator),
+                        0,
+                        $length
+                    );
+                };
         };
     }
 }

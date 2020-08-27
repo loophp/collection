@@ -17,17 +17,26 @@ use loophp\collection\Contract\Operation;
  */
 final class Limit extends AbstractOperation implements Operation
 {
+    /**
+     * @psalm-return Closure(int): Closure(int=): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     */
     public function __invoke(): Closure
     {
         return static function (int $limit): Closure {
             return static function (int $offset = 0) use ($limit): Closure {
-                return static function (Iterator $iterator) use ($limit, $offset): Generator {
-                    if (0 === $limit) {
-                        return yield from [];
-                    }
+                return
+                    /**
+                     * @psalm-param Iterator<TKey, T> $iterator
+                     *
+                     * @psalm-return Generator<TKey, T>
+                     */
+                    static function (Iterator $iterator) use ($limit, $offset): Generator {
+                        if (0 === $limit) {
+                            return yield from [];
+                        }
 
-                    return yield from new LimitIterator($iterator, $offset, $limit);
-                };
+                        return yield from new LimitIterator($iterator, $offset, $limit);
+                    };
             };
         };
     }

@@ -16,21 +16,29 @@ use loophp\collection\Contract\Operation;
  */
 final class Nth extends AbstractOperation implements Operation
 {
+    /**
+     * @psalm-return Closure(int): Closure(int): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     */
     public function __invoke(): Closure
     {
         return static function (int $step): Closure {
             return static function (int $offset) use ($step): Closure {
-                return static function (Iterator $iterator) use ($step, $offset): Generator {
-                    $position = 0;
+                return
+                    /**
+                     * @psalm-param Iterator<TKey, T> $iterator
+                     * @psalm-return Generator<TKey, T>
+                     */
+                    static function (Iterator $iterator) use ($step, $offset): Generator {
+                        $position = 0;
 
-                    foreach ($iterator as $key => $value) {
-                        if ($position++ % $step !== $offset) {
-                            continue;
+                        foreach ($iterator as $key => $value) {
+                            if ($position++ % $step !== $offset) {
+                                continue;
+                            }
+
+                            yield $key => $value;
                         }
-
-                        yield $key => $value;
-                    }
-                };
+                    };
             };
         };
     }

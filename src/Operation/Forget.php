@@ -18,18 +18,31 @@ use function array_key_exists;
  */
 final class Forget extends AbstractOperation implements Operation
 {
+    /**
+     * @psalm-return Closure(TKey...): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     */
     public function __invoke(): Closure
     {
-        return static function (...$keys): Closure {
-            return static function (Iterator $iterator) use ($keys): Generator {
-                $keys = array_flip($keys);
+        return
+            /**
+             * @psalm-param TKey ...$keys
+             */
+            static function (...$keys): Closure {
+                return
+                    /**
+                     * @psalm-param Iterator<TKey, T> $iterator
+                     *
+                     * @psalm-return Generator<TKey, T>
+                     */
+                    static function (Iterator $iterator) use ($keys): Generator {
+                        $keys = array_flip($keys);
 
-                foreach ($iterator as $key => $value) {
-                    if (false === array_key_exists($key, $keys)) {
-                        yield $key => $value;
-                    }
-                }
+                        foreach ($iterator as $key => $value) {
+                            if (false === array_key_exists($key, $keys)) {
+                                yield $key => $value;
+                            }
+                        }
+                    };
             };
-        };
     }
 }

@@ -16,20 +16,32 @@ use loophp\collection\Contract\Operation;
  */
 final class Merge extends AbstractOperation implements Operation
 {
+    /**
+     * @psalm-return Closure(iterable<TKey, T>...): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     */
     public function __invoke(): Closure
     {
-        return static function (...$sources): Closure {
-            return static function (Iterator $iterator) use ($sources): Generator {
-                foreach ($iterator as $key => $value) {
-                    yield $key => $value;
-                }
-
-                foreach ($sources as $source) {
-                    foreach ($source as $key => $value) {
+        return
+            /**
+             * @psalm-param iterable<TKey, T> ...$sources
+             */
+            static function (iterable ...$sources): Closure {
+                return
+                /**
+                 * @psalm-param Iterator<TKey, T> $iterator
+                 * @psalm-return Generator<TKey, T>
+                 */
+                static function (Iterator $iterator) use ($sources): Generator {
+                    foreach ($iterator as $key => $value) {
                         yield $key => $value;
                     }
-                }
+
+                    foreach ($sources as $source) {
+                        foreach ($source as $key => $value) {
+                            yield $key => $value;
+                        }
+                    }
+                };
             };
-        };
     }
 }
