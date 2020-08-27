@@ -692,43 +692,49 @@ class CollectionSpec extends ObjectBehavior
 
     public function it_can_flatten(): void
     {
-        $input = [];
+        $input = [
+            ['a', 'b', 'c'],
+            'd',
+            ['d', ['e', 'f']],
+        ];
 
-        for ($j = 0; 5 > $j; ++$j) {
-            $items = [];
+        $output = static function (): Generator {
+            yield 0 => 'a';
 
-            for ($i = 0; 2 > $i; ++$i) {
-                $items[] = $j * 2 + $i;
-            }
-            $input[] = $items;
-        }
+            yield 1 => 'b';
 
-        $input = array_pad([], 5, $input);
+            yield 2 => 'c';
 
-        $output = [];
+            yield 1 => 'd';
 
-        for ($i = 0; 5 > $i; ++$i) {
-            $output = array_merge($output, range(0, 9));
-        }
+            yield 0 => 'd';
+
+            yield 0 => 'e';
+
+            yield 1 => 'f';
+        };
 
         $this::fromIterable($input)
             ->flatten()
-            ->shouldIterateAs($output);
+            ->shouldIterateAs($output());
 
-        $output = [];
+        $output = static function (): Generator {
+            yield 0 => 'a';
 
-        $j = 0;
+            yield 1 => 'b';
 
-        for ($i = 0; 25 > $i; ++$i) {
-            $output[] = [
-                $j++ % 10,
-                $j++ % 10,
-            ];
-        }
+            yield 2 => 'c';
+
+            yield 1 => 'd';
+
+            yield 0 => 'd';
+
+            yield 1 => ['e', 'f'];
+        };
 
         $this::fromIterable($input)
             ->flatten(1)
-            ->shouldIterateAs($output);
+            ->shouldIterateAs($output());
     }
 
     public function it_can_flip(): void

@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace loophp\collection\Operation;
 
-use ArrayIterator;
 use Closure;
 use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
+use loophp\collection\Iterator\IterableIterator;
 use loophp\collection\Transformation\Run;
-
-use function is_array;
 
 /**
  * @psalm-template TKey
@@ -34,18 +32,20 @@ final class Flatten extends AbstractOperation implements Operation
              * @psalm-return Generator<int, T>
              */
             static function (Iterator $iterator, int $depth): Generator {
-                foreach ($iterator as $value) {
+                foreach ($iterator as $key => $value) {
                     if (false === is_iterable($value)) {
-                        yield $value;
+                        yield $key => $value;
                     } elseif (1 === $depth) {
                         /** @psalm-var T $subValue */
-                        foreach ($value as $subValue) {
-                            yield $subValue;
+                        foreach ($value as $subKey => $subValue) {
+                            yield $subKey => $subValue;
                         }
-                    } elseif (is_array($value)) {
-                        /** @psalm-var T $subValue */
-                        foreach ((new Run(new Flatten($depth - 1)))(new ArrayIterator($value)) as $subValue) {
-                            yield $subValue;
+                    } else {
+                        /** @psalm-var IterableIterator<TKey, T> $iterable */
+                        $iterable = (new Run(new Flatten($depth - 1)))(new IterableIterator($value));
+
+                        foreach ($iterable as $subKey => $subValue) {
+                            yield $subKey => $subValue;
                         }
                     }
                 }
