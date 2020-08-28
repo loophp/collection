@@ -2,6 +2,37 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [2.2.0](https://github.com/loophp/collection/compare/2.1.0...2.2.0)
+
+> 28 August 2020
+
+- Update Group operation. (Fix #19) [`#19`](https://github.com/loophp/collection/issues/19)
+- Add Changelog.md. [`6869e40`](https://github.com/loophp/collection/commit/6869e402b665e1f205a82068a692b4552c0033a8)
+- Update documentation. [`efccd88`](https://github.com/loophp/collection/commit/efccd8828ad762c6606fa7ba9f3408b95134cedb)
+- Update Iterate constructor. [`01155c2`](https://github.com/loophp/collection/commit/01155c2452f80b018cf5a78c293016eca5b3b23b)
+- Add IfThenElse operation. [`f9c0c04`](https://github.com/loophp/collection/commit/f9c0c04d5bca222fad6999c1abc53ff33275dc14)
+- Update Flatten operation. [`f5ceeb8`](https://github.com/loophp/collection/commit/f5ceeb87c6372c9d0e518565351f6266fe595d3f)
+- Update Group operation. [`6fce398`](https://github.com/loophp/collection/commit/6fce398180eef65af6ecf7c80581c3ded8eff5cb)
+- Update tests. [`18a7885`](https://github.com/loophp/collection/commit/18a788581be3c80a268f1b73d8bdb3738feaeafe)
+- Update Runable interface [`07c1c12`](https://github.com/loophp/collection/commit/07c1c1285875213c38589918f9fb0107c3929b44)
+- Update Chunk operation [`1260974`](https://github.com/loophp/collection/commit/12609745fefe39aed895912f70b119a2c8ecb786)
+- Remove obsolete annotations [`8e25055`](https://github.com/loophp/collection/commit/8e25055abb4a52f42248cf15ade7e554d688bc85)
+- Update Column operation [`b071823`](https://github.com/loophp/collection/commit/b0718237624b3a5009107a92f952e81e2f2369b8)
+- Update Filter operation [`5f4d134`](https://github.com/loophp/collection/commit/5f4d1343c7ad5b70b33dcb0eaac16d1dd1decfe1)
+- Update Cache operation [`afbcac3`](https://github.com/loophp/collection/commit/afbcac3ced17202559c35037dab552ad3de9ec3e)
+- Update Cycle operation [`a5388d2`](https://github.com/loophp/collection/commit/a5388d25542c4808a5e82650b1217fb26f52cfa9)
+- Update Slice operation [`fc5baa6`](https://github.com/loophp/collection/commit/fc5baa67673a85c176497dd4f3cb9c7ebe8c1482)
+- Update Split operation. [`6c3b94f`](https://github.com/loophp/collection/commit/6c3b94f9818c0bd4abfa17ebb455b7b513202818)
+- Add missing tests. [`7e15694`](https://github.com/loophp/collection/commit/7e156944dc71e66bff3d91a20c1b641cf9614e0b)
+- Update Limit operation. [`4578422`](https://github.com/loophp/collection/commit/45784228d903df3cb52bb8bd7f281c2911085aba)
+- Update Psalm/typing annotations. [`d5207e3`](https://github.com/loophp/collection/commit/d5207e3e4f2dc27773053cff1285f482fe1bbbf8)
+- Update Scale operation. [`85db341`](https://github.com/loophp/collection/commit/85db341c73940dfab28da2538bdc3940ffd1c573)
+- Update Map operation. [`1702597`](https://github.com/loophp/collection/commit/1702597065648df7006c87a06becf5bf5e4827d2)
+- Update operations to use Pack instead of Wrap. [`810bff8`](https://github.com/loophp/collection/commit/810bff8585636d24023d33eca7cd4ac3989dffa2)
+- Add Unpack operation. [`54a3e97`](https://github.com/loophp/collection/commit/54a3e97bb727755d3cb4d8ca081079aaa973badd)
+- Add Pack operation. [`412734c`](https://github.com/loophp/collection/commit/412734c9f0a82e9be8b4a782da082913c313cc0d)
+- Update Unpair operation. [`2d7ce6e`](https://github.com/loophp/collection/commit/2d7ce6e05e08d38e087004a62626ca512f1669f0)
+
 #### [2.1.0](https://github.com/loophp/collection/compare/2.0.5...2.1.0)
 
 > 22 August 2020
