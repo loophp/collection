@@ -8,14 +8,13 @@ use CachingIterator;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 
 /**
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
  */
-final class Implode extends AbstractOperation implements Operation
+final class Implode extends AbstractOperation
 {
     public function __invoke(): Closure
     {

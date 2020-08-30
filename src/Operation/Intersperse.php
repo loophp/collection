@@ -8,14 +8,13 @@ use Closure;
 use Generator;
 use InvalidArgumentException;
 use Iterator;
-use loophp\collection\Contract\Operation;
 
 /**
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
  */
-final class Intersperse extends AbstractOperation implements Operation
+final class Intersperse extends AbstractOperation
 {
     /**
      * @psalm-return Closure(T): Closure(int): Closure(int): Closure(Iterator<TKey, T>): Generator<int|TKey, T>

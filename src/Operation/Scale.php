@@ -7,7 +7,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 
 use const INF;
 
@@ -16,7 +15,7 @@ use const INF;
  * @psalm-template TKey of array-key
  * @psalm-template T
  */
-final class Scale extends AbstractOperation implements Operation
+final class Scale extends AbstractOperation
 {
     // phpcs:disable
     /**

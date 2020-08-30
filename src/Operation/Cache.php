@@ -7,7 +7,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 use loophp\collection\Iterator\CacheIterator;
 use Psr\Cache\CacheItemPoolInterface;
 
@@ -16,7 +15,7 @@ use Psr\Cache\CacheItemPoolInterface;
  * @psalm-template TKey of array-key
  * @psalm-template T
  */
-final class Cache extends AbstractOperation implements Operation
+final class Cache extends AbstractOperation
 {
     /**
      * @psalm-return Closure(CacheItemPoolInterface): Closure(Iterator<TKey, T>): Generator<TKey, T>

@@ -7,14 +7,13 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 
 /**
  * @psalm-template TKey
  * @psalm-template T
  * @psalm-template T of array-key
  */
-final class Flip extends AbstractOperation implements Operation
+final class Flip extends AbstractOperation
 {
     public function __invoke(): Closure
     {

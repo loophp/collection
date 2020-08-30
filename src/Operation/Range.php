@@ -7,11 +7,10 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 
 use const INF;
 
-final class Range extends AbstractOperation implements Operation
+final class Range extends AbstractOperation
 {
     public function __invoke(): Closure
     {

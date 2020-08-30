@@ -8,14 +8,13 @@ use ArrayIterator;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 
 /**
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
  */
-final class Window extends AbstractOperation implements Operation
+final class Window extends AbstractOperation
 {
     /**
      * @psalm-return Closure(int...): Closure(Iterator<TKey, T>): Generator<int, list<T>>

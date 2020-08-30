@@ -7,7 +7,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 use loophp\collection\Iterator\IterableIterator;
 
 use function count;
@@ -17,7 +16,7 @@ use function count;
  * @psalm-template TKey of array-key
  * @psalm-template T
  */
-final class Product extends AbstractOperation implements Operation
+final class Product extends AbstractOperation
 {
     public function __invoke(): Closure
     {

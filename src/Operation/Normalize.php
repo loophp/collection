@@ -7,14 +7,13 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 
 /**
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
  */
-final class Normalize extends AbstractOperation implements Operation
+final class Normalize extends AbstractOperation
 {
     /**
      * @psalm-return Closure(Iterator<TKey, T>): Generator<int, T, mixed, void>

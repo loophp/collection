@@ -7,14 +7,13 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 
 /**
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
  */
-final class Has extends AbstractOperation implements Operation
+final class Has extends AbstractOperation
 {
     /**
      * @psalm-return Closure(callable(TKey, T):(bool)): Closure(Iterator<TKey, T>): bool

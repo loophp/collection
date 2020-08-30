@@ -7,7 +7,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 use loophp\collection\Iterator\IterableIterator;
 use MultipleIterator;
 
@@ -16,7 +15,7 @@ use MultipleIterator;
  * @psalm-template TKey of array-key
  * @psalm-template T
  */
-final class Zip extends AbstractOperation implements Operation
+final class Zip extends AbstractOperation
 {
     public function __invoke(): Closure
     {

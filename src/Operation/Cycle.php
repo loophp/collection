@@ -9,14 +9,13 @@ use Generator;
 use InfiniteIterator;
 use Iterator;
 use LimitIterator;
-use loophp\collection\Contract\Operation;
 
 /**
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
  */
-final class Cycle extends AbstractOperation implements Operation
+final class Cycle extends AbstractOperation
 {
     /**
      * @psalm-return Closure(int): Closure(Iterator<TKey, T>): Generator<TKey, T>

@@ -8,7 +8,6 @@ use ArrayIterator;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 
 use const E_USER_WARNING;
 
@@ -17,7 +16,7 @@ use const E_USER_WARNING;
  * @psalm-template TKey of array-key
  * @psalm-template T
  */
-final class Combine extends AbstractOperation implements Operation
+final class Combine extends AbstractOperation
 {
     /**
      * @return Closure(T...): Closure(Iterator<TKey, T>): Generator<T, T>

@@ -7,7 +7,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 
 use function array_key_exists;
 
@@ -16,7 +15,7 @@ use function array_key_exists;
  * @psalm-template TKey of array-key
  * @psalm-template T
  */
-final class Only extends AbstractOperation implements Operation
+final class Only extends AbstractOperation
 {
     /**
      * @psalm-return Closure(TKey...): Closure(Iterator<TKey, T>): Generator<TKey, T>

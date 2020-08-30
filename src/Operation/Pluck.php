@@ -10,7 +10,6 @@ use Closure;
 use Generator;
 use Iterator;
 use loophp\collection\Contract\Collection;
-use loophp\collection\Contract\Operation;
 use ReflectionClass;
 
 use function array_key_exists;
@@ -23,7 +22,7 @@ use function is_object;
  * @psalm-template TKey of array-key
  * @psalm-template T
  */
-final class Pluck extends AbstractOperation implements Operation
+final class Pluck extends AbstractOperation
 {
     /**
      * @psalm-return Closure(T): Closure(T): Closure(Iterator<TKey, T>): Generator<int, T>

@@ -7,7 +7,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 
 use function in_array;
 
@@ -16,7 +15,7 @@ use function in_array;
  * @psalm-template TKey of array-key
  * @psalm-template T
  */
-final class Diff extends AbstractOperation implements Operation
+final class Diff extends AbstractOperation
 {
     /**
      * @psalm-return Closure(T...): Closure(Iterator<TKey, T>): Generator<TKey, T>

@@ -8,14 +8,13 @@ use Closure;
 use Generator;
 use InvalidArgumentException;
 use Iterator;
-use loophp\collection\Contract\Operation;
 
 /**
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
  */
-final class Times extends AbstractOperation implements Operation
+final class Times extends AbstractOperation
 {
     public function __invoke(): Closure
     {
