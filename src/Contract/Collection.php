@@ -52,6 +52,7 @@ use loophp\collection\Contract\Operation\Normalizeable;
 use loophp\collection\Contract\Operation\Nthable;
 use loophp\collection\Contract\Operation\Nullsyable;
 use loophp\collection\Contract\Operation\Onlyable;
+use loophp\collection\Contract\Operation\Packable;
 use loophp\collection\Contract\Operation\Padable;
 use loophp\collection\Contract\Operation\Pairable;
 use loophp\collection\Contract\Operation\Permutateable;
@@ -76,6 +77,7 @@ use loophp\collection\Contract\Operation\Tailable;
 use loophp\collection\Contract\Operation\Timesable;
 use loophp\collection\Contract\Operation\Transposeable;
 use loophp\collection\Contract\Operation\Truthyable;
+use loophp\collection\Contract\Operation\Unpackable;
 use loophp\collection\Contract\Operation\Unpairable;
 use loophp\collection\Contract\Operation\Untilable;
 use loophp\collection\Contract\Operation\Unwrapable;
@@ -131,6 +133,7 @@ use loophp\collection\Iterator\ClosureIterator;
  * @template-extends Normalizeable<TKey, T>
  * @template-extends Nthable<TKey, T>
  * @template-extends Onlyable<TKey, T>
+ * @template-extends Packable<TKey, T>
  * @template-extends Padable<TKey, T>
  * @template-extends Pairable<TKey, T>
  * @template-extends Permutateable<TKey, T>
@@ -151,6 +154,7 @@ use loophp\collection\Iterator\ClosureIterator;
  * @template-extends Splitable<TKey, T>
  * @template-extends Tailable<TKey, T>
  * @template-extends Transposeable<TKey, T>
+ * @template-extends Unpack<TKey, T>
  * @template-extends Unpairable<TKey, T>
  * @template-extends Untilable<TKey, T>
  * @template-extends Unwrapable<TKey, T>
@@ -209,6 +213,7 @@ interface Collection extends
     Nthable,
     Nullsyable,
     Onlyable,
+    Packable,
     Padable,
     Pairable,
     Permutateable,
@@ -232,6 +237,7 @@ interface Collection extends
     Timesable,
     Transposeable,
     Truthyable,
+    Unpackable,
     Unpairable,
     Untilable,
     Unwrapable,
