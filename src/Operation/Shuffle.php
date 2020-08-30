@@ -8,7 +8,6 @@ use Closure;
 use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
-use loophp\collection\Transformation\Run;
 
 /**
  * @psalm-template TKey
@@ -26,8 +25,9 @@ final class Shuffle extends AbstractOperation implements Operation
              * @psalm-return Generator<TKey, T, mixed, void>
              */
             static function (Iterator $iterator): Generator {
-                /** @psalm-var array<int, array{0: TKey, 1: T}>  $data */
-                $data = iterator_to_array((new Run(new Pack()))($iterator));
+                /** @psalm-var Iterator<int, array{0: TKey, 1: T}> $pack */
+                $pack = Pack::of()($iterator);
+                $data = iterator_to_array($pack);
 
                 while ([] !== $data) {
                     $randomKey = array_rand($data);

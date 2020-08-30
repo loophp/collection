@@ -16,6 +16,9 @@ use loophp\collection\Contract\Operation;
  */
 final class Collapse extends AbstractOperation implements Operation
 {
+    /**
+     * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
+     */
     public function __invoke(): Closure
     {
         return

@@ -20,36 +20,37 @@ use const E_USER_WARNING;
 final class Combine extends AbstractOperation implements Operation
 {
     /**
-     * Combine constructor.
-     *
-     * @param mixed ...$keys
-     * @psalm-param TKey ...$keys
+     * @return Closure(T...): Closure(Iterator<TKey, T>): Generator<T, T>
      */
-    public function __construct(...$keys)
-    {
-        $this->storage['keys'] = new ArrayIterator($keys);
-    }
-
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param Iterator<TKey, T> $iterator
-             * @psalm-param ArrayIterator<int, TKey> $keys
+             * @psalm-param T ...$keys
              *
-             * @psalm-return Generator<TKey, T>
+             * @psalm-return Closure(Iterator<TKey, T>): Generator<T, T>
              */
-            static function (Iterator $iterator, ArrayIterator $keys): Generator {
-                while ($iterator->valid() && $keys->valid()) {
-                    yield $keys->current() => $iterator->current();
+            static function (...$keys): Closure {
+                return
+                    /**
+                     * @psalm-param Iterator<TKey, T> $iterator
+                     *
+                     * @psalm-retur Generator<T, T>
+                     */
+                    static function (Iterator $iterator) use ($keys): Generator {
+                        $keys = new ArrayIterator($keys);
 
-                    $iterator->next();
-                    $keys->next();
-                }
+                        while ($iterator->valid() && $keys->valid()) {
+                            yield $keys->current() => $iterator->current();
 
-                if ($iterator->valid() !== $keys->valid()) {
-                    trigger_error('Both keys and values must have the same amount of items.', E_USER_WARNING);
-                }
+                            $iterator->next();
+                            $keys->next();
+                        }
+
+                        if ($iterator->valid() !== $keys->valid()) {
+                            trigger_error('Both keys and values must have the same amount of items.', E_USER_WARNING);
+                        }
+                    };
             };
     }
 }

@@ -8,7 +8,6 @@ use Closure;
 use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
-use loophp\collection\Transformation\Run;
 
 /**
  * @psalm-template TKey
@@ -17,6 +16,9 @@ use loophp\collection\Transformation\Run;
  */
 final class Pair extends AbstractOperation implements Operation
 {
+    /**
+     * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
+     */
     public function __invoke(): Closure
     {
         return
@@ -27,7 +29,7 @@ final class Pair extends AbstractOperation implements Operation
              */
             static function (Iterator $iterator): Generator {
                 /** @psalm-var list<T> $chunk */
-                foreach ((new Run(new Chunk(2)))($iterator) as $chunk) {
+                foreach (Chunk::of()(2)($iterator) as $chunk) {
                     $chunk = array_values($chunk);
 
                     yield $chunk[0] => $chunk[1];

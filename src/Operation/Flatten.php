@@ -9,7 +9,6 @@ use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Iterator\IterableIterator;
-use loophp\collection\Transformation\Run;
 
 /**
  * @psalm-template TKey
@@ -18,37 +17,42 @@ use loophp\collection\Transformation\Run;
  */
 final class Flatten extends AbstractOperation implements Operation
 {
-    public function __construct(int $depth)
-    {
-        $this->storage['depth'] = $depth;
-    }
-
+    /**
+     * @psalm-return Closure(int): Closure(Iterator<TKey, T>): Generator<int, T>
+     */
     public function __invoke(): Closure
     {
-        return
-            /**
-             * @psalm-param Iterator<TKey, T> $iterator
-             *
-             * @psalm-return Generator<int, T>
-             */
-            static function (Iterator $iterator, int $depth): Generator {
-                foreach ($iterator as $key => $value) {
-                    if (false === is_iterable($value)) {
-                        yield $key => $value;
-                    } elseif (1 === $depth) {
-                        /** @psalm-var T $subValue */
-                        foreach ($value as $subKey => $subValue) {
-                            yield $subKey => $subValue;
-                        }
-                    } else {
-                        /** @psalm-var IterableIterator<TKey, T> $iterable */
-                        $iterable = (new Run(new Flatten($depth - 1)))(new IterableIterator($value));
+        return static function (int $depth): Closure {
+            return
+                /**
+                 * @psalm-param Iterator<TKey, T> $iterator
+                 *
+                 * @psalm-return Generator<int, T>
+                 */
+                static function (Iterator $iterator) use ($depth): Generator {
+                    foreach ($iterator as $key => $value) {
+                        if (false === is_iterable($value)) {
+                            yield $key => $value;
+                        } elseif (1 === $depth) {
+                            /** @psalm-var TKey $subKey */
+                            /** @psalm-var T $subValue */
+                            foreach ($value as $subKey => $subValue) {
+                                yield $subKey => $subValue;
+                            }
+                        } else {
+                            /** @psalm-var callable(Iterator<TKey, T>): Generator<TKey, T> $flatten */
+                            $flatten = Flatten::of()($depth - 1);
 
-                        foreach ($iterable as $subKey => $subValue) {
-                            yield $subKey => $subValue;
+                            /**
+                             * @psalm-var TKey $subKey
+                             * @psalm-var T $subValue
+                             */
+                            foreach ($flatten(new IterableIterator($value)) as $subKey => $subValue) {
+                                yield $subKey => $subValue;
+                            }
                         }
                     }
-                }
-            };
+                };
+        };
     }
 }

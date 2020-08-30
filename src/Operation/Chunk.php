@@ -9,7 +9,6 @@ use Closure;
 use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
-use loophp\collection\Transformation\Run;
 
 use function count;
 
@@ -20,47 +19,48 @@ use function count;
  */
 final class Chunk extends AbstractOperation implements Operation
 {
-    public function __construct(int ...$sizes)
-    {
-        $this->storage['sizes'] = new ArrayIterator($sizes);
-    }
-
     /**
-     * @psalm-return Closure(Iterator<TKey, T>, list<int>):(Generator<int, list<T>>)
+     * @psalm-return Closure(int...): Closure(Iterator<TKey, T>): Generator<int, list<T>>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param Iterator<TKey, T> $iterator
-             * @psalm-param ArrayIterator<int, int> $sizes
-             *
-             * @psalm-return Generator<int, list<T>>
+             * @psalm-param int ...$sizes
              */
-            static function (Iterator $iterator, ArrayIterator $sizes): Generator {
-                $sizesIterator = (new Run(new Loop()))($sizes);
+            static function (int ...$sizes): Closure {
+                return
+                    /**
+                     * @psalm-param Iterator<TKey, T> $iterator
+                     *
+                     * @psalm-return Generator<int, list<T>>
+                     */
+                    static function (Iterator $iterator) use ($sizes): Generator {
+                        /** @psalm-var Iterator<int, int> $sizesIterator */
+                        $sizesIterator = Loop::of()(new ArrayIterator($sizes));
 
-                $values = [];
+                        $values = [];
 
-                foreach ($iterator as $value) {
-                    if (0 >= $sizesIterator->current()) {
-                        return yield from [];
-                    }
+                        foreach ($iterator as $value) {
+                            if (0 >= $sizesIterator->current()) {
+                                return yield from [];
+                            }
 
-                    if (count($values) !== $sizesIterator->current()) {
-                        $values[] = $value;
+                            if (count($values) !== $sizesIterator->current()) {
+                                $values[] = $value;
 
-                        continue;
-                    }
+                                continue;
+                            }
 
-                    $sizesIterator->next();
+                            $sizesIterator->next();
 
-                    yield $values;
+                            yield $values;
 
-                    $values = [$value];
-                }
+                            $values = [$value];
+                        }
 
-                return yield $values;
+                        return yield $values;
+                    };
             };
     }
 }

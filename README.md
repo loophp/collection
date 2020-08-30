@@ -37,7 +37,7 @@ On top of this, this library:
  * uses [S.O.L.I.D. principles][solid on wikipedia],
  * does not have any external dependency,
  * fully tested,
- * type safe (_type safe @ > 98%_),
+ * type safe (_type safe @ > 93%_),
  * framework agnostic.
  
 Except a few methods, most methods are [pure][pure function on wikipedia] and return a
@@ -111,6 +111,12 @@ If you can't contribute to the code, you can also sponsor me on [Github][github 
 * [Reddit release 2.0.0 thread][reddit release 2.0.0]
 * [Featured in PHPStorm Annotated August 2020][phpstorm annotated august 2020]
 
+## Changelog
+
+See [CHANGELOG.md][changelog-md] for a changelog based on [git commits][git-commits].
+
+For more detailed changelogs, please read the per release changelogs.
+
 [packagist collection]: https://packagist.org/packages/loophp/collection
 [latest stable version]: https://img.shields.io/packagist/v/loophp/collection.svg?style=flat-square
 [github stars]: https://img.shields.io/github/stars/loophp/collection.svg?style=flat-square
@@ -161,3 +167,5 @@ If you can't contribute to the code, you can also sponsor me on [Github][github 
 [reddit announcement]: https://www.reddit.com/r/PHP/comments/csxw23/a_stateless_and_modular_collection_class/
 [reddit release 2.0.0]: https://www.reddit.com/r/PHP/comments/i2u2le/release_of_version_200_of_loophpcollection/
 [phpstorm annotated august 2020]: https://blog.jetbrains.com/phpstorm/2020/08/php-annotated-august-2020/
+[changelog-md]: https://github.com/loophp/collection/blob/master/CHANGELOG.md
+[git-commits]: https://github.com/loophp/collection/commits/master

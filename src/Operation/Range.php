@@ -13,21 +13,18 @@ use const INF;
 
 final class Range extends AbstractOperation implements Operation
 {
-    public function __construct(float $start = 0.0, float $end = INF, float $step = 1.0)
-    {
-        $this->storage = [
-            'start' => $start,
-            'end' => $end,
-            'step' => $step,
-        ];
-    }
-
     public function __invoke(): Closure
     {
-        return static function (Iterator $iterator, float $start, float $end, float $step): Generator {
-            for ($current = $start; $current < $end; $current += $step) {
-                yield $current;
-            }
+        return static function (float $start = 0.0): Closure {
+            return static function (float $end = INF) use ($start): Closure {
+                return static function (float $step = 1.0) use ($start, $end): Closure {
+                    return static function (Iterator $iterator) use ($start, $end, $step): Generator {
+                        for ($current = $start; $current < $end; $current += $step) {
+                            yield $current;
+                        }
+                    };
+                };
+            };
         };
     }
 }

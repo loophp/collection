@@ -8,7 +8,6 @@ use Closure;
 use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
-use loophp\collection\Transformation\Run;
 
 use function in_array;
 
@@ -20,36 +19,36 @@ use function in_array;
 final class Compact extends AbstractOperation implements Operation
 {
     /**
-     * @param mixed ...$values
-     * @psalm-param T ...$values
+     * @psalm-return Closure(T...): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
-    public function __construct(...$values)
-    {
-        $this->storage['values'] = [] === $values ? [null] : $values;
-    }
-
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param Iterator<TKey, T> $iterator
-             * @psalm-param list<T|null> $values
-             *
-             * @psalm-return Generator<TKey, T>
+             * @psalm-param T ...$values
              */
-            static function (Iterator $iterator, array $values): Generator {
-                return yield from
-                (new Run(
-                    new Filter(
-                        /**
-                         * @param mixed $item
-                         */
-                        static function ($item) use ($values): bool {
-                            return !in_array($item, $values, true);
-                        }
-                    )
-                )
-                )($iterator);
+            static function (...$values): Closure {
+                return
+                    /**
+                     * @psalm-param Iterator<TKey, T> $iterator
+                     * @psalm-return Generator<TKey, T>
+                     */
+                    static function (Iterator $iterator) use ($values): Generator {
+                        $values = [] === $values ? [null] : $values;
+
+                        /** @psalm-var callable(Iterator<TKey, T>):Generator<TKey, T> $filter */
+                        $filter = Filter::of()(
+                            /**
+                             * @param mixed $value
+                             * @psalm-param T $value
+                             */
+                            static function ($value) use ($values): bool {
+                                return !in_array($value, $values, true);
+                            }
+                        );
+
+                        return yield from $filter($iterator);
+                    };
             };
     }
 }

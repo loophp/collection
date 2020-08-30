@@ -8,8 +8,6 @@ use Closure;
 use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
-use loophp\collection\Transformation\FoldLeft;
-use loophp\collection\Transformation\Transform;
 
 /**
  * @psalm-template TKey
@@ -18,57 +16,65 @@ use loophp\collection\Transformation\Transform;
  */
 final class Group extends AbstractOperation implements Operation
 {
-    public function __construct(?callable $callable = null)
-    {
-        $this->storage['callable'] = $callable ??
-            /**
-             * @param mixed $key
-             * @psalm-param TKey $key
-             *
-             * @param mixed $value
-             * @psalm-param T $value
-             *
-             * @return mixed
-             * @psalm-return TKey
-             */
-            static function ($value, $key) {
-                return $key;
-            };
-    }
-
+    /**
+     * @psalm-return Closure(null|callable(TKey, T):(TKey)): Closure(Iterator<TKey, T>): Generator<int, list<T>>
+     */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param Iterator<TKey, T> $iterator
-             * @psalm-param callable(TKey, T):(TKey) $callable
-             *
-             * @psalm-return Generator<int, list<T>>
+             * @psalm-param null|callable(TKey, T):(T|TKey) $callable
              */
-            static function (Iterator $iterator, callable $callable): Generator {
-                $callback =
+            static function (?callable $callable = null): Closure {
+                return
                     /**
-                     * @psalm-param array<TKey, list<T>> $collect
+                     * @psalm-param Iterator<TKey, T> $iterator
                      *
-                     * @param mixed $value
-                     * @psalm-param T $value
-                     *
-                     * @param mixed $key
-                     * @psalm-param TKey $key
-                     *
-                     * @psalm-return array<TKey, list<T>>
+                     * @psalm-return Generator<int, list<T>>
                      */
-                    static function (array $collect, $value, $key) use ($callable): array {
-                        if (null !== $groupKey = $callable($value, $key)) {
-                            $collect[$groupKey][] = $value;
-                        } else {
-                            $collect[$key] = $value;
-                        }
+                    static function (Iterator $iterator) use ($callable): Generator {
+                        $callable = $callable ??
+                            /**
+                             * @param mixed $key
+                             * @psalm-param TKey $key
+                             *
+                             * @param mixed $value
+                             * @psalm-param T $value
+                             *
+                             * @return mixed
+                             * @psalm-return TKey
+                             */
+                            static function ($value, $key) {
+                                return $key;
+                            };
 
-                        return $collect;
+                        $callback =
+                            /**
+                             * @psalm-param array<TKey, list<T>> $collect
+                             *
+                             * @param mixed $value
+                             * @psalm-param T $value
+                             *
+                             * @param mixed $key
+                             * @psalm-param TKey $key
+                             *
+                             * @psalm-return array<TKey, list<T>>
+                             */
+                            static function (array $collect, $value, $key) use ($callable): array {
+                                if (null !== $groupKey = $callable($value, $key)) {
+                                    $collect[$groupKey][] = $value;
+                                } else {
+                                    $collect[$key] = $value;
+                                }
+
+                                return $collect;
+                            };
+
+                        /** @psalm-var callable(Iterator<TKey, T>): Generator<TKey, T> $foldLeft */
+                        $foldLeft = FoldLeft::of()($callback)([]);
+
+                        return yield from ($foldLeft($iterator))->current();
                     };
-
-                return yield from (new Transform(new FoldLeft($callback, [])))($iterator);
             };
     }
 }

@@ -10,8 +10,5 @@ interface Operation
 {
     public function __invoke(): Closure;
 
-    /**
-     * @return array<string, mixed>
-     */
-    public function getArguments(): array;
+    public static function of(): Closure;
 }

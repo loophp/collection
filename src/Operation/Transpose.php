@@ -18,6 +18,9 @@ use MultipleIterator;
  */
 final class Transpose extends AbstractOperation implements Operation
 {
+    /**
+     * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, list<T>>
+     */
     public function __invoke(): Closure
     {
         return

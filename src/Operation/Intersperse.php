@@ -11,11 +11,6 @@ use Iterator;
 use loophp\collection\Contract\Operation;
 
 /**
- * Class Intersperse.
- *
- * Insert a given value between each element of a collection.
- * Indices are not preserved.
- *
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
@@ -23,45 +18,48 @@ use loophp\collection\Contract\Operation;
 final class Intersperse extends AbstractOperation implements Operation
 {
     /**
-     * @param mixed $element
-     * @psalm-param T $element
+     * @psalm-return Closure(T): Closure(int): Closure(int): Closure(Iterator<TKey, T>): Generator<int|TKey, T>
      */
-    public function __construct($element, int $atEvery, int $startAt)
-    {
-        if (0 > $atEvery) {
-            throw new InvalidArgumentException('The second parameter must be a positive integer.');
-        }
-
-        if (0 > $startAt) {
-            throw new InvalidArgumentException('The third parameter must be a positive integer.');
-        }
-
-        $this->storage = [
-            'element' => $element,
-            'atEvery' => $atEvery,
-            'startAt' => $startAt,
-        ];
-    }
-
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param Iterator<TKey, T> $iterator
-             *
-             * @param mixed $element
              * @psalm-param T $element
              *
-             * @psalm-return Generator<int|TKey, T>
+             * @param mixed $element
              */
-            static function (Iterator $iterator, $element, int $every, int $startAt): Generator {
-                foreach ($iterator as $key => $value) {
-                    if (0 === $startAt++ % $every) {
-                        yield $element;
-                    }
+            static function ($element): Closure {
+                return static function (int $atEvery) use ($element): Closure {
+                    return static function (int $startAt) use ($element, $atEvery): Closure {
+                        return
+                            /**
+                             * @psalm-param Iterator<TKey, T> $iterator
+                             *
+                             * @psalm-return Generator<int|TKey, T>
+                             */
+                            static function (Iterator $iterator) use ($element, $atEvery, $startAt): Generator {
+                                if (0 > $atEvery) {
+                                    throw new InvalidArgumentException(
+                                        'The second parameter must be a positive integer.'
+                                    );
+                                }
 
-                    yield $key => $value;
-                }
+                                if (0 > $startAt) {
+                                    throw new InvalidArgumentException(
+                                        'The third parameter must be a positive integer.'
+                                    );
+                                }
+
+                                foreach ($iterator as $key => $value) {
+                                    if (0 === $startAt++ % $atEvery) {
+                                        yield $element;
+                                    }
+
+                                    yield $key => $value;
+                                }
+                            };
+                    };
+                };
             };
     }
 }

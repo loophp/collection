@@ -10,7 +10,6 @@ use Exception;
 use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
-use loophp\collection\Transformation\Run;
 
 /**
  * @psalm-template TKey
@@ -19,63 +18,61 @@ use loophp\collection\Transformation\Run;
  */
 final class Sort extends AbstractOperation implements Operation
 {
-    public function __construct(int $type = Operation\Sortable::BY_VALUES, ?callable $callback = null)
-    {
-        $this->storage = [
-            'type' => $type,
-            'callback' => $callback ?? Closure::fromCallable([$this, 'compare']),
-        ];
-    }
-
     public function __invoke(): Closure
     {
-        return
-            /**
-             * @psalm-param Iterator<TKey, T> $iterator
-             * @psalm-param callable(T, T):(int) $callback
-             *
-             * @psalm-return Generator<TKey, T>
-             */
-            static function (Iterator $iterator, int $type, callable $callback): Generator {
-                if (Operation\Sortable::BY_VALUES !== $type && Operation\Sortable::BY_KEYS !== $type) {
-                    throw new Exception('Invalid sort type.');
-                }
-
-                $operations = Operation\Sortable::BY_VALUES === $type ?
-                    [
-                        'before' => [new Pack()],
-                        'after' => [new Unpack()],
-                    ] :
-                    [
-                        'before' => [new Flip(), new Pack()],
-                        'after' => [new Unpack(), new Flip()],
-                    ];
-
-                $callback =
+        return static function (int $type = Operation\Sortable::BY_VALUES): Closure {
+            return static function (?callable $callback = null) use ($type): Closure {
+                $callback = $callback ??
                     /**
-                     * @psalm-param array{0:TKey, 1:T} $left
-                     * @psalm-param array{0:TKey, 1:T} $right
+                     * @param mixed $left
+                     * @psalm-param T|TKey $left
+                     *
+                     * @param mixed $right
+                     * @psalm-param T|TKey $right
                      */
-                    static function (array $left, array $right) use ($callback): int {
-                        return $callback($left[1], $right[1]);
+                    static function ($left, $right): int {
+                        return $left <=> $right;
                     };
 
-                $arrayIterator = new ArrayIterator(iterator_to_array((new Run(...$operations['before']))($iterator)));
-                $arrayIterator->uasort($callback);
+                return
+                    /**
+                     * @psalm-param Iterator<TKey, T> $iterator
+                     * @psalm-param callable(T, T):(int) $callback
+                     *
+                     * @psalm-return Generator<TKey, T>
+                     */
+                    static function (Iterator $iterator) use ($type, $callback): Generator {
+                        if (Operation\Sortable::BY_VALUES !== $type && Operation\Sortable::BY_KEYS !== $type) {
+                            throw new Exception('Invalid sort type.');
+                        }
 
-                return yield from (new Run(...$operations['after']))($arrayIterator);
+                        $operations = Operation\Sortable::BY_VALUES === $type ?
+                            [
+                                'before' => [Pack::of()],
+                                'after' => [Unpack::of()],
+                            ] :
+                            [
+                                'before' => [Flip::of(), Pack::of()],
+                                'after' => [Unpack::of(), Flip::of()],
+                            ];
+
+                        /** @psalm-var callable(Iterator<TKey, T>): Generator<int, array{0:TKey, 1:T}> | callable(Iterator<TKey, T>): Generator<int, array{0:T, 1:TKey}> $before */
+                        $before = Compose::of()(...$operations['before']);
+
+                        $arrayIterator = new ArrayIterator(iterator_to_array($before($iterator)));
+                        $arrayIterator->uasort(
+                            /**
+                             * @psalm-param array{0:TKey|T, 1:T|TKey} $left
+                             * @psalm-param array{0:TKey|T, 1:T|TKey} $right
+                             */
+                            static function (array $left, array $right) use ($callback): int {
+                                return $callback($left[1], $right[1]);
+                            }
+                        );
+
+                        return yield from Compose::of()(...$operations['after'])($arrayIterator);
+                    };
             };
-    }
-
-    /**
-     * @psalm-param T $left
-     * @psalm-param T $right
-     *
-     * @param mixed $left
-     * @param mixed $right
-     */
-    private function compare($left, $right): int
-    {
-        return $left <=> $right;
+        };
     }
 }

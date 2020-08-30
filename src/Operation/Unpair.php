@@ -16,6 +16,9 @@ use loophp\collection\Contract\Operation;
  */
 final class Unpair extends AbstractOperation implements Operation
 {
+    /**
+     * @psalm-return Closure(Iterator<TKey, T>): Generator<int, array{TKey, T}>
+     */
     public function __invoke(): Closure
     {
         return

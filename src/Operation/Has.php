@@ -9,35 +9,36 @@ use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 
-use function in_array;
-
 /**
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
  */
-final class DiffKeys extends AbstractOperation implements Operation
+final class Has extends AbstractOperation implements Operation
 {
     /**
-     * @psalm-return Closure(TKey...): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @psalm-return Closure(callable(TKey, T):(bool)): Closure(Iterator<TKey, T>): bool
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param T ...$values
+             * @psalm-param callable(TKey, T):(bool) $callback
              */
-            static function (...$values): Closure {
+            static function (callable $callback): Closure {
                 return
                     /**
                      * @psalm-param Iterator<TKey, T> $iterator
+                     * @psalm-return Generator<int, bool>
                      */
-                    static function (Iterator $iterator) use ($values): Generator {
+                    static function (Iterator $iterator) use ($callback): Generator {
                         foreach ($iterator as $key => $value) {
-                            if (false === in_array($key, $values, true)) {
-                                yield $key => $value;
+                            if ($callback($key, $value) === $value) {
+                                return yield true;
                             }
                         }
+
+                        return yield false;
                     };
             };
     }

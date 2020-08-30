@@ -19,37 +19,14 @@ use function count;
  */
 final class Product extends AbstractOperation implements Operation
 {
-    /**
-     * @param iterable<mixed> ...$iterables
-     * @psalm-param Iterator<TKey, T> ...$iterables
-     */
-    public function __construct(iterable ...$iterables)
-    {
-        $this->storage = [
-            'iterables' => $iterables,
-            'cartesian' =>
-                /**
-                 * @param array<int, mixed> $input
-                 * @psalm-param array<int, Iterator<TKey, T>> $input
-                 *
-                 * @psalm-return Generator<array<int, T>>
-                 */
-                function (array $input): Generator {
-                    return $this->cartesian($input);
-                },
-        ];
-    }
-
     public function __invoke(): Closure
     {
-        return
-            /**
-             * @psalm-param Iterator<TKey, T> $iterator
-             * @psalm-param array<int, iterable<TKey, T>> $iterables
-             *
-             * @psalm-return Generator<int, array<int, T>>
-             */
-            static function (Iterator $iterator, array $iterables, callable $cartesian): Generator {
+        $cartesian = function (array $input): Generator {
+            return $this->cartesian($input);
+        };
+
+        return static function (iterable ...$iterables) use ($cartesian): Closure {
+            return static function (Iterator $iterator) use ($cartesian, $iterables): Generator {
                 $its = [$iterator];
 
                 foreach ($iterables as $iterable) {
@@ -58,6 +35,7 @@ final class Product extends AbstractOperation implements Operation
 
                 return yield from $cartesian($its);
             };
+        };
     }
 
     /**

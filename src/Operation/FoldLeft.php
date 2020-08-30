@@ -14,36 +14,39 @@ use loophp\collection\Contract\Operation;
  * @psalm-template TKey of array-key
  * @psalm-template T
  */
-final class Reduction extends AbstractOperation implements Operation
+final class FoldLeft extends AbstractOperation implements Operation
 {
     // phpcs:disable
     /**
-     * @psalm-return Closure(callable(T|null, T, TKey):(T|null)): Closure(T|null): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @psalm-return Closure(callable(T|null, T, TKey, Iterator<TKey, T>): T): Closure(T|null): Closure(Iterator<TKey, T>): T|null
      */
     // phpcs:enable
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param callable(T|null, T, TKey):(T|null) $callback
+             * @psalm-param callable(T|null, T, TKey, Iterator<TKey, T>): T
              */
             static function (callable $callback): Closure {
                 return
                     /**
-                     * @param mixed|null $initial
                      * @psalm-param T|null $initial
+                     *
+                     * @param mixed|null $initial
                      */
                     static function ($initial = null) use ($callback): Closure {
                         return
                             /**
                              * @psalm-param Iterator<TKey, T> $iterator
                              *
-                             * @psalm-return Generator<TKey, T|null>
+                             * @psalm-return Generator<int, T|null>
                              */
                             static function (Iterator $iterator) use ($callback, $initial): Generator {
                                 foreach ($iterator as $key => $value) {
-                                    yield $key => ($initial = $callback($initial, $value, $key));
+                                    $initial = $callback($initial, $value, $key, $iterator);
                                 }
+
+                                return yield $initial;
                             };
                     };
             };

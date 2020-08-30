@@ -17,35 +17,34 @@ use loophp\collection\Contract\Operation;
 final class Iterate extends AbstractOperation implements Operation
 {
     /**
-     * @param array<mixed, mixed> $parameters
-     * @psalm-param array<array-key, T> $parameters
-     *
-     * @psalm-param callable(...list<T>):(array<array-key, T>) $callback
+     * @psalm-return Closure(callable(T...):(array<TKey, T>)): Closure(T...): Generator<TKey, T>
      */
-    public function __construct(callable $callback, array $parameters = [])
-    {
-        $this->storage = [
-            'callback' => $callback,
-            'parameters' => $parameters,
-        ];
-    }
-
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param Iterator<TKey, T> $iterator
-             * @psalm-param callable(...list<T>):(array<array-key, T>) $callback
-             *
-             * @param array<int, mixed> $parameters
-             * @psalm-param array<array-key, T> $parameters
+             * @psalm-param callable(T...):(array<TKey, T>) $callback
              */
-            static function (Iterator $iterator, callable $callback, array $parameters): Generator {
-                while (true) {
-                    yield current(
-                        $parameters = (array) $callback(...array_values((array) $parameters))
-                    );
-                }
+            static function (callable $callback): Closure {
+                return
+                    /**
+                     * @psalm-param T ...$parameters
+                     */
+                    static function (...$parameters) use ($callback): Closure {
+                        return
+                            /**
+                             * @psalm-param Iterator<TKey, T> $iterator
+                             *
+                             * @psalm-return Generator<TKey, T>
+                             */
+                            static function (Iterator $iterator) use ($callback, $parameters): Generator {
+                                while (true) {
+                                    yield current(
+                                        $parameters = (array) $callback(...array_values((array) $parameters))
+                                    );
+                                }
+                            };
+                    };
             };
     }
 }

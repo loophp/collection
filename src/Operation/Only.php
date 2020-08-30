@@ -19,39 +19,36 @@ use function array_key_exists;
 final class Only extends AbstractOperation implements Operation
 {
     /**
-     * @param mixed ...$keys
-     * @psalm-param TKey ...$keys
+     * @psalm-return Closure(TKey...): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
-    public function __construct(...$keys)
-    {
-        $this->storage = [
-            'keys' => $keys,
-        ];
-    }
-
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param Iterator<TKey, T> $iterator
-             * @psalm-param list<TKey> $keys
-             *
-             * @psalm-return Generator<TKey, T>
+             * @psalm-param TKey ...$keys
              */
-            static function (Iterator $iterator, array $keys): Generator {
-                if ([] === $keys) {
-                    return yield from $iterator;
-                }
+            static function (...$keys): Closure {
+                return
+                    /**
+                     * @psalm-param Iterator<TKey, T> $iterator
+                     *
+                     * @psalm-return Generator<TKey, T>
+                     */
+                    static function (Iterator $iterator) use ($keys): Generator {
+                        if ([] === $keys) {
+                            return yield from $iterator;
+                        }
 
-                $keys = array_flip($keys);
+                        $keys = array_flip($keys);
 
-                foreach ($iterator as $key => $value) {
-                    if (false === array_key_exists($key, $keys)) {
-                        continue;
-                    }
+                        foreach ($iterator as $key => $value) {
+                            if (false === array_key_exists($key, $keys)) {
+                                continue;
+                            }
 
-                    yield $key => $value;
-                }
+                            yield $key => $value;
+                        }
+                    };
             };
     }
 }

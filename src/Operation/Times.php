@@ -17,35 +17,24 @@ use loophp\collection\Contract\Operation;
  */
 final class Times extends AbstractOperation implements Operation
 {
-    public function __construct(?int $number = null, ?callable $callback = null)
-    {
-        $number = $number ?? 0;
-
-        if (1 > $number) {
-            throw new InvalidArgumentException('Invalid parameter. $number must be greater than 1.');
-        }
-
-        $this->storage = [
-            'number' => $number,
-            'callback' => $callback ?? static function (int $value): int {
-                return $value;
-            },
-        ];
-    }
-
     public function __invoke(): Closure
     {
-        return
-            /**
-             * @psalm-param Iterator<TKey, T> $iterator
-             * @psalm-param callable(int):(int) $callback
-             *
-             * @psalm-return Generator<int, int>
-             */
-            static function (Iterator $iterator, ?int $number, callable $callback): Generator {
-                for ($current = 1; $current <= $number; ++$current) {
-                    yield $callback($current);
-                }
+        return static function (int $number = 0): Closure {
+            return static function (?callable $callback = null) use ($number): Closure {
+                return static function (Iterator $iterator) use ($number, $callback): Generator {
+                    if (1 > $number) {
+                        throw new InvalidArgumentException('Invalid parameter. $number must be greater than 1.');
+                    }
+
+                    $callback = $callback ?? static function (int $value): int {
+                        return $value;
+                    };
+
+                    for ($current = 1; $current <= $number; ++$current) {
+                        yield $callback($current);
+                    }
+                };
             };
+        };
     }
 }

@@ -18,6 +18,9 @@ use function in_array;
  */
 final class Distinct extends AbstractOperation implements Operation
 {
+    /**
+     * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
+     */
     public function __invoke(): Closure
     {
         return

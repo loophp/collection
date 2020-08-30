@@ -16,13 +16,16 @@ use loophp\collection\Contract\Operation;
  */
 final class Normalize extends AbstractOperation implements Operation
 {
+    /**
+     * @psalm-return Closure(Iterator<TKey, T>): Generator<int, T, mixed, void>
+     */
     public function __invoke(): Closure
     {
         return
             /**
              * @psalm-param Iterator<TKey, T> $iterator
              *
-             * @psalm-return Generator<int, T>
+             * @psalm-return Generator<int, T, mixed, void>
              */
             static function (Iterator $iterator): Generator {
                 foreach ($iterator as $value) {

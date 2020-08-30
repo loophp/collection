@@ -4,18 +4,17 @@ declare(strict_types=1);
 
 namespace loophp\collection\Operation;
 
-abstract class AbstractOperation
-{
-    /**
-     * @var array<string, mixed>
-     */
-    protected $storage = [];
+use Closure;
+use loophp\collection\Contract\Operation;
 
-    /**
-     * @return array<string, mixed>
-     */
-    public function getArguments(): array
+abstract class AbstractOperation implements Operation
+{
+    final public function __construct()
     {
-        return $this->storage;
+    }
+
+    public static function of(): Closure
+    {
+        return (new static())->__invoke();
     }
 }

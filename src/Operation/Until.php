@@ -17,41 +17,40 @@ use loophp\collection\Contract\Operation;
 final class Until extends AbstractOperation implements Operation
 {
     /**
-     * @param callable ...$callbacks
-     * @psalm-param callable(T, TKey):(bool) ...$callbacks
+     * @psalm-return Closure((callable(T, TKey):(bool))...): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
-    public function __construct(callable ...$callbacks)
-    {
-        $this->storage['callbacks'] = $callbacks;
-    }
-
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param Iterator<TKey, T> $iterator
-             * @psalm-param list<callable(T, TKey):(bool)> $callbacks
-             *
-             * @psalm-return Generator<TKey, T>
+             * @psalm-param callable(T, TKey):(bool) ...$callbacks
              */
-            static function (Iterator $iterator, array $callbacks): Generator {
-                foreach ($iterator as $key => $value) {
-                    yield $key => $value;
+            static function (callable ...$callbacks): Closure {
+                return
+                /**
+                 * @psalm-param Iterator<TKey, T> $iterator
+                 *
+                 * @psalm-return Generator<TKey, T>
+                 */
+                static function (Iterator $iterator) use ($callbacks): Generator {
+                    foreach ($iterator as $key => $value) {
+                        yield $key => $value;
 
-                    $result = array_reduce(
-                        $callbacks,
-                        static function (bool $carry, callable $callable) use ($key, $value): bool {
-                            return ($callable($value, $key)) ?
+                        $result = array_reduce(
+                            $callbacks,
+                            static function (bool $carry, callable $callable) use ($key, $value): bool {
+                                return ($callable($value, $key)) ?
                                 $carry :
                                 false;
-                        },
-                        true
-                    );
+                            },
+                            true
+                        );
 
-                    if (false !== $result) {
-                        break;
+                        if (false !== $result) {
+                            break;
+                        }
                     }
-                }
+                };
             };
     }
 }

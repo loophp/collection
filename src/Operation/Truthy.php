@@ -6,7 +6,6 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use InfiniteIterator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 
@@ -15,21 +14,26 @@ use loophp\collection\Contract\Operation;
  * @psalm-template TKey of array-key
  * @psalm-template T
  */
-final class Loop extends AbstractOperation implements Operation
+final class Truthy extends AbstractOperation implements Operation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @psalm-return Closure(Iterator<TKey, T>): Generator<int, bool>
      */
     public function __invoke(): Closure
     {
         return
             /**
              * @psalm-param Iterator<TKey, T> $iterator
-             *
-             * @psalm-return Iterator<TKey, T>
+             * @psalm-return Generator<int, bool> $iterator
              */
             static function (Iterator $iterator): Generator {
-                return yield from new InfiniteIterator($iterator);
+                foreach ($iterator as $key => $value) {
+                    if (false === (bool) $value) {
+                        return yield false;
+                    }
+                }
+
+                return yield true;
             };
     }
 }

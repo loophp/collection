@@ -17,36 +17,40 @@ use loophp\collection\Contract\Operation;
 final class Associate extends AbstractOperation implements Operation
 {
     /**
-     * @psalm-param null|callable(TKey, T):(TKey) $callbackForKeys
-     * @psalm-param null|callable(TKey, T):(T) $callbackForValues
-     */
-    public function __construct(?callable $callbackForKeys = null, ?callable $callbackForValues = null)
-    {
-        $this->storage = [
-            'callbackForKeys' => $callbackForKeys ?? static function ($key, $value) {
-                return $key;
-            },
-            'callbackForValues' => $callbackForValues ?? static function ($key, $value) {
-                return $value;
-            },
-        ];
-    }
-
-    /**
-     * @psalm-return Closure(Iterator<TKey, T>, callable(TKey, T):(TKey), callable(TKey, T):(T)):(Generator<TKey, T>)
+     * @psalm-return Closure(null|callable(TKey, T):(TKey)): Closure(null|callable(TKey, T):(T)): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param Iterator<TKey, T> $iterator
-             * @psalm-param callable(TKey, T):(TKey) $callbackForKeys
-             * @psalm-param callable(TKey, T):(T) $callbackForValues
+             * @psalm-param null|callable(TKey, T):(TKey) $callbackForKeys
              */
-            static function (Iterator $iterator, callable $callbackForKeys, callable $callbackForValues): Generator {
-                foreach ($iterator as $key => $value) {
-                    yield $callbackForKeys($key, $value) => $callbackForValues($key, $value);
-                }
+            static function (?callable $callbackForKeys = null): Closure {
+                $callbackForKeys = $callbackForKeys ?? static function ($key, $value) {
+                    return $key;
+                };
+
+                return
+                    /**
+                     * @psalm-param null|callable(TKey, T):(T) $callbackForValues
+                     */
+                    static function (?callable $callbackForValues = null) use ($callbackForKeys): Closure {
+                        $callbackForValues = $callbackForValues ?? static function ($key, $value) {
+                            return $value;
+                        };
+
+                        return
+                            /**
+                             * @psalm-param Iterator<TKey, T> $iterator
+                             *
+                             * @psalm-return Generator<TKey, T>
+                             */
+                            static function (Iterator $iterator) use ($callbackForKeys, $callbackForValues): Generator {
+                                foreach ($iterator as $key => $value) {
+                                    yield $callbackForKeys($key, $value) => $callbackForValues($key, $value);
+                                }
+                            };
+                    };
             };
     }
 }

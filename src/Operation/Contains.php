@@ -9,18 +9,13 @@ use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 
-use function in_array;
-
 /**
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
  */
-final class DiffKeys extends AbstractOperation implements Operation
+final class Contains extends AbstractOperation implements Operation
 {
-    /**
-     * @psalm-return Closure(TKey...): Closure(Iterator<TKey, T>): Generator<TKey, T>
-     */
     public function __invoke(): Closure
     {
         return
@@ -31,13 +26,23 @@ final class DiffKeys extends AbstractOperation implements Operation
                 return
                     /**
                      * @psalm-param Iterator<TKey, T> $iterator
+                     *
+                     * @psalm-return Generator<int, bool>
                      */
                     static function (Iterator $iterator) use ($values): Generator {
                         foreach ($iterator as $key => $value) {
-                            if (false === in_array($key, $values, true)) {
-                                yield $key => $value;
+                            foreach ($values as $k => $v) {
+                                if ($v === $value) {
+                                    unset($values[$k]);
+                                }
+
+                                if ([] === $values) {
+                                    return yield true;
+                                }
                             }
                         }
+
+                        return yield false;
                     };
             };
     }

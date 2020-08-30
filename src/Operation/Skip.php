@@ -16,30 +16,29 @@ use loophp\collection\Contract\Operation;
  */
 final class Skip extends AbstractOperation implements Operation
 {
-    public function __construct(int ...$skip)
-    {
-        $this->storage['skip'] = $skip;
-    }
-
+    /**
+     * @psalm-return Closure(int...): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     */
     public function __invoke(): Closure
     {
-        return
-            /**
-             * @psalm-param Iterator<TKey, T> $iterator
-             * @psalm-param list<int> $skip
-             *
-             * @psalm-return Generator<TKey, T>
-             */
-            static function (Iterator $iterator, array $skip): Generator {
-                $skip = array_sum($skip);
+        return static function (int ...$skip): Closure {
+            return
+                /**
+                 * @psalm-param Iterator<TKey, T> $iterator
+                 *
+                 * @psalm-return Generator<TKey, T>
+                 */
+                static function (Iterator $iterator) use ($skip): Generator {
+                    $skip = array_sum($skip);
 
-                foreach ($iterator as $key => $value) {
-                    if (0 < $skip--) {
-                        continue;
+                    foreach ($iterator as $key => $value) {
+                        if (0 < $skip--) {
+                            continue;
+                        }
+
+                        yield $key => $value;
                     }
-
-                    yield $key => $value;
-                }
-            };
+                };
+        };
     }
 }
