@@ -115,7 +115,7 @@ If you can't contribute to the code, you can also sponsor me on [Github][github 
 
 See [CHANGELOG.md][changelog-md] for a changelog based on [git commits][git-commits].
 
-For more detailed changelogs, please read the per release changelogs.
+For more detailed changelogs, please check [the release changelogs][changelog-releases].
 
 [packagist collection]: https://packagist.org/packages/loophp/collection
 [latest stable version]: https://img.shields.io/packagist/v/loophp/collection.svg?style=flat-square
@@ -169,3 +169,4 @@ For more detailed changelogs, please read the per release changelogs.
 [phpstorm annotated august 2020]: https://blog.jetbrains.com/phpstorm/2020/08/php-annotated-august-2020/
 [changelog-md]: https://github.com/loophp/collection/blob/master/CHANGELOG.md
 [git-commits]: https://github.com/loophp/collection/commits/master
+[changelog-releases]: https://github.com/loophp/collection/releases
