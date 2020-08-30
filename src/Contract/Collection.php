@@ -65,7 +65,6 @@ use loophp\collection\Contract\Operation\Reduceable;
 use loophp\collection\Contract\Operation\Reductionable;
 use loophp\collection\Contract\Operation\Reverseable;
 use loophp\collection\Contract\Operation\RSampleable;
-use loophp\collection\Contract\Operation\Runable;
 use loophp\collection\Contract\Operation\Scaleable;
 use loophp\collection\Contract\Operation\Shuffleable;
 use loophp\collection\Contract\Operation\Sinceable;
@@ -154,7 +153,7 @@ use loophp\collection\Iterator\ClosureIterator;
  * @template-extends Splitable<TKey, T>
  * @template-extends Tailable<TKey, T>
  * @template-extends Transposeable<TKey, T>
- * @template-extends Unpack<TKey, T>
+ * @template-extends Unpackable<TKey, T>
  * @template-extends Unpairable<TKey, T>
  * @template-extends Untilable<TKey, T>
  * @template-extends Unwrapable<TKey, T>
@@ -162,7 +161,6 @@ use loophp\collection\Iterator\ClosureIterator;
  * @template-extends Wrapable<TKey, T>
  * @template-extends Zipable<TKey, T>
  * @template-extends \IteratorAggregate<TKey, T>
- * @template-extends Runable<TKey, T>
  */
 interface Collection extends
     Allable,
