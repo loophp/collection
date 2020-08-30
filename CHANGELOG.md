@@ -2,11 +2,26 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [2.3.0](https://github.com/loophp/collection/compare/2.2.0...2.3.0)
+
+> 30 August 2020
+
+- Convert operations and transformations to function objects [`#18`](https://github.com/loophp/collection/pull/18)
+- Remove duplicated information. [`961f5b6`](https://github.com/loophp/collection/commit/961f5b646ea70bf8c426dce5a357cffba22ed2ef)
+- Update README.md. [`cb84521`](https://github.com/loophp/collection/commit/cb84521d2f160b92eb8352ae55bfe823c574f315)
+- Update documentation. [`f115d1d`](https://github.com/loophp/collection/commit/f115d1ddf5b6cfc34dfd9cb219f993327cf64579)
+- Update Psalm annotations. [`126994f`](https://github.com/loophp/collection/commit/126994fc17640eb23235a76d568c01b80911c26d)
+- Update tests. [`a7c1ff3`](https://github.com/loophp/collection/commit/a7c1ff3f015119e64a7bff650a1c9292520ba69b)
+- Convert Transformations into Operations. [`e36b03c`](https://github.com/loophp/collection/commit/e36b03c66a412ef4c5a2601c56543c4b7e5017b5)
+- Syntactic sugar to reduce the amount of parenthesis. [`f40dc3b`](https://github.com/loophp/collection/commit/f40dc3b56628f165028c3047c4a635206d740efd)
+- Convert Operations and Transformations into function object. [`6ce8ecf`](https://github.com/loophp/collection/commit/6ce8ecfd386d7697ebe5ea230fd09e53b1dacb49)
+
 #### [2.2.0](https://github.com/loophp/collection/compare/2.1.0...2.2.0)
 
 > 28 August 2020
 
 - Update Group operation. (Fix #19) [`#19`](https://github.com/loophp/collection/issues/19)
+- Update Changelog.md. [`7daf209`](https://github.com/loophp/collection/commit/7daf209a58fd2c7997e8039e615a8d3878328e7d)
 - Add Changelog.md. [`6869e40`](https://github.com/loophp/collection/commit/6869e402b665e1f205a82068a692b4552c0033a8)
 - Update documentation. [`efccd88`](https://github.com/loophp/collection/commit/efccd8828ad762c6606fa7ba9f3408b95134cedb)
 - Update Iterate constructor. [`01155c2`](https://github.com/loophp/collection/commit/01155c2452f80b018cf5a78c293016eca5b3b23b)
