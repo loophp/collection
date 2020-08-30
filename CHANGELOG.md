@@ -2,11 +2,19 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [2.3.1](https://github.com/loophp/collection/compare/2.3.0...2.3.1)
+
+> 30 August 2020
+
+- Update annotations. [`37c6a5c`](https://github.com/loophp/collection/commit/37c6a5c3f1b6e6c39dd1b323dd3c49848f4f0415)
+- Add forgotten interface links. [`be3f405`](https://github.com/loophp/collection/commit/be3f40582acd1b84427e9b1625621e23d00a7fb3)
+
 #### [2.3.0](https://github.com/loophp/collection/compare/2.2.0...2.3.0)
 
 > 30 August 2020
 
 - Convert operations and transformations to function objects [`#18`](https://github.com/loophp/collection/pull/18)
+- Update Changelog. [`cddf0b8`](https://github.com/loophp/collection/commit/cddf0b898cfbd20451fe9c44f3858dc53b7fbead)
 - Remove duplicated information. [`961f5b6`](https://github.com/loophp/collection/commit/961f5b646ea70bf8c426dce5a357cffba22ed2ef)
 - Update README.md. [`cb84521`](https://github.com/loophp/collection/commit/cb84521d2f160b92eb8352ae55bfe823c574f315)
 - Update documentation. [`f115d1d`](https://github.com/loophp/collection/commit/f115d1ddf5b6cfc34dfd9cb219f993327cf64579)
