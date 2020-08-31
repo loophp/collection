@@ -14,7 +14,7 @@ use OuterIterator;
  * @psalm-template T
  *
  * @extends ProxyIterator<TKey, T>
- * @implements \Iterator<TKey, T>
+ * @implements Iterator<TKey, T>
  */
 final class IterableIterator extends ProxyIterator implements Iterator, OuterIterator
 {

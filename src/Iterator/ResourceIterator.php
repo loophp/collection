@@ -14,7 +14,7 @@ use OuterIterator;
  * @psalm-template T
  *
  * @extends ProxyIterator<TKey, T>
- * @implements \Iterator<TKey, T>
+ * @implements Iterator<TKey, T>
  */
 final class ResourceIterator extends ProxyIterator implements Iterator, OuterIterator
 {
@@ -27,7 +27,7 @@ final class ResourceIterator extends ProxyIterator implements Iterator, OuterIte
             /**
              * @param resource $resource
              *
-             * @psalm-return \Generator<int, T>
+             * @psalm-return Generator<int, T>
              */
             static function ($resource): Generator {
                 while (false !== $chunk = fgetc($resource)) {

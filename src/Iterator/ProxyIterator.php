@@ -29,7 +29,7 @@ abstract class ProxyIterator
     }
 
     /**
-     * @psalm-return \Iterator<TKey, T>
+     * @psalm-return Iterator<TKey, T>
      */
     public function getInnerIterator(): Iterator
     {

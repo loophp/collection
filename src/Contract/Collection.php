@@ -160,7 +160,7 @@ use loophp\collection\Iterator\ClosureIterator;
  * @template-extends Windowable<TKey, T>
  * @template-extends Wrapable<TKey, T>
  * @template-extends Zipable<TKey, T>
- * @template-extends \IteratorAggregate<TKey, T>
+ * @template-extends IteratorAggregate<TKey, T>
  */
 interface Collection extends
     Allable,
