@@ -1933,6 +1933,24 @@ class CollectionSpec extends ObjectBehavior
             ->shouldReturn(false);
     }
 
+    public function it_can_unfold(): void
+    {
+        $this::unfold(1, static function (int $n): int {return $n + 1; })
+            ->limit(10)
+            ->shouldIterateAs([
+                1 => 1,
+                2 => 2,
+                3 => 3,
+                4 => 4,
+                5 => 5,
+                6 => 6,
+                7 => 7,
+                8 => 8,
+                9 => 9,
+                10 => 10,
+            ]);
+    }
+
     public function it_can_unpack(): void
     {
         $input = [

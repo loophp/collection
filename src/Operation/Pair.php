@@ -16,7 +16,7 @@ use Iterator;
 final class Pair extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @psalm-return Closure(Iterator<TKey, T>): Generator<T, T>
      */
     public function __invoke(): Closure
     {

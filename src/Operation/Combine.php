@@ -34,7 +34,7 @@ final class Combine extends AbstractOperation
                     /**
                      * @psalm-param Iterator<TKey, T> $iterator
                      *
-                     * @psalm-retur Generator<T, T>
+                     * @psalm-return Generator<T, T>
                      */
                     static function (Iterator $iterator) use ($keys): Generator {
                         $keys = new ArrayIterator($keys);
