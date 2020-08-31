@@ -572,97 +572,65 @@ Prime numbers
 
     declare(strict_types=1);
 
-    include 'vendor/autoload.php';
+    include __DIR__ . '/vendor/autoload.php';
 
     use loophp\collection\Collection;
 
-    function llist($init, callable $succ): Generator
+    function primesGenerator(Iterator $iterator): Generator
     {
-        for ($v = $init; ; $v = $succ($v)) {
-            yield $v;
-        }
-    }
+        yield $primeNumber = $iterator->current();
 
-    function not(callable $test): Closure
-    {
-        return static function (...$arguments) use ($test): bool {
-            return !$test(...$arguments);
-        };
-    };
-
-    function multipleOf(int $a): Closure
-    {
-        return static function (int $b) use ($a): bool {
-            return 0 === ($b % $a);
-        };
-    };
-
-    function filter(Generator $generator, callable $filter): Generator
-    {
-        for (; true === $generator->valid(); $generator->next()) {
-            $n = $generator->current();
-
-            if (true === $filter($n)) {
-                yield $n;
-            }
-        }
-    }
-
-    function headTail(Generator $generator): array
-    {
-        $head = $generator->current();
-
-        $generator->next();
-
-        return [$head, $generator];
-    }
-
-    function primesGeneratorBuilder(Generator $n): Generator
-    {
-        [$primeNumber, $tail] = headTail($n);
-
-        yield $primeNumber;
-
-        return yield from primesGeneratorBuilder(
-            filter(
-                $tail,
-                not(multipleOf($primeNumber))
-            )
+        $iterator = new \CallbackFilterIterator(
+            $iterator,
+            fn(int $a): bool => $a % $primeNumber !== 0
         );
-    };
+
+        $iterator->next();
+
+        return $iterator->valid() ?
+            yield from primesGenerator($iterator):
+            null;
+    }
+
+    function integerGenerator(int $init = 1, callable $succ): Generator
+    {
+        yield $init;
+
+        return yield from integerGenerator($succ($init), $succ);
+    }
+
+    $primes = primesGenerator(integerGenerator(2, fn(int $n): int => $n + 1));
 
     $limit = 1000000;
 
     // Create a lazy collection of Prime numbers from 2 to infinity.
     $lazyPrimeNumbersCollection = Collection::fromIterable(
-        primesGeneratorBuilder(
-            llist(2, static fn ($n) => $n + 1)
+        primesGenerator(
+            integerGenerator(2, static fn ($n) => $n + 1)
         )
     );
 
     // Print out the first 1 million of prime numbers.
-    $lazyPrimeNumbersCollection
-        ->limit($limit)
-        ->apply(static fn ($value) => var_dump($value))
-        ->all();
+    foreach ($lazyPrimeNumbersCollection->limit($limit) as $prime) {
+        var_dump($prime);
+    }
 
     // Create a lazy collection of Prime numbers from 2 to infinity.
     $lazyPrimeNumbersCollection = Collection::fromIterable(
-        primesGeneratorBuilder(
-            llist(2, static fn ($n) => $n + 1)
+        primesGenerator(
+            integerGenerator(2, static fn ($n) => $n + 1)
         )
     );
 
     // Find out the Twin Prime numbers by filtering out unwanted values.
     $lazyTwinPrimeNumbersCollection = Collection::fromIterable($lazyPrimeNumbersCollection)
         ->zip($lazyPrimeNumbersCollection->tail())
-        ->filter(static fn (array $chunk) => 2 === $chunk[1] - $chunk[0]);
+        ->filter(static fn (array $chunk): bool => 2 === $chunk[1] - $chunk[0]);
 
-    // Print out the first 1 million Twin Prime numbers.
-    $lazyTwinPrimeNumbersCollection
-        ->limit($limit)
-        ->apply(static fn ($value) => var_dump($value))
-        ->all();
+    foreach ($lazyTwinPrimeNumbersCollection->limit($limit) as $prime) {
+        var_dump($prime);
+    }
+
 
 Text analysis
 ~~~~~~~~~~~~~
