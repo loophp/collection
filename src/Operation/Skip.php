@@ -7,6 +7,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use LimitIterator;
 
 /**
  * @psalm-template TKey
@@ -20,23 +21,15 @@ final class Skip extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        return static function (int ...$skip): Closure {
+        return static function (int ...$offsets): Closure {
             return
                 /**
                  * @psalm-param Iterator<TKey, T> $iterator
                  *
                  * @psalm-return Generator<TKey, T>
                  */
-                static function (Iterator $iterator) use ($skip): Generator {
-                    $skip = array_sum($skip);
-
-                    foreach ($iterator as $key => $value) {
-                        if (0 < $skip--) {
-                            continue;
-                        }
-
-                        yield $key => $value;
-                    }
+                static function (Iterator $iterator) use ($offsets): Generator {
+                    return yield from new LimitIterator($iterator, (int) array_sum($offsets));
                 };
         };
     }
