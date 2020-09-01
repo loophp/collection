@@ -822,25 +822,6 @@ Signature: ``Collection::limit(int $limit);``
     $collection = Collection::iterate($fibonacci)
         ->limit(10);
 
-loop
-~~~~
-
-Loop over the values of the collection indefinitely, in a cyclic way.
-
-Interface: `Loopable`_
-
-Signature: ``Collection::loop();``
-
-.. code-block:: php
-
-    $diceData = range(1, 6);
-
-    // Simulate a dice throw.
-    $randomDiceValue = Collection::with($data)
-        ->loop()
-        ->limit(random_int(0, 1000))
-        ->last();
-
 map
 ~~~
 
@@ -1553,7 +1534,6 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Keysable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Keysable.php
 .. _Lastable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Lastable.php
 .. _Limitable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Limitable.php
-.. _Loopable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Loopable.php
 .. _Mapable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Mapable.php
 .. _Mergeable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Mergeable.php
 .. _Normalizeable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Normalizeable.php

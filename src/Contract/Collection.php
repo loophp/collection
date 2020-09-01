@@ -45,7 +45,6 @@ use loophp\collection\Contract\Operation\Iterateable;
 use loophp\collection\Contract\Operation\Keysable;
 use loophp\collection\Contract\Operation\Lastable;
 use loophp\collection\Contract\Operation\Limitable;
-use loophp\collection\Contract\Operation\Loopable;
 use loophp\collection\Contract\Operation\Mapable;
 use loophp\collection\Contract\Operation\Mergeable;
 use loophp\collection\Contract\Operation\Normalizeable;
@@ -127,7 +126,6 @@ use loophp\collection\Iterator\ClosureIterator;
  * @template-extends Keysable<TKey, T>
  * @template-extends Lastable<TKey, T>
  * @template-extends Limitable<TKey, T>
- * @template-extends Loopable<TKey, T>
  * @template-extends Mapable<TKey, T>
  * @template-extends Mergeable<TKey, T>
  * @template-extends Normalizeable<TKey, T>
@@ -206,7 +204,6 @@ interface Collection extends
     Keysable,
     Lastable,
     Limitable,
-    Loopable,
     Mapable,
     Mergeable,
     Normalizeable,

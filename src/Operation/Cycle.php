@@ -8,7 +8,6 @@ use Closure;
 use Generator;
 use InfiniteIterator;
 use Iterator;
-use LimitIterator;
 
 /**
  * @psalm-template TKey
@@ -18,28 +17,18 @@ use LimitIterator;
 final class Cycle extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(int): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
-        return static function (int $length): Closure {
-            return
-                /**
-                 * @psalm-param Iterator<TKey, T> $iterator
-                 *
-                 * @psalm-return Generator<TKey, T>
-                 */
-                static function (Iterator $iterator) use ($length): Generator {
-                    if (0 === $length) {
-                        return yield from [];
-                    }
-
-                    return yield from new LimitIterator(
-                        new InfiniteIterator($iterator),
-                        0,
-                        $length
-                    );
-                };
-        };
+        return
+            /**
+             * @psalm-param Iterator<TKey, T> $iterator
+             *
+             * @psalm-return Generator<TKey, T>
+             */
+            static function (Iterator $iterator): Generator {
+                return yield from new InfiniteIterator($iterator);
+            };
     }
 }

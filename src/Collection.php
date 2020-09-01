@@ -51,7 +51,6 @@ use loophp\collection\Operation\Iterate;
 use loophp\collection\Operation\Keys;
 use loophp\collection\Operation\Last;
 use loophp\collection\Operation\Limit;
-use loophp\collection\Operation\Loop;
 use loophp\collection\Operation\Map;
 use loophp\collection\Operation\Merge;
 use loophp\collection\Operation\Normalize;
@@ -289,9 +288,9 @@ final class Collection implements CollectionInterface
         return iterator_count($this);
     }
 
-    public function cycle(int $length = 0): CollectionInterface
+    public function cycle(): CollectionInterface
     {
-        return $this->run(Cycle::of()($length));
+        return $this->run(Cycle::of());
     }
 
     public function diff(...$values): CollectionInterface
@@ -504,11 +503,6 @@ final class Collection implements CollectionInterface
     public function limit(int $limit = -1, int $offset = 0): CollectionInterface
     {
         return $this->run(Limit::of()($limit)($offset));
-    }
-
-    public function loop(): CollectionInterface
-    {
-        return $this->run(Loop::of());
     }
 
     public function map(callable ...$callbacks): CollectionInterface

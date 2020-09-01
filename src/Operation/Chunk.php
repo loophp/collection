@@ -36,7 +36,7 @@ final class Chunk extends AbstractOperation
                      */
                     static function (Iterator $iterator) use ($sizes): Generator {
                         /** @psalm-var Iterator<int, int> $sizesIterator */
-                        $sizesIterator = Loop::of()(new ArrayIterator($sizes));
+                        $sizesIterator = Cycle::of()(new ArrayIterator($sizes));
 
                         $values = [];
 

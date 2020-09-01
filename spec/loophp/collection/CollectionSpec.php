@@ -477,60 +477,25 @@ class CollectionSpec extends ObjectBehavior
 
     public function it_can_cycle(): void
     {
-        $iterable = ['a' => '1', 'b' => '2', 'c' => '3'];
+        $generator = static function (): Generator {
+            yield 0 => 1;
 
-        $this::fromIterable($iterable)
+            yield 1 => 2;
+
+            yield 2 => 3;
+
+            yield 0 => 1;
+
+            yield 1 => 2;
+
+            yield 2 => 3;
+
+            yield 0 => 1;
+        };
+
+        $this::fromIterable(range(1, 3))
             ->cycle()
-            ->shouldIterateAs([]);
-
-        $generator = static function () {
-            yield 'a' => '1';
-
-            yield 'b' => '2';
-
-            yield 'c' => '3';
-        };
-
-        $this::fromIterable($iterable)
-            ->cycle(3)
-            ->shouldIterateAs($generator());
-
-        $generator = static function () {
-            yield 'a' => '1';
-
-            yield 'b' => '2';
-
-            yield 'c' => '3';
-
-            yield 'a' => '1';
-
-            yield 'b' => '2';
-
-            yield 'c' => '3';
-        };
-
-        $this::fromIterable($iterable)
-            ->cycle(6)
-            ->shouldIterateAs($generator());
-
-        $generator = static function () {
-            yield 'a' => '1';
-
-            yield 'b' => '2';
-
-            yield 'c' => '3';
-
-            yield 'a' => '1';
-
-            yield 'b' => '2';
-
-            yield 'c' => '3';
-
-            yield 'a' => '1';
-        };
-
-        $this::fromIterable($iterable)
-            ->cycle(7)
+            ->limit(7)
             ->shouldIterateAs($generator());
     }
 
@@ -1254,28 +1219,6 @@ class CollectionSpec extends ObjectBehavior
         $this::fromIterable($input)
             ->limit()
             ->shouldIterateAs($input);
-    }
-
-    public function it_can_loop(): void
-    {
-        $generator = static function (): Generator {
-            yield 0 => 1;
-
-            yield 1 => 2;
-
-            yield 2 => 3;
-
-            yield 0 => 1;
-
-            yield 1 => 2;
-
-            yield 2 => 3;
-        };
-
-        $this::fromIterable(range(1, 3))
-            ->loop()
-            ->limit(6)
-            ->shouldIterateAs($generator());
     }
 
     public function it_can_map(): void

@@ -31,7 +31,7 @@ final class Window extends AbstractOperation
                  */
                 static function (Iterator $iterator) use ($lengths): Generator {
                     /** @psalm-var Iterator<int, int> $lengths */
-                    $lengths = Loop::of()(new ArrayIterator($lengths));
+                    $lengths = Cycle::of()(new ArrayIterator($lengths));
 
                     for ($i = 0; iterator_count($iterator) > $i; ++$i) {
                         /** @psalm-var Generator<TKey, T> $slice */
