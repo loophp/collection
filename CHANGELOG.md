@@ -2,10 +2,20 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [2.3.3](https://github.com/loophp/collection/compare/2.3.2...2.3.3)
+
+> 1 September 2020
+
+- Replace the Loop operation with the Cycle operation. [`2189649`](https://github.com/loophp/collection/commit/21896492b80a27fca2bb433e92c92f3f30271378)
+- Add Unfold operation. [`58eeaa0`](https://github.com/loophp/collection/commit/58eeaa0c8924393e9e285126ed17a89f85303225)
+- Update annotations. [`af3226f`](https://github.com/loophp/collection/commit/af3226f8c88826fc6f0a18f92248c5b244b6045f)
+- Update documentation. [`3bb8caa`](https://github.com/loophp/collection/commit/3bb8caa8139d834eb0407280a7951d054ce1a0bf)
+
 #### [2.3.2](https://github.com/loophp/collection/compare/2.3.1...2.3.2)
 
 > 31 August 2020
 
+- Update Changelog. [`94c010a`](https://github.com/loophp/collection/commit/94c010a46882914b1e45f8621fb77e7b73f53a74)
 - Update annotations. [`5cf2513`](https://github.com/loophp/collection/commit/5cf251342cc07de1d5f06da9fb91b9904e233ae5)
 - Update Skip operation. [`8f668d7`](https://github.com/loophp/collection/commit/8f668d73ef623b6db0ef711dfb6e05dda32b6264)
 
