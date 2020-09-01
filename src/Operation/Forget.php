@@ -8,7 +8,7 @@ use Closure;
 use Generator;
 use Iterator;
 
-use function array_key_exists;
+use function in_array;
 
 /**
  * @psalm-template TKey
@@ -34,10 +34,8 @@ final class Forget extends AbstractOperation
                      * @psalm-return Generator<TKey, T>
                      */
                     static function (Iterator $iterator) use ($keys): Generator {
-                        $keys = array_flip($keys);
-
                         foreach ($iterator as $key => $value) {
-                            if (false === array_key_exists($key, $keys)) {
+                            if (false === in_array($key, $keys, true)) {
                                 yield $key => $value;
                             }
                         }
