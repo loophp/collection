@@ -127,6 +127,19 @@ Signature: ``Collection::times($number = INF, ?callable $callback = null);``
 
     $collection = Collection::times(10);
 
+unfold
+~~~~~~
+
+Create a collection by yielding from a callback with a initial value.
+
+Signature: ``Collection::unfold($init, callable $callback);``
+
+.. code-block:: php
+
+    // A list of Naturals from 1 to Infinity.
+    $collection = Collection::unfold(1, fn($n) => $n + 1)
+        ->normalize();
+
 with
 ~~~~
 

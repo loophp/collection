@@ -83,6 +83,7 @@ use loophp\collection\Operation\Tail;
 use loophp\collection\Operation\Times;
 use loophp\collection\Operation\Transpose;
 use loophp\collection\Operation\Truthy;
+use loophp\collection\Operation\Unfold;
 use loophp\collection\Operation\Unpack;
 use loophp\collection\Operation\Unpair;
 use loophp\collection\Operation\Until;
@@ -671,6 +672,11 @@ final class Collection implements CollectionInterface
     public function truthy(): bool
     {
         return $this->run(Truthy::of())->getIterator()->current();
+    }
+
+    public static function unfold($init, callable $callback): CollectionInterface
+    {
+        return (new self())->run(Unfold::of()($init)($callback));
     }
 
     public function unpack(): CollectionInterface
