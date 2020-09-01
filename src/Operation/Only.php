@@ -8,7 +8,7 @@ use Closure;
 use Generator;
 use Iterator;
 
-use function array_key_exists;
+use function in_array;
 
 /**
  * @psalm-template TKey
@@ -38,10 +38,8 @@ final class Only extends AbstractOperation
                             return yield from $iterator;
                         }
 
-                        $keys = array_flip($keys);
-
                         foreach ($iterator as $key => $value) {
-                            if (false === array_key_exists($key, $keys)) {
+                            if (false === in_array($key, $keys, true)) {
                                 continue;
                             }
 
