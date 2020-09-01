@@ -1036,6 +1036,18 @@ class CollectionSpec extends ObjectBehavior
             ->shouldReturn('ABC');
     }
 
+    public function it_can_init(): void
+    {
+        $this::fromIterable(range(0, 4))
+            ->init()
+            ->shouldIterateAs([
+                0 => 0,
+                1 => 1,
+                2 => 2,
+                3 => 3,
+            ]);
+    }
+
     public function it_can_intersect(): void
     {
         $this::fromIterable(range(1, 5))

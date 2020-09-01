@@ -44,6 +44,7 @@ use loophp\collection\Operation\Has;
 use loophp\collection\Operation\Head;
 use loophp\collection\Operation\IfThenElse;
 use loophp\collection\Operation\Implode;
+use loophp\collection\Operation\Init;
 use loophp\collection\Operation\Intersect;
 use loophp\collection\Operation\IntersectKeys;
 use loophp\collection\Operation\Intersperse;
@@ -460,6 +461,11 @@ final class Collection implements CollectionInterface
     public function implode(string $glue = ''): string
     {
         return $this->run(Implode::of()($glue))->getIterator()->current();
+    }
+
+    public function init(): CollectionInterface
+    {
+        return $this->run(Init::of());
     }
 
     public function intersect(...$values): CollectionInterface

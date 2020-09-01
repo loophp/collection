@@ -713,6 +713,20 @@ implode
 
 Interface: `Implodeable`_
 
+init
+~~~~
+
+Returns the collection without its last item.
+
+Interface: `Initable`_
+
+Signature: ``Collection::init();``
+
+.. code-block:: php
+
+    Collection::with(range('a', 'e'))
+        ->init(); // ['a', 'b', 'c', 'd']
+
 intersect
 ~~~~~~~~~
 
@@ -1528,6 +1542,7 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Headable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Headable.php
 .. _IfThenElseable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/IfThenElseable.php
 .. _Implodeable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Implodeable.php
+.. _Initable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Initable.php
 .. _Intersectable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Intersectable.php
 .. _Intersectkeysable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Intersectkeysable.php
 .. _Intersperseable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Intersperseable.php

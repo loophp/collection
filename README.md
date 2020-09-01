@@ -59,6 +59,7 @@ This library has been inspired by:
 * [Collect.js][collect.js]
 * [nikic/iter][nikic/iter package]
 * [Lazy.js][lazy.js]
+* [Haskell][haskell]
 
 ## Installation
 
@@ -170,3 +171,4 @@ For more detailed changelogs, please check [the release changelogs][changelog-re
 [changelog-md]: https://github.com/loophp/collection/blob/master/CHANGELOG.md
 [git-commits]: https://github.com/loophp/collection/commits/master
 [changelog-releases]: https://github.com/loophp/collection/releases
+[haskell]: https://www.haskell.org/

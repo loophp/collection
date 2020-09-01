@@ -38,6 +38,7 @@ use loophp\collection\Contract\Operation\Hasable;
 use loophp\collection\Contract\Operation\Headable;
 use loophp\collection\Contract\Operation\IfThenElseable;
 use loophp\collection\Contract\Operation\Implodeable;
+use loophp\collection\Contract\Operation\Initable;
 use loophp\collection\Contract\Operation\Intersectable;
 use loophp\collection\Contract\Operation\Intersectkeysable;
 use loophp\collection\Contract\Operation\Intersperseable;
@@ -120,6 +121,7 @@ use loophp\collection\Iterator\ClosureIterator;
  * @template-extends Hasable<TKey, T>
  * @template-extends Headable<TKey, T>
  * @template-extends IfThenElseable<TKey, T>
+ * @template-extends Initable<TKey, T>
  * @template-extends Intersectable<TKey, T>
  * @template-extends Intersectkeysable<TKey, T>
  * @template-extends Intersperseable<TKey, T>
@@ -195,6 +197,7 @@ interface Collection extends
     Headable,
     IfThenElseable,
     Implodeable,
+    Initable,
     Intersectable,
     Intersectkeysable,
     Intersperseable,
