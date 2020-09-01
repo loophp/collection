@@ -970,6 +970,11 @@ class CollectionSpec extends ObjectBehavior
                     19,
                 ],
             ]);
+
+        $input = range(0, 20);
+        $this::fromIterable($input)
+            ->group(static function () {return null; })
+            ->shouldIterateAs($input);
     }
 
     public function it_can_has(): void

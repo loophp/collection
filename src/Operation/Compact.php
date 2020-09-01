@@ -33,18 +33,14 @@ final class Compact extends AbstractOperation
                      * @psalm-return Generator<TKey, T>
                      */
                     static function (Iterator $iterator) use ($values): Generator {
-                        $values = [] === $values ? [null] : $values;
+                        $filterCallback = static function (array $values): Closure {
+                            return static function ($value) use ($values): bool {
+                                return !in_array($value, $values, true);
+                            };
+                        };
 
                         /** @psalm-var callable(Iterator<TKey, T>):Generator<TKey, T> $filter */
-                        $filter = Filter::of()(
-                            /**
-                             * @param mixed $value
-                             * @psalm-param T $value
-                             */
-                            static function ($value) use ($values): bool {
-                                return !in_array($value, $values, true);
-                            }
-                        );
+                        $filter = Filter::of()($filterCallback([] === $values ? [null] : $values));
 
                         return yield from $filter($iterator);
                     };

@@ -140,11 +140,11 @@ use loophp\collection\Iterator\ClosureIterator;
  * @template-extends Pluckable<TKey, T>
  * @template-extends Prependable<TKey, T>
  * @template-extends Productable<TKey, T>
- * @template-extends RSampleable<TKey, T>
  * @template-extends Randomable<TKey, T>
  * @template-extends Reduceable<TKey, T>
  * @template-extends Reductionable<TKey, T>
  * @template-extends Reverseable<TKey, T>
+ * @template-extends RSampleable<TKey, T>
  * @template-extends Scaleable<TKey, T>
  * @template-extends Shuffleable<TKey, T>
  * @template-extends Sinceable<TKey, T>

@@ -56,19 +56,28 @@ final class Sort extends AbstractOperation
                                 'after' => [Unpack::of(), Flip::of()],
                             ];
 
+                        $sortCallback =
+                            /**
+                             * @psalm-param callable(T|TKey, T|TKey): int $callback
+                             *
+                             * @psalm-return Closure(array{0:TKey|T, 1:T|TKey}, array{0:TKey|T, 1:T|TKey}): int
+                             */
+                            static function (callable $callback): Closure {
+                                return
+                                    /**
+                                     * @psalm-param array{0:TKey|T, 1:T|TKey} $left
+                                     * @psalm-param array{0:TKey|T, 1:T|TKey} $right
+                                     */
+                                    static function (array $left, array $right) use ($callback): int {
+                                        return $callback($left[1], $right[1]);
+                                    };
+                            };
+
                         /** @psalm-var callable(Iterator<TKey, T>): Generator<int, array{0:TKey, 1:T}> | callable(Iterator<TKey, T>): Generator<int, array{0:T, 1:TKey}> $before */
                         $before = Compose::of()(...$operations['before']);
 
                         $arrayIterator = new ArrayIterator(iterator_to_array($before($iterator)));
-                        $arrayIterator->uasort(
-                            /**
-                             * @psalm-param array{0:TKey|T, 1:T|TKey} $left
-                             * @psalm-param array{0:TKey|T, 1:T|TKey} $right
-                             */
-                            static function (array $left, array $right) use ($callback): int {
-                                return $callback($left[1], $right[1]);
-                            }
-                        );
+                        $arrayIterator->uasort($sortCallback($callback));
 
                         return yield from Compose::of()(...$operations['after'])($arrayIterator);
                     };
