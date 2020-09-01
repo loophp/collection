@@ -16,12 +16,18 @@ use Iterator;
 final class Head extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, T>): (Generator<TKey, T>)
+     * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
-        return static function (Iterator $iterator): Generator {
-            return yield $iterator->key() => $iterator->current();
-        };
+        return
+            /**
+             * @psalm-param Iterator<TKey, T> $iterator
+             *
+             * @psalm-return Generator<TKey, T>
+             */
+            static function (Iterator $iterator): Generator {
+                return yield $iterator->key() => $iterator->current();
+            };
     }
 }
