@@ -13,6 +13,8 @@ use Iterator;
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
+ *
+ * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Implode extends AbstractOperation
 {
@@ -20,25 +22,25 @@ final class Implode extends AbstractOperation
     {
         return static function (string $glue): Closure {
             return static function (Iterator $iterator) use ($glue): Generator {
-                $callback =
-                    /**
-                     * @psalm-param TKey $key
-                     * @psalm-param CachingIterator $iterator
-                     *
-                     * @param mixed $key
-                     * @param mixed $iterator
-                     */
-                    static function (string $carry, string $item, $key, CachingIterator $iterator) use ($glue): string {
-                        $carry .= $item;
+                $reducerFactory = static function (string $glue): Closure {
+                    return
+                        /**
+                         * @psalm-param TKey $key
+                         *
+                         * @param mixed $key
+                         */
+                        static function (string $carry, string $item, $key, CachingIterator $iterator) use ($glue): string {
+                            $carry .= $item;
 
-                        if ($iterator->hasNext()) {
-                            $carry .= $glue;
-                        }
+                            if ($iterator->hasNext()) {
+                                $carry .= $glue;
+                            }
 
-                        return $carry;
-                    };
+                            return $carry;
+                        };
+                };
 
-                return yield from FoldLeft::of()($callback)('')(new CachingIterator($iterator));
+                return yield from FoldLeft::of()($reducerFactory($glue))('')(new CachingIterator($iterator));
             };
         };
     }
