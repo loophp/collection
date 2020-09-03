@@ -16,60 +16,25 @@ use Iterator;
 final class Map extends AbstractOperation
 {
     /**
-     * @psalm-return Closure((callable(T, TKey): T)...): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @psalm-return Closure(callable(T, TKey): T): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param callable(T, TKey): T ...$callbacks
+             * @psalm-param callable(T, TKey): T $callback
              */
-            static function (callable ...$callbacks): Closure {
+            static function (callable $callback): Closure {
                 return
                     /**
                      * @psalm-param Iterator<TKey, T> $iterator
                      *
                      * @psalm-return Generator<TKey, T>
                      */
-                    static function (Iterator $iterator) use ($callbacks): Generator {
-                        $callbackFactory =
-                            /**
-                             * @psalm-param TKey $key
-                             *
-                             * @psalm-return Closure(T): Closure(T, callable(T, TKey): T): T
-                             *
-                             * @param mixed $key
-                             */
-                            static function ($key): Closure {
-                                return
-                                    /**
-                                     * @psalm-param T $value
-                                     *
-                                     * @psalm-return Closure(T, callable(T, TKey): T): T
-                                     *
-                                     * @param mixed $value
-                                     */
-                                    static function ($value) use ($key): Closure {
-                                        return
-                                            /**
-                                             * @psalm-param T $carry
-                                             * @psalm-param callable(T, TKey): T $callback
-                                             *
-                                             * @psalm-return T
-                                             *
-                                             * @param mixed $carry
-                                             */
-                                            static function ($carry, callable $callback) use ($key, $value) {
-                                                return $callback($value, $key);
-                                            };
-                                    };
-                            };
-
-                        // phpcs:disable
+                    static function (Iterator $iterator) use ($callback): Generator {
                         foreach ($iterator as $key => $value) {
-                            yield $key => array_reduce($callbacks, $callbackFactory($key)($value));
+                            yield $key => $callback($value, $key);
                         }
-                        // phpcs:enable
                     };
             };
     }
