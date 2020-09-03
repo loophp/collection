@@ -21,6 +21,9 @@ use function is_object;
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
+ *
+ * phpcs:disable Generic.Files.LineLength.TooLong
+ * phpcs:disable Generic.WhiteSpace.ScopeIndent.IncorrectExact
  */
 final class Pluck extends AbstractOperation
 {
@@ -55,7 +58,6 @@ final class Pluck extends AbstractOperation
                              */
                             static function (Iterator $iterator) use ($key, $default): Generator {
                                 $pick =
-                                    // phpcs:disable
                                     /**
                                      * @psalm-param Iterator<TKey, T> $iterator
                                      * @psalm-param T|iterable<TKey, T> $target
@@ -68,7 +70,6 @@ final class Pluck extends AbstractOperation
                                      * @param mixed|null $default
                                      */
                                     static function (Iterator $iterator, $target, array $key, $default = null) use (&$pick) {
-                                        // phpcs:enable
                                         while (null !== $segment = array_shift($key)) {
                                             if ('*' === $segment) {
                                                 if (false === is_iterable($target)) {
@@ -88,7 +89,6 @@ final class Pluck extends AbstractOperation
                                                 return in_array('*', $key, true) ? $collapse : $result;
                                             }
 
-                                            // phpcs:disable
                                             if ((true === is_array($target)) && (true === array_key_exists($segment, $target))) {
                                                 /** @psalm-var T $target */
                                                 $target = $target[$segment];
@@ -105,7 +105,6 @@ final class Pluck extends AbstractOperation
                                                 /** @psalm-var T $target */
                                                 $target = $default;
                                             }
-                                            // phpcs:enable
                                         }
 
                                         return $target;
@@ -113,11 +112,9 @@ final class Pluck extends AbstractOperation
 
                                 $key = true === is_scalar($key) ? explode('.', trim((string) $key, '.')) : $key;
 
-                                // phpcs:disable
                                 foreach ($iterator as $value) {
                                     yield $pick($iterator, $value, $key, $default);
                                 }
-                                // phpcs:enable
                             };
                     };
             };

@@ -12,14 +12,14 @@ use Iterator;
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
+ *
+ * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Reduce extends AbstractOperation
 {
-    // phpcs:disable
     /**
      * @psalm-return Closure(callable(T|null, T, TKey, Iterator<TKey, T>): T): Closure(T|null): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
-    // phpcs:enable
     public function __invoke(): Closure
     {
         return

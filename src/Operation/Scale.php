@@ -14,14 +14,14 @@ use const INF;
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
+ *
+ * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Scale extends AbstractOperation
 {
-    // phpcs:disable
     /**
      * @psalm-return Closure(float): Closure(float): Closure(float): Closure(float): Closure(float): Closure(Iterator<TKey, float|int>): Generator<TKey, float|int>
      */
-    // phpcs:enable
     public function __invoke(): Closure
     {
         return static function (float $lowerBound): Closure {

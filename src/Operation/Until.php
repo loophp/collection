@@ -12,6 +12,9 @@ use Iterator;
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
+ *
+ * phpcs:disable Generic.Files.LineLength.TooLong
+ * phpcs:disable Generic.WhiteSpace.ScopeIndent.IncorrectExact
  */
 final class Until extends AbstractOperation
 {
@@ -62,7 +65,7 @@ final class Until extends AbstractOperation
                                             };
                                     };
                             };
-                        // phpcs:disable
+
                         foreach ($iterator as $key => $value) {
                             yield $key => $value;
 
@@ -76,7 +79,6 @@ final class Until extends AbstractOperation
                                 break;
                             }
                         }
-                        // phpcs:enable
                     };
             };
     }

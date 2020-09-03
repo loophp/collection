@@ -12,6 +12,9 @@ use Iterator;
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
+ *
+ * phpcs:disable Generic.Files.LineLength.TooLong
+ * phpcs:disable Generic.WhiteSpace.ScopeIndent.IncorrectExact
  */
 final class Map extends AbstractOperation
 {
@@ -55,11 +58,9 @@ final class Map extends AbstractOperation
                                     };
                             };
 
-                        // phpcs:disable
                         foreach ($iterator as $key => $value) {
                             yield $key => array_reduce($callbacks, $callbackFactory($key), $value);
                         }
-                        // phpcs:enable
                     };
             };
     }
