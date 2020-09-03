@@ -2,10 +2,17 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [2.3.5](https://github.com/loophp/collection/compare/2.3.4...2.3.5)
+
+> 3 September 2020
+
+- Update Map operation. [`1521b23`](https://github.com/loophp/collection/commit/1521b23313f74e234f7a5dd09e7b816fc30b3eb4)
+
 #### [2.3.4](https://github.com/loophp/collection/compare/2.3.3...2.3.4)
 
 > 3 September 2020
 
+- Update changelog. [`296aea1`](https://github.com/loophp/collection/commit/296aea1de64998a9e112b3da5ce90453ebda954c)
 - Fix Map operation. [`25314c8`](https://github.com/loophp/collection/commit/25314c8c43fd70f3cea1598dbea73d5da0c10ed7)
 - Refactor reducer callbacks. [`8f83368`](https://github.com/loophp/collection/commit/8f83368d1997b6ae280a72dcac86d2b1f2e87c0f)
 - Add RandomIterator Iterator. [`ce64bca`](https://github.com/loophp/collection/commit/ce64bcaf2185fc7af6fa45fa7772e232de788c60)
