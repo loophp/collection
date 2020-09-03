@@ -14,7 +14,7 @@ use loophp\collection\Contract\Collection;
 interface Cycleable
 {
     /**
-     * @psalm-return static<TKey, T>
+     * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
      */
     public function cycle(): Collection;
 }

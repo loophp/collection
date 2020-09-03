@@ -17,14 +17,14 @@ final class Reduction extends AbstractOperation
 {
     // phpcs:disable
     /**
-     * @psalm-return Closure(callable(T|null, T, TKey):(T|null)): Closure(T|null): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @psalm-return Closure(callable(T|null, T, TKey, Iterator<TKey, T>):(T|null)): Closure(T|null): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     // phpcs:enable
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param callable(T|null, T, TKey):(T|null) $callback
+             * @psalm-param callable(T|null, T, TKey, Iterator<TKey, T>):(T|null) $callback
              *
              * @psalm-return Closure(T|null): Closure(Iterator<TKey, T>): Generator<TKey, T>
              */

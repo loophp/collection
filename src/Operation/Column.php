@@ -16,7 +16,7 @@ use Iterator;
 final class Column extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, T>, array-key):(Generator<int, iterable<TKey, T>>)
+     * @psalm-return Closure(array-key): Closure(Iterator<TKey, T>): Generator<int, iterable<TKey, T>>
      */
     public function __invoke(): Closure
     {
@@ -25,6 +25,8 @@ final class Column extends AbstractOperation
              * @param int|string $column
              *
              * @psalm-param array-key $column
+             *
+             * @psalm-return Closure(Iterator<TKey, T>): Generator<int, iterable<TKey, T>>
              */
             static function ($column): Closure {
                 return

@@ -15,6 +15,9 @@ use Iterator;
  */
 final class Unwrap extends AbstractOperation
 {
+    /**
+     * @psalm-return Closure(Iterator<array-key, array<TKey, T>>): Generator<TKey, T>
+     */
     public function __invoke(): Closure
     {
         return

@@ -15,7 +15,7 @@ use Iterator;
 abstract class ProxyIterator
 {
     /**
-     * @var Generator<TKey, T>|Iterator<TKey, T>
+     * @psalm-var Generator<TKey, T>|Iterator<TKey, T>
      */
     protected $iterator;
 
@@ -37,7 +37,6 @@ abstract class ProxyIterator
     }
 
     /**
-     * @return mixed
      * @psalm-return TKey
      */
     public function key()

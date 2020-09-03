@@ -15,6 +15,9 @@ use Iterator;
  */
 final class Wrap extends AbstractOperation
 {
+    /**
+     * @psalm-return Closure(Iterator<TKey, T>): Generator<int, array<TKey, T>>
+     */
     public function __invoke(): Closure
     {
         return

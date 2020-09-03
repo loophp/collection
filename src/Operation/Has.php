@@ -16,18 +16,21 @@ use Iterator;
 final class Has extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(callable(TKey, T):(bool)): Closure(Iterator<TKey, T>): bool
+     * @psalm-return Closure(callable(TKey, T): T): Closure(Iterator<TKey, T>): Generator<int, bool>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param callable(TKey, T):(bool) $callback
+             * @psalm-param callable(TKey, T): T $callback
+             *
+             * @psalm-return Closure(Iterator<TKey, T>): Generator<int, bool>
              */
             static function (callable $callback): Closure {
                 return
                     /**
                      * @psalm-param Iterator<TKey, T> $iterator
+                     *
                      * @psalm-return Generator<int, bool>
                      */
                     static function (Iterator $iterator) use ($callback): Generator {
