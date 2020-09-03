@@ -241,6 +241,14 @@ final class Collection implements CollectionInterface
         ?callable $callbackForKeys = null,
         ?callable $callbackForValues = null
     ): CollectionInterface {
+        $callbackForKeys = $callbackForKeys ?? static function ($key, $value) {
+            return $key;
+        };
+
+        $callbackForValues = $callbackForValues ?? static function ($key, $value) {
+            return $value;
+        };
+
         return $this->run(Associate::of()($callbackForKeys)($callbackForValues));
     }
 
