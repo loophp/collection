@@ -2,10 +2,23 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [2.3.4](https://github.com/loophp/collection/compare/2.3.3...2.3.4)
+
+> 3 September 2020
+
+- Fix Map operation. [`25314c8`](https://github.com/loophp/collection/commit/25314c8c43fd70f3cea1598dbea73d5da0c10ed7)
+- Refactor reducer callbacks. [`8f83368`](https://github.com/loophp/collection/commit/8f83368d1997b6ae280a72dcac86d2b1f2e87c0f)
+- Add RandomIterator Iterator. [`ce64bca`](https://github.com/loophp/collection/commit/ce64bcaf2185fc7af6fa45fa7772e232de788c60)
+- Update Only operation. [`f74152b`](https://github.com/loophp/collection/commit/f74152b7158c62743673cac4f47dac81b77fa9c6)
+- Update Forget operation. [`67811b3`](https://github.com/loophp/collection/commit/67811b3857d08287da78c29b165c7536bded4d08)
+- Update annotations. [`aa7edf9`](https://github.com/loophp/collection/commit/aa7edf9c89c5cb0d829047f6eb76161229c2f6f0)
+- Add Init operation. [`192e7ad`](https://github.com/loophp/collection/commit/192e7ad452e14633b65354a6aae98dbe90baacce)
+
 #### [2.3.3](https://github.com/loophp/collection/compare/2.3.2...2.3.3)
 
 > 1 September 2020
 
+- Update changelog. [`ea07a8d`](https://github.com/loophp/collection/commit/ea07a8d4eb0ca5e34a388bb237864ea59346e1d5)
 - Replace the Loop operation with the Cycle operation. [`2189649`](https://github.com/loophp/collection/commit/21896492b80a27fca2bb433e92c92f3f30271378)
 - Add Unfold operation. [`58eeaa0`](https://github.com/loophp/collection/commit/58eeaa0c8924393e9e285126ed17a89f85303225)
 - Update annotations. [`af3226f`](https://github.com/loophp/collection/commit/af3226f8c88826fc6f0a18f92248c5b244b6045f)
