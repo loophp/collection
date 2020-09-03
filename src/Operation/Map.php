@@ -16,25 +16,50 @@ use Iterator;
 final class Map extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(callable(T, TKey): T): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @psalm-return Closure((callable(T, TKey): T)...): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param callable(T, TKey): T $callback
+             * @psalm-param callable(T, TKey): T ...$callbacks
              */
-            static function (callable $callback): Closure {
+            static function (callable ...$callbacks): Closure {
                 return
                     /**
                      * @psalm-param Iterator<TKey, T> $iterator
                      *
                      * @psalm-return Generator<TKey, T>
                      */
-                    static function (Iterator $iterator) use ($callback): Generator {
+                    static function (Iterator $iterator) use ($callbacks): Generator {
+                        $callbackFactory =
+                            /**
+                             * @psalm-param TKey $key
+                             *
+                             * @psalm-return Closure(T): Closure(T, callable(T, TKey): T): T
+                             *
+                             * @param mixed $key
+                             */
+                            static function ($key): Closure {
+                                return
+                                    /**
+                                     * @psalm-param T $carry
+                                     * @psalm-param callable(T, TKey): T $callback
+                                     *
+                                     * @psalm-return T
+                                     *
+                                     * @param mixed $carry
+                                     */
+                                    static function ($carry, callable $callback) use ($key) {
+                                        return $callback($carry, $key);
+                                    };
+                            };
+
+                        // phpcs:disable
                         foreach ($iterator as $key => $value) {
-                            yield $key => $callback($value, $key);
+                            yield $key => array_reduce($callbacks, $callbackFactory($key), $value);
                         }
+                        // phpcs:enable
                     };
             };
     }

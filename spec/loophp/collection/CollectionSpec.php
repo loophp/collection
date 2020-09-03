@@ -1247,6 +1247,24 @@ class CollectionSpec extends ObjectBehavior
                 return $item . $item;
             })
             ->shouldIterateAs(['A' => 'AA', 'B' => 'BB', 'C' => 'CC', 'D' => 'DD', 'E' => 'EE']);
+
+        $callback1 = static function (string $a): string {
+            return $a . $a;
+        };
+
+        $callback2 = static function (string $a): string {
+            return '[' . $a . ']';
+        };
+
+        $this::fromIterable(range('a', 'e'))
+            ->map($callback1, $callback2)
+            ->shouldIterateAs([
+                '[aa]',
+                '[bb]',
+                '[cc]',
+                '[dd]',
+                '[ee]',
+            ]);
     }
 
     public function it_can_merge(): void
