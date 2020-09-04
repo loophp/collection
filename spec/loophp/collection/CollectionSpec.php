@@ -785,6 +785,23 @@ class CollectionSpec extends ObjectBehavior
             ->shouldImplement(Iterator::class);
     }
 
+    public function it_can_get_current()
+    {
+        $input = array_combine(range('A', 'E'), range('A', 'E'));
+
+        $this::fromIterable($input)
+            ->current()
+            ->shouldReturn('A');
+
+        $this::fromIterable($input)
+            ->current(1)
+            ->shouldReturn('B');
+
+        $this::fromIterable($input)
+            ->current(10)
+            ->shouldReturn(null);
+    }
+
     public function it_can_get_items_with_only_specific_keys(): void
     {
         $this::fromIterable(range('A', 'E'))

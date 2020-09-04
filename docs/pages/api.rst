@@ -389,6 +389,22 @@ contains
 
 Interface: `Containsable`_
 
+current
+~~~~~~~
+
+Get the value of an item in the collection given a numeric index, default index is 0.
+
+Interface: `Currentable`_
+
+Signature: ``Collection::current(int $index = 0);``
+
+.. code-block:: php
+
+    Collection::fromIterable(['a', 'b', 'c', 'd'])->current(); // Return 'a'
+    Collection::fromIterable(['a', 'b', 'c', 'd'])->current(0); // Return 'a'
+    Collection::fromIterable(['a', 'b', 'c', 'd'])->current(1); // Return 'b'
+    Collection::fromIterable(['a', 'b', 'c', 'd'])->current(10); // Return null
+
 cycle
 ~~~~~
 
@@ -1537,6 +1553,7 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Combineable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Combineable.php
 .. _Compactable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Compactable.php
 .. _Containsable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Containsable.php
+.. _Currentable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Currentable.php
 .. _Cycleable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Cycleable.php
 .. _Diffable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Diffable.php
 .. _Diffkeysable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Diffkeysable.php

@@ -24,6 +24,7 @@ use loophp\collection\Operation\Combine;
 use loophp\collection\Operation\Compact;
 use loophp\collection\Operation\Compose;
 use loophp\collection\Operation\Contains;
+use loophp\collection\Operation\Current;
 use loophp\collection\Operation\Cycle;
 use loophp\collection\Operation\Diff;
 use loophp\collection\Operation\DiffKeys;
@@ -296,6 +297,11 @@ final class Collection implements CollectionInterface
     public function count(): int
     {
         return iterator_count($this);
+    }
+
+    public function current(int $index = 0)
+    {
+        return Current::of()($index)($this->getIterator());
     }
 
     public function cycle(): CollectionInterface
