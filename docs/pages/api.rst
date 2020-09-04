@@ -769,6 +769,22 @@ Signature: ``Collection::intersperse($element, int $every = 1, int $startAt = 0)
     $collection = Collection::with(range('a', 'z'))
         ->intersperse('foo', 3);
 
+key
+~~~
+
+Get the key of an item in the collection given a numeric index, default index is 0.
+
+Interface: `Keyable`_
+
+Signature: ``Collection::key(int $index = 0);``
+
+.. code-block:: php
+
+    Collection::fromIterable(['a', 'b', 'c', 'd'])->key(); // Return 0
+    Collection::fromIterable(['a', 'b', 'c', 'd'])->key(0); // Return 0
+    Collection::fromIterable(['a', 'b', 'c', 'd'])->key(1); // Return 1
+    Collection::fromIterable(['a', 'b', 'c', 'd'])->key(10); // Return null
+
 keys
 ~~~~
 
@@ -1546,6 +1562,7 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Intersectable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Intersectable.php
 .. _Intersectkeysable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Intersectkeysable.php
 .. _Intersperseable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Intersperseable.php
+.. _Keyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Keyable.php
 .. _Keysable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Keysable.php
 .. _Lastable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Lastable.php
 .. _Limitable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Limitable.php

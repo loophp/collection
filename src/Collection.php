@@ -49,6 +49,7 @@ use loophp\collection\Operation\Intersect;
 use loophp\collection\Operation\IntersectKeys;
 use loophp\collection\Operation\Intersperse;
 use loophp\collection\Operation\Iterate;
+use loophp\collection\Operation\Key;
 use loophp\collection\Operation\Keys;
 use loophp\collection\Operation\Last;
 use loophp\collection\Operation\Limit;
@@ -502,6 +503,11 @@ final class Collection implements CollectionInterface
     public function jsonSerialize(): array
     {
         return $this->all();
+    }
+
+    public function key(int $index = 0)
+    {
+        return Key::of()($index)($this->getIterator());
     }
 
     public function keys(): CollectionInterface

@@ -796,6 +796,23 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs([0 => 'A', 1 => 'B', 2 => 'C', 3 => 'D', 4 => 'E']);
     }
 
+    public function it_can_get_key()
+    {
+        $input = array_combine(range('A', 'E'), range('A', 'E'));
+
+        $this::fromIterable($input)
+            ->key()
+            ->shouldReturn('A');
+
+        $this::fromIterable($input)
+            ->key(1)
+            ->shouldReturn('B');
+
+        $this::fromIterable($input)
+            ->key(10)
+            ->shouldReturn(null);
+    }
+
     public function it_can_get_the_first_item(): void
     {
         $this::fromIterable(range(1, 10))

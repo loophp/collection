@@ -43,6 +43,7 @@ use loophp\collection\Contract\Operation\Intersectable;
 use loophp\collection\Contract\Operation\Intersectkeysable;
 use loophp\collection\Contract\Operation\Intersperseable;
 use loophp\collection\Contract\Operation\Iterateable;
+use loophp\collection\Contract\Operation\Keyable;
 use loophp\collection\Contract\Operation\Keysable;
 use loophp\collection\Contract\Operation\Lastable;
 use loophp\collection\Contract\Operation\Limitable;
@@ -125,6 +126,7 @@ use loophp\collection\Iterator\ClosureIterator;
  * @template-extends Intersectable<TKey, T>
  * @template-extends Intersectkeysable<TKey, T>
  * @template-extends Intersperseable<TKey, T>
+ * @template-extends Keyable<TKey, T>
  * @template-extends Keysable<TKey, T>
  * @template-extends Lastable<TKey, T>
  * @template-extends Limitable<TKey, T>
@@ -204,6 +206,7 @@ interface Collection extends
     Iterateable,
     IteratorAggregate,
     JsonSerializable,
+    Keyable,
     Keysable,
     Lastable,
     Limitable,
