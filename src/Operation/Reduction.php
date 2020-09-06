@@ -45,7 +45,7 @@ final class Reduction extends AbstractOperation
                              */
                             static function (Iterator $iterator) use ($callback, $initial): Generator {
                                 foreach ($iterator as $key => $value) {
-                                    yield $key => ($initial = $callback($initial, $value, $key));
+                                    yield $key => ($initial = $callback($initial, $value, $key, $iterator));
                                 }
                             };
                     };
