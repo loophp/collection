@@ -14,11 +14,9 @@ use loophp\collection\Contract\Collection;
 interface Firstable
 {
     /**
-     * Get the first item from the collection passing the given truth test.
-     *
-     * @psalm-param null|callable(T, TKey):(bool) $callback
+     * Get the first item from the collection.
      *
      * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
      */
-    public function first(?callable $callback = null, int $size = 1): Collection;
+    public function first(): Collection;
 }

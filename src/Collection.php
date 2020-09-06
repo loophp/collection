@@ -344,9 +344,9 @@ final class Collection implements CollectionInterface
         return $this->run(Filter::of()(...$callbacks));
     }
 
-    public function first(?callable $callback = null, int $size = 1): CollectionInterface
+    public function first(): CollectionInterface
     {
-        return $this->run(First::of()($callback)($size));
+        return $this->run(First::of());
     }
 
     public function flatten(int $depth = PHP_INT_MAX): CollectionInterface
