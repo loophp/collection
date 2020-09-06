@@ -854,44 +854,6 @@ class CollectionSpec extends ObjectBehavior
         $this::fromIterable([])
             ->last()
             ->shouldIterateAs([]);
-
-        $this::fromIterable(range('A', 'F'))
-            ->last(static function ($value, $key) {
-                return false;
-            })
-            ->shouldIterateAs([]);
-
-        $generator = static function (): Generator {
-            yield 'a' => 'a';
-
-            yield 'b' => 'b';
-
-            yield 'c' => 'c';
-
-            yield 'a' => 'd';
-
-            yield 'b' => 'e';
-
-            yield 'c' => 'f';
-        };
-
-        $this::fromIterable($generator())
-            ->last(static function ($value, $key) {
-                return 'b' === $key;
-            })
-            ->shouldIterateAs(['b' => 'e']);
-
-        $output = static function (): Generator {
-            yield 'b' => 'e';
-
-            yield 'b' => 'b';
-        };
-
-        $this::fromIterable($generator())
-            ->last(static function ($value, $key) {
-                return 'b' === $key;
-            }, 2)
-            ->shouldIterateAs($output());
     }
 
     public function it_can_group()

@@ -14,11 +14,9 @@ use loophp\collection\Contract\Collection;
 interface Lastable
 {
     /**
-     * Get the last item from the collection passing the given truth test.
-     *
-     * @psalm-param null|callable(T, TKey):(bool) $callback
+     * Get the last item from the collection.
      *
      * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
      */
-    public function last(?callable $callback = null, int $size = 1): Collection;
+    public function last(): Collection;
 }

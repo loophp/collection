@@ -521,9 +521,9 @@ final class Collection implements CollectionInterface
         return $this->run(Keys::of());
     }
 
-    public function last(?callable $callback = null, int $size = 1): CollectionInterface
+    public function last(): CollectionInterface
     {
-        return $this->run(Last::of()($callback)($size));
+        return $this->run(Last::of());
     }
 
     public function limit(int $limit = -1, int $offset = 0): CollectionInterface
