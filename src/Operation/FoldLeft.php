@@ -18,34 +18,36 @@ use Iterator;
 final class FoldLeft extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(callable(T|null, T, TKey, Iterator<TKey, T>): T): Closure(T|null): Closure(Iterator<TKey, T>): T|null
+     * @psalm-return Closure(callable(T|null, T, TKey, Iterator<TKey, T>):(T|null)): Closure(T): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param callable(T|null, T, TKey, Iterator<TKey, T>): T $callback
+             * @psalm-param callable(T|null, T, TKey, Iterator<TKey, T>):(T|null) $callback
+             *
+             * @psalm-return Closure(T): Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static function (callable $callback): Closure {
                 return
                     /**
+                     * @param mixed|null $initial
                      * @psalm-param T|null $initial
                      *
-                     * @param mixed|null $initial
+                     * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
                      */
                     static function ($initial = null) use ($callback): Closure {
                         return
                             /**
                              * @psalm-param Iterator<TKey, T> $iterator
                              *
-                             * @psalm-return Generator<int, T|null>
+                             * @psalm-return Generator<TKey, T>
                              */
                             static function (Iterator $iterator) use ($callback, $initial): Generator {
-                                foreach ($iterator as $key => $value) {
-                                    $initial = $callback($initial, $value, $key, $iterator);
-                                }
+                                /** @psalm-var Generator<TKey, T> $iterator */
+                                $iterator = Last::of()(Reduction::of()($callback)($initial)($iterator));
 
-                                return yield $initial;
+                                return yield Key::of()(0)($iterator) => Current::of()(0)($iterator);
                             };
                     };
             };
