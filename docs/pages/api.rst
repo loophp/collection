@@ -463,6 +463,25 @@ Signature: ``Collection::distinct();``
     $collection = Collection::with(['a', 'b', 'c', 'd', 'a'])
         ->distinct()
 
+dropWhile
+~~~~~~~~~
+
+It inspects the original collection and takes from it its elements from the moment when the condition fails for the
+first time till the end of the list.
+
+Interface: `DropWhileable`_
+
+Signature: ``Collection::dropWhile(callable $callback);``
+
+.. code-block:: php
+
+    $isSmallerThanThree = static function (int $value): bool {
+        return 3 > $value;
+    };
+
+    Collection::fromIterable([1,2,3,4,5,6,7,8,9,1,2,3])
+        ->dropWhile($isSmallerThanThree); // [3,4,5,6,7,8,9,1,2,3]
+
 explode
 ~~~~~~~
 
@@ -1558,6 +1577,7 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Diffable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Diffable.php
 .. _Diffkeysable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Diffkeysable.php
 .. _Distinctable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Distinctable.php
+.. _DropWhileable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/DropWhileable.php
 .. _Explodeable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Explodeable.php
 .. _Falsyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Falsyable.php
 .. _Filterable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Filterable.php

@@ -23,6 +23,7 @@ use loophp\collection\Contract\Operation\Cycleable;
 use loophp\collection\Contract\Operation\Diffable;
 use loophp\collection\Contract\Operation\Diffkeysable;
 use loophp\collection\Contract\Operation\Distinctable;
+use loophp\collection\Contract\Operation\DropWhileable;
 use loophp\collection\Contract\Operation\Explodeable;
 use loophp\collection\Contract\Operation\Falsyable;
 use loophp\collection\Contract\Operation\Filterable;
@@ -109,6 +110,7 @@ use loophp\collection\Iterator\ClosureIterator;
  * @template-extends Diffable<TKey, T>
  * @template-extends Diffkeysable<TKey, T>
  * @template-extends Distinctable<TKey, T>
+ * @template-extends DropWhileable<TKey, T>
  * @template-extends Explodeable<TKey, T>
  * @template-extends Filterable<TKey, T>
  * @template-extends Firstable<TKey, T>
@@ -185,6 +187,7 @@ interface Collection extends
     Diffable,
     Diffkeysable,
     Distinctable,
+    DropWhileable,
     Explodeable,
     Falsyable,
     Filterable,

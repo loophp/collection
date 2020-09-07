@@ -543,6 +543,28 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs([0 => ['A', 1], 1 => ['A', 2], 2 => ['B', 1], 3 => ['B', 2], 4 => ['C', 1], 5 => ['C', 2]]);
     }
 
+    public function it_can_dropWhile(): void
+    {
+        $isSmallerThanThree = static function ($value) {
+            return 3 > $value;
+        };
+
+        $this::fromIterable([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3])
+            ->dropWhile($isSmallerThanThree)
+            ->shouldIterateAs([
+                2 => 3,
+                3 => 4,
+                4 => 5,
+                5 => 6,
+                6 => 7,
+                7 => 8,
+                8 => 9,
+                9 => 1,
+                10 => 2,
+                11 => 3,
+            ]);
+    }
+
     public function it_can_explode(): void
     {
         $string = 'I am just a random piece of text.';
