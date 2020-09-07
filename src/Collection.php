@@ -29,6 +29,7 @@ use loophp\collection\Operation\Cycle;
 use loophp\collection\Operation\Diff;
 use loophp\collection\Operation\DiffKeys;
 use loophp\collection\Operation\Distinct;
+use loophp\collection\Operation\Drop;
 use loophp\collection\Operation\DropWhile;
 use loophp\collection\Operation\Explode;
 use loophp\collection\Operation\Falsy;
@@ -78,7 +79,6 @@ use loophp\collection\Operation\Run;
 use loophp\collection\Operation\Scale;
 use loophp\collection\Operation\Shuffle;
 use loophp\collection\Operation\Since;
-use loophp\collection\Operation\Skip;
 use loophp\collection\Operation\Slice;
 use loophp\collection\Operation\Sort;
 use loophp\collection\Operation\Split;
@@ -323,6 +323,11 @@ final class Collection implements CollectionInterface
     public function distinct(): CollectionInterface
     {
         return $this->run(Distinct::of());
+    }
+
+    public function drop(int ...$counts): CollectionInterface
+    {
+        return $this->run(Drop::of()(...$counts));
     }
 
     public function dropWhile(callable $callback): CollectionInterface
@@ -658,11 +663,6 @@ final class Collection implements CollectionInterface
     public function since(callable ...$callbacks): CollectionInterface
     {
         return $this->run(Since::of()(...$callbacks));
-    }
-
-    public function skip(int ...$counts): CollectionInterface
-    {
-        return $this->run(Skip::of()(...$counts));
     }
 
     public function slice(int $offset, int $length = -1): CollectionInterface

@@ -40,7 +40,7 @@ final class Slice extends AbstractOperation
                              */
                             static function (Iterator $iterator) use ($offset, $length): Generator {
                                 /** @psalm-var callable(Iterator<TKey, T>): Generator<TKey, T> $skip */
-                                $skip = Skip::of()($offset);
+                                $skip = Drop::of()($offset);
 
                                 if (-1 === $length) {
                                     return yield from $skip($iterator);

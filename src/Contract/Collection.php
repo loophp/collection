@@ -23,6 +23,7 @@ use loophp\collection\Contract\Operation\Cycleable;
 use loophp\collection\Contract\Operation\Diffable;
 use loophp\collection\Contract\Operation\Diffkeysable;
 use loophp\collection\Contract\Operation\Distinctable;
+use loophp\collection\Contract\Operation\Dropable;
 use loophp\collection\Contract\Operation\DropWhileable;
 use loophp\collection\Contract\Operation\Explodeable;
 use loophp\collection\Contract\Operation\Falsyable;
@@ -71,7 +72,6 @@ use loophp\collection\Contract\Operation\RSampleable;
 use loophp\collection\Contract\Operation\Scaleable;
 use loophp\collection\Contract\Operation\Shuffleable;
 use loophp\collection\Contract\Operation\Sinceable;
-use loophp\collection\Contract\Operation\Skipable;
 use loophp\collection\Contract\Operation\Sliceable;
 use loophp\collection\Contract\Operation\Sortable;
 use loophp\collection\Contract\Operation\Splitable;
@@ -110,6 +110,7 @@ use loophp\collection\Iterator\ClosureIterator;
  * @template-extends Diffable<TKey, T>
  * @template-extends Diffkeysable<TKey, T>
  * @template-extends Distinctable<TKey, T>
+ * @template-extends Dropable<TKey, T>
  * @template-extends DropWhileable<TKey, T>
  * @template-extends Explodeable<TKey, T>
  * @template-extends Filterable<TKey, T>
@@ -153,7 +154,6 @@ use loophp\collection\Iterator\ClosureIterator;
  * @template-extends Scaleable<TKey, T>
  * @template-extends Shuffleable<TKey, T>
  * @template-extends Sinceable<TKey, T>
- * @template-extends Skipable<TKey, T>
  * @template-extends Sliceable<TKey, T>
  * @template-extends Sortable<TKey, T>
  * @template-extends Splitable<TKey, T>
@@ -187,6 +187,7 @@ interface Collection extends
     Diffable,
     Diffkeysable,
     Distinctable,
+    Dropable,
     DropWhileable,
     Explodeable,
     Falsyable,
@@ -237,7 +238,6 @@ interface Collection extends
     Scaleable,
     Shuffleable,
     Sinceable,
-    Skipable,
     Sliceable,
     Sortable,
     Splitable,

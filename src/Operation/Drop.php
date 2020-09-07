@@ -14,7 +14,7 @@ use LimitIterator;
  * @psalm-template TKey of array-key
  * @psalm-template T
  */
-final class Skip extends AbstractOperation
+final class Drop extends AbstractOperation
 {
     /**
      * @psalm-return Closure(int...): Closure(Iterator<TKey, T>): Generator<TKey, T>

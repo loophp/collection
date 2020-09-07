@@ -543,6 +543,17 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs([0 => ['A', 1], 1 => ['A', 2], 2 => ['B', 1], 3 => ['B', 2], 4 => ['C', 1], 5 => ['C', 2]]);
     }
 
+    public function it_can_drop(): void
+    {
+        $this::fromIterable(range('A', 'F'))
+            ->drop(3)
+            ->shouldIterateAs([3 => 'D', 4 => 'E', 5 => 'F']);
+
+        $this::fromIterable(range('A', 'F'))
+            ->drop(3, 3)
+            ->shouldIterateAs([]);
+    }
+
     public function it_can_dropWhile(): void
     {
         $isSmallerThanThree = static function ($value) {
@@ -1568,7 +1579,7 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs([5 => 'F', 4 => 'E', 3 => 'D', 2 => 'C', 1 => 'B', 0 => 'A']);
 
         $this::fromIterable(range('A', 'F'))
-            ->skip(3, 3)
+            ->drop(3, 3)
             ->shouldIterateAs([]);
     }
 
@@ -1682,17 +1693,6 @@ class CollectionSpec extends ObjectBehavior
                     return 'x' === $letter;
                 }
             )
-            ->shouldIterateAs([]);
-    }
-
-    public function it_can_skip(): void
-    {
-        $this::fromIterable(range('A', 'F'))
-            ->skip(3)
-            ->shouldIterateAs([3 => 'D', 4 => 'E', 5 => 'F']);
-
-        $this::fromIterable(range('A', 'F'))
-            ->skip(3, 3)
             ->shouldIterateAs([]);
     }
 

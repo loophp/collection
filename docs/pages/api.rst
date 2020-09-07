@@ -463,6 +463,20 @@ Signature: ``Collection::distinct();``
     $collection = Collection::with(['a', 'b', 'c', 'd', 'a'])
         ->distinct()
 
+drop
+~~~~
+
+Drop the n first items of the collection.
+
+Interface: `Dropable`_
+
+Signature: ``Collection::drop(int ...$counts);``
+
+.. code-block:: php
+
+    Collection::fromIterable(range(10, 20))
+        ->drop(2); // [12,13,14,15,16,17,18,19,20]
+
 dropWhile
 ~~~~~~~~~
 
@@ -1272,20 +1286,6 @@ Signature: ``Collection::since(callable ...$callbacks);``
 
         print_r($collection);
 
-skip
-~~~~
-
-Skip the n items of a collection.
-
-Interface: `Skipable`_
-
-Signature: ``Collection::skip(int ...$counts);``
-
-.. code-block:: php
-
-    $collection = Collection::with(range(10, 20))
-        ->skip(2);
-
 slice
 ~~~~~
 
@@ -1577,6 +1577,7 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Diffable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Diffable.php
 .. _Diffkeysable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Diffkeysable.php
 .. _Distinctable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Distinctable.php
+.. _Dropable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Dropable.php
 .. _DropWhileable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/DropWhileable.php
 .. _Explodeable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Explodeable.php
 .. _Falsyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Falsyable.php
@@ -1621,7 +1622,6 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Reductionable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Reductionable.php
 .. _Reverseable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Reverseable.php
 .. _Scaleable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Scaleable.php
-.. _Skipable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Skipable.php
 .. _Sinceable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Sinceable.php
 .. _Sliceable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Sliceable.php
 .. _Sortable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Sortable.php

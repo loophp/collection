@@ -11,7 +11,7 @@ use loophp\collection\Contract\Collection;
  * @psalm-template TKey of array-key
  * @psalm-template T
  */
-interface Skipable
+interface Dropable
 {
     /**
      * Skip the n items of a collection.
@@ -20,5 +20,5 @@ interface Skipable
      *
      * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
      */
-    public function skip(int ...$counts): Collection;
+    public function drop(int ...$counts): Collection;
 }
