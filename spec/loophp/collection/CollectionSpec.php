@@ -1819,6 +1819,20 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs([1 => 'B', 2 => 'C', 3 => 'D', 4 => 'E', 5 => 'F']);
     }
 
+    public function it_can_takeWhile(): void
+    {
+        $isSmallerThanThree = static function ($value) {
+            return 3 > $value;
+        };
+
+        $this::fromIterable([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3])
+            ->takeWhile($isSmallerThanThree)
+            ->shouldIterateAs([
+                0 => 1,
+                1 => 2,
+            ]);
+    }
+
     public function it_can_transpose(): void
     {
         $records = [

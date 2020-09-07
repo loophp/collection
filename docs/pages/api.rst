@@ -1376,6 +1376,25 @@ Signature: ``Collection::tail();``
     Collection::with(['a', 'b', 'c'])
         ->tail(); // [1 => 'b', 2 => 'c']
 
+takeWhile
+~~~~~~~~~
+
+It inspects the original collection and takes from it its elements to the moment when the condition fails,
+then it stops processing.
+
+Interface: `TakeWhileable`_
+
+Signature: ``Collection::takeWhile(callable $callback);``
+
+.. code-block:: php
+
+    $isSmallerThanThree = static function (int $value): bool {
+        return 3 > $value;
+    };
+
+    Collection::fromIterable([1,2,3,4,5,6,7,8,9,1,2,3])
+        ->takeWhile($isSmallerThanThree); // [1,2]
+
 transpose
 ~~~~~~~~~
 
@@ -1627,6 +1646,7 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Sortable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Sortable.php
 .. _Splitable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Splitable.php
 .. _Tailable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Tailable.php
+.. _TakeWhileable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/TakeWhileable.php
 .. _Transposeable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Transposeable.php
 .. _Truthyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Truthyable.php
 .. _Unpackable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Unpackagle.php
