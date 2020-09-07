@@ -2016,6 +2016,24 @@ class CollectionSpec extends ObjectBehavior
             ]);
     }
 
+    public function it_can_unzip(): void
+    {
+        $this::fromIterable(range('A', 'C'))
+            ->zip(['D', 'E', 'F', 'G'], [1, 2, 3, 4, 5])
+            ->unzip()
+            ->shouldIterateAs([
+                [
+                    'A', 'B', 'C', null, null,
+                ],
+                [
+                    'D', 'E', 'F', 'G', null,
+                ],
+                [
+                    1, 2, 3, 4, 5,
+                ],
+            ]);
+    }
+
     public function it_can_use_range(): void
     {
         $this::range(0, 5)
@@ -2291,20 +2309,17 @@ class CollectionSpec extends ObjectBehavior
     {
         $this::fromIterable(range('A', 'C'))
             ->zip(['D', 'E', 'F'])
-            ->all()
-            ->shouldReturn([['A', 'D'], ['B', 'E'], ['C', 'F']]);
+            ->shouldIterateAs([['A', 'D'], ['B', 'E'], ['C', 'F']]);
 
         $this::fromIterable(['A', 'C', 'E'])
             ->zip(['B', 'D', 'F', 'H'])
-            ->all()
-            ->shouldReturn([['A', 'B'], ['C', 'D'], ['E', 'F'], [null, 'H']]);
+            ->shouldIterateAs([['A', 'B'], ['C', 'D'], ['E', 'F'], [null, 'H']]);
 
         $collection = Collection::fromIterable(range(1, 5));
 
         $this::fromIterable($collection)
             ->zip(range('A', 'E'))
-            ->all()
-            ->shouldReturn([[1, 'A'], [2, 'B'], [3, 'C'], [4, 'D'], [5, 'E']]);
+            ->shouldIterateAs([[1, 'A'], [2, 'B'], [3, 'C'], [4, 'D'], [5, 'E']]);
     }
 
     public function it_is_initializable(): void

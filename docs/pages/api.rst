@@ -1527,6 +1527,23 @@ Signature: ``Collection::unwrap();``
      $collection = Collection::with($data)
         ->unwrap();
 
+unzip
+~~~~~
+
+Unzip a collection.
+
+Interface: `Unzipable`_
+
+Signature: ``Collection::unzip();``
+
+.. code-block:: php
+
+    $a = Collection::with(['a' => 'a', 'b' => 'b', 'c' => 'c'])
+        ->zip(['d', 'e', 'f', 'g'], [1, 2, 3, 4, 5]);
+
+    $b = Collection::with($a)
+        ->unzip(); // [ ['a','b','c',null,null], ['d','e','f','g',null], [1,2,3,4,5] ]
+
 window
 ~~~~~~
 
@@ -1653,6 +1670,7 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Unpairable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Unpairable.php
 .. _Untilable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Untilable.php
 .. _Unwrapable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Unwrapable.php
+.. _Unzipable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Unzipable.php
 .. _Windowable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Windowable.php
 .. _Wrapable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Wrapable.php
 .. _Zipable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Zipable.php

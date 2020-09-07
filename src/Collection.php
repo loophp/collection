@@ -92,6 +92,7 @@ use loophp\collection\Operation\Unpack;
 use loophp\collection\Operation\Unpair;
 use loophp\collection\Operation\Until;
 use loophp\collection\Operation\Unwrap;
+use loophp\collection\Operation\Unzip;
 use loophp\collection\Operation\Window;
 use loophp\collection\Operation\Wrap;
 use loophp\collection\Operation\Zip;
@@ -729,6 +730,11 @@ final class Collection implements CollectionInterface
     public function unwrap(): CollectionInterface
     {
         return $this->run(Unwrap::of());
+    }
+
+    public function unzip(): CollectionInterface
+    {
+        return $this->run(Unzip::of());
     }
 
     public function window(int ...$length): CollectionInterface
