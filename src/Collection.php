@@ -539,9 +539,9 @@ final class Collection implements CollectionInterface
         return $this->run(Last::of());
     }
 
-    public function limit(int $limit = -1, int $offset = 0): CollectionInterface
+    public function limit(int $count = -1, int $offset = 0): CollectionInterface
     {
-        return $this->run(Limit::of()($limit)($offset));
+        return $this->run(Limit::of()($count)($offset));
     }
 
     public function map(callable ...$callbacks): CollectionInterface

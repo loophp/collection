@@ -14,6 +14,7 @@ use JsonSerializable;
 use loophp\collection\Collection;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Operation\AbstractOperation;
+use OutOfBoundsException;
 use PhpSpec\ObjectBehavior;
 use stdClass;
 use const INF;
@@ -1222,11 +1223,8 @@ class CollectionSpec extends ObjectBehavior
 
         $this::fromIterable($input)
             ->limit(0)
-            ->shouldIterateAs([]);
-
-        $this::fromIterable($input)
-            ->limit()
-            ->shouldIterateAs($input);
+            ->shouldThrow(OutOfBoundsException::class)
+            ->during('all');
     }
 
     public function it_can_map(): void

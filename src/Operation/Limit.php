@@ -17,24 +17,20 @@ use LimitIterator;
 final class Limit extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(int): Closure(int=): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @psalm-return Closure(int=): Closure(int=): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
-        return static function (int $limit): Closure {
-            return static function (int $offset = 0) use ($limit): Closure {
+        return static function (int $count = -1): Closure {
+            return static function (int $offset = 0) use ($count): Closure {
                 return
                     /**
                      * @psalm-param Iterator<TKey, T> $iterator
                      *
                      * @psalm-return Generator<TKey, T>
                      */
-                    static function (Iterator $iterator) use ($limit, $offset): Generator {
-                        if (0 === $limit) {
-                            return yield from [];
-                        }
-
-                        return yield from new LimitIterator($iterator, $offset, $limit);
+                    static function (Iterator $iterator) use ($count, $offset): Generator {
+                        return yield from new LimitIterator($iterator, $offset, $count);
                     };
             };
         };

@@ -18,5 +18,5 @@ interface Limitable
      *
      * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
      */
-    public function limit(int $limit = -1): Collection;
+    public function limit(int $count = -1, int $offset = 0): Collection;
 }
