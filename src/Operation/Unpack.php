@@ -13,6 +13,8 @@ use loophp\collection\Iterator\IterableIterator;
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
+ *
+ * phpcs:disable Generic.WhiteSpace.ScopeIndent.IncorrectExact
  */
 final class Unpack extends AbstractOperation
 {
@@ -20,18 +22,35 @@ final class Unpack extends AbstractOperation
     {
         return
             /**
-             * @psalm-param Iterator<int, array{0:TKey, 1:T}|T> $iterator
+             * @psalm-param Iterator<int, array{0:TKey, 1:T}> $iterator
              *
              * @psalm-return Generator<T, T, mixed, void>
              */
             static function (Iterator $iterator): Generator {
-                foreach ($iterator as $value) {
-                    if (!is_iterable($value)) {
-                        continue;
-                    }
+                $isIterable =
+                    /**
+                     * @psalm-param T $value
+                     *
+                     * @param mixed $value
+                     */
+                    static function ($value): bool {
+                        return is_iterable($value);
+                    };
 
-                    /** @psalm-var array<int, array<TKey, T>> $chunks */
-                    $chunks = Chunk::of()(2)(new IterableIterator($value));
+                $toIterableIterator = static function (iterable $value): IterableIterator {
+                    return new IterableIterator($value);
+                };
+
+                /** @psalm-var callable(Iterator<TKey, T|iterable<TKey, T>>): Generator<TKey, iterable<TKey, T>> $filter */
+                $filter = Filter::of()($isIterable);
+
+                /** @psalm-var callable(Iterator<TKey, iterable<TKey, T>>): Generator<TKey, Iterator<TKey, T>> $map */
+                $map = Map::of()($toIterableIterator);
+
+                /** @psalm-var IterableIterator<int, array{0:TKey, 1:T}> $value */
+                foreach (Compose::of()($filter, $map)($iterator) as $value) {
+                    /** @psalm-var array<int, array<T, T>> $chunks */
+                    $chunks = Chunk::of()(2)($value);
 
                     foreach ($chunks as [$k, $v]) {
                         yield $k => $v;
