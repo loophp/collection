@@ -128,7 +128,7 @@ Simple
         return mt_rand() / mt_getrandmax();
     };
 
-    Collection::iterate($random)
+    Collection::unfold($random)
         ->map(
             static function ($value) {
                 return floor($value * 1000) + 1;
@@ -139,12 +139,12 @@ Simple
         ->normalize()
         ->all();
 
-    // Fibonacci using the static method ::iterate()
+    // Fibonacci using the static method ::unfold()
     $fibonacci = static function($a = 0, $b = 1): array {
         return [$b, $b + $a];
     };
 
-    Collection::iterate($fibonacci)
+    Collection::unfold($fibonacci)
         // Get the first item of each result.
         ->pluck(0)
         // Limit the amount of results to 10.
@@ -152,7 +152,7 @@ Simple
         // Convert to regular array.
         ->all(); // [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
 
-    Collection::iterate($fibonacci)
+    Collection::unfold($fibonacci)
         ->map(
             static function(array $value, $key) {
                 return $value[1] / $value[0];
@@ -221,7 +221,7 @@ Simple
             $value * 3 + 1;
     };
 
-    Collection::iterate($collatz, 10)
+    Collection::unfold($collatz, 10)
         ->until(static function ($number): bool {
             return 1 === $number;
         })
@@ -245,7 +245,7 @@ Simple
         return $r * $x * (1 - $x);
     };
 
-    Collection::iterate($function)
+    Collection::unfold($function)
         ->map(static function ($value) {return round($value,2);})
         ->limit(10)
         ->all(); // [0.42, 0.48, 0.49, 0.49, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5]
@@ -392,7 +392,7 @@ Random number generation
         return mt_rand() / mt_getrandmax();
     };
 
-    $random_numbers = Collection::iterate($random)
+    $random_numbers = Collection::unfold($random)
         ->map(
             static function ($value) {
                 return floor($value * 1000) + 1;
@@ -540,7 +540,7 @@ Approximate the number Pi
         }
     };
 
-    $pi_approximation = Collection::iterate($monteCarloMethod)
+    $pi_approximation = Collection::unfold($monteCarloMethod)
         ->map(
             static function (array $value) {
                 return 4 * $value[0] / $value[1];
@@ -684,7 +684,7 @@ Random number distribution
         return random_int($min, $max);
     };
 
-    $distribution = Collection::iterate($randomGenerator)
+    $distribution = Collection::unfold($randomGenerator)
         ->limit($max * $max)
         ->associate(
             static function ($key, $value) use ($max, $groups): string {

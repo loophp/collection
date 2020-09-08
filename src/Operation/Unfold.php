@@ -12,53 +12,41 @@ use Iterator;
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
+ *
+ * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Unfold extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(T): Closure(callable(T):T): Closure(Iterator<TKey, T>=): Generator<int, T>
+     * @psalm-return Closure(T...): Closure(callable(T...): (array<TKey, T>)): Closure(Iterator<TKey, T>=): Generator<int, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param T $init
+             * @param mixed $parameters
+             * @psalm-param T ...$parameters
              *
-             * @psalm-return Closure(callable(T):T): Closure(Iterator<TKey, T>=): Generator<int, T>
-             *
-             * @param mixed $init
+             * @psalm-return Closure(callable(T...): (array<TKey, T>)): Closure(Iterator<TKey, T>=): Generator<int, T>
              */
-            static function ($init): Closure {
+            static function (...$parameters): Closure {
                 return
                     /**
-                     * @psalm-param callable(T): T $callback
+                     * @psalm-param callable(T...): (array<TKey, T>) $callback
                      *
-                     * @psalm-return Closure(Iterator<TKey, T>=): Generator<T, T>
+                     * @psalm-return Closure(Iterator<TKey, T>=): Generator<int, T>
                      */
-                    static function (callable $callback) use ($init): Closure {
+                    static function (callable $callback) use ($parameters): Closure {
                         return
                             /**
                              * @psalm-param null|Iterator<TKey, T> $iterator
                              *
-                             * @psalm-return Generator<T, T>
+                             * @psalm-return Generator<int, T>
                              */
-                            static function (?Iterator $iterator = null) use ($init, $callback): Generator {
-                                $loop =
-                                    /**
-                                     * @psalm-param T $init
-                                     * @psalm-param callable(T): T $callback
-                                     *
-                                     * @psalm-return Generator<T, T>
-                                     *
-                                     * @param mixed $init
-                                     */
-                                    static function ($init, callable $callback) use (&$loop): Generator {
-                                        yield $init => $init;
-
-                                        return yield from $loop($callback($init), $callback);
-                                    };
-
-                                return yield from $loop($init, $callback);
+                            static function (?Iterator $iterator = null) use ($parameters, $callback): Generator {
+                                while (true) {
+                                    yield $parameters = $callback(...array_values((array) $parameters));
+                                }
                             };
                     };
             };

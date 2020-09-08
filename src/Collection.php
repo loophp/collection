@@ -51,7 +51,6 @@ use loophp\collection\Operation\Init;
 use loophp\collection\Operation\Intersect;
 use loophp\collection\Operation\IntersectKeys;
 use loophp\collection\Operation\Intersperse;
-use loophp\collection\Operation\Iterate;
 use loophp\collection\Operation\Key;
 use loophp\collection\Operation\Keys;
 use loophp\collection\Operation\Last;
@@ -511,11 +510,6 @@ final class Collection implements CollectionInterface
         return $this->run(Intersperse::of()($element)($every)($startAt));
     }
 
-    public static function iterate(callable $callback, ...$parameters): CollectionInterface
-    {
-        return (new self())->run(Iterate::of()($callback)(...$parameters));
-    }
-
     /**
      * @return array<mixed>
      */
@@ -707,9 +701,9 @@ final class Collection implements CollectionInterface
         return $this->run(Truthy::of())->getIterator()->current();
     }
 
-    public static function unfold($init, callable $callback): CollectionInterface
+    public static function unfold(callable $callback, ...$parameters): CollectionInterface
     {
-        return (new self())->run(Unfold::of()($init)($callback));
+        return (new self())->run(Unfold::of()(...$parameters)($callback));
     }
 
     public function unpack(): CollectionInterface

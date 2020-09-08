@@ -59,36 +59,6 @@ Create a collection from a string.
 
     $collection = Collection::fromString($data);
 
-iterate
-~~~~~~~
-
-Iterate over a callback and use the callback results to build a collection.
-
-Signature: ``Collection::iterate(callable $callback, ...$parameters);``
-
-.. warning:: The callback return values are reused as callback arguments at the next callback call.
-
-.. warning:: When the callback return is an array, only the first value is yielded.
-
-.. code-block:: php
-
-    $fibonacci = static function ($a = 0, $b = 1): array {
-        return [$b, $a + $b];
-    };
-
-    Collection::iterate($fibonacci)
-        ->limit(10); // [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
-
-Another example
-
-.. code-block:: php
-
-    $even = Collection::iterate(static function ($carry) {return $carry + 2;}, -2);
-    $odd = Collection::iterate(static function ($carry) {return $carry + 2;}, -1);
-    // Is the same as
-    $even = Collection::range(0, \INF, 2);
-    $odd = Collection::range(1, \INF, 2);
-
 range
 ~~~~~
 
@@ -108,8 +78,8 @@ Another example
 
 .. code-block:: php
 
-    $even = Collection::iterate(static function ($carry) {return $carry + 2;}, -2);
-    $odd = Collection::iterate(static function ($carry) {return $carry + 2;}, -1);
+    $even = Collection::unfold(static function ($carry) {return $carry + 2;}, -2);
+    $odd = Collection::unfold(static function ($carry) {return $carry + 2;}, -1);
     // Is the same as
     $even = Collection::range(0, \INF, 2);
     $odd = Collection::range(1, \INF, 2);
@@ -132,13 +102,34 @@ unfold
 
 Create a collection by yielding from a callback with a initial value.
 
-Signature: ``Collection::unfold($init, callable $callback);``
+.. warning:: The callback return values are reused as callback arguments at the next callback call.
+
+Signature: ``Collection::unfold(callable $callback, ...$parameters);``
 
 .. code-block:: php
 
     // A list of Naturals from 1 to Infinity.
-    $collection = Collection::unfold(1, fn($n) => $n + 1)
+    Collection::unfold(fn($n) => $n + 1, 1)
         ->normalize();
+
+.. code-block:: php
+
+    $fibonacci = static function ($a = 0, $b = 1): array {
+        return [$b, $a + $b];
+    };
+
+    Collection::unfold($fibonacci)
+        ->limit(10); // [[0, 1], [1, 1], [1, 2], [2, 3], [3, 5], [5, 8], [8, 13], [13, 21], [21, 34], [34, 55]]
+
+Another example
+
+.. code-block:: php
+
+    $even = Collection::unfold(static function (int $carry): int {return $carry + 2;}, -2);
+    $odd = Collection::unfold(static function (int $carry): int {return $carry + 2;}, -1);
+    // Is the same as
+    $even = Collection::range(0, \INF, 2);
+    $odd = Collection::range(1, \INF, 2);
 
 with
 ~~~~
@@ -898,7 +889,7 @@ Signature: ``Collection::limit(int $limit);``
         return [$b, $a + $b];
     };
 
-    $collection = Collection::iterate($fibonacci)
+    $collection = Collection::unfold($fibonacci)
         ->limit(10);
 
 map
@@ -1098,7 +1089,7 @@ Signature: ``Collection::pluck($pluck, $default = null);``
         return [$b, $a + $b];
     };
 
-    $collection = Collection::iterate($fibonacci)
+    $collection = Collection::unfold($fibonacci)
         ->limit(10)
         ->pluck(0);
 
@@ -1506,7 +1497,7 @@ Signature: ``Collection::until(callable ...$callbacks);``
             $value * 3 + 1;
     };
 
-    $collection = Collection::iterate($collatz, 10)
+    $collection = Collection::unfold($collatz, 10)
         ->until(static function ($number): bool {
             return 1 === $number;
         });

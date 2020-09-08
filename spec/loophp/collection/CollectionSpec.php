@@ -1184,25 +1184,6 @@ class CollectionSpec extends ObjectBehavior
             ->during('all');
     }
 
-    public function it_can_iterate(): void
-    {
-        $fibonacci = static function ($value1, $value2) {
-            return ['previous' => $value2, 'next' => $value1 + $value2];
-        };
-
-        $this::iterate($fibonacci, 0, 1)
-            ->limit(10)
-            ->shouldIterateAs([1, 1, 2, 3, 5, 8, 13, 21, 34, 55]);
-
-        $plusOne = static function ($value) {
-            return $value + 1;
-        };
-
-        $this::iterate($plusOne, 0)
-            ->limit(10)
-            ->shouldIterateAs([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
-    }
-
     public function it_can_keys(): void
     {
         $this::fromIterable(range('A', 'E'))
@@ -1905,19 +1886,46 @@ class CollectionSpec extends ObjectBehavior
 
     public function it_can_unfold(): void
     {
-        $this::unfold(1, static function (int $n): int {return $n + 1; })
+        $this::unfold(static function (int $n): int {return $n + 1; }, 1)
             ->limit(10)
             ->shouldIterateAs([
-                1 => 1,
-                2 => 2,
-                3 => 3,
-                4 => 4,
-                5 => 5,
-                6 => 6,
-                7 => 7,
-                8 => 8,
-                9 => 9,
-                10 => 10,
+                0 => 2,
+                1 => 3,
+                2 => 4,
+                3 => 5,
+                4 => 6,
+                5 => 7,
+                6 => 8,
+                7 => 9,
+                8 => 10,
+                9 => 11,
+            ]);
+
+        $fibonacci = static function ($value1, $value2) {
+            return [$value2, $value1 + $value2];
+        };
+
+        $this::unfold($fibonacci, 0, 1)
+            ->limit(10)
+            ->shouldIterateAs([[1, 1], [1, 2], [2, 3], [3, 5], [5, 8], [8, 13], [13, 21], [21, 34], [34, 55], [55, 89]]);
+
+        $plusOne = static function ($value) {
+            return $value + 1;
+        };
+
+        $this::unfold($plusOne, 0)
+            ->limit(10)
+            ->shouldIterateAs([
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
             ]);
     }
 
@@ -1991,9 +1999,16 @@ class CollectionSpec extends ObjectBehavior
             return 1 === $number;
         };
 
-        $this::iterate($collatz, 10)
+        $this::unfold($collatz, 10)
             ->until($until)
-            ->shouldIterateAs([5, 16, 8, 4, 2, 1]);
+            ->shouldIterateAs([
+                0 => 5,
+                1 => 16,
+                2 => 8,
+                3 => 4,
+                4 => 2,
+                5 => 1,
+            ]);
     }
 
     public function it_can_unwrap()

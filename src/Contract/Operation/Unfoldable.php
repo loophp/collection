@@ -13,11 +13,10 @@ interface Unfoldable
      * @psalm-template TKey of array-key
      * @psalm-template T
      *
-     * @param mixed $init
-     * @psalm-param T $init
-     * @psalm-param callable(T): T $callback
+     * @psalm-param callable(T...): array<TKey, T> $callback
+     * @psalm-param T ...$parameters
      *
-     * @psalm-return \loophp\collection\Contract\Collection<T, T>
+     * @psalm-return \loophp\collection\Contract\Collection<int, T>
      */
-    public static function unfold($init, callable $callback): Collection;
+    public static function unfold(callable $callback, ...$parameters): Collection;
 }

@@ -45,7 +45,6 @@ use loophp\collection\Contract\Operation\Initable;
 use loophp\collection\Contract\Operation\Intersectable;
 use loophp\collection\Contract\Operation\Intersectkeysable;
 use loophp\collection\Contract\Operation\Intersperseable;
-use loophp\collection\Contract\Operation\Iterateable;
 use loophp\collection\Contract\Operation\Keyable;
 use loophp\collection\Contract\Operation\Keysable;
 use loophp\collection\Contract\Operation\Lastable;
@@ -213,7 +212,6 @@ interface Collection extends
     Intersectable,
     Intersectkeysable,
     Intersperseable,
-    Iterateable,
     IteratorAggregate,
     JsonSerializable,
     Keyable,
