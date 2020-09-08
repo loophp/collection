@@ -838,17 +838,6 @@ class CollectionSpec extends ObjectBehavior
             ->shouldReturn(null);
     }
 
-    public function it_can_get_items_with_only_specific_keys(): void
-    {
-        $this::fromIterable(range('A', 'E'))
-            ->only(0, 1, 3)
-            ->shouldIterateAs([0 => 'A', 1 => 'B', 3 => 'D']);
-
-        $this::fromIterable(range('A', 'E'))
-            ->only()
-            ->shouldIterateAs([0 => 'A', 1 => 'B', 2 => 'C', 3 => 'D', 4 => 'E']);
-    }
-
     public function it_can_get_key()
     {
         $input = array_combine(range('A', 'E'), range('A', 'E'));
@@ -1065,6 +1054,14 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs(['b' => 2, 'd' => 4]);
 
         $this::fromIterable($input)
+            ->intersectKeys()
+            ->shouldIterateAs([]);
+
+        $this::fromIterable(range('A', 'E'))
+            ->intersectKeys(0, 1, 3)
+            ->shouldIterateAs([0 => 'A', 1 => 'B', 3 => 'D']);
+
+        $this::fromIterable(range('A', 'E'))
             ->intersectKeys()
             ->shouldIterateAs([]);
     }

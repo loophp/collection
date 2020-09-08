@@ -60,7 +60,6 @@ use loophp\collection\Operation\Merge;
 use loophp\collection\Operation\Normalize;
 use loophp\collection\Operation\Nth;
 use loophp\collection\Operation\Nullsy;
-use loophp\collection\Operation\Only;
 use loophp\collection\Operation\Pack;
 use loophp\collection\Operation\Pad;
 use loophp\collection\Operation\Pair;
@@ -561,11 +560,6 @@ final class Collection implements CollectionInterface
     public function nullsy(): bool
     {
         return $this->run(Nullsy::of())->getIterator()->current();
-    }
-
-    public function only(...$keys): CollectionInterface
-    {
-        return $this->run(Only::of()(...$keys));
     }
 
     public function pack(): CollectionInterface

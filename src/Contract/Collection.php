@@ -54,7 +54,6 @@ use loophp\collection\Contract\Operation\Mergeable;
 use loophp\collection\Contract\Operation\Normalizeable;
 use loophp\collection\Contract\Operation\Nthable;
 use loophp\collection\Contract\Operation\Nullsyable;
-use loophp\collection\Contract\Operation\Onlyable;
 use loophp\collection\Contract\Operation\Packable;
 use loophp\collection\Contract\Operation\Padable;
 use loophp\collection\Contract\Operation\Pairable;
@@ -139,7 +138,6 @@ use loophp\collection\Iterator\ClosureIterator;
  * @template-extends Mergeable<TKey, T>
  * @template-extends Normalizeable<TKey, T>
  * @template-extends Nthable<TKey, T>
- * @template-extends Onlyable<TKey, T>
  * @template-extends Packable<TKey, T>
  * @template-extends Padable<TKey, T>
  * @template-extends Pairable<TKey, T>
@@ -223,7 +221,6 @@ interface Collection extends
     Normalizeable,
     Nthable,
     Nullsyable,
-    Onlyable,
     Packable,
     Padable,
     Pairable,
