@@ -2,10 +2,21 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [2.5.2](https://github.com/loophp/collection/compare/2.5.2...2.5.2)
+
+> 8 September 2020
+
+#### [2.5.2](https://github.com/loophp/collection/compare/2.5.1...2.5.2)
+
+> 8 September 2020
+
+- Fix Psalm version. [`f1cd23a`](https://github.com/loophp/collection/commit/f1cd23aa349fd290750868f3e889a7b0e6794156)
+
 #### [2.5.1](https://github.com/loophp/collection/compare/2.5.0...2.5.1)
 
 > 8 September 2020
 
+- Update changelog. [`de2ebda`](https://github.com/loophp/collection/commit/de2ebda40e7115cbc493b147a51da4799e51c427)
 - Update annotations. [`3830e38`](https://github.com/loophp/collection/commit/3830e38e8323c56a423e506d429ee9df5312fe38)
 - Fix Random operation. [`47b2f55`](https://github.com/loophp/collection/commit/47b2f55ce8ffdbe7b677c67f468889cd275c6e32)
 
