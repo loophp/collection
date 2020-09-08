@@ -15,15 +15,29 @@ use Iterator;
  */
 final class Random extends AbstractOperation
 {
+
+    /**
+     * @psalm-return Closure(int): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     */
     public function __invoke(): Closure
     {
-        return static function (int $size): Closure {
-            return static function (Iterator $iterator) use ($size): Generator {
-                return yield from (Compose::of()(
-                    Limit::of()($size)(0),
-                    Shuffle::of()
-                )($iterator));
+        return
+            /**
+             * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
+             */
+            static function (int $size): Closure {
+                return
+                    /**
+                     * @psalm-param Iterator<TKey, T>
+                     *
+                     * @psalm-return Generator<TKey, T>
+                     */
+                    static function (Iterator $iterator) use ($size): Generator {
+                        return yield from (Compose::of()(
+                            Shuffle::of(),
+                            Limit::of()($size)(0)
+                        )($iterator));
+                    };
             };
-        };
     }
 }
