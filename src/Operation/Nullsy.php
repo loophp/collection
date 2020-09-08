@@ -26,7 +26,7 @@ final class Nullsy extends AbstractOperation
              * @psalm-return Generator<int, bool>
              */
             static function (Iterator $iterator): Generator {
-                foreach ($iterator as $key => $value) {
+                foreach ($iterator as $value) {
                     if (null !== $value) {
                         return yield false;
                     }

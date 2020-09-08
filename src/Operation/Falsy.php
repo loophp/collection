@@ -26,7 +26,7 @@ final class Falsy extends AbstractOperation
              * @psalm-return Generator<int, bool> $iterator
              */
             static function (Iterator $iterator): Generator {
-                foreach ($iterator as $key => $value) {
+                foreach ($iterator as $value) {
                     if (false !== (bool) $value) {
                         return yield false;
                     }

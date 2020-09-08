@@ -27,7 +27,7 @@ final class Unwrap extends AbstractOperation
              * @psalm-return Generator<TKey, T>
              */
             static function (Iterator $iterator): Generator {
-                foreach ($iterator as $key => $value) {
+                foreach ($iterator as $value) {
                     foreach ((array) $value as $k => $v) {
                         yield $k => $v;
                     }

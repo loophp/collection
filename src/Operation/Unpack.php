@@ -25,7 +25,7 @@ final class Unpack extends AbstractOperation
              * @psalm-return Generator<T, T, mixed, void>
              */
             static function (Iterator $iterator): Generator {
-                foreach ($iterator as $key => $value) {
+                foreach ($iterator as $value) {
                     if (!is_iterable($value)) {
                         continue;
                     }

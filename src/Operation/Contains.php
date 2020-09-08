@@ -29,7 +29,7 @@ final class Contains extends AbstractOperation
                      * @psalm-return Generator<int, bool>
                      */
                     static function (Iterator $iterator) use ($values): Generator {
-                        foreach ($iterator as $key => $value) {
+                        foreach ($iterator as $value) {
                             foreach ($values as $k => $v) {
                                 if ($v === $value) {
                                     unset($values[$k]);
