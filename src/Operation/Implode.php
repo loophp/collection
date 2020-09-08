@@ -18,30 +18,43 @@ use Iterator;
  */
 final class Implode extends AbstractOperation
 {
+    /**
+     * @psalm-return Closure(string): Closure(Iterator<TKey, T>): Generator<int, string>
+     */
     public function __invoke(): Closure
     {
-        return static function (string $glue): Closure {
-            return static function (Iterator $iterator) use ($glue): Generator {
-                $reducerFactory = static function (string $glue): Closure {
-                    return
-                        /**
-                         * @psalm-param TKey $key
-                         *
-                         * @param mixed $key
-                         */
-                        static function (string $carry, string $item, $key, CachingIterator $iterator) use ($glue): string {
-                            $carry .= $item;
+        return
+            /**
+             * @psalm-return Closure(Iterator<TKey, T>): Generator<int, string>
+             */
+            static function (string $glue): Closure {
+                return
+                    /**
+                     * @psalm-param Iterator<TKey, T> $iterator
+                     *
+                     * @psalm-return Generator<int, string>
+                     */
+                    static function (Iterator $iterator) use ($glue): Generator {
+                        $reducerFactory = static function (string $glue): Closure {
+                            return
+                                /**
+                                 * @psalm-param TKey $key
+                                 *
+                                 * @param mixed $key
+                                 */
+                                static function (string $carry, string $item, $key, CachingIterator $iterator) use ($glue): string {
+                                    $carry .= $item;
 
-                            if ($iterator->hasNext()) {
-                                $carry .= $glue;
-                            }
+                                    if ($iterator->hasNext()) {
+                                        $carry .= $glue;
+                                    }
 
-                            return $carry;
+                                    return $carry;
+                                };
                         };
-                };
 
-                return yield from FoldLeft::of()($reducerFactory($glue))('')(new CachingIterator($iterator));
+                        return yield from FoldLeft::of()($reducerFactory($glue))('')(new CachingIterator($iterator));
+                    };
             };
-        };
     }
 }
