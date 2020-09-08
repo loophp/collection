@@ -2,10 +2,18 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [2.5.1](https://github.com/loophp/collection/compare/2.5.0...2.5.1)
+
+> 8 September 2020
+
+- Update annotations. [`3830e38`](https://github.com/loophp/collection/commit/3830e38e8323c56a423e506d429ee9df5312fe38)
+- Fix Random operation. [`47b2f55`](https://github.com/loophp/collection/commit/47b2f55ce8ffdbe7b677c67f468889cd275c6e32)
+
 #### [2.5.0](https://github.com/loophp/collection/compare/2.4.0...2.5.0)
 
 > 8 September 2020
 
+- Update changelog. [`3ec344d`](https://github.com/loophp/collection/commit/3ec344de4e9ff0dca20342b8c0879ff9138fbe5e)
 - Remove unneeded variable assignations. [`8ae26f6`](https://github.com/loophp/collection/commit/8ae26f6aa15a52afc3c99ec89d13c0b1170bc0de)
 - Update Unpack operation. [`c253472`](https://github.com/loophp/collection/commit/c253472835f0bd86d2d9f8cf93b804d8dc313ea6)
 - Replace Only with IntersectKeys operation. [`78a20a3`](https://github.com/loophp/collection/commit/78a20a3e77bf27ec37b4ef1d69f7c4dea49559fc)
