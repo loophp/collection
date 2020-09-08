@@ -34,13 +34,25 @@ final class Intersect extends AbstractOperation
                      * @psalm-return Generator<TKey, T>
                      */
                     static function (Iterator $iterator) use ($values): Generator {
-                        foreach ($iterator as $key => $value) {
-                            if (false === in_array($value, $values, true)) {
-                                continue;
-                            }
+                        $filterCallbackFactory = static function (array $values): Closure {
+                            return
+                                /**
+                                 * @psalm-param T $value
+                                 * @psalm-param TKey $key
+                                 * @psalm-param Iterator<TKey, T> $iterator
+                                 *
+                                 * @param mixed $value
+                                 * @param mixed $key
+                                 */
+                                static function ($value, $key, Iterator $iterator) use ($values): bool {
+                                    return in_array($value, $values, true);
+                                };
+                        };
 
-                            yield $key => $value;
-                        }
+                        /** @psalm-var callable(Iterator<TKey, T>): Generator<TKey, T> $filter */
+                        $filter = Filter::of()($filterCallbackFactory($values));
+
+                        return $filter($iterator);
                     };
             };
     }
