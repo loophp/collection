@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace loophp\collection\Operation;
 
-use ArrayIterator;
 use Closure;
 use Generator;
 use Iterator;
+
+use function array_slice;
 
 /**
  * @psalm-template TKey
@@ -17,31 +18,39 @@ use Iterator;
 final class Window extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(int...): Closure(Iterator<TKey, T>): Generator<int, list<T>>
+     * @psalm-return Closure(int): Closure(Iterator<TKey, T>): Generator<TKey, list<T>>
      */
     public function __invoke(): Closure
     {
-        return static function (int ...$lengths): Closure {
-            return
-                /**
-                 * @psalm-param Iterator<TKey, T> $iterator
-                 * @psalm-param ArrayIterator<int, int> $length
-                 *
-                 * @psalm-return Generator<int, list<T>>
-                 */
-                static function (Iterator $iterator) use ($lengths): Generator {
-                    /** @psalm-var Iterator<int, int> $lengths */
-                    $lengths = Cycle::of()(new ArrayIterator($lengths));
+        return
+            /**
+             * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, list<T>>
+             */
+            static function (int $size): Closure {
+                return
+                    /**
+                     * @psalm-param Iterator<TKey, T> $iterator
+                     *
+                     * @psalm-return Generator<TKey, list<T>>
+                     */
+                    static function (Iterator $iterator) use ($size): Generator {
+                        if (0 === $size) {
+                            return yield from $iterator;
+                        }
 
-                    for ($i = 0; iterator_count($iterator) > $i; ++$i) {
-                        /** @psalm-var Generator<TKey, T> $slice */
-                        $slice = Slice::of()($i)($lengths->current())($iterator);
+                        ++$size;
+                        $size *= -1;
 
-                        yield iterator_to_array($slice);
+                        /** @psalm-var list<T> $stack */
+                        $stack = [];
 
-                        $lengths->next();
-                    }
-                };
-        };
+                        for (; $iterator->valid(); $iterator->next()) {
+                            // @todo Should we use Pack ?
+                            $stack[$iterator->key()] = $iterator->current();
+
+                            yield $iterator->key() => array_slice($stack, $size);
+                        }
+                    };
+            };
     }
 }

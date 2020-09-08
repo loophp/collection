@@ -257,12 +257,7 @@ Simple
     // Traverse the collection using windows of a given size.
     Collection::with(range('a', 'z'))
         ->window(3)
-        ->all(); // [['a', 'b', 'c'], ['b', 'c', 'd'], ['c', 'd', 'e'], ...]
-
-    // Traverse the collection using windows of a given size.
-    Collection::with(range('a', 'z'))
-        ->window(4, 2)
-        ->all(); // [['a', 'b', 'c', 'd'], ['b', 'c'], ['c', 'd', 'e', 'f'], ['d', 'e'], ...]
+        ->all(); // [['a'], ['a', 'b'], ['a', 'b', 'c'], ['b', 'c', 'd'], ['c', 'd', 'e'], ...]
 
     Collection::with(range('a', 'd'))
         ->wrap()

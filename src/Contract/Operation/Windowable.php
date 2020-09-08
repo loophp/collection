@@ -14,9 +14,7 @@ use loophp\collection\Contract\Collection;
 interface Windowable
 {
     /**
-     * @param int ...$length
-     *
      * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
      */
-    public function window(int ...$length): Collection;
+    public function window(int $size): Collection;
 }

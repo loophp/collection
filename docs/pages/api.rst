@@ -1551,15 +1551,15 @@ Loop the collection by yielding a specific window of data of a given length.
 
 Interface: `Windowable`_
 
-Signature: ``Collection::window(int ...$length);``
+Signature: ``Collection::window(int $size);``
 
 .. code-block:: php
 
      $data = range('a', 'z');
 
-     $collection = Collection::with($data)
-        ->window(2, 3)
-        ->all();
+     Collection::fromIterable($data)
+        ->window(2)
+        ->all(); // [ ['a'], ['a', 'b'], ['b', 'c'], ['c', 'd'], ... ]
 
 wrap
 ~~~~

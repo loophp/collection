@@ -737,9 +737,9 @@ final class Collection implements CollectionInterface
         return $this->run(Unzip::of());
     }
 
-    public function window(int ...$length): CollectionInterface
+    public function window(int $size): CollectionInterface
     {
-        return $this->run(Window::of()(...$length));
+        return $this->run(Window::of()($size));
     }
 
     public static function with($data = [], ...$parameters): Collection
