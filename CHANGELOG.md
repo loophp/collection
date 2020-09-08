@@ -2,10 +2,24 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [2.5.0](https://github.com/loophp/collection/compare/2.4.0...2.5.0)
+
+> 8 September 2020
+
+- Remove unneeded variable assignations. [`8ae26f6`](https://github.com/loophp/collection/commit/8ae26f6aa15a52afc3c99ec89d13c0b1170bc0de)
+- Update Unpack operation. [`c253472`](https://github.com/loophp/collection/commit/c253472835f0bd86d2d9f8cf93b804d8dc313ea6)
+- Replace Only with IntersectKeys operation. [`78a20a3`](https://github.com/loophp/collection/commit/78a20a3e77bf27ec37b4ef1d69f7c4dea49559fc)
+- Use Filter operation when it's possible. [`841a7c5`](https://github.com/loophp/collection/commit/841a7c50f3c6c0dbbd1ab2dca5c830cfec2e8c45)
+- Update annotations. [`3dbf949`](https://github.com/loophp/collection/commit/3dbf949b6884bf33b7b898f5eedfe58ed3b214d2)
+- Replace Iterate with Unfold operation. [`6401f74`](https://github.com/loophp/collection/commit/6401f747cc772815a50cff523c40637aaa1fcb22)
+- Update Limit operation. [`95f8856`](https://github.com/loophp/collection/commit/95f8856f02622ce182abf905d08ab33755c97321)
+- Update Window operation. [`c78813b`](https://github.com/loophp/collection/commit/c78813b4c7629675ba8e0ceb11e420428e3572dd)
+
 #### [2.4.0](https://github.com/loophp/collection/compare/2.3.5...2.4.0)
 
 > 7 September 2020
 
+- Update changelog. [`5a392f3`](https://github.com/loophp/collection/commit/5a392f3da927640ed00a80eb1584e6a0e0220a5c)
 - Add Unzip operation. [`cad956f`](https://github.com/loophp/collection/commit/cad956fd1bc34ea04b01f1804165178fc8b82123)
 - Add TakeWhile operation. [`c9e6701`](https://github.com/loophp/collection/commit/c9e6701463709c112d1ee3dab8fc76d54c62dcd0)
 - Rename Skip into Drop. [`0c6b01a`](https://github.com/loophp/collection/commit/0c6b01ae505c00baebe9cfc53c11ec698c3a39d4)
@@ -497,7 +511,7 @@ All notable changes to this project will be documented in this file. Dates are d
 - Add the Cycle operation. [`b82b610`](https://github.com/loophp/collection/commit/b82b610126f5a90e6ac2cafd79be863c13588747)
 - Update README. [`6f4cddf`](https://github.com/loophp/collection/commit/6f4cddf7363e41a67a4c59df179138590f8cd063)
 
-#### [0.0.12](https://github.com/loophp/collection/compare/0.0.10...0.0.12)
+#### [0.0.12](https://github.com/loophp/collection/compare/0.0.11...0.0.12)
 
 > 9 September 2019
 
@@ -513,6 +527,11 @@ All notable changes to this project will be documented in this file. Dates are d
 - Add the Split operation. [`2e0dc1a`](https://github.com/loophp/collection/commit/2e0dc1a5002a118f250d61ac52c50e6641496c46)
 - Simplify the times() method. [`6d8014b`](https://github.com/loophp/collection/commit/6d8014bd67c6320741720e66adaa55d52a216d80)
 - Differentiate Operation and Transformation. [`3546cfa`](https://github.com/loophp/collection/commit/3546cfab79a3b7778d9e68027de1f369a01ec003)
+
+#### [0.0.11](https://github.com/loophp/collection/compare/0.0.10...0.0.11)
+
+> 3 September 2019
+
 - Update README. [`3e59719`](https://github.com/loophp/collection/commit/3e59719ce0d86f82a834ff915f3e15fe8e99325a)
 - Fix bug with rebase method. [`72dd937`](https://github.com/loophp/collection/commit/72dd937bbd12950e5064dc71daba59018ec2e931)
 - Update PHPDoc. [`16166ea`](https://github.com/loophp/collection/commit/16166eaf2b235ce4426629a0c325ea0ba83639d9)
