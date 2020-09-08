@@ -22,16 +22,20 @@ final class Cache extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        return static function (CacheItemPoolInterface $cache): Closure {
-            return
-                /**
-                 * @psalm-param Iterator<TKey, T> $iterator
-                 *
-                 * @psalm-return Generator<TKey, T>
-                 */
-                static function (Iterator $iterator) use ($cache): Generator {
-                    return yield from new CacheIterator($iterator, $cache);
-                };
-        };
+        return
+            /**
+             * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
+             */
+            static function (CacheItemPoolInterface $cache): Closure {
+                return
+                    /**
+                     * @psalm-param Iterator<TKey, T> $iterator
+                     *
+                     * @psalm-return Generator<TKey, T>
+                     */
+                    static function (Iterator $iterator) use ($cache): Generator {
+                        return yield from new CacheIterator($iterator, $cache);
+                    };
+            };
     }
 }

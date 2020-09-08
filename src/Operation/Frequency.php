@@ -15,6 +15,9 @@ use Iterator;
  */
 final class Frequency extends AbstractOperation
 {
+    /**
+     * @psalm-return Closure(Iterator<TKey, T>): Generator<int, T>
+     */
     public function __invoke(): Closure
     {
         return

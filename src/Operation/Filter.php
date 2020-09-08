@@ -26,11 +26,14 @@ final class Filter extends AbstractOperation
         return
             /**
              * @psalm-param callable(T, TKey, Iterator<TKey, T>): bool ...$callbacks
+             *
+             * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static function (callable ...$callbacks): Closure {
                 return
                     /**
                      * @psalm-param Iterator<TKey, T> $iterator
+                     *
                      * @psalm-return Generator<TKey, T>
                      */
                     static function (Iterator $iterator) use ($callbacks): Generator {

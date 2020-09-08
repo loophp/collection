@@ -24,7 +24,9 @@ final class IntersectKeys extends AbstractOperation
     {
         return
             /**
-             * @psalm-param TKey ...$values
+             * @psalm-param TKey ...$keys
+             *
+             * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static function (...$keys): Closure {
                 return

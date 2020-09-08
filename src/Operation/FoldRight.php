@@ -18,26 +18,30 @@ use Iterator;
 final class FoldRight extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(callable(T|null, T, TKey, Iterator<TKey, T>): T): Closure(T|null): Closure(Iterator<TKey, T>): T|null
+     * @psalm-return Closure(callable(T|null, T, TKey, Iterator<TKey, T>):(T|null)): Closure(T): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param callable(T|null, T, TKey, Iterator<TKey, T>): T $callback
+             * @psalm-param callable(T|null, T, TKey, Iterator<TKey, T>):(T|null) $callback
+             *
+             * @psalm-return Closure(T): Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static function (callable $callback): Closure {
                 return
                     /**
                      * @param mixed|null $initial
                      * @psalm-param T|null $initial
+                     *
+                     * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
                      */
                     static function ($initial = null) use ($callback): Closure {
                         return
                             /**
                              * @psalm-param Iterator<TKey, T> $iterator
                              *
-                             * @psalm-return Generator<int, T|null>
+                             * @psalm-return Generator<TKey, T>
                              */
                             static function (Iterator $iterator) use ($callback, $initial): Generator {
                                 /** @psalm-var callable(Iterator<TKey, T>): Generator<TKey, T> $foldRight */

@@ -15,11 +15,16 @@ use Iterator;
  */
 final class Explode extends AbstractOperation
 {
+    /**
+     * @psalm-return Closure(T...): Closure(Iterator<TKey, T>): Generator<int, list<T>>
+     */
     public function __invoke(): Closure
     {
         return
             /**
              * @psalm-param T ...$explodes
+             *
+             * @psalm-return Closure(Iterator<TKey, T>): Generator<int, list<T>>
              */
             static function (...$explodes): Closure {
                 return

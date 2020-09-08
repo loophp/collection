@@ -15,7 +15,6 @@ use Iterator;
  */
 final class Random extends AbstractOperation
 {
-
     /**
      * @psalm-return Closure(int): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */

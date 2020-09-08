@@ -16,7 +16,7 @@ use Iterator;
 final class Split extends AbstractOperation
 {
     /**
-     * @return Closure((callable(T, TKey): bool)...): Closure(Iterator<TKey, T>): Generator<int, list<T>>
+     * @psalm-return Closure((callable(T, TKey): bool)...): Closure(Iterator<TKey, T>): Generator<int, list<T>>
      */
     public function __invoke(): Closure
     {

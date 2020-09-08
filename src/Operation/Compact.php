@@ -25,11 +25,14 @@ final class Compact extends AbstractOperation
         return
             /**
              * @psalm-param T ...$values
+             *
+             * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static function (...$values): Closure {
                 return
                     /**
                      * @psalm-param Iterator<TKey, T> $iterator
+                     *
                      * @psalm-return Generator<TKey, T>
                      */
                     static function (Iterator $iterator) use ($values): Generator {

@@ -15,14 +15,23 @@ use Iterator;
  */
 final class First extends AbstractOperation
 {
+    /**
+     * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
+     */
     public function __invoke(): Closure
     {
-        return static function (Iterator $iterator): Generator {
-            if (!$iterator->valid()) {
-                return yield from [];
-            }
+        return
+            /**
+             * @psalm-param Iterator<TKey, T> $iterator
+             *
+             * @psalm-return Generator<TKey, T>
+             */
+            static function (Iterator $iterator): Generator {
+                if (!$iterator->valid()) {
+                    return yield from [];
+                }
 
-            return yield $iterator->key() => $iterator->current();
-        };
+                return yield $iterator->key() => $iterator->current();
+            };
     }
 }

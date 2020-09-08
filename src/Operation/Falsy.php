@@ -23,6 +23,7 @@ final class Falsy extends AbstractOperation
         return
             /**
              * @psalm-param Iterator<TKey, T> $iterator
+             *
              * @psalm-return Generator<int, bool> $iterator
              */
             static function (Iterator $iterator): Generator {

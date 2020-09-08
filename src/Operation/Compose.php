@@ -25,11 +25,14 @@ final class Compose extends AbstractOperation
         return
             /**
              * @psalm-param callable(Iterator<TKey, T>): Generator<TKey, T> ...$operations
+             *
+             * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static function (callable ...$operations): Closure {
                 return
                     /**
                      * @psalm-param Iterator<TKey, T> $iterator
+                     *
                      * @psalm-return Generator<TKey, T>
                      */
                     static function (Iterator $iterator) use ($operations): Generator {

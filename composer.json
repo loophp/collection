@@ -27,7 +27,7 @@
         "psr/cache": "^1.0",
         "symfony/cache": "^4.4 || ^5.1",
         "symfony/polyfill-mbstring": "^1.18",
-        "vimeo/psalm": "^3.14.2"
+        "vimeo/psalm": "dev-master"
     },
     "suggest": {
         "symfony/polyfill-mbstring": "Use it if you do not have the PHP mbstring extension."

@@ -25,7 +25,7 @@ final class Chunk extends AbstractOperation
     {
         return
             /**
-             * @psalm-param int ...$sizes
+             * @psalm-return Closure(Iterator<TKey, T>): Generator<int, list<T>>
              */
             static function (int ...$sizes): Closure {
                 return

@@ -23,6 +23,8 @@ final class Apply extends AbstractOperation
         return
             /**
              * @psalm-param callable(T, TKey):(bool) ...$callbacks
+             *
+             * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static function (callable ...$callbacks): Closure {
                 return

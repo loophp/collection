@@ -19,7 +19,7 @@ use const E_USER_WARNING;
 final class Combine extends AbstractOperation
 {
     /**
-     * @return Closure(T...): Closure(Iterator<TKey, T>): Generator<T, T>
+     * @psalm-return Closure(T...): Closure(Iterator<TKey, T>): Generator<T, T>
      */
     public function __invoke(): Closure
     {

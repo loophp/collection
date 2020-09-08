@@ -16,7 +16,7 @@ use Iterator;
 final class Flip extends AbstractOperation
 {
     /**
-     * @return Closure(Iterator<TKey, T>): Generator<T, TKey>
+     * @psalm-return Closure(Iterator<TKey, T>): Generator<T, TKey>
      */
     public function __invoke(): Closure
     {

@@ -23,6 +23,8 @@ final class Group extends AbstractOperation
         return
             /**
              * @psalm-param null|callable(TKey, T):(TKey|null) $callable
+             *
+             * @psalm-return Closure(Iterator<TKey, T>): Generator<int, T|list<T>>
              */
             static function (?callable $callable = null): Closure {
                 return

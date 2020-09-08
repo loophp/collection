@@ -25,6 +25,8 @@ final class Diff extends AbstractOperation
         return
             /**
              * @psalm-param T ...$values
+             *
+             * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static function (...$values): Closure {
                 return

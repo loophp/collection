@@ -37,11 +37,10 @@ final class Map extends AbstractOperation
                     static function (Iterator $iterator) use ($callbacks): Generator {
                         $callbackFactory =
                             /**
+                             * @param mixed $key
                              * @psalm-param TKey $key
                              *
-                             * @psalm-return Closure(T): Closure(T, callable(T, TKey): T): T
-                             *
-                             * @param mixed $key
+                             * @psalm-return Closure(T, callable(T, TKey): T): T
                              */
                             static function ($key): Closure {
                                 return

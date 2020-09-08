@@ -16,7 +16,7 @@ use Iterator;
 final class RSample extends AbstractOperation
 {
     /**
-     * @return Closure(float): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @psalm-return Closure(float): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {

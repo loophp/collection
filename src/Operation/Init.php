@@ -32,7 +32,12 @@ final class Init extends AbstractOperation
                 $cacheIterator->next();
 
                 for (; $iterator->valid(); $cacheIterator->next()) {
-                    yield $cacheIterator->key() => $cacheIterator->current();
+                    /** @psalm-var TKey $key */
+                    $key = $cacheIterator->key();
+                    /** @psalm-var T $current */
+                    $current = $cacheIterator->current();
+
+                    yield $key => $current;
                 }
             };
     }
