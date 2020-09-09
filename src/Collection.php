@@ -320,7 +320,7 @@ final class Collection implements CollectionInterface
 
     public function current(int $index = 0)
     {
-        return Current::of()($index)($this->getIterator());
+        return $this->run(Current::of()($index))->getIterator()->current();
     }
 
     public function cycle(): CollectionInterface
@@ -537,7 +537,7 @@ final class Collection implements CollectionInterface
 
     public function key(int $index = 0)
     {
-        return Key::of()($index)($this->getIterator());
+        return $this->run(Key::of()($index))->getIterator()->current();
     }
 
     public function keys(): CollectionInterface

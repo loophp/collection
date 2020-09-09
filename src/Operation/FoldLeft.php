@@ -47,7 +47,12 @@ final class FoldLeft extends AbstractOperation
                                 /** @psalm-var Generator<TKey, T> $iterator */
                                 $iterator = Last::of()(Reduction::of()($callback)($initial)($iterator));
 
-                                return yield Key::of()(0)($iterator) => Current::of()(0)($iterator);
+                                /** @psalm-var Generator<int, TKey> $key */
+                                $key = (Key::of()(0)($iterator));
+                                /** @psalm-var Generator<int, T> $current */
+                                $current = (Current::of()(0)($iterator));
+
+                                return yield $key->current() => $current->current();
                             };
                     };
             };

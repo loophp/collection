@@ -36,7 +36,7 @@ final class Key extends AbstractOperation
                         for ($i = 0; $i < $index; $i++, $iterator->next()) {
                         }
 
-                        return $iterator->key();
+                        return yield $iterator->key();
                     };
             };
     }

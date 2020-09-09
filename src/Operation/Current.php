@@ -36,7 +36,7 @@ final class Current extends AbstractOperation
                         for ($i = 0; $i < $index; $i++, $iterator->next()) {
                         }
 
-                        return $iterator->current();
+                        return yield $iterator->current();
                     };
             };
     }
