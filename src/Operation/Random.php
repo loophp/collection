@@ -27,7 +27,7 @@ final class Random extends AbstractOperation
             static function (int $size): Closure {
                 return
                     /**
-                     * @psalm-param Iterator<TKey, T>
+                     * @psalm-param Iterator<TKey, T> $iterator
                      *
                      * @psalm-return Generator<TKey, T>
                      */

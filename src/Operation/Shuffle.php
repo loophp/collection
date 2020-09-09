@@ -16,6 +16,9 @@ use loophp\collection\Iterator\RandomIterator;
  */
 final class Shuffle extends AbstractOperation
 {
+    /**
+     * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T, mixed, void>
+     */
     public function __invoke(): Closure
     {
         return

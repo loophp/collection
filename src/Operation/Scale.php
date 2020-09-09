@@ -24,54 +24,78 @@ final class Scale extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        return static function (float $lowerBound): Closure {
-            return static function (float $upperBound) use ($lowerBound): Closure {
-                return static function (float $wantedLowerBound = 0.0) use ($lowerBound, $upperBound): Closure {
-                    return static function (float $wantedUpperBound = 1.0) use ($lowerBound, $upperBound, $wantedLowerBound): Closure {  // phpcs:ignore
-                        return static function (float $base = 0.0) use ($lowerBound, $upperBound, $wantedLowerBound, $wantedUpperBound): Closure { // phpcs:ignore
-                            return static function (Iterator $iterator) use ($lowerBound, $upperBound, $wantedLowerBound, $wantedUpperBound, $base): Generator { // phpcs:ignore
-                                $wantedLowerBound = (0.0 === $wantedLowerBound) ? (0.0 === $base ? 0.0 : 1.0) : $wantedLowerBound; // phpcs:ignore
-                                $wantedUpperBound = (1.0 === $wantedUpperBound) ? (0.0 === $base ? 1.0 : $base) : $wantedUpperBound; // phpcs:ignore
-
-                                /** @psalm-var callable(Generator<TKey, float|int>): Generator<TKey, float> $mapper */
-                                $mapper = Map::of()(
+        return
+            /**
+             * @psalm-return Closure(float): Closure(float): Closure(float): Closure(float): Closure(Iterator<TKey, float|int>): Generator<TKey, float|int>
+             */
+            static function (float $lowerBound): Closure {
+                return
+                    /**
+                     * @psalm-return Closure(float): Closure(float): Closure(float): Closure(Iterator<TKey, float|int>): Generator<TKey, float|int>
+                     */
+                    static function (float $upperBound) use ($lowerBound): Closure {
+                        return
+                            /**
+                             * @psalm-return Closure(float): Closure(float): Closure(Iterator<TKey, float|int>): Generator<TKey, float|int>
+                             */
+                            static function (float $wantedLowerBound = 0.0) use ($lowerBound, $upperBound): Closure {
+                                return
                                     /**
-                                     * @param mixed $v
-                                     * @psalm-param float|int $v
+                                     * @psalm-return Closure(float): Closure(Iterator<TKey, float|int>): Generator<TKey, float|int>
                                      */
-                                    static function ($v) use ($lowerBound, $upperBound, $wantedLowerBound, $wantedUpperBound, $base): float { // phpcs:ignore
-                                        $mx = 0.0 === $base ?
-                                            ($v - $lowerBound) / ($upperBound - $lowerBound) :
-                                            log($v - $lowerBound, $base) / log($upperBound - $lowerBound, $base);
+                                    static function (float $wantedUpperBound = 1.0) use ($lowerBound, $upperBound, $wantedLowerBound): Closure {  // phpcs:ignore
+                                        return
+                                            /**
+                                             * @psalm-return Closure(Iterator<TKey, float|int>): Generator<TKey, float|int>
+                                             */
+                                            static function (float $base = 0.0) use ($lowerBound, $upperBound, $wantedLowerBound, $wantedUpperBound): Closure { // phpcs:ignore
+                                                return
+                                                    /**
+                                                     * @psalm-return Generator<TKey, float|int>
+                                                     */
+                                                    static function (Iterator $iterator) use ($lowerBound, $upperBound, $wantedLowerBound, $wantedUpperBound, $base): Generator { // phpcs:ignore
+                                                        $wantedLowerBound = (0.0 === $wantedLowerBound) ? (0.0 === $base ? 0.0 : 1.0) : $wantedLowerBound; // phpcs:ignore
+                                                        $wantedUpperBound = (1.0 === $wantedUpperBound) ? (0.0 === $base ? 1.0 : $base) : $wantedUpperBound; // phpcs:ignore
 
-                                        $mx = $mx === -INF ? 0 : $mx;
+                                                        /** @psalm-var callable(Generator<TKey, float|int>): Generator<TKey, float> $mapper */
+                                                        $mapper = Map::of()(
+                                                            /**
+                                                             * @param mixed $v
+                                                             * @psalm-param float|int $v
+                                                             */
+                                                            static function ($v) use ($lowerBound, $upperBound, $wantedLowerBound, $wantedUpperBound, $base): float { // phpcs:ignore
+                                                                $mx = 0.0 === $base ?
+                                                                    ($v - $lowerBound) / ($upperBound - $lowerBound) :
+                                                                    log($v - $lowerBound, $base) / log($upperBound - $lowerBound, $base);
 
-                                        return $wantedLowerBound + $mx * ($wantedUpperBound - $wantedLowerBound);
-                                    }
-                                );
+                                                                $mx = $mx === -INF ? 0 : $mx;
 
-                                /** @psalm-var callable(Iterator<TKey, float|int>): Generator<TKey, float|int> $filter */
-                                $filter = Filter::of()(
-                                    /**
-                                     * @param float|int $item
-                                     */
-                                    static function ($item) use ($lowerBound): bool {
-                                        return $item >= $lowerBound;
-                                    },
-                                    /**
-                                     * @param float|int $item
-                                     */
-                                    static function ($item) use ($upperBound): bool {
-                                        return $item <= $upperBound;
-                                    }
-                                );
+                                                                return $wantedLowerBound + $mx * ($wantedUpperBound - $wantedLowerBound);
+                                                            }
+                                                        );
 
-                                return yield from Compose::of()($filter, $mapper)($iterator);
+                                                        /** @psalm-var callable(Iterator<TKey, float|int>): Generator<TKey, float|int> $filter */
+                                                        $filter = Filter::of()(
+                                                            /**
+                                                             * @param float|int $item
+                                                             */
+                                                            static function ($item) use ($lowerBound): bool {
+                                                                return $item >= $lowerBound;
+                                                            },
+                                                            /**
+                                                             * @param float|int $item
+                                                             */
+                                                            static function ($item) use ($upperBound): bool {
+                                                                return $item <= $upperBound;
+                                                            }
+                                                        );
+
+                                                        return yield from Compose::of()($filter, $mapper)($iterator);
+                                                    };
+                                            };
+                                    };
                             };
-                        };
                     };
-                };
             };
-        };
     }
 }

@@ -31,11 +31,10 @@ final class Reduce extends AbstractOperation
             static function (callable $callback): Closure {
                 return
                     /**
+                     * @param mixed|null $initial
                      * @psalm-param T|null $initial
                      *
                      * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
-                     *
-                     * @param mixed|null $initial
                      */
                     static function ($initial = null) use ($callback): Closure {
                         return

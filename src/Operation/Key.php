@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
+use Generator;
 use Iterator;
 
 /**
@@ -15,7 +16,7 @@ use Iterator;
 final class Key extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(int): Closure(Iterator<TKey, T>): TKey
+     * @psalm-return Closure(int): Closure(Iterator<TKey, T>): Generator<int, TKey>
      */
     public function __invoke(): Closure
     {
@@ -23,16 +24,16 @@ final class Key extends AbstractOperation
             /**
              * @psalm-param int $index
              *
-             * @psalm-return Closure(Iterator<TKey, T>): TKey
+             * @psalm-return Closure(Iterator<TKey, T>): Generator<int, TKey>
              */
             static function (int $index): Closure {
                 return
                     /**
                      * @psalm-param Iterator<TKey, T> $iterator
                      *
-                     * @psalm-return TKey
+                     * @psalm-return Generator<int, TKey>
                      */
-                    static function (Iterator $iterator) use ($index) {
+                    static function (Iterator $iterator) use ($index): Generator {
                         for ($i = 0; $i < $index; $i++, $iterator->next()) {
                         }
 

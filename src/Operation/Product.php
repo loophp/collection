@@ -7,7 +7,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Iterator\IterableIterator;
 
 use function count;
 
@@ -15,6 +14,8 @@ use function count;
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
+ *
+ * phpcs:disable Generic.WhiteSpace.ScopeIndent.IncorrectExact
  */
 final class Product extends AbstractOperation
 {
@@ -43,8 +44,7 @@ final class Product extends AbstractOperation
                              *
                              * @psalm-return Generator<int, array<int, T>>
                              */
-                            static function (iterable ...$iterables) use (&$cartesian): Generator
-                            {
+                            static function (iterable ...$iterables) use (&$cartesian): Generator {
                                 $iterable = array_pop($iterables);
 
                                 if (null === $iterable) {

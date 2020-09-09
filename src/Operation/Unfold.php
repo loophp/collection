@@ -18,7 +18,7 @@ use Iterator;
 final class Unfold extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(T...): Closure(callable(T...): (array<TKey, T>)): Closure(Iterator<TKey, T>=): Generator<int, T>
+     * @psalm-return Closure(T...): Closure(callable(T...): (array<TKey, T>)): Closure(null|Iterator<TKey, T>): Generator<int, T>
      */
     public function __invoke(): Closure
     {
@@ -27,14 +27,14 @@ final class Unfold extends AbstractOperation
              * @param mixed $parameters
              * @psalm-param T ...$parameters
              *
-             * @psalm-return Closure(callable(T...): (array<TKey, T>)): Closure(Iterator<TKey, T>=): Generator<int, T>
+             * @psalm-return Closure(callable(T...): (array<TKey, T>)): Closure(null|Iterator<TKey, T>): Generator<int, T>
              */
             static function (...$parameters): Closure {
                 return
                     /**
                      * @psalm-param callable(T...): (array<TKey, T>) $callback
                      *
-                     * @psalm-return Closure(Iterator<TKey, T>=): Generator<int, T>
+                     * @psalm-return Closure(null|Iterator<TKey, T>): Generator<int, T>
                      */
                     static function (callable $callback) use ($parameters): Closure {
                         return
