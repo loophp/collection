@@ -37,7 +37,7 @@ On top of this, this library:
  * uses [S.O.L.I.D. principles][solid on wikipedia],
  * does not have any external dependency,
  * fully tested,
- * type safe (_type safe @ > 93%_),
+ * type safe (_type safe @ > 94%_),
  * framework agnostic.
  
 Except a few methods, most methods are [pure][pure function on wikipedia] and return a
@@ -88,7 +88,7 @@ tests.
 The library has tests written with [PHPSpec][phpspec].
 Feel free to check them out in the `spec` directory. Run `composer phpspec` to trigger the tests.
 
-Before each commit some inspections (_currently 14_) are executed with [GrumPHP][grumphp], 
+Before each commit some inspections are executed with [GrumPHP][grumphp], 
 run `composer grumphp` to check manually.
 
 The quality of the tests is tested with [Infection][infection] a PHP Mutation testing
@@ -142,7 +142,7 @@ For more detailed changelogs, please check [the release changelogs][changelog-re
 [array_filter function]: https://www.php.net/array-filter
 [array_reduce function]: https://www.php.net/array-reduce
 [SplObjectStorage]: https://www.php.net/manual/en/class.splobjectstorage.php
-[lazy collection example]: https://loophp-collection.readthedocs.io/en/latest/pages/examples.html#manipulate-keys-and-values
+[lazy collection example]: https://loophp-collection.readthedocs.io/en/latest/pages/usage.html#manipulate-keys-and-values
 [laravel support package]: https://github.com/illuminate/support
 [DusanKasan/Knapsack package]: https://github.com/DusanKasan/Knapsack
 [mtdowling/transducers]: https://github.com/mtdowling/transducers.php

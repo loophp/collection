@@ -213,20 +213,6 @@ Simple
     Collection::with($string, ',')
       ->count(); // 9
 
-    // The Collatz conjecture (https://en.wikipedia.org/wiki/Collatz_conjecture)
-    $collatz = static function (int $value): int
-    {
-        return 0 === $value % 2 ?
-            $value / 2:
-            $value * 3 + 1;
-    };
-
-    Collection::unfold($collatz, 10)
-        ->until(static function ($number): bool {
-            return 1 === $number;
-        })
-        ->all(); // [5, 16, 8, 4, 2, 1]
-
     // Regular values normalization.
     Collection::with([0, 2, 4, 6, 8, 10])
         ->scale(0, 10)
@@ -373,7 +359,6 @@ Manipulate strings
     Collection::with($string, ',')
         ->count(); // 9
 
-
 Random number generation
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -418,15 +403,15 @@ Approximate the number e
 
     use loophp\collection\Collection;
 
-    $multiplication = static function ($value1, $value2) {
+    $multiplication = static function (float $value1, float $value2): float {
         return $value1 * $value2;
     };
 
-    $addition = static function ($value1, $value2) {
+    $addition = static function (float $value1, float $value2): float {
         return $value1 + $value2;
     };
 
-    $fact = static function (int $number) use ($multiplication) {
+    $fact = static function (int $number) use ($multiplication): float {
         return Collection::range(1, $number + 1)
             ->reduce(
                 $multiplication,
@@ -438,9 +423,21 @@ Approximate the number e
         return $value / $fact($value);
     };
 
-    $number_e_approximation = Collection::times(PHP_INT_MAX, $e)
+    $listInt = static function(int $init, callable $succ): Generator
+    {
+        yield $init;
+
+        while (true) {
+            yield $init = $succ($init);
+        }
+    };
+
+    $naturals = $listInt(1, static function (int $n): int {return $n + 1;});
+
+    $number_e_approximation = Collection::fromIterable($naturals)
+        ->map($e)
         ->until(static function (float $value): bool {return $value < 10 ** -12;})
-        ->reduce($addition);
+        ->reduce($addition, 0);
 
     var_dump($number_e_approximation); // 2.718281828459
 
@@ -457,7 +454,7 @@ Approximate the number Pi
 
     use loophp\collection\Collection;
 
-    $monteCarloMethod = static function (array $out = [], $in = 0, $total = 1) {
+    $monteCarloMethod = static function ($in = 0, $total = 1) {
         $randomNumber1 = mt_rand(0, mt_getrandmax() - 1) / mt_getrandmax();
         $randomNumber2 = mt_rand(0, mt_getrandmax() - 1) / mt_getrandmax();
 
@@ -465,93 +462,98 @@ Approximate the number Pi
             ++$in;
         }
 
-        return [[$in, ++$total], $in, $total];
-    };
-
-    $precision = new class() {
-
-        /**
-         * @var array
-         */
-        private $state;
-
-        /**
-         * @var float
-         */
-        private $precision;
-
-        /**
-         * @var int
-         */
-        private $row;
-
-        /**
-         * Precision constructor.
-         *
-         * @param float $precision
-         * @param int $row
-         */
-        public function __construct(float $precision = 10 ** -5, int $row = 20)
-        {
-            $this->precision = $precision;
-            $this->row = $row;
-            $this->state = [
-                'prev' => null,
-                'found' => 0,
-            ];
-        }
-
-        /**
-         * @param float $value
-         *
-         * @return bool
-         */
-        public function __invoke(float $value): bool
-        {
-            if (null === $this->state['prev']) {
-                $this->state['prev'] = $value;
-                $this->state['found'] = 0;
-
-                return false;
-            }
-
-            if ($value === $this->state['prev']) {
-                $this->state['found'] = 0;
-
-                return false;
-            }
-
-            if (abs($value - $this->state['prev']) <= $this->precision) {
-                ++$this->state['found'];
-
-                return false;
-            }
-
-            if ($this->state['found'] >= $this->row) {
-                $this->state['found'] = 0;
-
-                return true;
-            }
-
-            $this->state['prev'] = $value;
-            $this->state['found'] = 0;
-
-            return false;
-        }
+        return ['in' => $in, 'total' => ++$total];
     };
 
     $pi_approximation = Collection::unfold($monteCarloMethod)
         ->map(
-            static function (array $value) {
-                return 4 * $value[0] / $value[1];
+            static function ($value) {
+                return 4 * $value['in'] / $value['total'];
             }
         )
-        ->nth(50)
-        ->until($precision)
-        ->last()
-        ->all();
+        ->window(1)
+        ->drop(1)
+        ->until(
+            static function (array $value): bool {
+                return 0.00001 > abs($value[0] - $value[1]);
+            }
+        )
+        ->last();
 
-    print_r($pi_approximation);
+    print_r($pi_approximation->all());
+
+Fibonacci sequence
+~~~~~~~~~~~~~~~~~~
+
+.. code-block:: php
+
+    <?php
+
+    declare(strict_types=1);
+
+    include 'vendor/autoload.php';
+
+    use loophp\collection\Collection;
+
+    $fibonacci = static function(int $a = 0, int $b = 1): array {
+        return [$b, $b + $a];
+    };
+
+    $c = Collection::unfold($fibonacci)
+        ->pluck(0)    // Get the first item of each result.
+        ->limit(10);  // Limit the amount of results to 10.
+
+    print_r($c->all()); // [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
+
+Gamma function
+~~~~~~~~~~~~~~
+
+.. code-block:: php
+
+    <?php
+
+    declare(strict_types=1);
+
+    include 'vendor/autoload.php';
+
+    use loophp\collection\Collection;
+
+    $addition = static function (float $value1, float $value2): float {
+        return $value1 + $value2;
+    };
+
+    $listInt = static function(int $init, callable $succ): Generator
+    {
+        yield $init;
+
+        while (true) {
+            yield $init = $succ($init);
+        }
+    };
+
+    $ℕ = $listInt(1, static function (int $n): int {return $n + 1;});
+
+    $γ = static function (float $n): \Closure
+    {
+        return static function (int $x) use ($n): float
+        {
+            return ($x ** ($n - 1)) * (M_E ** (-$x));
+        };
+    };
+
+    $ε = static function (float $value): bool {return $value < 10 ** -12;};
+
+    // Find the factorial of this number. This is not bounded to integers!
+    // $number = 3; // 2 * 2 => 4
+    // $number = 6; // 5 * 4 * 3 * 2 => 120
+    $number = 5.75; // 78.78
+
+    $gamma_factorial_approximation = Collection::fromIterable($ℕ)
+        ->map($γ($number))
+        ->until($ε)
+        ->reduce($addition, 0);
+
+    print_r($gamma_factorial_approximation); // 78.78
 
 Prime numbers
 ~~~~~~~~~~~~~
@@ -626,7 +628,6 @@ Prime numbers
         var_dump($prime);
     }
 
-
 Text analysis
 ~~~~~~~~~~~~~
 
@@ -677,8 +678,8 @@ Random number distribution
     use loophp\collection\Contract\Operation\Sortable;
 
     $min = 0;
-    $max = 1000;
-    $groups = 100;
+    $max = 100;
+    $groups = 10;
 
     $randomGenerator = static function () use ($min, $max): int {
         return random_int($min, $max);
@@ -687,7 +688,7 @@ Random number distribution
     $distribution = Collection::unfold($randomGenerator)
         ->limit($max * $max)
         ->associate(
-            static function ($key, $value) use ($max, $groups): string {
+            static function (int $key, int $value) use ($max, $groups): string {
                 for ($i = 0; ($max / $groups) > $i; ++$i) {
                     if ($i * $groups <= $value && ($i + 1) * $groups >= $value) {
                         return sprintf('%s <= x <= %s', $i * $groups, ($i + 1) * $groups);
@@ -697,19 +698,21 @@ Random number distribution
         )
         ->group()
         ->map(
-            static function ($value): int {
+            static function (array $value): int {
                 return \count($value);
             }
         )
         ->sort(
             Sortable::BY_KEYS,
-            static function (array $left, array $right): int {
+            static function (string $left, string $right): int {
                 [$left_min_limit] = explode(' ', $left);
                 [$right_min_limit] = explode(' ', $right);
 
                 return $left_min_limit <=> $right_min_limit;
             }
         );
+
+    print_r($distribution->all());
 
     /*
     Array
@@ -869,32 +872,18 @@ Collatz conjecture
     use loophp\collection\Collection;
 
     // The Collatz conjecture (https://en.wikipedia.org/wiki/Collatz_conjecture)
-    function collatz(int $initial): Generator
+    $collatz = static function (int $value): int
     {
-        yield $initial;
-
-        return yield from collatz(
-            0 === $initial % 2 ?
-                $initial / 2:
-                $initial * 3 + 1
-        );
+        return 0 === $value % 2 ?
+            $value / 2:
+            $value * 3 + 1;
     };
 
-    $c = Collection::fromIterable(collatz(25))
-        ->normalize()
-        ->until(fn(int $number): bool => 1 === $number)
-        ->all(); // [25, 76, 38, 19, 58, 29, 88, 44, 22, 11, 34, 17, 52, 26, 13, 40, 20, 10, 5, 16, 8, 4, 2, 1]
-
-                            return null;
-                        }
-                    );
+    $c = Collection::unfold($collatz, 25)
+        ->until(
+            static function ($number): bool {
+                return 1 === $number;
             }
-        )
-        ->map(
-            static function (CollectionInterface $collection): array {
-                return $collection->all();
-            }
-        )
-        ->limit(52);
+        );
 
-    print_r($c->all());
+    print_r($c->all()); // [25, 76, 38, 19, 58, 29, 88, 44, 22, 11, 34, 17, 52, 26, 13, 40, 20, 10, 5, 16, 8, 4, 2, 1]
