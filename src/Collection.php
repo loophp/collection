@@ -244,31 +244,25 @@ final class Collection implements CollectionInterface
         ?callable $callbackForKeys = null,
         ?callable $callbackForValues = null
     ): CollectionInterface {
-        $callbackForKeys = $callbackForKeys ??
+        $defaultCallback =
             /**
-             * @psalm-param TKey $key
-             * @psalm-param T $value
-             * @psalm-return TKey
+             * @param mixed $carry
+             * @psalm-param T|TKey $carry
              *
              * @param mixed $key
+             * @psalm-param TKey $key
+             *
              * @param mixed $value
+             * @psalm-param T $value
+             *
+             * @psalm-return TKey|T
              */
-            static function ($key, $value) {
-                return $key;
+            static function ($carry, $key, $value) {
+                return $carry;
             };
 
-        $callbackForValues = $callbackForValues ??
-            /**
-             * @psalm-param TKey $key
-             * @psalm-param T $value
-             * @psalm-return T
-             *
-             * @param mixed $key
-             * @param mixed $value
-             */
-            static function ($key, $value) {
-                return $value;
-            };
+        $callbackForKeys = $callbackForKeys ?? $defaultCallback;
+        $callbackForValues = $callbackForValues ?? $defaultCallback;
 
         return $this->run(Associate::of()($callbackForKeys)($callbackForValues));
     }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace loophp\collection\Operation;
 
+use ArrayIterator;
 use Closure;
 use Generator;
 use Iterator;
@@ -19,37 +20,37 @@ use Iterator;
 final class Associate extends AbstractOperation
 {
     /**
-     * @psalm-return Closure((callable(TKey, T):TKey)...): Closure((callable(TKey, T):T)...): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @psalm-return Closure((callable(T, TKey, T, Iterator<TKey, T>): (T|TKey))...): Closure((callable(T, TKey, T, Iterator<TKey, T>): (T|TKey))...): Closure(Iterator<TKey, T>): Generator<TKey|T, T|TKey>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param callable(TKey, T):TKey ...$callbackForKeys
+             * @psalm-param callable(T, TKey, T, Iterator<TKey, T>): (T|TKey) ...$callbackForKeys
              *
-             * @psalm-return Closure((callable(TKey, T):T)...): Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @psalm-return Closure((callable(T, TKey, T, Iterator<TKey, T>): (T|TKey))...): Closure(Iterator<TKey, T>): Generator<TKey|T, T|TKey>
              */
             static function (callable ...$callbackForKeys): Closure {
                 return
                     /**
-                     * @psalm-param callable(TKey, T):(T) ...$callbackForValues
+                     * @psalm-param callable(T, TKey, T, Iterator<TKey, T>): (T|TKey) ...$callbackForValues
                      *
-                     * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
+                     * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey|T, T|TKey>
                      */
                     static function (callable ...$callbackForValues) use ($callbackForKeys): Closure {
                         return
                             /**
                              * @psalm-param Iterator<TKey, T> $iterator
                              *
-                             * @psalm-return Generator<TKey, T>
+                             * @psalm-return Generator<TKey|T, T|TKey>
                              */
                             static function (Iterator $iterator) use ($callbackForKeys, $callbackForValues): Generator {
-                                $callbackForKeysFactory =
+                                $callbackFactory =
                                     /**
                                      * @param mixed $key
                                      * @psalm-param TKey $key
                                      *
-                                     * @psalm-return Closure(T): Closure(TKey, callable(TKey, T): TKey): TKey
+                                     * @psalm-return Closure(T): Closure(T, callable(T, TKey, T, Iterator<TKey, T>): (T|TKey), int, Iterator<TKey, T>): (T|TKey)
                                      */
                                     static function ($key): Closure {
                                         return
@@ -57,54 +58,32 @@ final class Associate extends AbstractOperation
                                              * @param mixed $value
                                              * @psalm-param T $value
                                              *
-                                             * @psalm-return Closure(TKey, callable(TKey, T): TKey): TKey
+                                             * @psalm-return Closure(T, callable(T, TKey, T, Iterator<TKey, T>): (T|TKey), int, Iterator<TKey, T>): (T|TKey)
                                              */
                                             static function ($value) use ($key): Closure {
                                                 return
                                                     /**
-                                                     * @param mixed $carry
-                                                     * @psalm-param TKey $carry
-                                                     * @psalm-param callable(TKey, T): TKey $callback
+                                                     * @param mixed $initial
+                                                     * @psalm-param T $initial
+                                                     * @psalm-param callable(T, TKey, T, Iterator<TKey, T>): (T|TKey) $callback
+                                                     * @psalm-param Iterator<TKey, T> $iterator
                                                      *
-                                                     * @psalm-return TKey
+                                                     * @psalm-return T|TKey
                                                      */
-                                                    static function ($carry, callable $callback) use ($key, $value) {
-                                                        return $callback($carry, $value);
-                                                    };
-                                            };
-                                    };
-
-                                $callbackForValuesFactory =
-                                    /**
-                                     * @param mixed $key
-                                     * @psalm-param TKey $key
-                                     *
-                                     * @psalm-return Closure(T): Closure(T, callable(TKey, T): T): T
-                                     */
-                                    static function ($key): Closure {
-                                        return
-                                            /**
-                                             * @param mixed $value
-                                             * @psalm-param T $value
-                                             *
-                                             * @psalm-return Closure(T, callable(TKey, T): T) :T
-                                             */
-                                            static function ($value) use ($key): Closure {
-                                                return
-                                                    /**
-                                                     * @param mixed $carry
-                                                     * @psalm-param T $carry
-                                                     * @psalm-param callable(TKey, T): T $callback
-                                                     * @psalm-return T
-                                                     */
-                                                    static function ($carry, callable $callback) use ($key, $value) {
-                                                        return $callback($key, $carry);
+                                                    static function ($initial, callable $callback, int $callbackId, Iterator $iterator) use ($key, $value) {
+                                                        return $callback($initial, $key, $value, $iterator);
                                                     };
                                             };
                                     };
 
                                 foreach ($iterator as $key => $value) {
-                                    yield array_reduce($callbackForKeys, $callbackForKeysFactory($key)($value), $key) => array_reduce($callbackForValues, $callbackForValuesFactory($key)($value), $value);
+                                    /** @psalm-var Generator<int, TKey|T> $k */
+                                    $k = FoldLeft::of()($callbackFactory($key)($value))($key)(new ArrayIterator($callbackForKeys));
+
+                                    /** @psalm-var Generator<int, T|TKey> $c */
+                                    $c = FoldLeft::of()($callbackFactory($key)($value))($value)(new ArrayIterator($callbackForValues));
+
+                                    yield $k->current() => $c->current();
                                 }
                             };
                     };

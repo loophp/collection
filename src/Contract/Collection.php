@@ -106,6 +106,7 @@ use loophp\collection\Iterator\ClosureIterator;
  * @template-extends Combineable<TKey, T>
  * @template-extends Compactable<TKey, T>
  * @template-extends Containsable<T>
+ * @template-extends Currentable<TKey, T>
  * @template-extends Cycleable<TKey, T>
  * @template-extends Diffable<TKey, T>
  * @template-extends Diffkeysable<TKey, T>
@@ -159,7 +160,6 @@ use loophp\collection\Iterator\ClosureIterator;
  * @template-extends Tailable<TKey, T>
  * @template-extends TakeWhileable<TKey, T>
  * @template-extends Transposeable<TKey, T>
- * @template-extends Unfoldable<TKey, T>
  * @template-extends Unpackable<TKey, T>
  * @template-extends Unpairable<TKey, T>
  * @template-extends Untilable<TKey, T>
