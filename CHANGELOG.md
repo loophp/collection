@@ -2,14 +2,21 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
-#### [2.5.2](https://github.com/loophp/collection/compare/2.5.2...2.5.2)
+#### [2.5.3](https://github.com/loophp/collection/compare/2.5.2...2.5.3)
 
-> 8 September 2020
+> 12 September 2020
+
+- **Breaking change:** refactor: Update Associate operation. [`168eb1a`](https://github.com/loophp/collection/commit/168eb1a02b0c295f693c11381069f278e5b08f13)
+- docs: Update annotations. [`6cb1e77`](https://github.com/loophp/collection/commit/6cb1e770b48c72fe23453f1d6e137d4ebd2107a8)
+- refactor: Update some operation to make them lazy by default. [`ff6c556`](https://github.com/loophp/collection/commit/ff6c556a6f042019141110ab0543137f9af546c3)
+- docs: Update documentation. [`d990886`](https://github.com/loophp/collection/commit/d9908863c3697c9d5b7684496affa455e95228fd)
+- refactor: Update Product operation. [`1318e41`](https://github.com/loophp/collection/commit/1318e41c8b88e5e248c45f0d20ed48f592f842e1)
 
 #### [2.5.2](https://github.com/loophp/collection/compare/2.5.1...2.5.2)
 
 > 8 September 2020
 
+- Update changelog. [`3340899`](https://github.com/loophp/collection/commit/3340899eda7e1308b6414e03bea965198133629f)
 - Fix Psalm version. [`f1cd23a`](https://github.com/loophp/collection/commit/f1cd23aa349fd290750868f3e889a7b0e6794156)
 
 #### [2.5.1](https://github.com/loophp/collection/compare/2.5.0...2.5.1)
