@@ -173,17 +173,29 @@ append
 
 Add one or more items to a collection.
 
+.. warning:: If appended values overwrite existing values, you might find that this operation doesn't work correctly
+             when the collection is converted into an array.
+             It's always better to never convert the collection to an array and use it in a loop.
+             However, if for some reason, you absolutely need to convert it into an array, then use the
+             ``Collection::normalize()`` operation.
+
 Interface: `Appendable`_
 
 Signature: ``Collection::append(...$items);``
 
 .. code-block:: php
 
-    $collection = Collection::with(['1', '2', '3']);
+    Collection::fromIterable([1 => '1', 2 => '2', 3 => '3'])
+        ->append('4'); // [1 => '1', 2 => '2', 3 => '3', 0 => '4']
 
-    $collection
+    Collection::fromIterable(['1', '2', '3'])
         ->append('4')
-        ->append('5', '6');
+        ->append('5', '6'); // [0 => 5, 1 => 6, 2 => 3]
+
+    Collection::fromIterable(['1', '2', '3'])
+        ->append('4')
+        ->append('5', '6')
+        ->normalize(); // ['1', '2', '3', '4', '5', '6']
 
 apply
 ~~~~~
@@ -508,8 +520,6 @@ Signature: ``Collection::duplicate();``
             ->distinct()
             ->normalize() // [0 => 'a', 1 => 'c']
 
-
-
 explode
 ~~~~~~~
 
@@ -683,7 +693,6 @@ get
 ~~~
 
 Interface: `Getable`_
-
 
 group
 ~~~~~
@@ -1018,7 +1027,6 @@ Signature: ``Collection::pack();``
      //   ['e', 'f'],
      // ]
 
-
 pad
 ~~~
 
@@ -1121,14 +1129,29 @@ prepend
 
 Push an item onto the beginning of the collection.
 
+.. warning:: If prepended values overwrite existing values, you might find that this operation doesn't work correctly
+             when the collection is converted into an array.
+             It's always better to never convert the collection to an array and use it in a loop.
+             However, if for some reason, you absolutely need to convert it into an array, then use the
+             ``Collection::normalize()`` operation.
+
 Interface: `Prependable`_
 
 Signature: ``Collection::prepend(...$items);``
 
 .. code-block:: php
 
-    $collection = Collection::with(['4', '5', '6'])
-        ->prepend('1', '2', '3');
+    Collection::fromIterable([1 => '1', 2 => '2', 3 => '3'])
+        ->prepend('4'); // [0 => 4, 1 => '1', 2 => '2', 3 => '3']
+
+    Collection::fromIterable(['1', '2', '3'])
+        ->prepend('4')
+        ->prepend('5', '6'); // [0 => 1, 1 => 2, 2 => 3]
+
+    Collection::fromIterable(['1', '2', '3'])
+        ->prepend('4')
+        ->prepend('5', '6')
+        ->normalize(); // ['5', '6', '4', '1', '2', '3']
 
 product
 ~~~~~~~
