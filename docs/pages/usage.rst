@@ -16,7 +16,7 @@ Simple
 
     use loophp\collection\Collection;
 
-    $collection = Collection::with(['A', 'B', 'C', 'D', 'E']);
+    $collection = Collection::fromIterable(['A', 'B', 'C', 'D', 'E']);
 
     // Get the result as an array.
     $collection
@@ -24,7 +24,12 @@ Simple
 
     // Get the first item.
     $collection
-        ->first(); // A
+        ->first(); ['a']
+
+    // Get the first item.
+    $collection
+        ->first()
+        ->current(); // 'a'
 
     // Append items.
     $collection
@@ -35,6 +40,7 @@ Simple
     // Prepend items.
     $collection
         ->prepend('1', '2', '3')
+        ->normalize()
         ->all(); // ['1', '2', '3', 'A', 'B', 'C', 'D', 'E']
 
     // Split a collection into chunks of a given size.
@@ -61,7 +67,7 @@ Simple
     $data = (object) array_combine(range('A', 'E'), range('A', 'E'));
 
     // Keys are preserved during the map() operation.
-    Collection::with(['A' => 'A', 'B' => 'B', 'C' => 'C', 'D' => 'D', 'E' => 'E'])
+    Collection::fromIterable(['A' => 'A', 'B' => 'B', 'C' => 'C', 'D' => 'D', 'E' => 'E'])
         ->map(
             static function (string $value, string $key): string {
                 return strtolower($value);
@@ -70,12 +76,12 @@ Simple
         ->all(); // ['A' => 'a', B => 'b', 'C' => 'c', 'D' = >'d', 'E' => 'e']
 
     // Tail
-    Collection::with(range('a', 'z'))
+    Collection::fromIterable(range('a', 'z'))
         ->tail(3)
         ->all(); // [23 => 'x', 24 => 'y', 25 => 'z']
 
     // Reverse
-    Collection::with(range('a', 'z'))
+    Collection::fromIterable(range('a', 'z'))
         ->tail(4)
         ->reverse()
         ->all(); // [25 => 'z', 24 => 'y', 23 => 'x', 22 => 'w']
@@ -88,13 +94,13 @@ Simple
     // However, in loophp/collection it doesn't behave as such.
     // As this library is based on PHP Generators, it's able to return multiple times the same key when iterating.
     // You end up with the following result when issuing twice the ::flip() operation.
-    Collection::with(['a', 'b', 'c', 'd', 'a'])
+    Collection::fromIterable(['a', 'b', 'c', 'd', 'a'])
         ->flip()
         ->flip()
         ->all(); // ['a', 'b', 'c', 'd', 'a']
 
     // Get the Cartesian product.
-    Collection::with(['a', 'b'])
+    Collection::fromIterable(['a', 'b'])
         ->product([1, 2])
         ->all(); // [['a', 1], ['a', 2], ['b', 1], ['b', 2]]
 
@@ -115,7 +121,7 @@ Simple
 
     // Apply a callback to the values without altering the original object.
     // If the callback returns false, then it will stop.
-    Collection::with(range('A', 'Z'))
+    Collection::fromIterable(range('A', 'Z'))
         ->apply(
             static function ($value, $key) {
                 echo strtolower($value);
@@ -175,7 +181,7 @@ Simple
 
     $hugeFile = __DIR__ . '/vendor/composer/autoload_static.php';
 
-    Collection::with($readFileLineByLine($hugeFile))
+    Collection::fromIterable($readFileLineByLine($hugeFile))
         // Add the line number at the end of the line, as comment.
         ->map(
             static function ($value, $key) {
@@ -206,21 +212,21 @@ Simple
       Fusce molestie rutrum faucibus.';
 
     // By default will have the same behavior as str_split().
-    Collection::with($string)
+    Collection::fromIterable($string)
         ->explode(' ')
         ->count(); // 71
 
     // Or add a separator if needed, same behavior as explode().
-    Collection::with($string, ',')
+    Collection::fromIterable($string, ',')
       ->count(); // 9
 
     // Regular values normalization.
-    Collection::with([0, 2, 4, 6, 8, 10])
+    Collection::fromIterable([0, 2, 4, 6, 8, 10])
         ->scale(0, 10)
         ->all(); // [0, 0.2, 0.4, 0.6, 0.8, 1]
 
     // Logarithmic values normalization.
-    Collection::with([0, 2, 4, 6, 8, 10])
+    Collection::fromIterable([0, 2, 4, 6, 8, 10])
         ->scale(0, 10, 5, 15, 3)
         ->all(); // [5, 8.01, 11.02, 12.78, 14.03, 15]
 
@@ -238,19 +244,19 @@ Simple
         ->all(); // [0.42, 0.48, 0.49, 0.49, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5]
 
     // Infinitely loop over a collection
-    Collection::with(['A', 'B', 'C'])
+    Collection::fromIterable(['A', 'B', 'C'])
         ->loop();
 
     // Traverse the collection using windows of a given size.
-    Collection::with(range('a', 'z'))
+    Collection::fromIterable(range('a', 'z'))
         ->window(3)
         ->all(); // [['a'], ['a', 'b'], ['a', 'b', 'c'], ['b', 'c', 'd'], ['c', 'd', 'e'], ...]
 
-    Collection::with(range('a', 'd'))
+    Collection::fromIterable(range('a', 'd'))
         ->wrap()
         ->all(); // [['a'], ['b'], ['c'], ['d']]
 
-    Collection::with([['a'], ['b'], ['c'], ['d']])
+    Collection::fromIterable([['a'], ['b'], ['c'], ['d']])
         ->unwrap()
         ->all(); // ['a', 'b', 'c', 'd']
 
@@ -287,7 +293,7 @@ result. We can see that some data are missing, why ?
 
     $string = 'aaaaabbbbcccddddeeeee';
 
-    $collection = Collection::with($string)
+    $collection = Collection::fromIterable($string)
         // Run the frequency analysis tool.
         ->frequency()
         // Convert to regular array.
@@ -312,7 +318,7 @@ It's up to you to decide which one you want to use.
 
 .. code-block:: bash
 
-    $collection = Collection::with($string)
+    $collection = Collection::fromIterable($string)
         // Run the frequency analysis tool.
         ->frequency()
         // Wrap each result into an array.
@@ -352,12 +358,12 @@ Manipulate strings
           Fusce molestie rutrum faucibus.';
 
     // By default will have the same behavior as str_split().
-    Collection::with($string)
+    Collection::fromIterable($string)
         ->explode(' ')
         ->count(); // 71
 
     // Or add a separator if needed, same behavior as explode().
-    Collection::with($string, ',')
+    Collection::fromIterable($string, ',')
         ->count(); // 9
 
 Random number generation
@@ -642,7 +648,7 @@ Text analysis
 
     use loophp\collection\Collection;
 
-    $collection = Collection::with(file_get_contents('http://loripsum.net/api'))
+    $collection = Collection::fromIterable(file_get_contents('http://loripsum.net/api'))
         // Filter out some characters.
         ->filter(
             static function ($item, $key): bool {
