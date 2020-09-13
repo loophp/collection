@@ -487,6 +487,29 @@ Signature: ``Collection::dropWhile(callable $callback);``
     Collection::fromIterable([1,2,3,4,5,6,7,8,9,1,2,3])
         ->dropWhile($isSmallerThanThree); // [3,4,5,6,7,8,9,1,2,3]
 
+duplicate
+~~~~~~~~~
+
+Find duplicated values from the collection.
+
+Interface: `Duplicateable`_
+
+Signature: ``Collection::duplicate();``
+
+.. code-block:: php
+
+    // It might returns duplicated values !
+    Collection::fromIterable(['a', 'b', 'c', 'a', 'c', 'a'])
+            ->duplicate(); // [3 => 'a', 4 => 'c', 5 => 'a']
+
+    // Use ::distinct() and ::normalize() to get what you want.
+    Collection::fromIterable(['a', 'b', 'c', 'a', 'c', 'a'])
+            ->duplicate()
+            ->distinct()
+            ->normalize() // [0 => 'a', 1 => 'c']
+
+
+
 explode
 ~~~~~~~
 
@@ -1606,6 +1629,7 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Distinctable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Distinctable.php
 .. _Dropable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Dropable.php
 .. _DropWhileable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/DropWhileable.php
+.. _Duplicateable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Duplicateable.php
 .. _Explodeable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Explodeable.php
 .. _Falsyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Falsyable.php
 .. _Filterable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Filterable.php

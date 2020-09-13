@@ -579,6 +579,19 @@ class CollectionSpec extends ObjectBehavior
             ]);
     }
 
+    public function it_can_duplicate(): void
+    {
+        $result = static function () {
+            yield 3 => 'a';
+
+            yield 4 => 'c';
+        };
+
+        $this::fromIterable(['a', 'b', 'c', 'a', 'c'])
+            ->duplicate()
+            ->shouldIterateAs($result());
+    }
+
     public function it_can_explode(): void
     {
         $string = 'I am just a random piece of text.';
