@@ -29,6 +29,7 @@ Simple
     // Append items.
     $collection
         ->append('F', 'G', 'H')
+        ->normalize()
         ->all(); // ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
 
     // Prepend items.
