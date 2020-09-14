@@ -1,35 +1,50 @@
-### Changelog
+# Changelog
 
-All notable changes to this project will be documented in this file. Dates are displayed in UTC.
+All notable changes to this project will be documented in this file.
 
-#### [2.5.3](https://github.com/loophp/collection/compare/2.5.2...2.5.3)
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-> 12 September 2020
+## [2.5.4](https://github.com/loophp/collection/compare/2.5.3...2.5.4) - 2020-09-14
+
+### Commits
+
+- ci: Update release process to include changelog automatically. [`abb4e4f`](https://github.com/loophp/collection/commit/abb4e4f5e59e63966270b5be4b269a0b88ccebd3)
+- Bump actions/stale from v3.0.10 to v3.0.11 [`f7ba528`](https://github.com/loophp/collection/commit/f7ba528f986dc47fa6432544ff905b793458ccfc)
+- docs: Update Usage page. [`2d5d9f6`](https://github.com/loophp/collection/commit/2d5d9f6ea8d0703e7a1b5682ef7a448ce85c5040)
+- docs: Update documentation of Append and Prepend operations. [`8441ad6`](https://github.com/loophp/collection/commit/8441ad6aa770e641539fa44667ae7e0860dea70c)
+- feat: Add Duplicate operation. [`b2d2a82`](https://github.com/loophp/collection/commit/b2d2a825214e555ec52ce2586dbf41f3d8021b21)
+- docs: Updated append method documentation. [`da6caa9`](https://github.com/loophp/collection/commit/da6caa91bf3f2d32bd2a7a1e605aaf6200cdd686)
+
+## [2.5.3](https://github.com/loophp/collection/compare/2.5.2...2.5.3) - 2020-09-12
+
+### Commits
 
 - **Breaking change:** refactor: Update Associate operation. [`168eb1a`](https://github.com/loophp/collection/commit/168eb1a02b0c295f693c11381069f278e5b08f13)
+- docs: Update changelog. [`b3bd1fe`](https://github.com/loophp/collection/commit/b3bd1fe63680a77dfcbd0c1a138f4abb7fd474b6)
 - docs: Update annotations. [`6cb1e77`](https://github.com/loophp/collection/commit/6cb1e770b48c72fe23453f1d6e137d4ebd2107a8)
 - refactor: Update some operation to make them lazy by default. [`ff6c556`](https://github.com/loophp/collection/commit/ff6c556a6f042019141110ab0543137f9af546c3)
 - docs: Update documentation. [`d990886`](https://github.com/loophp/collection/commit/d9908863c3697c9d5b7684496affa455e95228fd)
 - refactor: Update Product operation. [`1318e41`](https://github.com/loophp/collection/commit/1318e41c8b88e5e248c45f0d20ed48f592f842e1)
 
-#### [2.5.2](https://github.com/loophp/collection/compare/2.5.1...2.5.2)
+## [2.5.2](https://github.com/loophp/collection/compare/2.5.1...2.5.2) - 2020-09-08
 
-> 8 September 2020
+### Commits
 
 - Update changelog. [`3340899`](https://github.com/loophp/collection/commit/3340899eda7e1308b6414e03bea965198133629f)
 - Fix Psalm version. [`f1cd23a`](https://github.com/loophp/collection/commit/f1cd23aa349fd290750868f3e889a7b0e6794156)
 
-#### [2.5.1](https://github.com/loophp/collection/compare/2.5.0...2.5.1)
+## [2.5.1](https://github.com/loophp/collection/compare/2.5.0...2.5.1) - 2020-09-08
 
-> 8 September 2020
+### Commits
 
 - Update changelog. [`de2ebda`](https://github.com/loophp/collection/commit/de2ebda40e7115cbc493b147a51da4799e51c427)
 - Update annotations. [`3830e38`](https://github.com/loophp/collection/commit/3830e38e8323c56a423e506d429ee9df5312fe38)
 - Fix Random operation. [`47b2f55`](https://github.com/loophp/collection/commit/47b2f55ce8ffdbe7b677c67f468889cd275c6e32)
 
-#### [2.5.0](https://github.com/loophp/collection/compare/2.4.0...2.5.0)
+## [2.5.0](https://github.com/loophp/collection/compare/2.4.0...2.5.0) - 2020-09-08
 
-> 8 September 2020
+### Commits
 
 - Update changelog. [`3ec344d`](https://github.com/loophp/collection/commit/3ec344de4e9ff0dca20342b8c0879ff9138fbe5e)
 - Remove unneeded variable assignations. [`8ae26f6`](https://github.com/loophp/collection/commit/8ae26f6aa15a52afc3c99ec89d13c0b1170bc0de)
@@ -41,9 +56,9 @@ All notable changes to this project will be documented in this file. Dates are d
 - Update Limit operation. [`95f8856`](https://github.com/loophp/collection/commit/95f8856f02622ce182abf905d08ab33755c97321)
 - Update Window operation. [`c78813b`](https://github.com/loophp/collection/commit/c78813b4c7629675ba8e0ceb11e420428e3572dd)
 
-#### [2.4.0](https://github.com/loophp/collection/compare/2.3.5...2.4.0)
+## [2.4.0](https://github.com/loophp/collection/compare/2.3.5...2.4.0) - 2020-09-07
 
-> 7 September 2020
+### Commits
 
 - Update changelog. [`5a392f3`](https://github.com/loophp/collection/commit/5a392f3da927640ed00a80eb1584e6a0e0220a5c)
 - Add Unzip operation. [`cad956f`](https://github.com/loophp/collection/commit/cad956fd1bc34ea04b01f1804165178fc8b82123)
@@ -61,16 +76,16 @@ All notable changes to this project will be documented in this file. Dates are d
 - Update annotations. [`1bb45f2`](https://github.com/loophp/collection/commit/1bb45f28ee9ba522545d45e4bf75db5fc4cdb899)
 - Update Associate operation. [`1b9ca3c`](https://github.com/loophp/collection/commit/1b9ca3cd4c19ee873420986a847268c9541a43be)
 
-#### [2.3.5](https://github.com/loophp/collection/compare/2.3.4...2.3.5)
+## [2.3.5](https://github.com/loophp/collection/compare/2.3.4...2.3.5) - 2020-09-03
 
-> 3 September 2020
+### Commits
 
 - Update changelog. [`485c0fa`](https://github.com/loophp/collection/commit/485c0fa776b07fa25b6a10ada99b90584926b93b)
 - Update Map operation. [`1521b23`](https://github.com/loophp/collection/commit/1521b23313f74e234f7a5dd09e7b816fc30b3eb4)
 
-#### [2.3.4](https://github.com/loophp/collection/compare/2.3.3...2.3.4)
+## [2.3.4](https://github.com/loophp/collection/compare/2.3.3...2.3.4) - 2020-09-03
 
-> 3 September 2020
+### Commits
 
 - Update changelog. [`296aea1`](https://github.com/loophp/collection/commit/296aea1de64998a9e112b3da5ce90453ebda954c)
 - Fix Map operation. [`25314c8`](https://github.com/loophp/collection/commit/25314c8c43fd70f3cea1598dbea73d5da0c10ed7)
@@ -81,9 +96,9 @@ All notable changes to this project will be documented in this file. Dates are d
 - Update annotations. [`aa7edf9`](https://github.com/loophp/collection/commit/aa7edf9c89c5cb0d829047f6eb76161229c2f6f0)
 - Add Init operation. [`192e7ad`](https://github.com/loophp/collection/commit/192e7ad452e14633b65354a6aae98dbe90baacce)
 
-#### [2.3.3](https://github.com/loophp/collection/compare/2.3.2...2.3.3)
+## [2.3.3](https://github.com/loophp/collection/compare/2.3.2...2.3.3) - 2020-09-01
 
-> 1 September 2020
+### Commits
 
 - Update changelog. [`ea07a8d`](https://github.com/loophp/collection/commit/ea07a8d4eb0ca5e34a388bb237864ea59346e1d5)
 - Replace the Loop operation with the Cycle operation. [`2189649`](https://github.com/loophp/collection/commit/21896492b80a27fca2bb433e92c92f3f30271378)
@@ -91,27 +106,30 @@ All notable changes to this project will be documented in this file. Dates are d
 - Update annotations. [`af3226f`](https://github.com/loophp/collection/commit/af3226f8c88826fc6f0a18f92248c5b244b6045f)
 - Update documentation. [`3bb8caa`](https://github.com/loophp/collection/commit/3bb8caa8139d834eb0407280a7951d054ce1a0bf)
 
-#### [2.3.2](https://github.com/loophp/collection/compare/2.3.1...2.3.2)
+## [2.3.2](https://github.com/loophp/collection/compare/2.3.1...2.3.2) - 2020-08-31
 
-> 31 August 2020
+### Commits
 
 - Update Changelog. [`94c010a`](https://github.com/loophp/collection/commit/94c010a46882914b1e45f8621fb77e7b73f53a74)
 - Update annotations. [`5cf2513`](https://github.com/loophp/collection/commit/5cf251342cc07de1d5f06da9fb91b9904e233ae5)
 - Update Skip operation. [`8f668d7`](https://github.com/loophp/collection/commit/8f668d73ef623b6db0ef711dfb6e05dda32b6264)
 
-#### [2.3.1](https://github.com/loophp/collection/compare/2.3.0...2.3.1)
+## [2.3.1](https://github.com/loophp/collection/compare/2.3.0...2.3.1) - 2020-08-30
 
-> 30 August 2020
+### Commits
 
 - Update Changelog. [`2e7d5e6`](https://github.com/loophp/collection/commit/2e7d5e66b1adec5f63a1234007cfb56a233d1c5a)
 - Update annotations. [`37c6a5c`](https://github.com/loophp/collection/commit/37c6a5c3f1b6e6c39dd1b323dd3c49848f4f0415)
 - Add forgotten interface links. [`be3f405`](https://github.com/loophp/collection/commit/be3f40582acd1b84427e9b1625621e23d00a7fb3)
 
-#### [2.3.0](https://github.com/loophp/collection/compare/2.2.0...2.3.0)
+## [2.3.0](https://github.com/loophp/collection/compare/2.2.0...2.3.0) - 2020-08-30
 
-> 30 August 2020
+### Merged
 
 - Convert operations and transformations to function objects [`#18`](https://github.com/loophp/collection/pull/18)
+
+### Commits
+
 - Update Changelog. [`cddf0b8`](https://github.com/loophp/collection/commit/cddf0b898cfbd20451fe9c44f3858dc53b7fbead)
 - Remove duplicated information. [`961f5b6`](https://github.com/loophp/collection/commit/961f5b646ea70bf8c426dce5a357cffba22ed2ef)
 - Update README.md. [`cb84521`](https://github.com/loophp/collection/commit/cb84521d2f160b92eb8352ae55bfe823c574f315)
@@ -122,11 +140,14 @@ All notable changes to this project will be documented in this file. Dates are d
 - Syntactic sugar to reduce the amount of parenthesis. [`f40dc3b`](https://github.com/loophp/collection/commit/f40dc3b56628f165028c3047c4a635206d740efd)
 - Convert Operations and Transformations into function object. [`6ce8ecf`](https://github.com/loophp/collection/commit/6ce8ecfd386d7697ebe5ea230fd09e53b1dacb49)
 
-#### [2.2.0](https://github.com/loophp/collection/compare/2.1.0...2.2.0)
+## [2.2.0](https://github.com/loophp/collection/compare/2.1.0...2.2.0) - 2020-08-28
 
-> 28 August 2020
+### Fixed
 
 - Update Group operation. (Fix #19) [`#19`](https://github.com/loophp/collection/issues/19)
+
+### Commits
+
 - Update Changelog.md. [`7daf209`](https://github.com/loophp/collection/commit/7daf209a58fd2c7997e8039e615a8d3878328e7d)
 - Add Changelog.md. [`6869e40`](https://github.com/loophp/collection/commit/6869e402b665e1f205a82068a692b4552c0033a8)
 - Update documentation. [`efccd88`](https://github.com/loophp/collection/commit/efccd8828ad762c6606fa7ba9f3408b95134cedb)
@@ -154,12 +175,15 @@ All notable changes to this project will be documented in this file. Dates are d
 - Add Pack operation. [`412734c`](https://github.com/loophp/collection/commit/412734c9f0a82e9be8b4a782da082913c313cc0d)
 - Update Unpair operation. [`2d7ce6e`](https://github.com/loophp/collection/commit/2d7ce6e05e08d38e087004a62626ca512f1669f0)
 
-#### [2.1.0](https://github.com/loophp/collection/compare/2.0.5...2.1.0)
+## [2.1.0](https://github.com/loophp/collection/compare/2.0.5...2.1.0) - 2020-08-22
 
-> 22 August 2020
+### Merged
 
 - Bump actions/create-release from v1.1.2 to v1.1.3 [`#16`](https://github.com/loophp/collection/pull/16)
 - Bump actions/stale from v3.0.9 to v3.0.10 [`#15`](https://github.com/loophp/collection/pull/15)
+
+### Commits
+
 - Update composer.json. [`def5f26`](https://github.com/loophp/collection/commit/def5f2612340adf461e75da2e7437ccc3153934c)
 - Update Tail operation. [`1d15657`](https://github.com/loophp/collection/commit/1d156571c57ee92d0f3e6b41d3e8847580585965)
 - Update Filter operation. [`5a7e41d`](https://github.com/loophp/collection/commit/5a7e41d873a89b56868b2af09820bf4c3d3500a6)
@@ -180,32 +204,35 @@ All notable changes to this project will be documented in this file. Dates are d
 - Update FoldLeft/FoldRight transformations. [`cece391`](https://github.com/loophp/collection/commit/cece391c57ab7800246fc5ebd788f0ec4c738322)
 - Update Last operation. [`ddde5cc`](https://github.com/loophp/collection/commit/ddde5cc6f1dd14ac079b68c58bb2dd3f68aac8ee)
 
-#### [2.0.5](https://github.com/loophp/collection/compare/2.0.4...2.0.5)
+## [2.0.5](https://github.com/loophp/collection/compare/2.0.4...2.0.5) - 2020-08-12
 
-> 12 August 2020
+### Merged
 
 - Bump actions/checkout from v2.3.1 to v2.3.2 [`#10`](https://github.com/loophp/collection/pull/10)
+
+### Commits
+
 - Various minor changes and optimizations. [`6e09157`](https://github.com/loophp/collection/commit/6e091571fe8a6db581ff531c691f664c9aaf5e64)
 - Update Contains transformation, make it variadic. [`b78a704`](https://github.com/loophp/collection/commit/b78a704f6c8dcecaee20284ef4441d17099e3103)
 
-#### [2.0.4](https://github.com/loophp/collection/compare/2.0.3...2.0.4)
+## [2.0.4](https://github.com/loophp/collection/compare/2.0.3...2.0.4) - 2020-08-08
 
-> 8 August 2020
+### Commits
 
 - Simplify the use of the Sort callback in userland. [`5014004`](https://github.com/loophp/collection/commit/5014004752b30a57c8e8cb95bdc4b4288e84c64f)
 
-#### [2.0.3](https://github.com/loophp/collection/compare/2.0.2...2.0.3)
+## [2.0.3](https://github.com/loophp/collection/compare/2.0.2...2.0.3) - 2020-08-07
 
-> 7 August 2020
+### Commits
 
 - Add new Github workflows, from ergebnis/php-library-template. [`c61749c`](https://github.com/loophp/collection/commit/c61749cac58d329a2b69a27206b456bcc8ea5c5c)
 - Use parameters of Closure Iterator. [`9f5367b`](https://github.com/loophp/collection/commit/9f5367b9203fe3ed50b774e16360021088c8f5de)
 - Update documentation. [`940fcec`](https://github.com/loophp/collection/commit/940fcec1d86d7296d7c87017755e0f6b09a67802)
 - Add docker stack for building documentation locally. [`54d2559`](https://github.com/loophp/collection/commit/54d2559e2af97a33c7600ab2e8e0bae76ea7a64a)
 
-#### [2.0.2](https://github.com/loophp/collection/compare/2.0.1...2.0.2)
+## [2.0.2](https://github.com/loophp/collection/compare/2.0.1...2.0.2) - 2020-08-05
 
-> 5 August 2020
+### Commits
 
 - Add example with random number distribution. [`f49c1ca`](https://github.com/loophp/collection/commit/f49c1ca82870f7f79ae030cd60001528640a4dcb)
 - Update Sort operation and remove the SortableIterableIterator. [`d0c7f2f`](https://github.com/loophp/collection/commit/d0c7f2fbe196573a9c467e9caddded2997c7eeba)
@@ -215,19 +242,22 @@ All notable changes to this project will be documented in this file. Dates are d
 - Add Associate operation. [`f76a0a5`](https://github.com/loophp/collection/commit/f76a0a52058ce08cffc1e198d8362b164618c387)
 - Update and fix Psalm phpdoc. [`91c8900`](https://github.com/loophp/collection/commit/91c8900aee2f853d351b1caec55735688b2b0e03)
 
-#### [2.0.1](https://github.com/loophp/collection/compare/2.0.0...2.0.1)
+## [2.0.1](https://github.com/loophp/collection/compare/2.0.0...2.0.1) - 2020-08-04
 
-> 4 August 2020
+### Commits
 
 - Add Unpair operation. [`a94f3ee`](https://github.com/loophp/collection/commit/a94f3ee5910ada4888deb98707c5b04d30ad6d96)
 - Add Pair operation. [`cd373c5`](https://github.com/loophp/collection/commit/cd373c5277fdfcd27dc99b1915ca1c837d2bdd8c)
 - Use a CacheIterator iterator. [`1dcd9eb`](https://github.com/loophp/collection/commit/1dcd9eb698388cc21d11cc80f848bc30dba27310)
 
-### [2.0.0](https://github.com/loophp/collection/compare/1.1.1...2.0.0)
+## [2.0.0](https://github.com/loophp/collection/compare/1.1.1...2.0.0) - 2020-08-03
 
-> 3 August 2020
+### Merged
 
 - Feat improve static analysis score. [`#8`](https://github.com/loophp/collection/pull/8)
+
+### Commits
+
 - Update README. [`69e9683`](https://github.com/loophp/collection/commit/69e9683e271474d2da5e46c89b440bebe2f803cc)
 - Update Grumphp configuration file. [`5c5c0d1`](https://github.com/loophp/collection/commit/5c5c0d1c7a7f7f5722460286b068eb9c46721705)
 - Update composer.json. [`ca6e895`](https://github.com/loophp/collection/commit/ca6e8958547eb9bcd3f23505429b38b100781aa9)
@@ -267,12 +297,15 @@ All notable changes to this project will be documented in this file. Dates are d
 - Update Grumphp configuration file. [`7d5282d`](https://github.com/loophp/collection/commit/7d5282dfd5d6eece796f2d2b5b8780253fabb0ca)
 - Update composer.json. [`29de649`](https://github.com/loophp/collection/commit/29de64955854eb81f960052f48a1f80fbce80fd9)
 
-#### [1.1.1](https://github.com/loophp/collection/compare/1.1.0...1.1.1)
+## [1.1.1](https://github.com/loophp/collection/compare/1.1.0...1.1.1) - 2020-07-20
 
-> 20 July 2020
+### Merged
 
 - Bump actions/checkout from v1 to v2.3.1 [`#7`](https://github.com/loophp/collection/pull/7)
 - Fix installation instructions [`#6`](https://github.com/loophp/collection/pull/6)
+
+### Commits
+
 - Bump drupol/php-conventions. [`87d8762`](https://github.com/loophp/collection/commit/87d8762ddf9c05280df1632bf00904329aafdd02)
 - Update Github action. [`a715506`](https://github.com/loophp/collection/commit/a715506e75c31738476b3a32c7a736efe81ca3e2)
 - Simplify Since and Until operations. [`ced44cc`](https://github.com/loophp/collection/commit/ced44cce5211c95e036f7b78106c9a090d26f31d)
@@ -281,11 +314,14 @@ All notable changes to this project will be documented in this file. Dates are d
 - Implements Collection::compact() operation. [`9970d38`](https://github.com/loophp/collection/commit/9970d38e177b22291c0c578b10737ba591b09aa7)
 - Implements \JsonSerializable. [`8930335`](https://github.com/loophp/collection/commit/8930335fba7483f7f20db6ca5a5c5d97edef3d33)
 
-#### [1.1.0](https://github.com/loophp/collection/compare/1.0.11...1.1.0)
+## [1.1.0](https://github.com/loophp/collection/compare/1.0.11...1.1.0) - 2020-07-07
 
-> 7 July 2020
+### Merged
 
 - Bump actions/cache from v1 to v2 [`#4`](https://github.com/loophp/collection/pull/4)
+
+### Commits
+
 - Update documentation. [`67a0007`](https://github.com/loophp/collection/commit/67a0007eed0a242a35d237afc1b79583042ec478)
 - Update Sort operation. [`98b2495`](https://github.com/loophp/collection/commit/98b2495e66ebf7ef9801df7066956eada951fd69)
 - Update Slice operation. [`be98389`](https://github.com/loophp/collection/commit/be98389055622184bbc1c3873e9f4cb9a1046174)
@@ -399,9 +435,9 @@ All notable changes to this project will be documented in this file. Dates are d
 - Improve code consistency based on documentation and interfaces. [`2c02bf3`](https://github.com/loophp/collection/commit/2c02bf3cad6be73ca875d0b7474321e4456a1e91)
 - Add documentation. [`6f45767`](https://github.com/loophp/collection/commit/6f457672296505bed46eaa97c85c1215133b2d44)
 
-#### [1.0.11](https://github.com/loophp/collection/compare/1.0.10...1.0.11)
+## [1.0.11](https://github.com/loophp/collection/compare/1.0.10...1.0.11) - 2020-01-09
 
-> 9 January 2020
+### Commits
 
 - Let the callback return arrays with non numerical keys. [`77d111f`](https://github.com/loophp/collection/commit/77d111f43a35eb08486536b69f91452c6d40e21e)
 - Now ::until() uses a variadic argument. [`34b62c4`](https://github.com/loophp/collection/commit/34b62c44e8402207b637942698141c66b9c3fcb3)
@@ -409,23 +445,23 @@ All notable changes to this project will be documented in this file. Dates are d
 - Try to test using low deps. [`f46348e`](https://github.com/loophp/collection/commit/f46348e8c139d3e699c09b1c60d4c8dedcb1c919)
 - Minor changes to the ClosureIterator. [`ed2d0a9`](https://github.com/loophp/collection/commit/ed2d0a9fbafbce9153d5299a5ad24bdbe153d9c9)
 
-#### [1.0.10](https://github.com/loophp/collection/compare/1.0.9...1.0.10)
+## [1.0.10](https://github.com/loophp/collection/compare/1.0.9...1.0.10) - 2020-01-08
 
-> 8 January 2020
+### Commits
 
 - Fix the behavior of the ::apply() operation. [`719eea8`](https://github.com/loophp/collection/commit/719eea8f1df65df8a9467072089c2da2d998681b)
 - Remove obsolete ::rebase() operation. [`486b835`](https://github.com/loophp/collection/commit/486b8352c1a0bf7a536f64e93f0553503dc0e3a5)
 - Fix the behavior of the ::apply() operation. [`eb1c4ae`](https://github.com/loophp/collection/commit/eb1c4ae8dd66a7c4ca26414b3fb81e621acb2bb8)
 
-#### [1.0.9](https://github.com/loophp/collection/compare/1.0.8...1.0.9)
+## [1.0.9](https://github.com/loophp/collection/compare/1.0.8...1.0.9) - 2020-01-06
 
-> 6 January 2020
+### Commits
 
 - Fix behavior of ::filter() operation. [`bc2d733`](https://github.com/loophp/collection/commit/bc2d733a47782c614e20012b4dfe31b651f60fca)
 
-#### [1.0.8](https://github.com/loophp/collection/compare/1.0.7...1.0.8)
+## [1.0.8](https://github.com/loophp/collection/compare/1.0.7...1.0.8) - 2020-01-06
 
-> 6 January 2020
+### Commits
 
 - Increase default Grumphp timeout to avoid useless failures in CI. [`03a53fa`](https://github.com/loophp/collection/commit/03a53fa6bf5fb73137a57f141b8dc2ad411c8fbb)
 - Fix PHPStan error. [`06c5f62`](https://github.com/loophp/collection/commit/06c5f626fa200e638b65c2840c04fa3368f9f19f)
@@ -435,16 +471,16 @@ All notable changes to this project will be documented in this file. Dates are d
 - Update documentation. [`ff360a6`](https://github.com/loophp/collection/commit/ff360a6595a4a82bd7a19e690e121d641fa9cbb6)
 - Minor optimizations and rephrases. [`675f4ab`](https://github.com/loophp/collection/commit/675f4abd77ff2a78b676e2a1a914936e565a094e)
 
-#### [1.0.7](https://github.com/loophp/collection/compare/1.0.6...1.0.7)
+## [1.0.7](https://github.com/loophp/collection/compare/1.0.6...1.0.7) - 2020-01-03
 
-> 3 January 2020
+### Commits
 
 - Add new methods: ::combinate() and ::permutate(). [`c55a2ef`](https://github.com/loophp/collection/commit/c55a2ef4d6773af3a1228b1ad9338186f9071120)
 - Minor rewrite. [`44889cd`](https://github.com/loophp/collection/commit/44889cd5a196437c95bd55e6b0f2e4b4eba23232)
 
-#### [1.0.6](https://github.com/loophp/collection/compare/1.0.5...1.0.6)
+## [1.0.6](https://github.com/loophp/collection/compare/1.0.5...1.0.6) - 2020-01-02
 
-> 2 January 2020
+### Commits
 
 - Add Product operation to compute the cartesian product. [`1940b16`](https://github.com/loophp/collection/commit/1940b1679ded1c2c5acfd3f9819bd58b478e5a28)
 - Update default documentation homepage. [`0507b69`](https://github.com/loophp/collection/commit/0507b6929a8628bd1ed96df2945c477f1e89e69a)
@@ -452,9 +488,9 @@ All notable changes to this project will be documented in this file. Dates are d
 - First stab at documentation. [`a847123`](https://github.com/loophp/collection/commit/a847123979593adfb74b45f5676206d17efe13cb)
 - First stab at documentation. [`8178972`](https://github.com/loophp/collection/commit/81789725822da4c0c17367b423ee8f4dc2e86c08)
 
-#### [1.0.5](https://github.com/loophp/collection/compare/1.0.4...1.0.5)
+## [1.0.5](https://github.com/loophp/collection/compare/1.0.4...1.0.5) - 2020-01-01
 
-> 1 January 2020
+### Commits
 
 - Transfer repository to https://github.com/loophp [`92551d7`](https://github.com/loophp/collection/commit/92551d7b614b52606626657064564a2942559c90)
 - Update default documentation homepage. [`4326a62`](https://github.com/loophp/collection/commit/4326a62dcf25f4eb361a51585fc50c5715c51b2d)
@@ -467,9 +503,9 @@ All notable changes to this project will be documented in this file. Dates are d
 - Minor rephrase. [`d597a13`](https://github.com/loophp/collection/commit/d597a130291fa4a33fdf54b598b90fd538762fc9)
 - Reduce CI builds using cache. [`dc64469`](https://github.com/loophp/collection/commit/dc64469e17af4b38bd3caaceb2c516a30081ad50)
 
-#### [1.0.4](https://github.com/loophp/collection/compare/1.0.3...1.0.4)
+## [1.0.4](https://github.com/loophp/collection/compare/1.0.3...1.0.4) - 2019-12-26
 
-> 26 December 2019
+### Commits
 
 - Remove unneeded ArrayIterators and use simple arrays. [`01d5ae2`](https://github.com/loophp/collection/commit/01d5ae2fc434df121c0b312d189b62ab06519412)
 - Minor changes here and there. [`97769de`](https://github.com/loophp/collection/commit/97769de7611d32351cad87f5e891584d26a09f9c)
@@ -479,15 +515,15 @@ All notable changes to this project will be documented in this file. Dates are d
 - Update chunk operation. [`cba479e`](https://github.com/loophp/collection/commit/cba479e2c6532c0cbea4f18126a4b4c0300c059c)
 - Update README. [`b7853d9`](https://github.com/loophp/collection/commit/b7853d9079887be97a5d190b44464a0ff6e310f1)
 
-#### [1.0.3](https://github.com/loophp/collection/compare/1.0.2...1.0.3)
+## [1.0.3](https://github.com/loophp/collection/compare/1.0.2...1.0.3) - 2019-12-25
 
-> 25 December 2019
+### Commits
 
 - Fix bug in ClosureIterator::rewind(). [`f3779ae`](https://github.com/loophp/collection/commit/f3779ae5e4552e3aa9a0c222fc8de4f42e82a50c)
 
-#### [1.0.2](https://github.com/loophp/collection/compare/1.0.1...1.0.2)
+## [1.0.2](https://github.com/loophp/collection/compare/1.0.1...1.0.2) - 2019-12-23
 
-> 23 December 2019
+### Commits
 
 - Add Tail and Reverse Operations. [`bae14bf`](https://github.com/loophp/collection/commit/bae14bfe0626fc5976196358c50fd6b46c5f4bf0)
 - Update README. [`a80afcd`](https://github.com/loophp/collection/commit/a80afcd70c09abe3c1791d71beb8a18ac96ce96d)
@@ -501,22 +537,22 @@ All notable changes to this project will be documented in this file. Dates are d
 - Static files cleanup. [`d484b1c`](https://github.com/loophp/collection/commit/d484b1c584423750025564c44c43c1f9b1c29d04)
 - New operation: Scale [`ac6fd27`](https://github.com/loophp/collection/commit/ac6fd27d852876a3ee930a305181cc5a2c01fc10)
 
-#### [1.0.1](https://github.com/loophp/collection/compare/1.0.0...1.0.1)
+## [1.0.1](https://github.com/loophp/collection/compare/1.0.0...1.0.1) - 2019-12-06
 
-> 6 December 2019
+### Commits
 
 - Cast array keys as string by default in Flip operation. [`905d3fb`](https://github.com/loophp/collection/commit/905d3fbc2b89abb7a12dee4bd20de4939dbb6bcf)
 
-### [1.0.0](https://github.com/loophp/collection/compare/0.0.17...1.0.0)
+## [1.0.0](https://github.com/loophp/collection/compare/0.0.17...1.0.0) - 2019-11-12
 
-> 12 November 2019
+### Commits
 
 - Update code style. [`eb98244`](https://github.com/loophp/collection/commit/eb98244389bd5bc7474c102dc99a17c37ea0583a)
 - Rename minor stuff. [`ec8ee0e`](https://github.com/loophp/collection/commit/ec8ee0e859b0f3ddefda8361f00a167f38b3ba88)
 
-#### [0.0.17](https://github.com/loophp/collection/compare/0.0.13...0.0.17)
+## [0.0.17](https://github.com/loophp/collection/compare/0.0.13...0.0.17) - 2019-09-23
 
-> 23 September 2019
+### Commits
 
 - Update README example. [`03c7f87`](https://github.com/loophp/collection/commit/03c7f875791301c7081b62e96fcb4241097e3fad)
 - Renaming. [`d1777a8`](https://github.com/loophp/collection/commit/d1777a85ead42d499ca125cd23fca4c1039d4291)
@@ -526,9 +562,9 @@ All notable changes to this project will be documented in this file. Dates are d
 - Update tests. [`5e105da`](https://github.com/loophp/collection/commit/5e105da9885ac28d4c861f31d13664ceb2527edf)
 - Increase Grumphp timeout. [`1bc3cb8`](https://github.com/loophp/collection/commit/1bc3cb8854f5b7efd473f203ed544732efa63990)
 
-#### [0.0.13](https://github.com/loophp/collection/compare/0.0.12...0.0.13)
+## [0.0.13](https://github.com/loophp/collection/compare/0.0.12...0.0.13) - 2019-09-14
 
-> 14 September 2019
+### Commits
 
 - Add the Until operation with tests and example in README. [`4c73fe4`](https://github.com/loophp/collection/commit/4c73fe487798bc557008ce29404d776db71e6ca3)
 - Update the ::iterate() static method. [`debec59`](https://github.com/loophp/collection/commit/debec59e8f27ad6fe814688db24b2d884c976dfb)
@@ -537,9 +573,9 @@ All notable changes to this project will be documented in this file. Dates are d
 - Add the Cycle operation. [`b82b610`](https://github.com/loophp/collection/commit/b82b610126f5a90e6ac2cafd79be863c13588747)
 - Update README. [`6f4cddf`](https://github.com/loophp/collection/commit/6f4cddf7363e41a67a4c59df179138590f8cd063)
 
-#### [0.0.12](https://github.com/loophp/collection/compare/0.0.11...0.0.12)
+## [0.0.12](https://github.com/loophp/collection/compare/0.0.11...0.0.12) - 2019-09-09
 
-> 9 September 2019
+### Commits
 
 - Update README. [`55f7c56`](https://github.com/loophp/collection/commit/55f7c56c37b89c768e5125fc8ba7fb506dc5e82a)
 - Minor cosmetic update. [`ae0e00b`](https://github.com/loophp/collection/commit/ae0e00b96820ee716f58a0b11055a181ea23f1c9)
@@ -554,9 +590,9 @@ All notable changes to this project will be documented in this file. Dates are d
 - Simplify the times() method. [`6d8014b`](https://github.com/loophp/collection/commit/6d8014bd67c6320741720e66adaa55d52a216d80)
 - Differentiate Operation and Transformation. [`3546cfa`](https://github.com/loophp/collection/commit/3546cfab79a3b7778d9e68027de1f369a01ec003)
 
-#### [0.0.11](https://github.com/loophp/collection/compare/0.0.10...0.0.11)
+## [0.0.11](https://github.com/loophp/collection/compare/0.0.10...0.0.11) - 2019-09-03
 
-> 3 September 2019
+### Commits
 
 - Update README. [`3e59719`](https://github.com/loophp/collection/commit/3e59719ce0d86f82a834ff915f3e15fe8e99325a)
 - Fix bug with rebase method. [`72dd937`](https://github.com/loophp/collection/commit/72dd937bbd12950e5064dc71daba59018ec2e931)
@@ -564,9 +600,9 @@ All notable changes to this project will be documented in this file. Dates are d
 - Add distinct() dans rsample() methods. [`898a3b1`](https://github.com/loophp/collection/commit/898a3b1f01fbd5fc2746247ad0cfda5d30a7ff6c)
 - Update the ::iterate() method. [`e677738`](https://github.com/loophp/collection/commit/e677738debc62fe231de4b36915be2e38e8d805b)
 
-#### [0.0.10](https://github.com/loophp/collection/compare/0.0.9...0.0.10)
+## [0.0.10](https://github.com/loophp/collection/compare/0.0.9...0.0.10) - 2019-09-01
 
-> 1 September 2019
+### Commits
 
 - Align return types. [`95dbce9`](https://github.com/loophp/collection/commit/95dbce9eb945236ab54aca1e954d1089806f9b4f)
 - Update the Chunk operation. [`d61bac3`](https://github.com/loophp/collection/commit/d61bac31cd42181c94b85f9262f4356929c3e5ae)
@@ -576,9 +612,9 @@ All notable changes to this project will be documented in this file. Dates are d
 - Update .gitattributes. [`163b782`](https://github.com/loophp/collection/commit/163b78261d49e5a6af8f27ceb0bdbf230533c722)
 - Use is_iterable(). [`a07681b`](https://github.com/loophp/collection/commit/a07681b0e93f03334bca3d2969efaede905b723d)
 
-#### [0.0.9](https://github.com/loophp/collection/compare/0.0.8...0.0.9)
+## [0.0.9](https://github.com/loophp/collection/compare/0.0.8...0.0.9) - 2019-09-01
 
-> 1 September 2019
+### Commits
 
 - Update README wording. [`ccaa796`](https://github.com/loophp/collection/commit/ccaa79683b945ea902af485bf74fcf72976e8936)
 - Minor phpdoc update. [`724c166`](https://github.com/loophp/collection/commit/724c166c660420f82f52eca4a77a563e4c70a77f)
@@ -589,9 +625,9 @@ All notable changes to this project will be documented in this file. Dates are d
 - Override static::with() so we can have autocomplete working in IDE. [`7057e09`](https://github.com/loophp/collection/commit/7057e09024f56bd305796ec971de6b0e478a0069)
 - Create new Base object and Collection is now extending it and final. [`b3e0d19`](https://github.com/loophp/collection/commit/b3e0d19c9a143faa043b7034c863c4890b897ce6)
 
-#### [0.0.8](https://github.com/loophp/collection/compare/0.0.7...0.0.8)
+## [0.0.8](https://github.com/loophp/collection/compare/0.0.7...0.0.8) - 2019-08-29
 
-> 29 August 2019
+### Commits
 
 - Remove useless BaseCollection. [`c8aca3c`](https://github.com/loophp/collection/commit/c8aca3c20089c2f0d468ff4604e3884383e70b4d)
 - Update the return type of Operation interfaces. [`da1ab80`](https://github.com/loophp/collection/commit/da1ab805155f360b93ccffbd359df85f6c44cd42)
@@ -601,15 +637,15 @@ All notable changes to this project will be documented in this file. Dates are d
 - Add Implode operation. [`1e3b34b`](https://github.com/loophp/collection/commit/1e3b34b809c247d5d0bb57f7fd6d2735aca531ed)
 - Use iterable instead of \Traversable. [`4eb5c88`](https://github.com/loophp/collection/commit/4eb5c887773486cca6a7bcae238c3a4c8723efc6)
 
-#### [0.0.7](https://github.com/loophp/collection/compare/0.0.6...0.0.7)
+## [0.0.7](https://github.com/loophp/collection/compare/0.0.6...0.0.7) - 2019-08-27
 
-> 27 August 2019
+### Commits
 
 - Refactoring. [`5b2a0cf`](https://github.com/loophp/collection/commit/5b2a0cf0792f5fbc96e507ab8c396156e0db32ba)
 
-#### [0.0.6](https://github.com/loophp/collection/compare/0.0.5...0.0.6)
+## [0.0.6](https://github.com/loophp/collection/compare/0.0.5...0.0.6) - 2019-08-22
 
-> 22 August 2019
+### Commits
 
 - Minor update on Collection class. [`a543106`](https://github.com/loophp/collection/commit/a543106aca9a05c6243611a2d9c66d29edfb6070)
 - Do not let Operations wrap the return of ::run() in a collection. [`8cfd4eb`](https://github.com/loophp/collection/commit/8cfd4ebfff5dc6c7674e5bc3501b862783199cac)
@@ -622,9 +658,9 @@ All notable changes to this project will be documented in this file. Dates are d
 - Update code style. [`d8e0c79`](https://github.com/loophp/collection/commit/d8e0c7911ea7402e460f8400f854cfd94aa96bd6)
 - Update Last operation. [`af9e6a8`](https://github.com/loophp/collection/commit/af9e6a8ddbec28f269ad0d16b216a8786cb676b6)
 
-#### [0.0.5](https://github.com/loophp/collection/compare/0.0.4...0.0.5)
+## [0.0.5](https://github.com/loophp/collection/compare/0.0.4...0.0.5) - 2019-08-21
 
-> 21 August 2019
+### Commits
 
 - Update README. [`3fcbf00`](https://github.com/loophp/collection/commit/3fcbf00b4bbcb42db752a8df6554f302deb62d38)
 - Add return type to Closures. [`a2b9366`](https://github.com/loophp/collection/commit/a2b93665bb7973b4c2b5cebec0054dfd1d03b087)
@@ -634,18 +670,18 @@ All notable changes to this project will be documented in this file. Dates are d
 - Minor update. [`04739ad`](https://github.com/loophp/collection/commit/04739ad5e9d8a9d5ee00994fb5e3cd73dd5b341b)
 - Let the Filter operation use a variadic parameter. [`fd081c2`](https://github.com/loophp/collection/commit/fd081c23475e5d29832fe9e6b5b66078e0630f8f)
 
-#### [0.0.4](https://github.com/loophp/collection/compare/0.0.3...0.0.4)
+## [0.0.4](https://github.com/loophp/collection/compare/0.0.3...0.0.4) - 2019-08-20
 
-> 20 August 2019
+### Commits
 
 - Update README. [`b4050b5`](https://github.com/loophp/collection/commit/b4050b5fdd5e48209327642fb1013d8416f2ff2a)
 - Add Run operation. [`1bf34d4`](https://github.com/loophp/collection/commit/1bf34d46f929854a642deb3e53c35ef01048df8b)
 - Add .gitattributes. [`a41491c`](https://github.com/loophp/collection/commit/a41491c0a6414b957f6bcd0cac5a6d73f2d72156)
 - Minor code updates and increase code coverage. [`89aa7a1`](https://github.com/loophp/collection/commit/89aa7a12e316f5c21e4e78ae05955b6205175206)
 
-#### [0.0.3](https://github.com/loophp/collection/compare/0.0.2...0.0.3)
+## [0.0.3](https://github.com/loophp/collection/compare/0.0.2...0.0.3) - 2019-08-19
 
-> 19 August 2019
+### Commits
 
 - Update README. [`831850e`](https://github.com/loophp/collection/commit/831850efae0a977b870a44297deef354cbede356)
 - Use ::with() method everywhere. [`748a618`](https://github.com/loophp/collection/commit/748a618d8ef33a26d358d476f672dd295464cf99)
@@ -663,9 +699,9 @@ All notable changes to this project will be documented in this file. Dates are d
 - Update code style using latest version of drupol/drupal-conventions. [`ad60162`](https://github.com/loophp/collection/commit/ad60162521882a5e2177c30de49af53040c17e17)
 - Update ::get() method. [`b78b672`](https://github.com/loophp/collection/commit/b78b672483a381b8c0082c7f6b1034f9c93302b9)
 
-#### [0.0.2](https://github.com/loophp/collection/compare/0.0.1...0.0.2)
+## [0.0.2](https://github.com/loophp/collection/compare/0.0.1...0.0.2) - 2019-08-13
 
-> 13 August 2019
+### Commits
 
 - Update composer.json. [`c9aff7b`](https://github.com/loophp/collection/commit/c9aff7b86e8d4de28828e0edfa3b9aa8bdde0d3c)
 - Minor code changes. [`d645d47`](https://github.com/loophp/collection/commit/d645d478624b9096f57d933aadd7d04023411917)
@@ -676,8 +712,8 @@ All notable changes to this project will be documented in this file. Dates are d
 - Use updated drupol/phpcsfixer-configs-php with PSR12 rule update. [`a1143c7`](https://github.com/loophp/collection/commit/a1143c7eda0ae4ddd26865b7ad505d920edd2c5a)
 - Use phpstan/phpstan-strict-rules. [`83a4e4d`](https://github.com/loophp/collection/commit/83a4e4dfce55695ef7871c7da90d1f9458fc9e69)
 
-#### 0.0.1
+## 0.0.1 - 2019-08-12
 
-> 12 August 2019
+### Commits
 
 - Initial commit. [`7247de4`](https://github.com/loophp/collection/commit/7247de4a70a6ef6f7d4b019460a68f5c8a06fb30)
