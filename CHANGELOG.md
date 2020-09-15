@@ -5,10 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.5.5](https://github.com/loophp/collection/compare/2.5.4...2.5.5) - 2020-09-16
+
+### Merged
+
+- Update vimeo/psalm requirement from 3.14.2 to 3.16 [`#26`](https://github.com/loophp/collection/pull/26)
+- Bump actions/create-release from v1.1.3 to v1.1.4 [`#25`](https://github.com/loophp/collection/pull/25)
+
+### Commits
+
+- chore: Update composer.json. [`92f9ed8`](https://github.com/loophp/collection/commit/92f9ed849e4d066b2a1e3104d5de3123d60b217b)
+- feat: Add Unwindow operation. [`e240e6a`](https://github.com/loophp/collection/commit/e240e6a83e4d80879c971b4c6238b59bb97ff81d)
+
 ## [2.5.4](https://github.com/loophp/collection/compare/2.5.3...2.5.4) - 2020-09-14
 
 ### Commits
 
+- docs: Update changelog. [`249f0f3`](https://github.com/loophp/collection/commit/249f0f3d889a55dfb9178c78bbcf766ce7704e7b)
 - ci: Update release process to include changelog automatically. [`abb4e4f`](https://github.com/loophp/collection/commit/abb4e4f5e59e63966270b5be4b269a0b88ccebd3)
 - Bump actions/stale from v3.0.10 to v3.0.11 [`f7ba528`](https://github.com/loophp/collection/commit/f7ba528f986dc47fa6432544ff905b793458ccfc)
 - docs: Update Usage page. [`2d5d9f6`](https://github.com/loophp/collection/commit/2d5d9f6ea8d0703e7a1b5682ef7a448ce85c5040)
