@@ -83,6 +83,7 @@ use loophp\collection\Contract\Operation\Unfoldable;
 use loophp\collection\Contract\Operation\Unpackable;
 use loophp\collection\Contract\Operation\Unpairable;
 use loophp\collection\Contract\Operation\Untilable;
+use loophp\collection\Contract\Operation\Unwindowable;
 use loophp\collection\Contract\Operation\Unwrapable;
 use loophp\collection\Contract\Operation\Unzipable;
 use loophp\collection\Contract\Operation\Windowable;
@@ -165,6 +166,7 @@ use loophp\collection\Iterator\ClosureIterator;
  * @template-extends Unpackable<TKey, T>
  * @template-extends Unpairable<TKey, T>
  * @template-extends Untilable<TKey, T>
+ * @template-extends Unwindowable<TKey, T>
  * @template-extends Unwrapable<TKey, T>
  * @template-extends Unzipable<TKey, T>
  * @template-extends Windowable<TKey, T>
@@ -252,6 +254,7 @@ interface Collection extends
     Unpackable,
     Unpairable,
     Untilable,
+    Unwindowable,
     Unwrapable,
     Unzipable,
     Windowable,

@@ -1548,6 +1548,31 @@ Signature: ``Collection::until(callable ...$callbacks);``
             return 1 === $number;
         });
 
+unwindow
+~~~~~~~~
+
+Contrary of ``Collection::window()``, usually needed after a call to that operation.
+
+Interface: `Unwindowable`_
+
+Signature: ``Collection::unwindow();``
+
+.. code-block:: php
+
+    // Drop all the items before finding five 9 in a row.
+    $input = [1, 2, 3, 4, 5, 6, 7, 8, 9, 9, 9, 9, 9, 1, 2, 3, 4, 5, 6, 7, 8];
+
+    Collection::fromIterable($input)
+        ->window(4)
+        ->dropWhile(
+            static function (array $value): bool {
+                return $value !== [9, 9, 9, 9, 9];
+            }
+        )
+        ->unwindow()
+        ->drop(1)
+        ->normalize(); // [1, 2, 3, 4, 5, 6, 7, 8]
+
 unwrap
 ~~~~~~
 
@@ -1707,6 +1732,7 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Unpackable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Unpackagle.php
 .. _Unpairable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Unpairable.php
 .. _Untilable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Untilable.php
+.. _Unwindowable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Unwindowable.php
 .. _Unwrapable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Unwrapable.php
 .. _Unzipable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Unzipable.php
 .. _Windowable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Windowable.php

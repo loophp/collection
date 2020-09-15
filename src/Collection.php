@@ -90,6 +90,7 @@ use loophp\collection\Operation\Unfold;
 use loophp\collection\Operation\Unpack;
 use loophp\collection\Operation\Unpair;
 use loophp\collection\Operation\Until;
+use loophp\collection\Operation\Unwindow;
 use loophp\collection\Operation\Unwrap;
 use loophp\collection\Operation\Unzip;
 use loophp\collection\Operation\Window;
@@ -731,6 +732,11 @@ final class Collection implements CollectionInterface
     public function until(callable ...$callbacks): CollectionInterface
     {
         return $this->run(Until::of()(...$callbacks));
+    }
+
+    public function unwindow(): CollectionInterface
+    {
+        return $this->run(Unwindow::of());
     }
 
     public function unwrap(): CollectionInterface
