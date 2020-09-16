@@ -33,7 +33,7 @@ jobs:
           path: ./CHANGELOG.md
 
       - name: "Create release"
-        uses: "actions/create-release@v1.1.3"
+        uses: "actions/create-release@v1.1.4"
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
         with:
