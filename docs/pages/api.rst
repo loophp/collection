@@ -134,6 +134,9 @@ Another example
 with
 ~~~~
 
+.. warning:: Will be deprecated soon.
+             Use ``fromCallable``, ``fromIterable``, ``fromResource``, ``fromString`` instead.
+
 Create a collection with the provided data.
 
 Signature: ``Collection::with($data = [], ...$parameters);``
@@ -218,7 +221,7 @@ Signature: ``Collection::apply(...$callbacks);``
             return true;
         };
 
-    $collection = Collection::with(['1', '2', '3']);
+    $collection = Collection::fromIterable(['1', '2', '3']);
 
     $collection
         ->apply($callback);
@@ -286,7 +289,7 @@ Signature: ``Collection::chunk(int $size);``
 
 .. code-block:: php
 
-    $collection = Collection::with(range(0, 10));
+    $collection = Collection::fromIterable(range(0, 10));
 
     $collection->chunk(2);
 
@@ -301,7 +304,7 @@ Signature: ``Collection::collapse();``
 
 .. code-block:: php
 
-    $collection = Collection::with([[1,2], [3, 4]]);
+    $collection = Collection::fromIterable([[1,2], [3, 4]]);
 
     $collection->collapse();
 
@@ -339,7 +342,7 @@ Signature: ``Collection::column($index);``
         ],
     ];
 
-    $result = Collection::with($records)
+    $result = Collection::fromIterable($records)
         ->column('first_name');
 
 combinate
@@ -353,7 +356,7 @@ Signature: ``Collection::combinate(?int $length);``
 
 .. code-block:: php
 
-    $collection = Collection::with(['a', 'b', 'c', 'd'])
+    $collection = Collection::fromIterable(['a', 'b', 'c', 'd'])
         ->combinate(3);
 
 combine
@@ -367,7 +370,7 @@ Signature: ``Collection::combine(...$keys);``
 
 .. code-block:: php
 
-    $collection = Collection::with(['a', 'b', 'c', 'd'])
+    $collection = Collection::fromIterable(['a', 'b', 'c', 'd'])
         ->combine('w', 'x', 'y', 'z')
 
 compact
@@ -381,10 +384,10 @@ Signature: ``Collection::compact(...$values);``
 
 .. code-block:: php
 
-    $collection = Collection::with(['a', 1 => 'b', null, false, 0, 'c'];)
+    $collection = Collection::fromIterable(['a', 1 => 'b', null, false, 0, 'c'];)
         ->compact(); // ['a', 1 => 'b', 3 => false, 4 => 0, 5 => 'c']
 
-    $collection = Collection::with(['a', 1 => 'b', null, false, 0, 'c'];)
+    $collection = Collection::fromIterable(['a', 1 => 'b', null, false, 0, 'c'];)
         ->compact(null, 0); // ['a', 1 => 'b', 3 => false, 5 => 'c']
 
 contains
@@ -419,7 +422,7 @@ Signature: ``Collection::cycle(int $length = 0);``
 
 .. code-block:: php
 
-    $collection = Collection::with(['a', 'b', 'c', 'd'])
+    $collection = Collection::fromIterable(['a', 'b', 'c', 'd'])
         ->cycle(10)
 
 diff
@@ -434,7 +437,7 @@ Signature: ``Collection::diff(...$values);``
 
 .. code-block:: php
 
-    $collection = Collection::with(['a', 'b', 'c', 'd', 'e'])
+    $collection = Collection::fromIterable(['a', 'b', 'c', 'd', 'e'])
         ->diff('a', 'b', 'c', 'x'); // [3 => 'd', 4 => 'e']
 
 diffKeys
@@ -449,7 +452,7 @@ Signature: ``Collection::diffKeys(...$values);``
 
 .. code-block:: php
 
-    $collection = Collection::with(['a', 'b', 'c', 'd', 'e'])
+    $collection = Collection::fromIterable(['a', 'b', 'c', 'd', 'e'])
         ->diffKeys(1, 2); // [0 => 'a', 3 => 'd', 4 => 'e']
 
 distinct
@@ -463,7 +466,7 @@ Signature: ``Collection::distinct();``
 
 .. code-block:: php
 
-    $collection = Collection::with(['a', 'b', 'c', 'd', 'a'])
+    $collection = Collection::fromIterable(['a', 'b', 'c', 'd', 'a'])
         ->distinct()
 
 drop
@@ -533,7 +536,7 @@ Signature: ``Collection::explode(...$items);``
 
     $string = 'I am just a random piece of text.';
 
-    $collection = Collection::with($string)
+    $collection = Collection::fromIterable($string)
         ->explode('o');
 
 falsy
@@ -556,7 +559,7 @@ Signature: ``Collection::filter(callable ...$callbacks);``
         return 0 === $value % 3;
     };
 
-    $collection = Collection::with(range(1, 100))
+    $collection = Collection::fromIterable(range(1, 100))
         ->filter($callback);
 
 first
@@ -610,7 +613,7 @@ Signature: ``Collection::flatten(int $depth = PHP_INT_MAX);``
 
 .. code-block:: php
 
-    $collection = Collection::with([0, [1, 2], [3, [4, [5, 6]]]])
+    $collection = Collection::fromIterable([0, [1, 2], [3, [4, [5, 6]]]])
         ->flatten();
 
 flip
@@ -624,7 +627,7 @@ Signature: ``Collection::flip(int $depth = PHP_INT_MAX);``
 
 .. code-block:: php
 
-    $collection = Collection::with(['a', 'b', 'c', 'a'])
+    $collection = Collection::fromIterable(['a', 'b', 'c', 'a'])
         ->flip();
 
 .. tip:: array_flip() and Collection::flip() can behave different, check the following examples.
@@ -641,7 +644,7 @@ However, when using a collection:
 
 .. code-block:: php
 
-    $dedupCollection = Collection::with(['a', 'b', 'c', 'd', 'a'])
+    $dedupCollection = Collection::fromIterable(['a', 'b', 'c', 'd', 'a'])
         ->flip()
         ->flip()
         ->all();
@@ -669,7 +672,7 @@ Signature: ``Collection::forget(...$keys);``
 
 .. code-block:: php
 
-    $collection = Collection::with(range('a', 'z'))
+    $collection = Collection::fromIterable(range('a', 'z'))
         ->forget(5, 6, 10, 15);
 
 frequency
@@ -685,7 +688,7 @@ Signature: ``Collection::frequency();``
 
 .. code-block:: php
 
-    $collection = Collection::with(['a', 'b', 'c', 'b', 'c', 'c')
+    $collection = Collection::fromIterable(['a', 'b', 'c', 'b', 'c', 'c')
         ->frequency()
         ->all(); // [1 => 'a', 2 => 'b', 3 => 'c'];
 
@@ -720,7 +723,7 @@ Signature: ``Collection::group(callable $callable = null);``
             yield 3 => 'f';
     };
 
-    $collection = Collection::with($callback)
+    $collection = Collection::fromIterable($callback)
         ->group();
 
 has
@@ -796,7 +799,7 @@ Signature: ``Collection::init();``
 
 .. code-block:: php
 
-    Collection::with(range('a', 'e'))
+    Collection::fromIterable(range('a', 'e'))
         ->init(); // ['a', 'b', 'c', 'd']
 
 intersect
@@ -810,7 +813,7 @@ Signature: ``Collection::intersect(...$values);``
 
 .. code-block:: php
 
-    $collection = Collection::with(range('a', 'e'))
+    $collection = Collection::fromIterable(range('a', 'e'))
         ->intersect('a', 'b', 'c'); // ['a', 'b', 'c']
 
 intersectKeys
@@ -824,7 +827,7 @@ Signature: ``Collection::intersectKeys(...$values);``
 
 .. code-block:: php
 
-    $collection = Collection::with(range('a', 'e'))
+    $collection = Collection::fromIterable(range('a', 'e'))
         ->intersectKeys(0, 2, 4); // ['a', 'c', 'e']
 
 intersperse
@@ -838,7 +841,7 @@ Signature: ``Collection::intersperse($element, int $every = 1, int $startAt = 0)
 
 .. code-block:: php
 
-    $collection = Collection::with(range('a', 'z'))
+    $collection = Collection::fromIterable(range('a', 'z'))
         ->intersperse('foo', 3);
 
 key
@@ -868,7 +871,7 @@ Signature: ``Collection::keys();``
 
 .. code-block:: php
 
-    $collection = Collection::with(range('a', 'z'))
+    $collection = Collection::fromIterable(range('a', 'z'))
         ->keys();
 
 last
@@ -941,7 +944,7 @@ Signature: ``Collection::map(callable ...$callbacks);``
         return $value * 2;
     };
 
-    $collection = Collection::with(range(1, 100))
+    $collection = Collection::fromIterable(range(1, 100))
         ->map($mapper);
 
 merge
@@ -955,7 +958,7 @@ Signature: ``Collection::merge(...$sources);``
 
 .. code-block:: php
 
-    $collection = Collection::with(range(1, 10))
+    $collection = Collection::fromIterable(range(1, 10))
         ->merge(['a', 'b', 'c'])
 
 normalize
@@ -969,7 +972,7 @@ Signature: ``Collection::normalize();``
 
 .. code-block:: php
 
-    $collection = Collection::with(['a' => 'a', 'b' => 'b', 'c' => 'c'])
+    $collection = Collection::fromIterable(['a' => 'a', 'b' => 'b', 'c' => 'c'])
         ->normalize();
 
 nth
@@ -983,7 +986,7 @@ Signature: ``Collection::nth(int $step, int $offset = 0);``
 
 .. code-block:: php
 
-    $collection = Collection::with(range(10, 100))
+    $collection = Collection::fromIterable(range(10, 100))
         ->nth(3);
 
 nullsy
@@ -1002,7 +1005,7 @@ Signature: ``Collection::only(...$keys);``
 
 .. code-block:: php
 
-    $collection = Collection::with(range(10, 100))
+    $collection = Collection::fromIterable(range(10, 100))
         ->only(3, 10, 'a', 9);
 
 pack
@@ -1038,7 +1041,7 @@ Signature: ``Collection::pad(int $size, $value);``
 
 .. code-block:: php
 
-    $collection = Collection::with(range(1, 5))
+    $collection = Collection::fromIterable(range(1, 5))
         ->pad(10, 'foo');
 
 pair
@@ -1102,7 +1105,7 @@ Signature: ``Collection::permutate(int $size, $value);``
 
 .. code-block:: php
 
-    $collection = Collection::with(['hello', 'how', 'are', 'you'])
+    $collection = Collection::fromIterable(['hello', 'how', 'are', 'you'])
         ->permutate();
 
 pluck
@@ -1164,7 +1167,7 @@ Signature: ``Collection::product(iterable ...$iterables);``
 
 .. code-block:: php
 
-    $collection = Collection::with(['4', '5', '6'])
+    $collection = Collection::fromIterable(['4', '5', '6'])
         ->product(['1', '2', '3'], ['a', 'b'], ['foo', 'bar']);
 
 random
@@ -1179,7 +1182,7 @@ Signature: ``Collection::random(int $size = 1);``
 
 .. code-block:: php
 
-    $collection = Collection::with(['4', '5', '6'])
+    $collection = Collection::fromIterable(['4', '5', '6'])
         ->random(); // ['6']
 
 reduce
@@ -1234,7 +1237,7 @@ Signature: ``Collection::reverse();``
 
 .. code-block:: php
 
-    $collection = Collection::with(['a', 'b', 'c'])
+    $collection = Collection::fromIterable(['a', 'b', 'c'])
         ->reverse();
 
 rsample
@@ -1271,7 +1274,7 @@ Signature: ``Collection::since(callable ...$callbacks);``
 .. code-block:: php
 
     // Parse the composer.json of a package and get the require-dev dependencies.
-    $collection = Collection::with(fopen(__DIR__ . '/composer.json', 'rb'))
+    $collection = Collection::withResource(fopen(__DIR__ . '/composer.json', 'rb'))
         // Group items when EOL character is found.
         ->split(
             static function (string $character): bool {
@@ -1334,7 +1337,7 @@ Signature: ``Collection::slice(int $offset, ?int $length = null);``
 
 .. code-block:: php
 
-    $collection = Collection::with(range('a', 'z'))
+    $collection = Collection::fromIterable(range('a', 'z'))
         ->slice(5, 5);
 
 sort
@@ -1352,15 +1355,15 @@ Signature: ``Collection::sort(?callable $callback = null);``
 .. code-block:: php
 
     // Regular values sorting
-    $collection = Collection::with(['z', 'y', 'x'])
+    $collection = Collection::fromIterable(['z', 'y', 'x'])
         ->sort();
 
     // Regular values sorting
-    $collection = Collection::with(['z', 'y', 'x'])
+    $collection = Collection::fromIterable(['z', 'y', 'x'])
         ->sort(Operation\Sortable::BY_VALUES);
 
     // Regular values sorting with a custom callback
-    $collection = Collection::with(['z', 'y', 'x'])
+    $collection = Collection::fromIterable(['z', 'y', 'x'])
         ->sort(
                 Operation\Sortable::BY_VALUES,
                 static function ($left, $right): int {
@@ -1370,13 +1373,13 @@ Signature: ``Collection::sort(?callable $callback = null);``
         );
 
     // Regular keys sorting (no callback is needed here)
-    $collection = Collection::with(['z', 'y', 'x'])
+    $collection = Collection::fromIterable(['z', 'y', 'x'])
         ->sort(
                 Operation\Sortable::BY_KEYS
         );
 
     // Regular keys sorting using flip() operations.
-    $collection = Collection::with(['z', 'y', 'x'])
+    $collection = Collection::fromIterable(['z', 'y', 'x'])
         ->flip() // Exchange values and keys
         ->sort() // Sort the values (which are now the keys)
         ->flip(); // Flip again to put back the keys and values, sorted by keys.
@@ -1396,7 +1399,7 @@ Signature: ``Collection::split(callable ...$callbacks);``
         return 0 === $value % 3;
     };
 
-    $collection = Collection::with(range(0, 20))
+    $collection = Collection::fromIterable(range(0, 20))
         ->split($splitter);
 
 tail
@@ -1410,7 +1413,7 @@ Signature: ``Collection::tail();``
 
 .. code-block:: php
 
-    Collection::with(['a', 'b', 'c'])
+    Collection::fromIterable(['a', 'b', 'c'])
         ->tail(); // [1 => 'b', 2 => 'c']
 
 takeWhile
@@ -1466,7 +1469,7 @@ Signature: ``Collection::transpose();``
         ],
     ];
 
-    $result = Collection::with($records)
+    $result = Collection::fromIterable($records)
         ->transpose();
 
 truthy
@@ -1560,7 +1563,7 @@ Signature: ``Collection::unwindow();``
 .. code-block:: php
 
     // Drop all the items before finding five 9 in a row.
-    $input = [1, 2, 3, 4, 5, 6, 7, 8, 9, 9, 9, 9, 9, 1, 2, 3, 4, 5, 6, 7, 8];
+    $input = [1, 2, 3, 4, 5, 6, 7, 8, 9, 9, 9, 9, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
 
     Collection::fromIterable($input)
         ->window(4)
@@ -1571,7 +1574,7 @@ Signature: ``Collection::unwindow();``
         )
         ->unwindow()
         ->drop(1)
-        ->normalize(); // [1, 2, 3, 4, 5, 6, 7, 8]
+        ->normalize(); // [10, 11, 12, 13, 14, 15, 16, 17, 18]
 
 unwrap
 ~~~~~~
@@ -1586,7 +1589,7 @@ Signature: ``Collection::unwrap();``
 
      $data = [['a' => 'A'], ['b' => 'B'], ['c' => 'C']];
 
-     $collection = Collection::with($data)
+     $collection = Collection::fromIterable($data)
         ->unwrap();
 
 unzip
@@ -1600,10 +1603,10 @@ Signature: ``Collection::unzip();``
 
 .. code-block:: php
 
-    $a = Collection::with(['a' => 'a', 'b' => 'b', 'c' => 'c'])
+    $a = Collection::fromIterable(['a' => 'a', 'b' => 'b', 'c' => 'c'])
         ->zip(['d', 'e', 'f', 'g'], [1, 2, 3, 4, 5]);
 
-    $b = Collection::with($a)
+    $b = Collection::fromIterable($a)
         ->unzip(); // [ ['a','b','c',null,null], ['d','e','f','g',null], [1,2,3,4,5] ]
 
 window
@@ -1636,7 +1639,7 @@ Signature: ``Collection::wrap();``
 
      $data = ['a' => 'A', 'b' => 'B', 'c' => 'C'];
 
-     $collection = Collection::with($data)
+     $collection = Collection::fromIterable($data)
         ->wrap();
 
 zip
@@ -1653,7 +1656,7 @@ Signature: ``Collection::zip(iterable ...$iterables);``
     $even = Collection::range(0, INF, 2);
     $odd = Collection::range(1, INF, 2);
 
-    $positiveIntegers = Collection::with($even)
+    $positiveIntegers = Collection::fromIterable($even)
         ->zip($odd)
         ->limit(100)
         ->flatten();
