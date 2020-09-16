@@ -112,14 +112,15 @@ advantages of this style.
     $userData = new ArrayIterator($input);
     
     $flatMap = static fn (callable $callable) =>
-               static fn(Iterator $iterator) =>
-               Normalize::of()(Flatten::of()(1)(Map::of()($callable)($iterator)));
+                   Compose::of()(
+                      Map::of()($callable), 
+                      Flatten::of()(1), 
+                      Normalize::of()
+                   );
     
     $callback = fn(string $name): array => explode(',', $name);
     
-    $flatmapData = $flatMap($callback)($userData);
-    
-    print_r(iterator_to_array($flatmapData)); // ['foo', 'bar', 'baz', 'john']
+    print_r(iterator_to_array($flatMap($callback)($userData))); // ['foo', 'bar', 'baz', 'john']
     ```
 
 ## Installation
