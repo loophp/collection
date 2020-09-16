@@ -57,9 +57,70 @@ This library has been inspired by:
 * [mtdowling/transducers][mtdowling/transducers]
 * [Ruby Array][ruby array]
 * [Collect.js][collect.js]
+* [Rambda][rambda]
 * [nikic/iter][nikic/iter package]
-* [Lazy.js][lazy.js]
 * [Haskell][haskell]
+* [Lazy.js][lazy.js]
+
+## Features
+
+* **Decoupled**: Each Collection methods is a shortcut to one isolated standard class, each operation has its own
+responsibility. Usually the arguments needed are standard PHP variables like `int`, `string`, `callable` or `iterator`.
+It allows users to use those operations individually, at their own will to build up something custom. Currently, more 
+than **80 operations** are available in this library. This library is basically an example of what you can do with all 
+those small bricks, but nothing prevent users to use an operation on its own as well.
+
+* **It takes function first, data-last**: In the following example, multiple operations are created. The data to be 
+operated on is generally supplied at last.
+
+    ```php
+    <?php
+    
+    $data = ['foo', 'bar', 'baz'];
+    $filterCallback = static fn(string $userId): bool => 'foo' !== $userId;
+    
+    // Using the Collection library
+    $collection = Collection::fromIterable($data)
+        ->filter($filterCallback)
+        ->reverse();
+    print_r($collection->all()); // ['baz', 'bar']
+
+    // Using single operations.    
+    $filter = Filter::of()($filterCallback);
+    $reverse = Reverse::of();
+    $compose = Compose::of()($reverse, $filter);
+    print_r(iterator_to_array($compose(new ArrayIterator($data))));  // ['baz', 'bar']
+    ```
+
+    More information about this in the [Brian Lonsdorf's conference][brian lonsdorf conference], even if this is for
+    Javascript, those concepts are common to other programming languages.
+    
+    In a nutshell, the combination of currying and function-first enables the developer to compose functions with very
+little code (_often in a “point-free” fashion_), before finally passing in the relevant user data.
+
+* **Operations are stateless and curried by default**: This currying makes it easy to compose functions to create new
+functions. Because the API is _function-first_, _data-last_, you can continue composing and composing until you build
+up the function you need before dropping in the data. See [this Hugh Jackson article][hugh jackson post] describing the 
+advantages of this style.
+
+    In the following example, the well-known [`flatMap`][flatmap] could be composed of other operations as such:
+
+    ```php
+    <?php
+    
+    $input = ['foo,bar', 'baz,john'];
+    $userData = new ArrayIterator($input);
+    
+    $flatMap = static fn (callable $callable) =>
+               static fn(Iterator $iterator) =>
+               Normalize::of()(Flatten::of()(1)(Map::of()($callable)($iterator)));
+    
+    $callback = fn(string $name): array => explode(',', $name);
+    
+    $flatmapData = $flatMap($callback)($userData);
+    
+    print_r(iterator_to_array($flatmapData)); // ['foo', 'bar', 'baz', 'john']
+    ```
 
 ## Installation
 
@@ -172,3 +233,7 @@ For more detailed changelogs, please check [the release changelogs][changelog-re
 [git-commits]: https://github.com/loophp/collection/commits/master
 [changelog-releases]: https://github.com/loophp/collection/releases
 [haskell]: https://www.haskell.org/
+[brian lonsdorf conference]: https://www.youtube.com/watch?v=m3svKOdZijA
+[hugh jackson post]: http://hughfdjackson.com/javascript/why-curry-helps/
+[rambda]: https://ramdajs.com/
+[flatmap]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flatMap
