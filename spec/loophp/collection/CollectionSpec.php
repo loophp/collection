@@ -795,6 +795,21 @@ class CollectionSpec extends ObjectBehavior
             ->shouldReturn(12);
     }
 
+    public function it_can_foldright1(): void
+    {
+        $callback = static function ($carry, $value) {
+            return $value / $carry;
+        };
+
+        $this::fromIterable([8, 12, 24, 4])
+            ->foldRight1($callback)
+            ->shouldReturn(4);
+
+        $this::fromIterable([12])
+            ->foldRight1($callback)
+            ->shouldReturn(12);
+    }
+
     public function it_can_forget(): void
     {
         $this::fromIterable(range('A', 'E'))

@@ -41,6 +41,7 @@ use loophp\collection\Operation\Flip;
 use loophp\collection\Operation\FoldLeft;
 use loophp\collection\Operation\FoldLeft1;
 use loophp\collection\Operation\FoldRight;
+use loophp\collection\Operation\FoldRight1;
 use loophp\collection\Operation\Forget;
 use loophp\collection\Operation\Frequency;
 use loophp\collection\Operation\Get;
@@ -403,6 +404,11 @@ final class Collection implements CollectionInterface
     public function foldRight(callable $callback, $initial = null)
     {
         return $this->run(Foldright::of()($callback)($initial))->getIterator()->current();
+    }
+
+    public function foldRight1(callable $callback)
+    {
+        return $this->run(FoldRight1::of()($callback))->getIterator()->current();
     }
 
     public function forget(...$keys): CollectionInterface
