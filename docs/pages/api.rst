@@ -1292,6 +1292,30 @@ Signature: ``Collection::scale(float $lowerBound, float $upperBound, ?float $wan
     $collection = Collection::range(0, 10, 2)
         ->scale(0, 10, 5, 15, 3);
 
+scanLeft
+~~~~~~~~
+
+Takes the initial value and the first item of the list and applies the function to them, then feeds the function with
+this result and the second argument and so on. It returns the list of intermediate and final results.
+
+Interface: `ScanLeftable`_
+
+Signature: ``Collection::scanLeft(callable $callback, $initial = null);``
+
+.. code-block:: php
+
+    $callback = static function ($carry, $value) {
+        return $carry / $value;
+    };
+
+    Collection::fromIterable([4, 2, 4])
+        ->scanLeft($callback, 64)
+        ->normalize(); // [64 ,16 ,8 ,2]
+
+    Collection::empty()
+        ->scanLeft($callback, 3)
+        ->normalize(); // [3]
+
 since
 ~~~~~
 
@@ -1756,6 +1780,7 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Reductionable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Reductionable.php
 .. _Reverseable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Reverseable.php
 .. _Scaleable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Scaleable.php
+.. _ScanLeftable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/ScanLeftable.php
 .. _Sinceable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Sinceable.php
 .. _Sliceable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Sliceable.php
 .. _Sortable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Sortable.php

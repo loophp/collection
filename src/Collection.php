@@ -78,6 +78,7 @@ use loophp\collection\Operation\Reverse;
 use loophp\collection\Operation\RSample;
 use loophp\collection\Operation\Run;
 use loophp\collection\Operation\Scale;
+use loophp\collection\Operation\ScanLeft;
 use loophp\collection\Operation\Shuffle;
 use loophp\collection\Operation\Since;
 use loophp\collection\Operation\Slice;
@@ -674,6 +675,11 @@ final class Collection implements CollectionInterface
         float $base = 0.0
     ): CollectionInterface {
         return $this->run(Scale::of()($lowerBound)($upperBound)($wantedLowerBound)($wantedUpperBound)($base));
+    }
+
+    public function scanLeft(callable $callback, $initial = null): CollectionInterface
+    {
+        return $this->run(ScanLeft::of()($callback)($initial));
     }
 
     public function shuffle(): CollectionInterface

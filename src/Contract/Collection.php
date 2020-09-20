@@ -71,6 +71,7 @@ use loophp\collection\Contract\Operation\Reductionable;
 use loophp\collection\Contract\Operation\Reverseable;
 use loophp\collection\Contract\Operation\RSampleable;
 use loophp\collection\Contract\Operation\Scaleable;
+use loophp\collection\Contract\Operation\ScanLeftable;
 use loophp\collection\Contract\Operation\Shuffleable;
 use loophp\collection\Contract\Operation\Sinceable;
 use loophp\collection\Contract\Operation\Sliceable;
@@ -158,6 +159,7 @@ use loophp\collection\Iterator\ClosureIterator;
  * @template-extends Reverseable<TKey, T>
  * @template-extends RSampleable<TKey, T>
  * @template-extends Scaleable<TKey, T>
+ * @template-extends ScanLeftable<TKey, T>
  * @template-extends Shuffleable<TKey, T>
  * @template-extends Sinceable<TKey, T>
  * @template-extends Sliceable<TKey, T>
@@ -245,6 +247,7 @@ interface Collection extends
     Reverseable,
     RSampleable,
     Scaleable,
+    ScanLeftable,
     Shuffleable,
     Sinceable,
     Sliceable,
