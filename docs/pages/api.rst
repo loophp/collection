@@ -654,12 +654,22 @@ This example will return ``['a', 'b', 'c', 'd', 'a']``.
 foldLeft
 ~~~~~~~~
 
+Takes the initial value and the first item of the list and applies the function to them, then feeds the function with
+this result and the second argument and so on. See `scanLeft` for intermediate results.
+
 Interface: `FoldLeftable`_
+
+Signature: ``Collection::foldLeft(callable $callback, $initial = null);``
 
 foldRight
 ~~~~~~~~~
 
+Takes the initial value and the last item of the list and applies the function, then it takes the penultimate item from
+the end and the result, and so on. See `scanRight` for intermediate results.
+
 Interface: `FoldRightable`_
+
+Signature: ``Collection::foldRight(callable $callback, $initial = null);``
 
 forget
 ~~~~~~
