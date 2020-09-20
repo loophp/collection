@@ -80,6 +80,7 @@ use loophp\collection\Operation\Run;
 use loophp\collection\Operation\Scale;
 use loophp\collection\Operation\ScanLeft;
 use loophp\collection\Operation\ScanLeft1;
+use loophp\collection\Operation\ScanRight;
 use loophp\collection\Operation\Shuffle;
 use loophp\collection\Operation\Since;
 use loophp\collection\Operation\Slice;
@@ -686,6 +687,11 @@ final class Collection implements CollectionInterface
     public function scanLeft1(callable $callback): CollectionInterface
     {
         return $this->run(ScanLeft1::of()($callback));
+    }
+
+    public function scanRight(callable $callback, $initial = null): CollectionInterface
+    {
+        return $this->run(ScanRight::of()($callback)($initial));
     }
 
     public function shuffle(): CollectionInterface
