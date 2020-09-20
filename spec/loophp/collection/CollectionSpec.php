@@ -1738,6 +1738,31 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs([3]);
     }
 
+    public function it_can_scanright1(): void
+    {
+        $callback = static function ($carry, $value) {
+            return $value / $carry;
+        };
+
+        $result = static function () {
+            yield 0 => 8;
+
+            yield 0 => 1;
+
+            yield 1 => 12;
+
+            yield 2 => 2;
+        };
+
+        $this::fromIterable([8, 12, 24, 2])
+            ->scanRight1($callback)
+            ->shouldIterateAs($result());
+
+        $this::fromIterable([12])
+            ->scanRight1($callback)
+            ->shouldIterateAs([12]);
+    }
+
     public function it_can_shuffle(): void
     {
         $data = range('A', 'Z');

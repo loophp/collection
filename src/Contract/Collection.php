@@ -73,6 +73,7 @@ use loophp\collection\Contract\Operation\RSampleable;
 use loophp\collection\Contract\Operation\Scaleable;
 use loophp\collection\Contract\Operation\ScanLeft1able;
 use loophp\collection\Contract\Operation\ScanLeftable;
+use loophp\collection\Contract\Operation\ScanRight1able;
 use loophp\collection\Contract\Operation\ScanRightable;
 use loophp\collection\Contract\Operation\Shuffleable;
 use loophp\collection\Contract\Operation\Sinceable;
@@ -163,6 +164,7 @@ use loophp\collection\Iterator\ClosureIterator;
  * @template-extends Scaleable<TKey, T>
  * @template-extends ScanLeft1able<TKey, T>
  * @template-extends ScanLeftable<TKey, T>
+ * @template-extends ScanRight1able<TKey, T>
  * @template-extends ScanRightable<TKey, T>
  * @template-extends Shuffleable<TKey, T>
  * @template-extends Sinceable<TKey, T>
@@ -253,6 +255,7 @@ interface Collection extends
     Scaleable,
     ScanLeft1able,
     ScanLeftable,
+    ScanRight1able,
     ScanRightable,
     Shuffleable,
     Sinceable,
