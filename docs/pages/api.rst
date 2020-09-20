@@ -1316,6 +1316,30 @@ Signature: ``Collection::scanLeft(callable $callback, $initial = null);``
         ->scanLeft($callback, 3)
         ->normalize(); // [3]
 
+scanLeft1
+~~~~~~~~~
+
+Takes the first 2 items of the list and applies the function to them, then feeds the function with this result and the
+third argument and so on. It returns the list of intermediate and final results.
+
+.. warning:: You might need to use the ``normalize`` operation after this.
+
+Interface: `ScanLeft1able`_
+
+Signature: ``Collection::scanLeft1(callable $callback);``
+
+.. code-block:: php
+
+    $callback = static function ($carry, $value) {
+        return $carry / $value;
+    };
+
+    Collection::fromIterable([64, 4, 2, 8])
+        ->scanLeft1($callback); // [64 ,16 ,8 ,1]
+
+    Collection::fromIterable([12])
+        ->scanLeft1($callback); // [12]
+
 since
 ~~~~~
 
@@ -1781,6 +1805,7 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Reverseable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Reverseable.php
 .. _Scaleable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Scaleable.php
 .. _ScanLeftable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/ScanLeftable.php
+.. _ScanLeft1able: https://github.com/loophp/collection/blob/master/src/Contract/Operation/ScanLeft1able.php
 .. _Sinceable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Sinceable.php
 .. _Sliceable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Sliceable.php
 .. _Sortable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Sortable.php
