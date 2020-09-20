@@ -661,6 +661,16 @@ Interface: `FoldLeftable`_
 
 Signature: ``Collection::foldLeft(callable $callback, $initial = null);``
 
+foldLeft1
+~~~~~~~~~
+
+Takes the first 2 items of the list and applies the function to them, then feeds the function with this result and the
+third argument and so on. See `scanLeft1` for intermediate results.
+
+Interface: `FoldLeft1able`_
+
+Signature: ``Collection::foldLeft1(callable $callback);``
+
 foldRight
 ~~~~~~~~~
 
@@ -1699,6 +1709,7 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Flipable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Flipable.php
 .. _array_flip(): https://php.net/array_flip
 .. _FoldLeftable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/FoldLeftable.php
+.. _FoldLeft1able: https://github.com/loophp/collection/blob/master/src/Contract/Operation/FoldLeft1able.php
 .. _FoldRightable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/FoldRightable.php
 .. _Forgetable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Forgetable.php
 .. _Frequencyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Frequencyable.php

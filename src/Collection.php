@@ -39,6 +39,7 @@ use loophp\collection\Operation\First;
 use loophp\collection\Operation\Flatten;
 use loophp\collection\Operation\Flip;
 use loophp\collection\Operation\FoldLeft;
+use loophp\collection\Operation\FoldLeft1;
 use loophp\collection\Operation\FoldRight;
 use loophp\collection\Operation\Forget;
 use loophp\collection\Operation\Frequency;
@@ -392,6 +393,11 @@ final class Collection implements CollectionInterface
     public function foldLeft(callable $callback, $initial = null)
     {
         return $this->run(FoldLeft::of()($callback)($initial))->getIterator()->current();
+    }
+
+    public function foldLeft1(callable $callback)
+    {
+        return $this->run(FoldLeft1::of()($callback))->getIterator()->current();
     }
 
     public function foldRight(callable $callback, $initial = null)

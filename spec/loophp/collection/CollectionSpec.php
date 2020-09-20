@@ -780,6 +780,21 @@ class CollectionSpec extends ObjectBehavior
             ->shouldReturn('CBA');
     }
 
+    public function it_can_foldleft1(): void
+    {
+        $callback = static function ($carry, $value) {
+            return $carry / $value;
+        };
+
+        $this::fromIterable([64, 4, 2, 8])
+            ->foldLeft1($callback)
+            ->shouldReturn(1);
+
+        $this::fromIterable([12])
+            ->foldLeft1($callback)
+            ->shouldReturn(12);
+    }
+
     public function it_can_forget(): void
     {
         $this::fromIterable(range('A', 'E'))

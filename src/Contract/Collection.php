@@ -32,6 +32,7 @@ use loophp\collection\Contract\Operation\Filterable;
 use loophp\collection\Contract\Operation\Firstable;
 use loophp\collection\Contract\Operation\Flattenable;
 use loophp\collection\Contract\Operation\Flipable;
+use loophp\collection\Contract\Operation\FoldLeft1able;
 use loophp\collection\Contract\Operation\FoldLeftable;
 use loophp\collection\Contract\Operation\FoldRightable;
 use loophp\collection\Contract\Operation\Forgetable;
@@ -122,7 +123,7 @@ use loophp\collection\Iterator\ClosureIterator;
  * @template-extends Flattenable<TKey, T>
  * @template-extends Flipable<TKey, T>
  * @template-extends FoldLeftable<TKey, T>
- * @template-extends FoldRightable<TKey, T>
+ * @template-extends FoldLeft1able<TKey, T>
  * @template-extends Forgetable<TKey, T>
  * @template-extends Frequencyable<TKey, T>
  * @template-extends Getable<TKey, T>
@@ -201,6 +202,7 @@ interface Collection extends
     Firstable,
     Flattenable,
     Flipable,
+    FoldLeft1able,
     FoldLeftable,
     FoldRightable,
     Forgetable,
