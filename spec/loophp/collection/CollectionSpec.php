@@ -1246,6 +1246,25 @@ class CollectionSpec extends ObjectBehavior
             ->during('all');
     }
 
+    public function it_can_lines(): void
+    {
+        $string = <<<'EOF'
+The quick brow fox jumps over the lazy dog.
+
+This is another sentence.
+EOF;
+
+        $lines = [
+            'The quick brow fox jumps over the lazy dog.',
+            '',
+            'This is another sentence.',
+        ];
+
+        $this::fromString($string)
+            ->lines()
+            ->shouldIterateAs($lines);
+    }
+
     public function it_can_map(): void
     {
         $input = array_combine(range('A', 'E'), range('A', 'E'));

@@ -58,6 +58,7 @@ use loophp\collection\Operation\Key;
 use loophp\collection\Operation\Keys;
 use loophp\collection\Operation\Last;
 use loophp\collection\Operation\Limit;
+use loophp\collection\Operation\Lines;
 use loophp\collection\Operation\Map;
 use loophp\collection\Operation\Merge;
 use loophp\collection\Operation\Normalize;
@@ -570,6 +571,11 @@ final class Collection implements CollectionInterface
     public function limit(int $count = -1, int $offset = 0): CollectionInterface
     {
         return $this->run(Limit::of()($count)($offset));
+    }
+
+    public function lines(): CollectionInterface
+    {
+        return $this->run(Lines::of());
     }
 
     public function map(callable ...$callbacks): CollectionInterface

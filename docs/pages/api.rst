@@ -960,6 +960,26 @@ Signature: ``Collection::limit(int $limit);``
     $collection = Collection::unfold($fibonacci)
         ->limit(10);
 
+lines
+~~~~~
+
+Split a string into lines.
+
+Interface: `Linesable`_
+
+Signature: ``Collection::lines();``
+
+.. code-block:: php
+
+    $string = <<<'EOF'
+    The quick brow fox jumps over the lazy dog.
+
+    This is another sentence.
+    EOF;
+
+    Collection::fromString($string)
+        ->lines();
+
 map
 ~~~
 
@@ -1844,6 +1864,7 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Keysable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Keysable.php
 .. _Lastable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Lastable.php
 .. _Limitable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Limitable.php
+.. _Linesable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Linesable.php
 .. _Mapable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Mapable.php
 .. _Mergeable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Mergeable.php
 .. _Normalizeable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Normalizeable.php
