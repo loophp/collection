@@ -146,6 +146,16 @@ class CollectionSpec extends ObjectBehavior
             );
     }
 
+    public function it_can_be_constructed_from_a_file(): void
+    {
+        $this::fromFile(__DIR__ . '/../../fixtures/sample.txt')
+            ->shouldIterateAs([
+                'a',
+                'b',
+                'c',
+            ]);
+    }
+
     public function it_can_be_constructed_from_a_stream(): void
     {
         $string = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';

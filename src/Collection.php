@@ -440,6 +440,16 @@ final class Collection implements CollectionInterface
         );
     }
 
+    public static function fromFile(string $filepath): Collection
+    {
+        return new self(
+            static function (string $filepath): Generator {
+                return yield from new ResourceIterator(fopen($filepath, 'rb'));
+            },
+            $filepath
+        );
+    }
+
     public static function fromIterable(iterable $iterable): Collection
     {
         return new self(

@@ -28,6 +28,15 @@ Create a collection from a callable.
 
     $collection = Collection::fromCallable($callback);
 
+fromFile
+~~~~~~~~~~~~
+
+Create a collection from a file.
+
+.. code-block:: php
+
+    Collection::fromFile('http://loripsum.net/api');
+
 fromIterable
 ~~~~~~~~~~~~
 
