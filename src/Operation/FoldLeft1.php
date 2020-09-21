@@ -36,16 +36,15 @@ final class FoldLeft1 extends AbstractOperation
                      * @psalm-return Generator<int|TKey, null|T>
                      */
                     static function (Iterator $iterator) use ($callback): Generator {
-                        $initial = $iterator->current();
+                        /** @psalm-var Generator<TKey, T> $iterator */
+                        $iterator = Last::of()(ScanLeft1::of()($callback)($iterator));
 
-                        /** @psalm-var Iterator<TKey, T> $iterator */
-                        $iterator = Drop::of()(1)($iterator);
+                        /** @psalm-var Generator<int, TKey> $key */
+                        $key = (Key::of()(0)($iterator));
+                        /** @psalm-var Generator<int, T> $current */
+                        $current = (Current::of()(0)($iterator));
 
-                        if (false === $iterator->valid()) {
-                            return yield $initial;
-                        }
-
-                        return yield from FoldLeft::of()($callback)($initial)($iterator);
+                        return yield $key->current() => $current->current();
                     };
             };
     }

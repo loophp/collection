@@ -45,7 +45,7 @@ final class FoldLeft extends AbstractOperation
                              */
                             static function (Iterator $iterator) use ($callback, $initial): Generator {
                                 /** @psalm-var Generator<TKey, T> $iterator */
-                                $iterator = Last::of()(Reduction::of()($callback)($initial)($iterator));
+                                $iterator = Last::of()(ScanLeft::of()($callback)($initial)($iterator));
 
                                 /** @psalm-var Generator<int, TKey> $key */
                                 $key = (Key::of()(0)($iterator));

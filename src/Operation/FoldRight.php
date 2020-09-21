@@ -44,13 +44,15 @@ final class FoldRight extends AbstractOperation
                              * @psalm-return Generator<TKey, T>
                              */
                             static function (Iterator $iterator) use ($callback, $initial): Generator {
-                                /** @psalm-var callable(Iterator<TKey, T>): Generator<TKey, T> $foldRight */
-                                $foldRight = Compose::of()(
-                                    Reverse::of(),
-                                    FoldLeft::of()($callback)($initial)
-                                );
+                                /** @psalm-var Generator<TKey, T> $iterator */
+                                $iterator = ScanRight::of()($callback)($initial)($iterator);
 
-                                return yield from $foldRight($iterator);
+                                /** @psalm-var Generator<int, TKey> $key */
+                                $key = (Key::of()(0)($iterator));
+                                /** @psalm-var Generator<int, T> $current */
+                                $current = (Current::of()(0)($iterator));
+
+                                return yield $key->current() => $current->current();
                             };
                     };
             };
