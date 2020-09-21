@@ -43,7 +43,7 @@ final class Compact extends AbstractOperation
                         };
 
                         /** @psalm-var callable(Iterator<TKey, T>):Generator<TKey, T> $filter */
-                        $filter = Filter::of()($filterCallback([] === $values ? [null] : $values));
+                        $filter = Filter::of()($filterCallback([] === $values ? [null, [], 0, false, ''] : $values));
 
                         return yield from $filter($iterator);
                     };
