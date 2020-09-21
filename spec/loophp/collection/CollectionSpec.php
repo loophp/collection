@@ -2090,6 +2090,27 @@ EOF;
             ]);
     }
 
+    public function it_can_unlines(): void
+    {
+        $lines = [
+            'The quick brow fox jumps over the lazy dog.',
+            '',
+            'This is another sentence.',
+        ];
+
+        $string = <<<'EOF'
+The quick brow fox jumps over the lazy dog.
+
+This is another sentence.
+EOF;
+
+        $this::fromIterable($lines)
+            ->unlines()
+            ->shouldIterateAs([
+                2 => $string,
+            ]);
+    }
+
     public function it_can_unpack(): void
     {
         $input = [

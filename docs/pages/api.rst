@@ -1633,6 +1633,27 @@ truthy
 
 Interface: `Truthyable`_
 
+unlines
+~~~~~~~
+
+Create a string from lines.
+
+Interface: `Unlinesable`_
+
+Signature: ``Collection::unlines();``
+
+.. code-block:: php
+
+    $lines = [
+        'The quick brow fox jumps over the lazy dog.',
+        '',
+        'This is another sentence.',
+    ];
+
+    Collection::fromIterable($lines)
+        ->unlines()
+        ->current();
+
 unpack
 ~~~~~~
 
@@ -1895,6 +1916,7 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _TakeWhileable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/TakeWhileable.php
 .. _Transposeable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Transposeable.php
 .. _Truthyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Truthyable.php
+.. _Unlinesable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Unlinesable.php
 .. _Unpackable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Unpackagle.php
 .. _Unpairable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Unpairable.php
 .. _Untilable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Untilable.php

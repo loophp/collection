@@ -94,6 +94,7 @@ use loophp\collection\Operation\Times;
 use loophp\collection\Operation\Transpose;
 use loophp\collection\Operation\Truthy;
 use loophp\collection\Operation\Unfold;
+use loophp\collection\Operation\Unlines;
 use loophp\collection\Operation\Unpack;
 use loophp\collection\Operation\Unpair;
 use loophp\collection\Operation\Until;
@@ -759,6 +760,11 @@ final class Collection implements CollectionInterface
     public static function unfold(callable $callback, ...$parameters): CollectionInterface
     {
         return (new self())->run(Unfold::of()(...$parameters)($callback));
+    }
+
+    public function unlines(): CollectionInterface
+    {
+        return $this->run(Unlines::of());
     }
 
     public function unpack(): CollectionInterface

@@ -87,6 +87,7 @@ use loophp\collection\Contract\Operation\Timesable;
 use loophp\collection\Contract\Operation\Transposeable;
 use loophp\collection\Contract\Operation\Truthyable;
 use loophp\collection\Contract\Operation\Unfoldable;
+use loophp\collection\Contract\Operation\Unlinesable;
 use loophp\collection\Contract\Operation\Unpackable;
 use loophp\collection\Contract\Operation\Unpairable;
 use loophp\collection\Contract\Operation\Untilable;
@@ -176,6 +177,7 @@ use loophp\collection\Iterator\ClosureIterator;
  * @template-extends Tailable<TKey, T>
  * @template-extends TakeWhileable<TKey, T>
  * @template-extends Transposeable<TKey, T>
+ * @template-extends Unlinesable<TKey, T>
  * @template-extends Unpackable<TKey, T>
  * @template-extends Unpairable<TKey, T>
  * @template-extends Untilable<TKey, T>
@@ -271,6 +273,7 @@ interface Collection extends
     Transposeable,
     Truthyable,
     Unfoldable,
+    Unlinesable,
     Unpackable,
     Unpairable,
     Untilable,
