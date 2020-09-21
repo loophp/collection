@@ -2647,6 +2647,35 @@ EOF;
             ]);
     }
 
+    public function it_can_words(): void
+    {
+        $string = <<<'EOF'
+The quick brow fox jumps over the lazy dog.
+
+This is another sentence.
+EOF;
+
+        $words = [
+            0 => 'The',
+            1 => 'quick',
+            2 => 'brow',
+            3 => 'fox',
+            4 => 'jumps',
+            5 => 'over',
+            6 => 'the',
+            7 => 'lazy',
+            8 => 'dog.',
+            10 => 'This',
+            11 => 'is',
+            12 => 'another',
+            13 => 'sentence.',
+        ];
+
+        $this::fromString($string)
+            ->words()
+            ->shouldIterateAs($words);
+    }
+
     public function it_can_wrap()
     {
         $this::fromIterable(['a' => 'A', 'b' => 'B', 'c' => 'C'])

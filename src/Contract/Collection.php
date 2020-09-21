@@ -96,6 +96,7 @@ use loophp\collection\Contract\Operation\Unwordsable;
 use loophp\collection\Contract\Operation\Unwrapable;
 use loophp\collection\Contract\Operation\Unzipable;
 use loophp\collection\Contract\Operation\Windowable;
+use loophp\collection\Contract\Operation\Wordsable;
 use loophp\collection\Contract\Operation\Wrapable;
 use loophp\collection\Contract\Operation\Zipable;
 use loophp\collection\Iterator\ClosureIterator;
@@ -187,6 +188,7 @@ use loophp\collection\Iterator\ClosureIterator;
  * @template-extends Unwrapable<TKey, T>
  * @template-extends Unzipable<TKey, T>
  * @template-extends Windowable<TKey, T>
+ * @template-extends Wordsable<TKey, T>
  * @template-extends Wrapable<TKey, T>
  * @template-extends Zipable<TKey, T>
  * @template-extends IteratorAggregate<TKey, T>
@@ -284,6 +286,7 @@ interface Collection extends
     Unwrapable,
     Unzipable,
     Windowable,
+    Wordsable,
     Wrapable,
     Zipable
 {

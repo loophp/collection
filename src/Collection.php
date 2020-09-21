@@ -103,6 +103,7 @@ use loophp\collection\Operation\Unwords;
 use loophp\collection\Operation\Unwrap;
 use loophp\collection\Operation\Unzip;
 use loophp\collection\Operation\Window;
+use loophp\collection\Operation\Words;
 use loophp\collection\Operation\Wrap;
 use loophp\collection\Operation\Zip;
 use Psr\Cache\CacheItemPoolInterface;
@@ -811,6 +812,11 @@ final class Collection implements CollectionInterface
     public static function with($data = [], ...$parameters): Collection
     {
         return new self($data, ...$parameters);
+    }
+
+    public function words(): CollectionInterface
+    {
+        return $this->run(Words::of());
     }
 
     public function wrap(): CollectionInterface

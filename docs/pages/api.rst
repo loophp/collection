@@ -1832,6 +1832,26 @@ Signature: ``Collection::window(int $size);``
         ->window(2)
         ->all(); // [ ['a'], ['a', 'b'], ['b', 'c'], ['c', 'd'], ... ]
 
+words
+~~~~~
+
+Get words from a string.
+
+Interface: `Wordsable`_
+
+Signature: ``Collection::words();``
+
+.. code-block:: php
+
+    $string = <<<'EOF'
+    The quick brow fox jumps over the lazy dog.
+
+    This is another sentence.
+    EOF;
+
+    Collection::fromString($string)
+        ->words()
+
 wrap
 ~~~~
 
@@ -1954,5 +1974,6 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Unwrapable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Unwrapable.php
 .. _Unzipable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Unzipable.php
 .. _Windowable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Windowable.php
+.. _Wordsable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Wordsable.php
 .. _Wrapable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Wrapable.php
 .. _Zipable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Zipable.php
