@@ -619,25 +619,23 @@ class CollectionSpec extends ObjectBehavior
                         15 => 'd',
                     ],
                     1 => [
-                        0 => 'o',
-                        1 => 'm',
-                        2 => ' ',
-                        3 => 'p',
-                        4 => 'i',
-                        5 => 'e',
-                        6 => 'c',
-                        7 => 'e',
-                        8 => ' ',
+                        0 => 'm',
+                        1 => ' ',
+                        2 => 'p',
+                        3 => 'i',
+                        4 => 'e',
+                        5 => 'c',
+                        6 => 'e',
+                        7 => ' ',
                     ],
                     2 => [
-                        0 => 'o',
-                        1 => 'f',
-                        2 => ' ',
-                        3 => 't',
-                        4 => 'e',
-                        5 => 'x',
-                        6 => 't',
-                        7 => '.',
+                        0 => 'f',
+                        1 => ' ',
+                        2 => 't',
+                        3 => 'e',
+                        4 => 'x',
+                        5 => 't',
+                        6 => '.',
                     ],
                 ]
             );
@@ -2431,15 +2429,8 @@ class CollectionSpec extends ObjectBehavior
         };
 
         $this::with($stream)
-            ->split(static function ($v): bool {
-                return "\n" === $v;
-            })
+            ->explode("\n")
             ->last()
-            ->map(static function (array $value): array {
-                array_shift($value);
-
-                return $value;
-            })
             ->unwrap()
             ->implode()
             ->shouldReturn('indent_size = 4');

@@ -7,6 +7,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\Operation\Splitable;
 
 /**
  * @psalm-template TKey
@@ -27,33 +28,28 @@ final class Explode extends AbstractOperation
              * @psalm-return Closure(Iterator<TKey, T>): Generator<int, list<T>>
              */
             static function (...$explodes): Closure {
-                return
-                    /**
-                     * @psalm-param Iterator<TKey, T> $iterator
-                     *
-                     * @psalm-return Generator<int, list<T>>
-                     */
-                    static function (Iterator $iterator) use ($explodes): Generator {
-                        return yield from Split::of()(
-                            ...array_map(
+                /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, list<T>> $split */
+                $split = Split::of()(Splitable::REMOVE)(
+                    ...array_map(
+                        /**
+                         * @param mixed $explode
+                         * @psalm-param T $explode
+                         */
+                        static function ($explode): Closure {
+                            return
                                 /**
-                                 * @param mixed $explode
-                                 * @psalm-param T $explode
+                                 * @param mixed $value
+                                 * @psalm-param T $value
                                  */
-                                static function ($explode): Closure {
-                                    return
-                                        /**
-                                         * @param mixed $value
-                                         * @psalm-param T $value
-                                         */
-                                        static function ($value) use ($explode): bool {
-                                            return $value === $explode;
-                                        };
-                                },
-                                $explodes
-                            )
-                        )($iterator);
-                    };
+                                static function ($value) use ($explode): bool {
+                                    return $value === $explode;
+                                };
+                        },
+                        $explodes
+                    )
+                );
+
+                return $split;
             };
     }
 }
