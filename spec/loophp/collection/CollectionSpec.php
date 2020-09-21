@@ -1911,18 +1911,30 @@ class CollectionSpec extends ObjectBehavior
 
     public function it_can_split(): void
     {
-        $this::fromIterable(range(1, 17))
-            ->split(static function ($value) {
-                return 0 === $value % 3;
-            })
-            ->shouldIterateAs([
-                0 => [1, 2],
-                1 => [3, 4, 5],
-                2 => [6, 7, 8],
-                3 => [9, 10, 11],
-                4 => [12, 13, 14],
-                5 => [15, 16, 17],
-            ]);
+        $splitter = static function ($value): bool {
+            return 0 === $value % 3;
+        };
+
+        $this::fromIterable(range(0, 10))
+            ->split(
+                Operation\Splitable::BEFORE,
+                $splitter
+            )
+            ->shouldIterateAs([[0, 1, 2], [3, 4, 5], [6, 7, 8], [9, 10]]);
+
+        $this::fromIterable(range(0, 10))
+            ->split(
+                Operation\Splitable::REMOVE,
+                $splitter
+            )
+            ->shouldIterateAs([[], [1, 2], [4, 5], [7, 8], [10]]);
+
+        $this::fromIterable(range(0, 10))
+            ->split(
+                Operation\Splitable::AFTER,
+                $splitter
+            )
+            ->shouldIterateAs([[0], [1, 2, 3], [4, 5, 6], [7, 8, 9], [10]]);
     }
 
     public function it_can_tail(): void

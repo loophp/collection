@@ -528,6 +528,9 @@ explode
 
 Explode a collection into subsets based on a given value.
 
+This operation use the Split operation with the flag ``Splitable::REMOVE`` and thus, values used to explode the
+collection are removed from the chunks.
+
 Interface: `Explodeable`_
 
 Signature: ``Collection::explode(...$items);``
@@ -1511,20 +1514,29 @@ Signature: ``Collection::sort(?callable $callback = null);``
 split
 ~~~~~
 
-Split a collection using a callback.
+Split a collection using one or more callbacks.
+
+A flag must be provided in order to specify whether the value used to split the collection should be added at the end
+of a chunk, at the beginning of a chunk, or completely removed.
 
 Interface: `Splitable`_
 
-Signature: ``Collection::split(callable ...$callbacks);``
+Signature: ``Collection::split(int $type = Splitable::BEFORE, callable ...$callbacks);``
 
 .. code-block:: php
 
-    $splitter = static function ($value, $key) {
+    $splitter = static function ($value): bool {
         return 0 === $value % 3;
     };
 
-    $collection = Collection::fromIterable(range(0, 20))
-        ->split($splitter);
+    $collection = Collection::fromIterable(range(0, 10))
+        ->split(Splitable::BEFORE, $splitter); [[0, 1, 2], [3, 4, 5], [6, 7, 8], [9, 10]]
+
+    $collection = Collection::fromIterable(range(0, 10))
+        ->split(Splitable::AFTER, $splitter); [[0], [1, 2, 3], [4, 5, 6], [7, 8, 9], [10]]
+
+    $collection = Collection::fromIterable(range(0, 10))
+        ->split(Splitable::REMOVE, $splitter); [[1, 2], [4, 5], [7, 8], [10]]
 
 tail
 ~~~~

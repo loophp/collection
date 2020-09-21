@@ -720,9 +720,9 @@ final class Collection implements CollectionInterface
         return $this->run(Sort::of()($type)($callback));
     }
 
-    public function split(callable ...$callbacks): CollectionInterface
+    public function split(int $type = Operation\Splitable::BEFORE, callable ...$callbacks): CollectionInterface
     {
-        return $this->run(Split::of()(...$callbacks));
+        return $this->run(Split::of()($type)(...$callbacks));
     }
 
     public function tail(): CollectionInterface
