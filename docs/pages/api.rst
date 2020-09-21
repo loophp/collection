@@ -1753,6 +1753,35 @@ Signature: ``Collection::unwindow();``
         ->drop(1)
         ->normalize(); // [10, 11, 12, 13, 14, 15, 16, 17, 18]
 
+unwords
+~~~~~~~
+
+Create a string from words.
+
+Interface: `Unwordsable`_
+
+Signature: ``Collection::unwords();``
+
+.. code-block:: php
+
+    $words = [
+        'The',
+        'quick',
+        'brow',
+        'fox',
+        'jumps',
+        'over',
+        'the',
+        'lazy',
+        "dog.\n\nThis",
+        'is',
+        'another',
+        'sentence.',
+    ];
+
+    Collection::fromIterable($words)
+        ->unwords();
+
 unwrap
 ~~~~~~
 
@@ -1921,6 +1950,7 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Unpairable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Unpairable.php
 .. _Untilable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Untilable.php
 .. _Unwindowable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Unwindowable.php
+.. _Unwordsable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Unwordsable.php
 .. _Unwrapable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Unwrapable.php
 .. _Unzipable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Unzipable.php
 .. _Windowable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Windowable.php

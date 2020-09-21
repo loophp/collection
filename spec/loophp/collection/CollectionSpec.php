@@ -2328,6 +2328,34 @@ EOF;
             ->shouldIterateAs(range('a', 'z'));
     }
 
+    public function it_can_unwords(): void
+    {
+        $string = <<<'EOF'
+The quick brow fox jumps over the lazy dog.
+
+This is another sentence.
+EOF;
+
+        $words = [
+            'The',
+            'quick',
+            'brow',
+            'fox',
+            'jumps',
+            'over',
+            'the',
+            'lazy',
+            "dog.\n\nThis",
+            'is',
+            'another',
+            'sentence.',
+        ];
+
+        $this::fromIterable($words)
+            ->unwords()
+            ->shouldIterateAs([11 => $string]);
+    }
+
     public function it_can_unwrap()
     {
         $this::fromIterable([['a' => 'A'], ['b' => 'B'], ['c' => 'C']])
