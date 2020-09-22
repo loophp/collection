@@ -22,16 +22,10 @@ final class Unlines extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        /**
-         * @psalm-param Iterator<TKey, T|string> $iterator
-         *
-         * @psalm-return Generator<TKey, string>
-         */
-        return static function (Iterator $iterator): Generator {
-            /** @psalm-var callable(Iterator<TKey, T|string>): Generator<TKey, string> $implode */
-            $implode = Implode::of()("\n");
+        /** @psalm-var Closure(Iterator<TKey, T|string>): Generator<TKey, string> $implode */
+        $implode = Implode::of()("\n");
 
-            return $implode($iterator);
-        };
+        // Point free style.
+        return $implode;
     }
 }

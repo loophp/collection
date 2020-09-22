@@ -16,36 +16,49 @@ use Iterator;
 final class Column extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(array-key): Closure(Iterator<TKey, T>): Generator<int, iterable<TKey, T>>
+     * @psalm-return Closure(T): Closure(Iterator<TKey, T>): Generator<int, iterable<TKey, T>>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param int|string $column
-             *
-             * @psalm-param array-key $column
+             * @param mixed $column
+             * @psalm-param T $column
              *
              * @psalm-return Closure(Iterator<TKey, T>): Generator<int, iterable<TKey, T>>
              */
             static function ($column): Closure {
-                return
+                $filterCallbackBuilder =
                     /**
-                     * @psalm-param Iterator<TKey, T> $iterator
+                     * @psalm-param T $column
                      *
-                     * @psalm-return Generator<int, iterable<TKey, T>>
+                     * @param mixed $column
                      */
-                    static function (Iterator $iterator) use ($column): Generator {
-                        /**
-                         * @psalm-var array-key $key
-                         * @psalm-var iterable<TKey, T> $value
-                         */
-                        foreach (Transpose::of()($iterator) as $key => $value) {
-                            if ($key === $column) {
-                                return yield from $value;
-                            }
-                        }
+                    static function ($column): Closure {
+                        return
+                            /**
+                             * @psalm-param T $value
+                             * @psalm-param TKey $key
+                             * @psalm-param Iterator<TKey, T> $iterator
+                             *
+                             * @param mixed $value
+                             * @param mixed $key
+                             */
+                            static function ($value, $key, Iterator $iterator) use ($column): bool {
+                                return $key === $column;
+                            };
                     };
+
+                /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, iterable<TKey, T>> $compose */
+                $compose = Compose::of()(
+                    Transpose::of(),
+                    Filter::of()($filterCallbackBuilder($column)),
+                    First::of(),
+                    Unwrap::of()
+                );
+
+                // Point free style.
+                return $compose;
             };
     }
 }

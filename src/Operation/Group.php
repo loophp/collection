@@ -27,64 +27,60 @@ final class Group extends AbstractOperation
              * @psalm-return Closure(Iterator<TKey, T>): Generator<int, T|list<T>>
              */
             static function (?callable $callable = null): Closure {
-                return
+                /** @psalm-var callable(T, TKey): (TKey|null) $callable */
+                $callable = $callable ??
                     /**
-                     * @psalm-param Iterator<TKey, T> $iterator
+                     * @param mixed $value
+                     * @psalm-param T $value
                      *
-                     * @psalm-return Generator<int, list<T>>
+                     * @param mixed $key
+                     * @psalm-param TKey $key
+                     *
+                     * @return mixed
+                     * @psalm-return TKey
                      */
-                    static function (Iterator $iterator) use ($callable): Generator {
-                        /** @psalm-var callable(T, TKey): (TKey|null) $callable */
-                        $callable = $callable ??
+                    static function ($value, $key) {
+                        return $key;
+                    };
+
+                $reducerFactory =
+                    /**
+                     * @psalm-param callable(T, TKey): (TKey|null) $callback
+                     *
+                     * @psalm-return Closure(array<TKey, T|list<T>>, T, TKey): array<TKey, T|list<T>>
+                     */
+                    static function (callable $callback): Closure {
+                        return
                             /**
+                             * @psalm-param array<TKey, list<T>> $collect
+                             *
                              * @param mixed $value
                              * @psalm-param T $value
                              *
                              * @param mixed $key
                              * @psalm-param TKey $key
                              *
-                             * @return mixed
-                             * @psalm-return TKey
+                             * @psalm-return non-empty-array<TKey, T|list<T>>
                              */
-                            static function ($value, $key) {
-                                return $key;
+                            static function (array $collect, $value, $key) use ($callback): array {
+                                if (null !== $groupKey = $callback($value, $key)) {
+                                    $collect[$groupKey][] = $value;
+                                } else {
+                                    $collect[$key] = $value;
+                                }
+
+                                return $collect;
                             };
-
-                        $reducerFactory =
-                            /**
-                             * @psalm-param callable(T, TKey): (TKey|null) $callback
-                             *
-                             * @psalm-return Closure(array<TKey, T|list<T>>, T, TKey): array<TKey, T|list<T>>
-                             */
-                            static function (callable $callback): Closure {
-                                return
-                                    /**
-                                     * @psalm-param array<TKey, list<T>> $collect
-                                     *
-                                     * @param mixed $value
-                                     * @psalm-param T $value
-                                     *
-                                     * @param mixed $key
-                                     * @psalm-param TKey $key
-                                     *
-                                     * @psalm-return non-empty-array<TKey, T|list<T>>
-                                     */
-                                    static function (array $collect, $value, $key) use ($callback): array {
-                                        if (null !== $groupKey = $callback($value, $key)) {
-                                            $collect[$groupKey][] = $value;
-                                        } else {
-                                            $collect[$key] = $value;
-                                        }
-
-                                        return $collect;
-                                    };
-                            };
-
-                        /** @psalm-var callable(Iterator<TKey, T>): Generator<TKey, T> $foldLeft */
-                        $foldLeft = FoldLeft::of()($reducerFactory($callable))([]);
-
-                        return yield from ($foldLeft($iterator))->current();
                     };
+
+                /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, list<T>> $compose */
+                $compose = Compose::of()(
+                    FoldLeft::of()($reducerFactory($callable))([]),
+                    Unwrap::of()
+                );
+
+                // Point free style.
+                return $compose;
             };
     }
 }

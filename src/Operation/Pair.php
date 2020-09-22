@@ -16,23 +16,52 @@ use Iterator;
 final class Pair extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, T>): Generator<T, T>
+     * @psalm-return Closure(Iterator<TKey, T>): Generator<T|TKey, T>
      */
     public function __invoke(): Closure
     {
-        return
+        $callbackForKeys =
             /**
-             * @psalm-param Iterator<TKey, T> $iterator
+             * @psalm-param T $initial
+             * @psalm-param TKey $key
+             * @psalm-param array{0: TKey, 1: T} $value
              *
-             * @psalm-return Generator<T, T>
+             * @psalm-return TKey|T
+             *
+             * @param mixed $initial
+             * @param mixed $key
              */
-            static function (Iterator $iterator): Generator {
-                /** @psalm-var list<T> $chunk */
-                foreach (Chunk::of()(2)($iterator) as $chunk) {
-                    $chunk = array_values($chunk);
-
-                    yield $chunk[0] => $chunk[1];
-                }
+            static function ($initial, $key, array $value) {
+                return $value[0];
             };
+
+        $callbackForValues =
+            /**
+             * @psalm-param T $initial
+             * @psalm-param TKey $key
+             * @psalm-param array{0: TKey, 1: T} $value
+             *
+             * @psalm-return T|TKey
+             *
+             * @param mixed $initial
+             * @param mixed $key
+             */
+            static function ($initial, $key, array $value) {
+                return $value[1];
+            };
+
+        /** @psalm-var Closure(Iterator<TKey, T>): Generator<T|TKey, T> $compose */
+        $compose = Compose::of()(
+            Chunk::of()(2),
+            Map::of()(
+                static function (array $value): array {
+                    return array_values($value);
+                }
+            ),
+            Associate::of()($callbackForKeys)($callbackForValues)
+        );
+
+        // Point free style.
+        return $compose;
     }
 }

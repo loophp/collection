@@ -20,14 +20,10 @@ final class Tail extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        return
-            /**
-             * @psalm-param Iterator<TKey, T> $iterator
-             *
-             * @psalm-return Generator<TKey, T>
-             */
-            static function (Iterator $iterator): Generator {
-                return yield from Drop::of()(1)($iterator);
-            };
+        /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $drop */
+        $drop = Drop::of()(1);
+
+        // Point free style.
+        return $drop;
     }
 }

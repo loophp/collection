@@ -24,38 +24,31 @@ final class DiffKeys extends AbstractOperation
     {
         return
             /**
-             * @psalm-param T ...$values
+             * @psalm-param TKey ...$values
              *
              * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static function (...$values): Closure {
-                return
-                    /**
-                     * @psalm-param Iterator<TKey, T> $iterator
-                     *
-                     * @psalm-return Generator<TKey, T>
-                     */
-                    static function (Iterator $iterator) use ($values): Generator {
-                        $filterCallbackFactory = static function (array $values): Closure {
-                            return
-                                /**
-                                 * @psalm-param T $value
-                                 * @psalm-param TKey $key
-                                 * @psalm-param Iterator<TKey, T> $iterator
-                                 *
-                                 * @param mixed $value
-                                 * @param mixed $key
-                                 */
-                                static function ($value, $key, Iterator $iterator) use ($values): bool {
-                                    return false === in_array($key, $values, true);
-                                };
+                $filterCallbackFactory = static function (array $values): Closure {
+                    return
+                        /**
+                         * @psalm-param T $value
+                         * @psalm-param TKey $key
+                         * @psalm-param Iterator<TKey, T> $iterator
+                         *
+                         * @param mixed $value
+                         * @param mixed $key
+                         */
+                        static function ($value, $key, Iterator $iterator) use ($values): bool {
+                            return false === in_array($key, $values, true);
                         };
+                };
 
-                        /** @psalm-var callable(Iterator<TKey, T>): Generator<TKey, T> $filter */
-                        $filter = Filter::of()($filterCallbackFactory($values));
+                /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $filter */
+                $filter = Filter::of()($filterCallbackFactory($values));
 
-                        return $filter($iterator);
-                    };
+                // Point free style.
+                return $filter;
             };
     }
 }

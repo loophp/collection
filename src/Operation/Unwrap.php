@@ -16,22 +16,16 @@ use Iterator;
 final class Unwrap extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<array-key, array<TKey, T>>): Generator<TKey, T>
+     * @psalm-return Closure(Iterator<TKey, array<TKey, T>>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
-        return
-            /**
-             * @psalm-param Iterator<int, array<TKey, T>> $iterator
-             *
-             * @psalm-return Generator<TKey, T>
-             */
-            static function (Iterator $iterator): Generator {
-                foreach ($iterator as $value) {
-                    foreach ((array) $value as $k => $v) {
-                        yield $k => $v;
-                    }
-                }
-            };
+        /** @psalm-var Closure(Iterator<TKey, array<TKey, T>>): Generator<TKey, T> $compose */
+        $compose = Compose::of()(
+            Flatten::of()(1)
+        );
+
+        // Point free style.
+        return $compose;
     }
 }

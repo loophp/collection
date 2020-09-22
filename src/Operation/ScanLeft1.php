@@ -40,7 +40,13 @@ final class ScanLeft1 extends AbstractOperation
 
                         yield $initial;
 
-                        return yield from Reduction::of()($callback)($initial)(Drop::of()(1)($iterator));
+                        /** @psalm-var Closure(Iterator<TKey, T>): Generator<int|TKey, T|null> $compose */
+                        $compose = Compose::of()(
+                            Drop::of()(1),
+                            Reduction::of()($callback)($initial)
+                        );
+
+                        return yield from $compose($iterator);
                     };
             };
     }

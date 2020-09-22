@@ -1392,24 +1392,15 @@ EOF;
 
     public function it_can_pack(): void
     {
-        $input = array_combine(range('a', 'c'), range('a', 'c'));
+        $input = array_combine(range('A', 'C'), range('a', 'c'));
 
         $this::fromIterable($input)
             ->pack()
             ->shouldIterateAs(
                 [
-                    0 => [
-                        0 => 'a',
-                        1 => 'a',
-                    ],
-                    1 => [
-                        0 => 'b',
-                        1 => 'b',
-                    ],
-                    2 => [
-                        0 => 'c',
-                        1 => 'c',
-                    ],
+                    ['A', 'a'],
+                    ['B', 'b'],
+                    ['C', 'c'],
                 ]
             );
     }

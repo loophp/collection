@@ -21,19 +21,42 @@ final class Unwindow extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        return
-            /**
-             * @psalm-param Iterator<TKey, list<T>> $iterator
-             *
-             * @psalm-return Generator<TKey, T>
-             */
-            static function (Iterator $iterator): Generator {
-                foreach ($iterator as $key => $value) {
-                    /** @psalm-var Iterator<int, T> $lastIterator */
-                    $lastIterator = Last::of()(new IterableIterator($value));
-
-                    yield $key => $lastIterator->current();
+        /** @psalm-var Closure(Iterator<TKey, list<T>>): Generator<TKey, T> $compose */
+        $compose = Compose::of()(
+            Map::of()(
+                /**
+                 * @psalm-param iterable<TKey, list<T>> $value
+                 */
+                static function (iterable $iterable): IterableIterator {
+                    return new IterableIterator($iterable);
                 }
-            };
+            ),
+            Map::of()(
+                /**
+                 * @psalm-param IterableIterator<TKey, list<T>> $iterator
+                 *
+                 * @psalm-return Generator<TKey, T>
+                 */
+                static function (IterableIterator $iterator): Iterator {
+                    /** @psalm-var Closure(IterableIterator<TKey, list<T>>): Generator<TKey, T> $last */
+                    $last = Last::of();
+
+                    return $last($iterator);
+                }
+            ),
+            Map::of()(
+                /**
+                 * @psalm-param Generator<TKey, T> $value
+                 *
+                 * @psalm-return T
+                 */
+                static function (Generator $value) {
+                    return $value->current();
+                }
+            )
+        );
+
+        // Point free style.
+        return $compose;
     }
 }

@@ -25,21 +25,17 @@ final class RSample extends AbstractOperation
              * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static function (float $probability): Closure {
-                return
-                    /**
-                     * @psalm-param Iterator<TKey, T> $iterator
-                     *
-                     * @psalm-return Generator<TKey, T>
-                     */
-                    static function (Iterator $iterator) use ($probability): Generator {
-                        $callback = static function (float $probability): Closure {
-                            return static function () use ($probability): bool {
-                                return (mt_rand() / mt_getrandmax()) < $probability;
-                            };
-                        };
-
-                        return yield from Filter::of()($callback($probability))($iterator);
+                $callback = static function (float $probability): Closure {
+                    return static function () use ($probability): bool {
+                        return (mt_rand() / mt_getrandmax()) < $probability;
                     };
+                };
+
+                /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $filter */
+                $filter = Filter::of()($callback($probability));
+
+                // Point free style.
+                return $filter;
             };
     }
 }

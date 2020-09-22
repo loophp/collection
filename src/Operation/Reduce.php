@@ -37,15 +37,11 @@ final class Reduce extends AbstractOperation
                      * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
                      */
                     static function ($initial = null) use ($callback): Closure {
-                        return
-                            /**
-                             * @psalm-param Iterator<TKey, T> $iterator
-                             *
-                             * @psalm-return Generator<TKey, T>
-                             */
-                            static function (Iterator $iterator) use ($callback, $initial): Generator {
-                                return yield from FoldLeft::of()($callback)($initial)($iterator);
-                            };
+                        /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $foldLeft */
+                        $foldLeft = FoldLeft::of()($callback)($initial);
+
+                        // Point free style.
+                        return $foldLeft;
                     };
             };
     }

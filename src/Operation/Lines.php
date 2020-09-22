@@ -20,30 +20,21 @@ use const PHP_EOL;
 final class Lines extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, T|string>): Generator<int, string, mixed, void>
+     * @psalm-return Closure(Iterator<TKey, T|string>): Generator<int, string>
      */
     public function __invoke(): Closure
     {
-        return
-            /**
-             * @psalm-param Iterator<TKey, T|string> $iterator
-             *
-             * @psalm-return Generator<int, string, mixed, void>
-             */
-            static function (Iterator $iterator): Generator {
-                $mapCallback = static function (array $value): string {
-                    return implode('', $value);
-                };
+        $mapCallback = static function (array $value): string {
+            return implode('', $value);
+        };
 
-                /** @psalm-var callable(Iterator<TKey, T|string>): Generator<int, array<int, string>> $explode */
-                $explode = Explode::of()(PHP_EOL, "\n", "\r\n");
-                /** @psalm-var callable(Iterator<int, array<int, string>>): Generator<int, string> $map */
-                $map = Map::of()($mapCallback);
+        /** @psalm-var Closure(Iterator<TKey, T|string>): Generator<int, string> $compose */
+        $compose = Compose::of()(
+            Explode::of()(PHP_EOL, "\n", "\r\n"),
+            Map::of()($mapCallback)
+        );
 
-                /** @psalm-var callable(Iterator<TKey, T|string>): Generator<int, string> $compose */
-                $compose = Compose::of()($explode, $map);
-
-                return yield from $compose($iterator);
-            };
+        // Point free style.
+        return $compose;
     }
 }

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace loophp\collection\Operation;
 
-use ArrayIterator;
 use Closure;
 use Generator;
 use Iterator;
@@ -23,44 +22,30 @@ final class Reverse extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        return
-            /**
-             * @psalm-param Iterator<TKey, T> $iterator
-             *
-             * @psalm-return Generator<TKey, T, mixed, void>
-             */
-            static function (Iterator $iterator): Generator {
-                /** @psalm-var Generator<int, array{0: TKey, 1: T}> $iterator */
-                $iterator = Pack::of()($iterator);
-                /** @psalm-var Generator<int, array{0: array{0: TKey, 1: T}}> $iterator */
-                $iterator = Wrap::of()($iterator);
+        /**
+         * @param array $carry
+         * @psalm-param array<int, array{0: TKey, 1: T}> $carry
+         *
+         * @param array $value
+         * @psalm-param array{0: TKey, 1: T} $value
+         *
+         * @psalm-return array<int, array{0: TKey, 1: T}>
+         */
+        $callback = static function (array $carry, array $value): array {
+            array_unshift($carry, ...$value);
 
-                /**
-                 * @param array $carry
-                 * @psalm-param array<int, array{0: TKey, 1: T}> $carry
-                 *
-                 * @param array $value
-                 * @psalm-param array{0: TKey, 1: T} $value
-                 *
-                 * @psalm-return array<int, array{0: TKey, 1: T}>
-                 */
-                $callback = static function (array $carry, array $value): array {
-                    array_unshift($carry, ...$value);
+            return $carry;
+        };
 
-                    return $carry;
-                };
+        /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $compose */
+        $compose = Compose::of()(
+            Pack::of(),
+            Wrap::of(),
+            FoldLeft1::of()($callback),
+            Unwrap::of(),
+            Unpack::of()
+        );
 
-                if (!$iterator->valid()) {
-                    return yield from [];
-                }
-
-                /** @psalm-var Iterator<int, array{0: TKey, 1: T}> $foldLeft1 */
-                $foldLeft1 = FoldLeft1::of()($callback)($iterator);
-
-                /** @psalm-var Iterator<TKey, T> $unpack */
-                $unpack = Unpack::of()(new ArrayIterator($foldLeft1->current()));
-
-                return yield from $unpack;
-            };
+        return $compose;
     }
 }

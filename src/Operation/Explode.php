@@ -49,6 +49,7 @@ final class Explode extends AbstractOperation
                     )
                 );
 
+                // Point free style.
                 return $split;
             };
     }

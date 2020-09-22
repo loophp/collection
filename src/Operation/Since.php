@@ -35,23 +35,23 @@ final class Since extends AbstractOperation
                  */
                 static function (Iterator $iterator) use ($callbacks): Generator {
                     $reducer =
-                    /**
-                     * @psalm-param Iterator<TKey, T> $iterator
-                     *
-                     * @psalm-return Closure(bool, callable(T, TKey): bool): bool
-                     */
-                    static function (Iterator $iterator): Closure {
-                        return
-                            /**
-                             * @psalm-param bool $carry
-                             * @psalm-param callable(T, TKey): bool $callback
-                             */
-                            static function (bool $carry, callable $callback) use ($iterator): bool {
-                                return ($callback($iterator->current(), $iterator->key())) ?
-                                    $carry :
-                                    false;
-                            };
-                    };
+                        /**
+                         * @psalm-param Iterator<TKey, T> $iterator
+                         *
+                         * @psalm-return Closure(bool, callable(T, TKey): bool): bool
+                         */
+                        static function (Iterator $iterator): Closure {
+                            return
+                                /**
+                                 * @psalm-param bool $carry
+                                 * @psalm-param callable(T, TKey): bool $callback
+                                 */
+                                static function (bool $carry, callable $callback) use ($iterator): bool {
+                                    return ($callback($iterator->current(), $iterator->key())) ?
+                                        $carry :
+                                        false;
+                                };
+                        };
 
                     while ($iterator->valid()) {
                         $result = array_reduce($callbacks, $reducer($iterator), true);

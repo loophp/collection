@@ -23,42 +23,56 @@ final class Unpack extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        return
+        $isIterable =
             /**
-             * @psalm-param Iterator<int, array{0:TKey, 1:T}> $iterator
+             * @psalm-param T $value
              *
-             * @psalm-return Generator<T, T, mixed, void>
+             * @param mixed $value
              */
-            static function (Iterator $iterator): Generator {
-                $isIterable =
-                    /**
-                     * @psalm-param T $value
-                     *
-                     * @param mixed $value
-                     */
-                    static function ($value): bool {
-                        return is_iterable($value);
-                    };
-
-                $toIterableIterator = static function (iterable $value): IterableIterator {
-                    return new IterableIterator($value);
-                };
-
-                /** @psalm-var callable(Iterator<TKey, T|iterable<TKey, T>>): Generator<TKey, iterable<TKey, T>> $filter */
-                $filter = Filter::of()($isIterable);
-
-                /** @psalm-var callable(Iterator<TKey, iterable<TKey, T>>): Generator<TKey, Iterator<TKey, T>> $map */
-                $map = Map::of()($toIterableIterator);
-
-                /** @psalm-var IterableIterator<int, array{0:TKey, 1:T}> $value */
-                foreach (Compose::of()($filter, $map)($iterator) as $value) {
-                    /** @psalm-var array<int, array<T, T>> $chunks */
-                    $chunks = Chunk::of()(2)($value);
-
-                    foreach ($chunks as [$k, $v]) {
-                        yield $k => $v;
-                    }
-                }
+            static function ($value): bool {
+                return is_iterable($value);
             };
+
+        $toIterableIterator = static function (iterable $value): IterableIterator {
+            return new IterableIterator($value);
+        };
+
+        $callbackForKeys =
+            /**
+             * @psalm-param T $initial
+             * @psalm-param array{0: TKey, 1: T} $value
+             *
+             * @psalm-return TKey
+             *
+             * @param mixed $initial
+             */
+            static function ($initial, int $key, array $value) {
+                return $value[0];
+            };
+
+        $callbackForValues =
+            /**
+             * @psalm-param T $initial
+             * @psalm-param array{0: TKey, 1: T} $value
+             *
+             * @psalm-return T
+             *
+             * @param mixed $initial
+             */
+            static function ($initial, int $key, array $value) {
+                return $value[1];
+            };
+
+        /** @psalm-var Closure(Iterator<int, array{0: TKey, 1: T}>): Generator<T, T> $compose */
+        $compose = Compose::of()(
+            Filter::of()($isIterable),
+            Map::of()($toIterableIterator),
+            Map::of()(Chunk::of()(2)),
+            Unwrap::of(),
+            Associate::of()($callbackForKeys)($callbackForValues)
+        );
+
+        // Point free style.
+        return $compose;
     }
 }

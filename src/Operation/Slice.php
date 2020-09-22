@@ -32,22 +32,18 @@ final class Slice extends AbstractOperation
                      * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
                      */
                     static function (int $length = -1) use ($offset): Closure {
-                        return
-                            /**
-                             * @psalm-param Iterator<TKey, T> $iterator
-                             *
-                             * @psalm-return Generator<TKey, T>
-                             */
-                            static function (Iterator $iterator) use ($offset, $length): Generator {
-                                /** @psalm-var callable(Iterator<TKey, T>): Generator<TKey, T> $skip */
-                                $skip = Drop::of()($offset);
+                        /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $skip */
+                        $skip = Drop::of()($offset);
 
-                                if (-1 === $length) {
-                                    return yield from $skip($iterator);
-                                }
+                        if (-1 === $length) {
+                            return $skip;
+                        }
 
-                                return yield from Compose::of()($skip, Limit::of()($length)(0))($iterator);
-                            };
+                        /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $compose */
+                        $compose = Compose::of()($skip, Limit::of()($length)(0));
+
+                        // Point free style.
+                        return $compose;
                     };
             };
     }

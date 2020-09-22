@@ -20,16 +20,31 @@ final class Wrap extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        return
+        $callbackForKeys = static function (): void {
+        };
+        $callbackForValues =
             /**
-             * @psalm-param Iterator<TKey, T> $iterator
+             * @psalm-param T $initial
+             * @psalm-param TKey $key
+             * @psalm-param T $value
              *
-             * @psalm-return Generator<int, array<TKey, T>>
+             * @psalm-return array<TKey, T>
+             *
+             * @param mixed $initial
+             * @param mixed $key
+             * @param mixed $value
              */
-            static function (Iterator $iterator): Generator {
-                foreach ($iterator as $key => $value) {
-                    yield [$key => $value];
-                }
+            static function ($initial, $key, $value): array {
+                return [$key => $value];
             };
+
+        /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, array<TKey, T>> $compose */
+        $compose = Compose::of()(
+            Associate::of()($callbackForKeys)($callbackForValues),
+            Normalize::of()
+        );
+
+        // Point free style.
+        return $compose;
     }
 }

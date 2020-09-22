@@ -16,7 +16,7 @@ use Iterator;
 final class Current extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(int): Closure(Iterator<TKey, T>): Generator<int, T>
+     * @psalm-return Closure(int): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
@@ -24,21 +24,14 @@ final class Current extends AbstractOperation
             /**
              * @psalm-param int $index
              *
-             * @psalm-return Closure(Iterator<TKey, T>): Generator<int, T>
+             * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static function (int $index): Closure {
-                return
-                    /**
-                     * @psalm-param Iterator<TKey, T> $iterator
-                     *
-                     * @psalm-return Generator<int, T>
-                     */
-                    static function (Iterator $iterator) use ($index): Generator {
-                        for ($i = 0; $i < $index; $i++, $iterator->next()) {
-                        }
+                /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $limit */
+                $limit = Limit::of()(1)($index);
 
-                        return yield $iterator->current();
-                    };
+                // Point free style.
+                return $limit;
             };
     }
 }

@@ -29,33 +29,26 @@ final class IntersectKeys extends AbstractOperation
              * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static function (...$keys): Closure {
-                return
-                    /**
-                     * @psalm-param Iterator<TKey, T> $iterator
-                     *
-                     * @psalm-return Generator<TKey, T>
-                     */
-                    static function (Iterator $iterator) use ($keys): Generator {
-                        $filterCallbackFactory = static function (array $keys): Closure {
-                            return
-                                /**
-                                 * @psalm-param T $value
-                                 * @psalm-param TKey $key
-                                 * @psalm-param Iterator<TKey, T> $iterator
-                                 *
-                                 * @param mixed $value
-                                 * @param mixed $key
-                                 */
-                                static function ($value, $key, Iterator $iterator) use ($keys): bool {
-                                    return in_array($key, $keys, true);
-                                };
+                $filterCallbackFactory = static function (array $keys): Closure {
+                    return
+                        /**
+                         * @psalm-param T $value
+                         * @psalm-param TKey $key
+                         * @psalm-param Iterator<TKey, T> $iterator
+                         *
+                         * @param mixed $value
+                         * @param mixed $key
+                         */
+                        static function ($value, $key, Iterator $iterator) use ($keys): bool {
+                            return in_array($key, $keys, true);
                         };
+                };
 
-                        /** @psalm-var callable(Iterator<TKey, T>): Generator<TKey, T> $filter */
-                        $filter = Filter::of()($filterCallbackFactory($keys));
+                /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $filter */
+                $filter = Filter::of()($filterCallbackFactory($keys));
 
-                        return $filter($iterator);
-                    };
+                // Point free style.
+                return $filter;
             };
     }
 }
