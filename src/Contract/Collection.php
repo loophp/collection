@@ -26,6 +26,7 @@ use loophp\collection\Contract\Operation\Distinctable;
 use loophp\collection\Contract\Operation\Dropable;
 use loophp\collection\Contract\Operation\DropWhileable;
 use loophp\collection\Contract\Operation\Duplicateable;
+use loophp\collection\Contract\Operation\Everyable;
 use loophp\collection\Contract\Operation\Explodeable;
 use loophp\collection\Contract\Operation\Falsyable;
 use loophp\collection\Contract\Operation\Filterable;
@@ -126,6 +127,7 @@ use loophp\collection\Iterator\ClosureIterator;
  * @template-extends Dropable<TKey, T>
  * @template-extends DropWhileable<TKey, T>
  * @template-extends Duplicateable<TKey, T>
+ * @template-extends Everyable<TKey, T>
  * @template-extends Explodeable<TKey, T>
  * @template-extends Filterable<TKey, T>
  * @template-extends Firstable<TKey, T>
@@ -214,6 +216,7 @@ interface Collection extends
     Dropable,
     DropWhileable,
     Duplicateable,
+    Everyable,
     Explodeable,
     Falsyable,
     Filterable,

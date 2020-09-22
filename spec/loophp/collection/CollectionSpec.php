@@ -602,6 +602,37 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs($result());
     }
 
+    public function it_can_every(): void
+    {
+        $callback = static function ($value): bool {
+            return 20 > $value;
+        };
+
+        $this::fromIterable(range(0, 10))
+            ->every($callback)
+            ->shouldIterateAs([10 => true]);
+
+        $this::empty()
+            ->every($callback)
+            ->shouldIterateAs([0 => true]);
+
+        $this::fromIterable(range(0, 10))
+            ->every(
+                static function ($value, $key, Iterator $iterator): bool {
+                    return is_numeric($key);
+                }
+            )
+            ->shouldIterateAs([10 => true]);
+
+        $this::fromIterable(range(0, 10))
+            ->every(
+                static function ($value, $key, Iterator $iterator): bool {
+                    return $iterator instanceof Iterator;
+                }
+            )
+            ->shouldIterateAs([10 => true]);
+    }
+
     public function it_can_explode(): void
     {
         $string = 'I am just a random piece of text.';

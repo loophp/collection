@@ -532,6 +532,25 @@ Signature: ``Collection::duplicate();``
             ->distinct()
             ->normalize() // [0 => 'a', 1 => 'c']
 
+every
+~~~~~
+
+This operation tests whether all elements in the collection pass the test implemented by the provided callback.
+
+Interface: `Everyable`_
+
+Signature: ``Collection::every(callable $callback);``
+
+.. code-block:: php
+
+    $callback = static function ($value): bool {
+        return $value < 20;
+    };
+
+    Collection::fromIterable(range(0, 10))
+        ->every($callback)
+        ->current(); // true
+
 explode
 ~~~~~~~
 

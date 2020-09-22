@@ -32,6 +32,7 @@ use loophp\collection\Operation\Distinct;
 use loophp\collection\Operation\Drop;
 use loophp\collection\Operation\DropWhile;
 use loophp\collection\Operation\Duplicate;
+use loophp\collection\Operation\Every;
 use loophp\collection\Operation\Explode;
 use loophp\collection\Operation\Falsy;
 use loophp\collection\Operation\Filter;
@@ -367,6 +368,11 @@ final class Collection implements CollectionInterface
     public static function empty(): Collection
     {
         return new self();
+    }
+
+    public function every(callable $callback): CollectionInterface
+    {
+        return $this->run(Every::of()($callback));
     }
 
     public function explode(...$explodes): CollectionInterface
