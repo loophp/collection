@@ -1,0 +1,11 @@
+<?php
+
+use drupol\PhpCsFixerConfigsPhp\Config\Php71;
+
+$config = Php71::create();
+
+$rules = $config->getRules();
+
+$rules['return_assignment'] = false;
+
+return $config->setRules($rules);

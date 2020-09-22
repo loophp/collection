@@ -2,6 +2,7 @@ imports:
   - { resource: vendor/drupol/php-conventions/config/php71/grumphp.yml }
 
 parameters:
+  tasks.phpcsfixer2.config: .php_cs.dist
   extra_tasks:
     psalm:
       show_info: true
