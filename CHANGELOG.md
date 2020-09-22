@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.6.0](https://github.com/loophp/collection/compare/2.5.5...2.6.0) - 2020-09-22
+
+### Commits
+
+- **Breaking change:** refactor: Update Compact operation. [`10fd55f`](https://github.com/loophp/collection/commit/10fd55f1f958e083f60f86ac51e34bdcaf4084ce)
+- **Breaking change:** refactor: Update Explode operation. [`d28abcd`](https://github.com/loophp/collection/commit/d28abcd17590f24baab68f9ab7fb1f3e33aa00b5)
+- **Breaking change:** refactor: Update Split operation. [`1c669b2`](https://github.com/loophp/collection/commit/1c669b2b21145069395192b7b530a0bbea4420bd)
+- feat: Add fromFile static constructor. [`7211052`](https://github.com/loophp/collection/commit/7211052435cf8d1498f0bf2b6b374011e6b550d5)
+- feat: Add Words operation. [`72df47a`](https://github.com/loophp/collection/commit/72df47a4f72da849bf74c211536e2f3e4ed913b6)
+- feat: Add Unwords operation. [`b6aef32`](https://github.com/loophp/collection/commit/b6aef3235936260aa112cf4cba3bb191aff6928c)
+- feat: Add Unlines operation. [`ab9fde2`](https://github.com/loophp/collection/commit/ab9fde20d262ef0232d4114449fd478f05c8061d)
+- feat: Add Lines operation. [`24cd4a5`](https://github.com/loophp/collection/commit/24cd4a5a763895ab78d62221836b0c5b6e620eb0)
+- refactor: Refactor operations using their parent operation counterpart. [`0835f2d`](https://github.com/loophp/collection/commit/0835f2d83c04ed49bafbd18f8f8fcddb219ef5eb)
+- refactor: Update Reverse operation. [`6ce7b13`](https://github.com/loophp/collection/commit/6ce7b13e674f3c4105a360850a8c6bb541760579)
+- feat: Add scanLeft1 operation. [`8b9aaa3`](https://github.com/loophp/collection/commit/8b9aaa3114766e3e83d2996823b31d89c7b27c20)
+- feat: Add scanRight1 operation. [`1183407`](https://github.com/loophp/collection/commit/118340712e3412950acb3b30afaf796533be3bf2)
+- feat: Add scanRight operation. [`c01274f`](https://github.com/loophp/collection/commit/c01274f953ebce4f7665a0ac2b767f2bb42e2a59)
+- docs: Update FoldLeft and FoldRight. [`98ced08`](https://github.com/loophp/collection/commit/98ced08469e7f019d80010900fdb5c650fabb261)
+- feat: Add scanLeft operation. [`ff0c7e4`](https://github.com/loophp/collection/commit/ff0c7e429950b18ab3040a7519578110b96a50c9)
+- docs: Update annotations. [`317483e`](https://github.com/loophp/collection/commit/317483e966c6005e9c306d7534492c440bb2008e)
+- feat: Add FoldRight1 operation. [`18b9b1d`](https://github.com/loophp/collection/commit/18b9b1d00cb7fa7d60d48c18b4e8e9051d68aa0c)
+- feat: Add FoldLeft1 operation. [`c034101`](https://github.com/loophp/collection/commit/c0341016cd93348cde87f0f91b4fde40355b64db)
+- docs: Update README. [`ecdbc18`](https://github.com/loophp/collection/commit/ecdbc185ff631a3e2c17645fb3fdf90b98ea0a68)
+- docs: Update documentation. [`7985455`](https://github.com/loophp/collection/commit/79854557747c1807403c26909c8ece0225b55500)
+- docs: Update API page. [`516f786`](https://github.com/loophp/collection/commit/516f786bad6985fc01da1d447002c033810f47ea)
+
 ## [2.5.5](https://github.com/loophp/collection/compare/2.5.4...2.5.5) - 2020-09-16
 
 ### Merged
@@ -15,6 +41,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Commits
 
 - chore: Update composer.json. [`92f9ed8`](https://github.com/loophp/collection/commit/92f9ed849e4d066b2a1e3104d5de3123d60b217b)
+- docs: Update changelog. [`091c97c`](https://github.com/loophp/collection/commit/091c97ccafdd3e7a44df7ca99ffad9aae68bfe6e)
 - feat: Add Unwindow operation. [`e240e6a`](https://github.com/loophp/collection/commit/e240e6a83e4d80879c971b4c6238b59bb97ff81d)
 
 ## [2.5.4](https://github.com/loophp/collection/compare/2.5.3...2.5.4) - 2020-09-14
