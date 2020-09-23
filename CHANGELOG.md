@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.6.1](https://github.com/loophp/collection/compare/2.6.0...2.6.1) - 2020-09-23
+
+### Commits
+
+- refactor: Leverage tacit programming (point free style) [`764a3c6`](https://github.com/loophp/collection/commit/764a3c6ba5b2b0bb3ef77b22a4a07b31dac5a87a)
+- chore: Update Grumphp configuration. [`855aa63`](https://github.com/loophp/collection/commit/855aa634371842fa86dda1620525d27570ac5ce4)
+- feat: Add Every operation. [`8ea76af`](https://github.com/loophp/collection/commit/8ea76af40d7e25a49605e99db3e9f56c68b05bb3)
+
 ## [2.6.0](https://github.com/loophp/collection/compare/2.5.5...2.6.0) - 2020-09-22
 
 ### Commits
@@ -12,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Breaking change:** refactor: Update Compact operation. [`10fd55f`](https://github.com/loophp/collection/commit/10fd55f1f958e083f60f86ac51e34bdcaf4084ce)
 - **Breaking change:** refactor: Update Explode operation. [`d28abcd`](https://github.com/loophp/collection/commit/d28abcd17590f24baab68f9ab7fb1f3e33aa00b5)
 - **Breaking change:** refactor: Update Split operation. [`1c669b2`](https://github.com/loophp/collection/commit/1c669b2b21145069395192b7b530a0bbea4420bd)
+- docs: Update changelog. [`47b4716`](https://github.com/loophp/collection/commit/47b471672381dadde584bc3bbc31d131b0c83f37)
 - feat: Add fromFile static constructor. [`7211052`](https://github.com/loophp/collection/commit/7211052435cf8d1498f0bf2b6b374011e6b550d5)
 - feat: Add Words operation. [`72df47a`](https://github.com/loophp/collection/commit/72df47a4f72da849bf74c211536e2f3e4ed913b6)
 - feat: Add Unwords operation. [`b6aef32`](https://github.com/loophp/collection/commit/b6aef3235936260aa112cf4cba3bb191aff6928c)
