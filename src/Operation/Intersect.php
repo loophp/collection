@@ -47,6 +47,7 @@ final class Intersect extends AbstractOperation
                 /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $filter */
                 $filter = Filter::of()($filterCallbackFactory($values));
 
+                // Point free style.
                 return $filter;
             };
     }

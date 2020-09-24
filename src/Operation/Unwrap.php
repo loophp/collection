@@ -20,12 +20,10 @@ final class Unwrap extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        /** @psalm-var Closure(Iterator<TKey, array<TKey, T>>): Generator<TKey, T> $compose */
-        $compose = Compose::of()(
-            Flatten::of()(1)
-        );
+        /** @psalm-var Closure(Iterator<TKey, array<TKey, T>>): Generator<TKey, T> $flatten */
+        $flatten = Flatten::of()(1);
 
         // Point free style.
-        return $compose;
+        return $flatten;
     }
 }

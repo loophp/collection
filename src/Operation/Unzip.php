@@ -12,6 +12,8 @@ use Iterator;
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
+ *
+ * phpcs:disable Generic.WhiteSpace.ScopeIndent.IncorrectExact
  */
 final class Unzip extends AbstractOperation
 {
@@ -20,25 +22,29 @@ final class Unzip extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        return
+        $reduceCallback =
             /**
-             * @psalm-param Iterator<TKey, list<T>> $iterator
+             * @psalm-param array<int, list<T>> $carry
+             * @psalm-param iterable<TKey, T> $value
              *
-             * @psalm-return Generator<int, list<T>>
+             * @psalm-return array<int, list<T>>
              */
-            static function (Iterator $iterator): Generator {
+            static function (array $carry, iterable $value): array {
                 $index = 0;
-                $result = [];
 
-                foreach ($iterator as $current) {
-                    foreach ($current as $c) {
-                        $result[$index++][] = $c;
-                    }
-
-                    $index = 0;
+                foreach ($value as $v) {
+                    $carry[$index++][] = $v;
                 }
 
-                return yield from $result;
+                return $carry;
             };
+
+        /** @psalm-var Closure(Iterator<TKey, list<T>>): Generator<int, list<T>> $compose */
+        $compose = Compose::of()(
+            FoldLeft::of()($reduceCallback)([]),
+            Unwrap::of()
+        );
+
+        return $compose;
     }
 }

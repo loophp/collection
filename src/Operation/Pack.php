@@ -16,31 +16,27 @@ use Iterator;
 final class Pack extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, T>): Generator<int, array{0:TKey, 1:T}>
+     * @psalm-return Closure(Iterator<TKey, T>): Generator<int, array{0: TKey, 1: T}>
      */
     public function __invoke(): Closure
     {
-        $callbackForKeys = static function (): void {
-        };
-        $callbackForValues =
+        $mapCallback =
             /**
-             * @psalm-param T $initial
-             * @psalm-param TKey $key
              * @psalm-param T $value
+             * @psalm-param TKey $key
+             *
+             * @param mixed $value
+             * @param mixed $key
              *
              * @psalm-return array{0: TKey, 1: T}
-             *
-             * @param mixed $initial
-             * @param mixed $key
-             * @param mixed $value
              */
-            static function ($initial, $key, $value): array {
+            static function ($value, $key): array {
                 return [$key, $value];
             };
 
         /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, array{0: TKey, 1: T}> $compose */
         $compose = Compose::of()(
-            Associate::of()($callbackForKeys)($callbackForValues),
+            Map::of()($mapCallback),
             Normalize::of()
         );
 

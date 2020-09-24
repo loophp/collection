@@ -20,42 +20,45 @@ final class Frequency extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        return
+        $reduceCallback =
             /**
-             * @psalm-param Iterator<TKey, T> $iterator
+             * @psalm-param array<int, array{0: int, 1: T}> $storage
+             * @psalm-param T $value
              *
-             * @psalm-return Generator<int, T>
+             * @psalm-return array<int, array{0: int, 1: T}>
+             *
+             * @param mixed $value
              */
-            static function (Iterator $iterator): Generator {
-                $storage = [];
+            static function (array $storage, $value): array {
+                $added = false;
 
-                foreach ($iterator as $value) {
-                    $added = false;
-
-                    foreach ($storage as $key => $data) {
-                        if ($data['value'] !== $value) {
-                            continue;
-                        }
-
-                        ++$storage[$key]['count'];
-                        $added = true;
-
-                        break;
-                    }
-
-                    if (false !== $added) {
+                foreach ($storage as $key => $data) {
+                    if ($data[1] !== $value) {
                         continue;
                     }
 
-                    $storage[] = [
-                        'value' => $value,
-                        'count' => 1,
-                    ];
+                    ++$storage[$key][0];
+                    $added = true;
+
+                    break;
                 }
 
-                foreach ($storage as $value) {
-                    yield $value['count'] => $value['value'];
+                if (false !== $added) {
+                    return $storage;
                 }
+
+                $storage[] = [1, $value];
+
+                return $storage;
             };
+
+        /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, T> $compose */
+        $compose = Compose::of()(
+            FoldLeft::of()($reduceCallback)([]),
+            Flatten::of()(1),
+            Unpack::of()
+        );
+
+        return $compose;
     }
 }

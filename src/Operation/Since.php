@@ -12,6 +12,8 @@ use Iterator;
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
+ *
+ * phpcs:disable Generic.WhiteSpace.ScopeIndent.IncorrectExact
  */
 final class Since extends AbstractOperation
 {
@@ -28,45 +30,45 @@ final class Since extends AbstractOperation
              */
             static function (callable ...$callbacks): Closure {
                 return
-                /**
-                 * @psalm-param Iterator<TKey, T> $iterator
-                 *
-                 * @psalm-return Generator<TKey, T>
-                 */
-                static function (Iterator $iterator) use ($callbacks): Generator {
-                    $reducer =
-                        /**
-                         * @psalm-param Iterator<TKey, T> $iterator
-                         *
-                         * @psalm-return Closure(bool, callable(T, TKey): bool): bool
-                         */
-                        static function (Iterator $iterator): Closure {
-                            return
-                                /**
-                                 * @psalm-param bool $carry
-                                 * @psalm-param callable(T, TKey): bool $callback
-                                 */
-                                static function (bool $carry, callable $callback) use ($iterator): bool {
-                                    return ($callback($iterator->current(), $iterator->key())) ?
-                                        $carry :
-                                        false;
-                                };
-                        };
+                    /**
+                     * @psalm-param Iterator<TKey, T> $iterator
+                     *
+                     * @psalm-return Generator<TKey, T>
+                     */
+                    static function (Iterator $iterator) use ($callbacks): Generator {
+                        $reducer =
+                            /**
+                             * @psalm-param Iterator<TKey, T> $iterator
+                             *
+                             * @psalm-return Closure(bool, callable(T, TKey): bool): bool
+                             */
+                            static function (Iterator $iterator): Closure {
+                                return
+                                    /**
+                                     * @psalm-param bool $carry
+                                     * @psalm-param callable(T, TKey): bool $callback
+                                     */
+                                    static function (bool $carry, callable $callback) use ($iterator): bool {
+                                        return ($callback($iterator->current(), $iterator->key())) ?
+                                            $carry :
+                                            false;
+                                    };
+                            };
 
-                    while ($iterator->valid()) {
-                        $result = array_reduce($callbacks, $reducer($iterator), true);
+                        while ($iterator->valid()) {
+                            $result = array_reduce($callbacks, $reducer($iterator), true);
 
-                        if (false !== $result) {
-                            break;
+                            if (false !== $result) {
+                                break;
+                            }
+
+                            $iterator->next();
                         }
 
-                        $iterator->next();
-                    }
-
-                    for (; $iterator->valid(); $iterator->next()) {
-                        yield $iterator->key() => $iterator->current();
-                    }
-                };
+                        for (; $iterator->valid(); $iterator->next()) {
+                            yield $iterator->key() => $iterator->current();
+                        }
+                    };
             };
     }
 }
