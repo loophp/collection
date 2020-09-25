@@ -961,6 +961,19 @@ class CollectionSpec extends ObjectBehavior
         $this::fromIterable([])
             ->last()
             ->shouldIterateAs([]);
+
+        $input = [
+            ['a'],
+            ['b', 'a'],
+            ['c', 'b', 'a'],
+            ['d', 'c', 'b', 'a'],
+        ];
+
+        $this::fromIterable($input)
+            ->last()
+            ->shouldIterateAs([
+                3 => ['d', 'c', 'b', 'a'],
+            ]);
     }
 
     public function it_can_group()

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace loophp\collection\Operation;
 
+use CachingIterator;
 use Closure;
 use Generator;
 use Iterator;
@@ -31,13 +32,16 @@ final class Last extends AbstractOperation
                     return yield from [];
                 }
 
-                $key = $iterator->key();
-                $current = $iterator->current();
+                $cachingIterator = new CachingIterator($iterator, CachingIterator::FULL_CACHE);
 
-                for (; $iterator->valid(); $iterator->next()) {
-                    $key = $iterator->key();
-                    $current = $iterator->current();
+                while ($iterator->valid()) {
+                    $cachingIterator->next();
                 }
+
+                /** @psalm-var TKey $key */
+                $key = $cachingIterator->key();
+                /** @psalm-var T $current */
+                $current = $cachingIterator->current();
 
                 return yield $key => $current;
             };
