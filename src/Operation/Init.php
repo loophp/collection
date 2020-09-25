@@ -28,7 +28,7 @@ final class Init extends AbstractOperation
              * @psalm-return Generator<TKey, T>
              */
             static function (Iterator $iterator): Generator {
-                $cacheIterator = new CachingIterator($iterator);
+                $cacheIterator = new CachingIterator($iterator, CachingIterator::FULL_CACHE);
                 $cacheIterator->next();
 
                 for (; $iterator->valid(); $cacheIterator->next()) {

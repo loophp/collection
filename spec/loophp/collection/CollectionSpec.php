@@ -1127,6 +1127,21 @@ class CollectionSpec extends ObjectBehavior
                 2 => 2,
                 3 => 3,
             ]);
+
+        $input = [
+            ['a'],
+            ['b', 'a'],
+            ['c', 'b', 'a'],
+            ['d', 'c', 'b', 'a'],
+        ];
+
+        $this::fromIterable($input)
+            ->init()
+            ->shouldIterateAs([
+                ['a'],
+                ['b', 'a'],
+                ['c', 'b', 'a'],
+            ]);
     }
 
     public function it_can_intersect(): void
