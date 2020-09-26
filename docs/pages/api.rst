@@ -596,11 +596,11 @@ Signature: ``Collection::filter(callable ...$callbacks);``
 first
 ~~~~~
 
-Get the first items from the collection passing the given truth test.
+Get the first items from the collection.
 
 Interface: `Firstable`_
 
-Signature: ``Collection::first(?callable $callback = null, int $size = 1);``
+Signature: ``Collection::first();``
 
 .. code-block:: php
 
@@ -614,24 +614,7 @@ Signature: ``Collection::first(?callable $callback = null, int $size = 1);``
         };
 
         Collection::fromIterable($generator())
-            ->first(
-                static function ($value, $key) {
-                    return 'b' === $key;
-                }
-            ); // ['b' => 'b']
-
-        $output = static function (): Generator {
-            yield 'b' => 'b';
-            yield 'b' => 'e';
-        };
-
-        Collection::fromIterable($generator())
-            ->first(
-                static function ($value, $key) {
-                    return 'b' === $key;
-                },
-                2
-            ); // ['b' => 'b', 'b' => 'e']
+            ->first(); // ['a' => 'a']
 
 flatten
 ~~~~~~~
@@ -938,11 +921,11 @@ Signature: ``Collection::keys();``
 last
 ~~~~
 
-Get the last items from the collection passing the given truth test.
+Extract the last element of a collection, which must be finite and non-empty.
 
 Interface: `Lastable`_
 
-Signature: ``Collection::last(?callable $callback = null, int $size = 1);``
+Signature: ``Collection::last();``
 
 .. code-block:: php
 
@@ -956,19 +939,7 @@ Signature: ``Collection::last(?callable $callback = null, int $size = 1);``
         };
 
         Collection::fromIterable($generator())
-            ->last(
-                static function ($value, $key) {
-                    return 'b' === $key;
-                }
-            ); // ['b' => 'e']
-
-        Collection::fromIterable($generator())
-            ->last(
-                static function ($value, $key) {
-                    return 'b' === $key;
-                },
-                2
-            ); // ['b' => 'e', 'b' => 'b']
+            ->last(); // ['c' => 'f']
 
 limit
 ~~~~~
