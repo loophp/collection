@@ -67,7 +67,7 @@ This library has been inspired by:
 * **Decoupled**: Each Collection methods is a shortcut to one isolated standard class, each operation has its own
 responsibility. Usually the arguments needed are standard PHP variables like `int`, `string`, `callable` or `iterator`.
 It allows users to use those operations individually, at their own will to build up something custom. Currently, more 
-than **80 operations** are available in this library. This library is basically an example of what you can do with all 
+than [**80 operations**][collection api] are available in this library. This library is basically an example of what you can do with all 
 those small bricks, but nothing prevent users to use an operation on its own as well.
 
 * **It takes function first, data-last**: In the following example, multiple operations are created. The data to be 
