@@ -22,24 +22,27 @@ final class Distinct extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        return
+        /** @psalm-var list<T> $seen */
+        $seen = [];
+
+        $filterCallback =
             /**
-             * @psalm-param Iterator<TKey, T> $iterator
+             * @psalm-param T $value
              *
-             * @psalm-return Generator<TKey, T>
+             * @param mixed $value
              */
-            static function (Iterator $iterator): Generator {
-                $seen = [];
+            static function ($value) use (&$seen): bool {
+                /** @psalm-var list<T> $seen */
+                $return = !in_array($value, $seen, true);
 
-                foreach ($iterator as $key => $value) {
-                    if (false !== in_array($value, $seen, true)) {
-                        continue;
-                    }
+                $seen[] = $value;
 
-                    $seen[] = $value;
-
-                    yield $key => $value;
-                }
+                return $return;
             };
+
+        /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $compose */
+        $filter = Filter::of()($filterCallback);
+
+        return $filter;
     }
 }
