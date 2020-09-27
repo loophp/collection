@@ -18,7 +18,7 @@ use Iterator;
 final class Words extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, string, mixed, void>
+     * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, string>
      */
     public function __invoke(): Closure
     {
@@ -26,7 +26,7 @@ final class Words extends AbstractOperation
             return implode('', $value);
         };
 
-        /** @psalm-var Closure(Iterator<TKey, string>): Generator<TKey, string> $compose */
+        /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, string> $compose */
         $compose = Compose::of()(
             Explode::of()("\t", "\n", ' '),
             Map::of()($mapCallback),

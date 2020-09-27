@@ -9,7 +9,7 @@ use loophp\collection\Contract\Collection;
 /**
  * @psalm-template TKey
  * @psalm-template TKey of array-key
- * @psalm-template T of bool
+ * @psalm-template T
  */
 interface Everyable
 {

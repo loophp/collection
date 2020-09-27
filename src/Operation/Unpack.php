@@ -19,7 +19,7 @@ use loophp\collection\Iterator\IterableIterator;
 final class Unpack extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, T>): Generator<T, T, mixed, void>
+     * @psalm-return Closure(Iterator<int, array{0: TKey, 1: T}>): Generator<T, T>
      */
     public function __invoke(): Closure
     {
