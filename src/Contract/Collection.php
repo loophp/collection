@@ -83,6 +83,7 @@ use loophp\collection\Contract\Operation\Sliceable;
 use loophp\collection\Contract\Operation\Sortable;
 use loophp\collection\Contract\Operation\Splitable;
 use loophp\collection\Contract\Operation\Tailable;
+use loophp\collection\Contract\Operation\Tailsable;
 use loophp\collection\Contract\Operation\TakeWhileable;
 use loophp\collection\Contract\Operation\Timesable;
 use loophp\collection\Contract\Operation\Transposeable;
@@ -179,6 +180,7 @@ use loophp\collection\Iterator\ClosureIterator;
  * @template-extends Sortable<TKey, T>
  * @template-extends Splitable<TKey, T>
  * @template-extends Tailable<TKey, T>
+ * @template-extends Tailsable<TKey, T>
  * @template-extends TakeWhileable<TKey, T>
  * @template-extends Transposeable<TKey, T>
  * @template-extends Unlinesable<TKey, T>
@@ -275,6 +277,7 @@ interface Collection extends
     Sortable,
     Splitable,
     Tailable,
+    Tailsable,
     TakeWhileable,
     Timesable,
     Transposeable,

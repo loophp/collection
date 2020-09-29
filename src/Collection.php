@@ -90,6 +90,7 @@ use loophp\collection\Operation\Slice;
 use loophp\collection\Operation\Sort;
 use loophp\collection\Operation\Split;
 use loophp\collection\Operation\Tail;
+use loophp\collection\Operation\Tails;
 use loophp\collection\Operation\TakeWhile;
 use loophp\collection\Operation\Times;
 use loophp\collection\Operation\Transpose;
@@ -753,6 +754,11 @@ final class Collection implements CollectionInterface
     public function tail(): CollectionInterface
     {
         return $this->run(Tail::of());
+    }
+
+    public function tails(): CollectionInterface
+    {
+        return $this->run(Tails::of());
     }
 
     public function takeWhile(callable $callback): CollectionInterface

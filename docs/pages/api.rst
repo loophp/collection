@@ -1571,6 +1571,20 @@ Signature: ``Collection::tail();``
     Collection::fromIterable(['a', 'b', 'c'])
         ->tail(); // [1 => 'b', 2 => 'c']
 
+tails
+~~~~~
+
+Returns the list of initial segments of its argument list, shortest last.
+
+Interface: `Tailsable`_
+
+Signature: ``Collection::tails();``
+
+.. code-block:: php
+
+    Collection::fromIterable(['a', 'b', 'c'])
+        ->tails(); // [['a', 'b', 'c'], ['b', 'c'], ['c'], []]
+
 takeWhile
 ~~~~~~~~~
 
@@ -1962,6 +1976,7 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Sortable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Sortable.php
 .. _Splitable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Splitable.php
 .. _Tailable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Tailable.php
+.. _Tailsable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Tailsable.php
 .. _TakeWhileable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/TakeWhileable.php
 .. _Transposeable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Transposeable.php
 .. _Truthyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Truthyable.php

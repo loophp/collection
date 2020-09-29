@@ -2021,6 +2021,20 @@ EOF;
             ->shouldIterateAs([1 => 'B', 2 => 'C', 3 => 'D', 4 => 'E', 5 => 'F']);
     }
 
+    public function it_can_tails(): void
+    {
+        $this::fromIterable(range('A', 'E'))
+            ->tails()
+            ->shouldIterateAs([
+                ['A', 'B', 'C', 'D', 'E'],
+                [1 => 'B', 2 => 'C', 3 => 'D', 4 => 'E'],
+                [2 => 'C', 3 => 'D', 4 => 'E'],
+                [3 => 'D', 4 => 'E'],
+                [4 => 'E'],
+                [],
+            ]);
+    }
+
     public function it_can_takeWhile(): void
     {
         $isSmallerThanThree = static function ($value) {
