@@ -6,3 +6,6 @@
 /.idea/
 /test.php
 /phpspec.yml
+/examples/
+/node_modules/
+/benchmarks/
