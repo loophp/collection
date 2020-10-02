@@ -5,10 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.6.2](https://github.com/loophp/collection/compare/2.6.1...2.6.2) - 2020-10-02
+
+### Commits
+
+- feat: Add Tails operation. [`1299853`](https://github.com/loophp/collection/commit/12998539035b32bb616787f9716a963316d6d081)
+- chore: Update .gitignore. [`ffae108`](https://github.com/loophp/collection/commit/ffae108e4cf56d51d8d4c88415ffcb90b6bb0041)
+- chore: Update composer.json. [`2686f05`](https://github.com/loophp/collection/commit/2686f05bc783da814f4d839e912200e79659a0db)
+- docs: Update annotations. [`0e111ab`](https://github.com/loophp/collection/commit/0e111ab757bd4629a5c338bbe7ddff01bce0427c)
+- refactor: Update Distinct operation. [`9d2579c`](https://github.com/loophp/collection/commit/9d2579cee6c4dec02b063316a4474743efc360e0)
+- docs: Update API page. [`7dfe75f`](https://github.com/loophp/collection/commit/7dfe75fc1d8271e8578509e616dfb5eef200e2a1)
+- docs: Add link. [`824ed65`](https://github.com/loophp/collection/commit/824ed6538de9dcbdd0679f7a99352a1a16b26766)
+- refactor: Init operation improvements. [`7d23688`](https://github.com/loophp/collection/commit/7d236882e53d9c4b17d58b96705acfc6045cbc4f)
+- refactor: Last operation improvements. [`88350e2`](https://github.com/loophp/collection/commit/88350e2f07b77b2595b0331fa39cf8d341199fdf)
+- refactor: Leverage tacit programming (point free style) [`13b5d6d`](https://github.com/loophp/collection/commit/13b5d6d55751c33bdb8e2ed838d214ff0f8d42b5)
+- docs: Add missing link. [`675af9a`](https://github.com/loophp/collection/commit/675af9aeee401bdd5f54555f4d7dc3fdf3423eae)
+
 ## [2.6.1](https://github.com/loophp/collection/compare/2.6.0...2.6.1) - 2020-09-23
 
 ### Commits
 
+- docs: Update changelog. [`a8a3eec`](https://github.com/loophp/collection/commit/a8a3eec2b3a2af9de0787a1331b44824e670d2b5)
 - refactor: Leverage tacit programming (point free style) [`764a3c6`](https://github.com/loophp/collection/commit/764a3c6ba5b2b0bb3ef77b22a4a07b31dac5a87a)
 - chore: Update Grumphp configuration. [`855aa63`](https://github.com/loophp/collection/commit/855aa634371842fa86dda1620525d27570ac5ce4)
 - feat: Add Every operation. [`8ea76af`](https://github.com/loophp/collection/commit/8ea76af40d7e25a49605e99db3e9f56c68b05bb3)
