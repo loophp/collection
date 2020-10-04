@@ -1144,6 +1144,18 @@ class CollectionSpec extends ObjectBehavior
             ]);
     }
 
+    public function it_can_inits(): void
+    {
+        $this::fromIterable(range('a', 'c'))
+            ->inits()
+            ->shouldIterateAs([
+                [],
+                ['a'],
+                ['a', 'b'],
+                ['a', 'b', 'c'],
+            ]);
+    }
+
     public function it_can_intersect(): void
     {
         $this::fromIterable(range(1, 5))

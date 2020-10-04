@@ -846,6 +846,20 @@ Signature: ``Collection::init();``
     Collection::fromIterable(range('a', 'e'))
         ->init(); // ['a', 'b', 'c', 'd']
 
+inits
+~~~~~
+
+Returns all initial segments of the collection, shortest first.
+
+Interface: `Initsable`_
+
+Signature: ``Collection::inits();``
+
+.. code-block:: php
+
+    Collection::fromIterable(range('a', 'c'))
+        ->inits(); // [[], ['a'], ['a', 'b'], ['a', 'b', 'c']]
+
 intersect
 ~~~~~~~~~
 
@@ -1957,6 +1971,7 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _IfThenElseable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/IfThenElseable.php
 .. _Implodeable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Implodeable.php
 .. _Initable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Initable.php
+.. _Initsable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Initsable.php
 .. _Intersectable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Intersectable.php
 .. _Intersectkeysable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Intersectkeysable.php
 .. _Intersperseable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Intersperseable.php
