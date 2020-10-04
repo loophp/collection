@@ -27,9 +27,8 @@ final class Distinct extends AbstractOperation
 
         $filterCallback =
             /**
-             * @psalm-param T $value
-             *
              * @param mixed $value
+             * @psalm-param T $value
              */
             static function ($value) use (&$seen): bool {
                 /** @psalm-var list<T> $seen */
@@ -40,7 +39,7 @@ final class Distinct extends AbstractOperation
                 return $return;
             };
 
-        /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $compose */
+        /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $filter */
         $filter = Filter::of()($filterCallback);
 
         return $filter;
