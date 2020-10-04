@@ -976,6 +976,22 @@ class CollectionSpec extends ObjectBehavior
             ]);
     }
 
+    public function it_can_group(): void
+    {
+        $this::fromString('Mississippi')
+            ->group()
+            ->shouldIterateAs([
+                0 => [0 => 'M'],
+                1 => [1 => 'i'],
+                2 => [2 => 's', 3 => 's'],
+                4 => [4 => 'i'],
+                5 => [5 => 's', 6 => 's'],
+                7 => [7 => 'i'],
+                8 => [8 => 'p', 9 => 'p'],
+                10 => [10 => 'i'],
+            ]);
+    }
+
     public function it_can_groupBy(): void
     {
         $callback = static function () {

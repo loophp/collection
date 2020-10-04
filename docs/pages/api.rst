@@ -741,6 +741,21 @@ get
 
 Interface: `Getable`_
 
+group
+~~~~~
+
+Takes a list and returns a list of lists such that the concatenation of the result is equal to the argument.
+Moreover, each sublist in the result contains only equal elements.
+
+Interface: `Groupable`_
+
+Signature: ``Collection::group();``
+
+.. code-block:: php
+
+    Collection::fromString('Mississippi')
+        ->group(); // [ [0 => 'M'], [1 => 'i'], [2 => 's', 3 => 's'], [4 => 'i'], [5 => 's', 6 => 's'], [7 => 'i'], [8 => 'p', 9 => 'p'], [10 => 'i'] ]
+
 groupBy
 ~~~~~~~
 
@@ -1965,6 +1980,7 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Forgetable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Forgetable.php
 .. _Frequencyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Frequencyable.php
 .. _Getable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Getable.php
+.. _Groupable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Groupable.php
 .. _GroupByable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/GroupByable.php
 .. _Hasable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Hasable.php
 .. _Headable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Headable.php

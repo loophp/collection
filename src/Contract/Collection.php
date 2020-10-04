@@ -40,6 +40,7 @@ use loophp\collection\Contract\Operation\FoldRightable;
 use loophp\collection\Contract\Operation\Forgetable;
 use loophp\collection\Contract\Operation\Frequencyable;
 use loophp\collection\Contract\Operation\Getable;
+use loophp\collection\Contract\Operation\Groupable;
 use loophp\collection\Contract\Operation\GroupByable;
 use loophp\collection\Contract\Operation\Hasable;
 use loophp\collection\Contract\Operation\Headable;
@@ -143,6 +144,7 @@ use loophp\collection\Iterator\ClosureIterator;
  * @template-extends Forgetable<TKey, T>
  * @template-extends Frequencyable<TKey, T>
  * @template-extends Getable<TKey, T>
+ * @template-extends Groupable<TKey, T>
  * @template-extends GroupByable<TKey, T>
  * @template-extends Hasable<TKey, T>
  * @template-extends Headable<TKey, T>
@@ -237,6 +239,7 @@ interface Collection extends
     Forgetable,
     Frequencyable,
     Getable,
+    Groupable,
     GroupByable,
     Hasable,
     Headable,
