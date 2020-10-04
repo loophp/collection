@@ -1986,6 +1986,28 @@ EOF;
             ->shouldIterateAs($output());
     }
 
+    public function it_can_span(): void
+    {
+        $input = range(1, 10);
+
+        $test = $this::fromIterable($input)
+            ->span(static function (int $x): bool {return 4 > $x; });
+
+        $test
+            ->first()
+            ->current()
+            ->shouldIterateAs(
+                [1, 2, 3]
+            );
+
+        $test
+            ->last()
+            ->current()
+            ->shouldIterateAs(
+                [3 => 4, 4 => 5, 5 => 6, 6 => 7, 7 => 8, 8 => 9, 9 => 10]
+            );
+    }
+
     public function it_can_split(): void
     {
         $splitter = static function ($value): bool {

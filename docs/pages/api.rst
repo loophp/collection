@@ -1530,6 +1530,22 @@ Signature: ``Collection::sort(?callable $callback = null);``
         ->sort() // Sort the values (which are now the keys)
         ->flip(); // Flip again to put back the keys and values, sorted by keys.
 
+span
+~~~~
+
+Returns a tuple where first element is longest prefix (possibly empty) of elements that satisfy the callback and second element is the remainder.
+
+Interface: `Spanable`_
+
+Signature: ``Collection::span(callable $callback);``
+
+.. code-block:: php
+
+    $input = range(1, 10);
+
+    Collection::fromIterable($input)
+        ->span(fn ($x) => $x < 4); // [ [1, 2, 3], [4, 5, 6, 7, 8, 9, 10] ]
+
 split
 ~~~~~
 
@@ -1974,6 +1990,7 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Sinceable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Sinceable.php
 .. _Sliceable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Sliceable.php
 .. _Sortable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Sortable.php
+.. _Spanable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Spanable.php
 .. _Splitable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Splitable.php
 .. _Tailable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Tailable.php
 .. _Tailsable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Tailsable.php

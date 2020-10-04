@@ -88,6 +88,7 @@ use loophp\collection\Operation\Shuffle;
 use loophp\collection\Operation\Since;
 use loophp\collection\Operation\Slice;
 use loophp\collection\Operation\Sort;
+use loophp\collection\Operation\Span;
 use loophp\collection\Operation\Split;
 use loophp\collection\Operation\Tail;
 use loophp\collection\Operation\Tails;
@@ -744,6 +745,11 @@ final class Collection implements CollectionInterface
     public function sort(int $type = Operation\Sortable::BY_VALUES, ?callable $callback = null): CollectionInterface
     {
         return $this->run(Sort::of()($type)($callback));
+    }
+
+    public function span(callable $callback): CollectionInterface
+    {
+        return $this->run(Span::of()($callback));
     }
 
     public function split(int $type = Operation\Splitable::BEFORE, callable ...$callbacks): CollectionInterface

@@ -81,6 +81,7 @@ use loophp\collection\Contract\Operation\Shuffleable;
 use loophp\collection\Contract\Operation\Sinceable;
 use loophp\collection\Contract\Operation\Sliceable;
 use loophp\collection\Contract\Operation\Sortable;
+use loophp\collection\Contract\Operation\Spanable;
 use loophp\collection\Contract\Operation\Splitable;
 use loophp\collection\Contract\Operation\Tailable;
 use loophp\collection\Contract\Operation\Tailsable;
@@ -178,6 +179,7 @@ use loophp\collection\Iterator\ClosureIterator;
  * @template-extends Sinceable<TKey, T>
  * @template-extends Sliceable<TKey, T>
  * @template-extends Sortable<TKey, T>
+ * @template-extends Spanable<TKey, T>
  * @template-extends Splitable<TKey, T>
  * @template-extends Tailable<TKey, T>
  * @template-extends Tailsable<TKey, T>
@@ -275,6 +277,7 @@ interface Collection extends
     Sinceable,
     Sliceable,
     Sortable,
+    Spanable,
     Splitable,
     Tailable,
     Tailsable,
