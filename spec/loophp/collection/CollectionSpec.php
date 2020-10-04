@@ -976,7 +976,7 @@ class CollectionSpec extends ObjectBehavior
             ]);
     }
 
-    public function it_can_group()
+    public function it_can_groupBy(): void
     {
         $callback = static function () {
             yield 1 => 'a';
@@ -997,7 +997,7 @@ class CollectionSpec extends ObjectBehavior
         };
 
         $this::fromCallable($callback)
-            ->group()
+            ->groupBy()
             ->shouldIterateAs([
                 1 => [
                     'a',
@@ -1018,7 +1018,7 @@ class CollectionSpec extends ObjectBehavior
         };
 
         $this::fromIterable(range(0, 20))
-            ->group($callback)
+            ->groupBy($callback)
             ->shouldIterateAs([
                 'even' => [
                     0,
@@ -1049,7 +1049,7 @@ class CollectionSpec extends ObjectBehavior
 
         $input = range(0, 20);
         $this::fromIterable($input)
-            ->group(static function () {return null; })
+            ->groupBy(static function () {return null; })
             ->shouldIterateAs($input);
     }
 

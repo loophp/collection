@@ -741,15 +741,15 @@ get
 
 Interface: `Getable`_
 
-group
-~~~~~
+groupBy
+~~~~~~~
 
 Group items, the key used to group items can be customized in a callback.
 By default it's the key is the item's key.
 
-Interface: `Groupable`_
+Interface: `GroupByable`_
 
-Signature: ``Collection::group(callable $callable = null);``
+Signature: ``Collection::groupBy(?callable $callback = null);``
 
 .. code-block:: php
 
@@ -768,7 +768,7 @@ Signature: ``Collection::group(callable $callable = null);``
     };
 
     $collection = Collection::fromIterable($callback)
-        ->group();
+        ->groupBy();
 
 has
 ~~~
@@ -1965,7 +1965,7 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Forgetable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Forgetable.php
 .. _Frequencyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Frequencyable.php
 .. _Getable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Getable.php
-.. _Groupable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Groupable.php
+.. _GroupByable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/GroupByable.php
 .. _Hasable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Hasable.php
 .. _Headable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Headable.php
 .. _IfThenElseable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/IfThenElseable.php

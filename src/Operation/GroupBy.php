@@ -13,7 +13,7 @@ use Iterator;
  * @psalm-template TKey of array-key
  * @psalm-template T
  */
-final class Group extends AbstractOperation
+final class GroupBy extends AbstractOperation
 {
     /**
      * @psalm-return Closure(null|callable(TKey, T):(TKey|null)): Closure(Iterator<TKey, T>): Generator<int, T|list<T>>

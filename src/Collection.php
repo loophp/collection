@@ -46,7 +46,7 @@ use loophp\collection\Operation\FoldRight1;
 use loophp\collection\Operation\Forget;
 use loophp\collection\Operation\Frequency;
 use loophp\collection\Operation\Get;
-use loophp\collection\Operation\Group;
+use loophp\collection\Operation\GroupBy;
 use loophp\collection\Operation\Has;
 use loophp\collection\Operation\Head;
 use loophp\collection\Operation\IfThenElse;
@@ -508,9 +508,9 @@ final class Collection implements CollectionInterface
         return new ClosureIterator($this->source, ...$this->parameters);
     }
 
-    public function group(?callable $callable = null): CollectionInterface
+    public function groupBy(?callable $callable = null): CollectionInterface
     {
-        return $this->run(Group::of()($callable));
+        return $this->run(GroupBy::of()($callable));
     }
 
     public function has(callable $callback): bool

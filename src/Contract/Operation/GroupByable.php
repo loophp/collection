@@ -11,10 +11,10 @@ use loophp\collection\Contract\Collection;
  * @psalm-template TKey of array-key
  * @psalm-template T
  */
-interface Groupable
+interface GroupByable
 {
     /**
      * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
      */
-    public function group(?callable $callback = null): Collection;
+    public function groupBy(?callable $callback = null): Collection;
 }
