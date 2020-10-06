@@ -39,12 +39,12 @@ final class Unzip extends AbstractOperation
                 return $carry;
             };
 
-        /** @psalm-var Closure(Iterator<TKey, list<T>>): Generator<int, list<T>> $compose */
-        $compose = Compose::of()(
+        /** @psalm-var Closure(Iterator<TKey, list<T>>): Generator<int, list<T>> $pipe */
+        $pipe = Pipe::of()(
             FoldLeft::of()($reduceCallback)([]),
             Unwrap::of()
         );
 
-        return $compose;
+        return $pipe;
     }
 }

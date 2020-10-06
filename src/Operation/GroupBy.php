@@ -73,14 +73,14 @@ final class GroupBy extends AbstractOperation
                             };
                     };
 
-                /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, list<T>> $compose */
-                $compose = Compose::of()(
+                /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, list<T>> $pipe */
+                $pipe = Pipe::of()(
                     FoldLeft::of()($reducerFactory($callable))([]),
                     Unwrap::of()
                 );
 
                 // Point free style.
-                return $compose;
+                return $pipe;
             };
     }
 }

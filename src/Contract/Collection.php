@@ -65,6 +65,7 @@ use loophp\collection\Contract\Operation\Packable;
 use loophp\collection\Contract\Operation\Padable;
 use loophp\collection\Contract\Operation\Pairable;
 use loophp\collection\Contract\Operation\Permutateable;
+use loophp\collection\Contract\Operation\Pipeable;
 use loophp\collection\Contract\Operation\Pluckable;
 use loophp\collection\Contract\Operation\Prependable;
 use loophp\collection\Contract\Operation\Productable;
@@ -167,6 +168,7 @@ use loophp\collection\Iterator\ClosureIterator;
  * @template-extends Padable<TKey, T>
  * @template-extends Pairable<TKey, T>
  * @template-extends Permutateable<TKey, T>
+ * @template-extends Pipeable<TKey, T>
  * @template-extends Pluckable<TKey, T>
  * @template-extends Prependable<TKey, T>
  * @template-extends Productable<TKey, T>
@@ -266,6 +268,7 @@ interface Collection extends
     Padable,
     Pairable,
     Permutateable,
+    Pipeable,
     Pluckable,
     Prependable,
     Productable,

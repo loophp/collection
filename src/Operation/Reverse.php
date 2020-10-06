@@ -37,8 +37,8 @@ final class Reverse extends AbstractOperation
             return $carry;
         };
 
-        /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $compose */
-        $compose = Compose::of()(
+        /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
+        $pipe = Pipe::of()(
             Pack::of(),
             Wrap::of(),
             FoldLeft1::of()($callback),
@@ -46,6 +46,6 @@ final class Reverse extends AbstractOperation
             Unpack::of()
         );
 
-        return $compose;
+        return $pipe;
     }
 }

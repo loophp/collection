@@ -86,12 +86,12 @@ final class Sort extends AbstractOperation
                                     };
 
                                 /** @psalm-var callable(Iterator<TKey, T>): Generator<int, array{0:TKey, 1:T}> | callable(Iterator<TKey, T>): Generator<int, array{0:T, 1:TKey}> $before */
-                                $before = Compose::of()(...$operations['before']);
+                                $before = Pipe::of()(...$operations['before']);
 
                                 $arrayIterator = new ArrayIterator(iterator_to_array($before($iterator)));
                                 $arrayIterator->uasort($sortCallback($callback));
 
-                                return yield from Compose::of()(...$operations['after'])($arrayIterator);
+                                return yield from Pipe::of()(...$operations['after'])($arrayIterator);
                             };
                     };
             };

@@ -44,7 +44,14 @@ final class ScanRight extends AbstractOperation
                              * @psalm-return Generator<int|TKey, T|null>
                              */
                             static function (Iterator $iterator) use ($callback, $initial): Generator {
-                                yield from Reverse::of()(Reduction::of()($callback)($initial)(Reverse::of()($iterator)));
+                                /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
+                                $pipe = Pipe::of()(
+                                    Reverse::of(),
+                                    Reduction::of()($callback)($initial),
+                                    Reverse::of()
+                                );
+
+                                yield from $pipe($iterator);
 
                                 return yield $initial;
                             };

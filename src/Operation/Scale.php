@@ -85,11 +85,11 @@ final class Scale extends AbstractOperation
                                                     }
                                                 );
 
-                                                /** @psalm-var Closure(Iterator<TKey, float|int>): Generator<TKey, float|int> $compose */
-                                                $compose = Compose::of()($filter, $mapper);
+                                                /** @psalm-var Closure(Iterator<TKey, float|int>): Generator<TKey, float|int> $pipe */
+                                                $pipe = Pipe::of()($filter, $mapper);
 
                                                 // Point free style.
-                                                return $compose;
+                                                return $pipe;
                                             };
                                     };
                             };

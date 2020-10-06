@@ -1553,6 +1553,46 @@ EOF;
             );
     }
 
+    public function it_can_pipe(Operation $operation): void
+    {
+        $square = new class() extends AbstractOperation implements Operation {
+            public function __invoke(): Closure
+            {
+                return static function ($collection): Generator {
+                    foreach ($collection as $item) {
+                        yield $item ** 2;
+                    }
+                };
+            }
+        };
+
+        $sqrt = new class() extends AbstractOperation implements Operation {
+            public function __invoke(): Closure
+            {
+                return static function ($collection) {
+                    foreach ($collection as $item) {
+                        yield $item ** .5;
+                    }
+                };
+            }
+        };
+
+        $castToInt = new class() extends AbstractOperation implements Operation {
+            public function __invoke(): Closure
+            {
+                return static function ($collection) {
+                    foreach ($collection as $item) {
+                        yield (int) $item;
+                    }
+                };
+            }
+        };
+
+        $this::fromIterable(range(1, 5))
+            ->pipe($square(), $sqrt(), $castToInt())
+            ->shouldIterateAs(range(1, 5));
+    }
+
     public function it_can_pluck(): void
     {
         $six = new class() {
@@ -1718,46 +1758,6 @@ EOF;
         $this::fromIterable(range(1, 10))
             ->rsample(.5)
             ->shouldNotHaveCount(10);
-    }
-
-    public function it_can_run_an_operation(Operation $operation): void
-    {
-        $square = new class() extends AbstractOperation implements Operation {
-            public function __invoke(): Closure
-            {
-                return static function ($collection): Generator {
-                    foreach ($collection as $item) {
-                        yield $item ** 2;
-                    }
-                };
-            }
-        };
-
-        $sqrt = new class() extends AbstractOperation implements Operation {
-            public function __invoke(): Closure
-            {
-                return static function ($collection) {
-                    foreach ($collection as $item) {
-                        yield $item ** .5;
-                    }
-                };
-            }
-        };
-
-        $castToInt = new class() extends AbstractOperation implements Operation {
-            public function __invoke(): Closure
-            {
-                return static function ($collection) {
-                    foreach ($collection as $item) {
-                        yield (int) $item;
-                    }
-                };
-            }
-        };
-
-        $this::fromIterable(range(1, 5))
-            ->run($square(), $sqrt(), $castToInt())
-            ->shouldIterateAs(range(1, 5));
     }
 
     public function it_can_scale(): void

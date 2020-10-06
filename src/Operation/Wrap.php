@@ -34,13 +34,13 @@ final class Wrap extends AbstractOperation
                 return [$key => $value];
             };
 
-        /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, array<TKey, T>> $compose */
-        $compose = Compose::of()(
+        /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, array<TKey, T>> $pipe */
+        $pipe = Pipe::of()(
             Map::of()($mapCallback),
             Normalize::of()
         );
 
         // Point free style.
-        return $compose;
+        return $pipe;
     }
 }

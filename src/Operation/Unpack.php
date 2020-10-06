@@ -63,8 +63,8 @@ final class Unpack extends AbstractOperation
                 return $value[1];
             };
 
-        /** @psalm-var Closure(Iterator<int, array{0: TKey, 1: T}>): Generator<T, T> $compose */
-        $compose = Compose::of()(
+        /** @psalm-var Closure(Iterator<int, array{0: TKey, 1: T}>): Generator<T, T> $pipe */
+        $pipe = Pipe::of()(
             Filter::of()($isIterable),
             Map::of()($toIterableIterator),
             Map::of()(Chunk::of()(2)),
@@ -73,6 +73,6 @@ final class Unpack extends AbstractOperation
         );
 
         // Point free style.
-        return $compose;
+        return $pipe;
     }
 }

@@ -39,11 +39,14 @@ final class Slice extends AbstractOperation
                             return $skip;
                         }
 
-                        /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $compose */
-                        $compose = Compose::of()($skip, Limit::of()($length)(0));
+                        /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
+                        $pipe = Pipe::of()(
+                            $skip,
+                            Limit::of()($length)(0)
+                        );
 
                         // Point free style.
-                        return $compose;
+                        return $pipe;
                     };
             };
     }

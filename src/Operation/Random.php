@@ -25,14 +25,14 @@ final class Random extends AbstractOperation
              * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static function (int $size): Closure {
-                /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $compose */
-                $compose = Compose::of()(
+                /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
+                $pipe = Pipe::of()(
                     Shuffle::of(),
                     Limit::of()($size)(0)
                 );
 
                 // Point free style.
-                return $compose;
+                return $pipe;
             };
     }
 }

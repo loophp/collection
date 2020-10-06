@@ -39,7 +39,7 @@ final class Inits extends AbstractOperation
             };
 
         /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, list<T>> $inits */
-        $inits = Compose::of()(
+        $inits = Pipe::of()(
             ScanLeft::of()($scanLeftCallback)([]),
             Normalize::of()
         );

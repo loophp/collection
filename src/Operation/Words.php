@@ -26,14 +26,14 @@ final class Words extends AbstractOperation
             return implode('', $value);
         };
 
-        /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, string> $compose */
-        $compose = Compose::of()(
+        /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, string> $pipe */
+        $pipe = Pipe::of()(
             Explode::of()("\t", "\n", ' '),
             Map::of()($mapCallback),
             Compact::of()()
         );
 
         // Point free style.
-        return $compose;
+        return $pipe;
     }
 }

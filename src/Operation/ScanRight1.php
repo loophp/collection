@@ -40,7 +40,13 @@ final class ScanRight1 extends AbstractOperation
 
                         yield $initial;
 
-                        yield from Reduction::of()($callback)($initial)(Init::of()($iterator));
+                        /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
+                        $pipe = Pipe::of()(
+                            Init::of(),
+                            Reduction::of()($callback)($initial)
+                        );
+
+                        return yield from $pipe($iterator);
                     };
             };
     }

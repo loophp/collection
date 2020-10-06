@@ -50,8 +50,8 @@ final class Pair extends AbstractOperation
                 return $value[1];
             };
 
-        /** @psalm-var Closure(Iterator<TKey, T>): Generator<T|TKey, T> $compose */
-        $compose = Compose::of()(
+        /** @psalm-var Closure(Iterator<TKey, T>): Generator<T|TKey, T> $pipe */
+        $pipe = Pipe::of()(
             Chunk::of()(2),
             Map::of()(
                 static function (array $value): array {
@@ -62,6 +62,6 @@ final class Pair extends AbstractOperation
         );
 
         // Point free style.
-        return $compose;
+        return $pipe;
     }
 }

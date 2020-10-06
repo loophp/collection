@@ -42,15 +42,15 @@ final class Implode extends AbstractOperation
                         };
                 };
 
-                /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, string> $compose */
-                $compose = Compose::of()(
+                /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, string> $pipe */
+                $pipe = Pipe::of()(
                     Intersperse::of()($glue)(1)(0),
                     Drop::of()(1),
                     FoldLeft::of()($reducerFactory($glue))('')
                 );
 
                 // Point free style.
-                return $compose;
+                return $pipe;
             };
     }
 }

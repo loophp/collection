@@ -15,7 +15,7 @@ use Iterator;
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
-final class Compose extends AbstractOperation
+final class Pipe extends AbstractOperation
 {
     /**
      * @psalm-return Closure((callable(Iterator<TKey, T>):Generator<TKey, T>)...): Closure(Iterator<TKey, T>): Generator<TKey, T>

@@ -21,8 +21,8 @@ final class Unwindow extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        /** @psalm-var Closure(Iterator<TKey, list<T>>): Generator<TKey, T> $compose */
-        $compose = Compose::of()(
+        /** @psalm-var Closure(Iterator<TKey, list<T>>): Generator<TKey, T> $pipe */
+        $pipe = Pipe::of()(
             Map::of()(
                 /**
                  * @psalm-param iterable<TKey, list<T>> $value
@@ -57,6 +57,6 @@ final class Unwindow extends AbstractOperation
         );
 
         // Point free style.
-        return $compose;
+        return $pipe;
     }
 }

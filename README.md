@@ -90,8 +90,9 @@ This library has been inspired by:
     // Using single operations.
     $filter = Filter::of()($filterCallback);
     $reverse = Reverse::of();
-    $compose = Compose::of()($reverse, $filter);
-    print_r(iterator_to_array($compose(new ArrayIterator($data))));  // ['baz', 'bar']
+    $pipe = Pipe::of()($reverse, $filter);
+
+    print_r(iterator_to_array($pipe(new ArrayIterator($data))));  // ['baz', 'bar']
     ```
 
     More information about this in the [Brian Lonsdorf's conference][brian lonsdorf conference], even if
@@ -115,9 +116,9 @@ This library has been inspired by:
     $userData = new ArrayIterator($input);
 
     $flatMap = static fn (callable $callable) =>
-                   Compose::of()(
-                      Map::of()($callable), 
-                      Flatten::of()(1), 
+                   Pipe::of()(
+                      Map::of()($callable),
+                      Flatten::of()(1),
                       Normalize::of()
                    );
 

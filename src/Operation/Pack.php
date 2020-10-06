@@ -34,13 +34,13 @@ final class Pack extends AbstractOperation
                 return [$key, $value];
             };
 
-        /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, array{0: TKey, 1: T}> $compose */
-        $compose = Compose::of()(
+        /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, array{0: TKey, 1: T}> $pipe */
+        $pipe = Pipe::of()(
             Map::of()($mapCallback),
             Normalize::of()
         );
 
         // Point free style.
-        return $compose;
+        return $pipe;
     }
 }

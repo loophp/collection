@@ -28,13 +28,13 @@ final class Lines extends AbstractOperation
             return implode('', $value);
         };
 
-        /** @psalm-var Closure(Iterator<TKey, T|string>): Generator<int, string> $compose */
-        $compose = Compose::of()(
+        /** @psalm-var Closure(Iterator<TKey, T|string>): Generator<int, string> $pipe */
+        $pipe = Pipe::of()(
             Explode::of()(PHP_EOL, "\n", "\r\n"),
             Map::of()($mapCallback)
         );
 
         // Point free style.
-        return $compose;
+        return $pipe;
     }
 }

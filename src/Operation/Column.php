@@ -49,8 +49,8 @@ final class Column extends AbstractOperation
                             };
                     };
 
-                /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, iterable<TKey, T>> $compose */
-                $compose = Compose::of()(
+                /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, iterable<TKey, T>> $pipe */
+                $pipe = Pipe::of()(
                     Transpose::of(),
                     Filter::of()($filterCallbackBuilder($column)),
                     First::of(),
@@ -58,7 +58,7 @@ final class Column extends AbstractOperation
                 );
 
                 // Point free style.
-                return $compose;
+                return $pipe;
             };
     }
 }
