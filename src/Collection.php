@@ -317,9 +317,9 @@ final class Collection implements CollectionInterface
         return $this->pipe(Compact::of()(...$values));
     }
 
-    public function contains(...$value): bool
+    public function contains(...$value): CollectionInterface
     {
-        return $this->pipe(Contains::of()(...$value))->getIterator()->current();
+        return $this->pipe(Contains::of()(...$value));
     }
 
     public function count(): int
