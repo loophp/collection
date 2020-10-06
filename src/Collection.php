@@ -368,7 +368,7 @@ final class Collection implements CollectionInterface
         return $this->run(Duplicate::of());
     }
 
-    public static function empty(): Collection
+    public static function empty(): CollectionInterface
     {
         return new self();
     }
@@ -438,7 +438,7 @@ final class Collection implements CollectionInterface
         return $this->run(Frequency::of());
     }
 
-    public static function fromCallable(callable $callable, ...$parameters): Collection
+    public static function fromCallable(callable $callable, ...$parameters): CollectionInterface
     {
         return new self(
             static function (callable $callable, array $parameters): Generator {
@@ -449,7 +449,7 @@ final class Collection implements CollectionInterface
         );
     }
 
-    public static function fromFile(string $filepath): Collection
+    public static function fromFile(string $filepath): CollectionInterface
     {
         return new self(
             static function (string $filepath): Generator {
@@ -459,7 +459,7 @@ final class Collection implements CollectionInterface
         );
     }
 
-    public static function fromIterable(iterable $iterable): Collection
+    public static function fromIterable(iterable $iterable): CollectionInterface
     {
         return new self(
             static function (iterable $iterable): Generator {
@@ -469,7 +469,7 @@ final class Collection implements CollectionInterface
         );
     }
 
-    public static function fromResource($resource): Collection
+    public static function fromResource($resource): CollectionInterface
     {
         return new self(
             /**
@@ -484,7 +484,7 @@ final class Collection implements CollectionInterface
         );
     }
 
-    public static function fromString(string $string, string $delimiter = ''): Collection
+    public static function fromString(string $string, string $delimiter = ''): CollectionInterface
     {
         return new self(
             /**
@@ -843,7 +843,7 @@ final class Collection implements CollectionInterface
         return $this->run(Window::of()($size));
     }
 
-    public static function with($data = [], ...$parameters): Collection
+    public static function with($data = [], ...$parameters): CollectionInterface
     {
         return new self($data, ...$parameters);
     }

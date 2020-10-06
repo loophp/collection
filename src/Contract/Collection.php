@@ -310,9 +310,9 @@ interface Collection extends
      * @psalm-template NewTKey of array-key
      * @psalm-template NewT
      *
-     * @psalm-return \loophp\collection\Collection<NewTKey, NewT>
+     * @psalm-return \loophp\collection\Contract\Collection<NewTKey, NewT>
      */
-    public static function empty(): \loophp\collection\Collection;
+    public static function empty(): Collection;
 
     /**
      * @psalm-template NewTKey
@@ -321,9 +321,14 @@ interface Collection extends
      *
      * @param mixed ...$parameters
      *
-     * @psalm-return \loophp\collection\Collection<NewTKey, NewT>
+     * @psalm-return \loophp\collection\Contract\Collection<NewTKey, NewT>
      */
-    public static function fromCallable(callable $callable, ...$parameters): \loophp\collection\Collection;
+    public static function fromCallable(callable $callable, ...$parameters): Collection;
+
+    /**
+     * @psalm-return \loophp\collection\Contract\Collection<int, string>
+     */
+    public static function fromFile(string $filepath): Collection;
 
     /**
      * @psalm-template NewTKey
@@ -333,21 +338,21 @@ interface Collection extends
      * @param iterable<mixed> $iterable
      * @psalm-param iterable<NewTKey, NewT> $iterable
      *
-     * @psalm-return \loophp\collection\Collection<NewTKey, NewT>
+     * @psalm-return \loophp\collection\Contract\Collection<NewTKey, NewT>
      */
-    public static function fromIterable(iterable $iterable): \loophp\collection\Collection;
+    public static function fromIterable(iterable $iterable): Collection;
 
     /**
      * @param resource $resource
      *
-     * @psalm-return \loophp\collection\Collection<int, string>
+     * @psalm-return \loophp\collection\Contract\Collection<int, string>
      */
-    public static function fromResource($resource): \loophp\collection\Collection;
+    public static function fromResource($resource): Collection;
 
     /**
-     * @psalm-return \loophp\collection\Collection<int, string>
+     * @psalm-return \loophp\collection\Contract\Collection<int, string>
      */
-    public static function fromString(string $string, string $delimiter = ''): \loophp\collection\Collection;
+    public static function fromString(string $string, string $delimiter = ''): Collection;
 
     /**
      * @psalm-return \loophp\collection\Iterator\ClosureIterator<TKey, T>
@@ -364,7 +369,7 @@ interface Collection extends
      * @param mixed $data
      * @param mixed ...$parameters
      *
-     * @psalm-return \loophp\collection\Collection<NewTKey, NewT>
+     * @psalm-return \loophp\collection\Contract\Collection<NewTKey, NewT>
      */
-    public static function with($data = [], ...$parameters): \loophp\collection\Collection;
+    public static function with($data = [], ...$parameters): Collection;
 }
