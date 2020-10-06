@@ -409,24 +409,24 @@ final class Collection implements CollectionInterface
         return $this->run(Flip::of());
     }
 
-    public function foldLeft(callable $callback, $initial = null)
+    public function foldLeft(callable $callback, $initial = null): CollectionInterface
     {
-        return $this->run(FoldLeft::of()($callback)($initial))->getIterator()->current();
+        return $this->run(FoldLeft::of()($callback)($initial));
     }
 
-    public function foldLeft1(callable $callback)
+    public function foldLeft1(callable $callback): CollectionInterface
     {
-        return $this->run(FoldLeft1::of()($callback))->getIterator()->current();
+        return $this->run(FoldLeft1::of()($callback));
     }
 
-    public function foldRight(callable $callback, $initial = null)
+    public function foldRight(callable $callback, $initial = null): CollectionInterface
     {
-        return $this->run(Foldright::of()($callback)($initial))->getIterator()->current();
+        return $this->run(Foldright::of()($callback)($initial));
     }
 
-    public function foldRight1(callable $callback)
+    public function foldRight1(callable $callback): CollectionInterface
     {
-        return $this->run(FoldRight1::of()($callback))->getIterator()->current();
+        return $this->run(FoldRight1::of()($callback));
     }
 
     public function forget(...$keys): CollectionInterface

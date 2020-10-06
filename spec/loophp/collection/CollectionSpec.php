@@ -802,7 +802,7 @@ class CollectionSpec extends ObjectBehavior
                 },
                 ''
             )
-            ->shouldReturn('ABC');
+            ->shouldIterateAs([2 => 'ABC']);
     }
 
     public function it_can_fold_from_the_right(): void
@@ -816,7 +816,7 @@ class CollectionSpec extends ObjectBehavior
                 },
                 ''
             )
-            ->shouldReturn('CBA');
+            ->shouldIterateAs([0 => 'CBA']);
     }
 
     public function it_can_foldleft1(): void
@@ -827,11 +827,11 @@ class CollectionSpec extends ObjectBehavior
 
         $this::fromIterable([64, 4, 2, 8])
             ->foldLeft1($callback)
-            ->shouldReturn(1);
+            ->shouldIterateAs([3 => 1]);
 
         $this::fromIterable([12])
             ->foldLeft1($callback)
-            ->shouldReturn(12);
+            ->shouldIterateAs([0 => 12]);
     }
 
     public function it_can_foldright1(): void
@@ -842,11 +842,11 @@ class CollectionSpec extends ObjectBehavior
 
         $this::fromIterable([8, 12, 24, 4])
             ->foldRight1($callback)
-            ->shouldReturn(4);
+            ->shouldIterateAs([0 => 4]);
 
         $this::fromIterable([12])
             ->foldRight1($callback)
-            ->shouldReturn(12);
+            ->shouldIterateAs([0 => 12]);
     }
 
     public function it_can_forget(): void
@@ -1744,7 +1744,7 @@ EOF;
             }
         };
 
-        $map = new class() extends AbstractOperation implements Operation {
+        $castToInt = new class() extends AbstractOperation implements Operation {
             public function __invoke(): Closure
             {
                 return static function ($collection) {
@@ -1756,7 +1756,7 @@ EOF;
         };
 
         $this::fromIterable(range(1, 5))
-            ->run($square(), $sqrt(), $map())
+            ->run($square(), $sqrt(), $castToInt())
             ->shouldIterateAs(range(1, 5));
     }
 
