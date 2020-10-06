@@ -8,7 +8,7 @@
  [![License][license]][packagist collection]
  [![Donate!][donate github]][github sponsor]
  [![Donate!][donate paypal]][paypal sponsor]
- 
+
 # PHP Collection
 
 ## Description
@@ -39,7 +39,7 @@ On top of this, this library:
  * fully tested,
  * type safe (_type safe @ > 94%_),
  * framework agnostic.
- 
+
 Except a few methods, most methods are [pure][pure function on wikipedia] and return a
 [new Collection object][collection class].
 
@@ -64,62 +64,65 @@ This library has been inspired by:
 
 ## Features
 
-* **Decoupled**: Each Collection methods is a shortcut to one isolated standard class, each operation has its own
-responsibility. Usually the arguments needed are standard PHP variables like `int`, `string`, `callable` or `iterator`.
-It allows users to use those operations individually, at their own will to build up something custom. Currently, more 
-than [**80 operations**][collection api] are available in this library. This library is basically an example of what you can do with all 
-those small bricks, but nothing prevent users to use an operation on its own as well.
+* **Decoupled**: Each Collection methods is a shortcut to one isolated standard class,
+    each operation has its own responsibility. Usually the arguments needed are
+    standard PHP variables like `int`, `string`, `callable` or `iterator`.
+    It allows users to use those operations individually, at their own will to build
+    up something custom. Currently, more than [**80 operations**][collection api] are
+    available in this library. This library is basically an example of what you can do with all
+    those small bricks, but nothing prevent users to use an operation on its own as well.
 
-* **It takes function first, data-last**: In the following example, multiple operations are created. The data to be 
-operated on is generally supplied at last.
+* **It takes function first, data-last**: In the following example, multiple operations are created.
+    The data to be operated on is generally supplied at last.
 
     ```php
     <?php
-    
+
     $data = ['foo', 'bar', 'baz'];
     $filterCallback = static fn(string $userId): bool => 'foo' !== $userId;
-    
+
     // Using the Collection library
     $collection = Collection::fromIterable($data)
         ->filter($filterCallback)
         ->reverse();
     print_r($collection->all()); // ['baz', 'bar']
 
-    // Using single operations.    
+    // Using single operations.
     $filter = Filter::of()($filterCallback);
     $reverse = Reverse::of();
     $compose = Compose::of()($reverse, $filter);
     print_r(iterator_to_array($compose(new ArrayIterator($data))));  // ['baz', 'bar']
     ```
 
-    More information about this in the [Brian Lonsdorf's conference][brian lonsdorf conference], even if this is for
-    Javascript, those concepts are common to other programming languages.
-    
-    In a nutshell, the combination of currying and function-first enables the developer to compose functions with very
-little code (_often in a “point-free” fashion_), before finally passing in the relevant user data.
+    More information about this in the [Brian Lonsdorf's conference][brian lonsdorf conference], even if
+    this is for Javascript, those concepts are common to other programming languages.
 
-* **Operations are stateless and curried by default**: This currying makes it easy to compose functions to create new
-functions. Because the API is _function-first_, _data-last_, you can continue composing and composing until you build
-up the function you need before dropping in the data. See [this Hugh Jackson article][hugh jackson post] describing the 
-advantages of this style.
+    In a nutshell, the combination of currying and function-first enables the developer to compose
+    functions with very little code (_often in a “point-free” fashion_), before finally passing in the
+    relevant user data.
+
+* **Operations are stateless and curried by default**: This currying makes it easy to
+    compose functions to create new functions. Because the API is _function-first_, _data-last_, you can
+    continue composing and composing until you build up the function you need before dropping in the data.
+    See [this Hugh Jackson article][hugh jackson post] describing the advantages of this style.
 
     In the following example, the well-known [`flatMap`][flatmap] could be composed of other operations as such:
 
     ```php
     <?php
-    
+
     $input = ['foo,bar', 'baz,john'];
     $userData = new ArrayIterator($input);
-    
+
     $flatMap = static fn (callable $callable) =>
                    Compose::of()(
                       Map::of()($callable), 
                       Flatten::of()(1), 
                       Normalize::of()
                    );
-    
+
     $callback = fn(string $name): array => explode(',', $name);
-    
+
     print_r(iterator_to_array($flatMap($callback)($userData))); // ['foo', 'bar', 'baz', 'john']
     ```
 
@@ -150,7 +153,7 @@ tests.
 The library has tests written with [PHPSpec][phpspec].
 Feel free to check them out in the `spec` directory. Run `composer phpspec` to trigger the tests.
 
-Before each commit some inspections are executed with [GrumPHP][grumphp], 
+Before each commit some inspections are executed with [GrumPHP][grumphp],
 run `composer grumphp` to check manually.
 
 The quality of the tests is tested with [Infection][infection] a PHP Mutation testing
@@ -166,8 +169,7 @@ information. (_[example of PHP Insights report][php insights report], you must b
 
 Feel free to contribute by sending Github pull requests. I'm quite reactive :-)
 
-If you can't contribute to the code, you can also sponsor me on [Github][github sponsor] or
-[Paypal][paypal sponsor].
+If you can't contribute to the code, you can also sponsor me on [Github][github sponsor] or [Paypal][paypal sponsor].
 
 ## On the internet
 * [Reddit announcement thread][reddit announcement]
