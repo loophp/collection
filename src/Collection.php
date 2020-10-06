@@ -546,9 +546,9 @@ final class Collection implements CollectionInterface
         return $this->pipe(IfThenElse::of()($condition)($then)($else));
     }
 
-    public function implode(string $glue = ''): string
+    public function implode(string $glue = ''): CollectionInterface
     {
-        return $this->pipe(Implode::of()($glue))->getIterator()->current();
+        return $this->pipe(Implode::of()($glue));
     }
 
     public function init(): CollectionInterface

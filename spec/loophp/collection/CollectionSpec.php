@@ -167,8 +167,8 @@ class CollectionSpec extends ObjectBehavior
 
         $stream = fopen('data://text/plain,' . $string, 'rb');
         $this::fromResource($stream)
-            ->implode('')
-            ->shouldReturn($string);
+            ->implode()
+            ->shouldIterateAs([55 => $string]);
     }
 
     public function it_can_be_constructed_from_array(): void
@@ -1126,11 +1126,11 @@ class CollectionSpec extends ObjectBehavior
     {
         $this::fromIterable(range('A', 'C'))
             ->implode('-')
-            ->shouldReturn('A-B-C');
+            ->shouldIterateAs([2 => 'A-B-C']);
 
         $this::fromIterable(range('A', 'C'))
             ->implode()
-            ->shouldReturn('ABC');
+            ->shouldIterateAs([2 => 'ABC']);
     }
 
     public function it_can_init(): void
@@ -2621,7 +2621,7 @@ EOF;
             ->last()
             ->unwrap()
             ->implode()
-            ->shouldReturn('indent_size = 4');
+            ->shouldIterateAs([14 => 'indent_size = 4']);
 
         $stream = fopen(__DIR__ . '/../../fixtures/sample.txt', 'rb');
 
