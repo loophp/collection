@@ -887,11 +887,11 @@ class CollectionSpec extends ObjectBehavior
     {
         $this::fromIterable(range('A', 'E'))
             ->get(4)
-            ->shouldReturn('E');
+            ->shouldIterateAs(['E']);
 
         $this::fromIterable(range('A', 'E'))
             ->get('unexistent key', 'default')
-            ->shouldReturn('default');
+            ->shouldIterateAs(['default']);
     }
 
     public function it_can_get_an_iterator(): void

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
+use loophp\collection\Contract\Collection;
+
 /**
  * @psalm-template TKey
  * @psalm-template TKey of array-key
@@ -20,8 +22,7 @@ interface Getable
      * @param mixed $default
      * @psalm-param T|null $default
      *
-     * @return mixed
-     * @psalm-return T|null
+     * @psalm-return \loophp\collection\Contract\Collection<TKey, T|null>
      */
-    public function get($key, $default = null);
+    public function get($key, $default = null): Collection;
 }

@@ -497,9 +497,9 @@ final class Collection implements CollectionInterface
         );
     }
 
-    public function get($key, $default = null)
+    public function get($key, $default = null): CollectionInterface
     {
-        return $this->pipe(Get::of()($key)($default))->getIterator()->current();
+        return $this->pipe(Get::of()($key)($default));
     }
 
     public function getIterator(): ClosureIterator
