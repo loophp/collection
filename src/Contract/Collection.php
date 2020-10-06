@@ -138,6 +138,7 @@ use loophp\collection\Iterator\ClosureIterator;
  * @template-extends Flipable<TKey, T>
  * @template-extends FoldLeftable<TKey, T>
  * @template-extends FoldLeft1able<TKey, T>
+ * @template-extends FoldRightable<TKey, T>
  * @template-extends FoldRight1able<TKey, T>
  * @template-extends Forgetable<TKey, T>
  * @template-extends Frequencyable<TKey, T>
