@@ -382,9 +382,9 @@ final class Collection implements CollectionInterface
         return $this->pipe(Explode::of()(...$explodes));
     }
 
-    public function falsy(): bool
+    public function falsy(): CollectionInterface
     {
-        return $this->pipe(Falsy::of())->getIterator()->current();
+        return $this->pipe(Falsy::of());
     }
 
     public function filter(callable ...$callbacks): CollectionInterface
@@ -629,9 +629,9 @@ final class Collection implements CollectionInterface
         return $this->pipe(Nth::of()($step)($offset));
     }
 
-    public function nullsy(): bool
+    public function nullsy(): CollectionInterface
     {
-        return $this->pipe(Nullsy::of())->getIterator()->current();
+        return $this->pipe(Nullsy::of());
     }
 
     public function pack(): CollectionInterface
@@ -787,9 +787,9 @@ final class Collection implements CollectionInterface
         return $this->pipe(Transpose::of());
     }
 
-    public function truthy(): bool
+    public function truthy(): CollectionInterface
     {
-        return $this->pipe(Truthy::of())->getIterator()->current();
+        return $this->pipe(Truthy::of());
     }
 
     public static function unfold(callable $callback, ...$parameters): CollectionInterface

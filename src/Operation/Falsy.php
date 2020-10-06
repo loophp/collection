@@ -20,20 +20,33 @@ final class Falsy extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        return
+        $mapCallback =
             /**
-             * @psalm-param Iterator<TKey, T> $iterator
-             *
-             * @psalm-return Generator<int, bool> $iterator
+             * @param mixed $value
+             * @psalm-param T $value
              */
-            static function (Iterator $iterator): Generator {
-                foreach ($iterator as $value) {
-                    if (false !== (bool) $value) {
-                        return yield false;
-                    }
-                }
-
-                return yield true;
+            static function ($value): bool {
+                return !(bool) $value;
             };
+
+        $dropWhileCallback =
+            /**
+             * @param mixed $value
+             * @psalm-param T $value
+             */
+            static function ($value): bool {
+                return true === $value;
+            };
+
+        /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, bool> $pipe */
+        $pipe = Pipe::of()(
+            Map::of()($mapCallback),
+            DropWhile::of()($dropWhileCallback),
+            Append::of()(true),
+            Head::of()
+        );
+
+        // Point free style.
+        return $pipe;
     }
 }

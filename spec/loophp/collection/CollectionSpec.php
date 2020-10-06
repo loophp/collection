@@ -457,19 +457,19 @@ class CollectionSpec extends ObjectBehavior
     {
         $this::fromIterable(range('A', 'C'))
             ->contains('A')
-            ->shouldReturn(true);
+            ->shouldIterateAs([true]);
 
         $this::fromIterable(range('A', 'C'))
             ->contains('unknown')
-            ->shouldReturn(false);
+            ->shouldIterateAs([false]);
 
         $this::fromIterable(range('A', 'C'))
             ->contains('C', 'A')
-            ->shouldReturn(true);
+            ->shouldIterateAs([true]);
 
         $this::fromIterable(range('A', 'C'))
             ->contains('C', 'unknown', 'A')
-            ->shouldReturn(false);
+            ->shouldIterateAs([false]);
     }
 
     public function it_can_convert_use_a_string_as_parameter(): void
@@ -686,15 +686,15 @@ class CollectionSpec extends ObjectBehavior
     {
         $this::fromIterable([false, false, false])
             ->falsy()
-            ->shouldReturn(true);
+            ->shouldIterateAs([true]);
 
         $this::fromIterable([false, true, false])
             ->falsy()
-            ->shouldReturn(false);
+            ->shouldIterateAs([1 => false]);
 
         $this::fromIterable([0, [], ''])
             ->falsy()
-            ->shouldReturn(true);
+            ->shouldIterateAs([true]);
     }
 
     public function it_can_filter(): void
@@ -1439,11 +1439,19 @@ EOF;
     {
         $this::fromIterable([null, null, null])
             ->nullsy()
-            ->shouldReturn(true);
+            ->shouldIterateAs([true]);
 
         $this::fromIterable([null, 0, null])
             ->nullsy()
-            ->shouldReturn(false);
+            ->shouldIterateAs([true]);
+
+        $this::fromIterable([null, [], 0, false, ''])
+            ->nullsy()
+            ->shouldIterateAs([true]);
+
+        $this::fromIterable([null, [], 0, false, '', 'foo'])
+            ->nullsy()
+            ->shouldIterateAs([5 => false]);
     }
 
     public function it_can_pack(): void
@@ -2142,19 +2150,19 @@ EOF;
     {
         $this::fromIterable([true, true, true])
             ->truthy()
-            ->shouldReturn(true);
+            ->shouldIterateAs([true]);
 
         $this::fromIterable([true, false, true])
             ->truthy()
-            ->shouldReturn(false);
+            ->shouldIterateAs([1 => false]);
 
         $this::fromIterable([1, 2, 3])
             ->truthy()
-            ->shouldReturn(true);
+            ->shouldIterateAs([true]);
 
         $this::fromIterable([1, 2, 3, 0])
             ->truthy()
-            ->shouldReturn(false);
+            ->shouldIterateAs([3 => false]);
     }
 
     public function it_can_unfold(): void

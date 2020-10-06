@@ -8,6 +8,8 @@ use Closure;
 use Generator;
 use Iterator;
 
+use function in_array;
+
 /**
  * @psalm-template TKey
  * @psalm-template TKey of array-key
@@ -20,19 +22,33 @@ final class Nullsy extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        return
+        $mapCallback =
             /**
-             * @psalm-param Iterator<TKey, T> $iterator
-             * @psalm-return Generator<int, bool>
+             * @param mixed $value
+             * @psalm-param T $value
              */
-            static function (Iterator $iterator): Generator {
-                foreach ($iterator as $value) {
-                    if (null !== $value) {
-                        return yield false;
-                    }
-                }
-
-                return yield true;
+            static function ($value): bool {
+                return in_array($value, [null, [], 0, false, ''], true);
             };
+
+        $dropWhileCallback =
+            /**
+             * @param mixed $value
+             * @psalm-param T $value
+             */
+            static function ($value): bool {
+                return true === $value;
+            };
+
+        /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, bool> $pipe */
+        $pipe = Pipe::of()(
+            Map::of()($mapCallback),
+            DropWhile::of()($dropWhileCallback),
+            Append::of()(true),
+            Head::of()
+        );
+
+        // Point free style.
+        return $pipe;
     }
 }
