@@ -517,9 +517,9 @@ final class Collection implements CollectionInterface
         return $this->pipe(GroupBy::of()($callable));
     }
 
-    public function has(callable $callback): bool
+    public function has(callable $callback): CollectionInterface
     {
-        return $this->pipe(Has::of()($callback))->getIterator()->current();
+        return $this->pipe(Has::of()($callback));
     }
 
     public function head(): CollectionInterface

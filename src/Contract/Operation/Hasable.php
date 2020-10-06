@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
+use loophp\collection\Contract\Collection;
+
 /**
  * @psalm-template TKey
  * @psalm-template TKey of array-key
@@ -12,7 +14,9 @@ namespace loophp\collection\Contract\Operation;
 interface Hasable
 {
     /**
-     * @psalm-param callable(TKey, T):(bool) $callback
+     * @psalm-param callable(TKey, T): bool $callback
+     *
+     * @psalm-return \loophp\collection\Contract\Collection<int, bool>
      */
-    public function has(callable $callback): bool;
+    public function has(callable $callback): Collection;
 }

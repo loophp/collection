@@ -1075,13 +1075,13 @@ class CollectionSpec extends ObjectBehavior
             ->has(static function ($key, $value) {
                 return 'A';
             })
-            ->shouldReturn(true);
+            ->shouldIterateAs([true]);
 
         $this::fromIterable(range('A', 'C'))
             ->has(static function ($key, $value) {
                 return 'Z';
             })
-            ->shouldReturn(false);
+            ->shouldIterateAs([false]);
     }
 
     public function it_can_head(): void
