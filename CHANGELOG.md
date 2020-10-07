@@ -5,10 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.6.3](https://github.com/loophp/collection/compare/2.6.2...2.6.3)
+## [2.7.0](https://github.com/loophp/collection/compare/2.6.3...2.7.0)
 
 ### Commits
 
+- **Breaking change:** refactor: Remove Reduce operation. [`42934a9`](https://github.com/loophp/collection/commit/42934a920ccd661d068f3915bbb1cdf134254d9b)
+- **Breaking change:** refactor: Update Implode operation. [`4cedd34`](https://github.com/loophp/collection/commit/4cedd346fbfe5970ad81285e84decf480fa4acf1)
+- **Breaking change:** refactor: Update Has operation. [`082384b`](https://github.com/loophp/collection/commit/082384bef0af271c4a4bef5f55fc4a1825b6c66b)
+- **Breaking change:** refactor: Update Get operation. [`b761ce7`](https://github.com/loophp/collection/commit/b761ce744257ddd626635ecb4835cf86769c9199)
+- **Breaking change:** refactor: Update Contains operation. [`a99e72a`](https://github.com/loophp/collection/commit/a99e72a72b6c89069fee560bfb3292a29c3b8046)
+- **Breaking change:** refactor: Update Falsy, Nullsy and Truthy operations. [`07fbce4`](https://github.com/loophp/collection/commit/07fbce4f560528bcbfa81112fd5e19049273a527)
+- **Breaking change:** refactor: Update Fold* operations. [`f6828f0`](https://github.com/loophp/collection/commit/f6828f0fc1d1792f84cfda9e9a299c1d38702f42)
+- **Breaking change:** refactor: Rename Run into Pipe. [`e3b3261`](https://github.com/loophp/collection/commit/e3b32615f338a94664a25756d77ffe094cb27d4a)
+- **Breaking change:** refactor: Rename Group operation into GroupBy [`248e5a4`](https://github.com/loophp/collection/commit/248e5a4e2d6f7882801d95128bf36748a0f9019c)
+- docs: Update README. [`ce14a0d`](https://github.com/loophp/collection/commit/ce14a0d71698bf7264a36011903f6ab0bb907279)
+- feat: Add Group operation. [`a7df56c`](https://github.com/loophp/collection/commit/a7df56c8e8c503aa8ffbfe24425e4479e9d1de00)
+
+## [2.6.3](https://github.com/loophp/collection/compare/2.6.2...2.6.3) - 2020-10-07
+
+### Commits
+
+- docs: Update changelog. [`46911c7`](https://github.com/loophp/collection/commit/46911c776b193dbcecf82cb6eb505f7b8863012f)
 - refactor: Update return types. [`25cc915`](https://github.com/loophp/collection/commit/25cc91573551cf23d815dfa8702a743090f6acc3)
 - refactor: Add missing annotations. [`f1aae0d`](https://github.com/loophp/collection/commit/f1aae0d72398d6ebc18d4167a27dda8ce94498eb)
 - feat: Add Inits operation. [`70855c3`](https://github.com/loophp/collection/commit/70855c36c67d102e1e57e4eb7f02623a139bb51b)
