@@ -1714,18 +1714,6 @@ EOF;
             ->shouldNotIterateAs($generator($input));
     }
 
-    public function it_can_reduce(): void
-    {
-        $this::fromIterable(range(1, 100))
-            ->reduce(
-                static function ($carry, $item) {
-                    return $carry + $item;
-                },
-                0
-            )
-            ->shouldReturn(5050);
-    }
-
     public function it_can_reduction(): void
     {
         $this::fromIterable(range(1, 5))

@@ -76,7 +76,6 @@ use loophp\collection\Operation\Prepend;
 use loophp\collection\Operation\Product;
 use loophp\collection\Operation\Random;
 use loophp\collection\Operation\Range;
-use loophp\collection\Operation\Reduce;
 use loophp\collection\Operation\Reduction;
 use loophp\collection\Operation\Reverse;
 use loophp\collection\Operation\RSample;
@@ -686,11 +685,6 @@ final class Collection implements CollectionInterface
     public static function range(float $start = 0.0, float $end = INF, float $step = 1.0): CollectionInterface
     {
         return (new self())->pipe(Range::of()($start)($end)($step));
-    }
-
-    public function reduce(callable $callback, $initial = null)
-    {
-        return $this->pipe(Reduce::of()($callback)($initial))->getIterator()->current();
     }
 
     public function reduction(callable $callback, $initial = null): CollectionInterface

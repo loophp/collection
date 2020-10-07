@@ -1266,11 +1266,6 @@ Signature: ``Collection::random(int $size = 1);``
     $collection = Collection::fromIterable(['4', '5', '6'])
         ->random(); // ['6']
 
-reduce
-~~~~~~
-
-Interface: `Reduceable`_
-
 reduction
 ~~~~~~~~~
 
@@ -2010,7 +2005,6 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Prependable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Prependable.php
 .. _Productable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Productable.php
 .. _Randomable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Randomable.php
-.. _Reduceable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Reduceable.php
 .. _Reductionable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Reductionable.php
 .. _Reverseable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Reverseable.php
 .. _Scaleable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Scaleable.php
