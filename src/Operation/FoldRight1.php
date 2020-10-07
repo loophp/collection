@@ -18,7 +18,7 @@ use Iterator;
 final class FoldRight1 extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(callable(T|null, T, TKey, Iterator<TKey, T>):(T|null)): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @psalm-return Closure(callable(T|null, T, TKey, Iterator<TKey, T>):(T|null)): Closure(Iterator<TKey, T>): Generator<int|TKey, T|null>
      */
     public function __invoke(): Closure
     {
@@ -26,26 +26,18 @@ final class FoldRight1 extends AbstractOperation
             /**
              * @psalm-param callable(T|null, T, TKey, Iterator<TKey, T>):(T|null) $callback
              *
-             * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @psalm-return Closure(Iterator<TKey, T>): Generator<int|TKey, T|null>
              */
             static function (callable $callback): Closure {
-                return
-                    /**
-                     * @psalm-param Iterator<TKey, T> $iterator
-                     *
-                     * @psalm-return Generator<TKey, T>
-                     */
-                    static function (Iterator $iterator) use ($callback): Generator {
-                        /** @psalm-var Generator<TKey, T> $iterator */
-                        $iterator = ScanRight1::of()($callback)(Reverse::of()($iterator));
+                /** @psalm-var Closure(Iterator<TKey, T>): Generator<int|TKey, T|null> $pipe */
+                $pipe = Pipe::of()(
+                    Reverse::of(),
+                    ScanRight1::of()($callback),
+                    Head::of()
+                );
 
-                        /** @psalm-var Generator<int, TKey> $key */
-                        $key = (Key::of()(0)($iterator));
-                        /** @psalm-var Generator<int, T> $current */
-                        $current = (Current::of()(0)($iterator));
-
-                        return yield $key->current() => $current->current();
-                    };
+                // Point free style.
+                return $pipe;
             };
     }
 }

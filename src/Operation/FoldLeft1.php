@@ -29,23 +29,14 @@ final class FoldLeft1 extends AbstractOperation
              * @psalm-return Closure(Iterator<TKey, T>): Generator<int|TKey, null|T>
              */
             static function (callable $callback): Closure {
-                return
-                    /**
-                     * @psalm-param Iterator<TKey, T> $iterator
-                     *
-                     * @psalm-return Generator<int|TKey, null|T>
-                     */
-                    static function (Iterator $iterator) use ($callback): Generator {
-                        /** @psalm-var Generator<TKey, T> $iterator */
-                        $iterator = Last::of()(ScanLeft1::of()($callback)($iterator));
+                /** @psalm-var Closure(Iterator<TKey, T>): Generator<int|TKey, T|null> $pipe */
+                $pipe = Pipe::of()(
+                    ScanLeft1::of()($callback),
+                    Last::of()
+                );
 
-                        /** @psalm-var Generator<int, TKey> $key */
-                        $key = (Key::of()(0)($iterator));
-                        /** @psalm-var Generator<int, T> $current */
-                        $current = (Current::of()(0)($iterator));
-
-                        return yield $key->current() => $current->current();
-                    };
+                // Point free style.
+                return $pipe;
             };
     }
 }

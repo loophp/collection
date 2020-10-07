@@ -27,21 +27,27 @@ final class Has extends AbstractOperation
              * @psalm-return Closure(Iterator<TKey, T>): Generator<int, bool>
              */
             static function (callable $callback): Closure {
-                return
+                $mapCallback =
                     /**
-                     * @psalm-param Iterator<TKey, T> $iterator
+                     * @param mixed $value
+                     * @psalm-param T $value
                      *
-                     * @psalm-return Generator<int, bool>
+                     * @param mixed $key
+                     * @psalm-param TKey $key
                      */
-                    static function (Iterator $iterator) use ($callback): Generator {
-                        foreach ($iterator as $key => $value) {
-                            if ($callback($key, $value) === $value) {
-                                return yield true;
-                            }
-                        }
-
-                        return yield false;
+                    static function ($value, $key) use ($callback): bool {
+                        return $callback($key, $value) === $value;
                     };
+
+                /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, bool> $pipe */
+                $pipe = Pipe::of()(
+                    Map::of()($mapCallback),
+                    Append::of()(false),
+                    Head::of()
+                );
+
+                // Point free style.
+                return $pipe;
             };
     }
 }

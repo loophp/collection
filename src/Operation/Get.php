@@ -15,37 +15,48 @@ use Iterator;
  */
 final class Get extends AbstractOperation
 {
+    /**
+     * @psalm-return Closure(T|TKey): Closure(T): Closure(Iterator<TKey, T>): Generator<int|TKey, T>
+     */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param array-key $keyToGet
-             *
              * @param mixed $keyToGet
+             * @psalm-param T|TKey $keyToGet
+             *
+             * @psalm-return Closure(T): Closure(Iterator<TKey, T>): Generator<int|TKey, T>
              */
             static function ($keyToGet): Closure {
                 return
                     /**
+                     * @param mixed $default
                      * @psalm-param T $default
                      *
-                     * @param mixed $default
+                     * @psalm-return Closure(Iterator<TKey, T>): Generator<int|TKey, T>
                      */
                     static function ($default) use ($keyToGet): Closure {
-                        return
+                        $filterCallback =
                             /**
-                             * @psalm-param Iterator<TKey, T> $iterator
+                             * @param mixed $value
+                             * @psalm-param T $value
                              *
-                             * @psalm-return Generator<int, T>
+                             * @param mixed $key
+                             * @psalm-param TKey $key
                              */
-                            static function (Iterator $iterator) use ($keyToGet, $default): Generator {
-                                foreach ($iterator as $key => $value) {
-                                    if ($key === $keyToGet) {
-                                        return yield $value;
-                                    }
-                                }
-
-                                return yield $default;
+                            static function ($value, $key) use ($keyToGet): bool {
+                                return $key === $keyToGet;
                             };
+
+                        /** @psalm-var Closure(Iterator<TKey, T>): Generator<int|TKey, T> $pipe */
+                        $pipe = Pipe::of()(
+                            Filter::of()($filterCallback),
+                            Append::of()($default),
+                            Head::of()
+                        );
+
+                        // Point free style.
+                        return $pipe;
                     };
             };
     }
