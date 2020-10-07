@@ -5,10 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.6.3](https://github.com/loophp/collection/compare/2.6.2...2.6.3)
+
+### Commits
+
+- refactor: Update return types. [`25cc915`](https://github.com/loophp/collection/commit/25cc91573551cf23d815dfa8702a743090f6acc3)
+- refactor: Add missing annotations. [`f1aae0d`](https://github.com/loophp/collection/commit/f1aae0d72398d6ebc18d4167a27dda8ce94498eb)
+- feat: Add Inits operation. [`70855c3`](https://github.com/loophp/collection/commit/70855c36c67d102e1e57e4eb7f02623a139bb51b)
+- docs: Update annotations. [`39ad38f`](https://github.com/loophp/collection/commit/39ad38f0a5e05d2a447b03e1a3e86bf7a820be08)
+- feat: Add Span operation. [`48d9620`](https://github.com/loophp/collection/commit/48d9620ad4ddf29f2f4d697bd659019452abb21d)
+
 ## [2.6.2](https://github.com/loophp/collection/compare/2.6.1...2.6.2) - 2020-10-02
 
 ### Commits
 
+- docs: Update changelog. [`ea9a8f1`](https://github.com/loophp/collection/commit/ea9a8f1eec3768670e2468d116d41ae3686582e6)
 - feat: Add Tails operation. [`1299853`](https://github.com/loophp/collection/commit/12998539035b32bb616787f9716a963316d6d081)
 - chore: Update .gitignore. [`ffae108`](https://github.com/loophp/collection/commit/ffae108e4cf56d51d8d4c88415ffcb90b6bb0041)
 - chore: Update composer.json. [`2686f05`](https://github.com/loophp/collection/commit/2686f05bc783da814f4d839e912200e79659a0db)
