@@ -1072,15 +1072,43 @@ class CollectionSpec extends ObjectBehavior
     public function it_can_has(): void
     {
         $this::fromIterable(range('A', 'C'))
-            ->has(static function ($key, $value) {
-                return 'A';
-            })
+            ->has(
+                static function ($key, $value) {
+                    return 'A';
+                }
+            )
             ->shouldIterateAs([true]);
 
         $this::fromIterable(range('A', 'C'))
-            ->has(static function ($key, $value) {
-                return 'Z';
-            })
+            ->has(
+                static function ($key, $value) {
+                    return 'Z';
+                }
+            )
+            ->shouldIterateAs([false]);
+
+        $this::fromIterable(['b', 1, 'foo', 'bar'])
+            ->has(
+                static function ($key, $value) {
+                    return 'foo';
+                }
+            )
+            ->shouldIterateAs([2 => true]);
+
+        $this::fromIterable(['b', 1, 'foo', 'bar'])
+            ->has(
+                static function ($key, $value) {
+                    return 'unknown';
+                }
+            )
+            ->shouldIterateAs([false]);
+
+        $this::empty()
+            ->has(
+                static function ($key, $value) {
+                    return $value;
+                }
+            )
             ->shouldIterateAs([false]);
     }
 

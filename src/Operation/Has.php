@@ -39,9 +39,19 @@ final class Has extends AbstractOperation
                         return $callback($key, $value) === $value;
                     };
 
+                $dropWhileCallback =
+                    /**
+                     * @param mixed $value
+                     * @psalm-param T $value
+                     */
+                    static function ($value): bool {
+                        return false === $value;
+                    };
+
                 /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, bool> $pipe */
                 $pipe = Pipe::of()(
                     Map::of()($mapCallback),
+                    DropWhile::of()($dropWhileCallback),
                     Append::of()(false),
                     Head::of()
                 );
