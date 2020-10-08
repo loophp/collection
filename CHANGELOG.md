@@ -5,7 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.7.0](https://github.com/loophp/collection/compare/2.6.3...2.7.0)
+## [2.7.1](https://github.com/loophp/collection/compare/2.7.0...2.7.1)
+
+### Merged
+
+- Fix Has operation. [`#29`](https://github.com/loophp/collection/pull/29)
+- chore(deps): Bump actions/checkout from v2.3.2 to v2.3.3 [`#27`](https://github.com/loophp/collection/pull/27)
+
+### Commits
+
+- fix: Fix Has operation. [`8af7817`](https://github.com/loophp/collection/commit/8af7817cef291570f83169a4753861d150f17ae2)
+- refactor: Leverage tacit programming. [`69541f6`](https://github.com/loophp/collection/commit/69541f6179d48cf2c5da5d201a3cd600b86d8dde)
+
+## [2.7.0](https://github.com/loophp/collection/compare/2.6.3...2.7.0) - 2020-10-07
 
 ### Commits
 
@@ -18,6 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Breaking change:** refactor: Update Fold* operations. [`f6828f0`](https://github.com/loophp/collection/commit/f6828f0fc1d1792f84cfda9e9a299c1d38702f42)
 - **Breaking change:** refactor: Rename Run into Pipe. [`e3b3261`](https://github.com/loophp/collection/commit/e3b32615f338a94664a25756d77ffe094cb27d4a)
 - **Breaking change:** refactor: Rename Group operation into GroupBy [`248e5a4`](https://github.com/loophp/collection/commit/248e5a4e2d6f7882801d95128bf36748a0f9019c)
+- docs: Update changelog. [`bca5780`](https://github.com/loophp/collection/commit/bca578096280182d7565580204c23274407ec419)
 - docs: Update README. [`ce14a0d`](https://github.com/loophp/collection/commit/ce14a0d71698bf7264a36011903f6ab0bb907279)
 - feat: Add Group operation. [`a7df56c`](https://github.com/loophp/collection/commit/a7df56c8e8c503aa8ffbfe24425e4479e9d1de00)
 
