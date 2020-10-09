@@ -16,5 +16,5 @@ interface DropWhileable
     /**
      * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
      */
-    public function dropWhile(callable $callback): Collection;
+    public function dropWhile(callable ...$callbacks): Collection;
 }

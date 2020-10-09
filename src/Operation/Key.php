@@ -27,18 +27,14 @@ final class Key extends AbstractOperation
              * @psalm-return Closure(Iterator<TKey, T>): Generator<int, TKey>
              */
             static function (int $index): Closure {
-                return
-                    /**
-                     * @psalm-param Iterator<TKey, T> $iterator
-                     *
-                     * @psalm-return Generator<int, TKey>
-                     */
-                    static function (Iterator $iterator) use ($index): Generator {
-                        for ($i = 0; $i < $index; $i++, $iterator->next()) {
-                        }
+                /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, TKey> $pipe */
+                $pipe = Pipe::of()(
+                    Limit::of()(1)($index),
+                    Flip::of()
+                );
 
-                        return yield $iterator->key();
-                    };
+                // Point free style.
+                return $pipe;
             };
     }
 }

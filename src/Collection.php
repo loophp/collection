@@ -357,9 +357,9 @@ final class Collection implements CollectionInterface
         return $this->pipe(Drop::of()(...$counts));
     }
 
-    public function dropWhile(callable $callback): CollectionInterface
+    public function dropWhile(callable ...$callbacks): CollectionInterface
     {
-        return $this->pipe(DropWhile::of()($callback));
+        return $this->pipe(DropWhile::of()(...$callbacks));
     }
 
     public function duplicate(): CollectionInterface

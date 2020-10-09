@@ -500,7 +500,7 @@ first time till the end of the list.
 
 Interface: `DropWhileable`_
 
-Signature: ``Collection::dropWhile(callable $callback);``
+Signature: ``Collection::dropWhile(callable ...$callbacks);``
 
 .. code-block:: php
 

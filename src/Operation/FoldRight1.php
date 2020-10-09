@@ -31,7 +31,6 @@ final class FoldRight1 extends AbstractOperation
             static function (callable $callback): Closure {
                 /** @psalm-var Closure(Iterator<TKey, T>): Generator<int|TKey, T|null> $pipe */
                 $pipe = Pipe::of()(
-                    Reverse::of(),
                     ScanRight1::of()($callback),
                     Head::of()
                 );

@@ -569,12 +569,16 @@ class CollectionSpec extends ObjectBehavior
 
     public function it_can_dropWhile(): void
     {
-        $isSmallerThanThree = static function ($value) {
+        $isSmallerThanThree = static function (int $value): bool {
             return 3 > $value;
         };
 
+        $isGreaterThanFive = static function (int $value): bool {
+            return 5 > $value;
+        };
+
         $this::fromIterable([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3])
-            ->dropWhile($isSmallerThanThree)
+            ->dropWhile($isGreaterThanFive, $isSmallerThanThree)
             ->shouldIterateAs([
                 2 => 3,
                 3 => 4,
@@ -1876,11 +1880,11 @@ EOF;
         $result = static function () {
             yield 0 => 8;
 
-            yield 0 => 1;
+            yield 1 => 1;
 
-            yield 1 => 12;
+            yield 2 => 12;
 
-            yield 2 => 2;
+            yield 0 => 2;
         };
 
         $this::fromIterable([8, 12, 24, 2])
