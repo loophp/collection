@@ -150,6 +150,7 @@ use loophp\collection\Iterator\ClosureIterator;
  * @template-extends Hasable<TKey, T>
  * @template-extends Headable<TKey, T>
  * @template-extends IfThenElseable<TKey, T>
+ * @template-extends Implodeable<TKey, T>
  * @template-extends Initable<TKey, T>
  * @template-extends Initsable<TKey, T>
  * @template-extends Intersectable<TKey, T>
