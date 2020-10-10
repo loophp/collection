@@ -488,6 +488,22 @@ class CollectionSpec extends ObjectBehavior
             ->shouldReturn(3);
     }
 
+    public function it_can_current(): void
+    {
+        $input = array_combine(
+            range('a', 'e'),
+            range(1, 5)
+        );
+
+        $this::fromIterable($input)
+            ->current(0)
+            ->shouldReturn(1);
+
+        $this::fromIterable($input)
+            ->current(4)
+            ->shouldReturn(5);
+    }
+
     public function it_can_cycle(): void
     {
         $generator = static function (): Generator {
@@ -1349,6 +1365,22 @@ class CollectionSpec extends ObjectBehavior
             ->intersperse('foo', 1, -1)
             ->shouldThrow(Exception::class)
             ->during('all');
+    }
+
+    public function it_can_key(): void
+    {
+        $input = array_combine(
+            range('a', 'e'),
+            range(1, 5)
+        );
+
+        $this::fromIterable($input)
+            ->key(0)
+            ->shouldReturn('a');
+
+        $this::fromIterable($input)
+            ->key(4)
+            ->shouldReturn('e');
     }
 
     public function it_can_keys(): void
