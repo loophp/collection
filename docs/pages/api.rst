@@ -178,7 +178,13 @@ Operations always returns a new collection object.
 all
 ~~~
 
+Convert the collection into an array.
+
+This is a lossy operation because PHP array keys cannot be duplicated and must either be int or string.
+
 Interface: `Allable`_
+
+Signature: ``Collection::all();``
 
 append
 ~~~~~~
@@ -402,7 +408,11 @@ Signature: ``Collection::compact(...$values);``
 contains
 ~~~~~~~~
 
+Check if the collection contains one or more value.
+
 Interface: `Containsable`_
+
+Signature: ``Collection::contains(...$value);``
 
 current
 ~~~~~~~
@@ -573,7 +583,11 @@ Signature: ``Collection::explode(...$items);``
 falsy
 ~~~~~
 
+Check if the collection contains falsy values.
+
 Interface: `Falsyable`_
+
+Signature: ``Collection::falsy();``
 
 filter
 ~~~~~~
@@ -739,7 +753,11 @@ Signature: ``Collection::frequency();``
 get
 ~~~
 
+Get a specific element of the collection from a key, if the key doesn't exists, returns the default value.
+
 Interface: `Getable`_
+
+Signature: ``Collection::get($key, $default = null);``
 
 group
 ~~~~~
@@ -788,7 +806,11 @@ Signature: ``Collection::groupBy(?callable $callback = null);``
 has
 ~~~
 
+Check if the collection has a value. The value must be provided as a callback.
+
 Interface: `Hasable`_
+
+Signature: ``Collection::has(callable $callback);``
 
 head
 ~~~~
@@ -845,7 +867,13 @@ Signature: ``Collection::ifThenElse(callable $condition, callable $then, ?callab
 implode
 ~~~~~~~
 
+Convert all the elements of the collection to a single string.
+
+The glue character can be provided, default is the empty character.
+
 Interface: `Implodeable`_
+
+Signature: ``Collection::implode(string $glue = '');``
 
 init
 ~~~~
@@ -1073,7 +1101,11 @@ Signature: ``Collection::nth(int $step, int $offset = 0);``
 nullsy
 ~~~~~~
 
+Check if the collection contains nullsy values.
+
 Interface: `Nullsyable`_
+
+Signature: ``Collection::nullsy();``
 
 only
 ~~~~
@@ -1684,7 +1716,11 @@ Signature: ``Collection::transpose();``
 truthy
 ~~~~~~
 
+Check if the collection contains truthy values.
+
 Interface: `Truthyable`_
+
+Signature: ``Collection::truthy();``
 
 unlines
 ~~~~~~~

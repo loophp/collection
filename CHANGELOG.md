@@ -5,7 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.7.1](https://github.com/loophp/collection/compare/2.7.0...2.7.1)
+## [2.7.2](https://github.com/loophp/collection/compare/2.7.1...2.7.2)
+
+### Commits
+
+- refactor: Add missing annotations. [`bdedb51`](https://github.com/loophp/collection/commit/bdedb51f91547117ff1069dffdc2686bba18b5f0)
+- refactor: Add return statement. [`1a57ffb`](https://github.com/loophp/collection/commit/1a57ffb6a9589a7da0811ae7d24955252c7635df)
+- test: Add missing tests. [`a2217a8`](https://github.com/loophp/collection/commit/a2217a8dba01e72354bec7738a98e76dcc22d7d6)
+- refactor: Align TakeWhile and Until operations. [`b680be9`](https://github.com/loophp/collection/commit/b680be963a113a554efe293c771cc74b52912065)
+- refactor: Leverage tacit programming. [`aa4df6e`](https://github.com/loophp/collection/commit/aa4df6e545216d72e5cf8ae3c8739bdc12000da3)
+
+## [2.7.1](https://github.com/loophp/collection/compare/2.7.0...2.7.1) - 2020-10-08
 
 ### Merged
 
@@ -14,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Commits
 
+- docs: Update changelog. [`7ea007d`](https://github.com/loophp/collection/commit/7ea007d7b74b6d5e936bcc1a2b12ed8cd75a37c0)
 - fix: Fix Has operation. [`8af7817`](https://github.com/loophp/collection/commit/8af7817cef291570f83169a4753861d150f17ae2)
 - refactor: Leverage tacit programming. [`69541f6`](https://github.com/loophp/collection/commit/69541f6179d48cf2c5da5d201a3cd600b86d8dde)
 
