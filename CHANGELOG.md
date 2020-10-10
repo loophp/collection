@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Commits
 
+- docs: Update documentation. [`94773e6`](https://github.com/loophp/collection/commit/94773e68c080e8a52f1038e29751753c3a849652)
 - refactor: Add missing annotations. [`bdedb51`](https://github.com/loophp/collection/commit/bdedb51f91547117ff1069dffdc2686bba18b5f0)
 - refactor: Add return statement. [`1a57ffb`](https://github.com/loophp/collection/commit/1a57ffb6a9589a7da0811ae7d24955252c7635df)
 - test: Add missing tests. [`a2217a8`](https://github.com/loophp/collection/commit/a2217a8dba01e72354bec7738a98e76dcc22d7d6)
