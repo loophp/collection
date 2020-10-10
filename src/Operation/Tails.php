@@ -41,7 +41,7 @@ final class Tails extends AbstractOperation
                     array_shift($data);
                 }
 
-                yield [];
+                return yield [];
             };
     }
 }
