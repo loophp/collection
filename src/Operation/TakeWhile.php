@@ -14,6 +14,7 @@ use Iterator;
  * @psalm-template T
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
+ * phpcs:disable Generic.WhiteSpace.ScopeIndent.IncorrectExact
  */
 final class TakeWhile extends AbstractOperation
 {
@@ -28,25 +29,68 @@ final class TakeWhile extends AbstractOperation
              *
              * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
-            static function (callable $callback): Closure {
+            static function (callable ...$callbacks): Closure {
                 return
                     /**
                      * @psalm-param Iterator<TKey, T> $iterator
                      *
                      * @psalm-return Generator<TKey, T>
                      */
-                    static function (Iterator $iterator) use ($callback): Generator {
+                    static function (Iterator $iterator) use ($callbacks): Generator {
+                        $reducerCallback =
+                            /**
+                             * @psalm-param TKey $key
+                             *
+                             * @psalm-return Closure(T): Closure(Iterator<TKey, T>): Closure(bool, callable(T, TKey, Iterator<TKey, T>): bool): bool
+                             *
+                             * @param mixed $key
+                             */
+                            static function ($key): Closure {
+                                return
+                                    /**
+                                     * @psalm-param T $current
+                                     *
+                                     * @psalm-return Closure(Iterator<TKey, T>): Closure(bool, callable(T, TKey, Iterator<TKey, T>): bool): bool
+                                     *
+                                     * @param mixed $current
+                                     */
+                                    static function ($current) use ($key): Closure {
+                                        return
+                                            /**
+                                             * @psalm-param Iterator<TKey, T> $iterator
+                                             *
+                                             * @psalm-return Closure(bool, callable(T, TKey, Iterator<TKey, T>): bool): bool
+                                             */
+                                            static function (Iterator $iterator) use ($key, $current): Closure {
+                                                return
+                                                    /**
+                                                     * @psalm-param bool $carry
+                                                     * @psalm-param callable(T, TKey, Iterator<TKey, T>): bool $callable
+                                                     */
+                                                    static function (bool $carry, callable $callable) use ($key, $current, $iterator): bool {
+                                                        return ($callable($current, $key, $iterator)) ?
+                                                            $carry :
+                                                            false;
+                                                    };
+                                            };
+                                    };
+                            };
+
                         for (; $iterator->valid(); $iterator->next()) {
                             $key = $iterator->key();
                             $current = $iterator->current();
 
-                            if (true === $callback($current, $key, $iterator)) {
-                                yield $key => $current;
+                            $result = array_reduce(
+                                $callbacks,
+                                $reducerCallback($key)($current)($iterator),
+                                true
+                            );
 
-                                continue;
+                            if (false === $result) {
+                                break;
                             }
 
-                            break;
+                            yield $key => $current;
                         }
                     };
             };

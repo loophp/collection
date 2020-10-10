@@ -41,39 +41,47 @@ final class Until extends AbstractOperation
                             /**
                              * @psalm-param TKey $key
                              *
-                             * @psalm-return Closure(T): Closure(bool, callable(T, TKey): bool): bool
+                             * @psalm-return Closure(T): Closure(Iterator<TKey, T>): Closure(bool, callable(T, TKey, Iterator<TKey, T>): bool): bool
                              *
                              * @param mixed $key
                              */
                             static function ($key): Closure {
                                 return
                                     /**
-                                     * @psalm-param T $value
+                                     * @psalm-param T $current
                                      *
-                                     * @psalm-return Closure(bool, callable(T, TKey): bool): bool
+                                     * @psalm-return Closure(Iterator<TKey, T>): Closure(bool, callable(T, TKey, Iterator<TKey, T>): bool): bool
                                      *
-                                     * @param mixed $value
+                                     * @param mixed $current
                                      */
-                                    static function ($value) use ($key): Closure {
+                                    static function ($current) use ($key): Closure {
                                         return
                                             /**
-                                             * @psalm-param bool $carry
-                                             * @psalm-param  callable(T, TKey): bool $callable
+                                             * @psalm-param Iterator<TKey, T> $iterator
+                                             *
+                                             * @psalm-return Closure(bool, callable(T, TKey, Iterator<TKey, T>): bool): bool
                                              */
-                                            static function (bool $carry, callable $callable) use ($key, $value): bool {
-                                                return ($callable($value, $key)) ?
-                                                    $carry :
-                                                    false;
+                                            static function (Iterator $iterator) use ($key, $current): Closure {
+                                                return
+                                                    /**
+                                                     * @psalm-param bool $carry
+                                                     * @psalm-param callable(T, TKey, Iterator<TKey, T>): bool $callable
+                                                     */
+                                                    static function (bool $carry, callable $callable) use ($key, $current, $iterator): bool {
+                                                        return ($callable($current, $key, $iterator)) ?
+                                                            $carry :
+                                                            false;
+                                                    };
                                             };
                                     };
                             };
 
-                        foreach ($iterator as $key => $value) {
-                            yield $key => $value;
+                        foreach ($iterator as $key => $current) {
+                            yield $key => $current;
 
                             $result = array_reduce(
                                 $callbacks,
-                                $reducerCallback($key)($value),
+                                $reducerCallback($key)($current)($iterator),
                                 true
                             );
 
