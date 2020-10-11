@@ -110,6 +110,37 @@ class CollectionSpec extends ObjectBehavior
             ->apply($apply1)
             ->apply($apply2)
             ->shouldIterateAs([1, 2, 3, 4, 5, 6]);
+
+        $a = (new stdClass());
+        $b = (new stdClass());
+        $c = (new stdClass());
+
+        $a->prop = 'a';
+        $b->prop = 'b';
+        $c->prop = 'c';
+
+        $input = [
+            $a, $b, $c,
+        ];
+
+        $this::fromIterable($input)
+            ->apply(
+                static function ($value, $key): bool {
+                    $value->prop = $key;
+
+                    return true;
+                }
+            )
+            ->map(
+                static function ($value): int {
+                    return $value->prop;
+                }
+            )
+            ->shouldIterateAs([
+                0,
+                1,
+                2,
+            ]);
     }
 
     public function it_can_associate(): void
@@ -176,7 +207,20 @@ class CollectionSpec extends ObjectBehavior
             ->shouldReturn(1);
     }
 
-    public function it_can_be_constructed_from_array(): void
+    public function it_can_be_constructed_from_a_string(): void
+    {
+        $this::fromString('izumi')
+            ->getIterator()
+            ->shouldIterateAs([
+                'i',
+                'z',
+                'u',
+                'm',
+                'i',
+            ]);
+    }
+
+    public function it_can_be_constructed_from_an_iterable(): void
     {
         $this
             ->beConstructedThrough('fromIterable', [range('A', 'E')]);
@@ -185,6 +229,39 @@ class CollectionSpec extends ObjectBehavior
 
         $this
             ->shouldIterateAs(['A', 'B', 'C', 'D', 'E']);
+
+        $iterable = [
+            'a',
+            'b',
+            'c',
+        ];
+
+        $this::fromIterable($iterable)
+            ->getIterator()
+            ->shouldIterateAs([
+                'a',
+                'b',
+                'c',
+            ]);
+    }
+
+    public function it_can_be_constructed_from_an_object(): void
+    {
+        $foo = new class() {
+            private $a = 'a';
+
+            private $b = 'b';
+
+            private $c = 'c';
+        };
+
+        $this::with($foo)
+            ->normalize()
+            ->shouldIterateAs([
+                'a',
+                'b',
+                'c',
+            ]);
     }
 
     public function it_can_be_constructed_from_empty(): void
@@ -208,11 +285,27 @@ class CollectionSpec extends ObjectBehavior
     public function it_can_be_constructed_with_a_closure(): void
     {
         $this
-            ->beConstructedThrough('fromCallable', [static function () {
-                yield from range(1, 3);
-            }]);
+            ->beConstructedThrough('fromCallable', [
+                static function (int $a, int $b): Generator {
+                    return yield from range($a, $b);
+                },
+                1,
+                5,
+            ]);
 
         $this->shouldImplement(Collection::class);
+
+        $this
+            ->getIterator()
+            ->shouldIterateAs(
+                [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                ]
+            );
     }
 
     public function it_can_be_constructed_with_an_arrayObject(): void
@@ -507,6 +600,10 @@ class CollectionSpec extends ObjectBehavior
         $this::fromIterable($input)
             ->current(4)
             ->shouldReturn(5);
+
+        $this::fromIterable(['a'])
+            ->current(0)
+            ->shouldReturn('a');
     }
 
     public function it_can_cycle(): void
@@ -1789,6 +1886,21 @@ EOF;
         $this::fromIterable($input)
             ->random(26)
             ->shouldNotIterateAs($generator($input));
+
+        $input = range('a', 'z');
+
+        $generator = static function (array $input): Generator {
+            yield from $input;
+        };
+
+        $this::fromIterable(['a'])
+            ->random()
+            ->shouldIterateAs(['a']);
+
+        $this::fromIterable($input)
+            ->random(0)
+            ->shouldThrow(OutOfBoundsException::class)
+            ->during('all');
     }
 
     public function it_can_reduction(): void
@@ -2611,6 +2723,24 @@ EOF;
                 (float) 0,
                 (float) 0,
                 (float) 0,
+            ]);
+
+        $this::range(1, 5)
+            ->shouldIterateAs([
+                0 => (float) 1,
+                1 => (float) 2,
+                2 => (float) 3,
+                3 => (float) 4,
+            ]);
+
+        $this::range(1, 5, 0)
+            ->limit(5)
+            ->shouldIterateAs([
+                0 => (float) 1,
+                1 => (float) 1,
+                2 => (float) 1,
+                3 => (float) 1,
+                4 => (float) 1,
             ]);
     }
 
