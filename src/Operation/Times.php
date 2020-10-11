@@ -6,7 +6,6 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use InvalidArgumentException;
 use Iterator;
 
 /**
@@ -42,7 +41,7 @@ final class Times extends AbstractOperation
                              */
                             static function (?Iterator $iterator = null) use ($number, $callback): Generator {
                                 if (1 > $number) {
-                                    throw new InvalidArgumentException('Invalid parameter. $number must be greater than 1.');
+                                    yield from [];
                                 }
 
                                 $callback = $callback ?? static function (int $value): int {
