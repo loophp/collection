@@ -80,6 +80,7 @@ final class RandomIterator implements Iterator, OuterIterator
 
     public function rewind()
     {
+        $this->indexes = array_keys($this->iterator->getArrayCopy());
         $this->iterator->rewind();
     }
 

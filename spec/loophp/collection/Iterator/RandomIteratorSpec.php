@@ -15,6 +15,38 @@ class RandomIteratorSpec extends ObjectBehavior
         $this->getInnerIterator()->shouldBeAnInstanceOf(ArrayIterator::class);
     }
 
+    public function it_can_rewind()
+    {
+        $iterator = new ArrayIterator(['a']);
+
+        $this->beConstructedWith($iterator);
+
+        $this
+            ->valid()
+            ->shouldReturn(true);
+
+        $this
+            ->current()
+            ->shouldReturn('a');
+
+        $this->next();
+
+        $this
+            ->valid()
+            ->shouldReturn(false);
+
+        $this
+            ->rewind();
+
+        $this
+            ->valid()
+            ->shouldReturn(true);
+
+        $this
+            ->current()
+            ->shouldReturn('a');
+    }
+
     public function it_is_initializable()
     {
         $this->shouldHaveType(RandomIterator::class);
@@ -22,7 +54,7 @@ class RandomIteratorSpec extends ObjectBehavior
 
     public function let()
     {
-        $iterator = new ArrayIterator(range(0, 4));
+        $iterator = new ArrayIterator(range('a', 'c'));
 
         $this->beConstructedWith($iterator);
     }
