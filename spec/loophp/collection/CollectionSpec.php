@@ -8,7 +8,6 @@ use ArrayObject;
 use Closure;
 use Exception;
 use Generator;
-use InvalidArgumentException;
 use Iterator;
 use JsonSerializable;
 use loophp\collection\Collection;
@@ -169,6 +168,12 @@ class CollectionSpec extends ObjectBehavior
         $this::fromResource($stream)
             ->implode()
             ->shouldIterateAs([55 => $string]);
+
+        $stream = imagecreate(100, 100);
+
+        $this::with($stream)
+            ->count()
+            ->shouldReturn(1);
     }
 
     public function it_can_be_constructed_from_array(): void
@@ -2629,8 +2634,7 @@ EOF;
             ->shouldIterateAs($a);
 
         $this::times(-1, 'count')
-            ->shouldThrow(InvalidArgumentException::class)
-            ->during('all');
+            ->shouldIterateAs([]);
     }
 
     public function it_can_use_times_without_a_callback(): void
@@ -2639,11 +2643,16 @@ EOF;
             ->shouldIterateAs(range(1, 10));
 
         $this::times(-5)
-            ->shouldThrow(InvalidArgumentException::class)
-            ->during('all');
+            ->shouldIterateAs([]);
 
         $this::times(1)
             ->shouldIterateAs([1]);
+
+        $this::times(0)
+            ->shouldIterateAs([]);
+
+        $this::times()
+            ->shouldIterateAs([]);
     }
 
     public function it_can_use_with(): void
