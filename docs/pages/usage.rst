@@ -6,7 +6,7 @@ Find here some working examples.
 Simple
 -------
 
-.. literalinclude:: examples/simple.php
+.. literalinclude:: code/simple.php
   :language: php
 
 Advanced
