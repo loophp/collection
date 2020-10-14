@@ -37,7 +37,7 @@ On top of this, this library:
  * uses [S.O.L.I.D. principles][solid on wikipedia],
  * does not have any external dependency,
  * fully tested,
- * type safe (_type safe @ > 94%_),
+ * type safe (_type safe @ > 95%_),
  * framework agnostic.
 
 Except a few methods, most methods are [pure][pure function on wikipedia] and return a
