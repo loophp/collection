@@ -8,6 +8,7 @@ use ArrayObject;
 use Closure;
 use Exception;
 use Generator;
+use InvalidArgumentException;
 use Iterator;
 use JsonSerializable;
 use loophp\collection\Collection;
@@ -202,9 +203,9 @@ class CollectionSpec extends ObjectBehavior
 
         $stream = imagecreate(100, 100);
 
-        $this
+        $this::fromResource($stream)
             ->shouldThrow(InvalidArgumentException::class)
-            ->during('fromResource', [$stream]);
+            ->during('all');
     }
 
     public function it_can_be_constructed_from_a_string(): void
@@ -245,38 +246,10 @@ class CollectionSpec extends ObjectBehavior
             ]);
     }
 
-    public function it_can_be_constructed_from_an_object(): void
-    {
-        $foo = new class() {
-            private $a = 'a';
-
-            private $b = 'b';
-
-            private $c = 'c';
-        };
-
-        $this::with($foo)
-            ->normalize()
-            ->shouldIterateAs([
-                'a',
-                'b',
-                'c',
-            ]);
-    }
-
     public function it_can_be_constructed_from_empty(): void
     {
         $this
             ->beConstructedThrough('empty');
-
-        $this
-            ->shouldIterateAs([]);
-    }
-
-    public function it_can_be_constructed_from_nothing(): void
-    {
-        $this
-            ->beConstructedWith(null);
 
         $this
             ->shouldIterateAs([]);
@@ -2984,5 +2957,10 @@ EOF;
     public function it_is_initializable(): void
     {
         $this->shouldHaveType(Collection::class);
+    }
+
+    public function let()
+    {
+        $this->beConstructedThrough('empty');
     }
 }

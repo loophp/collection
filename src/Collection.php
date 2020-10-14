@@ -112,10 +112,6 @@ use loophp\collection\Operation\Zip;
 use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
 
-use function is_callable;
-use function is_resource;
-use function is_string;
-
 use const INF;
 use const PHP_INT_MAX;
 
@@ -130,109 +126,27 @@ final class Collection implements CollectionInterface
 {
     /**
      * @var mixed[]
-     * @psalm-var array<int, Closure|callable|iterable|mixed|resource|scalar|T>
+     * @psalm-var list<mixed>
      */
     private $parameters;
 
     /**
      * @var Closure
-     * @psalm-var Closure((Closure|callable|iterable|mixed|resource|scalar|T)...):Generator
+     * @psalm-var callable(...mixed): Generator<TKey, T>
      */
     private $source;
 
     /**
-     * @param callable|Closure|iterable|mixed|resource|scalar $data
-     * @param callable|Closure|iterable|mixed|resource|scalar|T ...$parameters
+     * @param callable|Closure $callable
+     * @psalm-param callable(...mixed): Generator<TKey, T> $callable
+     *
+     * @param mixed ...$parameters
+     * @psalm-param mixed ...$parameters
      */
-    public function __construct($data = [], ...$parameters)
+    public function __construct(callable $callable, ...$parameters)
     {
-        switch (true) {
-            case is_resource($data) && 'stream' === get_resource_type($data):
-                $this->source =
-                    /**
-                     * @param mixed $data
-                     * @psalm-param resource $data
-                     *
-                     * @psalm-return Generator<int, string>
-                     */
-                    static function ($data): Generator {
-                        return yield from new ResourceIterator($data);
-                    };
-
-                $this->parameters = [
-                    $data,
-                ];
-
-                break;
-            case is_callable($data):
-                $this->source =
-                    /**
-                     * @psalm-param callable $data
-                     * @psalm-param list<T> $parameters
-                     *
-                     * @psalm-return Generator<TKey, T>
-                     */
-                    static function (callable $data, array $parameters): Generator {
-                        return yield from new ClosureIterator($data, ...$parameters);
-                    };
-
-                $this->parameters = [
-                    $data,
-                    $parameters,
-                ];
-
-                break;
-            case is_iterable($data):
-                $this->source =
-                    /**
-                     * @psalm-param iterable<TKey, T> $data
-                     *
-                     * @psalm-return Generator<TKey, T>
-                     */
-                    static function (iterable $data): Generator {
-                        return yield from new IterableIterator($data);
-                    };
-
-                $this->parameters = [
-                    $data,
-                ];
-
-                break;
-            case is_string($data):
-                $this->source =
-                    /**
-                     * @param mixed $parameters
-                     * @psalm-param list<string> $parameters
-                     *
-                     * @psalm-return Generator<int, string>
-                     */
-                    static function (string $data, $parameters): Generator {
-                        return yield from new StringIterator($data, ...$parameters);
-                    };
-
-                $this->parameters = [
-                    $data,
-                    $parameters,
-                ];
-
-                break;
-
-            default:
-                $this->source =
-                    /**
-                     * @param mixed $data
-                     * @psalm-param mixed|scalar $data
-                     */
-                    static function ($data): Generator {
-                        foreach ((array) $data as $key => $value) {
-                            yield $key => $value;
-                        }
-                    };
-
-                $this->parameters = [
-                    $data,
-                ];
-        }
+        $this->source = $callable;
+        $this->parameters = $parameters;
     }
 
     public function all(): array
@@ -364,7 +278,7 @@ final class Collection implements CollectionInterface
 
     public static function empty(): CollectionInterface
     {
-        return new self();
+        return self::fromIterable([]);
     }
 
     public function every(callable $callback): CollectionInterface
@@ -440,8 +354,6 @@ final class Collection implements CollectionInterface
              * @psalm-param list<T> $parameters
              *
              * @psalm-return Generator<TKey, T>
-             *
-             * @param mixed $parameters
              */
             static function (callable $callable, array $parameters): Generator {
                 return yield from new ClosureIterator($callable, ...$parameters);
@@ -481,7 +393,7 @@ final class Collection implements CollectionInterface
         return new self(
             /**
              * @param mixed $resource
-             * @psalm-param resource $data
+             * @psalm-param resource $resource
              *
              * @psalm-return Generator<int, string>
              */
@@ -695,7 +607,7 @@ final class Collection implements CollectionInterface
 
     public static function range(float $start = 0.0, float $end = INF, float $step = 1.0): CollectionInterface
     {
-        return (new self())->pipe(Range::of()($start)($end)($step));
+        return self::empty()->pipe(Range::of()($start)($end)($step));
     }
 
     public function reduction(callable $callback, $initial = null): CollectionInterface
@@ -790,7 +702,7 @@ final class Collection implements CollectionInterface
 
     public static function times(int $number = 0, ?callable $callback = null): CollectionInterface
     {
-        return (new self())->pipe(Times::of()($number)($callback));
+        return self::empty()->pipe(Times::of()($number)($callback));
     }
 
     public function transpose(): CollectionInterface
@@ -805,7 +717,7 @@ final class Collection implements CollectionInterface
 
     public static function unfold(callable $callback, ...$parameters): CollectionInterface
     {
-        return (new self())->pipe(Unfold::of()(...$parameters)($callback));
+        return self::empty()->pipe(Unfold::of()(...$parameters)($callback));
     }
 
     public function unlines(): CollectionInterface
