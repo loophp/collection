@@ -365,18 +365,4 @@ interface Collection extends
      * @psalm-return \loophp\collection\Iterator\ClosureIterator<TKey, T>
      */
     public function getIterator(): ClosureIterator;
-
-    /**
-     * @psalm-template NewTKey
-     * @psalm-template NewTKey of array-key
-     * @psalm-template NewT
-     *
-     * Create a collection with the data.
-     *
-     * @param mixed $data
-     * @param mixed ...$parameters
-     *
-     * @psalm-return \loophp\collection\Contract\Collection<NewTKey, NewT>
-     */
-    public static function with($data = [], ...$parameters): Collection;
 }

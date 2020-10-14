@@ -140,36 +140,6 @@ Another example
     $even = Collection::range(0, \INF, 2);
     $odd = Collection::range(1, \INF, 2);
 
-with
-~~~~
-
-.. warning:: Will be deprecated soon.
-             Use ``fromCallable``, ``fromIterable``, ``fromResource``, ``fromString`` instead.
-
-Create a collection with the provided data.
-
-Signature: ``Collection::with($data = [], ...$parameters);``
-
-.. code-block:: php
-
-    // With an iterable
-    $collection = Collection::with(['a', 'b']);
-
-    // With a string
-    $collection = Collection::with('string');
-
-    $callback = static function () {
-        yield 'a';
-        yield 'b';
-        yield 'c';
-    };
-
-    // With a callback
-    $collection = Collection::with($callback);
-
-    // With a resource/stream
-    $collection = Collection::with(fopen( __DIR__ . '/vendor/autoload.php', 'r'));
-
 Methods (operations)
 --------------------
 

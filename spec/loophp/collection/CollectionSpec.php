@@ -202,9 +202,9 @@ class CollectionSpec extends ObjectBehavior
 
         $stream = imagecreate(100, 100);
 
-        $this::with($stream)
-            ->count()
-            ->shouldReturn(1);
+        $this
+            ->shouldThrow(InvalidArgumentException::class)
+            ->during('fromResource', [$stream]);
     }
 
     public function it_can_be_constructed_from_a_string(): void
@@ -2783,56 +2783,6 @@ EOF;
 
         $this::times()
             ->shouldIterateAs([]);
-    }
-
-    public function it_can_use_with(): void
-    {
-        $input = ['a' => 'A', 'b' => 'B', 'c' => 'C'];
-
-        $generator = static function () {
-            yield 'a' => 'A';
-
-            yield 'b' => 'B';
-
-            yield 'c' => 'C';
-        };
-
-        $this::with($input)
-            ->shouldIterateAs($generator());
-
-        $this::with($generator)
-            ->shouldIterateAs($generator());
-
-        $this::with('abc')
-            ->shouldIterateAs(['a', 'b', 'c']);
-
-        $this::with('abc def', ' ')
-            ->shouldIterateAs(['abc', 'def']);
-
-        $stream = static function () {
-            $stream = fopen(__DIR__ . '/../../../.editorconfig', 'rb');
-
-            while (false !== $chunk = fgetc($stream)) {
-                yield $chunk;
-            }
-
-            fclose($stream);
-        };
-
-        $this::with($stream)
-            ->explode("\n")
-            ->last()
-            ->unwrap()
-            ->implode()
-            ->shouldIterateAs([14 => 'indent_size = 4']);
-
-        $stream = fopen(__DIR__ . '/../../fixtures/sample.txt', 'rb');
-
-        $this::with($stream)
-            ->shouldIterateAs(['a', 'b', 'c']);
-
-        $this::with(1)
-            ->shouldIterateAs([1]);
     }
 
     public function it_can_window(): void

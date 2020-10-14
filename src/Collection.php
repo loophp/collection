@@ -853,11 +853,6 @@ final class Collection implements CollectionInterface
         return $this->pipe(Window::of()($size));
     }
 
-    public static function with($data = [], ...$parameters): CollectionInterface
-    {
-        return new self($data, ...$parameters);
-    }
-
     public function words(): CollectionInterface
     {
         return $this->pipe(Words::of());
