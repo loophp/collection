@@ -18,7 +18,7 @@ use Iterator;
 final class Span extends AbstractOperation
 {
     /**
-     * @psalm-return Closure((callable(T, TKey, Iterator<TKey, T>): bool)): Closure(Iterator<TKey, T>): Generator<int, Iterator<TKey, T>>
+     * @psalm-return Closure(callable(T , TKey , Iterator<TKey, T> ): bool):Closure (Iterator<TKey, T>): Generator<int, Iterator<TKey, T>>
      */
     public function __invoke(): Closure
     {
@@ -28,21 +28,13 @@ final class Span extends AbstractOperation
              *
              * @psalm-return Closure(Iterator<TKey, T>): Generator<int, Iterator<TKey, T>>
              */
-            static function (callable $callback): Closure {
-                return
-                    /**
-                     * @psalm-param Iterator<TKey, T> $iterator
-                     *
-                     * @psalm-return Generator<int, Iterator<TKey, T>>
-                     */
-                    static function (Iterator $iterator) use ($callback): Generator {
-                        /** @psalm-var Iterator<TKey, T> $takeWhile */
-                        $takeWhile = TakeWhile::of()($callback)($iterator);
-                        /** @psalm-var Iterator<TKey, T> $dropWhile */
-                        $dropWhile = DropWhile::of()($callback)($iterator);
+            static fn (callable $callback): Closure => static function (Iterator $iterator) use ($callback): Generator {
+                /** @psalm-var Iterator<TKey, T> $takeWhile */
+                $takeWhile = TakeWhile::of()($callback)($iterator);
+                /** @psalm-var Iterator<TKey, T> $dropWhile */
+                $dropWhile = DropWhile::of()($callback)($iterator);
 
-                        return yield from [$takeWhile, $dropWhile];
-                    };
+                return yield from [$takeWhile, $dropWhile];
             };
     }
 }

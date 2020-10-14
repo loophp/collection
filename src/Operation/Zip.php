@@ -14,6 +14,8 @@ use MultipleIterator;
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
+ *
+ * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Zip extends AbstractOperation
 {
@@ -28,25 +30,17 @@ final class Zip extends AbstractOperation
              *
              * @psalm-return Closure(Iterator<TKey, T>): Generator<int, list<T>>
              */
-            static function (iterable ...$iterables): Closure {
-                return
-                    /**
-                     * @psalm-param Iterator<TKey, T> $iterator
-                     *
-                     * @psalm-return Generator<int, list<T>>
-                     */
-                    static function (Iterator $iterator) use ($iterables): Generator {
-                        $mit = new MultipleIterator(MultipleIterator::MIT_NEED_ANY);
-                        $mit->attachIterator($iterator);
+            static fn (iterable ...$iterables): Closure => static function (Iterator $iterator) use ($iterables): Generator {
+                $mit = new MultipleIterator(MultipleIterator::MIT_NEED_ANY);
+                $mit->attachIterator($iterator);
 
-                        foreach ($iterables as $iterableIterator) {
-                            $mit->attachIterator(new IterableIterator($iterableIterator));
-                        }
+                foreach ($iterables as $iterableIterator) {
+                    $mit->attachIterator(new IterableIterator($iterableIterator));
+                }
 
-                        foreach ($mit as $values) {
-                            yield $values;
-                        }
-                    };
+                foreach ($mit as $values) {
+                    yield $values;
+                }
             };
     }
 }

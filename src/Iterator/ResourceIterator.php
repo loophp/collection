@@ -25,7 +25,7 @@ final class ResourceIterator extends ProxyIterator
             throw new InvalidArgumentException('Invalid resource type.');
         }
 
-        $closure =
+        $this->iterator = new ClosureIterator(
             /**
              * @param resource $resource
              *
@@ -35,10 +35,7 @@ final class ResourceIterator extends ProxyIterator
                 while (false !== $chunk = fgetc($resource)) {
                     yield $chunk;
                 }
-            };
-
-        $this->iterator = new ClosureIterator(
-            $closure,
+            },
             $resource
         );
     }

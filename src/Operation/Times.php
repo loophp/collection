@@ -27,32 +27,26 @@ final class Times extends AbstractOperation
             /**
              * @psalm-return Closure(null|callable(int): int|T): Closure(null|Iterator<TKey, T>): Generator<int, int|T>
              */
-            static function (int $number = 0): Closure {
-                return
+            static fn (int $number = 0): Closure =>
+                /**
+                 * @psalm-return Closure(null|Iterator<TKey, T>): Generator<int, int|T>
+                 */
+                static fn (?callable $callback = null): Closure =>
                     /**
-                     * @psalm-return Closure(null|Iterator<TKey, T>): Generator<int, int|T>
+                     * @psalm-param null|Iterator<TKey, T> $iterator
+                     *
+                     * @psalm-return Generator<int, int|T>
                      */
-                    static function (?callable $callback = null) use ($number): Closure {
-                        return
-                            /**
-                             * @psalm-param null|Iterator<TKey, T> $iterator
-                             *
-                             * @psalm-return Generator<int, int|T>
-                             */
-                            static function (?Iterator $iterator = null) use ($number, $callback): Generator {
-                                if (1 > $number) {
-                                    yield from [];
-                                }
+                    static function (?Iterator $iterator = null) use ($number, $callback): Generator {
+                        if (1 > $number) {
+                            yield from [];
+                        }
 
-                                $callback = $callback ?? static function (int $value): int {
-                                    return $value;
-                                };
+                        $callback ??= static fn (int $value): int => $value;
 
-                                for ($current = 1; $current <= $number; ++$current) {
-                                    yield $callback($current);
-                                }
-                            };
+                        for ($current = 1; $current <= $number; ++$current) {
+                            yield $callback($current);
+                        }
                     };
-            };
     }
 }

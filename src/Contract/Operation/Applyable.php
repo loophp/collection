@@ -17,7 +17,7 @@ interface Applyable
      * Execute a callback for each element of the collection.
      *
      * @param callable ...$callables
-     * @psalm-param callable(TKey, T):(bool) ...$callables
+     * @psalm-param callable(TKey, T):bool ...$callables
      *
      * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
      */

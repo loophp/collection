@@ -25,18 +25,14 @@ final class Falsy extends AbstractOperation
              * @param mixed $value
              * @psalm-param T $value
              */
-            static function ($value): bool {
-                return !(bool) $value;
-            };
+            static fn ($value): bool => !(bool) $value;
 
         $dropWhileCallback =
             /**
              * @param mixed $value
              * @psalm-param T $value
              */
-            static function ($value): bool {
-                return true === $value;
-            };
+            static fn ($value): bool => true === $value;
 
         /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, bool> $pipe */
         $pipe = Pipe::of()(

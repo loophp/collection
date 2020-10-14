@@ -29,71 +29,63 @@ final class Sort extends AbstractOperation
             /**
              * @psalm-return Closure(callable(T|TKey, T|TKey): int): Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
-            static function (int $type = Operation\Sortable::BY_VALUES): Closure {
-                return
+            static fn (int $type = Operation\Sortable::BY_VALUES): Closure =>
+                /**
+                 * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
+                 */
+                static function (?callable $callback = null) use ($type): Closure {
+                    $callback ??=
                     /**
-                     * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
+                     * @param mixed $left
+                     * @psalm-param T|TKey $left
+                     *
+                     * @param mixed $right
+                     * @psalm-param T|TKey $right
                      */
-                    static function (?callable $callback = null) use ($type): Closure {
-                        $callback = $callback ??
+                    static fn ($left, $right): int => $left <=> $right;
+
+                    return
+                    /**
+                     * @psalm-param Iterator<TKey, T> $iterator
+                     *
+                     * @psalm-return Generator<TKey, T>
+                     */
+                    static function (Iterator $iterator) use ($type, $callback): Generator {
+                        if (Operation\Sortable::BY_VALUES !== $type && Operation\Sortable::BY_KEYS !== $type) {
+                            throw new Exception('Invalid sort type.');
+                        }
+
+                        $operations = Operation\Sortable::BY_VALUES === $type ?
+                            [
+                                'before' => [Pack::of()],
+                                'after' => [Unpack::of()],
+                            ] :
+                            [
+                                'before' => [Flip::of(), Pack::of()],
+                                'after' => [Unpack::of(), Flip::of()],
+                            ];
+
+                        $sortCallback =
                             /**
-                             * @param mixed $left
-                             * @psalm-param T|TKey $left
+                             * @psalm-param callable(T|TKey, T|TKey): int $callback
                              *
-                             * @param mixed $right
-                             * @psalm-param T|TKey $right
+                             * @psalm-return Closure(array{0:TKey|T, 1:T|TKey}, array{0:TKey|T, 1:T|TKey}): int
                              */
-                            static function ($left, $right): int {
-                                return $left <=> $right;
-                            };
+                            static fn (callable $callback): Closure =>
+                                /**
+                                 * @psalm-param array{0:TKey|T, 1:T|TKey} $left
+                                 * @psalm-param array{0:TKey|T, 1:T|TKey} $right
+                                 */
+                                static fn (array $left, array $right): int => $callback($left[1], $right[1]);
 
-                        return
-                            /**
-                             * @psalm-param Iterator<TKey, T> $iterator
-                             *
-                             * @psalm-return Generator<TKey, T>
-                             */
-                            static function (Iterator $iterator) use ($type, $callback): Generator {
-                                if (Operation\Sortable::BY_VALUES !== $type && Operation\Sortable::BY_KEYS !== $type) {
-                                    throw new Exception('Invalid sort type.');
-                                }
+                        /** @psalm-var callable(Iterator<TKey, T>): Generator<int, array{0:TKey, 1:T}> | callable(Iterator<TKey, T>): Generator<int, array{0:T, 1:TKey}> $before */
+                        $before = Pipe::of()(...$operations['before']);
 
-                                $operations = Operation\Sortable::BY_VALUES === $type ?
-                                    [
-                                        'before' => [Pack::of()],
-                                        'after' => [Unpack::of()],
-                                    ] :
-                                    [
-                                        'before' => [Flip::of(), Pack::of()],
-                                        'after' => [Unpack::of(), Flip::of()],
-                                    ];
+                        $arrayIterator = new ArrayIterator([...$before($iterator)]);
+                        $arrayIterator->uasort($sortCallback($callback));
 
-                                $sortCallback =
-                                    /**
-                                     * @psalm-param callable(T|TKey, T|TKey): int $callback
-                                     *
-                                     * @psalm-return Closure(array{0:TKey|T, 1:T|TKey}, array{0:TKey|T, 1:T|TKey}): int
-                                     */
-                                    static function (callable $callback): Closure {
-                                        return
-                                            /**
-                                             * @psalm-param array{0:TKey|T, 1:T|TKey} $left
-                                             * @psalm-param array{0:TKey|T, 1:T|TKey} $right
-                                             */
-                                            static function (array $left, array $right) use ($callback): int {
-                                                return $callback($left[1], $right[1]);
-                                            };
-                                    };
-
-                                /** @psalm-var callable(Iterator<TKey, T>): Generator<int, array{0:TKey, 1:T}> | callable(Iterator<TKey, T>): Generator<int, array{0:T, 1:TKey}> $before */
-                                $before = Pipe::of()(...$operations['before']);
-
-                                $arrayIterator = new ArrayIterator(iterator_to_array($before($iterator)));
-                                $arrayIterator->uasort($sortCallback($callback));
-
-                                return yield from Pipe::of()(...$operations['after'])($arrayIterator);
-                            };
+                        return yield from Pipe::of()(...$operations['after'])($arrayIterator);
                     };
-            };
+                };
     }
 }

@@ -27,18 +27,14 @@ final class Nullsy extends AbstractOperation
              * @param mixed $value
              * @psalm-param T $value
              */
-            static function ($value): bool {
-                return in_array($value, [null, [], 0, false, ''], true);
-            };
+            static fn ($value): bool => in_array($value, [null, [], 0, false, ''], true);
 
         $dropWhileCallback =
             /**
              * @param mixed $value
              * @psalm-param T $value
              */
-            static function ($value): bool {
-                return true === $value;
-            };
+            static fn ($value): bool => true === $value;
 
         /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, bool> $pipe */
         $pipe = Pipe::of()(

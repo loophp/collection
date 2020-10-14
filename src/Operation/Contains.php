@@ -26,28 +26,26 @@ final class Contains extends AbstractOperation
              *
              * @psalm-return Closure(Iterator<TKey, T>): Generator<int, bool>
              */
-            static function (...$values): Closure {
-                return
-                    /**
-                     * @psalm-param Iterator<TKey, T> $iterator
-                     *
-                     * @psalm-return Generator<int, bool>
-                     */
-                    static function (Iterator $iterator) use ($values): Generator {
-                        foreach ($iterator as $value) {
-                            foreach ($values as $k => $v) {
-                                if ($v === $value) {
-                                    unset($values[$k]);
-                                }
+            static fn (...$values): Closure =>
+                /**
+                 * @psalm-param Iterator<TKey, T> $iterator
+                 *
+                 * @psalm-return Generator<int, bool>
+                 */
+                static function (Iterator $iterator) use ($values): Generator {
+                    foreach ($iterator as $value) {
+                        foreach ($values as $k => $v) {
+                            if ($v === $value) {
+                                unset($values[$k]);
+                            }
 
-                                if ([] === $values) {
-                                    return yield true;
-                                }
+                            if ([] === $values) {
+                                return yield true;
                             }
                         }
+                    }
 
-                        return yield false;
-                    };
-            };
+                    return yield false;
+                };
     }
 }

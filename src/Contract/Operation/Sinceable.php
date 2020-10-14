@@ -15,7 +15,7 @@ interface Sinceable
 {
     /**
      * @param callable ...$callbacks
-     * @psalm-param callable(T, TKey):(bool) ...$callbacks
+     * @psalm-param callable(T, TKey):bool ...$callbacks
      *
      * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
      */

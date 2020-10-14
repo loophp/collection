@@ -27,8 +27,6 @@ final class Shuffle extends AbstractOperation
              *
              * @psalm-return Generator<TKey, T, mixed, void>
              */
-            static function (Iterator $iterator): Generator {
-                return yield from new RandomIterator($iterator);
-            };
+            static fn (Iterator $iterator): Generator => yield from new RandomIterator($iterator);
     }
 }

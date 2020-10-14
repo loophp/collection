@@ -16,7 +16,7 @@ use Iterator;
 final class Apply extends AbstractOperation
 {
     /**
-     * @psalm-return Closure((callable(T, TKey):(bool))...): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @psalm-return Closure(callable(T , TKey ): bool ...):Closure (Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
@@ -26,26 +26,24 @@ final class Apply extends AbstractOperation
              *
              * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
-            static function (callable ...$callbacks): Closure {
-                return
-                    /**
-                     * @psalm-param Iterator<TKey, T> $iterator
-                     *
-                     * @psalm-return Generator<TKey, T>
-                     */
-                    static function (Iterator $iterator) use ($callbacks): Generator {
-                        foreach ($iterator as $key => $value) {
-                            foreach ($callbacks as $callback) {
-                                if (true === $callback($value, $key)) {
-                                    continue;
-                                }
-
-                                break;
+            static fn (callable ...$callbacks): Closure =>
+                /**
+                 * @psalm-param Iterator<TKey, T> $iterator
+                 *
+                 * @psalm-return Generator<TKey, T>
+                 */
+                static function (Iterator $iterator) use ($callbacks): Generator {
+                    foreach ($iterator as $key => $value) {
+                        foreach ($callbacks as $callback) {
+                            if (true === $callback($value, $key)) {
+                                continue;
                             }
 
-                            yield $key => $value;
+                            break;
                         }
-                    };
-            };
+
+                        yield $key => $value;
+                    }
+                };
     }
 }

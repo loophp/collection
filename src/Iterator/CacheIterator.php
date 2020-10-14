@@ -17,15 +17,9 @@ use Psr\Cache\CacheItemPoolInterface;
  */
 final class CacheIterator extends ProxyIterator
 {
-    /**
-     * @var CacheItemPoolInterface
-     */
-    private $cache;
+    private CacheItemPoolInterface $cache;
 
-    /**
-     * @var int
-     */
-    private $key;
+    private int $key;
 
     /**
      * @psalm-param Iterator<TKey, T> $iterator

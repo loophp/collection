@@ -53,7 +53,7 @@ final class Combinate extends AbstractOperation
                  * @psalm-return Generator<int, array<int, T>>
                  */
                 static function (Iterator $iterator) use ($length, $getCombinations): Generator {
-                    $dataset = iterator_to_array($iterator);
+                    $dataset = [...$iterator];
 
                     if (0 < $length) {
                         return yield from $getCombinations($dataset, (int) $length);

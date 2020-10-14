@@ -28,72 +28,59 @@ final class Scale extends AbstractOperation
             /**
              * @psalm-return Closure(float): Closure(float): Closure(float): Closure(float): Closure(Iterator<TKey, float|int>): Generator<TKey, float|int>
              */
-            static function (float $lowerBound): Closure {
-                return
+            static fn (float $lowerBound): Closure =>
+                /**
+                 * @psalm-return Closure(float): Closure(float): Closure(float): Closure(Iterator<TKey, float|int>): Generator<TKey, float|int>
+                 */
+                static fn (float $upperBound): Closure =>
                     /**
-                     * @psalm-return Closure(float): Closure(float): Closure(float): Closure(Iterator<TKey, float|int>): Generator<TKey, float|int>
+                     * @psalm-return Closure(float): Closure(float): Closure(Iterator<TKey, float|int>): Generator<TKey, float|int>
                      */
-                    static function (float $upperBound) use ($lowerBound): Closure {
-                        return
+                    static fn (float $wantedLowerBound = 0.0): Closure =>
+                        /**
+                         * @psalm-return Closure(float): Closure(Iterator<TKey, float|int>): Generator<TKey, float|int>
+                         */
+                        static fn (float $wantedUpperBound = 1.0): Closure =>
                             /**
-                             * @psalm-return Closure(float): Closure(float): Closure(Iterator<TKey, float|int>): Generator<TKey, float|int>
+                             * @psalm-return Closure(Iterator<TKey, float|int>): Generator<TKey, float|int>
                              */
-                            static function (float $wantedLowerBound = 0.0) use ($lowerBound, $upperBound): Closure {
-                                return
+                            static function (float $base = 0.0) use ($lowerBound, $upperBound, $wantedLowerBound, $wantedUpperBound): Closure {
+                                $wantedLowerBound = (0.0 === $wantedLowerBound) ? (0.0 === $base ? 0.0 : 1.0) : $wantedLowerBound;
+                                $wantedUpperBound = (1.0 === $wantedUpperBound) ? (0.0 === $base ? 1.0 : $base) : $wantedUpperBound;
+                                /** @psalm-var callable(Generator<TKey, (float | int)>):Generator<TKey, float> $mapper */
+                                $mapper = Map::of()(
                                     /**
-                                     * @psalm-return Closure(float): Closure(Iterator<TKey, float|int>): Generator<TKey, float|int>
+                                     * @param mixed $v
+                                     * @psalm-param float|int $v
                                      */
-                                    static function (float $wantedUpperBound = 1.0) use ($lowerBound, $upperBound, $wantedLowerBound): Closure {  // phpcs:ignore
-                                        return
-                                            /**
-                                             * @psalm-return Closure(Iterator<TKey, float|int>): Generator<TKey, float|int>
-                                             */
-                                            static function (float $base = 0.0) use ($lowerBound, $upperBound, $wantedLowerBound, $wantedUpperBound): Closure { // phpcs:ignore
-                                                $wantedLowerBound = (0.0 === $wantedLowerBound) ? (0.0 === $base ? 0.0 : 1.0) : $wantedLowerBound; // phpcs:ignore
-                                                $wantedUpperBound = (1.0 === $wantedUpperBound) ? (0.0 === $base ? 1.0 : $base) : $wantedUpperBound; // phpcs:ignore
+                                    static function ($v) use ($lowerBound, $upperBound, $wantedLowerBound, $wantedUpperBound, $base): float {
+                                        $mx = 0.0 === $base ?
+                                            ($v - $lowerBound) / ($upperBound - $lowerBound) :
+                                            log($v - $lowerBound, $base) / log($upperBound - $lowerBound, $base);
 
-                                                /** @psalm-var callable(Generator<TKey, float|int>): Generator<TKey, float> $mapper */
-                                                $mapper = Map::of()(
-                                                    /**
-                                                     * @param mixed $v
-                                                     * @psalm-param float|int $v
-                                                     */
-                                                    static function ($v) use ($lowerBound, $upperBound, $wantedLowerBound, $wantedUpperBound, $base): float { // phpcs:ignore
-                                                        $mx = 0.0 === $base ?
-                                                            ($v - $lowerBound) / ($upperBound - $lowerBound) :
-                                                            log($v - $lowerBound, $base) / log($upperBound - $lowerBound, $base);
+                                        $mx = $mx === -INF ? 0 : $mx;
 
-                                                        $mx = $mx === -INF ? 0 : $mx;
+                                        return $wantedLowerBound + $mx * ($wantedUpperBound - $wantedLowerBound);
+                                    }
+                                );
 
-                                                        return $wantedLowerBound + $mx * ($wantedUpperBound - $wantedLowerBound);
-                                                    }
-                                                );
+                                /** @psalm-var callable(Iterator<TKey, (float | int)>):(Generator<TKey, float|int>) $filter */
+                                $filter = Filter::of()(
+                                    /**
+                                     * @param float|int $item
+                                     */
+                                    static fn ($item): bool => $item >= $lowerBound,
+                                    /**
+                                     * @param float|int $item
+                                     */
+                                    static fn ($item): bool => $item <= $upperBound
+                                );
 
-                                                /** @psalm-var callable(Iterator<TKey, float|int>): Generator<TKey, float|int> $filter */
-                                                $filter = Filter::of()(
-                                                    /**
-                                                     * @param float|int $item
-                                                     */
-                                                    static function ($item) use ($lowerBound): bool {
-                                                        return $item >= $lowerBound;
-                                                    },
-                                                    /**
-                                                     * @param float|int $item
-                                                     */
-                                                    static function ($item) use ($upperBound): bool {
-                                                        return $item <= $upperBound;
-                                                    }
-                                                );
+                                /** @psalm-var Closure(Iterator<TKey, (float | int)>):(Generator<TKey, float|int>) $pipe */
+                                $pipe = Pipe::of()($filter, $mapper);
 
-                                                /** @psalm-var Closure(Iterator<TKey, float|int>): Generator<TKey, float|int> $pipe */
-                                                $pipe = Pipe::of()($filter, $mapper);
-
-                                                // Point free style.
-                                                return $pipe;
-                                            };
-                                    };
+                                // Point free style.
+                                return $pipe;
                             };
-                    };
-            };
     }
 }

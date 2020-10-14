@@ -27,9 +27,7 @@ final class Unwindow extends AbstractOperation
                 /**
                  * @psalm-param iterable<TKey, list<T>> $value
                  */
-                static function (iterable $iterable): IterableIterator {
-                    return new IterableIterator($iterable);
-                }
+                static fn (iterable $iterable): IterableIterator => new IterableIterator($iterable)
             ),
             Map::of()(
                 /**
@@ -50,9 +48,7 @@ final class Unwindow extends AbstractOperation
                  *
                  * @psalm-return T
                  */
-                static function (Generator $value) {
-                    return $value->current();
-                }
+                static fn (Generator $value) => $value->current()
             )
         );
 

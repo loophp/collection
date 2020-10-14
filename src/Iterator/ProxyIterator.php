@@ -19,7 +19,7 @@ abstract class ProxyIterator implements OuterIterator
     /**
      * @psalm-var Generator<TKey, T>|Iterator<TKey, T>
      */
-    protected $iterator;
+    protected Iterator $iterator;
 
     /**
      * @return mixed

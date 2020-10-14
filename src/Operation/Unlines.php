@@ -18,11 +18,11 @@ use Iterator;
 final class Unlines extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, T|string>): Generator<TKey, T|string, mixed, void>
+     * @psalm-return Closure(Iterator<TKey, (T | string)>):(Generator<TKey, T|string, mixed, void>)
      */
     public function __invoke(): Closure
     {
-        /** @psalm-var Closure(Iterator<TKey, T|string>): Generator<TKey, string> $implode */
+        /** @psalm-var Closure(Iterator<TKey, (T | string)>):Generator<TKey, string> $implode */
         $implode = Implode::of()("\n");
 
         // Point free style.

@@ -26,31 +26,29 @@ final class Window extends AbstractOperation
             /**
              * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, list<T>>
              */
-            static function (int $size): Closure {
-                return
-                    /**
-                     * @psalm-param Iterator<TKey, T> $iterator
-                     *
-                     * @psalm-return Generator<TKey, list<T>>
-                     */
-                    static function (Iterator $iterator) use ($size): Generator {
-                        if (0 === $size) {
-                            return yield from $iterator;
-                        }
+            static fn (int $size): Closure =>
+                /**
+                 * @psalm-param Iterator<TKey, T> $iterator
+                 *
+                 * @psalm-return Generator<TKey, list<T>>
+                 */
+                static function (Iterator $iterator) use ($size): Generator {
+                    if (0 === $size) {
+                        return yield from $iterator;
+                    }
 
-                        ++$size;
-                        $size *= -1;
+                    ++$size;
+                    $size *= -1;
 
-                        /** @psalm-var list<T> $stack */
-                        $stack = [];
+                    /** @psalm-var list<T> $stack */
+                    $stack = [];
 
-                        for (; $iterator->valid(); $iterator->next()) {
-                            // @todo Should we use Pack ?
-                            $stack[$iterator->key()] = $iterator->current();
+                    for (; $iterator->valid(); $iterator->next()) {
+                        // @todo Should we use Pack ?
+                        $stack[$iterator->key()] = $iterator->current();
 
-                            yield $iterator->key() => array_slice($stack, $size);
-                        }
-                    };
-            };
+                        yield $iterator->key() => array_slice($stack, $size);
+                    }
+                };
     }
 }

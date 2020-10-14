@@ -18,7 +18,7 @@ use Iterator;
 final class FoldRight extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(callable(T|null, T, TKey, Iterator<TKey, T>):(T|null)): Closure(T): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @psalm-return Closure(callable((T | null) , T , TKey , Iterator<TKey, T> ): (T | null)):Closure (T): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
@@ -28,24 +28,15 @@ final class FoldRight extends AbstractOperation
              *
              * @psalm-return Closure(T): Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
-            static function (callable $callback): Closure {
-                return
-                    /**
-                     * @param mixed|null $initial
-                     * @psalm-param T|null $initial
-                     *
-                     * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
-                     */
-                    static function ($initial = null) use ($callback): Closure {
-                        /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
-                        $pipe = Pipe::of()(
-                            ScanRight::of()($callback)($initial),
-                            Head::of()
-                        );
+            static fn (callable $callback): Closure => static function ($initial = null) use ($callback): Closure {
+                /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
+                $pipe = Pipe::of()(
+                    ScanRight::of()($callback)($initial),
+                    Head::of()
+                );
 
-                        // Point free style.
-                        return $pipe;
-                    };
+                // Point free style.
+                return $pipe;
             };
     }
 }

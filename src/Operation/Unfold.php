@@ -29,26 +29,22 @@ final class Unfold extends AbstractOperation
              *
              * @psalm-return Closure(callable(T...): (array<TKey, T>)): Closure(null|Iterator<TKey, T>): Generator<int, T>
              */
-            static function (...$parameters): Closure {
-                return
+            static fn (...$parameters): Closure =>
+                /**
+                 * @psalm-param callable(T...): (array<TKey, T>) $callback
+                 *
+                 * @psalm-return Closure(null|Iterator<TKey, T>): Generator<int, T>
+                 */
+                static fn (callable $callback): Closure =>
                     /**
-                     * @psalm-param callable(T...): (array<TKey, T>) $callback
+                     * @psalm-param null|Iterator<TKey, T> $iterator
                      *
-                     * @psalm-return Closure(null|Iterator<TKey, T>): Generator<int, T>
+                     * @psalm-return Generator<int, T>
                      */
-                    static function (callable $callback) use ($parameters): Closure {
-                        return
-                            /**
-                             * @psalm-param null|Iterator<TKey, T> $iterator
-                             *
-                             * @psalm-return Generator<int, T>
-                             */
-                            static function (?Iterator $iterator = null) use ($parameters, $callback): Generator {
-                                while (true) {
-                                    yield $parameters = $callback(...array_values((array) $parameters));
-                                }
-                            };
+                    static function (?Iterator $iterator = null) use ($parameters, $callback): Generator {
+                        while (true) {
+                            yield $parameters = $callback(...array_values((array) $parameters));
+                        }
                     };
-            };
     }
 }

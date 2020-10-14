@@ -26,22 +26,20 @@ final class Prepend extends AbstractOperation
              *
              * @psalm-return Closure(Iterator<TKey, T>): Generator<int|TKey, T>
              */
-            static function (...$items): Closure {
-                return
-                    /**
-                     * @psalm-param Iterator<TKey, T> $iterator
-                     *
-                     * @psalm-return Generator<int|TKey, T>
-                     */
-                    static function (Iterator $iterator) use ($items): Generator {
-                        foreach ($items as $key => $item) {
-                            yield $key => $item;
-                        }
+            static fn (...$items): Closure =>
+                /**
+                 * @psalm-param Iterator<TKey, T> $iterator
+                 *
+                 * @psalm-return Generator<int|TKey, T>
+                 */
+                static function (Iterator $iterator) use ($items): Generator {
+                    foreach ($items as $key => $item) {
+                        yield $key => $item;
+                    }
 
-                        foreach ($iterator as $key => $value) {
-                            yield $key => $value;
-                        }
-                    };
-            };
+                    foreach ($iterator as $key => $value) {
+                        yield $key => $value;
+                    }
+                };
     }
 }

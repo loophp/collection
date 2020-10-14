@@ -18,7 +18,7 @@ use Iterator;
 final class ScanRight extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(callable(T|null, T, TKey, Iterator<TKey, T>):(T|null)): Closure(T|null): Closure(Iterator<TKey, T>): Generator<int|TKey, T|null>
+     * @psalm-return Closure(callable((T | null) , T , TKey , Iterator<TKey, T> ): (T | null)):Closure (T|null): Closure(Iterator<TKey, T>): Generator<int|TKey, T|null>
      */
     public function __invoke(): Closure
     {
@@ -28,26 +28,24 @@ final class ScanRight extends AbstractOperation
              *
              * @psalm-return Closure(T|null): Closure(Iterator<TKey, T>): Generator<int|TKey, T|null>
              */
-            static function (callable $callback): Closure {
-                return
-                    /**
-                     * @param mixed|null $initial
-                     * @psalm-param T|null $initial
-                     *
-                     * @psalm-return Closure(Iterator<TKey, T>): Generator<int|TKey, T|null>
-                     */
-                    static function ($initial = null) use ($callback): Closure {
-                        /** @psalm-var Closure(Iterator<TKey, T>): Generator<int|TKey, T|null> $pipe */
-                        $pipe = Pipe::of()(
-                            Reverse::of(),
-                            Reduction::of()($callback)($initial),
-                            Reverse::of(),
-                            Append::of()($initial)
-                        );
+            static fn (callable $callback): Closure =>
+                /**
+                 * @param mixed|null $initial
+                 * @psalm-param T|null $initial
+                 *
+                 * @psalm-return Closure(Iterator<TKey, T>): Generator<int|TKey, T|null>
+                 */
+                static function ($initial = null) use ($callback): Closure {
+                    /** @psalm-var Closure(Iterator<TKey, T>):(Generator<int|TKey, T|null>) $pipe */
+                    $pipe = Pipe::of()(
+                        Reverse::of(),
+                        Reduction::of()($callback)($initial),
+                        Reverse::of(),
+                        Append::of()($initial)
+                    );
 
-                        // Point free style.
-                        return $pipe;
-                    };
-            };
+                    // Point free style.
+                    return $pipe;
+                };
     }
 }

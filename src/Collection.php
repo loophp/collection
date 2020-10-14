@@ -120,21 +120,22 @@ use const PHP_INT_MAX;
  * @psalm-template TKey of array-key
  * @psalm-template T
  *
+ * phpcs:disable Generic.Files.LineLength.TooLong
+ *
  * @implements \loophp\collection\Contract\Collection<TKey, T>
  */
 final class Collection implements CollectionInterface
 {
     /**
-     * @var mixed[]
+     * @var array<int, mixed>
      * @psalm-var list<mixed>
      */
-    private $parameters;
+    private array $parameters;
 
     /**
-     * @var Closure
      * @psalm-var callable(...mixed): Generator<TKey, T>
      */
-    private $source;
+    private Closure $source;
 
     /**
      * @param callable|Closure $callable
@@ -151,7 +152,7 @@ final class Collection implements CollectionInterface
 
     public function all(): array
     {
-        return iterator_to_array($this);
+        return iterator_to_array($this->getIterator());
     }
 
     public function append(...$items): CollectionInterface
@@ -181,12 +182,10 @@ final class Collection implements CollectionInterface
              *
              * @psalm-return TKey|T
              */
-            static function ($carry, $key, $value) {
-                return $carry;
-            };
+            static fn ($carry, $key, $value) => $carry;
 
-        $callbackForKeys = $callbackForKeys ?? $defaultCallback;
-        $callbackForValues = $callbackForValues ?? $defaultCallback;
+        $callbackForKeys ??= $defaultCallback;
+        $callbackForValues ??= $defaultCallback;
 
         return $this->pipe(Associate::of()($callbackForKeys)($callbackForValues));
     }
@@ -346,7 +345,7 @@ final class Collection implements CollectionInterface
         return $this->pipe(Frequency::of());
     }
 
-    public static function fromCallable(callable $callable, ...$parameters): CollectionInterface
+    public static function fromCallable(callable $callable, ...$parameters): self
     {
         return new self(
             /**
@@ -355,25 +354,21 @@ final class Collection implements CollectionInterface
              *
              * @psalm-return Generator<TKey, T>
              */
-            static function (callable $callable, array $parameters): Generator {
-                return yield from new ClosureIterator($callable, ...$parameters);
-            },
+            static fn (callable $callable, array $parameters): Generator => yield from new ClosureIterator($callable, ...$parameters),
             $callable,
             $parameters
         );
     }
 
-    public static function fromFile(string $filepath): CollectionInterface
+    public static function fromFile(string $filepath): self
     {
         return new self(
-            static function (string $filepath): Generator {
-                return yield from new ResourceIterator(fopen($filepath, 'rb'));
-            },
+            static fn (string $filepath): Generator => yield from new ResourceIterator(fopen($filepath, 'rb')),
             $filepath
         );
     }
 
-    public static function fromIterable(iterable $iterable): CollectionInterface
+    public static function fromIterable(iterable $iterable): self
     {
         return new self(
             /**
@@ -381,14 +376,12 @@ final class Collection implements CollectionInterface
              *
              * @psalm-return Generator<TKey, T>
              */
-            static function (iterable $iterable): Generator {
-                return yield from new IterableIterator($iterable);
-            },
+            static fn (iterable $iterable): Generator => yield from new IterableIterator($iterable),
             $iterable
         );
     }
 
-    public static function fromResource($resource): CollectionInterface
+    public static function fromResource($resource): self
     {
         return new self(
             /**
@@ -397,14 +390,12 @@ final class Collection implements CollectionInterface
              *
              * @psalm-return Generator<int, string>
              */
-            static function ($resource): Generator {
-                return yield from new ResourceIterator($resource);
-            },
+            static fn ($resource): Generator => yield from new ResourceIterator($resource),
             $resource
         );
     }
 
-    public static function fromString(string $string, string $delimiter = ''): CollectionInterface
+    public static function fromString(string $string, string $delimiter = ''): self
     {
         return new self(
             /**
@@ -412,9 +403,7 @@ final class Collection implements CollectionInterface
              *
              * @psalm-return Generator<int, string>
              */
-            static function (string $string, string $delimiter): Generator {
-                return yield from new StringIterator($string, $delimiter);
-            },
+            static fn (string $string, string $delimiter): Generator => yield from new StringIterator($string, $delimiter),
             $string,
             $delimiter
         );
@@ -452,19 +441,14 @@ final class Collection implements CollectionInterface
 
     public function ifThenElse(callable $condition, callable $then, ?callable $else = null): CollectionInterface
     {
-        $else = $else ??
+        $else ??=
             /**
              * @psalm-param T $value
              * @psalm-param TKey $key
              *
              * @psalm-return T
-             *
-             * @param mixed $value
-             * @param mixed $key
              */
-            static function ($value, $key) {
-                return $value;
-            };
+            static fn ($value, $key) => $value;
 
         return $this->pipe(IfThenElse::of()($condition)($then)($else));
     }
@@ -577,7 +561,7 @@ final class Collection implements CollectionInterface
         return $this->pipe(Permutate::of());
     }
 
-    public function pipe(callable ...$callables): CollectionInterface
+    public function pipe(callable ...$callables): self
     {
         return self::fromCallable(
             Pipe::of()(...$callables),

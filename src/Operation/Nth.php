@@ -24,30 +24,26 @@ final class Nth extends AbstractOperation
             /**
              * @psalm-return Closure(int): Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
-            static function (int $step): Closure {
-                return
+            static fn (int $step): Closure =>
+                /**
+                 * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
+                 */
+                static fn (int $offset): Closure =>
                     /**
-                     * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
+                     * @psalm-param Iterator<TKey, T> $iterator
+                     *
+                     * @psalm-return Generator<TKey, T>
                      */
-                    static function (int $offset) use ($step): Closure {
-                        return
-                            /**
-                             * @psalm-param Iterator<TKey, T> $iterator
-                             *
-                             * @psalm-return Generator<TKey, T>
-                             */
-                            static function (Iterator $iterator) use ($step, $offset): Generator {
-                                $position = 0;
+                    static function (Iterator $iterator) use ($step, $offset): Generator {
+                        $position = 0;
 
-                                foreach ($iterator as $key => $value) {
-                                    if ($position++ % $step !== $offset) {
-                                        continue;
-                                    }
+                        foreach ($iterator as $key => $value) {
+                            if ($position++ % $step !== $offset) {
+                                continue;
+                            }
 
-                                    yield $key => $value;
-                                }
-                            };
+                            yield $key => $value;
+                        }
                     };
-            };
     }
 }

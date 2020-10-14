@@ -18,7 +18,7 @@ use Iterator;
 final class Every extends AbstractOperation
 {
     /**
-     * @psalm-return Closure((callable(T, TKey, Iterator<TKey, T>): bool)): Closure(Iterator<TKey, T>): Generator<TKey, bool>
+     * @psalm-return Closure(callable(T , TKey , Iterator<TKey, T> ): bool):Closure (Iterator<TKey, T>): Generator<TKey, bool>
      */
     public function __invoke(): Closure
     {
@@ -31,23 +31,20 @@ final class Every extends AbstractOperation
                     /**
                      * @psalm-param callable(T, TKey, Iterator<TKey, T>): bool $callback
                      */
-                    static function (callable $callback): Closure {
-                        return
-                            /**
-                             * @param mixed $carry
-                             * @psalm-param T $carry
-                             *
-                             * @param mixed $value
-                             * @psalm-param T $value
-                             *
-                             * @param mixed $key
-                             * @psalm-param TKey $key
-                             * @psalm-param Iterator<TKey, T> $iterator
-                             */
-                            static function ($carry, $value, $key, Iterator $iterator) use ($callback): bool {
-                                return $callback($value, $key, $iterator);
-                            };
-                    };
+                    static fn (callable $callback): Closure =>
+                        /**
+                         * @param mixed $carry
+                         * @psalm-param T $carry
+                         *
+                         * @param mixed $value
+                         * @psalm-param T $value
+                         *
+                         * @param mixed $key
+                         * @psalm-param TKey $key
+                         *
+                         * @psalm-param Iterator<TKey, T> $iterator
+                         */
+                        static fn ($carry, $value, $key, Iterator $iterator): bool => $callback($value, $key, $iterator);
 
                 /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, bool> $foldLeft */
                 $foldLeft = FoldLeft::of()($callbackBuilder($callback))(true);

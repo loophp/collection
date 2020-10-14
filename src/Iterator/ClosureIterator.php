@@ -19,24 +19,24 @@ final class ClosureIterator extends ProxyIterator
      * @var array<int, mixed>
      * @psalm-var list<mixed>
      */
-    private $arguments;
+    private array $arguments;
 
     /**
      * @var callable
-     * @psalm-var callable(mixed...):(Generator<TKey, T>)
+     * @psalm-var callable(mixed ...):Generator<TKey, T>
      */
     private $callable;
 
     /**
      * @var Closure
-     * @psalm-var Closure(callable(mixed...):Generator<TKey, T>, list<T>):(Generator<TKey, T>)
+     * @psalm-var Closure(callable(mixed ...): Generator<TKey, T>, list<T>):Generator<TKey, T>
      */
     private $generator;
 
     /**
      * @param mixed ...$arguments
      * @psalm-param mixed ...$arguments
-     * @psalm-param callable(mixed...):(Generator<TKey, T>) $callable
+     * @psalm-param callable(mixed ...):Generator<TKey, T> $callable
      */
     public function __construct(callable $callable, ...$arguments)
     {
@@ -47,9 +47,7 @@ final class ClosureIterator extends ProxyIterator
              * @psalm-param callable(T...):Generator<TKey, T> $callable
              * @psalm-param list<T> $arguments
              */
-            static function (callable $callable, array $arguments): Generator {
-                return yield from ($callable)(...$arguments);
-            };
+            static fn (callable $callable, array $arguments): Generator => yield from ($callable)(...$arguments);
 
         $this->iterator = $this->getGenerator();
     }

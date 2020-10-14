@@ -17,26 +17,21 @@ use Iterator;
 final class RandomIterator extends ProxyIterator
 {
     /**
-     * @var Iterator
      * @psalm-var Iterator<TKey, T>
      */
-    protected $iterator;
+    protected Iterator $iterator;
 
     /**
      * @var array<int, int>
      */
-    private $indexes;
+    private array $indexes;
+
+    private int $key;
 
     /**
-     * @var int
-     */
-    private $key;
-
-    /**
-     * @var ArrayIterator
      * @psalm-var ArrayIterator<int, array{0: TKey, 1: T}>
      */
-    private $wrappedIterator;
+    private ArrayIterator $wrappedIterator;
 
     /**
      * @psalm-param Iterator<TKey, T> $iterator

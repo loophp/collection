@@ -29,13 +29,9 @@ final class Unpack extends AbstractOperation
              *
              * @param mixed $value
              */
-            static function ($value): bool {
-                return is_iterable($value);
-            };
+            static fn ($value): bool => is_iterable($value);
 
-        $toIterableIterator = static function (iterable $value): IterableIterator {
-            return new IterableIterator($value);
-        };
+        $toIterableIterator = static fn (iterable $value): IterableIterator => new IterableIterator($value);
 
         $callbackForKeys =
             /**
@@ -46,9 +42,7 @@ final class Unpack extends AbstractOperation
              *
              * @param mixed $initial
              */
-            static function ($initial, int $key, array $value) {
-                return $value[0];
-            };
+            static fn ($initial, int $key, array $value) => $value[0];
 
         $callbackForValues =
             /**
@@ -59,9 +53,7 @@ final class Unpack extends AbstractOperation
              *
              * @param mixed $initial
              */
-            static function ($initial, int $key, array $value) {
-                return $value[1];
-            };
+            static fn ($initial, int $key, array $value) => $value[1];
 
         /** @psalm-var Closure(Iterator<int, array{0: TKey, 1: T}>): Generator<T, T> $pipe */
         $pipe = Pipe::of()(

@@ -18,7 +18,7 @@ use Iterator;
 final class DropWhile extends AbstractOperation
 {
     /**
-     * @psalm-return Closure((callable(T, TKey, Iterator<TKey, T>): bool)): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @psalm-return Closure(callable(T , TKey , Iterator<TKey, T> ): bool):Closure (Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
@@ -28,36 +28,26 @@ final class DropWhile extends AbstractOperation
              *
              * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
-            static function (callable ...$callbacks): Closure {
-                return
-                    /**
-                     * @psalm-param Iterator<TKey, T> $iterator
-                     *
-                     * @psalm-return Generator<TKey, T>
-                     */
-                    static function (Iterator $iterator) use ($callbacks): Generator {
-                        for (; $iterator->valid(); $iterator->next()) {
-                            $reduced = array_reduce(
-                                $callbacks,
-                                static function (bool $carry, callable $callback) use ($iterator): bool {
-                                    return ($callback($iterator->current(), $iterator->key(), $iterator)) ?
-                                        $carry :
-                                        false;
-                                },
-                                true
-                            );
+            static fn (callable ...$callbacks): Closure => static function (Iterator $iterator) use ($callbacks): Generator {
+                for (; $iterator->valid(); $iterator->next()) {
+                    $reduced = array_reduce(
+                        $callbacks,
+                        static fn (bool $carry, callable $callback): bool => ($callback($iterator->current(), $iterator->key(), $iterator)) ?
+                            $carry :
+                            false,
+                        true
+                    );
 
-                            if (true === $reduced) {
-                                continue;
-                            }
+                    if (true === $reduced) {
+                        continue;
+                    }
 
-                            break;
-                        }
+                    break;
+                }
 
-                        for (; $iterator->valid(); $iterator->next()) {
-                            yield $iterator->key() => $iterator->current();
-                        }
-                    };
+                for (; $iterator->valid(); $iterator->next()) {
+                    yield $iterator->key() => $iterator->current();
+                }
             };
     }
 }
