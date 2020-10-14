@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace loophp\collection\Iterator;
 
 use Generator;
-use Iterator;
-use OuterIterator;
 
 /**
  * @psalm-template TKey
@@ -14,9 +12,8 @@ use OuterIterator;
  * @psalm-template T
  *
  * @extends ProxyIterator<TKey, T>
- * @implements Iterator<TKey, T>
  */
-final class ResourceIterator extends ProxyIterator implements Iterator, OuterIterator
+final class ResourceIterator extends ProxyIterator
 {
     /**
      * @param resource $resource
@@ -27,7 +24,7 @@ final class ResourceIterator extends ProxyIterator implements Iterator, OuterIte
             /**
              * @param resource $resource
              *
-             * @psalm-return Generator<int, T>
+             * @psalm-return Generator<int, string>
              */
             static function ($resource): Generator {
                 while (false !== $chunk = fgetc($resource)) {
