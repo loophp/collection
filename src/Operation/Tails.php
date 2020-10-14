@@ -28,7 +28,7 @@ final class Tails extends AbstractOperation
              * @psalm-return Generator<int, array<TKey, T>, mixed, void>
              */
             static function (Iterator $iterator): Generator {
-                /** @psalm-var Iterator<int, array{0: TKey, 1: T}>  */
+                /** @psalm-var Iterator<int, array{0: TKey, 1: T}> $iterator */
                 $iterator = Pack::of()($iterator);
                 $data = iterator_to_array($iterator);
 

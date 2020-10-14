@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace loophp\collection\Contract\Operation;
 
 use Generator;
+use Iterator;
 use loophp\collection\Contract\Collection;
 
 /**
@@ -15,7 +16,7 @@ use loophp\collection\Contract\Collection;
 interface Pipeable
 {
     /**
-     * @psalm-param callable(): Generator ...$callables
+     * @psalm-param callable(Iterator<TKey, T>): Generator<TKey, T> ...$callables
      *
      * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
      */
