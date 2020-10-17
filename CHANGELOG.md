@@ -5,10 +5,31 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.7.2](https://github.com/loophp/collection/compare/2.7.1...2.7.2)
+## [2.7.3](https://github.com/loophp/collection/compare/2.7.2...2.7.3)
+
+### Merged
+
+- chore(deps-dev): Update vimeo/psalm requirement from 3.17.1 to 3.17.2 [`#35`](https://github.com/loophp/collection/pull/35)
+- chore(deps): Bump actions/stale from v3.0.11 to v3.0.12 [`#30`](https://github.com/loophp/collection/pull/30)
+- chore(deps-dev): Update vimeo/psalm requirement from 3.16 to 3.17.1 [`#32`](https://github.com/loophp/collection/pull/32)
+- Fix simple code examples path [`#31`](https://github.com/loophp/collection/pull/31)
 
 ### Commits
 
+- docs: Update changelog. [`bf87739`](https://github.com/loophp/collection/commit/bf877394285c6dc1ed46151d447f34bfa708c1c4)
+- chore: Update composer.json. [`4a395bd`](https://github.com/loophp/collection/commit/4a395bd8efc1c0540e28324807059c8d9c0b5156)
+- test: Add more tests. [`0529610`](https://github.com/loophp/collection/commit/052961065386659ad47926983626376729fdbe2b)
+- fix: Fix RandomIterator::rewind(). [`c3c1dd0`](https://github.com/loophp/collection/commit/c3c1dd08b00449a26ad7a43c93ba5b7687bda25f)
+- ci: Enable GD extension. [`07b0868`](https://github.com/loophp/collection/commit/07b086817de380061c7828e734d57e4eca557362)
+- refactor: Update times constructor. [`053cb80`](https://github.com/loophp/collection/commit/053cb80e036f5037dc72aec567de1aa0aaea2fcf)
+- refactor: Simplify static constructors. [`958dc79`](https://github.com/loophp/collection/commit/958dc79048de4e15dba70463841ecd080b262ede)
+- docs: Move code examples into simple files. [`464ff15`](https://github.com/loophp/collection/commit/464ff1504b193dc94aaf9e31e2cf3f257d853012)
+
+## [2.7.2](https://github.com/loophp/collection/compare/2.7.1...2.7.2) - 2020-10-10
+
+### Commits
+
+- docs: Update changelog. [`1b07b0d`](https://github.com/loophp/collection/commit/1b07b0dd970370cdf8e4bf57424544d50dc60eb9)
 - docs: Update documentation. [`94773e6`](https://github.com/loophp/collection/commit/94773e68c080e8a52f1038e29751753c3a849652)
 - refactor: Add missing annotations. [`bdedb51`](https://github.com/loophp/collection/commit/bdedb51f91547117ff1069dffdc2686bba18b5f0)
 - refactor: Add return statement. [`1a57ffb`](https://github.com/loophp/collection/commit/1a57ffb6a9589a7da0811ae7d24955252c7635df)
