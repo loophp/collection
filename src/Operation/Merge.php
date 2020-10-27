@@ -24,10 +24,10 @@ final class Merge extends AbstractOperation
             /**
              * @psalm-param iterable<TKey, T> ...$sources
              */
-            static function (iterable ...$sources): Closure {
-                return
+            static fn (iterable ...$sources): Closure =>
                 /**
                  * @psalm-param Iterator<TKey, T> $iterator
+                 *
                  * @psalm-return Generator<TKey, T>
                  */
                 static function (Iterator $iterator) use ($sources): Generator {
@@ -41,6 +41,5 @@ final class Merge extends AbstractOperation
                         }
                     }
                 };
-            };
     }
 }

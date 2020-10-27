@@ -316,10 +316,8 @@ interface Collection extends
      * @psalm-template NewTKey
      * @psalm-template NewTKey of array-key
      * @psalm-template NewT
-     *
-     * @psalm-return \loophp\collection\Contract\Collection<NewTKey, NewT>
      */
-    public static function empty(): Collection;
+    public static function empty(): self;
 
     /**
      * @psalm-template NewTKey
@@ -327,15 +325,10 @@ interface Collection extends
      * @psalm-template NewT
      *
      * @param mixed ...$parameters
-     *
-     * @psalm-return \loophp\collection\Contract\Collection<NewTKey, NewT>
      */
-    public static function fromCallable(callable $callable, ...$parameters): Collection;
+    public static function fromCallable(callable $callable, ...$parameters): self;
 
-    /**
-     * @psalm-return \loophp\collection\Contract\Collection<int, string>
-     */
-    public static function fromFile(string $filepath): Collection;
+    public static function fromFile(string $filepath): self;
 
     /**
      * @psalm-template NewTKey
@@ -344,39 +337,18 @@ interface Collection extends
      *
      * @param iterable<mixed> $iterable
      * @psalm-param iterable<NewTKey, NewT> $iterable
-     *
-     * @psalm-return \loophp\collection\Contract\Collection<NewTKey, NewT>
      */
-    public static function fromIterable(iterable $iterable): Collection;
+    public static function fromIterable(iterable $iterable): self;
 
     /**
      * @param resource $resource
-     *
-     * @psalm-return \loophp\collection\Contract\Collection<int, string>
      */
-    public static function fromResource($resource): Collection;
+    public static function fromResource($resource): self;
 
-    /**
-     * @psalm-return \loophp\collection\Contract\Collection<int, string>
-     */
-    public static function fromString(string $string, string $delimiter = ''): Collection;
+    public static function fromString(string $string, string $delimiter = ''): self;
 
     /**
      * @psalm-return \loophp\collection\Iterator\ClosureIterator<TKey, T>
      */
     public function getIterator(): ClosureIterator;
-
-    /**
-     * @psalm-template NewTKey
-     * @psalm-template NewTKey of array-key
-     * @psalm-template NewT
-     *
-     * Create a collection with the data.
-     *
-     * @param mixed $data
-     * @param mixed ...$parameters
-     *
-     * @psalm-return \loophp\collection\Contract\Collection<NewTKey, NewT>
-     */
-    public static function with($data = [], ...$parameters): Collection;
 }

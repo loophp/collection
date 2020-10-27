@@ -13,11 +13,13 @@ use LimitIterator;
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
+ *
+ * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Limit extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(int=): Closure(int=): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @psalm-return Closure(int  = default):Closure (int=): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
@@ -25,22 +27,16 @@ final class Limit extends AbstractOperation
             /**
              * @psalm-return Closure(int=): Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
-            static function (int $count = -1): Closure {
-                return
+            static fn (int $count = -1): Closure =>
+                /**
+                 * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
+                 */
+                static fn (int $offset = 0): Closure =>
                     /**
-                     * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
+                     * @psalm-param Iterator<TKey, T> $iterator
+                     *
+                     * @psalm-return Generator<TKey, T>
                      */
-                    static function (int $offset = 0) use ($count): Closure {
-                        return
-                            /**
-                             * @psalm-param Iterator<TKey, T> $iterator
-                             *
-                             * @psalm-return Generator<TKey, T>
-                             */
-                            static function (Iterator $iterator) use ($count, $offset): Generator {
-                                return yield from new LimitIterator($iterator, $offset, $count);
-                            };
-                    };
-            };
+                    static fn (Iterator $iterator): Generator => yield from new LimitIterator($iterator, $offset, $count);
     }
 }

@@ -14,6 +14,8 @@ use Psr\Cache\CacheItemPoolInterface;
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
+ *
+ * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Cache extends AbstractOperation
 {
@@ -26,16 +28,12 @@ final class Cache extends AbstractOperation
             /**
              * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
-            static function (CacheItemPoolInterface $cache): Closure {
-                return
-                    /**
-                     * @psalm-param Iterator<TKey, T> $iterator
-                     *
-                     * @psalm-return Generator<TKey, T>
-                     */
-                    static function (Iterator $iterator) use ($cache): Generator {
-                        return yield from new CacheIterator($iterator, $cache);
-                    };
-            };
+            static fn (CacheItemPoolInterface $cache): Closure =>
+                /**
+                 * @psalm-param Iterator<TKey, T> $iterator
+                 *
+                 * @psalm-return Generator<TKey, T>
+                 */
+                static fn (Iterator $iterator): Generator => yield from new CacheIterator($iterator, $cache);
     }
 }

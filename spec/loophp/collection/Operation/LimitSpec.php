@@ -41,6 +41,17 @@ class LimitSpec extends ObjectBehavior
             ->shouldHaveCount(2);
     }
 
+    public function it_does_not_change_anything_when_no_parameters_are_provided()
+    {
+        $input = range('a', 'e');
+
+        $iterator = new ArrayIterator($input);
+
+        $this
+            ->__invoke()()()($iterator)
+            ->shouldIterateAs(['a', 'b', 'c', 'd', 'e']);
+    }
+
     public function it_is_initializable()
     {
         $this->shouldHaveType(Limit::class);

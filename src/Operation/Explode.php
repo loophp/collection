@@ -35,16 +35,12 @@ final class Explode extends AbstractOperation
                          * @param mixed $explode
                          * @psalm-param T $explode
                          */
-                        static function ($explode): Closure {
-                            return
-                                /**
-                                 * @param mixed $value
-                                 * @psalm-param T $value
-                                 */
-                                static function ($value) use ($explode): bool {
-                                    return $value === $explode;
-                                };
-                        },
+                        static fn ($explode): Closure =>
+                            /**
+                             * @param mixed $value
+                             * @psalm-param T $value
+                             */
+                            static fn ($value): bool => $value === $explode,
                         $explodes
                     )
                 );

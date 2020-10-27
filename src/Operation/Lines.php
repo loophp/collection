@@ -20,15 +20,13 @@ use const PHP_EOL;
 final class Lines extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, T|string>): Generator<int, string>
+     * @psalm-return Closure(Iterator<TKey, (T | string)>):Generator<int, string>
      */
     public function __invoke(): Closure
     {
-        $mapCallback = static function (array $value): string {
-            return implode('', $value);
-        };
+        $mapCallback = static fn (array $value): string => implode('', $value);
 
-        /** @psalm-var Closure(Iterator<TKey, T|string>): Generator<int, string> $pipe */
+        /** @psalm-var Closure(Iterator<TKey, (T | string)>):Generator<int, string> $pipe */
         $pipe = Pipe::of()(
             Explode::of()(PHP_EOL, "\n", "\r\n"),
             Map::of()($mapCallback)

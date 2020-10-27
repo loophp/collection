@@ -19,7 +19,7 @@ use Iterator;
 final class TakeWhile extends AbstractOperation
 {
     /**
-     * @psalm-return Closure((callable(T, TKey, Iterator<TKey, T>): bool)): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @psalm-return Closure(callable(T , TKey , Iterator<TKey, T> ): bool):Closure (Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
@@ -29,70 +29,56 @@ final class TakeWhile extends AbstractOperation
              *
              * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
-            static function (callable ...$callbacks): Closure {
-                return
+            static fn (callable ...$callbacks): Closure =>
+            /**
+             * @psalm-param Iterator<TKey, T> $iterator
+             *
+             * @psalm-return Generator<TKey, T>
+             */
+            static function (Iterator $iterator) use ($callbacks): Generator {
+                $reducerCallback =
                     /**
-                     * @psalm-param Iterator<TKey, T> $iterator
+                     * @param mixed $key
+                     * @psalm-param TKey $key
                      *
-                     * @psalm-return Generator<TKey, T>
+                     * @psalm-return Closure(T): Closure(Iterator<TKey, T>): Closure(bool, callable(T, TKey, Iterator<TKey, T>): bool): bool
                      */
-                    static function (Iterator $iterator) use ($callbacks): Generator {
-                        $reducerCallback =
+                    static fn ($key): Closure =>
+                        /**
+                         * @param mixed $current
+                         * @psalm-param T $current
+                         *
+                         * @psalm-return Closure(Iterator<TKey, T>): Closure(bool, callable(T, TKey, Iterator<TKey, T>): bool): bool
+                         */
+                        static fn ($current): Closure =>
                             /**
-                             * @psalm-param TKey $key
+                             * @psalm-param Iterator<TKey, T> $iterator
                              *
-                             * @psalm-return Closure(T): Closure(Iterator<TKey, T>): Closure(bool, callable(T, TKey, Iterator<TKey, T>): bool): bool
-                             *
-                             * @param mixed $key
+                             * @psalm-return Closure(bool, callable(T, TKey, Iterator<TKey, T>): bool): bool
                              */
-                            static function ($key): Closure {
-                                return
-                                    /**
-                                     * @psalm-param T $current
-                                     *
-                                     * @psalm-return Closure(Iterator<TKey, T>): Closure(bool, callable(T, TKey, Iterator<TKey, T>): bool): bool
-                                     *
-                                     * @param mixed $current
-                                     */
-                                    static function ($current) use ($key): Closure {
-                                        return
-                                            /**
-                                             * @psalm-param Iterator<TKey, T> $iterator
-                                             *
-                                             * @psalm-return Closure(bool, callable(T, TKey, Iterator<TKey, T>): bool): bool
-                                             */
-                                            static function (Iterator $iterator) use ($key, $current): Closure {
-                                                return
-                                                    /**
-                                                     * @psalm-param bool $carry
-                                                     * @psalm-param callable(T, TKey, Iterator<TKey, T>): bool $callable
-                                                     */
-                                                    static function (bool $carry, callable $callable) use ($key, $current, $iterator): bool {
-                                                        return ($callable($current, $key, $iterator)) ?
-                                                            $carry :
-                                                            false;
-                                                    };
-                                            };
-                                    };
-                            };
+                            static fn (Iterator $iterator): Closure =>
+                                /**
+                                 * @psalm-param bool $carry
+                                 * @psalm-param callable(T, TKey, Iterator<TKey, T>): bool $callable
+                                 */
+                                static fn (bool $carry, callable $callable): bool => ($callable($current, $key, $iterator)) ? $carry : false;
 
-                        for (; $iterator->valid(); $iterator->next()) {
-                            $key = $iterator->key();
-                            $current = $iterator->current();
+                for (; $iterator->valid(); $iterator->next()) {
+                    $key = $iterator->key();
+                    $current = $iterator->current();
 
-                            $result = array_reduce(
-                                $callbacks,
-                                $reducerCallback($key)($current)($iterator),
-                                true
-                            );
+                    $result = array_reduce(
+                        $callbacks,
+                        $reducerCallback($key)($current)($iterator),
+                        true
+                    );
 
-                            if (false === $result) {
-                                break;
-                            }
+                    if (false === $result) {
+                        break;
+                    }
 
-                            yield $key => $current;
-                        }
-                    };
+                    yield $key => $current;
+                }
             };
     }
 }

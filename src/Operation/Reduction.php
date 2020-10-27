@@ -18,7 +18,7 @@ use Iterator;
 final class Reduction extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(callable(T|null, T, TKey, Iterator<TKey, T>):(T|null)): Closure(T|null): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @psalm-return Closure(callable((T | null) , T , TKey , Iterator<TKey, T> ): (T | null)):Closure (T|null): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
@@ -28,27 +28,23 @@ final class Reduction extends AbstractOperation
              *
              * @psalm-return Closure(T|null): Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
-            static function (callable $callback): Closure {
-                return
+            static fn (callable $callback): Closure =>
+                /**
+                 * @param mixed|null $initial
+                 * @psalm-param T|null $initial
+                 *
+                 * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
+                 */
+                static fn ($initial = null): Closure =>
                     /**
-                     * @param mixed|null $initial
-                     * @psalm-param T|null $initial
+                     * @psalm-param Iterator<TKey, T> $iterator
                      *
-                     * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
+                     * @psalm-return Generator<TKey, T|null>
                      */
-                    static function ($initial = null) use ($callback): Closure {
-                        return
-                            /**
-                             * @psalm-param Iterator<TKey, T> $iterator
-                             *
-                             * @psalm-return Generator<TKey, T|null>
-                             */
-                            static function (Iterator $iterator) use ($callback, $initial): Generator {
-                                foreach ($iterator as $key => $value) {
-                                    yield $key => ($initial = $callback($initial, $value, $key, $iterator));
-                                }
-                            };
+                    static function (Iterator $iterator) use ($callback, $initial): Generator {
+                        foreach ($iterator as $key => $value) {
+                            yield $key => ($initial = $callback($initial, $value, $key, $iterator));
+                        }
                     };
-            };
     }
 }

@@ -12,11 +12,13 @@ use Iterator;
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
+ *
+ * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class GroupBy extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(null|callable(TKey, T):(TKey|null)): Closure(Iterator<TKey, T>): Generator<int, T|list<T>>
+     * @psalm-return Closure((null | callable(TKey , T ): (TKey | null))):Closure (Iterator<TKey, T>): Generator<int, T|list<T>>
      */
     public function __invoke(): Closure
     {
@@ -39,9 +41,7 @@ final class GroupBy extends AbstractOperation
                      * @return mixed
                      * @psalm-return TKey
                      */
-                    static function ($value, $key) {
-                        return $key;
-                    };
+                    static fn ($value, $key) => $key;
 
                 $reducerFactory =
                     /**
@@ -49,29 +49,27 @@ final class GroupBy extends AbstractOperation
                      *
                      * @psalm-return Closure(array<TKey, T|list<T>>, T, TKey): array<TKey, T|list<T>>
                      */
-                    static function (callable $callback): Closure {
-                        return
-                            /**
-                             * @psalm-param array<TKey, list<T>> $collect
-                             *
-                             * @param mixed $value
-                             * @psalm-param T $value
-                             *
-                             * @param mixed $key
-                             * @psalm-param TKey $key
-                             *
-                             * @psalm-return non-empty-array<TKey, T|list<T>>
-                             */
-                            static function (array $collect, $value, $key) use ($callback): array {
-                                if (null !== $groupKey = $callback($value, $key)) {
-                                    $collect[$groupKey][] = $value;
-                                } else {
-                                    $collect[$key] = $value;
-                                }
+                    static fn (callable $callback): Closure =>
+                        /**
+                         * @psalm-param array<TKey, list<T>> $collect
+                         *
+                         * @param mixed $value
+                         * @psalm-param T $value
+                         *
+                         * @param mixed $key
+                         * @psalm-param TKey $key
+                         *
+                         * @psalm-return non-empty-array<TKey, T|list<T>>
+                         */
+                        static function (array $collect, $value, $key) use ($callback): array {
+                            if (null !== $groupKey = $callback($value, $key)) {
+                                $collect[$groupKey][] = $value;
+                            } else {
+                                $collect[$key] = $value;
+                            }
 
-                                return $collect;
-                            };
-                    };
+                            return $collect;
+                        };
 
                 /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, list<T>> $pipe */
                 $pipe = Pipe::of()(

@@ -22,9 +22,7 @@ final class Words extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        $mapCallback = static function (array $value): string {
-            return implode('', $value);
-        };
+        $mapCallback = static fn (array $value): string => implode('', $value);
 
         /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, string> $pipe */
         $pipe = Pipe::of()(

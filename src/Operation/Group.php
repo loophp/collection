@@ -31,23 +31,17 @@ final class Group extends AbstractOperation
             static function (Iterator $iterator): Generator {
                 $spanCallback =
                     /**
+                     * @param mixed $current
                      * @psalm-param T $current
                      *
                      * @psalm-return Closure(T): bool
-                     *
-                     * @param mixed $current
                      */
-                    static function ($current): Closure {
-                        return
-                            /**
-                             * @psalm-param T $value
-                             *
-                             * @param mixed $value
-                             */
-                            static function ($value) use ($current): bool {
-                                return $value === $current;
-                            };
-                    };
+                    static fn ($current): Closure =>
+                        /**
+                         * @param mixed $value
+                         * @psalm-param T $value
+                         */
+                        static fn ($value): bool => $value === $current;
 
                 for (; $iterator->valid(); $span->next(), $iterator = $span->current()) {
                     $key = $iterator->key();
@@ -56,7 +50,7 @@ final class Group extends AbstractOperation
                     /** @psalm-var Iterator<int, Iterator<TKey, T>> $span */
                     $span = Span::of()($spanCallback($current))($iterator);
 
-                    yield $key => iterator_to_array($span->current());
+                    yield $key => [...$span->current()];
                 }
             };
     }

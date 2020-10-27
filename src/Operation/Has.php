@@ -35,18 +35,14 @@ final class Has extends AbstractOperation
                      * @param mixed $key
                      * @psalm-param TKey $key
                      */
-                    static function ($value, $key) use ($callback): bool {
-                        return $callback($key, $value) === $value;
-                    };
+                    static fn ($value, $key): bool => $callback($key, $value) === $value;
 
                 $dropWhileCallback =
                     /**
                      * @param mixed $value
                      * @psalm-param T $value
                      */
-                    static function ($value): bool {
-                        return false === $value;
-                    };
+                    static fn ($value): bool => false === $value;
 
                 /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, bool> $pipe */
                 $pipe = Pipe::of()(

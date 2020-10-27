@@ -16,7 +16,7 @@ use Iterator;
 final class Collapse extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<array-key, T|iterable<TKey, T>>): Generator<TKey, T>
+     * @psalm-return Closure(Iterator<array-key, (T | iterable<TKey, T>)>):Generator<TKey, T>
      */
     public function __invoke(): Closure
     {

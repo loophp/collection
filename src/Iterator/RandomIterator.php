@@ -6,65 +6,54 @@ namespace loophp\collection\Iterator;
 
 use ArrayIterator;
 use Iterator;
-use OuterIterator;
 
 /**
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T of string
  *
- * @implements Iterator<TKey, T>
+ * @extends ProxyIterator<TKey, T>
  */
-final class RandomIterator implements Iterator, OuterIterator
+final class RandomIterator extends ProxyIterator
 {
+    /**
+     * @psalm-var Iterator<TKey, T>
+     */
+    protected Iterator $iterator;
+
     /**
      * @var array<int, int>
      */
-    private $indexes;
+    private array $indexes;
+
+    private int $key;
 
     /**
-     * @var Iterator
-     * @psalm-var Iterator<TKey, T>
-     */
-    private $inner;
-
-    /**
-     * @var ArrayIterator
      * @psalm-var ArrayIterator<int, array{0: TKey, 1: T}>
      */
-    private $iterator;
-
-    /**
-     * @var int
-     */
-    private $key;
+    private ArrayIterator $wrappedIterator;
 
     /**
      * @psalm-param Iterator<TKey, T> $iterator
      */
     public function __construct(Iterator $iterator)
     {
-        $this->inner = $iterator;
-        $this->iterator = $this->buildArrayIterator($iterator);
-        $this->indexes = array_keys($this->iterator->getArrayCopy());
+        $this->iterator = $iterator;
+        $this->wrappedIterator = $this->buildArrayIterator($iterator);
+        $this->indexes = array_keys($this->wrappedIterator->getArrayCopy());
         $this->key = array_rand($this->indexes);
     }
 
     public function current()
     {
-        $value = $this->iterator[$this->key];
+        $value = $this->wrappedIterator[$this->key];
 
         return $value[1];
     }
 
-    public function getInnerIterator()
-    {
-        return $this->inner;
-    }
-
     public function key()
     {
-        $value = $this->iterator[$this->key];
+        $value = $this->wrappedIterator[$this->key];
 
         return $value[0];
     }
@@ -78,10 +67,10 @@ final class RandomIterator implements Iterator, OuterIterator
         }
     }
 
-    public function rewind()
+    public function rewind(): void
     {
-        $this->indexes = array_keys($this->iterator->getArrayCopy());
-        $this->iterator->rewind();
+        parent::rewind();
+        $this->indexes = array_keys($this->wrappedIterator->getArrayCopy());
     }
 
     public function valid(): bool

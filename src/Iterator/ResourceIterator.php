@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace loophp\collection\Iterator;
 
 use Generator;
-use Iterator;
-use OuterIterator;
+use InvalidArgumentException;
 
 /**
  * @psalm-template TKey
@@ -14,29 +13,29 @@ use OuterIterator;
  * @psalm-template T
  *
  * @extends ProxyIterator<TKey, T>
- * @implements Iterator<TKey, T>
  */
-final class ResourceIterator extends ProxyIterator implements Iterator, OuterIterator
+final class ResourceIterator extends ProxyIterator
 {
     /**
      * @param resource $resource
      */
     public function __construct($resource)
     {
-        $closure =
+        if ('stream' !== get_resource_type($resource)) {
+            throw new InvalidArgumentException('Invalid resource type.');
+        }
+
+        $this->iterator = new ClosureIterator(
             /**
              * @param resource $resource
              *
-             * @psalm-return Generator<int, T>
+             * @psalm-return Generator<int, string>
              */
             static function ($resource): Generator {
                 while (false !== $chunk = fgetc($resource)) {
                     yield $chunk;
                 }
-            };
-
-        $this->iterator = new ClosureIterator(
-            $closure,
+            },
             $resource
         );
     }

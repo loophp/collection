@@ -6,49 +6,48 @@ namespace loophp\collection\Iterator;
 
 use Closure;
 use Generator;
-use Iterator;
-use OuterIterator;
 
 /**
  * @psalm-template TKey
- * @psalm-template TKey of array-key
  * @psalm-template T
  *
  * @extends ProxyIterator<TKey, T>
- * @implements Iterator<TKey, T>
  */
-final class ClosureIterator extends ProxyIterator implements Iterator, OuterIterator
+final class ClosureIterator extends ProxyIterator
 {
     /**
      * @var array<int, mixed>
-     * @psalm-var list<T>
+     * @psalm-var list<mixed>
      */
-    private $arguments;
+    private array $arguments;
 
     /**
      * @var callable
-     * @psalm-var callable(T...):(Generator<TKey, T>)
+     * @psalm-var callable(mixed ...):Generator<TKey, T>
      */
     private $callable;
 
     /**
      * @var Closure
-     * @psalm-var Closure(callable(T...):Generator<TKey, T>, list<T>):(Generator<TKey, T>)
+     * @psalm-var Closure(callable(mixed ...): Generator<TKey, T>, list<T>):Generator<TKey, T>
      */
     private $generator;
 
     /**
      * @param mixed ...$arguments
-     * @psalm-param T ...$arguments
-     * @psalm-param callable(T...):(Generator<TKey,T>) $callable
+     * @psalm-param mixed ...$arguments
+     * @psalm-param callable(mixed ...):Generator<TKey, T> $callable
      */
     public function __construct(callable $callable, ...$arguments)
     {
         $this->callable = $callable;
         $this->arguments = $arguments;
-        $this->generator = static function (callable $callable, array $arguments): Generator {
-            return yield from ($callable)(...$arguments);
-        };
+        $this->generator =
+            /**
+             * @psalm-param callable(T...):Generator<TKey, T> $callable
+             * @psalm-param list<T> $arguments
+             */
+            static fn (callable $callable, array $arguments): Generator => yield from ($callable)(...$arguments);
 
         $this->iterator = $this->getGenerator();
     }

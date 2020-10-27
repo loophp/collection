@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace loophp\collection\Iterator;
 
 use Generator;
-use Iterator;
-use OuterIterator;
 
 /**
  * @psalm-template TKey
@@ -14,9 +12,8 @@ use OuterIterator;
  * @psalm-template T of string
  *
  * @extends ProxyIterator<TKey, T>
- * @implements Iterator<TKey, T>
  */
-final class StringIterator extends ProxyIterator implements Iterator, OuterIterator
+final class StringIterator extends ProxyIterator
 {
     public function __construct(string $data, string $delimiter = '')
     {

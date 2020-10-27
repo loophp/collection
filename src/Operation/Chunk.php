@@ -27,39 +27,37 @@ final class Chunk extends AbstractOperation
             /**
              * @psalm-return Closure(Iterator<TKey, T>): Generator<int, list<T>>
              */
-            static function (int ...$sizes): Closure {
-                return
-                    /**
-                     * @psalm-param Iterator<TKey, T> $iterator
-                     *
-                     * @psalm-return Generator<int, list<T>>
-                     */
-                    static function (Iterator $iterator) use ($sizes): Generator {
-                        /** @psalm-var Iterator<int, int> $sizesIterator */
-                        $sizesIterator = Cycle::of()(new ArrayIterator($sizes));
+            static fn (int ...$sizes): Closure =>
+                /**
+                 * @psalm-param Iterator<TKey, T> $iterator
+                 *
+                 * @psalm-return Generator<int, list<T>>
+                 */
+                static function (Iterator $iterator) use ($sizes): Generator {
+                    /** @psalm-var Iterator<int, int> $sizesIterator */
+                    $sizesIterator = Cycle::of()(new ArrayIterator($sizes));
 
-                        $values = [];
+                    $values = [];
 
-                        foreach ($iterator as $value) {
-                            if (0 >= $sizesIterator->current()) {
-                                return yield from [];
-                            }
-
-                            if (count($values) !== $sizesIterator->current()) {
-                                $values[] = $value;
-
-                                continue;
-                            }
-
-                            $sizesIterator->next();
-
-                            yield $values;
-
-                            $values = [$value];
+                    foreach ($iterator as $value) {
+                        if (0 >= $sizesIterator->current()) {
+                            return yield from [];
                         }
 
-                        return yield $values;
-                    };
-            };
+                        if (count($values) !== $sizesIterator->current()) {
+                            $values[] = $value;
+
+                            continue;
+                        }
+
+                        $sizesIterator->next();
+
+                        yield $values;
+
+                        $values = [$value];
+                    }
+
+                    return yield $values;
+                };
     }
 }

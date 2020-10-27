@@ -27,47 +27,45 @@ final class Product extends AbstractOperation
              *
              * @psalm-return Closure(Iterator<TKey, T>): Generator<int, array<int, T>>
              */
-            static function (iterable ...$iterables): Closure {
-                return
-                    /**
-                     * @psalm-param Iterator<TKey, T> $iterator
-                     *
-                     * @psalm-return Generator<int, array<int, T>>
-                     */
-                    static function (Iterator $iterator) use ($iterables): Generator {
-                        /** @psalm-var Closure(iterable<TKey, T>...): Generator<int, array<int, T>> $cartesian */
-                        $cartesian =
-                            /**
-                             * @param array<int, iterable> ...$iterables
-                             *
-                             * @psalm-param iterable<TKey, T> ...$iterables
-                             *
-                             * @psalm-return Generator<int, array<int, T>>
-                             */
-                            static function (iterable ...$iterables) use (&$cartesian): Generator {
-                                $iterable = array_pop($iterables);
+            static fn (iterable ...$iterables): Closure =>
+                /**
+                 * @psalm-param Iterator<TKey, T> $iterator
+                 *
+                 * @psalm-return Generator<int, array<int, T>>
+                 */
+                static function (Iterator $iterator) use ($iterables): Generator {
+                    /** @psalm-var Closure(iterable<TKey, T>...): Generator<int, array<int, T>> $cartesian */
+                    $cartesian =
+                        /**
+                         * @param array<int, iterable> ...$iterables
+                         *
+                         * @psalm-param iterable<TKey, T> ...$iterables
+                         *
+                         * @psalm-return Generator<int, array<int, T>>
+                         */
+                        static function (iterable ...$iterables) use (&$cartesian): Generator {
+                            $iterable = array_pop($iterables);
 
-                                if (null === $iterable) {
-                                    return yield [];
+                            if (null === $iterable) {
+                                return yield [];
+                            }
+
+                            // @todo Find better algo, without recursion.
+                            /** @psalm-var array<int, T> $item */
+                            foreach ($cartesian(...$iterables) as $item) {
+                                foreach ($iterable as $value) {
+                                    yield $item + [count($item) => $value];
                                 }
+                            }
+                        };
 
-                                // @todo Find better algo, without recursion.
-                                /** @psalm-var array<int, T> $item */
-                                foreach ($cartesian(...$iterables) as $item) {
-                                    foreach ($iterable as $value) {
-                                        yield $item + [count($item) => $value];
-                                    }
-                                }
-                            };
+                    $iterators = [$iterator];
 
-                        $iterators = [$iterator];
+                    foreach ($iterables as $iterable) {
+                        $iterators[] = $iterable;
+                    }
 
-                        foreach ($iterables as $iterable) {
-                            $iterators[] = $iterable;
-                        }
-
-                        return yield from $cartesian(...$iterators);
-                    };
-            };
+                    return yield from $cartesian(...$iterators);
+                };
     }
 }

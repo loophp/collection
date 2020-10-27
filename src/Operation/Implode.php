@@ -27,20 +27,14 @@ final class Implode extends AbstractOperation
              * @psalm-return Closure(Iterator<TKey, T>): Generator<int, string>
              */
             static function (string $glue): Closure {
-                $reducerFactory = static function (string $glue): Closure {
-                    return
-                        /**
-                         * @psalm-param TKey $key
-                         * @psalm-param T $item
-                         *
-                         * @param mixed $item
-                         */
-                        static function (string $carry, $item): string {
-                            $carry .= $item;
-
-                            return $carry;
-                        };
-                };
+                $reducerFactory = static fn (string $glue): Closure =>
+                    /**
+                     * @psalm-param TKey $key
+                     * @psalm-param T $item
+                     *
+                     * @param mixed $item
+                     */
+                    static fn (string $carry, $item): string => $carry .= $item;
 
                 /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, string> $pipe */
                 $pipe = Pipe::of()(

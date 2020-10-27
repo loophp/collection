@@ -28,43 +28,35 @@ final class IfThenElse extends AbstractOperation
              *
              * @psalm-return Closure(callable(T, TKey): (T)): Closure(callable(T, TKey): (T)): Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
-            static function (callable $condition): Closure {
-                return
+            static fn (callable $condition): Closure =>
+                /**
+                 * @psalm-param callable(T, TKey):T $then
+                 *
+                 * @psalm-return Closure(callable(T, TKey): (T)): Closure(Iterator<TKey, T>): Generator<TKey, T>
+                 */
+                static fn (callable $then): Closure =>
                     /**
-                     * @psalm-param callable(T, TKey):T $then
+                     * @psalm-param callable(T, TKey):T $else
                      *
-                     * @psalm-return Closure(callable(T, TKey): (T)): Closure(Iterator<TKey, T>): Generator<TKey, T>
+                     * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
                      */
-                    static function (callable $then) use ($condition): Closure {
-                        return
+                    static function (callable $else) use ($condition, $then): Closure {
+                        /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $map */
+                        $map = Map::of()(
                             /**
-                             * @psalm-param callable(T, TKey):T $else
+                             * @param mixed $value
+                             * @psalm-param T $value
                              *
-                             * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
+                             * @param mixed $key
+                             * @psalm-param TKey $key
+                             *
+                             * @psalm-return T
                              */
-                            static function (callable $else) use ($condition, $then): Closure {
-                                /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $map */
-                                $map = Map::of()(
-                                    /**
-                                     * @param mixed $value
-                                     * @psalm-param T $value
-                                     *
-                                     * @param mixed $key
-                                     * @psalm-param TKey $key
-                                     *
-                                     * @psalm-return T
-                                     */
-                                    static function ($value, $key) use ($condition, $then, $else) {
-                                        return $condition($value, $key) ?
-                                            $then($value, $key) :
-                                            $else($value, $key);
-                                    }
-                                );
+                            static fn ($value, $key) => $condition($value, $key) ? $then($value, $key) : $else($value, $key)
+                        );
 
-                                // Point free style.
-                                return $map;
-                            };
+                        // Point free style.
+                        return $map;
                     };
-            };
     }
 }

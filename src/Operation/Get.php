@@ -16,7 +16,7 @@ use Iterator;
 final class Get extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(T|TKey): Closure(T): Closure(Iterator<TKey, T>): Generator<int|TKey, T>
+     * @psalm-return Closure((T | TKey)):Closure (T): Closure(Iterator<TKey, T>): Generator<int|TKey, T>
      */
     public function __invoke(): Closure
     {
@@ -27,37 +27,26 @@ final class Get extends AbstractOperation
              *
              * @psalm-return Closure(T): Closure(Iterator<TKey, T>): Generator<int|TKey, T>
              */
-            static function ($keyToGet): Closure {
-                return
+            static fn ($keyToGet): Closure => static function ($default) use ($keyToGet): Closure {
+                $filterCallback =
                     /**
-                     * @param mixed $default
-                     * @psalm-param T $default
+                     * @param mixed $value
+                     * @psalm-param T $value
                      *
-                     * @psalm-return Closure(Iterator<TKey, T>): Generator<int|TKey, T>
+                     * @param mixed $key
+                     * @psalm-param TKey $key
                      */
-                    static function ($default) use ($keyToGet): Closure {
-                        $filterCallback =
-                            /**
-                             * @param mixed $value
-                             * @psalm-param T $value
-                             *
-                             * @param mixed $key
-                             * @psalm-param TKey $key
-                             */
-                            static function ($value, $key) use ($keyToGet): bool {
-                                return $key === $keyToGet;
-                            };
+                    static fn ($value, $key): bool => $key === $keyToGet;
 
-                        /** @psalm-var Closure(Iterator<TKey, T>): Generator<int|TKey, T> $pipe */
-                        $pipe = Pipe::of()(
-                            Filter::of()($filterCallback),
-                            Append::of()($default),
-                            Head::of()
-                        );
+                /** @psalm-var Closure(Iterator<TKey, T>):(Generator<int|TKey, T>) $pipe */
+                $pipe = Pipe::of()(
+                    Filter::of()($filterCallback),
+                    Append::of()($default),
+                    Head::of()
+                );
 
-                        // Point free style.
-                        return $pipe;
-                    };
+                // Point free style.
+                return $pipe;
             };
     }
 }

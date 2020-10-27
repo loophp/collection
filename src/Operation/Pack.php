@@ -30,9 +30,7 @@ final class Pack extends AbstractOperation
              *
              * @psalm-return array{0: TKey, 1: T}
              */
-            static function ($value, $key): array {
-                return [$key, $value];
-            };
+            static fn ($value, $key): array => [$key, $value];
 
         /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, array{0: TKey, 1: T}> $pipe */
         $pipe = Pipe::of()(

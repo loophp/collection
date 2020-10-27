@@ -31,11 +31,7 @@ final class Reverse extends AbstractOperation
          *
          * @psalm-return array<int, array{0: TKey, 1: T}>
          */
-        $callback = static function (array $carry, array $value): array {
-            array_unshift($carry, ...$value);
-
-            return $carry;
-        };
+        $callback = static fn (array $carry, array $value): array => [...$value, ...$carry];
 
         /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
         $pipe = Pipe::of()(

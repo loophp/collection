@@ -12,6 +12,8 @@ use Iterator;
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
+ *
+ * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class RSample extends AbstractOperation
 {
@@ -25,11 +27,7 @@ final class RSample extends AbstractOperation
              * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static function (float $probability): Closure {
-                $callback = static function (float $probability): Closure {
-                    return static function () use ($probability): bool {
-                        return (mt_rand() / mt_getrandmax()) < $probability;
-                    };
-                };
+                $callback = static fn (float $probability): Closure => static fn (): bool => (mt_rand() / mt_getrandmax()) < $probability;
 
                 /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $filter */
                 $filter = Filter::of()($callback($probability));

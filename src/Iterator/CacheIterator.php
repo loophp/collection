@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace loophp\collection\Iterator;
 
 use Iterator;
-use OuterIterator;
 use Psr\Cache\CacheItemInterface;
 use Psr\Cache\CacheItemPoolInterface;
 
@@ -14,32 +13,20 @@ use Psr\Cache\CacheItemPoolInterface;
  * @psalm-template TKey of array-key
  * @psalm-template T
  *
- * @implements Iterator<TKey, T>
+ * @extends ProxyIterator<TKey, T>
  */
-final class CacheIterator implements Iterator, OuterIterator
+final class CacheIterator extends ProxyIterator
 {
-    /**
-     * @var CacheItemPoolInterface
-     */
-    private $cache;
+    private CacheItemPoolInterface $cache;
 
-    /**
-     * @var Iterator
-     * @psalm-var Iterator<TKey, T>
-     */
-    private $inner;
-
-    /**
-     * @var int
-     */
-    private $key;
+    private int $key;
 
     /**
      * @psalm-param Iterator<TKey, T> $iterator
      */
     public function __construct(Iterator $iterator, CacheItemPoolInterface $cache)
     {
-        $this->inner = $iterator;
+        $this->iterator = $iterator;
         $this->cache = $cache;
         $this->key = 0;
     }
@@ -53,11 +40,6 @@ final class CacheIterator implements Iterator, OuterIterator
         $data = $this->getItemOrSave((string) $this->key)->get();
 
         return $data[1];
-    }
-
-    public function getInnerIterator(): Iterator
-    {
-        return $this->inner;
     }
 
     /**
@@ -74,7 +56,7 @@ final class CacheIterator implements Iterator, OuterIterator
     public function next(): void
     {
         ++$this->key;
-        $this->inner->next();
+        parent::next();
     }
 
     public function rewind(): void
@@ -84,7 +66,7 @@ final class CacheIterator implements Iterator, OuterIterator
 
     public function valid(): bool
     {
-        return $this->cache->hasItem((string) $this->key) || $this->inner->valid();
+        return $this->cache->hasItem((string) $this->key) || parent::valid();
     }
 
     private function getItemOrSave(string $key): CacheItemInterface
@@ -93,8 +75,8 @@ final class CacheIterator implements Iterator, OuterIterator
 
         if (false === $item->isHit()) {
             $item->set([
-                $this->inner->key(),
-                $this->inner->current(),
+                parent::key(),
+                parent::current(),
             ]);
 
             $this->cache->save($item);

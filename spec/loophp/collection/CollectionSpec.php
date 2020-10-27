@@ -8,6 +8,7 @@ use ArrayObject;
 use Closure;
 use Exception;
 use Generator;
+use InvalidArgumentException;
 use Iterator;
 use JsonSerializable;
 use loophp\collection\Collection;
@@ -202,9 +203,9 @@ class CollectionSpec extends ObjectBehavior
 
         $stream = imagecreate(100, 100);
 
-        $this::with($stream)
-            ->count()
-            ->shouldReturn(1);
+        $this::fromResource($stream)
+            ->shouldThrow(InvalidArgumentException::class)
+            ->during('all');
     }
 
     public function it_can_be_constructed_from_a_string(): void
@@ -245,38 +246,10 @@ class CollectionSpec extends ObjectBehavior
             ]);
     }
 
-    public function it_can_be_constructed_from_an_object(): void
-    {
-        $foo = new class() {
-            private $a = 'a';
-
-            private $b = 'b';
-
-            private $c = 'c';
-        };
-
-        $this::with($foo)
-            ->normalize()
-            ->shouldIterateAs([
-                'a',
-                'b',
-                'c',
-            ]);
-    }
-
     public function it_can_be_constructed_from_empty(): void
     {
         $this
             ->beConstructedThrough('empty');
-
-        $this
-            ->shouldIterateAs([]);
-    }
-
-    public function it_can_be_constructed_from_nothing(): void
-    {
-        $this
-            ->beConstructedWith(null);
 
         $this
             ->shouldIterateAs([]);
@@ -1104,13 +1077,13 @@ class CollectionSpec extends ObjectBehavior
             ->group()
             ->shouldIterateAs([
                 0 => [0 => 'M'],
-                1 => [1 => 'i'],
-                2 => [2 => 's', 3 => 's'],
-                4 => [4 => 'i'],
-                5 => [5 => 's', 6 => 's'],
-                7 => [7 => 'i'],
-                8 => [8 => 'p', 9 => 'p'],
-                10 => [10 => 'i'],
+                1 => [0 => 'i'],
+                2 => [0 => 's', 1 => 's'],
+                4 => [0 => 'i'],
+                5 => [0 => 's', 1 => 's'],
+                7 => [0 => 'i'],
+                8 => [0 => 'p', 1 => 'p'],
+                10 => [0 => 'i'],
             ]);
     }
 
@@ -2254,10 +2227,10 @@ EOF;
             ->tails()
             ->shouldIterateAs([
                 ['A', 'B', 'C', 'D', 'E'],
-                [1 => 'B', 2 => 'C', 3 => 'D', 4 => 'E'],
-                [2 => 'C', 3 => 'D', 4 => 'E'],
-                [3 => 'D', 4 => 'E'],
-                [4 => 'E'],
+                [0 => 'B', 1 => 'C', 2 => 'D', 3 => 'E'],
+                [0 => 'C', 1 => 'D', 2 => 'E'],
+                [0 => 'D', 1 => 'E'],
+                [0 => 'E'],
                 [],
             ]);
     }
@@ -2785,56 +2758,6 @@ EOF;
             ->shouldIterateAs([]);
     }
 
-    public function it_can_use_with(): void
-    {
-        $input = ['a' => 'A', 'b' => 'B', 'c' => 'C'];
-
-        $generator = static function () {
-            yield 'a' => 'A';
-
-            yield 'b' => 'B';
-
-            yield 'c' => 'C';
-        };
-
-        $this::with($input)
-            ->shouldIterateAs($generator());
-
-        $this::with($generator)
-            ->shouldIterateAs($generator());
-
-        $this::with('abc')
-            ->shouldIterateAs(['a', 'b', 'c']);
-
-        $this::with('abc def', ' ')
-            ->shouldIterateAs(['abc', 'def']);
-
-        $stream = static function () {
-            $stream = fopen(__DIR__ . '/../../../.editorconfig', 'rb');
-
-            while (false !== $chunk = fgetc($stream)) {
-                yield $chunk;
-            }
-
-            fclose($stream);
-        };
-
-        $this::with($stream)
-            ->explode("\n")
-            ->last()
-            ->unwrap()
-            ->implode()
-            ->shouldIterateAs([14 => 'indent_size = 4']);
-
-        $stream = fopen(__DIR__ . '/../../fixtures/sample.txt', 'rb');
-
-        $this::with($stream)
-            ->shouldIterateAs(['a', 'b', 'c']);
-
-        $this::with(1)
-            ->shouldIterateAs([1]);
-    }
-
     public function it_can_window(): void
     {
         $this::fromIterable(range('a', 'z'))
@@ -3034,5 +2957,10 @@ EOF;
     public function it_is_initializable(): void
     {
         $this->shouldHaveType(Collection::class);
+    }
+
+    public function let()
+    {
+        $this->beConstructedThrough('empty');
     }
 }

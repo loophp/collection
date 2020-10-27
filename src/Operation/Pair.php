@@ -16,7 +16,7 @@ use Iterator;
 final class Pair extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, T>): Generator<T|TKey, T>
+     * @psalm-return Closure(Iterator<TKey, T>):(Generator<T|TKey, T>)
      */
     public function __invoke(): Closure
     {
@@ -31,9 +31,7 @@ final class Pair extends AbstractOperation
              * @param mixed $initial
              * @param mixed $key
              */
-            static function ($initial, $key, array $value) {
-                return $value[0];
-            };
+            static fn ($initial, $key, array $value) => $value[0];
 
         $callbackForValues =
             /**
@@ -46,17 +44,13 @@ final class Pair extends AbstractOperation
              * @param mixed $initial
              * @param mixed $key
              */
-            static function ($initial, $key, array $value) {
-                return $value[1];
-            };
+            static fn ($initial, $key, array $value) => $value[1];
 
-        /** @psalm-var Closure(Iterator<TKey, T>): Generator<T|TKey, T> $pipe */
+        /** @psalm-var Closure(Iterator<TKey, T>):(Generator<T|TKey, T>) $pipe */
         $pipe = Pipe::of()(
             Chunk::of()(2),
             Map::of()(
-                static function (array $value): array {
-                    return array_values($value);
-                }
+                static fn (array $value): array => array_values($value)
             ),
             Associate::of()($callbackForKeys)($callbackForValues)
         );

@@ -5,18 +5,14 @@ declare(strict_types=1);
 namespace loophp\collection\Iterator;
 
 use Generator;
-use Iterator;
-use OuterIterator;
 
 /**
  * @psalm-template TKey
- * @psalm-template TKey of array-key
  * @psalm-template T
  *
  * @extends ProxyIterator<TKey, T>
- * @implements Iterator<TKey, T>
  */
-final class IterableIterator extends ProxyIterator implements Iterator, OuterIterator
+final class IterableIterator extends ProxyIterator
 {
     /**
      * @param iterable<mixed> $iterable

@@ -6,18 +6,20 @@ namespace loophp\collection\Iterator;
 
 use Generator;
 use Iterator;
+use OuterIterator;
 
 /**
  * @psalm-template TKey
- * @psalm-template TKey of array-key
  * @psalm-template T
+ *
+ * @implements OuterIterator<TKey, T>
  */
-abstract class ProxyIterator
+abstract class ProxyIterator implements OuterIterator
 {
     /**
      * @psalm-var Generator<TKey, T>|Iterator<TKey, T>
      */
-    protected $iterator;
+    protected Iterator $iterator;
 
     /**
      * @return mixed
