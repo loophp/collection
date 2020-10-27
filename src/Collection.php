@@ -436,14 +436,14 @@ final class Collection implements CollectionInterface
     {
         return new self(
             /**
-             * @psalm-param callable $data
+             * @psalm-param callable(T...) $data
              * @psalm-param list<T> $parameters
              *
              * @psalm-return Generator<TKey, T>
              *
              * @param mixed $parameters
              */
-            static function (callable $callable, $parameters): Generator {
+            static function (callable $callable, array $parameters): Generator {
                 return yield from new ClosureIterator($callable, ...$parameters);
             },
             $callable,
