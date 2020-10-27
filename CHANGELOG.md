@@ -5,7 +5,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.7.3](https://github.com/loophp/collection/compare/2.7.2...2.7.3)
+## [3.0.0](https://github.com/loophp/collection/compare/2.7.3...3.0.0)
+
+### Merged
+
+- Refactoring - Preparation of release 3.0 [`#34`](https://github.com/loophp/collection/pull/34)
+
+### Commits
+
+- **Breaking change:** refactor: Update constructors. [`a080fae`](https://github.com/loophp/collection/commit/a080fae32f215f54f615963ea80b0d0406d43665)
+- **Breaking change:** refactor: Remove Collection::with constructor. [`90c732c`](https://github.com/loophp/collection/commit/90c732c30db34c47c073f4613b2d349c4b68d266)
+- tests: Update tests. [`7d81431`](https://github.com/loophp/collection/commit/7d81431e698f5078d1e509e9a4948d900672e307)
+- refactor: Update composer.json. [`504567a`](https://github.com/loophp/collection/commit/504567aa430d18e5b6e8248332575f6370c52594)
+- ci: Test on PHP 7.4 only. [`eed419c`](https://github.com/loophp/collection/commit/eed419c9b8f5f3be34d80624731c222c76ee2905)
+- ci: Drop support of PHP 7.1. [`1aae097`](https://github.com/loophp/collection/commit/1aae097d2bd99cdf3e3df538e8954e0c96bcb974)
+- refactor: Add forgotten typed argument. [`9fd2f9d`](https://github.com/loophp/collection/commit/9fd2f9d07d4a4fac6d6cfe1dd3fae19b52cdf2db)
+- test: Update tests. [`693e7a6`](https://github.com/loophp/collection/commit/693e7a6ce77ebd0de14cb2be0785eabaecf4ace6)
+- refactor: PHP 7.4 upgrade. [`ef8e8da`](https://github.com/loophp/collection/commit/ef8e8da78f751235b1b3470e60ab0c0315be77ce)
+- docs: Update documentation. [`f84063d`](https://github.com/loophp/collection/commit/f84063dc7db5cb2fe812e5631d0265dc931c5550)
+- refactor: Update CacheIterator [`02dc0a4`](https://github.com/loophp/collection/commit/02dc0a4875c5f31b2963e5b156f879253b06ae2f)
+- docs: Update annotations. [`7386746`](https://github.com/loophp/collection/commit/73867463d9b4229ea5548c7da667781002741e46)
+- refactor: Update Iterator annotations. [`dc9a311`](https://github.com/loophp/collection/commit/dc9a3119611cd9a84453a6e2ec14435713807f19)
+
+## [2.7.3](https://github.com/loophp/collection/compare/2.7.2...2.7.3) - 2020-10-17
 
 ### Merged
 
@@ -16,7 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Commits
 
-- docs: Update changelog. [`bf87739`](https://github.com/loophp/collection/commit/bf877394285c6dc1ed46151d447f34bfa708c1c4)
+- docs: Update changelog. [`b3b3c62`](https://github.com/loophp/collection/commit/b3b3c62f2200607b8075780d0694a3311dcb12dc)
 - chore: Update composer.json. [`4a395bd`](https://github.com/loophp/collection/commit/4a395bd8efc1c0540e28324807059c8d9c0b5156)
 - test: Add more tests. [`0529610`](https://github.com/loophp/collection/commit/052961065386659ad47926983626376729fdbe2b)
 - fix: Fix RandomIterator::rewind(). [`c3c1dd0`](https://github.com/loophp/collection/commit/c3c1dd08b00449a26ad7a43c93ba5b7687bda25f)
