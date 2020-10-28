@@ -21,7 +21,7 @@
     "require-dev": {
         "drupol/php-conventions": "^1.7.4 || ^1.8.19 || ^2",
         "friends-of-phpspec/phpspec-code-coverage": "^4.3.2",
-        "infection/infection": "^0.18.2",
+        "infection/infection": "^0.18.2 || ^0.19.0",
         "infection/phpspec-adapter": "^0.1.1",
         "phpspec/phpspec": "^5.1.2 || ^6.2.1",
         "phpstan/phpstan-strict-rules": "^0.12",
