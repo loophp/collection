@@ -177,6 +177,19 @@ class CollectionSpec extends ObjectBehavior
             );
     }
 
+    public function it_can_asyncMap(): void
+    {
+        $callback = static function (int $v): int {
+            sleep($v);
+
+            return $v;
+        };
+
+        $this::fromIterable(['c' => 3, 'b' => 2, 'a' => 1])
+            ->asyncMap($callback)
+            ->shouldIterateAs(['a' => 1, 'b' => 2, 'c' => 3]);
+    }
+
     public function it_can_be_constructed_from_a_file(): void
     {
         $this::fromFile(__DIR__ . '/../../fixtures/sample.txt')

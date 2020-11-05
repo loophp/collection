@@ -19,6 +19,7 @@
         "php": ">= 7.4"
     },
     "require-dev": {
+        "amphp/parallel": "^1",
         "drupol/php-conventions": "^1.7.4 || ^1.8.19 || ^2",
         "friends-of-phpspec/phpspec-code-coverage": "^4.3.2",
         "infection/infection": "^0.18.2",
@@ -43,7 +44,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "loophp\\collection\\benchmarks\\": "./benchmarks/"
+            "loophp\\collection\\benchmarks\\": "./benchmarks/",
+            "spec\\loophp\\collection\\": "./spec/loophp/collection/"
         }
     },
     "scripts": {

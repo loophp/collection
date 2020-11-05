@@ -15,6 +15,7 @@ use loophp\collection\Iterator\StringIterator;
 use loophp\collection\Operation\Append;
 use loophp\collection\Operation\Apply;
 use loophp\collection\Operation\Associate;
+use loophp\collection\Operation\AsyncMap;
 use loophp\collection\Operation\Cache;
 use loophp\collection\Operation\Chunk;
 use loophp\collection\Operation\Collapse;
@@ -188,6 +189,11 @@ final class Collection implements CollectionInterface
         $callbackForValues ??= $defaultCallback;
 
         return $this->pipe(Associate::of()($callbackForKeys)($callbackForValues));
+    }
+
+    public function asyncMap(callable $callback): CollectionInterface
+    {
+        return $this->pipe(AsyncMap::of()($callback));
     }
 
     public function cache(?CacheItemPoolInterface $cache = null): CollectionInterface
