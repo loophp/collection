@@ -5,7 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.0.0](https://github.com/loophp/collection/compare/2.7.3...3.0.0)
+## [3.0.1](https://github.com/loophp/collection/compare/3.0.0...3.0.1)
+
+### Merged
+
+- New asyncMap() operation (featuring amphp!) [`#40`](https://github.com/loophp/collection/pull/40)
+
+### Commits
+
+- feat: Add asyncMap operation. [`6139ba6`](https://github.com/loophp/collection/commit/6139ba6223770d44176cea33024f11ac6cc6ea4a)
+- chore: Add amphp/parallel dependency. [`3ca953b`](https://github.com/loophp/collection/commit/3ca953bdd3a10d3dc928f5acd853983badcffbf5)
+
+## [3.0.0](https://github.com/loophp/collection/compare/2.7.3...3.0.0) - 2020-10-27
 
 ### Merged
 
@@ -15,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Breaking change:** refactor: Update constructors. [`a080fae`](https://github.com/loophp/collection/commit/a080fae32f215f54f615963ea80b0d0406d43665)
 - **Breaking change:** refactor: Remove Collection::with constructor. [`90c732c`](https://github.com/loophp/collection/commit/90c732c30db34c47c073f4613b2d349c4b68d266)
+- docs: Update changelog. [`3f847a1`](https://github.com/loophp/collection/commit/3f847a14b1c2f56355bd3a1014308948be0a7e8f)
 - tests: Update tests. [`7d81431`](https://github.com/loophp/collection/commit/7d81431e698f5078d1e509e9a4948d900672e307)
 - refactor: Update composer.json. [`504567a`](https://github.com/loophp/collection/commit/504567aa430d18e5b6e8248332575f6370c52594)
 - ci: Test on PHP 7.4 only. [`eed419c`](https://github.com/loophp/collection/commit/eed419c9b8f5f3be34d80624731c222c76ee2905)
