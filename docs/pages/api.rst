@@ -249,6 +249,30 @@ Signature: ``Collection::associate(?callable $callbackForKeys = null, ?callable 
     //   18 => 20,
     // ]
 
+asyncMap
+~~~~~~~~
+
+Apply one callback to every item of a collection and use the return value.
+
+.. warning:: Operation are asynchronous and the result is then, non deterministic.
+
+.. warning:: Keys are preserved, use the "normalize" operation if you want to re-index the keys.
+
+Interface: `AsyncMapable`_
+
+Signature: ``Collection::asyncMap(callable $callback);``
+
+.. code-block:: php
+
+    $mapper = static function(int $value): int {
+        sleep($value);
+
+        return $value;
+    };
+
+    $collection = Collection::fromIterable(['c' => 3, 'b' => 2, 'a' => 1])
+        ->asyncMap($mapper); // ['a' => 1, 'b' => 2, 'c' => 3]
+
 cache
 ~~~~~
 
