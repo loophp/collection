@@ -5,7 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.0.1](https://github.com/loophp/collection/compare/3.0.0...3.0.1)
+## [3.0.2](https://github.com/loophp/collection/compare/3.0.1...3.0.2)
+
+### Commits
+
+- refactor: Update Head and First operations. [`eb792af`](https://github.com/loophp/collection/commit/eb792af45f1c45d639ee1d34525d5598e58f862e)
+- refactor: Update asyncMap operation, make it variadic. [`8b848bb`](https://github.com/loophp/collection/commit/8b848bb515a10f49520f2ef175aae533347ed5a8)
+- docs: Add missing link. [`113b4aa`](https://github.com/loophp/collection/commit/113b4aa1accd76f934a6aebc0cbaf6bf69f020a8)
+
+## [3.0.1](https://github.com/loophp/collection/compare/3.0.0...3.0.1) - 2020-11-05
 
 ### Merged
 
@@ -13,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Commits
 
+- docs: Update changelog. [`bd62ce6`](https://github.com/loophp/collection/commit/bd62ce6f236bc022d781b16d66d692b4311ce295)
 - feat: Add asyncMap operation. [`6139ba6`](https://github.com/loophp/collection/commit/6139ba6223770d44176cea33024f11ac6cc6ea4a)
 - chore: Add amphp/parallel dependency. [`3ca953b`](https://github.com/loophp/collection/commit/3ca953bdd3a10d3dc928f5acd853983badcffbf5)
 
