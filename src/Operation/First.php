@@ -20,18 +20,10 @@ final class First extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        return
-            /**
-             * @psalm-param Iterator<TKey, T> $iterator
-             *
-             * @psalm-return Generator<TKey, T>
-             */
-            static function (Iterator $iterator): Generator {
-                if (!$iterator->valid()) {
-                    return yield from [];
-                }
+        /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $head */
+        $head = Head::of();
 
-                return yield $iterator->key() => $iterator->current();
-            };
+        // Point free style.
+        return $head;
     }
 }

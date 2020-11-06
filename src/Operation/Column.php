@@ -48,7 +48,7 @@ final class Column extends AbstractOperation
                 $pipe = Pipe::of()(
                     Transpose::of(),
                     Filter::of()($filterCallbackBuilder($column)),
-                    First::of(),
+                    Head::of(),
                     Unwrap::of()
                 );
 

@@ -20,10 +20,18 @@ final class Head extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $first */
-        $first = First::of();
+        return
+            /**
+             * @psalm-param Iterator<TKey, T> $iterator
+             *
+             * @psalm-return Generator<TKey, T>
+             */
+            static function (Iterator $iterator): Generator {
+                if (!$iterator->valid()) {
+                    return yield from [];
+                }
 
-        // Point free style.
-        return $first;
+                return yield $iterator->key() => $iterator->current();
+            };
     }
 }
