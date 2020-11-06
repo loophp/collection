@@ -14,9 +14,9 @@ use loophp\collection\Contract\Collection;
 interface AsyncMapable
 {
     /**
-     * Apply one asynchronous callback to a collection and use the return value.
+     * Asynchronously apply callbacks to a collection.
      *
      * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
      */
-    public function asyncMap(callable $callback): Collection;
+    public function asyncMap(callable ...$callbacks): Collection;
 }

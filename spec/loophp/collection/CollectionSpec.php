@@ -179,15 +179,19 @@ class CollectionSpec extends ObjectBehavior
 
     public function it_can_asyncMap(): void
     {
-        $callback = static function (int $v): int {
+        $callback1 = static function (int $v): int {
             sleep($v);
 
             return $v;
         };
 
+        $callback2 = static function (int $v): int {
+            return $v * 2;
+        };
+
         $this::fromIterable(['c' => 3, 'b' => 2, 'a' => 1])
-            ->asyncMap($callback)
-            ->shouldIterateAs(['a' => 1, 'b' => 2, 'c' => 3]);
+            ->asyncMap($callback1, $callback2)
+            ->shouldIterateAs(['a' => 2, 'b' => 4, 'c' => 6]);
     }
 
     public function it_can_be_constructed_from_a_file(): void

@@ -191,9 +191,9 @@ final class Collection implements CollectionInterface
         return $this->pipe(Associate::of()($callbackForKeys)($callbackForValues));
     }
 
-    public function asyncMap(callable $callback): CollectionInterface
+    public function asyncMap(callable ...$callbacks): CollectionInterface
     {
-        return $this->pipe(AsyncMap::of()($callback));
+        return $this->pipe(AsyncMap::of()(...$callbacks));
     }
 
     public function cache(?CacheItemPoolInterface $cache = null): CollectionInterface

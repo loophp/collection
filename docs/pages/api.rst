@@ -254,24 +254,28 @@ asyncMap
 
 Apply one callback to every item of a collection and use the return value.
 
-.. warning:: Operation are asynchronous and the result is then, non deterministic.
+.. warning:: Asynchronously apply callbacks to a collection. This operation is deterministic, we cannot ensure the elements order at the end.
 
 .. warning:: Keys are preserved, use the "normalize" operation if you want to re-index the keys.
 
 Interface: `AsyncMapable`_
 
-Signature: ``Collection::asyncMap(callable $callback);``
+Signature: ``Collection::asyncMap(callable ...$callbacks);``
 
 .. code-block:: php
 
-    $mapper = static function(int $value): int {
+    $mapper1 = static function(int $value): int {
         sleep($value);
 
         return $value;
     };
 
+    $mapper2 = static function(int $value): int {
+        return $value * 2;
+    };
+
     $collection = Collection::fromIterable(['c' => 3, 'b' => 2, 'a' => 1])
-        ->asyncMap($mapper); // ['a' => 1, 'b' => 2, 'c' => 3]
+        ->asyncMap($mapper1, $mapper2); // ['a' => 2, 'b' => 4, 'c' => 6]
 
 cache
 ~~~~~
