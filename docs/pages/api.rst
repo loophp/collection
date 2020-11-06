@@ -1976,6 +1976,7 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Appendable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Appendable.php
 .. _Applyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Applyable.php
 .. _Associateable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Associateable.php
+.. _AsyncMapable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/AsyncMapable.php
 .. _Cacheable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Cacheable.php
 .. _Chunkable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Chunkable.php
 .. _Collapseable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Collapseable.php
