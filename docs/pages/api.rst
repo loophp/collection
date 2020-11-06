@@ -254,7 +254,7 @@ asyncMap
 
 Apply one callback to every item of a collection and use the return value.
 
-.. warning:: Asynchronously apply callbacks to a collection. This operation is deterministic, we cannot ensure the elements order at the end.
+.. warning:: Asynchronously apply callbacks to a collection. This operation is non-deterministic, we cannot ensure the elements order at the end.
 
 .. warning:: Keys are preserved, use the "normalize" operation if you want to re-index the keys.
 
