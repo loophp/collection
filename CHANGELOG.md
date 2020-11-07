@@ -5,10 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.0.2](https://github.com/loophp/collection/compare/3.0.1...3.0.2)
+## [3.0.3](https://github.com/loophp/collection/compare/3.0.2...3.0.3)
+
+### Merged
+
+- Fix `asyncMap` warning in the docs [`#41`](https://github.com/loophp/collection/pull/41)
 
 ### Commits
 
+- refactor: Update AsyncMap operation - major improvements - thanks @kelunik. [`1fbf5e9`](https://github.com/loophp/collection/commit/1fbf5e92bdc819e0e33eb0a430494daaa6d76bdf)
+- Fix asyncMap warning in the docs [`5a1b7be`](https://github.com/loophp/collection/commit/5a1b7be924a538647d76ee98b297325c1438fd3b)
+
+## [3.0.2](https://github.com/loophp/collection/compare/3.0.1...3.0.2) - 2020-11-06
+
+### Commits
+
+- docs: Update changelog. [`b97df67`](https://github.com/loophp/collection/commit/b97df675da79e8a494f8b635f14b64fcbc81f9ad)
 - refactor: Update Head and First operations. [`eb792af`](https://github.com/loophp/collection/commit/eb792af45f1c45d639ee1d34525d5598e58f862e)
 - refactor: Update asyncMap operation, make it variadic. [`8b848bb`](https://github.com/loophp/collection/commit/8b848bb515a10f49520f2ef175aae533347ed5a8)
 - docs: Add missing link. [`113b4aa`](https://github.com/loophp/collection/commit/113b4aa1accd76f934a6aebc0cbaf6bf69f020a8)
