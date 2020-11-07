@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace loophp\collection\Operation;
 
-use Amp\Emitter;
-use Amp\Promise;
+use Amp\Sync\LocalSemaphore;
 use Closure;
 use Exception;
 use Generator;
 use Iterator;
 
+use function Amp\Iterator\fromIterable;
 use function Amp\ParallelFunctions\parallel;
-use function Amp\Promise\all;
 use function Amp\Promise\wait;
+use function Amp\Sync\ConcurrentIterator\map;
 use function function_exists;
 
 // phpcs:disable
@@ -34,13 +34,13 @@ if (false === function_exists('Amp\ParallelFunctions\parallel')) {
 final class AsyncMap extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(callable(T, TKey): T): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @psalm-return Closure(callable(T, TKey): T ...): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param callable(T, TKey): T $callback
+             * @psalm-param callable(T, TKey): T ...$callbacks
              *
              * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
@@ -68,51 +68,22 @@ final class AsyncMap extends AbstractOperation
                              */
                             static fn ($carry, callable $callback) => $callback($carry, $key);
 
-                    $callback = static fn ($value, $key) => array_reduce($callbacks, $callbackFactory($key), $value);
-
-                    $emitter = new Emitter();
-                    $iter = $emitter->iterate();
-                    $callback = parallel($callback);
-
-                    /** @psalm-var callable(Iterator<TKey, T>): Generator<TKey, T> $map */
-                    $map = Map::of()(
+                    $callback =
                         /**
-                         * @param mixed $value
-                         * @psalm-param T $value
+                         * @psalm-param array{0: TKey, 1:T} $value
                          *
-                         * @param mixed $key
-                         * @psalm-param TKey $key
+                         * @psalm-return array{0: TKey, 1: T}
                          */
-                        static function ($value, $key) use ($callback, $emitter): Promise {
-                            $promise = $callback($value, $key);
+                        static function (array $value) use ($callbacks, $callbackFactory): array {
+                            [$key, $value] = $value;
 
-                            $promise->onResolve(
-                                /**
-                                 * @param mixed $error
-                                 * @psalm-param null|\Throwable $error
-                                 *
-                                 * @param mixed $value
-                                 * @psalm-param T $value
-                                 */
-                                static function ($error, $value) use ($key, $emitter): ?Promise {
-                                    if (null !== $error) {
-                                        return $emitter->fail($error);
-                                    }
+                            return [$key, array_reduce($callbacks, $callbackFactory($key), $value)];
+                        };
 
-                                    return $emitter->emit([$key, $value]);
-                                }
-                            );
-
-                            return $promise;
-                        }
-                    );
-
-                    all(iterator_to_array($map($iterator)))
-                        ->onResolve(
-                            static fn ($error) => !$error && $emitter->complete()
-                        );
+                    $iter = map(fromIterable(Pack::of()($iterator)), new LocalSemaphore(32), parallel($callback));
 
                     while (wait($iter->advance())) {
+                        /** @psalm-var array{0: TKey, 1: T} $item */
                         $item = $iter->getCurrent();
 
                         yield $item[0] => $item[1];
