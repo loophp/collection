@@ -5,7 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.0.3](https://github.com/loophp/collection/compare/3.0.2...3.0.3)
+## [3.0.4](https://github.com/loophp/collection/compare/3.0.3...3.0.4)
+
+### Commits
+
+- chore: Update static configuration dev files. [`0d3b268`](https://github.com/loophp/collection/commit/0d3b268fb74d216e14dfea7a36f696bc234cc644)
+- refactor: Improve performance by preventing the creation of multiple ClosureIterator at each operation call. [`dd01c4e`](https://github.com/loophp/collection/commit/dd01c4ea3a75fc93ed045bbf2f2f9c8065f3c18b)
+
+## [3.0.3](https://github.com/loophp/collection/compare/3.0.2...3.0.3) - 2020-11-07
 
 ### Merged
 
@@ -13,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Commits
 
+- docs: Update changelog. [`a8cafb5`](https://github.com/loophp/collection/commit/a8cafb582af26fe6868bb98f310529b6f1aee5dc)
 - refactor: Update AsyncMap operation - major improvements - thanks @kelunik. [`1fbf5e9`](https://github.com/loophp/collection/commit/1fbf5e92bdc819e0e33eb0a430494daaa6d76bdf)
 - Fix asyncMap warning in the docs [`5a1b7be`](https://github.com/loophp/collection/commit/5a1b7be924a538647d76ee98b297325c1438fd3b)
 
