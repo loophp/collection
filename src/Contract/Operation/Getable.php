@@ -22,7 +22,7 @@ interface Getable
      * @param mixed $default
      * @psalm-param T|null $default
      *
-     * @psalm-return \loophp\collection\Contract\Collection<TKey, T|null>
+     * @psalm-return \loophp\collection\Collection<TKey, T|null>
      */
     public function get($key, $default = null): Collection;
 }

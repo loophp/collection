@@ -17,8 +17,9 @@ interface Compactable
      * Combine a collection of items with some other keys.
      *
      * @param mixed ...$values
+     * @psalm-param T ...$values
      *
-     * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
+     * @psalm-return \loophp\collection\Collection<TKey, T>
      */
     public function compact(...$values): Collection;
 }

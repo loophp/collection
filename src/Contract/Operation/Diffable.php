@@ -16,7 +16,7 @@ interface Diffable
     /**
      * @param mixed ...$values
      *
-     * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
+     * @psalm-return \loophp\collection\Collection<TKey, T>
      */
     public function diff(...$values): Collection;
 }

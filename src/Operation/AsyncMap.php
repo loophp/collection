@@ -18,7 +18,7 @@ use function function_exists;
 
 // phpcs:disable
 if (false === function_exists('Amp\ParallelFunctions\parallel')) {
-    throw new Exception('You need amphp/parallel to get this working.');
+    throw new Exception('You need amphp/parallel-functions to get this operation working.');
 }
 // phpcs:enable
 /**

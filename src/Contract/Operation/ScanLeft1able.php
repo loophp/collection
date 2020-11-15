@@ -14,7 +14,7 @@ use loophp\collection\Contract\Collection;
 interface ScanLeft1able
 {
     /**
-     * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
+     * @psalm-return \loophp\collection\Collection<TKey, T>
      */
     public function scanLeft1(callable $callback): Collection;
 }

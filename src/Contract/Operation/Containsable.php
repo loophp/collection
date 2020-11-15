@@ -17,7 +17,7 @@ interface Containsable
      * @param mixed ...$value
      * @psalm-param T ...$value
      *
-     * @psalm-return \loophp\collection\Contract\Collection<int, bool>
+     * @psalm-return \loophp\collection\Collection<int, bool>
      */
     public function contains(...$value): Collection;
 }

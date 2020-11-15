@@ -16,7 +16,7 @@ interface Intersectkeysable
     /**
      * @param mixed ...$values
      *
-     * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
+     * @psalm-return \loophp\collection\Collection<TKey, T>
      */
     public function intersectKeys(...$values): Collection;
 }

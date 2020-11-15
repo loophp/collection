@@ -16,7 +16,7 @@ interface Headable
     /**
      * Get the first item from the collection.
      *
-     * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
+     * @psalm-return \loophp\collection\Collection<TKey, T>
      */
     public function head(): Collection;
 }

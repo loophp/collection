@@ -17,7 +17,7 @@ interface ScanLeftable
      * @param mixed $initial
      * @psalm-param T|null $initial
      *
-     * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
+     * @psalm-return \loophp\collection\Collection<TKey, T>
      */
     public function scanLeft(callable $callback, $initial = null): Collection;
 }

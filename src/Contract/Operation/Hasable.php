@@ -16,7 +16,7 @@ interface Hasable
     /**
      * @psalm-param callable(TKey, T): bool $callback
      *
-     * @psalm-return \loophp\collection\Contract\Collection<int, bool>
+     * @psalm-return \loophp\collection\Collection<int, bool>
      */
     public function has(callable $callback): Collection;
 }

@@ -18,7 +18,7 @@ interface Mergeable
      *
      * @param iterable<mixed> ...$sources
      *
-     * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
+     * @psalm-return \loophp\collection\Collection<TKey, T>
      */
     public function merge(iterable ...$sources): Collection;
 }

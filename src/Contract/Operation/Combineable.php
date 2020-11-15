@@ -18,7 +18,7 @@ interface Combineable
      *
      * @param mixed ...$keys
      *
-     * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
+     * @psalm-return \loophp\collection\Collection<TKey, T>
      */
     public function combine(...$keys): Collection;
 }

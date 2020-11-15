@@ -18,7 +18,7 @@ interface Pipeable
     /**
      * @psalm-param callable(Iterator<TKey, T>): Generator<TKey, T> ...$callables
      *
-     * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
+     * @psalm-return \loophp\collection\Collection<TKey, T>
      */
     public function pipe(callable ...$callables): Collection;
 }

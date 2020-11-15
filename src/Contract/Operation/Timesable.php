@@ -16,6 +16,8 @@ interface Timesable
      * @psalm-template T
      *
      * @psalm-param null|callable(): T $callback
+     *
+     * @psalm-return \loophp\collection\Collection<TKey, T>
      */
     public static function times(int $number = 0, ?callable $callback = null): Collection;
 }

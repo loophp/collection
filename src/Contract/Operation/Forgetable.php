@@ -18,7 +18,7 @@ interface Forgetable
      *
      * @param mixed ...$keys
      *
-     * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
+     * @psalm-return \loophp\collection\Collection<TKey, T>
      */
     public function forget(...$keys): Collection;
 }

@@ -18,7 +18,7 @@ interface Zipable
      *
      * @param iterable<mixed> ...$iterables
      *
-     * @return \loophp\collection\Contract\Collection<TKey,T>
+     * @psalm-return \loophp\collection\Collection<TKey,T>
      */
     public function zip(iterable ...$iterables): Collection;
 }

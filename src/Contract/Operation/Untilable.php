@@ -17,7 +17,7 @@ interface Untilable
      * @param callable ...$callbacks
      * @psalm-param callable(T, TKey):bool ...$callbacks
      *
-     * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
+     * @psalm-return \loophp\collection\Collection<TKey, T>
      */
     public function until(callable ...$callbacks): Collection;
 }

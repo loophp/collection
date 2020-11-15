@@ -14,7 +14,7 @@ use loophp\collection\Contract\Collection;
 interface IfThenElseable
 {
     /**
-     * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
+     * @psalm-return \loophp\collection\Collection<TKey, T>
      */
     public function ifThenElse(callable $condition, callable $then, ?callable $else = null): Collection;
 }

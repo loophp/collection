@@ -14,7 +14,7 @@ use loophp\collection\Contract\Collection;
 interface Spanable
 {
     /**
-     * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
+     * @psalm-return \loophp\collection\Collection<TKey, T>
      */
     public function span(callable $callback): Collection;
 }

@@ -18,7 +18,7 @@ interface Padable
      *
      * @param mixed $value
      *
-     * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
+     * @psalm-return \loophp\collection\Collection<TKey, T>
      */
     public function pad(int $size, $value): Collection;
 }

@@ -14,7 +14,7 @@ use loophp\collection\Contract\Collection;
 interface Nullsyable
 {
     /**
-     * @psalm-return \loophp\collection\Contract\Collection<int, bool>
+     * @psalm-return \loophp\collection\Collection<int, bool>
      */
     public function nullsy(): Collection;
 }

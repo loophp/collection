@@ -14,7 +14,7 @@ use loophp\collection\Contract\Collection;
 interface Unpackable
 {
     /**
-     * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
+     * @psalm-return \loophp\collection\Collection<TKey, T>
      */
     public function unpack(): Collection;
 }

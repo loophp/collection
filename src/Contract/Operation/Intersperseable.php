@@ -19,7 +19,7 @@ interface Intersperseable
      *
      * @param mixed $element
      *
-     * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
+     * @psalm-return \loophp\collection\Collection<TKey, T>
      */
     public function intersperse($element, int $every = 1, int $startAt = 0): Collection;
 }

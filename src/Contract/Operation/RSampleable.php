@@ -14,7 +14,7 @@ use loophp\collection\Contract\Collection;
 interface RSampleable
 {
     /**
-     * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
+     * @psalm-return \loophp\collection\Collection<TKey, T>
      */
     public function rsample(float $probability): Collection;
 }

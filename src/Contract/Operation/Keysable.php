@@ -16,7 +16,7 @@ interface Keysable
     /**
      * Get the keys of the items.
      *
-     * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
+     * @psalm-return \loophp\collection\Collection<TKey, T>
      */
     public function keys(): Collection;
 }

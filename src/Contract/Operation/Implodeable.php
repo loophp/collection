@@ -14,7 +14,7 @@ use loophp\collection\Contract\Collection;
 interface Implodeable
 {
     /**
-     * @psalm-return \loophp\collection\Contract\Collection<int, string>
+     * @psalm-return \loophp\collection\Collection<int, string>
      */
     public function implode(string $glue = ''): Collection;
 }

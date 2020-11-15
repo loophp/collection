@@ -16,7 +16,7 @@ interface Limitable
     /**
      * Limit the amount of items in the collection to...
      *
-     * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
+     * @psalm-return \loophp\collection\Collection<TKey, T>
      */
     public function limit(int $count = -1, int $offset = 0): Collection;
 }

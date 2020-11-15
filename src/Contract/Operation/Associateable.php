@@ -17,7 +17,7 @@ interface Associateable
      * @psalm-param null|callable(TKey, T):TKey $callbackForKeys
      * @psalm-param null|callable(TKey, T):T $callbackForValues
      *
-     * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
+     * @psalm-return \loophp\collection\Collection<TKey, T>
      */
     public function associate(?callable $callbackForKeys = null, ?callable $callbackForValues = null): Collection;
 }

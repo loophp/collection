@@ -18,7 +18,7 @@ interface Reductionable
      *
      * @param mixed $initial
      *
-     * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
+     * @psalm-return \loophp\collection\Collection<TKey, T>
      */
     public function reduction(callable $callback, $initial = null): Collection;
 }

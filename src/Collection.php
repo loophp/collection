@@ -355,7 +355,7 @@ final class Collection implements CollectionInterface
     {
         return new self(
             /**
-             * @psalm-param callable(T...) $data
+             * @psalm-param callable(T...) $callable
              * @psalm-param list<T> $parameters
              *
              * @psalm-return Generator<TKey, T>
@@ -378,7 +378,7 @@ final class Collection implements CollectionInterface
     {
         return new self(
             /**
-             * @psalm-param iterable<TKey, T> $data
+             * @psalm-param iterable<TKey, T> $iterable
              *
              * @psalm-return Generator<TKey, T>
              */
@@ -405,8 +405,6 @@ final class Collection implements CollectionInterface
     {
         return new self(
             /**
-             * @psalm-param list<string> $parameters
-             *
              * @psalm-return Generator<int, string>
              */
             static fn (string $string, string $delimiter): Generator => yield from new StringIterator($string, $delimiter),

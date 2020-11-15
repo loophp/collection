@@ -14,7 +14,7 @@ use loophp\collection\Contract\Collection;
 interface Packable
 {
     /**
-     * @psalm-return \loophp\collection\Contract\Collection<int, array{0: TKey, 1: T}>
+     * @psalm-return \loophp\collection\Collection<int, array{0: TKey, 1: T}>
      */
     public function pack(): Collection;
 }

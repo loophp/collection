@@ -16,7 +16,7 @@ interface Permutateable
     /**
      * Find all the permutations of a collection.
      *
-     * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
+     * @psalm-return \loophp\collection\Collection<TKey, T>
      */
     public function permutate(): Collection;
 }

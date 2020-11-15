@@ -15,6 +15,8 @@ interface Unfoldable
      *
      * @psalm-param callable(T...): array<TKey, T> $callback
      * @psalm-param T ...$parameters
+     *
+     * @psalm-return \loophp\collection\Collection<TKey, T>
      */
     public static function unfold(callable $callback, ...$parameters): Collection;
 }

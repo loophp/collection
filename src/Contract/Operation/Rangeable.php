@@ -16,6 +16,8 @@ interface Rangeable
      * @psalm-template TKey
      * @psalm-template TKey of array-key
      * @psalm-template T
+     *
+     * @psalm-return \loophp\collection\Collection<int, int|float>
      */
     public static function range(float $start = 0.0, float $end = INF, float $step = 1.0): Collection;
 }

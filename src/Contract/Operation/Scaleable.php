@@ -16,7 +16,7 @@ interface Scaleable
     /**
      * Scale/normalize values.
      *
-     * @psalm-return \loophp\collection\Contract\Collection<TKey, T>
+     * @psalm-return \loophp\collection\Collection<TKey, T>
      */
     public function scale(
         float $lowerBound,
