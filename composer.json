@@ -24,7 +24,7 @@
         "friends-of-phpspec/phpspec-code-coverage": "^4.3.2 || ^5.0.0",
         "infection/infection": "^0.18.2",
         "infection/phpspec-adapter": "^0.1.1",
-        "phpspec/phpspec": "^5.1.2 || ^6.2.1",
+        "phpspec/phpspec": "^5.1.2 || ^6.2.1 || ^7.0.0",
         "phpstan/phpstan-strict-rules": "^0.12",
         "psr/cache": "^1.0",
         "symfony/cache": "^4.4 || ^5.1",
