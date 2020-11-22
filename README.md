@@ -187,7 +187,7 @@ For more detailed changelogs, please check [the release changelogs][changelog-re
 [latest stable version]: https://img.shields.io/packagist/v/loophp/collection.svg?style=flat-square
 [github stars]: https://img.shields.io/github/stars/loophp/collection.svg?style=flat-square
 [total downloads]: https://img.shields.io/packagist/dt/loophp/collection.svg?style=flat-square
-[github workflow status]: https://img.shields.io/github/workflow/status/loophp/collection/Continuous%20Integration?style=flat-square
+[github workflow status]: https://img.shields.io/github/workflow/status/loophp/collection/Unit%20tests?style=flat-square
 [code quality]: https://img.shields.io/scrutinizer/quality/g/loophp/collection/master.svg?style=flat-square
 [scrutinizer code quality]: https://scrutinizer-ci.com/g/loophp/collection/?branch=master
 [type coverage]: https://shepherd.dev/github/loophp/collection/coverage.svg
