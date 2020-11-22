@@ -2,18 +2,17 @@
 
 on:
     - pull_request
-    - push
 
-name: "Continuous Integration"
+name: "Mutations testing"
 
 jobs:
     run:
-        name: "Grumphp"
+        name: "CI"
         runs-on: ${{ matrix.operating-system }}
         strategy:
             fail-fast: false
             matrix:
-                operating-system: [ubuntu-latest, windows-latest, macOS-latest]
+                operating-system: [ubuntu-latest]
                 php-versions: ['7.4']
 
         steps:
@@ -31,7 +30,7 @@ jobs:
               uses: shivammathur/setup-php@v2
               with:
                   php-version: ${{ matrix.php-versions }}
-                  extensions: gd,mbstring,xdebug
+                  extensions: gd,mbstring,pcov
 
             - name: Get Composer Cache Directory
               id: composer-cache
@@ -48,28 +47,9 @@ jobs:
               run: composer install --no-progress --prefer-dist --optimize-autoloader
 
             - name: Run Grumphp
-              run: vendor/bin/grumphp run --no-ansi -n
-              env:
-                  STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
+              run: vendor/bin/grumphp run --tasks=infection -n
 
-            - name: Send PSALM data
-              run: vendor/bin/psalm --shepherd --stats
-              continue-on-error: true
-
-            - name: Send Scrutinizer data
+            - name: Send feedback on Github
+              if: ${{ failure() }}
               run: |
-                  wget https://scrutinizer-ci.com/ocular.phar
-                  php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml
-              continue-on-error: true
-
-            - name: Infection score report
-              run: |
-                  vendor/bin/infection run -j 2
-              continue-on-error: true
-
-            - name: PHP Insights report
-              run: |
-                  rm -rf composer.lock vendor
-                  composer require nunomaduro/phpinsights --dev
-                  vendor/bin/phpinsights analyse src/ -n
-              continue-on-error: true
+                vendor/bin/infection -j2 --logger-github

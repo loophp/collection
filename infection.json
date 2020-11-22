@@ -6,6 +6,7 @@
         ]
     },
     "logs": {
+        "github": true,
         "text": "build/infection.log",
         "summary": "build/summary.log",
         "debug": "build/debug.log",
