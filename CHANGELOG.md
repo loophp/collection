@@ -5,10 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.0.4](https://github.com/loophp/collection/compare/3.0.3...3.0.4)
+## [3.0.5](https://github.com/loophp/collection/compare/3.0.4...3.0.5)
+
+### Merged
+
+- ci: Split CI files. [`#44`](https://github.com/loophp/collection/pull/44)
+- chore(deps-dev): Update phpspec/phpspec requirement from ^5.1.2 || ^6.2.1 to ^5.1.2 || ^6.2.1 || ^7.0.0 [`#43`](https://github.com/loophp/collection/pull/43)
+- chore(deps): Bump actions/stale from v3.0.12 to v3.0.13 [`#38`](https://github.com/loophp/collection/pull/38)
+- chore(deps): Bump actions/checkout from v2.3.3 to v2.3.4 [`#39`](https://github.com/loophp/collection/pull/39)
+- chore(deps-dev): Update friends-of-phpspec/phpspec-code-coverage requirement from ^4.3.2 to ^4.3.2 || ^5.0.0 [`#42`](https://github.com/loophp/collection/pull/42)
 
 ### Commits
 
+- docs: Update README badge. [`7140fc7`](https://github.com/loophp/collection/commit/7140fc7c3cef74fe32f2f964672fff2fcb0ff24e)
+- ci: Split Github Actions into multiple files. [`a442fea`](https://github.com/loophp/collection/commit/a442fea8bf7383809bdba9b6773e30fe037e2c3b)
+- chore(deps-dev): Update friends-of-phpspec/phpspec-code-coverage requirement || ^5.0.0 [`cd52844`](https://github.com/loophp/collection/commit/cd52844c3cf94e083b28bf04d764bca243e86b12)
+- docs: Update typing information. [`0ac6f71`](https://github.com/loophp/collection/commit/0ac6f71efec9a69c51ffa2286a1d75965e6bddef)
+
+## [3.0.4](https://github.com/loophp/collection/compare/3.0.3...3.0.4) - 2020-11-12
+
+### Commits
+
+- docs: Update changelog. [`cd260e2`](https://github.com/loophp/collection/commit/cd260e268750258384540d5f9f15b1a15b21b7c1)
 - chore: Update static configuration dev files. [`0d3b268`](https://github.com/loophp/collection/commit/0d3b268fb74d216e14dfea7a36f696bc234cc644)
 - refactor: Improve performance by preventing the creation of multiple ClosureIterator at each operation call. [`dd01c4e`](https://github.com/loophp/collection/commit/dd01c4ea3a75fc93ed045bbf2f2f9c8065f3c18b)
 
