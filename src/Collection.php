@@ -115,6 +115,7 @@ use Symfony\Component\Cache\Adapter\ArrayAdapter;
 
 use const INF;
 use const PHP_INT_MAX;
+use const PHP_INT_MIN;
 
 /**
  * @psalm-template TKey
@@ -588,9 +589,13 @@ final class Collection implements CollectionInterface
         return new self(Product::of()(...$iterables), $this->getIterator());
     }
 
-    public function random(int $size = 1): CollectionInterface
+    public function random(int $size = 1, ?int $seed = null): CollectionInterface
     {
-        return new self(Random::of()($size), $this->getIterator());
+        if (null === $seed) {
+            $seed = random_int(PHP_INT_MIN, PHP_INT_MAX);
+        }
+
+        return new self(Random::of()($seed)($size), $this->getIterator());
     }
 
     public static function range(float $start = 0.0, float $end = INF, float $step = 1.0): CollectionInterface
@@ -643,9 +648,13 @@ final class Collection implements CollectionInterface
         return new self(ScanRight1::of()($callback), $this->getIterator());
     }
 
-    public function shuffle(): CollectionInterface
+    public function shuffle(?int $seed = null): CollectionInterface
     {
-        return new self(Shuffle::of(), $this->getIterator());
+        if (null === $seed) {
+            $seed = random_int(PHP_INT_MIN, PHP_INT_MAX);
+        }
+
+        return new self(Shuffle::of()($seed), $this->getIterator());
     }
 
     public function since(callable ...$callbacks): CollectionInterface

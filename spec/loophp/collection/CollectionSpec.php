@@ -1233,7 +1233,7 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs([0 => 'A']);
     }
 
-    public function it_can_if_then_else()
+    public function it_can_if_then_else(): void
     {
         $input = range(1, 5);
 

@@ -42,6 +42,7 @@ final class Distinct extends AbstractOperation
         /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $filter */
         $filter = Filter::of()($filterCallback);
 
+        // Point free style.
         return $filter;
     }
 }
