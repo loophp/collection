@@ -1287,11 +1287,13 @@ random
 ~~~~~~
 
 It returns a random item from the collection.
+
 An optional integer can be passed to random to specify how many items you would like to randomly retrieve.
+An optional seed can be passed as well.
 
 Interface: `Randomable`_
 
-Signature: ``Collection::random(int $size = 1);``
+Signature: ``Collection::random(int $size = 1, ?int $seed = null);``
 
 .. code-block:: php
 
@@ -1463,6 +1465,23 @@ Signature: ``Collection::scanRight1(callable $callback);``
 
     Collection::fromIterable([12])
         ->scanRight1($callback); // [12]
+
+shuffle
+~~~~~~~
+
+Shuffle a collection.
+
+Interface: `Shuffleable`_
+
+Signature: ``Collection::shuffle(?int $seed = null);``
+
+.. code-block:: php
+
+    $collection = Collection::fromIterable(['4', '5', '6'])
+        ->random(); // ['6', '4', '5']
+
+    $collection = Collection::fromIterable(['4', '5', '6'])
+        ->random(); // ['5', '6', '5']
 
 since
 ~~~~~
@@ -2049,6 +2068,7 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _ScanLeft1able: https://github.com/loophp/collection/blob/master/src/Contract/Operation/ScanLeft1able.php
 .. _ScanRightable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/ScanRightable.php
 .. _ScanRight1able: https://github.com/loophp/collection/blob/master/src/Contract/Operation/ScanRight1able.php
+.. _Shuffleable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Shuffleable.php
 .. _Sinceable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Sinceable.php
 .. _Sliceable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Sliceable.php
 .. _Sortable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Sortable.php
