@@ -5,7 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.0.5](https://github.com/loophp/collection/compare/3.0.4...3.0.5)
+## [3.1.0](https://github.com/loophp/collection/compare/3.0.5...3.1.0)
+
+### Merged
+
+- Add $seed parameter to RandomIterator [`#47`](https://github.com/loophp/collection/pull/47)
+- chore(deps): Bump actions/stale from v3.0.13 to v3.0.14 [`#46`](https://github.com/loophp/collection/pull/46)
+- chore(deps): Update actions/checkout requirement to v2.3.4 [`#45`](https://github.com/loophp/collection/pull/45)
+
+### Commits
+
+- refactor: Update CS. [`9852751`](https://github.com/loophp/collection/commit/9852751f9c2dd9ff271f1f908231c504de915293)
+- refactor: Add a $seed parameter to RandomIterator. [`be7a0c1`](https://github.com/loophp/collection/commit/be7a0c160c201a4042d1a0920de10b6c53c47512)
+- ci: Always run unit tests. [`bbf0045`](https://github.com/loophp/collection/commit/bbf0045c7d41e844f3cb11c35a0a2c41471507e6)
+- docs: Update changelog. [`169e00e`](https://github.com/loophp/collection/commit/169e00e0234711df56e9c5ee0c1fef313971b075)
+
+## [3.0.5](https://github.com/loophp/collection/compare/3.0.4...3.0.5) - 2020-11-23
 
 ### Merged
 
@@ -17,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Commits
 
+- docs: Update changelog. [`26d3551`](https://github.com/loophp/collection/commit/26d35513bada78ebc40f6ff141afe72b03a61dec)
 - docs: Update README badge. [`7140fc7`](https://github.com/loophp/collection/commit/7140fc7c3cef74fe32f2f964672fff2fcb0ff24e)
 - ci: Split Github Actions into multiple files. [`a442fea`](https://github.com/loophp/collection/commit/a442fea8bf7383809bdba9b6773e30fe037e2c3b)
 - chore(deps-dev): Update friends-of-phpspec/phpspec-code-coverage requirement || ^5.0.0 [`cd52844`](https://github.com/loophp/collection/commit/cd52844c3cf94e083b28bf04d764bca243e86b12)
