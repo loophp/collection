@@ -17,16 +17,22 @@ use loophp\collection\Iterator\RandomIterator;
 final class Shuffle extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T, mixed, void>
+     * @psalm-return Closure(int): Closure(Iterator<TKey, T>): Generator<TKey, T, mixed, void>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param Iterator<TKey, T> $iterator
-             *
-             * @psalm-return Generator<TKey, T, mixed, void>
+             * @return Closure(Iterator<TKey, T>): Generator<TKey, T, mixed, void>
              */
-            static fn (Iterator $iterator): Generator => yield from new RandomIterator($iterator);
+            static function (int $seed): Closure {
+                return
+                /**
+                 * @psalm-param Iterator<TKey, T> $iterator
+                 *
+                 * @psalm-return Generator<TKey, T, mixed, void>
+                 */
+                static fn (Iterator $iterator): Generator => yield from new RandomIterator($iterator, $seed);
+            };
     }
 }

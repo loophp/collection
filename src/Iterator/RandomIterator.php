@@ -7,6 +7,11 @@ namespace loophp\collection\Iterator;
 use ArrayIterator;
 use Iterator;
 
+use function array_slice;
+
+use const PHP_INT_MAX;
+use const PHP_INT_MIN;
+
 /**
  * @psalm-template TKey
  * @psalm-template TKey of array-key
@@ -36,12 +41,13 @@ final class RandomIterator extends ProxyIterator
     /**
      * @psalm-param Iterator<TKey, T> $iterator
      */
-    public function __construct(Iterator $iterator)
+    public function __construct(Iterator $iterator, ?int $seed = null)
     {
         $this->iterator = $iterator;
+        $this->seed = $seed ?? random_int(PHP_INT_MIN, PHP_INT_MAX);
         $this->wrappedIterator = $this->buildArrayIterator($iterator);
         $this->indexes = array_keys($this->wrappedIterator->getArrayCopy());
-        $this->key = array_rand($this->indexes);
+        $this->key = current($this->customArrayRand($this->indexes, 1, $this->seed));
     }
 
     public function current()
@@ -63,7 +69,7 @@ final class RandomIterator extends ProxyIterator
         unset($this->indexes[$this->key]);
 
         if ($this->valid()) {
-            $this->key = array_rand($this->indexes);
+            $this->key = current($this->customArrayRand($this->indexes, 1, $this->seed));
         }
     }
 
@@ -93,5 +99,14 @@ final class RandomIterator extends ProxyIterator
         }
 
         return $arrayIterator;
+    }
+
+    private function customArrayRand(array $array, int $num, int $seed): array
+    {
+        mt_srand($seed);
+        shuffle($array);
+        mt_srand();
+
+        return array_slice($array, 0, $num);
     }
 }
