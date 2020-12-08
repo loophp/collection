@@ -5,7 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.1.0](https://github.com/loophp/collection/compare/3.0.5...3.1.0)
+## [3.1.1](https://github.com/loophp/collection/compare/3.1.0...3.1.1)
+
+### Merged
+
+- Update ScanLeft so it doesn't go further if the iterator is not valid. [`#49`](https://github.com/loophp/collection/pull/49)
+
+### Commits
+
+- fix: Update ScanLeft so it doesn't go further if the iterator is not valid. [`5d9e448`](https://github.com/loophp/collection/commit/5d9e448dff2b792e872cca52543ab565bb195242)
+- docs: Update documentation. [`e518492`](https://github.com/loophp/collection/commit/e518492b35ef219465bc6e0983b607f84d54308f)
+
+## [3.1.0](https://github.com/loophp/collection/compare/3.0.5...3.1.0) - 2020-12-06
 
 ### Merged
 
@@ -15,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Commits
 
+- docs: Update changelog. [`d06aebc`](https://github.com/loophp/collection/commit/d06aebc6eef1829f388e8e632d7f8238eeb232e1)
 - refactor: Update CS. [`9852751`](https://github.com/loophp/collection/commit/9852751f9c2dd9ff271f1f908231c504de915293)
 - refactor: Add a $seed parameter to RandomIterator. [`be7a0c1`](https://github.com/loophp/collection/commit/be7a0c160c201a4042d1a0920de10b6c53c47512)
 - ci: Always run unit tests. [`bbf0045`](https://github.com/loophp/collection/commit/bbf0045c7d41e844f3cb11c35a0a2c41471507e6)
