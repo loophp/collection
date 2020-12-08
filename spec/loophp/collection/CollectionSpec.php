@@ -154,10 +154,10 @@ class CollectionSpec extends ObjectBehavior
 
         $this::fromIterable($input)
             ->associate(
-                static function ($carry, $key, $value) {
+                static function (int $carry, int $key, int $value): int {
                     return $key * 2;
                 },
-                static function ($carry, $key, $value) {
+                static function (int $carry, int $key, int $value): int {
                     return $value * 2;
                 }
             )
@@ -726,7 +726,7 @@ class CollectionSpec extends ObjectBehavior
 
         $this::empty()
             ->every($callback)
-            ->shouldIterateAs([0 => true]);
+            ->shouldIterateAs([]);
 
         $this::fromIterable(range(0, 10))
             ->every(
@@ -1965,7 +1965,7 @@ EOF;
 
         $this::fromIterable([])
             ->scanLeft($callback, 3)
-            ->shouldIterateAs([3]);
+            ->shouldIterateAs([]);
     }
 
     public function it_can_scanleft1(): void
