@@ -290,7 +290,7 @@ Signature: ``Collection::cache(CacheItemPoolInterface $cache = null);``
 
     $fopen = fopen(__DIR__ . '/vendor/autoload.php', 'r');
 
-    $collection = Collection::withResource($fopen)
+    $collection = Collection::fromResource($fopen)
         ->cache();
 
 chunk
@@ -1495,9 +1495,10 @@ Signature: ``Collection::since(callable ...$callbacks);``
 .. code-block:: php
 
     // Parse the composer.json of a package and get the require-dev dependencies.
-    $collection = Collection::withResource(fopen(__DIR__ . '/composer.json', 'rb'))
+    $collection = Collection::fromResource(fopen(__DIR__ . '/composer.json', 'rb'))
         // Group items when EOL character is found.
         ->split(
+            Splitable::REMOVE,
             static function (string $character): bool {
                 return "\n" === $character;
             }
@@ -1545,7 +1546,7 @@ Signature: ``Collection::since(callable ...$callbacks);``
         // Convert to array.
         ->all();
 
-        print_r($collection);
+    print_r($collection);
 
 slice
 ~~~~~
