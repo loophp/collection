@@ -31,14 +31,10 @@ final class Merge extends AbstractOperation
                  * @psalm-return Generator<TKey, T>
                  */
                 static function (Iterator $iterator) use ($sources): Generator {
-                    foreach ($iterator as $key => $value) {
-                        yield $key => $value;
-                    }
+                    yield from $iterator;
 
                     foreach ($sources as $source) {
-                        foreach ($source as $key => $value) {
-                            yield $key => $value;
-                        }
+                        yield from $source;
                     }
                 };
     }

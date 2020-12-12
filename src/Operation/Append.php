@@ -33,13 +33,9 @@ final class Append extends AbstractOperation
                  * @psalm-return Generator<int|TKey, T>
                  */
                 static function (Iterator $iterator) use ($items): Generator {
-                    foreach ($iterator as $key => $value) {
-                        yield $key => $value;
-                    }
+                    yield from $iterator;
 
-                    foreach ($items as $key => $item) {
-                        yield $key => $item;
-                    }
+                    return yield from $items;
                 };
     }
 }

@@ -45,6 +45,7 @@ final class Unzip extends AbstractOperation
             Unwrap::of()
         );
 
+        // Point free style.
         return $pipe;
     }
 }

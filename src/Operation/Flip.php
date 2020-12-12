@@ -20,16 +20,15 @@ final class Flip extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        return
-            /**
-             * @psalm-param Iterator<TKey, T> $iterator
-             *
-             * @psalm-return Generator<T, TKey>
-             */
-            static function (Iterator $iterator): Generator {
-                foreach ($iterator as $key => $value) {
-                    yield $value => $key;
-                }
-            };
+        $callbackForKeys = static fn ($carry, $key, $value) => $value;
+        $callbackForValues = static fn ($carry, $key, $value) => $key;
+
+        /**
+         * @var Closure(Iterator<TKey, T>): Generator<T, TKey>
+         */
+        $associate = Associate::of()($callbackForKeys)($callbackForValues);
+
+        // Point free style.
+        return $associate;
     }
 }

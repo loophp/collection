@@ -44,13 +44,7 @@ final class Flatten extends AbstractOperation
                             $value = $flatten(new IterableIterator($value));
                         }
 
-                        /**
-                         * @psalm-var TKey $subKey
-                         * @psalm-var T $subValue
-                         */
-                        foreach ($value as $subKey => $subValue) {
-                            yield $subKey => $subValue;
-                        }
+                        yield from $value;
                     }
                 };
     }

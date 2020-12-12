@@ -30,17 +30,24 @@ final class Zip extends AbstractOperation
              *
              * @psalm-return Closure(Iterator<TKey, T>): Generator<int, list<T>>
              */
-            static fn (iterable ...$iterables): Closure => static function (Iterator $iterator) use ($iterables): Generator {
-                $mit = new MultipleIterator(MultipleIterator::MIT_NEED_ANY);
-                $mit->attachIterator($iterator);
+            static fn (iterable ...$iterables): Closure =>
+                /**
+                 * @psalm-param Iterator<TKey, T>: Generator<int, list<T>>
+                 *
+                 * @psalm-return Generator<int, list<T>>
+                 */
+                static function (Iterator $iterator) use ($iterables): Generator {
+                    $mit = new MultipleIterator(MultipleIterator::MIT_NEED_ANY);
+                    $mit->attachIterator($iterator);
 
-                foreach ($iterables as $iterableIterator) {
-                    $mit->attachIterator(new IterableIterator($iterableIterator));
-                }
+                    foreach ($iterables as $iterableIterator) {
+                        $mit->attachIterator(new IterableIterator($iterableIterator));
+                    }
 
-                foreach ($mit as $values) {
-                    yield $values;
-                }
-            };
+                    // @todo: Why "yield from $mit" doesn't work here?
+                    foreach ($mit as $values) {
+                        yield $values;
+                    }
+                };
     }
 }
