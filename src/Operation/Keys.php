@@ -20,16 +20,13 @@ final class Keys extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        return
-            /**
-             * @psalm-param Iterator<TKey, T> $iterator
-             *
-             * @psalm-return Generator<int, TKey>
-             */
-            static function (Iterator $iterator): Generator {
-                foreach ($iterator as $key => $value) {
-                    yield $key;
-                }
-            };
+        /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, TKey> $pipe */
+        $pipe = Pipe::of()(
+            Flip::of(),
+            Normalize::of()
+        );
+
+        // Point free style.
+        return $pipe;
     }
 }

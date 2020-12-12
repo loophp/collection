@@ -31,13 +31,30 @@ final class Transpose extends AbstractOperation
             static function (Iterator $iterator): Generator {
                 $mit = new MultipleIterator(MultipleIterator::MIT_NEED_ANY);
 
-                foreach ($iterator as $collectionItem) {
-                    $mit->attachIterator(new IterableIterator($collectionItem));
+                foreach ($iterator as $iterableIterator) {
+                    $mit->attachIterator(new IterableIterator($iterableIterator));
                 }
 
-                foreach ($mit as $key => $value) {
-                    yield current($key) => $value;
-                }
+                $callbackForKeys =
+                    /**
+                     * @psalm-param array $carry
+                     * @psalm-param array<int, TKey> $key
+                     *
+                     * @psalm-return TKey
+                     */
+                    static fn (array $carry, array $key) => current($key);
+
+                $callbackForValues =
+                    /**
+                     * @psalm-param array $carry
+                     * @psalm-param array<int, TKey> $key
+                     * @psalm-param array<int, T> $value
+                     *
+                     * @psalm-return array<int, T>
+                     */
+                    static fn (array $carry, array $key, array $value): array => $value;
+
+                return yield from Associate::of()($callbackForKeys)($callbackForValues)($mit);
             };
     }
 }

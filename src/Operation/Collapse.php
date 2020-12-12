@@ -32,13 +32,7 @@ final class Collapse extends AbstractOperation
                         continue;
                     }
 
-                    /**
-                     * @psalm-var TKey $subKey
-                     * @psalm-var T $subValue
-                     */
-                    foreach ($value as $subKey => $subValue) {
-                        yield $subKey => $subValue;
-                    }
+                    yield from $value;
                 }
             };
     }

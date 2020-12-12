@@ -33,13 +33,9 @@ final class Prepend extends AbstractOperation
                  * @psalm-return Generator<int|TKey, T>
                  */
                 static function (Iterator $iterator) use ($items): Generator {
-                    foreach ($items as $key => $item) {
-                        yield $key => $item;
-                    }
+                    yield from $items;
 
-                    foreach ($iterator as $key => $value) {
-                        yield $key => $value;
-                    }
+                    return yield from $iterator;
                 };
     }
 }
