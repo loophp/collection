@@ -13,7 +13,7 @@ use IteratorIterator;
  * @psalm-template TKey of array-key
  * @psalm-template T
  *
- * @extends ProxyIterator<TKey, T>
+ * @extends ProxyIterator<int, string>
  */
 final class ResourceIterator extends ProxyIterator
 {

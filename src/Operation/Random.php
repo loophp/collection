@@ -21,20 +21,24 @@ final class Random extends AbstractOperation
     public function __invoke(): Closure
     {
         return
+            /**
+             * @psalm-return Closure(int): Closure(Iterator<TKey, T>): Generator<TKey, T>
+             */
             static function (int $seed): Closure {
-                /**
-                 * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
-                 */
-                return static function (int $size) use ($seed): Closure {
-                    /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
-                    $pipe = Pipe::of()(
-                        Shuffle::of()($seed),
-                        Limit::of()($size)(0)
-                    );
+                return
+                    /**
+                     * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
+                     */
+                    static function (int $size) use ($seed): Closure {
+                        /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
+                        $pipe = Pipe::of()(
+                            Shuffle::of()($seed),
+                            Limit::of()($size)(0)
+                        );
 
-                    // Point free style.
-                    return $pipe;
-                };
+                        // Point free style.
+                        return $pipe;
+                    };
             };
     }
 }

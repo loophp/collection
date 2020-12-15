@@ -56,7 +56,7 @@ final class Combinate extends AbstractOperation
                     $dataset = [...$iterator];
 
                     if (0 < $length) {
-                        return yield from $getCombinations($dataset, (int) $length);
+                        return yield from $getCombinations($dataset, $length);
                     }
 
                     $collectionSize = count($dataset);

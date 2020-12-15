@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
-use Generator;
 use Iterator;
 use loophp\collection\Iterator\CacheIterator;
 use Psr\Cache\CacheItemPoolInterface;
@@ -20,19 +19,19 @@ use Psr\Cache\CacheItemPoolInterface;
 final class Cache extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(CacheItemPoolInterface): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @psalm-return Closure(CacheItemPoolInterface): Closure(Iterator<TKey, T>): Iterator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @psalm-return Closure(Iterator<TKey, T>): Iterator<TKey, T>
              */
             static fn (CacheItemPoolInterface $cache): Closure =>
                 /**
                  * @psalm-param Iterator<TKey, T> $iterator
                  *
-                 * @psalm-return Generator<TKey, T>
+                 * @psalm-return Iterator<TKey, T>
                  */
                 static fn (Iterator $iterator): Iterator => new CacheIterator($iterator, $cache);
     }

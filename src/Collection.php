@@ -136,13 +136,13 @@ final class Collection implements CollectionInterface
     private array $parameters;
 
     /**
-     * @psalm-var callable(...mixed): Generator<TKey, T>
+     * @psalm-var callable(...mixed): (Generator<TKey, T>|Iterator<TKey, T>)
      */
     private Closure $source;
 
     /**
      * @param callable|Closure $callable
-     * @psalm-param callable(...mixed): Generator<TKey, T> $callable
+     * @psalm-param callable(...mixed): Iterator<TKey, T> $callable
      *
      * @param mixed ...$parameters
      * @psalm-param mixed ...$parameters
@@ -240,7 +240,7 @@ final class Collection implements CollectionInterface
 
     public function count(): int
     {
-        return iterator_count($this);
+        return iterator_count($this->getIterator());
     }
 
     public function current(int $index = 0)
@@ -360,7 +360,7 @@ final class Collection implements CollectionInterface
              * @psalm-param callable(T...) $callable
              * @psalm-param list<T> $parameters
              *
-             * @psalm-return Generator<TKey, T>
+             * @psalm-return Iterator<TKey, T>
              */
             static fn (callable $callable, array $parameters): Iterator => new IteratorIterator($callable(...$parameters)),
             $callable,
@@ -371,6 +371,9 @@ final class Collection implements CollectionInterface
     public static function fromFile(string $filepath): self
     {
         return new self(
+            /**
+             * @psalm-return Iterator<int, string>
+             */
             static fn (string $filepath): Iterator => new ResourceIterator(fopen($filepath, 'rb')),
             $filepath
         );
@@ -382,7 +385,7 @@ final class Collection implements CollectionInterface
             /**
              * @psalm-param iterable<TKey, T> $iterable
              *
-             * @psalm-return Generator<TKey, T>
+             * @psalm-return Iterator<TKey, T>
              */
             static fn (iterable $iterable): Iterator => new IterableIterator($iterable),
             $iterable
@@ -396,7 +399,7 @@ final class Collection implements CollectionInterface
              * @param mixed $resource
              * @psalm-param resource $resource
              *
-             * @psalm-return Generator<int, string>
+             * @psalm-return Iterator<int, string>
              */
             static fn ($resource): Iterator => new ResourceIterator($resource),
             $resource
@@ -407,7 +410,7 @@ final class Collection implements CollectionInterface
     {
         return new self(
             /**
-             * @psalm-return Generator<int, string>
+             * @psalm-return Iterator<int, string>
              */
             static fn (string $string, string $delimiter): Iterator => new StringIterator($string, $delimiter),
             $string,

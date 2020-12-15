@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace loophp\collection\Iterator;
 
-use Generator;
 use Iterator;
 use OuterIterator;
 
@@ -17,7 +16,7 @@ use OuterIterator;
 abstract class ProxyIterator implements OuterIterator
 {
     /**
-     * @psalm-var Generator<TKey, T>|Iterator<TKey, T>
+     * @psalm-var Iterator<TKey, T>
      */
     protected Iterator $iterator;
 

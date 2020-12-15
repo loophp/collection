@@ -6,7 +6,6 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use Iterator;
 
 /**
  * @psalm-template TKey
@@ -18,7 +17,7 @@ use Iterator;
 final class Unfold extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(T...): Closure(callable(T...): (array<TKey, T>)): Closure(null|Iterator<TKey, T>): Generator<int, T>
+     * @psalm-return Closure(T...): Closure(callable(mixed|T...): (mixed|array<TKey, T>)): Closure(): Generator<int, T>
      */
     public function __invoke(): Closure
     {
@@ -27,21 +26,19 @@ final class Unfold extends AbstractOperation
              * @param mixed $parameters
              * @psalm-param T ...$parameters
              *
-             * @psalm-return Closure(callable(T...): (array<TKey, T>)): Closure(null|Iterator<TKey, T>): Generator<int, T>
+             * @psalm-return Closure(callable(mixed|T...): (array<TKey, T>)): Closure(): Generator<int, T>
              */
             static fn (...$parameters): Closure =>
                 /**
-                 * @psalm-param callable(T...): (array<TKey, T>) $callback
+                 * @psalm-param callable(mixed|T...): (mixed|array<TKey, T>) $callback
                  *
-                 * @psalm-return Closure(null|Iterator<TKey, T>): Generator<int, T>
+                 * @psalm-return Closure(): Generator<int, T>
                  */
                 static fn (callable $callback): Closure =>
                     /**
-                     * @psalm-param null|Iterator<TKey, T> $iterator
-                     *
                      * @psalm-return Generator<int, T>
                      */
-                    static function (?Iterator $iterator = null) use ($parameters, $callback): Generator {
+                    static function () use ($parameters, $callback): Generator {
                         while (true) {
                             yield $parameters = $callback(...array_values((array) $parameters));
                         }

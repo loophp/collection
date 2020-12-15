@@ -25,13 +25,12 @@ final class Unpack extends AbstractOperation
     {
         $isIterable =
             /**
-             * @psalm-param T $value
-             *
              * @param mixed $value
+             * @psalm-param T $value
              */
             static fn ($value): bool => is_iterable($value);
 
-        $toIterableIterator = static fn (iterable $value): IterableIterator => new IterableIterator($value);
+        $toIterableIterator = static fn (iterable $value): Iterator => new IterableIterator($value);
 
         $callbackForKeys =
             /**

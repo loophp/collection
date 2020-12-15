@@ -43,15 +43,15 @@ final class Group extends AbstractOperation
                          */
                         static fn ($value): bool => $value === $current;
 
-                for (; $iterator->valid(); $span->next(), $iterator = $span->current()) {
-                    $key = $iterator->key();
-                    $current = $iterator->current();
-
+                do {
                     /** @psalm-var Iterator<int, Iterator<TKey, T>> $span */
-                    $span = Span::of()($spanCallback($current))($iterator);
+                    $span = Span::of()($spanCallback($iterator->current()))($iterator);
 
-                    yield $key => [...$span->current()];
-                }
+                    yield $iterator->key() => [...$span->current()];
+
+                    $span->next();
+                    $iterator = $span->current();
+                } while ($iterator->valid());
             };
     }
 }

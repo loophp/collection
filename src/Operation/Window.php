@@ -47,7 +47,7 @@ final class Window extends AbstractOperation
                         // @todo Should we use Pack ?
                         $stack[$iterator->key()] = $iterator->current();
 
-                        yield $iterator->key() => array_slice($stack, $size);
+                        yield $iterator->key() => $stack = array_slice($stack, $size);
                     }
                 };
     }

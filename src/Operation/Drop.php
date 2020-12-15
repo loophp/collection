@@ -25,12 +25,18 @@ final class Drop extends AbstractOperation
             /**
              * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
-            static fn (int ...$offsets): Closure => static function (Iterator $iterator) use ($offsets): Generator {
-                if (!$iterator->valid()) {
-                    return yield from [];
-                }
+            static fn (int ...$offsets): Closure =>
+                /**
+                 * @psalm-param Iterator<TKey, T> $iterator
+                 *
+                 * @psalm-return Generator<TKey, T>
+                 */
+                static function (Iterator $iterator) use ($offsets): Generator {
+                    if (!$iterator->valid()) {
+                        return yield from [];
+                    }
 
-                return yield from new LimitIterator($iterator, array_sum($offsets));
-            };
+                    return yield from new LimitIterator($iterator, array_sum($offsets));
+                };
     }
 }

@@ -17,6 +17,8 @@ use const PHP_INT_MIN;
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T of string
+ *
+ * @implements Iterator<TKey, T>
  */
 final class RandomIterator implements Iterator, OuterIterator
 {

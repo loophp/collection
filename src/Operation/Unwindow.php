@@ -26,14 +26,14 @@ final class Unwindow extends AbstractOperation
             /**
              * @psalm-param iterable<TKey, list<T>> $value
              */
-            static fn (iterable $iterable): IterableIterator => new IterableIterator($iterable),
+            static fn (iterable $iterable): Iterator => new IterableIterator($iterable),
             /**
-             * @psalm-param IterableIterator<TKey, list<T>> $iterator
+             * @psalm-param Iterator<TKey, list<T>> $iterator
              *
              * @psalm-return Generator<TKey, T>
              */
-            static function (IterableIterator $iterator): Generator {
-                /** @psalm-var Closure(IterableIterator<TKey, list<T>>): Generator<TKey, T> $last */
+            static function (Iterator $iterator): Generator {
+                /** @psalm-var Closure(Iterator<TKey, list<T>>): Generator<TKey, T> $last */
                 $last = Last::of();
 
                 return $last($iterator);

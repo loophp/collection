@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
-use Generator;
 use InfiniteIterator;
 use Iterator;
 
@@ -17,7 +16,7 @@ use Iterator;
 final class Cycle extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @psalm-return Closure(Iterator<TKey, T>): Iterator<TKey, T>
      */
     public function __invoke(): Closure
     {
@@ -25,7 +24,7 @@ final class Cycle extends AbstractOperation
             /**
              * @psalm-param Iterator<TKey, T> $iterator
              *
-             * @psalm-return Generator<TKey, T>
+             * @psalm-return Iterator<TKey, T>
              */
             static fn (Iterator $iterator): Iterator => new InfiniteIterator($iterator);
     }

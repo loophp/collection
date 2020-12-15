@@ -42,7 +42,7 @@ final class Pipe extends AbstractOperation
                          *
                          * @psalm-return Generator<TKey, T>
                          */
-                        static fn (Iterator $iterator, callable $fn): Generator => $fn($iterator);
+                        static fn (Iterator $iterator, callable $fn): Iterator => $fn($iterator);
 
                     return yield from array_reduce($operations, $callback, $iterator);
                 };

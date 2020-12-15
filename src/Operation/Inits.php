@@ -32,7 +32,7 @@ final class Inits extends AbstractOperation
              * @param mixed $value
              * @param mixed $key
              */
-            static function (array $carry, $value, $key, Iterator $iterator): array {
+            static function (array $carry, $value, $key): array {
                 $carry[$key] = $value;
 
                 return $carry;

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace loophp\collection\Iterator;
 
 use Iterator;
-use IteratorIterator;
 use Psr\Cache\CacheItemInterface;
 use Psr\Cache\CacheItemPoolInterface;
 
@@ -14,7 +13,7 @@ use Psr\Cache\CacheItemPoolInterface;
  * @psalm-template TKey of array-key
  * @psalm-template T
  *
- * @extends IteratorIterator<TKey, T>
+ * @extends ProxyIterator<TKey, T>
  */
 final class CacheIterator extends ProxyIterator
 {

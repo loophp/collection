@@ -24,7 +24,11 @@ final class Lines extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        $mapCallback = static fn (array $value): string => implode('', $value);
+        $mapCallback =
+            /**
+             * @psalm-param T $value
+             */
+            static fn (array $value): string => implode('', $value);
 
         /** @psalm-var Closure(Iterator<TKey, (T | string)>):Generator<int, string> $pipe */
         $pipe = Pipe::of()(

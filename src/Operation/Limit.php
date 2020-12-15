@@ -19,13 +19,13 @@ use LimitIterator;
 final class Limit extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(int  = default):Closure (int=): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @psalm-return Closure(int): Closure(int): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-return Closure(int=): Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @psalm-return Closure(int): Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static fn (int $count = -1): Closure =>
                 /**

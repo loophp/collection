@@ -12,28 +12,32 @@ use IteratorIterator;
  * @psalm-template TKey of array-key
  * @psalm-template T of string
  *
- * @extends ProxyIterator<TKey, T>
+ * @extends ProxyIterator<int, string>
  */
 final class StringIterator extends ProxyIterator
 {
     public function __construct(string $data, string $delimiter = '')
     {
-        $callback = static function (string $input, string $delimiter): Generator {
-            $offset = 0;
+        $callback =
+            /**
+             * @psalm-return Generator<int, string>
+             */
+            static function (string $input, string $delimiter): Generator {
+                $offset = 0;
 
-            while (
-                mb_strlen($input) > $offset
-                && false !== $nextOffset = '' !== $delimiter ? mb_strpos($input, $delimiter, $offset) : 1 + $offset
-            ) {
-                yield (string) mb_substr($input, $offset, $nextOffset - $offset);
+                while (
+                    mb_strlen($input) > $offset
+                    && false !== $nextOffset = '' !== $delimiter ? mb_strpos($input, $delimiter, $offset) : 1 + $offset
+                ) {
+                    yield (string) mb_substr($input, $offset, $nextOffset - $offset);
 
-                $offset = $nextOffset + mb_strlen($delimiter);
-            }
+                    $offset = $nextOffset + mb_strlen($delimiter);
+                }
 
-            if ('' !== $delimiter) {
-                yield (string) mb_substr($input, $offset);
-            }
-        };
+                if ('' !== $delimiter) {
+                    yield (string) mb_substr($input, $offset);
+                }
+            };
 
         $this->iterator = new IteratorIterator($callback($data, $delimiter));
 

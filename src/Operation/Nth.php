@@ -28,22 +28,22 @@ final class Nth extends AbstractOperation
                 /**
                  * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
                  */
-                static fn (int $offset): Closure =>
-                    /**
-                     * @psalm-param Iterator<TKey, T> $iterator
-                     *
-                     * @psalm-return Generator<TKey, T>
-                     */
-                    static function (Iterator $iterator) use ($step, $offset): Generator {
-                        $position = 0;
+                static function (int $offset) use ($step): Closure {
+                    $filterCallback =
+                        /**
+                         * @psalm-param array{0: TKey, 1: T} $value
+                         */
+                        static fn ($value, int $key): bool => (($key % $step) === $offset);
 
-                        foreach ($iterator as $key => $value) {
-                            if ($position++ % $step !== $offset) {
-                                continue;
-                            }
+                    /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
+                    $pipe = Pipe::of()(
+                        Pack::of(),
+                        Filter::of()($filterCallback),
+                        Unpack::of()
+                    );
 
-                            yield $key => $value;
-                        }
-                    };
+                    // Point free style.
+                    return $pipe;
+                };
     }
 }
