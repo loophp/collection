@@ -33,6 +33,10 @@ final class Contains extends AbstractOperation
                  * @psalm-return Generator<int, bool>
                  */
                 static function (Iterator $iterator) use ($values): Generator {
+                    // We could use something like:
+                    // yield count($values) === Intersect::of()(...$values)($iterator);
+                    // But it would not be very optimal because it would have to traverse
+                    // the whole iterator.
                     foreach ($iterator as $value) {
                         foreach ($values as $k => $v) {
                             if ($v === $value) {

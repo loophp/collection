@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace loophp\collection\Iterator;
 
-use Generator;
+use ArrayIterator;
+use IteratorIterator;
+
+use function is_array;
 
 /**
  * @psalm-template TKey
@@ -20,16 +23,12 @@ final class IterableIterator extends ProxyIterator
      */
     public function __construct(iterable $iterable)
     {
-        $this->iterator = new ClosureIterator(
-            /**
-             * @psalm-param iterable<TKey, T> $iterable
-             */
-            static function (iterable $iterable): Generator {
-                foreach ($iterable as $key => $value) {
-                    yield $key => $value;
-                }
-            },
-            $iterable
-        );
+        if (is_array($iterable)) {
+            $iterable = new ArrayIterator($iterable);
+        }
+
+        $this->iterator = new IteratorIterator($iterable);
+
+        $this->rewind();
     }
 }

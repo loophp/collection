@@ -27,6 +27,6 @@ final class Cycle extends AbstractOperation
              *
              * @psalm-return Generator<TKey, T>
              */
-            static fn (Iterator $iterator): Generator => yield from new InfiniteIterator($iterator);
+            static fn (Iterator $iterator): Iterator => new InfiniteIterator($iterator);
     }
 }

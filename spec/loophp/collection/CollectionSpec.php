@@ -18,6 +18,7 @@ use OutOfBoundsException;
 use PhpSpec\ObjectBehavior;
 use stdClass;
 use const INF;
+use const PHP_EOL;
 
 class CollectionSpec extends ObjectBehavior
 {
@@ -2385,20 +2386,20 @@ EOF;
     {
         $lines = [
             'The quick brow fox jumps over the lazy dog.',
-            '',
             'This is another sentence.',
         ];
 
-        $string = <<<'EOF'
-The quick brow fox jumps over the lazy dog.
-
-This is another sentence.
-EOF;
+        $string = sprintf(
+            '%s%s%s',
+            'The quick brow fox jumps over the lazy dog.',
+            PHP_EOL,
+            'This is another sentence.'
+        );
 
         $this::fromIterable($lines)
             ->unlines()
             ->shouldIterateAs([
-                2 => $string,
+                1 => $string,
             ]);
     }
 

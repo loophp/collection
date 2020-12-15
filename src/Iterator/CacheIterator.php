@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace loophp\collection\Iterator;
 
 use Iterator;
+use IteratorIterator;
 use Psr\Cache\CacheItemInterface;
 use Psr\Cache\CacheItemPoolInterface;
 
@@ -13,13 +14,11 @@ use Psr\Cache\CacheItemPoolInterface;
  * @psalm-template TKey of array-key
  * @psalm-template T
  *
- * @extends ProxyIterator<TKey, T>
+ * @extends IteratorIterator<TKey, T>
  */
 final class CacheIterator extends ProxyIterator
 {
     private CacheItemPoolInterface $cache;
-
-    private int $key;
 
     /**
      * @psalm-param Iterator<TKey, T> $iterator
@@ -28,7 +27,6 @@ final class CacheIterator extends ProxyIterator
     {
         $this->iterator = $iterator;
         $this->cache = $cache;
-        $this->key = 0;
     }
 
     /**
@@ -37,7 +35,7 @@ final class CacheIterator extends ProxyIterator
     public function current()
     {
         /** @psalm-var array{TKey, T} $data */
-        $data = $this->getItemOrSave((string) $this->key)->get();
+        $data = $this->getItemOrSave((string) $this->iterator->key())->get();
 
         return $data[1];
     }
@@ -48,25 +46,16 @@ final class CacheIterator extends ProxyIterator
     public function key()
     {
         /** @psalm-var array{TKey, T} $data */
-        $data = $this->getItemOrSave((string) $this->key)->get();
+        $data = $this->getItemOrSave((string) $this->iterator->key())->get();
 
         return $data[0];
     }
 
-    public function next(): void
-    {
-        ++$this->key;
-        parent::next();
-    }
-
-    public function rewind(): void
-    {
-        $this->key = 0;
-    }
-
     public function valid(): bool
     {
-        return $this->cache->hasItem((string) $this->key) || parent::valid();
+        $key = (string) $this->iterator->key();
+
+        return '' !== $key && ($this->iterator->valid() || $this->cache->hasItem($key));
     }
 
     private function getItemOrSave(string $key): CacheItemInterface
@@ -75,8 +64,8 @@ final class CacheIterator extends ProxyIterator
 
         if (false === $item->isHit()) {
             $item->set([
-                parent::key(),
-                parent::current(),
+                $this->iterator->key(),
+                $this->iterator->current(),
             ]);
 
             $this->cache->save($item);

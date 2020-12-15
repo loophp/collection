@@ -42,6 +42,7 @@ final class Reverse extends AbstractOperation
             Unpack::of()
         );
 
+        // Point free style.
         return $pipe;
     }
 }

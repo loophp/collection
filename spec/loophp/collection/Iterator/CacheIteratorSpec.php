@@ -34,6 +34,8 @@ class CacheIteratorSpec extends ObjectBehavior
             ->hasItem(0)
             ->willReturn(true);
 
+        $this->rewind();
+
         $this
             ->current()
             ->shouldReturn('a');
@@ -41,7 +43,6 @@ class CacheIteratorSpec extends ObjectBehavior
         $cache
             ->getItem(0)
             ->shouldHaveBeenCalledOnce();
-
         $this->rewind();
 
         $this

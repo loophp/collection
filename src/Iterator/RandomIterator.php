@@ -6,6 +6,7 @@ namespace loophp\collection\Iterator;
 
 use ArrayIterator;
 use Iterator;
+use OuterIterator;
 
 use function array_slice;
 
@@ -16,22 +17,22 @@ use const PHP_INT_MIN;
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T of string
- *
- * @extends ProxyIterator<TKey, T>
  */
-final class RandomIterator extends ProxyIterator
+final class RandomIterator implements Iterator, OuterIterator
 {
-    /**
-     * @psalm-var Iterator<TKey, T>
-     */
-    protected Iterator $iterator;
-
     /**
      * @var array<int, int>
      */
     private array $indexes;
 
+    /**
+     * @psalm-var Iterator<TKey, T>
+     */
+    private Iterator $iterator;
+
     private int $key;
+
+    private int $seed;
 
     /**
      * @psalm-var ArrayIterator<int, array{0: TKey, 1: T}>
@@ -57,6 +58,11 @@ final class RandomIterator extends ProxyIterator
         return $value[1];
     }
 
+    public function getInnerIterator()
+    {
+        return $this->iterator;
+    }
+
     public function key()
     {
         $value = $this->wrappedIterator[$this->key];
@@ -75,7 +81,6 @@ final class RandomIterator extends ProxyIterator
 
     public function rewind(): void
     {
-        parent::rewind();
         $this->indexes = array_keys($this->wrappedIterator->getArrayCopy());
     }
 

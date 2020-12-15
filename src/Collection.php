@@ -6,9 +6,10 @@ namespace loophp\collection;
 
 use Closure;
 use Generator;
+use Iterator;
+use IteratorIterator;
 use loophp\collection\Contract\Collection as CollectionInterface;
 use loophp\collection\Contract\Operation;
-use loophp\collection\Iterator\ClosureIterator;
 use loophp\collection\Iterator\IterableIterator;
 use loophp\collection\Iterator\ResourceIterator;
 use loophp\collection\Iterator\StringIterator;
@@ -361,7 +362,7 @@ final class Collection implements CollectionInterface
              *
              * @psalm-return Generator<TKey, T>
              */
-            static fn (callable $callable, array $parameters): Generator => yield from new ClosureIterator($callable, ...$parameters),
+            static fn (callable $callable, array $parameters): Iterator => new IteratorIterator($callable(...$parameters)),
             $callable,
             $parameters
         );
@@ -370,7 +371,7 @@ final class Collection implements CollectionInterface
     public static function fromFile(string $filepath): self
     {
         return new self(
-            static fn (string $filepath): Generator => yield from new ResourceIterator(fopen($filepath, 'rb')),
+            static fn (string $filepath): Iterator => new ResourceIterator(fopen($filepath, 'rb')),
             $filepath
         );
     }
@@ -383,7 +384,7 @@ final class Collection implements CollectionInterface
              *
              * @psalm-return Generator<TKey, T>
              */
-            static fn (iterable $iterable): Generator => yield from new IterableIterator($iterable),
+            static fn (iterable $iterable): Iterator => new IterableIterator($iterable),
             $iterable
         );
     }
@@ -397,7 +398,7 @@ final class Collection implements CollectionInterface
              *
              * @psalm-return Generator<int, string>
              */
-            static fn ($resource): Generator => yield from new ResourceIterator($resource),
+            static fn ($resource): Iterator => new ResourceIterator($resource),
             $resource
         );
     }
@@ -408,7 +409,7 @@ final class Collection implements CollectionInterface
             /**
              * @psalm-return Generator<int, string>
              */
-            static fn (string $string, string $delimiter): Generator => yield from new StringIterator($string, $delimiter),
+            static fn (string $string, string $delimiter): Iterator => new StringIterator($string, $delimiter),
             $string,
             $delimiter
         );
@@ -419,9 +420,12 @@ final class Collection implements CollectionInterface
         return new self(Get::of()($key)($default), $this->getIterator());
     }
 
-    public function getIterator(): ClosureIterator
+    public function getIterator(): Iterator
     {
-        return new ClosureIterator($this->source, ...$this->parameters);
+        $iterator = new IteratorIterator(($this->source)(...$this->parameters));
+        $iterator->rewind();
+
+        return $iterator;
     }
 
     public function group(): CollectionInterface
