@@ -6,6 +6,7 @@ namespace loophp\collection\Iterator;
 
 use Generator;
 use InvalidArgumentException;
+use IteratorIterator;
 
 /**
  * @psalm-template TKey
@@ -25,7 +26,7 @@ final class ResourceIterator extends ProxyIterator
             throw new InvalidArgumentException('Invalid resource type.');
         }
 
-        $this->iterator = new ClosureIterator(
+        $callback =
             /**
              * @param resource $resource
              *
@@ -35,8 +36,10 @@ final class ResourceIterator extends ProxyIterator
                 while (false !== $chunk = fgetc($resource)) {
                     yield $chunk;
                 }
-            },
-            $resource
-        );
+            };
+
+        $this->iterator = new IteratorIterator($callback($resource));
+
+        $this->rewind();
     }
 }

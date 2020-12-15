@@ -44,7 +44,7 @@ final class ScanLeft extends AbstractOperation
                     static function (Iterator $iterator) use ($callback, $initial): Generator {
                         // @todo: See if we cannot find a better way to do this.
                         if (false === $iterator->valid()) {
-                            return;
+                            return yield from [];
                         }
 
                         /** @psalm-var Closure(Iterator<TKey, T>):(Generator<int|TKey, T|null>) $pipe */

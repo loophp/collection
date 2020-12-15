@@ -34,6 +34,6 @@ final class Cache extends AbstractOperation
                  *
                  * @psalm-return Generator<TKey, T>
                  */
-                static fn (Iterator $iterator): Generator => yield from new CacheIterator($iterator, $cache);
+                static fn (Iterator $iterator): Iterator => new CacheIterator($iterator, $cache);
     }
 }

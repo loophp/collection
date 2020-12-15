@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract;
 
+use Iterator;
 use IteratorAggregate;
 use JsonSerializable;
 use loophp\collection\Contract\Operation\Allable;
@@ -105,7 +106,6 @@ use loophp\collection\Contract\Operation\Windowable;
 use loophp\collection\Contract\Operation\Wordsable;
 use loophp\collection\Contract\Operation\Wrapable;
 use loophp\collection\Contract\Operation\Zipable;
-use loophp\collection\Iterator\ClosureIterator;
 
 /**
  * @psalm-template TKey
@@ -351,7 +351,7 @@ interface Collection extends
     public static function fromString(string $string, string $delimiter = ''): self;
 
     /**
-     * @psalm-return \loophp\collection\Iterator\ClosureIterator<TKey, T>
+     * @psalm-return \Iterator<TKey, T>
      */
-    public function getIterator(): ClosureIterator;
+    public function getIterator(): Iterator;
 }

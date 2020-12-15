@@ -30,7 +30,7 @@ final class Drop extends AbstractOperation
                     return yield from [];
                 }
 
-                return yield from new LimitIterator($iterator, (int) array_sum($offsets));
+                return yield from new LimitIterator($iterator, array_sum($offsets));
             };
     }
 }

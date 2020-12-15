@@ -59,13 +59,7 @@ final class Product extends AbstractOperation
                             }
                         };
 
-                    $iterators = [$iterator];
-
-                    foreach ($iterables as $iterable) {
-                        $iterators[] = $iterable;
-                    }
-
-                    return yield from $cartesian(...$iterators);
+                    return yield from $cartesian($iterator, ...$iterables);
                 };
     }
 }
