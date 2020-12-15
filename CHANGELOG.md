@@ -5,7 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.1.1](https://github.com/loophp/collection/compare/3.1.0...3.1.1)
+## [3.2.0](https://github.com/loophp/collection/compare/3.1.1...3.2.0)
+
+### Commits
+
+- refactor: Update various operations. [`b5da182`](https://github.com/loophp/collection/commit/b5da182bc4801b8ede504f1ee6816924c09677de)
+- refactor: Use more IteratorIterator. [`0127f40`](https://github.com/loophp/collection/commit/0127f40d3dc337d1fb022a12287c9565d4ae616a)
+- refactor: Minor code style update. [`54d0f8e`](https://github.com/loophp/collection/commit/54d0f8e66208166dd10d073e4d766676242b3dc7)
+- docs: Fix code example. [`65769b4`](https://github.com/loophp/collection/commit/65769b45fa2fa4d36a3f3adb76fe1f7e8e52518f)
+
+## [3.1.1](https://github.com/loophp/collection/compare/3.1.0...3.1.1) - 2020-12-08
 
 ### Merged
 
@@ -13,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Commits
 
+- docs: Update changelog. [`a4464cb`](https://github.com/loophp/collection/commit/a4464cb0b93822e41269d78cb7d58ae441ce586c)
 - fix: Update ScanLeft so it doesn't go further if the iterator is not valid. [`5d9e448`](https://github.com/loophp/collection/commit/5d9e448dff2b792e872cca52543ab565bb195242)
 - docs: Update documentation. [`e518492`](https://github.com/loophp/collection/commit/e518492b35ef219465bc6e0983b607f84d54308f)
 
