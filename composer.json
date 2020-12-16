@@ -21,7 +21,7 @@
     "require-dev": {
         "amphp/parallel-functions": "^0.1 || ^1",
         "drupol/php-conventions": "^2.0.3",
-        "friends-of-phpspec/phpspec-code-coverage": "^5",
+        "friends-of-phpspec/phpspec-code-coverage": "^5 || ^6",
         "infection/infection": "^0.20.1",
         "infection/phpspec-adapter": "^0.1.1",
         "phpspec/phpspec": "^7",
