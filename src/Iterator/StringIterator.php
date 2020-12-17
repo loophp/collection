@@ -40,7 +40,5 @@ final class StringIterator extends ProxyIterator
             };
 
         $this->iterator = new IteratorIterator($callback($data, $delimiter));
-
-        $this->rewind();
     }
 }

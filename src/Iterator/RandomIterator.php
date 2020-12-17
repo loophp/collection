@@ -4,11 +4,7 @@ declare(strict_types=1);
 
 namespace loophp\collection\Iterator;
 
-use ArrayIterator;
 use Iterator;
-use OuterIterator;
-
-use function array_slice;
 
 use const PHP_INT_MAX;
 use const PHP_INT_MIN;
@@ -18,28 +14,23 @@ use const PHP_INT_MIN;
  * @psalm-template TKey of array-key
  * @psalm-template T of string
  *
- * @implements Iterator<TKey, T>
+ * @extends ProxyIterator<TKey, T>
  */
-final class RandomIterator implements Iterator, OuterIterator
+final class RandomIterator extends ProxyIterator
 {
     /**
      * @var array<int, int>
      */
-    private array $indexes;
+    private array $indexes = [];
 
-    /**
-     * @psalm-var Iterator<TKey, T>
-     */
-    private Iterator $iterator;
-
-    private int $key;
+    private ?int $key = 0;
 
     private int $seed;
 
     /**
-     * @psalm-var ArrayIterator<int, array{0: TKey, 1: T}>
+     * @psalm-var Iterator<TKey, T>
      */
-    private ArrayIterator $wrappedIterator;
+    private Iterator $wrappedIterator;
 
     /**
      * @psalm-param Iterator<TKey, T> $iterator
@@ -48,42 +39,38 @@ final class RandomIterator implements Iterator, OuterIterator
     {
         $this->iterator = $iterator;
         $this->seed = $seed ?? random_int(PHP_INT_MIN, PHP_INT_MAX);
-        $this->wrappedIterator = $this->buildArrayIterator($iterator);
-        $this->indexes = array_keys($this->wrappedIterator->getArrayCopy());
-        $this->key = current($this->customArrayRand($this->indexes, 1, $this->seed));
+        $this->wrappedIterator = new ArrayCacheIterator($iterator);
     }
 
     public function current()
     {
-        $value = $this->wrappedIterator[$this->key];
+        $keyValueTuple = $this->getNextItemAtKey($this->key);
 
-        return $value[1];
-    }
-
-    public function getInnerIterator()
-    {
-        return $this->iterator;
+        return $keyValueTuple[1];
     }
 
     public function key()
     {
-        $value = $this->wrappedIterator[$this->key];
+        $keyValueTuple = $this->getNextItemAtKey($this->key);
 
-        return $value[0];
+        return $keyValueTuple[0];
     }
 
     public function next(): void
     {
         unset($this->indexes[$this->key]);
 
-        if ($this->valid()) {
-            $this->key = current($this->customArrayRand($this->indexes, 1, $this->seed));
-        }
+        $this->key = key($this->indexes);
     }
 
     public function rewind(): void
     {
-        $this->indexes = array_keys($this->wrappedIterator->getArrayCopy());
+        // @todo: Try to get rid of iterator_count().
+        $this->indexes = $this->predictableRandomArray(
+            range(0, iterator_count($this->wrappedIterator) - 1),
+            $this->seed
+        );
+        $this->key = 0;
     }
 
     public function valid(): bool
@@ -92,28 +79,30 @@ final class RandomIterator implements Iterator, OuterIterator
     }
 
     /**
-     * @psalm-param Iterator<TKey, T> $iterator
+     * We do not cache the values in here.
+     * It's already done in the ArrayCacheIterator.
      *
-     * @psalm-return ArrayIterator<int, array{0: TKey, 1: T}>
+     * @psalm-return array{0: TKey, 1: T}
      */
-    private function buildArrayIterator(Iterator $iterator): ArrayIterator
+    private function getNextItemAtKey(int $key): array
     {
-        /** @psalm-var ArrayIterator<int, array{0: TKey, 1: T}> $arrayIterator */
-        $arrayIterator = new ArrayIterator();
+        $i = 0;
 
-        foreach ($iterator as $key => $value) {
-            $arrayIterator->append([$key, $value]);
+        $this->wrappedIterator->rewind();
+
+        while ($this->indexes[$key] !== $i++) {
+            $this->wrappedIterator->next();
         }
 
-        return $arrayIterator;
+        return [$this->wrappedIterator->key(), $this->wrappedIterator->current()];
     }
 
-    private function customArrayRand(array $array, int $num, int $seed): array
+    private function predictableRandomArray(array $array, int $seed): array
     {
         mt_srand($seed);
         shuffle($array);
         mt_srand();
 
-        return array_slice($array, 0, $num);
+        return $array;
     }
 }

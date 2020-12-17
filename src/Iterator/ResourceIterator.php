@@ -39,7 +39,5 @@ final class ResourceIterator extends ProxyIterator
             };
 
         $this->iterator = new IteratorIterator($callback($resource));
-
-        $this->rewind();
     }
 }

@@ -6,12 +6,12 @@ namespace spec\loophp\collection\Iterator;
 
 use ArrayIterator;
 use Iterator;
-use loophp\collection\Iterator\CacheIterator;
+use loophp\collection\Iterator\PsrCacheIterator;
 use PhpSpec\ObjectBehavior;
 use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\Cache\CacheItem;
 
-class CacheIteratorSpec extends ObjectBehavior
+class PsrCacheIteratorSpec extends ObjectBehavior
 {
     public function it_can_cache_data(CacheItemPoolInterface $cache)
     {
@@ -88,6 +88,6 @@ class CacheIteratorSpec extends ObjectBehavior
     public function it_is_initializable(Iterator $iterator, CacheItemPoolInterface $cache)
     {
         $this->beConstructedWith($iterator, $cache);
-        $this->shouldHaveType(CacheIterator::class);
+        $this->shouldHaveType(PsrCacheIterator::class);
     }
 }

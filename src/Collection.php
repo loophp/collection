@@ -10,6 +10,7 @@ use Iterator;
 use IteratorIterator;
 use loophp\collection\Contract\Collection as CollectionInterface;
 use loophp\collection\Contract\Operation;
+use loophp\collection\Iterator\ClosureIterator;
 use loophp\collection\Iterator\IterableIterator;
 use loophp\collection\Iterator\ResourceIterator;
 use loophp\collection\Iterator\StringIterator;
@@ -425,10 +426,7 @@ final class Collection implements CollectionInterface
 
     public function getIterator(): Iterator
     {
-        $iterator = new IteratorIterator(($this->source)(...$this->parameters));
-        $iterator->rewind();
-
-        return $iterator;
+        return new ClosureIterator($this->source, ...$this->parameters);
     }
 
     public function group(): CollectionInterface
@@ -657,9 +655,7 @@ final class Collection implements CollectionInterface
 
     public function shuffle(?int $seed = null): CollectionInterface
     {
-        if (null === $seed) {
-            $seed = random_int(PHP_INT_MIN, PHP_INT_MAX);
-        }
+        $seed ??= random_int(PHP_INT_MIN, PHP_INT_MAX);
 
         return new self(Shuffle::of()($seed), $this->getIterator());
     }
