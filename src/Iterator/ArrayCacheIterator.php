@@ -73,11 +73,7 @@ final class ArrayCacheIterator extends ProxyIterator
 
     public function valid(): bool
     {
-        if (parent::valid()) {
-            return true;
-        }
-
-        return array_key_exists($this->key, $this->cache);
+        return parent::valid() || array_key_exists($this->key, $this->cache);
     }
 
     /**
