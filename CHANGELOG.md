@@ -5,10 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.2.0](https://github.com/loophp/collection/compare/3.1.1...3.2.0)
+## [3.3.0](https://github.com/loophp/collection/compare/3.2.0...3.3.0)
+
+### Merged
+
+- Iterators refactoring [`#54`](https://github.com/loophp/collection/pull/54)
+- chore(deps-dev): Update friends-of-phpspec/phpspec-code-coverage requirement from ^5 to ^5 || ^6 [`#53`](https://github.com/loophp/collection/pull/53)
 
 ### Commits
 
+- tests: Add more tests. [`8fc51fd`](https://github.com/loophp/collection/commit/8fc51fd0d1d49064abd21d7c90dc9e0e1ecc31c7)
+- refactor: Mark iterators as internal. [`af7ee07`](https://github.com/loophp/collection/commit/af7ee070ba434d0106c13d9f769227d31708fab6)
+- refactor: Rewrite iterators and optimize things here and there. [`87124da`](https://github.com/loophp/collection/commit/87124dabed11bd7be911c0afe543872880c2c3c2)
+- chore(deps-dev): Update friends-of-phpspec/phpspec-code-coverage requirement || ^6 [`164a8b5`](https://github.com/loophp/collection/commit/164a8b5b03d5447303449f0a7fc34e107a711ae7)
+
+## [3.2.0](https://github.com/loophp/collection/compare/3.1.1...3.2.0) - 2020-12-15
+
+### Commits
+
+- docs: Update changelog. [`a6e12ed`](https://github.com/loophp/collection/commit/a6e12ed9e498564b52beaabda195c64f416ec8fa)
 - refactor: Update various operations. [`b5da182`](https://github.com/loophp/collection/commit/b5da182bc4801b8ede504f1ee6816924c09677de)
 - refactor: Use more IteratorIterator. [`0127f40`](https://github.com/loophp/collection/commit/0127f40d3dc337d1fb022a12287c9565d4ae616a)
 - refactor: Minor code style update. [`54d0f8e`](https://github.com/loophp/collection/commit/54d0f8e66208166dd10d073e4d766676242b3dc7)
