@@ -10,6 +10,8 @@ use const PHP_INT_MAX;
 use const PHP_INT_MIN;
 
 /**
+ * @internal
+ *
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T of string

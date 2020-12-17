@@ -7,6 +7,8 @@ namespace loophp\collection\Iterator;
 use Generator;
 
 /**
+ * @internal
+ *
  * @psalm-template TKey
  * @psalm-template T
  *
