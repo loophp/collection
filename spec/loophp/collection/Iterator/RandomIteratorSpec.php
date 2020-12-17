@@ -23,30 +23,30 @@ class RandomIteratorSpec extends ObjectBehavior
 
         $expected = [
             2 => 'c',
-            4 => 'e',
-            22 => 'w',
-            21 => 'v',
             20 => 'u',
-            14 => 'o',
-            5 => 'f',
-            17 => 'r',
-            25 => 'z',
-            24 => 'y',
-            10 => 'k',
-            13 => 'n',
-            23 => 'x',
-            15 => 'p',
             8 => 'i',
-            11 => 'l',
-            0 => 'a',
-            7 => 'h',
-            19 => 't',
-            9 => 'j',
             3 => 'd',
-            16 => 'q',
-            18 => 's',
-            1 => 'b',
+            7 => 'h',
+            9 => 'j',
+            0 => 'a',
+            21 => 'v',
             12 => 'm',
+            15 => 'p',
+            13 => 'n',
+            4 => 'e',
+            19 => 't',
+            10 => 'k',
+            22 => 'w',
+            11 => 'l',
+            1 => 'b',
+            5 => 'f',
+            18 => 's',
+            23 => 'x',
+            17 => 'r',
+            24 => 'y',
+            16 => 'q',
+            25 => 'z',
+            14 => 'o',
             6 => 'g',
         ];
 
@@ -54,8 +54,8 @@ class RandomIteratorSpec extends ObjectBehavior
             throw new Exception('Iterator is not equal to the expected array.');
         }
 
-        $iterator1 = new RandomIterator($input, $seed);
-        $iterator2 = new RandomIterator($input, $seed + $seed);
+        $iterator1 = new RandomIterator(new ArrayIterator(range('a', 'z')), $seed);
+        $iterator2 = new RandomIterator(new ArrayIterator(range('a', 'z')), $seed + $seed);
 
         if (iterator_to_array($iterator1) === iterator_to_array($iterator2)) {
             throw new Exception('Iterator1 is equal to Iterator2');
@@ -67,7 +67,7 @@ class RandomIteratorSpec extends ObjectBehavior
         $input = new ArrayIterator(range('a', 'z'));
         $this->beConstructedWith($input);
 
-        $iterator1 = new RandomIterator($input);
+        $iterator1 = new RandomIterator(new ArrayIterator(range('a', 'z')));
 
         if (iterator_to_array($iterator1) === iterator_to_array($this->getWrappedObject())) {
             throw new Exception('Iterator1 is equal to Iterator2');
@@ -84,6 +84,12 @@ class RandomIteratorSpec extends ObjectBehavior
         $iterator = new ArrayIterator(['a']);
 
         $this->beConstructedWith($iterator, 1);
+
+        $this
+            ->valid()
+            ->shouldReturn(false);
+
+        $this->rewind();
 
         $this
             ->valid()

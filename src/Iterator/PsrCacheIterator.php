@@ -9,15 +9,19 @@ use Psr\Cache\CacheItemInterface;
 use Psr\Cache\CacheItemPoolInterface;
 
 /**
+ * @internal
+ *
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
  *
  * @extends ProxyIterator<TKey, T>
  */
-final class CacheIterator extends ProxyIterator
+final class PsrCacheIterator extends ProxyIterator
 {
     private CacheItemPoolInterface $cache;
+
+    private int $key = 0;
 
     /**
      * @psalm-param Iterator<TKey, T> $iterator
@@ -34,7 +38,7 @@ final class CacheIterator extends ProxyIterator
     public function current()
     {
         /** @psalm-var array{TKey, T} $data */
-        $data = $this->getItemOrSave((string) $this->iterator->key())->get();
+        $data = $this->getTupleFromCache($this->key)->get();
 
         return $data[1];
     }
@@ -45,26 +49,39 @@ final class CacheIterator extends ProxyIterator
     public function key()
     {
         /** @psalm-var array{TKey, T} $data */
-        $data = $this->getItemOrSave((string) $this->iterator->key())->get();
+        $data = $this->getTupleFromCache($this->key)->get();
 
         return $data[0];
     }
 
-    public function valid(): bool
+    public function next(): void
     {
-        $key = (string) $this->iterator->key();
+        // This is mostly for iterator_count().
+        $this->getTupleFromCache($this->key++);
 
-        return '' !== $key && ($this->iterator->valid() || $this->cache->hasItem($key));
+        parent::next();
     }
 
-    private function getItemOrSave(string $key): CacheItemInterface
+    public function rewind(): void
     {
-        $item = $this->cache->getItem($key);
+        // No call to parent::rewind() because we do not know if the inner
+        // iterator can be rewinded or not.
+        $this->key = 0;
+    }
+
+    public function valid(): bool
+    {
+        return parent::valid() || $this->cache->hasItem((string) $this->key);
+    }
+
+    private function getTupleFromCache(int $key): CacheItemInterface
+    {
+        $item = $this->cache->getItem((string) $key);
 
         if (false === $item->isHit()) {
             $item->set([
-                $this->iterator->key(),
-                $this->iterator->current(),
+                parent::key(),
+                parent::current(),
             ]);
 
             $this->cache->save($item);

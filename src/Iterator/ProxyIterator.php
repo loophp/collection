@@ -8,6 +8,8 @@ use Iterator;
 use OuterIterator;
 
 /**
+ * @internal
+ *
  * @psalm-template TKey
  * @psalm-template T
  *

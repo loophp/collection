@@ -8,6 +8,8 @@ use Generator;
 use IteratorIterator;
 
 /**
+ * @internal
+ *
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T of string
@@ -40,7 +42,5 @@ final class StringIterator extends ProxyIterator
             };
 
         $this->iterator = new IteratorIterator($callback($data, $delimiter));
-
-        $this->rewind();
     }
 }

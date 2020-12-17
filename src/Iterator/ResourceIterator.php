@@ -9,6 +9,8 @@ use InvalidArgumentException;
 use IteratorIterator;
 
 /**
+ * @internal
+ *
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
@@ -39,7 +41,5 @@ final class ResourceIterator extends ProxyIterator
             };
 
         $this->iterator = new IteratorIterator($callback($resource));
-
-        $this->rewind();
     }
 }

@@ -6,7 +6,7 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Iterator;
-use loophp\collection\Iterator\CacheIterator;
+use loophp\collection\Iterator\PsrCacheIterator;
 use Psr\Cache\CacheItemPoolInterface;
 
 /**
@@ -33,6 +33,6 @@ final class Cache extends AbstractOperation
                  *
                  * @psalm-return Iterator<TKey, T>
                  */
-                static fn (Iterator $iterator): Iterator => new CacheIterator($iterator, $cache);
+                static fn (Iterator $iterator): Iterator => new PsrCacheIterator($iterator, $cache);
     }
 }

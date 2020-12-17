@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace spec\loophp\collection;
 
+use ArrayIterator;
 use ArrayObject;
 use Closure;
 use Exception;
@@ -205,6 +206,25 @@ class CollectionSpec extends ObjectBehavior
             ]);
     }
 
+    public function it_can_be_constructed_from_a_generator(): void
+    {
+        $generator = static function () {
+            yield 'a';
+
+            yield 'b';
+
+            yield 'c';
+
+            yield 'd';
+
+            yield 'e';
+        };
+
+        $this::fromIterable($generator())
+            ->getIterator()
+            ->shouldIterateAs(range('a', 'e'));
+    }
+
     public function it_can_be_constructed_from_a_stream(): void
     {
         $string = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
@@ -262,6 +282,13 @@ class CollectionSpec extends ObjectBehavior
                 'b',
                 'c',
             ]);
+    }
+
+    public function it_can_be_constructed_from_an_iterator(): void
+    {
+        $this::fromIterable(new ArrayIterator(range('a', 'e')))
+            ->getIterator()
+            ->shouldIterateAs(range('a', 'e'));
     }
 
     public function it_can_be_constructed_from_empty(): void
