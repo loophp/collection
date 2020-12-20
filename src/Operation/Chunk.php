@@ -6,6 +6,7 @@ namespace loophp\collection\Operation;
 
 use ArrayIterator;
 use Closure;
+use EmptyIterator;
 use Generator;
 use Iterator;
 
@@ -42,7 +43,7 @@ final class Chunk extends AbstractOperation
 
                     foreach ($iterator as $value) {
                         if (0 >= $sizesIterator->current()) {
-                            return yield from [];
+                            return new EmptyIterator();
                         }
 
                         if (count($values) !== $sizesIterator->current()) {

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
+use EmptyIterator;
 use Generator;
 use Iterator;
 
@@ -28,7 +29,7 @@ final class Head extends AbstractOperation
              */
             static function (Iterator $iterator): Generator {
                 if (!$iterator->valid()) {
-                    return yield from [];
+                    return new EmptyIterator();
                 }
 
                 return yield $iterator->key() => $iterator->current();

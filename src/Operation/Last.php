@@ -6,6 +6,7 @@ namespace loophp\collection\Operation;
 
 use CachingIterator;
 use Closure;
+use EmptyIterator;
 use Generator;
 use Iterator;
 
@@ -29,7 +30,7 @@ final class Last extends AbstractOperation
              */
             static function (Iterator $iterator): Generator {
                 if (!$iterator->valid()) {
-                    return yield from [];
+                    return new EmptyIterator();
                 }
 
                 $cachingIterator = new CachingIterator($iterator, CachingIterator::FULL_CACHE);

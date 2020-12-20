@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
+use EmptyIterator;
 use Generator;
 use Iterator;
 use LimitIterator;
@@ -33,7 +34,7 @@ final class Drop extends AbstractOperation
                  */
                 static function (Iterator $iterator) use ($offsets): Generator {
                     if (!$iterator->valid()) {
-                        return yield from [];
+                        return new EmptyIterator();
                     }
 
                     return yield from new LimitIterator($iterator, array_sum($offsets));
