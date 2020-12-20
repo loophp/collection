@@ -45,7 +45,7 @@ final class Map extends AbstractOperation
                             /**
                              * @param mixed $carry
                              * @psalm-param T $carry
-                             * @psalm-param callable(T, TKey): T $callback
+                             * @psalm-param callable(T, TKey, Iterator<TKey, T>): T $callback
                              *
                              * @psalm-return T
                              */

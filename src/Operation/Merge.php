@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
-use Generator;
 use Iterator;
 use loophp\collection\Iterator\MultipleIterableIterator;
 
@@ -17,7 +16,7 @@ use loophp\collection\Iterator\MultipleIterableIterator;
 final class Merge extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(iterable<TKey, T>...): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @psalm-return Closure(iterable<TKey, T>...): Closure(Iterator<TKey, T>): Iterator<TKey, T>
      */
     public function __invoke(): Closure
     {
@@ -29,7 +28,7 @@ final class Merge extends AbstractOperation
                 /**
                  * @psalm-param Iterator<TKey, T> $iterator
                  *
-                 * @psalm-return Generator<TKey, T>
+                 * @psalm-return Iterator<TKey, T>
                  */
                 static function (Iterator $iterator) use ($sources): Iterator {
                     return new MultipleIterableIterator($iterator, ...$sources);

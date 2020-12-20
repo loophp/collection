@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
-use Generator;
 use Iterator;
 use loophp\collection\Iterator\MultipleIterableIterator;
 
@@ -17,7 +16,7 @@ use loophp\collection\Iterator\MultipleIterableIterator;
 final class Prepend extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(T...): Closure(Iterator<TKey, T>): Generator<int|TKey, T>
+     * @psalm-return Closure(T...): Closure(Iterator<TKey, T>): Iterator<int|TKey, T>
      */
     public function __invoke(): Closure
     {
@@ -25,13 +24,13 @@ final class Prepend extends AbstractOperation
             /**
              * @psalm-param T ...$items
              *
-             * @psalm-return Closure(Iterator<TKey, T>): Generator<int|TKey, T>
+             * @psalm-return Closure(Iterator<TKey, T>): Iterator<int|TKey, T>
              */
             static fn (...$items): Closure =>
                 /**
                  * @psalm-param Iterator<TKey, T> $iterator
                  *
-                 * @psalm-return Generator<int|TKey, T>
+                 * @psalm-return Iterator<int|TKey, T>
                  */
                 static function (Iterator $iterator) use ($items): Iterator {
                     return new MultipleIterableIterator($items, $iterator);

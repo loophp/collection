@@ -18,7 +18,7 @@ use NoRewindIterator;
 final class MultipleIterableIterator extends ProxyIterator
 {
     /**
-     * @psalm-param iterable<TKey, T> $iterable
+     * @psalm-param iterable<TKey, T> $iterators
      */
     public function __construct(iterable ...$iterators)
     {

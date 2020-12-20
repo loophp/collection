@@ -31,7 +31,7 @@ final class Filter extends AbstractOperation
              */
             static fn (callable ...$callbacks): Closure =>
                 /**
-                 * @psalm-param Iterator<TKey, T>
+                 * @psalm-param Iterator<TKey, T> $iterator
                  *
                  * @psalm-return Generator<TKey, T>
                  */
