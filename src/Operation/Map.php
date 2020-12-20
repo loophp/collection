@@ -49,7 +49,7 @@ final class Map extends AbstractOperation
                              *
                              * @psalm-return T
                              */
-                            static fn ($carry, callable $callback) => $callback($carry, $key);
+                            static fn ($carry, callable $callback) => $callback($carry, $key, $iterator);
 
                     foreach ($iterator as $key => $value) {
                         yield $key => array_reduce($callbacks, $callbackFactory($key), $value);

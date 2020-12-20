@@ -22,8 +22,6 @@ final class Key extends AbstractOperation
     {
         return
             /**
-             * @psalm-param int $index
-             *
              * @psalm-return Closure(Iterator<TKey, T>): Generator<int, TKey>
              */
             static function (int $index): Closure {

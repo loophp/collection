@@ -47,7 +47,7 @@ final class ScanLeft extends AbstractOperation
                             return yield from [];
                         }
 
-                        /** @psalm-var Closure(Iterator<TKey, T>):(Generator<int|TKey, T|null>) $pipe */
+                        /** @psalm-var Closure(Iterator<TKey, T>): Generator<int|TKey, T|null> $pipe */
                         $pipe = Pipe::of()(
                             Reduction::of()($callback)($initial),
                             Prepend::of()($initial)

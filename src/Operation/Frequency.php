@@ -59,6 +59,7 @@ final class Frequency extends AbstractOperation
             Unpack::of()
         );
 
+        // Point free style.
         return $pipe;
     }
 }

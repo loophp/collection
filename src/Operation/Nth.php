@@ -33,7 +33,7 @@ final class Nth extends AbstractOperation
                         /**
                          * @psalm-param array{0: TKey, 1: T} $value
                          */
-                        static fn ($value, int $key): bool => (($key % $step) === $offset);
+                        static fn (array $value, int $key): bool => (($key % $step) === $offset);
 
                     /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
                     $pipe = Pipe::of()(

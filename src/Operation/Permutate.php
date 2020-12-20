@@ -32,7 +32,7 @@ final class Permutate extends AbstractOperation
              *
              * @psalm-return Generator<int, list<T>>
              */
-            static fn (Iterator $iterator): Generator => yield from $getPermutations([...$iterator]);
+            static fn (Iterator $iterator): Iterator => $getPermutations([...$iterator]);
     }
 
     /**

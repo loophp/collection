@@ -40,9 +40,7 @@ final class Flip extends AbstractOperation
              */
             static fn ($carry, $key, $value) => $key;
 
-        /**
-         * @psalm-var Closure(Iterator<TKey, T>): Generator<T, TKey>
-         */
+        /** @psalm-var Closure(Iterator<TKey, T>): Generator<T, TKey> $associate */
         $associate = Associate::of()($callbackForKeys)($callbackForValues);
 
         // Point free style.

@@ -52,7 +52,7 @@ final class IfThenElse extends AbstractOperation
                              *
                              * @psalm-return T
                              */
-                            static fn ($value, $key) => $condition($value, $key) ? $then($value, $key) : $else($value, $key)
+                            static fn ($value, $key, Iterator $iterator) => $condition($value, $key, $iterator) ? $then($value, $key, $iterator) : $else($value, $key, $iterator)
                         );
 
                         // Point free style.

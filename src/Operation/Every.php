@@ -18,7 +18,7 @@ use Iterator;
 final class Every extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(callable(T , TKey , Iterator<TKey, T> ): bool):Closure (Iterator<TKey, T>): Generator<TKey, bool>
+     * @psalm-return Closure(callable(T, TKey, Iterator<TKey, T> ): bool):Closure (Iterator<TKey, T>): Generator<TKey, bool>
      */
     public function __invoke(): Closure
     {

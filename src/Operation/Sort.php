@@ -50,7 +50,7 @@ final class Sort extends AbstractOperation
                      *
                      * @psalm-return Generator<TKey, T>
                      */
-                    static function (Iterator $iterator) use ($type, $callback): Generator {
+                    static function (Iterator $iterator) use ($type, $callback): Iterator {
                         if (Operation\Sortable::BY_VALUES !== $type && Operation\Sortable::BY_KEYS !== $type) {
                             throw new Exception('Invalid sort type.');
                         }
@@ -84,7 +84,7 @@ final class Sort extends AbstractOperation
                         $arrayIterator = new ArrayIterator([...$before($iterator)]);
                         $arrayIterator->uasort($sortCallback($callback));
 
-                        return yield from Pipe::of()(...$operations['after'])($arrayIterator);
+                        return Pipe::of()(...$operations['after'])($arrayIterator);
                     };
                 };
     }

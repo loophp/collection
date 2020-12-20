@@ -33,7 +33,7 @@ final class Product extends AbstractOperation
                  *
                  * @psalm-return Generator<int, array<int, T>>
                  */
-                static function (Iterator $iterator) use ($iterables): Generator {
+                static function (Iterator $iterator) use ($iterables): Iterator {
                     /** @psalm-var Closure(iterable<TKey, T>...): Generator<int, array<int, T>> $cartesian */
                     $cartesian =
                         /**
@@ -59,7 +59,7 @@ final class Product extends AbstractOperation
                             }
                         };
 
-                    return yield from $cartesian($iterator, ...$iterables);
+                    return $cartesian($iterator, ...$iterables);
                 };
     }
 }
