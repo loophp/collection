@@ -27,12 +27,10 @@ final class Implode extends AbstractOperation
              * @psalm-return Closure(Iterator<TKey, T>): Generator<int, string>
              */
             static function (string $glue): Closure {
-                $reducerFactory = static fn (string $glue): Closure =>
+                $reducer =
                     /**
-                     * @psalm-param TKey $key
-                     * @psalm-param T $item
-                     *
-                     * @param mixed $item
+                     * @param string $item
+                     * @psalm-param T|string $item
                      */
                     static fn (string $carry, $item): string => $carry .= $item;
 
@@ -40,7 +38,7 @@ final class Implode extends AbstractOperation
                 $pipe = Pipe::of()(
                     Intersperse::of()($glue)(1)(0),
                     Drop::of()(1),
-                    FoldLeft::of()($reducerFactory($glue))('')
+                    FoldLeft::of()($reducer)('')
                 );
 
                 // Point free style.
