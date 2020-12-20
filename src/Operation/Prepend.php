@@ -7,6 +7,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Iterator\MultipleIterableIterator;
 
 /**
  * @psalm-template TKey
@@ -32,10 +33,8 @@ final class Prepend extends AbstractOperation
                  *
                  * @psalm-return Generator<int|TKey, T>
                  */
-                static function (Iterator $iterator) use ($items): Generator {
-                    yield from $items;
-
-                    return yield from $iterator;
+                static function (Iterator $iterator) use ($items): Iterator {
+                    return new MultipleIterableIterator($items, $iterator);
                 };
     }
 }

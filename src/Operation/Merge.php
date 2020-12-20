@@ -7,6 +7,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Iterator\MultipleIterableIterator;
 
 /**
  * @psalm-template TKey
@@ -30,12 +31,8 @@ final class Merge extends AbstractOperation
                  *
                  * @psalm-return Generator<TKey, T>
                  */
-                static function (Iterator $iterator) use ($sources): Generator {
-                    yield from $iterator;
-
-                    foreach ($sources as $source) {
-                        yield from $source;
-                    }
+                static function (Iterator $iterator) use ($sources): Iterator {
+                    return new MultipleIterableIterator($iterator, ...$sources);
                 };
     }
 }
