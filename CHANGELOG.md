@@ -5,7 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.3.0](https://github.com/loophp/collection/compare/3.2.0...3.3.0)
+## [3.3.1](https://github.com/loophp/collection/compare/3.3.0...3.3.1)
+
+### Merged
+
+- chore(deps-dev): Update drupol/php-conventions requirement from ^2.0.3 to ^2.0.3 || ^3.0.0 [`#55`](https://github.com/loophp/collection/pull/55)
+
+### Commits
+
+- refactor: Use For loop instead of Foreach. [`47e0f5e`](https://github.com/loophp/collection/commit/47e0f5e872297802fa0748b1381bf684b6d261ba)
+- docs: Update typing information. [`a1d636f`](https://github.com/loophp/collection/commit/a1d636f5214cb50dceca10ba1ad9566e40b34018)
+- refactor: Minor updates. [`17eac77`](https://github.com/loophp/collection/commit/17eac77c99d6f9be821a321f01d97a0910ab4e23)
+- fix: Update Implode operation. [`eafa573`](https://github.com/loophp/collection/commit/eafa57396100c4c08cd056e101310ba967f48431)
+- refactor: Introduce MultipleIterableIterator. [`aa7701d`](https://github.com/loophp/collection/commit/aa7701d5eecac343d1d2b22ecb8560a937f5d5f4)
+- refactor: Use EmptyIterator. [`4390145`](https://github.com/loophp/collection/commit/4390145c21a002e424ac4b1cc07726ecc1d8a4fb)
+- chore(deps-dev): Update drupol/php-conventions requirement || ^3.0.0 [`497e332`](https://github.com/loophp/collection/commit/497e33231f06e52d90b99fc4627fa8d7172985bc)
+- refactor: Minor update in ArrayCacheIterator::valid(). [`1ed8a16`](https://github.com/loophp/collection/commit/1ed8a16f591f059da1853a99d6a14c728c8a13f4)
+
+## [3.3.0](https://github.com/loophp/collection/compare/3.2.0...3.3.0) - 2020-12-17
 
 ### Merged
 
@@ -14,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Commits
 
+- docs: Update changelog. [`1e843a3`](https://github.com/loophp/collection/commit/1e843a3e76ef6a90f526930a81349c3e12a9a135)
 - tests: Add more tests. [`8fc51fd`](https://github.com/loophp/collection/commit/8fc51fd0d1d49064abd21d7c90dc9e0e1ecc31c7)
 - refactor: Mark iterators as internal. [`af7ee07`](https://github.com/loophp/collection/commit/af7ee070ba434d0106c13d9f769227d31708fab6)
 - refactor: Rewrite iterators and optimize things here and there. [`87124da`](https://github.com/loophp/collection/commit/87124dabed11bd7be911c0afe543872880c2c3c2)
