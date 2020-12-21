@@ -51,8 +51,11 @@ final class Map extends AbstractOperation
                              */
                             static fn ($carry, callable $callback) => $callback($carry, $key, $iterator);
 
-                    foreach ($iterator as $key => $value) {
-                        yield $key => array_reduce($callbacks, $callbackFactory($key), $value);
+                    for (; $iterator->valid(); $iterator->next()) {
+                        $key = $iterator->key();
+                        $current = $iterator->current();
+
+                        yield $key => array_reduce($callbacks, $callbackFactory($key), $current);
                     }
                 };
     }

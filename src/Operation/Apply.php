@@ -33,16 +33,19 @@ final class Apply extends AbstractOperation
                  * @psalm-return Generator<TKey, T>
                  */
                 static function (Iterator $iterator) use ($callbacks): Generator {
-                    foreach ($iterator as $key => $value) {
+                    for (; true === $iterator->valid(); $iterator->next()) {
+                        $key = $iterator->key();
+                        $current = $iterator->current();
+
                         foreach ($callbacks as $callback) {
-                            if (true === $callback($value, $key)) {
+                            if (true === $callback($current, $key)) {
                                 continue;
                             }
 
                             break;
                         }
 
-                        yield $key => $value;
+                        yield $key => $current;
                     }
                 };
     }

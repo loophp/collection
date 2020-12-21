@@ -40,10 +40,10 @@ final class Pad extends AbstractOperation
                     static function (Iterator $iterator) use ($size, $padValue): Generator {
                         $y = 0;
 
-                        foreach ($iterator as $key => $value) {
+                        for (; $iterator->valid(); $iterator->next()) {
                             ++$y;
 
-                            yield $key => $value;
+                            yield $iterator->key() => $iterator->current();
                         }
 
                         while ($y++ < $size) {

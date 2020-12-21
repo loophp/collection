@@ -27,12 +27,14 @@ final class Collapse extends AbstractOperation
              * @psalm-return Generator<TKey, T>
              */
             static function (Iterator $iterator): Generator {
-                foreach ($iterator as $value) {
-                    if (false === is_iterable($value)) {
+                for (; $iterator->valid(); $iterator->next()) {
+                    $current = $iterator->current();
+
+                    if (false === is_iterable($current)) {
                         continue;
                     }
 
-                    yield from $value;
+                    yield from $current;
                 }
             };
     }

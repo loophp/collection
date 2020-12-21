@@ -55,12 +55,15 @@ final class Intersperse extends AbstractOperation
                                 );
                             }
 
-                            foreach ($iterator as $key => $value) {
+                            for (; $iterator->valid(); $iterator->next()) {
+                                $key = $iterator->key();
+                                $current = $iterator->current();
+
                                 if (0 === $startAt++ % $atEvery) {
                                     yield $element;
                                 }
 
-                                yield $key => $value;
+                                yield $key => $current;
                             }
                         };
     }

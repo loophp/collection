@@ -42,8 +42,11 @@ final class Reduction extends AbstractOperation
                      * @psalm-return Generator<TKey, T|null>
                      */
                     static function (Iterator $iterator) use ($callback, $initial): Generator {
-                        foreach ($iterator as $key => $value) {
-                            yield $key => ($initial = $callback($initial, $value, $key, $iterator));
+                        for (; $iterator->valid(); $iterator->next()) {
+                            $key = $iterator->key();
+                            $current = $iterator->current();
+
+                            yield $key => ($initial = $callback($initial, $current, $key, $iterator));
                         }
                     };
     }

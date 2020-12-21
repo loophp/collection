@@ -31,12 +31,15 @@ final class Duplicate extends AbstractOperation
             static function (Iterator $iterator): Generator {
                 $stack = [];
 
-                foreach ($iterator as $key => $value) {
-                    if (true === in_array($value, $stack, true)) {
-                        yield $key => $value;
+                for (; $iterator->valid(); $iterator->next()) {
+                    $key = $iterator->key();
+                    $current = $iterator->current();
+
+                    if (true === in_array($current, $stack, true)) {
+                        yield $key => $current;
                     }
 
-                    $stack[] = $value;
+                    $stack[] = $current;
                 }
             };
     }

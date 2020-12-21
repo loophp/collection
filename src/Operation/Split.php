@@ -63,11 +63,14 @@ final class Split extends AbstractOperation
                                      */
                                     static fn (bool $carry, callable $callback): bool => $callback($value, $key) || $carry;
 
-                        foreach ($iterator as $key => $value) {
-                            $callbackReturn = array_reduce($callbacks, $reducer($key)($value), false);
+                        for (; $iterator->valid(); $iterator->next()) {
+                            $key = $iterator->key();
+                            $current = $iterator->current();
+
+                            $callbackReturn = array_reduce($callbacks, $reducer($key)($current), false);
 
                             if (Splitable::AFTER === $type) {
-                                $carry[] = $value;
+                                $carry[] = $current;
                             }
 
                             if (Splitable::REMOVE === $type && true === $callbackReturn) {
@@ -85,7 +88,7 @@ final class Split extends AbstractOperation
                             }
 
                             if (Splitable::BEFORE === $type || Splitable::REMOVE === $type) {
-                                $carry[] = $value;
+                                $carry[] = $current;
                             }
                         }
 

@@ -16,7 +16,7 @@ use Iterator;
 final class Flip extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, T>): Closure(Iterator<T, TKey>): Generator<T, TKey>
+     * @psalm-return Closure(Iterator<T, TKey>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
@@ -40,7 +40,7 @@ final class Flip extends AbstractOperation
              */
             static fn ($carry, $key, $value) => $key;
 
-        /** @psalm-var Closure(Iterator<TKey, T>): Generator<T, TKey> $associate */
+        /** @psalm-var Closure(Iterator<T, TKey>): Generator<TKey, T> $associate */
         $associate = Associate::of()($callbackForKeys)($callbackForValues);
 
         // Point free style.

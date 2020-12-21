@@ -27,10 +27,10 @@ final class Unpair extends AbstractOperation
              * @psalm-return Generator<int, array{TKey, T}>
              */
             static function (Iterator $iterator): Generator {
-                foreach ($iterator as $key => $value) {
-                    yield $key;
+                for (; $iterator->valid(); $iterator->next()) {
+                    yield $iterator->key();
 
-                    yield $value;
+                    yield $iterator->current();
                 }
             };
     }

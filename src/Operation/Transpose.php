@@ -28,7 +28,7 @@ final class Transpose extends AbstractOperation
              *
              * @psalm-return Generator<TKey, list<T>>
              */
-            static function (Iterator $iterator): Iterator {
+            static function (Iterator $iterator): Generator {
                 $mit = new MultipleIterator(MultipleIterator::MIT_NEED_ANY);
 
                 foreach ($iterator as $iterableIterator) {
@@ -54,7 +54,10 @@ final class Transpose extends AbstractOperation
                      */
                     static fn (array $carry, array $key, array $value): array => $value;
 
-                return Associate::of()($callbackForKeys)($callbackForValues)($mit);
+                /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, list<T>> $associate */
+                $associate = Associate::of()($callbackForKeys)($callbackForValues);
+
+                return $associate($mit);
             };
     }
 }
