@@ -63,7 +63,7 @@ final class TakeWhile extends AbstractOperation
                                  */
                                 static fn (bool $carry, callable $callable): bool => ($callable($current, $key, $iterator)) ? $carry : false;
 
-                for (; true === $iterator->valid(); $iterator->next()) {
+                for (; $iterator->valid(); $iterator->next()) {
                     $key = $iterator->key();
                     $current = $iterator->current();
 

@@ -27,8 +27,8 @@ final class Normalize extends AbstractOperation
              * @psalm-return Generator<int, T, mixed, void>
              */
             static function (Iterator $iterator): Generator {
-                foreach ($iterator as $value) {
-                    yield $value;
+                for (; $iterator->valid(); $iterator->next()) {
+                    yield $iterator->current();
                 }
             };
     }

@@ -63,7 +63,10 @@ final class Until extends AbstractOperation
                                      */
                                     static fn (bool $carry, callable $callable): bool => ($callable($current, $key, $iterator)) ? $carry : false;
 
-                    foreach ($iterator as $key => $current) {
+                    for (; $iterator->valid(); $iterator->next()) {
+                        $key = $iterator->key();
+                        $current = $iterator->current();
+
                         yield $key => $current;
 
                         $result = array_reduce(
