@@ -5,7 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.3.1](https://github.com/loophp/collection/compare/3.3.0...3.3.1)
+## [3.3.2](https://github.com/loophp/collection/compare/3.3.1...3.3.2)
+
+### Commits
+
+- refactor: Use For loop instead of Foreach. [`c59cea9`](https://github.com/loophp/collection/commit/c59cea9b56b8c8ef97c1a0cf87eb8863e3be5e82)
+
+## [3.3.1](https://github.com/loophp/collection/compare/3.3.0...3.3.1) - 2020-12-21
 
 ### Merged
 
@@ -13,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Commits
 
+- docs: Update changelog. [`f826fa4`](https://github.com/loophp/collection/commit/f826fa4f074c042dfc34aee9427b9d8fe0f7efca)
 - refactor: Use For loop instead of Foreach. [`47e0f5e`](https://github.com/loophp/collection/commit/47e0f5e872297802fa0748b1381bf684b6d261ba)
 - docs: Update typing information. [`a1d636f`](https://github.com/loophp/collection/commit/a1d636f5214cb50dceca10ba1ad9566e40b34018)
 - refactor: Minor updates. [`17eac77`](https://github.com/loophp/collection/commit/17eac77c99d6f9be821a321f01d97a0910ab4e23)
