@@ -16,44 +16,29 @@ use Iterator;
 final class Has extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(callable(TKey, T): T): Closure(Iterator<TKey, T>): Generator<int, bool>
+     * @psalm-return Closure(callable(T, TKey, Iterator<TKey, T>): T): Closure(Iterator<TKey, T>): Generator<int, bool>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param callable(TKey, T): T $callback
+             * @psalm-param callable(T, TKey, Iterator<TKey, T>): T $callback
              *
              * @psalm-return Closure(Iterator<TKey, T>): Generator<int, bool>
              */
             static function (callable $callback): Closure {
-                $mapCallback =
+                $matcher =
                     /**
-                     * @param mixed $value
                      * @psalm-param T $value
-                     *
-                     * @param mixed $key
-                     * @psalm-param TKey $key
+                     * @psalm-return T
                      */
-                    static fn ($value, $key): bool => $callback($key, $value) === $value;
+                    static fn ($value) => $value;
 
-                $dropWhileCallback =
-                    /**
-                     * @param mixed $value
-                     * @psalm-param T $value
-                     */
-                    static fn ($value): bool => false === $value;
-
-                /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, bool> $pipe */
-                $pipe = Pipe::of()(
-                    Map::of()($mapCallback),
-                    DropWhile::of()($dropWhileCallback),
-                    Append::of()(false),
-                    Head::of()
-                );
+                /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, bool> $match */
+                $match = Match::of()($matcher)($callback);
 
                 // Point free style.
-                return $pipe;
+                return $match;
             };
     }
 }

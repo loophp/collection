@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
+use Iterator;
 use loophp\collection\Contract\Collection;
 
 /**
@@ -14,7 +15,7 @@ use loophp\collection\Contract\Collection;
 interface Hasable
 {
     /**
-     * @psalm-param callable(TKey, T): bool $callback
+     * @psalm-param callable(T, TKey, Iterator<TKey, T>): bool $callback
      *
      * @psalm-return \loophp\collection\Collection<int, bool>
      */

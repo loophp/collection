@@ -20,26 +20,24 @@ final class Truthy extends AbstractOperation
      */
     public function __invoke(): Closure
     {
+        $matchCallback =
+            /**
+             * @param mixed $value
+             * @psalm-param T $value
+             */
+            static fn ($value): bool => !(bool) $value;
+
         $mapCallback =
             /**
              * @param mixed $value
              * @psalm-param T $value
              */
-            static fn ($value): bool => (bool) $value;
-
-        $dropWhileCallback =
-            /**
-             * @param mixed $value
-             * @psalm-param T $value
-             */
-            static fn ($value): bool => true === $value;
+            static fn ($value): bool => !(bool) $value;
 
         /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, bool> $pipe */
         $pipe = Pipe::of()(
+            Match::of()(static fn () => true)($matchCallback),
             Map::of()($mapCallback),
-            DropWhile::of()($dropWhileCallback),
-            Append::of()(true),
-            Head::of()
         );
 
         // Point free style.

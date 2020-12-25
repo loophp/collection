@@ -1213,7 +1213,7 @@ class CollectionSpec extends ObjectBehavior
     {
         $this::fromIterable(range('A', 'C'))
             ->has(
-                static function ($key, $value) {
+                static function ($value, $key) {
                     return 'A';
                 }
             )
@@ -1221,7 +1221,7 @@ class CollectionSpec extends ObjectBehavior
 
         $this::fromIterable(range('A', 'C'))
             ->has(
-                static function ($key, $value) {
+                static function ($value, $key) {
                     return 'Z';
                 }
             )
@@ -1245,7 +1245,7 @@ class CollectionSpec extends ObjectBehavior
 
         $this::empty()
             ->has(
-                static function ($key, $value) {
+                static function ($value, $key) {
                     return $value;
                 }
             )

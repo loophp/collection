@@ -806,11 +806,29 @@ Signature: ``Collection::groupBy(?callable $callback = null);``
 has
 ~~~
 
-Check if the collection has a value. The value must be provided as a callback.
+Check if the collection has a value.
 
 Interface: `Hasable`_
 
 Signature: ``Collection::has(callable $callback);``
+
+.. code-block:: php
+
+    Collection::fromIterable(range('A', 'C'))
+        ->has(
+            static function ($value, $key, Iterator $iterator) {
+                return 'A';
+            }
+        )
+        ->current(); // true
+
+    Collection::fromIterable(range('A', 'C'))
+        ->has(
+            static function ($value, $key, Iterator $iterator) {
+                return 'D';
+            }
+        )
+        ->current(); // false
 
 head
 ~~~~
