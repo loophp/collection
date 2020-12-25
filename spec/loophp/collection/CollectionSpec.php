@@ -1229,7 +1229,7 @@ class CollectionSpec extends ObjectBehavior
 
         $this::fromIterable(['b', 1, 'foo', 'bar'])
             ->has(
-                static function ($key, $value) {
+                static function ($value, $key) {
                     return 'foo';
                 }
             )
@@ -1237,7 +1237,7 @@ class CollectionSpec extends ObjectBehavior
 
         $this::fromIterable(['b', 1, 'foo', 'bar'])
             ->has(
-                static function ($key, $value) {
+                static function ($value, $key) {
                     return 'unknown';
                 }
             )
@@ -1573,6 +1573,27 @@ EOF;
                 '[dd]',
                 '[ee]',
             ]);
+    }
+
+    public function it_can_match(): void
+    {
+        $input = range(1, 10);
+
+        $this::fromIterable($input)
+            ->match(
+                static function (int $value): bool {
+                    return 7 === $value;
+                }
+            )
+            ->shouldIterateAs([6 => true]);
+
+        $this::fromIterable($input)
+            ->match(
+                static function (int $value): bool {
+                    return 17 === $value;
+                }
+            )
+            ->shouldIterateAs([0 => false]);
     }
 
     public function it_can_merge(): void

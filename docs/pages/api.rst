@@ -1056,6 +1056,28 @@ Signature: ``Collection::map(callable ...$callbacks);``
     $collection = Collection::fromIterable(range(1, 100))
         ->map($mapper);
 
+match
+~~~~~
+
+Check if the collection has a value that match a callback.
+
+The returned value is true if the callback match at least one element
+of the collection. False otherwise.
+
+Interface: `Matchable`_
+
+Signature: ``Collection::match(callable $callback);``
+
+.. code-block:: php
+
+    $matcher = static function(int $value): bool {
+        return $value % 2;
+    };
+
+    $collection = Collection::fromIterable(range(1, 100))
+        ->match($matcher)
+        ->current(); // true
+
 merge
 ~~~~~
 
@@ -2049,6 +2071,7 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Limitable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Limitable.php
 .. _Linesable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Linesable.php
 .. _Mapable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Mapable.php
+.. _Matchable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Matchable.php
 .. _Mergeable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Mergeable.php
 .. _Normalizeable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Normalizeable.php
 .. _Nthable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Nthable.php
