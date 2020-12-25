@@ -19,13 +19,13 @@ use Iterator;
 final class Map extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(callable(T, TKey ): T ...): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @psalm-return Closure(callable(T, TKey, Iterator<TKey, T>): T ...): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param callable(T, TKey): T ...$callbacks
+             * @psalm-param callable(T, TKey, Iterator<TKey, T>): T ...$callbacks
              */
             static fn (callable ...$callbacks): Closure =>
                 /**
