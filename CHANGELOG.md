@@ -5,10 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.3.2](https://github.com/loophp/collection/compare/3.3.1...3.3.2)
+## [3.3.3](https://github.com/loophp/collection/compare/3.3.2...3.3.3)
 
 ### Commits
 
+- refactor: Use Match operation in other operations. [`f676c19`](https://github.com/loophp/collection/commit/f676c19fca2de8fb92e92e743929dd614f562b05)
+- docs: Update typing information. [`0ae8995`](https://github.com/loophp/collection/commit/0ae89957f8e50af84650b83e30ffdd5758e954eb)
+- feat: Add match operation. [`fa01f65`](https://github.com/loophp/collection/commit/fa01f653bd6d589e5c3a069c2faacbd69a787514)
+
+## [3.3.2](https://github.com/loophp/collection/compare/3.3.1...3.3.2) - 2020-12-24
+
+### Commits
+
+- docs: Update changelog. [`b08ee64`](https://github.com/loophp/collection/commit/b08ee64dbb2af75697e74eb42555df26cc44f15e)
 - refactor: Use For loop instead of Foreach. [`c59cea9`](https://github.com/loophp/collection/commit/c59cea9b56b8c8ef97c1a0cf87eb8863e3be5e82)
 
 ## [3.3.1](https://github.com/loophp/collection/compare/3.3.0...3.3.1) - 2020-12-21
