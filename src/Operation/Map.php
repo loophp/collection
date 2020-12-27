@@ -39,7 +39,7 @@ final class Map extends AbstractOperation
                          * @param mixed $key
                          * @psalm-param TKey $key
                          *
-                         * @psalm-return Closure(T, callable(T, TKey): T): T
+                         * @psalm-return Closure(T, callable(T, TKey, Iterator<TKey, T>): T): T
                          */
                         static fn ($key): Closure =>
                             /**
