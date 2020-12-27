@@ -5,10 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.3.4](https://github.com/loophp/collection/compare/3.3.3...3.3.4)
+## [3.3.5](https://github.com/loophp/collection/compare/3.3.4...3.3.5)
 
 ### Commits
 
+- refactor: Rename the Match class. [`74d3682`](https://github.com/loophp/collection/commit/74d3682ca201a10f329348d5d70464e9604eccd1)
+
+## [3.3.4](https://github.com/loophp/collection/compare/3.3.3...3.3.4) - 2020-12-27
+
+### Commits
+
+- docs: Update changelog. [`6acbd55`](https://github.com/loophp/collection/commit/6acbd55d413e3f41939825fe1bc3525e73acef50)
 - chore: Update .gitignore. [`ea4bd0c`](https://github.com/loophp/collection/commit/ea4bd0c0609cddc24c65a1f6e4f6ae0eadc5129f)
 - docs: Update typing information. [`0f6431c`](https://github.com/loophp/collection/commit/0f6431cc6f06c47c1f4f02546f661ed4a262a393)
 - refactor: Update Match operation. [`81c0922`](https://github.com/loophp/collection/commit/81c092205a3f4f8e1475c7f0bb86db44d7b5aa0f)
