@@ -31,7 +31,7 @@ final class Nullsy extends AbstractOperation
 
         /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, bool> $pipe */
         $pipe = Pipe::of()(
-            Match::of()(static fn () => false)($mapCallback),
+            MatchOne::of()(static fn () => false)($mapCallback),
             Map::of()(static fn ($value) => !$value),
         );
 

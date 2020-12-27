@@ -35,7 +35,7 @@ final class Has extends AbstractOperation
                     static fn ($value) => $value;
 
                 /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, bool> $match */
-                $match = Match::of()($matcher)($callback);
+                $match = MatchOne::of()($matcher)($callback);
 
                 // Point free style.
                 return $match;

@@ -65,7 +65,7 @@ use loophp\collection\Operation\Last;
 use loophp\collection\Operation\Limit;
 use loophp\collection\Operation\Lines;
 use loophp\collection\Operation\Map;
-use loophp\collection\Operation\Match;
+use loophp\collection\Operation\MatchOne;
 use loophp\collection\Operation\Merge;
 use loophp\collection\Operation\Normalize;
 use loophp\collection\Operation\Nth;
@@ -536,7 +536,11 @@ final class Collection implements CollectionInterface
     {
         $matcher = $matcher ?? static fn () => true;
 
-        return new self(Match::of()($matcher)($callback), $this->getIterator());
+        // @todo: Rename this in next major version.
+        // We cannot use Match::class because PHP 8 has
+        // a new "match" function and we cannot use the same name.
+        // @See https://github.com/loophp/collection/issues/56
+        return new self(MatchOne::of()($matcher)($callback), $this->getIterator());
     }
 
     public function merge(iterable ...$sources): CollectionInterface
