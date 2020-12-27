@@ -20,14 +20,7 @@ final class Truthy extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        $matchCallback =
-            /**
-             * @param mixed $value
-             * @psalm-param T $value
-             */
-            static fn ($value): bool => !(bool) $value;
-
-        $mapCallback =
+        $callback =
             /**
              * @param mixed $value
              * @psalm-param T $value
@@ -36,8 +29,8 @@ final class Truthy extends AbstractOperation
 
         /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, bool> $pipe */
         $pipe = Pipe::of()(
-            MatchOne::of()(static fn () => true)($matchCallback),
-            Map::of()($mapCallback),
+            MatchOne::of()(static fn () => true)($callback),
+            Map::of()($callback),
         );
 
         // Point free style.
