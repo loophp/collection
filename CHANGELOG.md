@@ -5,10 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.3.3](https://github.com/loophp/collection/compare/3.3.2...3.3.3)
+## [3.3.4](https://github.com/loophp/collection/compare/3.3.3...3.3.4)
 
 ### Commits
 
+- chore: Update .gitignore. [`ea4bd0c`](https://github.com/loophp/collection/commit/ea4bd0c0609cddc24c65a1f6e4f6ae0eadc5129f)
+- docs: Update typing information. [`0f6431c`](https://github.com/loophp/collection/commit/0f6431cc6f06c47c1f4f02546f661ed4a262a393)
+- refactor: Update Match operation. [`81c0922`](https://github.com/loophp/collection/commit/81c092205a3f4f8e1475c7f0bb86db44d7b5aa0f)
+
+## [3.3.3](https://github.com/loophp/collection/compare/3.3.2...3.3.3) - 2020-12-26
+
+### Commits
+
+- docs: Update changelog. [`02116ab`](https://github.com/loophp/collection/commit/02116abe87e51bd177a239347405604f5ec84605)
 - refactor: Use Match operation in other operations. [`f676c19`](https://github.com/loophp/collection/commit/f676c19fca2de8fb92e92e743929dd614f562b05)
 - docs: Update typing information. [`0ae8995`](https://github.com/loophp/collection/commit/0ae89957f8e50af84650b83e30ffdd5758e954eb)
 - feat: Add match operation. [`fa01f65`](https://github.com/loophp/collection/commit/fa01f653bd6d589e5c3a069c2faacbd69a787514)
