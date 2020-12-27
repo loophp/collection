@@ -532,9 +532,11 @@ final class Collection implements CollectionInterface
         return new self(Map::of()(...$callbacks), $this->getIterator());
     }
 
-    public function match(callable $callback): CollectionInterface
+    public function match(callable $callback, ?callable $matcher = null): CollectionInterface
     {
-        return new self(Match::of()(static fn () => true)($callback), $this->getIterator());
+        $matcher = $matcher ?? static fn () => true;
+
+        return new self(Match::of()($matcher)($callback), $this->getIterator());
     }
 
     public function merge(iterable ...$sources): CollectionInterface

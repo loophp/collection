@@ -16,8 +16,9 @@ interface Matchable
 {
     /**
      * @psalm-param callable(T, TKey, Iterator<TKey, T>): bool $callback
+     * @psalm-param null|callable(T, TKey, Iterator<TKey, T>): T $matcher
      *
      * @psalm-return \loophp\collection\Collection<int, bool>
      */
-    public function match(callable $callback): Collection;
+    public function match(callable $callback, ?callable $matcher = null): Collection;
 }

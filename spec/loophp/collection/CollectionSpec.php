@@ -1594,6 +1594,20 @@ EOF;
                 }
             )
             ->shouldIterateAs([0 => false]);
+
+        $this::fromIterable($input)
+            ->match(
+                static fn (int $value): string => 17 === $value ? 'foo' : 'bar',
+                static fn (): string => 'foo'
+            )
+            ->shouldIterateAs([0 => false]);
+
+        $this::fromIterable($input)
+            ->match(
+                static fn (int $value): string => 5 === $value ? 'foo' : 'bar',
+                static fn (): string => 'foo'
+            )
+            ->shouldIterateAs([4 => true]);
     }
 
     public function it_can_merge(): void

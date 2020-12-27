@@ -1077,24 +1077,25 @@ Signature: ``Collection::map(callable ...$callbacks);``
 match
 ~~~~~
 
-Check if the collection has a value that match a callback.
+Check if the collection match a ``user callback``.
 
-The returned value is true if the callback match at least one element
-of the collection. False otherwise.
+User must provide a callback that will get the ``key``, the ``current value`` and the ``iterator`` as parameters.
+
+When no matcher callback is provided, the user callback must return ``true`` (the
+default value of the ``matcher callback``) in order to stop.
+
+The returned value of the operation is ``true`` when the callback match at least one element
+of the collection. ``false`` otherwise.
+
+If you want to match the ``user callback`` against another value (other than ``true``), you must
+provide your own ``matcher callback`` as a second argument.
 
 Interface: `Matchable`_
 
-Signature: ``Collection::match(callable $callback);``
+Signature: ``Collection::match(callable $callback, ?callable $matcher = null);``
 
-.. code-block:: php
-
-    $matcher = static function(int $value): bool {
-        return $value % 2;
-    };
-
-    $collection = Collection::fromIterable(range(1, 100))
-        ->match($matcher)
-        ->current(); // true
+.. literalinclude:: code/operations/match.php
+  :language: php
 
 merge
 ~~~~~
