@@ -41,15 +41,13 @@ final class Chunk extends AbstractOperation
 
                     $values = [];
 
-                    for (; $iterator->valid(); $iterator->next()) {
-                        $current = $iterator->current();
-
+                    foreach ($iterator as $value) {
                         if (0 >= $sizesIterator->current()) {
                             return new EmptyIterator();
                         }
 
                         if (count($values) !== $sizesIterator->current()) {
-                            $values[] = $current;
+                            $values[] = $value;
 
                             continue;
                         }
@@ -58,7 +56,7 @@ final class Chunk extends AbstractOperation
 
                         yield $values;
 
-                        $values = [$current];
+                        $values = [$value];
                     }
 
                     return yield $values;

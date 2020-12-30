@@ -24,7 +24,7 @@ final class DropWhile extends AbstractOperation
     {
         return
             /**
-             * @psalm-param callable(T, TKey, Iterator<TKey, T>): bool ...$callbacks
+             * @psalm-param callable(T, TKey, Iterator<TKey, T>):bool $callback
              *
              * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */

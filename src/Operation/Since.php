@@ -63,10 +63,7 @@ final class Since extends AbstractOperation
                                      */
                                     static fn (bool $carry, callable $callable): bool => ($callable($current, $key, $iterator)) ? $carry : false;
 
-                    for (; $iterator->valid(); $iterator->next()) {
-                        $key = $iterator->key();
-                        $current = $iterator->current();
-
+                    foreach ($iterator as $key => $current) {
                         $result = array_reduce(
                             $callbacks,
                             $reducerCallback($key)($current)($iterator),

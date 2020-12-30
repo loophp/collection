@@ -37,11 +37,9 @@ final class Contains extends AbstractOperation
                     // yield count($values) === Intersect::of()(...$values)($iterator);
                     // But it would not be very optimal because it would have to traverse
                     // the whole iterator.
-                    for (; $iterator->valid(); $iterator->next()) {
-                        $current = $iterator->current();
-
+                    foreach ($iterator as $value) {
                         foreach ($values as $k => $v) {
-                            if ($v === $current) {
+                            if ($v === $value) {
                                 unset($values[$k]);
                             }
 
