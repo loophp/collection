@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace loophp\collection\Operation;
 
-use CachingIterator;
 use Closure;
 use EmptyIterator;
 use Generator;
@@ -29,20 +28,15 @@ final class Last extends AbstractOperation
              * @psalm-return Generator<TKey, T>
              */
             static function (Iterator $iterator): Generator {
-                if (!$iterator->valid()) {
+                $isEmpty = 1;
+
+                foreach ($iterator as $key => $current) {
+                    $isEmpty = 0;
+                }
+
+                if (1 === $isEmpty) {
                     return new EmptyIterator();
                 }
-
-                $cachingIterator = new CachingIterator($iterator, CachingIterator::FULL_CACHE);
-
-                while ($iterator->valid()) {
-                    $cachingIterator->next();
-                }
-
-                /** @psalm-var TKey $key */
-                $key = $cachingIterator->key();
-                /** @psalm-var T $current */
-                $current = $cachingIterator->current();
 
                 return yield $key => $current;
             };
