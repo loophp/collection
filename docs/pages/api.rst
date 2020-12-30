@@ -2044,7 +2044,7 @@ Signature: ``Collection::zip(iterable ...$iterables);``
     $positiveIntegers = Collection::fromIterable($even)
         ->zip($odd)
         ->limit(100)
-        ->flatten();
+        ->unwrap(); // [0, 1, 2, 3 ... 196, 197, 198, 199]
 
 .. _Allable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Allable.php
 .. _Appendable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Appendable.php

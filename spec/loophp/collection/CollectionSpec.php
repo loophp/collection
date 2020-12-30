@@ -3019,19 +3019,31 @@ EOF;
 
     public function it_can_zip(): void
     {
+        $output = static function () {
+            yield [0, 0] => ['A', 'D'];
+
+            yield [1, 1] => ['B', 'E'];
+
+            yield [2, 2] => ['C', 'F'];
+        };
+
         $this::fromIterable(range('A', 'C'))
-            ->zip(['D', 'E', 'F'])
-            ->shouldIterateAs([['A', 'D'], ['B', 'E'], ['C', 'F']]);
+            ->zip(range('D', 'F'))
+            ->shouldIterateAs($output());
 
-        $this::fromIterable(['A', 'C', 'E'])
-            ->zip(['B', 'D', 'F', 'H'])
-            ->shouldIterateAs([['A', 'B'], ['C', 'D'], ['E', 'F'], [null, 'H']]);
+        $output = static function () {
+            yield [0, 0] => ['A', 'D'];
 
-        $collection = Collection::fromIterable(range(1, 5));
+            yield [1, 1] => ['B', 'E'];
 
-        $this::fromIterable($collection)
-            ->zip(range('A', 'E'))
-            ->shouldIterateAs([[1, 'A'], [2, 'B'], [3, 'C'], [4, 'D'], [5, 'E']]);
+            yield [2, 2] => ['C', 'F'];
+
+            yield [null, 3] => [null, 'G'];
+        };
+
+        $this::fromIterable(range('A', 'C'))
+            ->zip(range('D', 'G'))
+            ->shouldIterateAs($output());
     }
 
     /**
