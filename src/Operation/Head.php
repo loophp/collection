@@ -6,7 +6,6 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use EmptyIterator;
-use Generator;
 use Iterator;
 
 /**
@@ -17,7 +16,7 @@ use Iterator;
 final class Head extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @psalm-return Closure(Iterator<TKey, T>): Iterator<TKey, T>
      */
     public function __invoke(): Closure
     {
@@ -25,14 +24,22 @@ final class Head extends AbstractOperation
             /**
              * @psalm-param Iterator<TKey, T> $iterator
              *
-             * @psalm-return Generator<TKey, T>
+             * @psalm-return Iterator<TKey, T>
              */
-            static function (Iterator $iterator): Generator {
-                if (!$iterator->valid()) {
+            static function (Iterator $iterator): Iterator {
+                $isEmpty = true;
+
+                foreach ($iterator as $key => $current) {
+                    $isEmpty = false;
+
+                    break;
+                }
+
+                if (true === $isEmpty) {
                     return new EmptyIterator();
                 }
 
-                return yield $iterator->key() => $iterator->current();
+                return yield $key => $current;
             };
     }
 }
