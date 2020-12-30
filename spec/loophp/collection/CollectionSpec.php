@@ -754,7 +754,7 @@ class CollectionSpec extends ObjectBehavior
 
         $this::empty()
             ->every($callback)
-            ->shouldIterateAs([]);
+            ->shouldIterateAs([true]);
 
         $this::fromIterable(range(0, 10))
             ->every(
@@ -2028,7 +2028,7 @@ EOF;
 
         $this::fromIterable([])
             ->scanLeft($callback, 3)
-            ->shouldIterateAs([]);
+            ->shouldIterateAs([0 => 3]);
     }
 
     public function it_can_scanleft1(): void
@@ -3032,6 +3032,34 @@ EOF;
         $this::fromIterable($collection)
             ->zip(range('A', 'E'))
             ->shouldIterateAs([[1, 'A'], [2, 'B'], [3, 'C'], [4, 'D'], [5, 'E']]);
+    }
+
+    /**
+     * @see https://github.com/loophp/collection/issues/57
+     */
+    public function it_fix_bug_57()
+    {
+        $input = array_combine(range(1, 26), range('a', 'z'));
+
+        $collection = $this::fromIterable($input);
+
+        $collection
+            ->key()
+            ->shouldReturn(1);
+
+        $collection
+            ->current()
+            ->shouldReturn('a');
+
+        $last = $collection->last();
+
+        $last
+            ->key()
+            ->shouldReturn(26);
+
+        $last
+            ->current()
+            ->shouldReturn('z');
     }
 
     public function it_is_initializable(): void

@@ -30,12 +30,9 @@ final class Flatten extends AbstractOperation
                  * @psalm-param Iterator<TKey, T> $iterator
                  */
                 static function (Iterator $iterator) use ($depth): Generator {
-                    for (; $iterator->valid(); $iterator->next()) {
-                        $key = $iterator->key();
-                        $current = $iterator->current();
-
-                        if (false === is_iterable($current)) {
-                            yield $key => $current;
+                    foreach ($iterator as $key => $value) {
+                        if (false === is_iterable($value)) {
+                            yield $key => $value;
 
                             continue;
                         }
@@ -44,10 +41,10 @@ final class Flatten extends AbstractOperation
                             /** @psalm-var callable(Iterator<TKey, T>): Generator<TKey, T> $flatten */
                             $flatten = Flatten::of()($depth - 1);
 
-                            $current = $flatten(new IterableIterator($current));
+                            $value = $flatten(new IterableIterator($value));
                         }
 
-                        yield from $current;
+                        yield from $value;
                     }
                 };
     }

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
-use Generator;
 use Iterator;
 use LimitIterator;
 
@@ -19,24 +18,24 @@ use LimitIterator;
 final class Limit extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(int): Closure(int): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @psalm-return Closure(int): Closure(int): Closure(Iterator<TKey, T>): Iterator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-return Closure(int): Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @psalm-return Closure(int): Closure(Iterator<TKey, T>): Iterator<TKey, T>
              */
             static fn (int $count = -1): Closure =>
                 /**
-                 * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
+                 * @psalm-return Closure(Iterator<TKey, T>): Iterator<TKey, T>
                  */
                 static fn (int $offset = 0): Closure =>
                     /**
                      * @psalm-param Iterator<TKey, T> $iterator
                      *
-                     * @psalm-return Generator<TKey, T>
+                     * @psalm-return Iterator<TKey, T>
                      */
-                    static fn (Iterator $iterator): Generator => yield from new LimitIterator($iterator, $offset, $count);
+                    static fn (Iterator $iterator): Iterator => new LimitIterator($iterator, $offset, $count);
     }
 }

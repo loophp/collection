@@ -43,11 +43,11 @@ final class Window extends AbstractOperation
                     /** @psalm-var list<T> $stack */
                     $stack = [];
 
-                    for (; $iterator->valid(); $iterator->next()) {
+                    foreach ($iterator as $key => $current) {
                         // @todo Should we use Pack ?
-                        $stack[$iterator->key()] = $iterator->current();
+                        $stack[$key] = $current;
 
-                        yield $iterator->key() => $stack = array_slice($stack, $size);
+                        yield $key => $stack = array_slice($stack, $size);
                     }
                 };
     }

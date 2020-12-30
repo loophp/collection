@@ -6,7 +6,6 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use EmptyIterator;
-use Generator;
 use Iterator;
 use LimitIterator;
 
@@ -18,26 +17,26 @@ use LimitIterator;
 final class Drop extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(int...): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @psalm-return Closure(int...): Closure(Iterator<TKey, T>): Iterator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @psalm-return Closure(Iterator<TKey, T>): Iterator<TKey, T>
              */
             static fn (int ...$offsets): Closure =>
                 /**
                  * @psalm-param Iterator<TKey, T> $iterator
                  *
-                 * @psalm-return Generator<TKey, T>
+                 * @psalm-return Iterator<TKey, T>
                  */
-                static function (Iterator $iterator) use ($offsets): Generator {
-                    if (!$iterator->valid()) {
+                static function (Iterator $iterator) use ($offsets): Iterator {
+                    if (false === $iterator->valid()) {
                         return new EmptyIterator();
                     }
 
-                    return yield from new LimitIterator($iterator, array_sum($offsets));
+                    return new LimitIterator($iterator, array_sum($offsets));
                 };
     }
 }

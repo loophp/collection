@@ -68,15 +68,12 @@ final class Associate extends AbstractOperation
                                      */
                                     static fn ($initial, callable $callback, int $callbackId, Iterator $iterator) => $callback($initial, $key, $value, $iterator);
 
-                        for (; $iterator->valid(); $iterator->next()) {
-                            $key = $iterator->key();
-                            $current = $iterator->current();
-
+                        foreach ($iterator as $key => $value) {
                             /** @psalm-var Generator<int, TKey|T> $k */
-                            $k = FoldLeft::of()($callbackFactory($key)($current))($key)(new ArrayIterator($callbackForKeys));
+                            $k = FoldLeft::of()($callbackFactory($key)($value))($key)(new ArrayIterator($callbackForKeys));
 
                             /** @psalm-var Generator<int, T|TKey> $c */
-                            $c = FoldLeft::of()($callbackFactory($key)($current))($current)(new ArrayIterator($callbackForValues));
+                            $c = FoldLeft::of()($callbackFactory($key)($value))($value)(new ArrayIterator($callbackForValues));
 
                             yield $k->current() => $c->current();
                         }

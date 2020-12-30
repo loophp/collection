@@ -561,6 +561,15 @@ Signature: ``Collection::every(callable $callback);``
         ->every($callback)
         ->current(); // true
 
+    Collection::fromIterable(range(0, 10))
+        ->append(21)
+        ->every($callback)
+        ->current(); // false
+
+    Collection::fromIterable([])
+        ->every($callback)
+        ->current(); // true
+
 explode
 ~~~~~~~
 
@@ -1434,8 +1443,8 @@ Signature: ``Collection::scanLeft(callable $callback, $initial = null);``
         ->normalize(); // [64 ,16 ,8 ,2]
 
     Collection::empty()
-        ->scanLeft($callback, 3)
-        ->normalize(); // [3]
+        ->scanLeft($callback, 3); // [0 => 3]
+
 
 scanLeft1
 ~~~~~~~~~

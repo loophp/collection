@@ -34,7 +34,7 @@ final class ScanLeft1 extends AbstractOperation
                  *
                  * @psalm-return Generator<int|TKey, T|null>
                  */
-                static function (Iterator $iterator) use ($callback): Generator {
+                static function (Iterator $iterator) use ($callback): Iterator {
                     $initial = $iterator->current();
 
                     /** @psalm-var Closure(Iterator<TKey, T>):(Generator<int|TKey, T|null>) $pipe */
@@ -44,7 +44,7 @@ final class ScanLeft1 extends AbstractOperation
                         Prepend::of()($initial)
                     );
 
-                    return yield from $pipe($iterator);
+                    return $pipe($iterator);
                 };
     }
 }
