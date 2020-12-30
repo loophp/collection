@@ -754,7 +754,7 @@ class CollectionSpec extends ObjectBehavior
 
         $this::empty()
             ->every($callback)
-            ->shouldIterateAs([]);
+            ->shouldIterateAs([true]);
 
         $this::fromIterable(range(0, 10))
             ->every(
@@ -2028,7 +2028,7 @@ EOF;
 
         $this::fromIterable([])
             ->scanLeft($callback, 3)
-            ->shouldIterateAs([]);
+            ->shouldIterateAs([0 => 3]);
     }
 
     public function it_can_scanleft1(): void
