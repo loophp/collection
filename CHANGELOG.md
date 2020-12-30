@@ -5,10 +5,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.3.5](https://github.com/loophp/collection/compare/3.3.4...3.3.5)
+## [3.4.0](https://github.com/loophp/collection/compare/3.3.5...3.4.0)
+
+### Merged
+
+- Use key and current operation at the same time [`#58`](https://github.com/loophp/collection/pull/58)
 
 ### Commits
 
+- refactor: Return instead of yield. [`a7b6a9c`](https://github.com/loophp/collection/commit/a7b6a9c8964cfdb26b080844bfd8c1eb0970dc89)
+- tests: Update tests. [`9472d03`](https://github.com/loophp/collection/commit/9472d03836e08e03b03a35ea4ee0b589a822ac47)
+- docs: Update typing information. [`09d0531`](https://github.com/loophp/collection/commit/09d0531da9476bc805f1e7cafefda0167a2fdfcb)
+- docs: Update documentation. [`77debe9`](https://github.com/loophp/collection/commit/77debe9b773382d9301dc6030e1c487e01d9edef)
+- tests: Update tests. [`d8a82a5`](https://github.com/loophp/collection/commit/d8a82a55ec83cd7eaa50d64cfa879cb137c39ed4)
+- refactor: Simplify operations. [`e1d91ec`](https://github.com/loophp/collection/commit/e1d91ec45955777b0b2e25d26c8dadd6d03013d1)
+- refactor: Use Foreach loops." [`c8d66c1`](https://github.com/loophp/collection/commit/c8d66c1f07008ec2fd593da25d069fb6de470c9f)
+- fix: Simple fix which should fix the issue. [`804b4de`](https://github.com/loophp/collection/commit/804b4de9ec746f6753092a4380fdbddc2eb85cf4)
+- tests: Reproduce issue in a test. [`f09ae23`](https://github.com/loophp/collection/commit/f09ae23cf977a418a037f6597c1be4aa48a5ef36)
+- refactor: Factorize closures. [`739e9c6`](https://github.com/loophp/collection/commit/739e9c642ce6c796cc1c5c529d9b3df405e7b4ee)
+
+## [3.3.5](https://github.com/loophp/collection/compare/3.3.4...3.3.5) - 2020-12-27
+
+### Commits
+
+- docs: Update changelog. [`4c4b77d`](https://github.com/loophp/collection/commit/4c4b77d16744f17e161d8fc89e15061d4d1a7d1f)
 - refactor: Rename the Match class. [`74d3682`](https://github.com/loophp/collection/commit/74d3682ca201a10f329348d5d70464e9604eccd1)
 
 ## [3.3.4](https://github.com/loophp/collection/compare/3.3.3...3.3.4) - 2020-12-27
