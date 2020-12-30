@@ -33,8 +33,7 @@ class LimitSpec extends ObjectBehavior
 
         $this
             ->__invoke()(1)(2)($iterator)
-            ->current()
-            ->shouldReturn('c');
+            ->shouldIterateAs([2 => 'c']);
 
         $this
             ->__invoke()(2)(2)($iterator)

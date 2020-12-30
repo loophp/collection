@@ -18,8 +18,7 @@ class CurrentSpec extends ObjectBehavior
 
         $this
             ->__invoke()(0)($iterator)
-            ->current()
-            ->shouldReturn('a');
+            ->shouldIterateAs(['a']);
 
         $this
             ->__invoke()(0)($iterator)
