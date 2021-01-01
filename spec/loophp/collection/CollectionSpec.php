@@ -1970,6 +1970,10 @@ EOF;
 
     public function it_can_reverse(): void
     {
+        $this::empty()
+            ->reverse()
+            ->shouldIterateAs([]);
+
         $this::fromIterable(range('A', 'F'))
             ->reverse()
             ->shouldIterateAs([5 => 'F', 4 => 'E', 3 => 'D', 2 => 'C', 1 => 'B', 0 => 'A']);
@@ -2473,7 +2477,6 @@ EOF;
             ['c', 'c'],
             ['d', 'd'],
             ['e', 'e'],
-            'bar',
         ];
 
         $this::fromIterable($input)
@@ -2490,7 +2493,6 @@ EOF;
             ['a', 'b', 'c' => 'c', 'd' => 'd'],
             ['e', 'f', 'g' => 'g', 'h' => 'h'],
             ['i', 'j'],
-            'foo',
         ];
 
         $this::fromIterable($input)

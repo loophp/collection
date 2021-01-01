@@ -9,6 +9,10 @@ use Generator;
 use Iterator;
 
 /**
+ * @todo Remove the Wrap and Unwrap operations
+ * @todo They are only needed when: Collection::empty()->reverse()
+ * @todo Most probably that the FoldLeft operation needs an update.
+ *
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
@@ -37,9 +41,9 @@ final class Reverse extends AbstractOperation
         $pipe = Pipe::of()(
             Pack::of(),
             Wrap::of(),
-            FoldLeft1::of()($callback),
+            FoldLeft::of()($callback)([]),
             Unwrap::of(),
-            Unpack::of()
+            Unpack::of(),
         );
 
         // Point free style.
