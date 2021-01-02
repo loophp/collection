@@ -29,24 +29,26 @@ final class DropWhile extends AbstractOperation
              * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static fn (callable ...$callbacks): Closure => static function (Iterator $iterator) use ($callbacks): Generator {
-                for (; $iterator->valid(); $iterator->next()) {
-                    $reduced = array_reduce(
-                        $callbacks,
-                        static fn (bool $carry, callable $callback): bool => ($callback($iterator->current(), $iterator->key(), $iterator)) ?
-                            $carry :
-                            false,
-                        true
-                    );
+                $break = false;
 
-                    if (true === $reduced) {
-                        continue;
+                foreach ($iterator as $key => $current) {
+                    if (false === $break) {
+                        $reduced = array_reduce(
+                            $callbacks,
+                            static fn (bool $carry, callable $callback): bool => ($callback($current, $key, $iterator)) ?
+                                $carry :
+                                false,
+                            true
+                        );
+
+                        if (true === $reduced) {
+                            continue;
+                        }
+
+                        $break = true;
                     }
 
-                    break;
-                }
-
-                for (; $iterator->valid(); $iterator->next()) {
-                    yield $iterator->key() => $iterator->current();
+                    yield $key => $current;
                 }
             };
     }
