@@ -690,6 +690,14 @@ class CollectionSpec extends ObjectBehavior
         $this::fromIterable(range('A', 'C'))
             ->product([1, 2])
             ->shouldIterateAs([0 => ['A', 1], 1 => ['A', 2], 2 => ['B', 1], 3 => ['B', 2], 4 => ['C', 1], 5 => ['C', 2]]);
+
+        $string = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
+        $stream = fopen('data://text/plain,' . $string, 'rb');
+
+        $this::fromResource($stream)
+            ->drop(1)
+            ->count()
+            ->shouldReturn(55);
     }
 
     public function it_can_drop(): void

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
-use EmptyIterator;
 use Iterator;
 use LimitIterator;
 
@@ -32,10 +31,6 @@ final class Drop extends AbstractOperation
                  * @psalm-return Iterator<TKey, T>
                  */
                 static function (Iterator $iterator) use ($offsets): Iterator {
-                    if (false === $iterator->valid()) {
-                        return new EmptyIterator();
-                    }
-
                     return new LimitIterator($iterator, array_sum($offsets));
                 };
     }
