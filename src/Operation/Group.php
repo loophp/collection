@@ -29,29 +29,27 @@ final class Group extends AbstractOperation
              * @psalm-return Generator<int, list<T>>
              */
             static function (Iterator $iterator): Generator {
-                $spanCallback =
-                    /**
-                     * @param mixed $current
-                     * @psalm-param T $current
-                     *
-                     * @psalm-return Closure(T): bool
-                     */
-                    static fn ($current): Closure =>
-                        /**
-                         * @param mixed $value
-                         * @psalm-param T $value
-                         */
-                        static fn ($value): bool => $value === $current;
+                $last = [];
 
-                do {
-                    /** @psalm-var Iterator<int, Iterator<TKey, T>> $span */
-                    $span = Span::of()($spanCallback($iterator->current()))($iterator);
+                foreach ($iterator as $current) {
+                    if (current($last) === $current) {
+                        $last[] = $current;
 
-                    yield $iterator->key() => [...$span->current()];
+                        continue;
+                    }
 
-                    $span->next();
-                    $iterator = $span->current();
-                } while ($iterator->valid());
+                    if (current($last) === false) {
+                        $last = [$current];
+
+                        continue;
+                    }
+
+                    yield $last;
+
+                    $last = [$current];
+                }
+
+                yield $last;
             };
     }
 }
