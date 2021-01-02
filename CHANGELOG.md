@@ -5,7 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.4.0](https://github.com/loophp/collection/compare/3.3.5...3.4.0)
+## [3.4.1](https://github.com/loophp/collection/compare/3.4.0...3.4.1)
+
+### Commits
+
+- refactor: Optimize DropWhile operation. [`d91eb93`](https://github.com/loophp/collection/commit/d91eb93c1a57cb59929891d82406b47f2989c92d)
+- refactor: Optimize Group operation. [`aa418fe`](https://github.com/loophp/collection/commit/aa418fe9d03ddc5d8e2592589b09f38a89516ed4)
+- refactor: Update Drop operation. [`3d4786b`](https://github.com/loophp/collection/commit/3d4786b609b31f616e2de8500a51eebb0b290a80)
+- refactor: Minor documentation changes. [`7957e26`](https://github.com/loophp/collection/commit/7957e2682fe7af25b913099a744f4b572e0ce3c8)
+- refactor: Update Zip operation. [`37593eb`](https://github.com/loophp/collection/commit/37593eb4ed14e2fbb84df341956c70e67ffb6caf)
+
+## [3.4.0](https://github.com/loophp/collection/compare/3.3.5...3.4.0) - 2020-12-30
 
 ### Merged
 
@@ -13,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Commits
 
+- docs: Update changelog. [`45a46b8`](https://github.com/loophp/collection/commit/45a46b87beef427654060d433fa17ec9b059d378)
 - refactor: Return instead of yield. [`a7b6a9c`](https://github.com/loophp/collection/commit/a7b6a9c8964cfdb26b080844bfd8c1eb0970dc89)
 - tests: Update tests. [`9472d03`](https://github.com/loophp/collection/commit/9472d03836e08e03b03a35ea4ee0b589a822ac47)
 - docs: Update typing information. [`09d0531`](https://github.com/loophp/collection/commit/09d0531da9476bc805f1e7cafefda0167a2fdfcb)
