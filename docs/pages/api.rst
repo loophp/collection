@@ -1538,12 +1538,17 @@ since
 
 Skip items until callback is met.
 
+.. warning:: The callback parameter is variadic and they are evaluated as a logical ``OR``.
+             If you're looking for a logical ``AND``, you have make multiple calls to the
+             since operations.
+
 Interface: `Sinceable`_
 
 Signature: ``Collection::since(callable ...$callbacks);``
 
 .. code-block:: php
 
+    // Example 1
     // Parse the composer.json of a package and get the require-dev dependencies.
     $collection = Collection::fromResource(fopen(__DIR__ . '/composer.json', 'rb'))
         // Group items when EOL character is found.
@@ -1597,6 +1602,31 @@ Signature: ``Collection::since(callable ...$callbacks);``
         ->all();
 
     print_r($collection);
+
+    // Example 2
+    $input = [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3];
+
+    $isGreaterThanThree = static function (int $value): bool {
+        return 3 < $value;
+    };
+
+    $isGreaterThanEight = static function (int $value): bool {
+        return 8 < $value;
+    };
+
+    $collection = Collection::fromIterable($input)
+        ->since(
+            $isGreaterThanThree,
+            $isGreaterThanEight
+        ); // [4, 5, 6, 7, 8, 9, 1, 2, 3]
+
+    $collection = Collection::fromIterable($input)
+        ->since(
+            $isGreaterThanThree
+        )
+        ->since(
+            $isGreaterThanEight
+        ); // [9, 1, 2, 3]
 
 slice
 ~~~~~

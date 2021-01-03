@@ -61,13 +61,13 @@ final class Since extends AbstractOperation
                                      * @psalm-param bool $carry
                                      * @psalm-param callable(T, TKey, Iterator<TKey, T>): bool $callable
                                      */
-                                    static fn (bool $carry, callable $callable): bool => ($callable($current, $key, $iterator)) ? $carry : false;
+                                    static fn (bool $carry, callable $callable): bool => ($callable($current, $key, $iterator)) || $carry;
 
                     foreach ($iterator as $key => $current) {
                         $result = array_reduce(
                             $callbacks,
                             $reducerCallback($key)($current)($iterator),
-                            true
+                            false
                         );
 
                         if (false !== $result) {

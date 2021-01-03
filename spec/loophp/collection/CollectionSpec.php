@@ -2137,7 +2137,9 @@ EOF;
 
     public function it_can_since(): void
     {
-        $this::fromIterable(range('a', 'z'))
+        $input = range('a', 'z');
+
+        $this::fromIterable($input)
             ->since(
                 static function ($letter) {
                     return 'x' === $letter;
@@ -2145,7 +2147,7 @@ EOF;
             )
             ->shouldIterateAs([23 => 'x', 24 => 'y', 25 => 'z']);
 
-        $this::fromIterable(range('a', 'z'))
+        $this::fromIterable($input)
             ->since(
                 static function ($letter) {
                     return 'x' === $letter;
@@ -2154,9 +2156,9 @@ EOF;
                     return 1 === mb_strlen($letter);
                 }
             )
-            ->shouldIterateAs([23 => 'x', 24 => 'y', 25 => 'z']);
+            ->shouldIterateAs($input);
 
-        $this::fromIterable(range('a', 'z'))
+        $this::fromIterable($input)
             ->since(
                 static function ($letter) {
                     return 'foo' === $letter;
@@ -2165,7 +2167,29 @@ EOF;
                     return 'x' === $letter;
                 }
             )
-            ->shouldIterateAs([]);
+            ->shouldIterateAs([23 => 'x', 24 => 'y', 25 => 'z']);
+
+        $isGreaterThanThree = static function (int $value): bool {
+            return 3 < $value;
+        };
+
+        $isGreaterThanFive = static function (int $value): bool {
+            return 5 < $value;
+        };
+
+        $this::fromIterable([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3])
+            ->since($isGreaterThanFive, $isGreaterThanThree)
+            ->shouldIterateAs([
+                3 => 4,
+                4 => 5,
+                5 => 6,
+                6 => 7,
+                7 => 8,
+                8 => 9,
+                9 => 1,
+                10 => 2,
+                11 => 3,
+            ]);
     }
 
     public function it_can_slice(): void
