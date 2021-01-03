@@ -31,12 +31,12 @@ final class Distinct extends AbstractOperation
              * @psalm-param T $value
              */
             static function ($value) use (&$seen): bool {
-                /** @psalm-var list<T> $seen */
-                $return = !in_array($value, $seen, true);
+                $return = in_array($value, $seen, true);
 
+                /** @psalm-var list<T> $seen */
                 $seen[] = $value;
 
-                return $return;
+                return !$return;
             };
 
         /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $filter */

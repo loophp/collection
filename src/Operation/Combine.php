@@ -29,19 +29,23 @@ final class Combine extends AbstractOperation
              *
              * @psalm-return Closure(Iterator<TKey, T>): Generator<T, T>
              */
-            static fn (...$keys): Closure => static function (Iterator $iterator) use ($keys): Generator {
-                $keys = new ArrayIterator($keys);
+            static fn (...$keys): Closure =>
+                /**
+                 * @psalm-param Iterator<TKey, T> $iterator
+                 */
+                static function (Iterator $iterator) use ($keys): Generator {
+                    $keys = new ArrayIterator($keys);
 
-                while ($iterator->valid() && $keys->valid()) {
-                    yield $keys->current() => $iterator->current();
+                    while ($iterator->valid() && $keys->valid()) {
+                        yield $keys->current() => $iterator->current();
 
-                    $iterator->next();
-                    $keys->next();
-                }
+                        $iterator->next();
+                        $keys->next();
+                    }
 
-                if ($iterator->valid() !== $keys->valid()) {
-                    trigger_error('Both keys and values must have the same amount of items.', E_USER_WARNING);
-                }
-            };
+                    if ($iterator->valid() !== $keys->valid()) {
+                        trigger_error('Both keys and values must have the same amount of items.', E_USER_WARNING);
+                    }
+                };
     }
 }
