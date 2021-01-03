@@ -43,28 +43,39 @@ final class Split extends AbstractOperation
                     static function (Iterator $iterator) use ($type, $callbacks): Generator {
                         $carry = [];
 
-                        $reducer =
+                        $reducerCallback =
                             /**
                              * @param mixed $key
                              * @psalm-param TKey $key
                              *
-                             * @psalm-return Closure(T): Closure(bool, callable(T, TKey): bool): bool
+                             * @psalm-return Closure(T): Closure(Iterator<TKey, T>): Closure(bool, callable(T, TKey, Iterator<TKey, T>): bool): bool
                              */
                             static fn ($key): Closure =>
                                 /**
-                                 * @param mixed $value
-                                 * @psalm-param T $value
+                                 * @param mixed $current
+                                 * @psalm-param T $current
                                  *
-                                 * @psalm-return Closure(bool, callable(T, TKey): bool): bool
+                                 * @psalm-return Closure(Iterator<TKey, T>): Closure(bool, callable(T, TKey, Iterator<TKey, T>): bool): bool
                                  */
-                                static fn ($value): Closure =>
+                                static fn ($current): Closure =>
                                     /**
-                                     * @psalm-param callable(T, TKey): bool $callback
+                                     * @psalm-param Iterator<TKey, T> $iterator
+                                     *
+                                     * @psalm-return Closure(bool, callable(T, TKey, Iterator<TKey, T>): bool): bool
                                      */
-                                    static fn (bool $carry, callable $callback): bool => $callback($value, $key) || $carry;
+                                    static fn (Iterator $iterator): Closure =>
+                                        /**
+                                         * @psalm-param bool $carry
+                                         * @psalm-param callable(T, TKey, Iterator<TKey, T>): bool $callable
+                                         */
+                                        static fn (bool $carry, callable $callable): bool => ($callable($current, $key, $iterator)) || $carry;
 
                         foreach ($iterator as $key => $value) {
-                            $callbackReturn = array_reduce($callbacks, $reducer($key)($value), false);
+                            $callbackReturn = array_reduce(
+                                $callbacks,
+                                $reducerCallback($key)($value)($iterator),
+                                false
+                            );
 
                             if (Splitable::AFTER === $type) {
                                 $carry[] = $value;
