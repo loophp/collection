@@ -29,13 +29,11 @@ final class Init extends AbstractOperation
              */
             static function (Iterator $iterator): Generator {
                 $cacheIterator = new CachingIterator($iterator, CachingIterator::FULL_CACHE);
-                $cacheIterator->next();
 
-                for (; $iterator->valid(); $cacheIterator->next()) {
-                    /** @psalm-var TKey $key */
-                    $key = $cacheIterator->key();
-                    /** @psalm-var T $current */
-                    $current = $cacheIterator->current();
+                foreach ($cacheIterator as $key => $current) {
+                    if (false === $iterator->valid()) {
+                        break;
+                    }
 
                     yield $key => $current;
                 }
