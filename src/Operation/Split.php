@@ -95,7 +95,7 @@ final class Split extends AbstractOperation
                                 $carry = [];
                             }
 
-                            if (Splitable::BEFORE === $type || Splitable::REMOVE === $type) {
+                            if (Splitable::AFTER !== $type) {
                                 $carry[] = $value;
                             }
                         }
