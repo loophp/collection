@@ -1146,6 +1146,10 @@ class CollectionSpec extends ObjectBehavior
                 1 => [0 => 'b', 1 => 'b'],
                 2 => [0 => 'c', 1 => 'c'],
             ]);
+
+        $this::empty()
+            ->group()
+            ->shouldIterateAs([]);
     }
 
     public function it_can_groupBy(): void

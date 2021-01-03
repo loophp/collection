@@ -32,14 +32,14 @@ final class Group extends AbstractOperation
                 $last = [];
 
                 foreach ($iterator as $current) {
-                    if (current($last) === $current) {
-                        $last[] = $current;
+                    if ([] === $last) {
+                        $last = [$current];
 
                         continue;
                     }
 
-                    if (current($last) === false) {
-                        $last = [$current];
+                    if (current($last) === $current) {
+                        $last[] = $current;
 
                         continue;
                     }
@@ -49,7 +49,9 @@ final class Group extends AbstractOperation
                     $last = [$current];
                 }
 
-                yield $last;
+                if ([] !== $last) {
+                    yield $last;
+                }
             };
     }
 }
