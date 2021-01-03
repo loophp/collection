@@ -717,12 +717,12 @@ class CollectionSpec extends ObjectBehavior
             return 3 > $value;
         };
 
-        $isGreaterThanFive = static function (int $value): bool {
+        $isSmallerThanFive = static function (int $value): bool {
             return 5 > $value;
         };
 
         $this::fromIterable([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3])
-            ->dropWhile($isGreaterThanFive, $isSmallerThanThree)
+            ->dropWhile($isSmallerThanFive, $isSmallerThanThree)
             ->shouldIterateAs([
                 2 => 3,
                 3 => 4,

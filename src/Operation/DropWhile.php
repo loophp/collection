@@ -14,41 +14,69 @@ use Iterator;
  * @psalm-template T
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
+ * phpcs:disable Generic.WhiteSpace.ScopeIndent.IncorrectExact
  */
 final class DropWhile extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(callable(T , TKey , Iterator<TKey, T> ): bool):Closure (Iterator<TKey, T>): Generator<TKey, T>
+     * @psalm-return Closure(callable(T , TKey ): bool ...):Closure (Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param callable(T, TKey, Iterator<TKey, T>):bool $callback
+             * @psalm-param callable(T, TKey):bool ...$callbacks
              *
              * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
-            static fn (callable ...$callbacks): Closure => static function (Iterator $iterator) use ($callbacks): Generator {
-                $break = false;
+            static fn (callable ...$callbacks): Closure =>
+            /**
+             * @psalm-param Iterator<TKey, T> $iterator
+             *
+             * @psalm-return Generator<TKey, T>
+             */
+            static function (Iterator $iterator) use ($callbacks): Generator {
+                $reducerCallback =
+                    /**
+                     * @param mixed $key
+                     * @psalm-param TKey $key
+                     *
+                     * @psalm-return Closure(T): Closure(Iterator<TKey, T>): Closure(bool, callable(T, TKey, Iterator<TKey, T>): bool): bool
+                     */
+                    static fn ($key): Closure =>
+                        /**
+                         * @param mixed $current
+                         * @psalm-param T $current
+                         *
+                         * @psalm-return Closure(Iterator<TKey, T>): Closure(bool, callable(T, TKey, Iterator<TKey, T>): bool): bool
+                         */
+                        static fn ($current): Closure =>
+                            /**
+                             * @psalm-param Iterator<TKey, T> $iterator
+                             *
+                             * @psalm-return Closure(bool, callable(T, TKey, Iterator<TKey, T>): bool): bool
+                             */
+                            static fn (Iterator $iterator): Closure =>
+                                /**
+                                 * @psalm-param bool $carry
+                                 * @psalm-param callable(T, TKey, Iterator<TKey, T>): bool $callable
+                                 */
+                                static fn (bool $carry, callable $callable): bool => ($callable($current, $key, $iterator)) ? $carry : false;
 
                 foreach ($iterator as $key => $current) {
-                    if (false === $break) {
-                        $reduced = array_reduce(
-                            $callbacks,
-                            static fn (bool $carry, callable $callback): bool => ($callback($current, $key, $iterator)) ?
-                                $carry :
-                                false,
-                            true
-                        );
+                    $result = array_reduce(
+                        $callbacks,
+                        $reducerCallback($key)($current)($iterator),
+                        true
+                    );
 
-                        if (true === $reduced) {
-                            continue;
-                        }
-
-                        $break = true;
+                    if (false === $result) {
+                        break;
                     }
+                }
 
-                    yield $key => $current;
+                for (; $iterator->valid(); $iterator->next()) {
+                    yield $iterator->key() => $iterator->current();
                 }
             };
     }
