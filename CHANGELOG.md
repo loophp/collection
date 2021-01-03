@@ -5,10 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.4.1](https://github.com/loophp/collection/compare/3.4.0...3.4.1)
+## [3.4.2](https://github.com/loophp/collection/compare/3.4.1...3.4.2)
 
 ### Commits
 
+- refactor: Update and simplify typing information. [`6ab1622`](https://github.com/loophp/collection/commit/6ab1622ebf47189a23405539fe851ce95efcaa68)
+- refactor: Optimize DropWhile operation. [`68d7bdc`](https://github.com/loophp/collection/commit/68d7bdca0c5e4c1ad0e841422c2a3d7c1e4f4934)
+- refactor: Optimize Group operation. [`a4b2653`](https://github.com/loophp/collection/commit/a4b26534503eba2a970670d223383833fcd21b22)
+
+## [3.4.1](https://github.com/loophp/collection/compare/3.4.0...3.4.1) - 2021-01-02
+
+### Commits
+
+- docs: Update changelog. [`d7cd376`](https://github.com/loophp/collection/commit/d7cd376d71d770d4196c98bbe1279ac73c13e328)
 - refactor: Optimize DropWhile operation. [`d91eb93`](https://github.com/loophp/collection/commit/d91eb93c1a57cb59929891d82406b47f2989c92d)
 - refactor: Optimize Group operation. [`aa418fe`](https://github.com/loophp/collection/commit/aa418fe9d03ddc5d8e2592589b09f38a89516ed4)
 - refactor: Update Drop operation. [`3d4786b`](https://github.com/loophp/collection/commit/3d4786b609b31f616e2de8500a51eebb0b290a80)
