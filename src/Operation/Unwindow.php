@@ -7,7 +7,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Iterator\IterableIterator;
 
 /**
  * @psalm-template TKey
@@ -24,26 +23,16 @@ final class Unwindow extends AbstractOperation
         /** @psalm-var Closure(Iterator<TKey, list<T>>): Generator<TKey, T> $unwindow */
         $unwindow = Map::of()(
             /**
-             * @psalm-param iterable<TKey, list<T>> $value
-             */
-            static fn (iterable $iterable): Iterator => new IterableIterator($iterable),
-            /**
-             * @psalm-param Iterator<TKey, list<T>> $iterator
-             *
-             * @psalm-return Generator<TKey, T>
-             */
-            static function (Iterator $iterator): Generator {
-                /** @psalm-var Closure(Iterator<TKey, list<T>>): Generator<TKey, T> $last */
-                $last = Last::of();
-
-                return $last($iterator);
-            },
-            /**
-             * @psalm-param Generator<TKey, T> $value
+             * @psalm-param iterable<TKey, list<T>> $iterable
              *
              * @psalm-return T
              */
-            static fn (Generator $value) => $value->current()
+            static function (iterable $iterable) {
+                foreach ($iterable as $value) {
+                }
+
+                return $value;
+            }
         );
 
         // Point free style.
