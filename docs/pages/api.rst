@@ -1538,7 +1538,7 @@ since
 
 Skip items until callback is met.
 
-.. warning:: The callback parameter is variadic and they are evaluated as a logical ``OR``.
+.. warning:: The `callbacks` parameter is variadic and they are evaluated as a logical ``OR``.
              If you're looking for a logical ``AND``, you have make multiple calls to the
              since operations.
 
@@ -1760,12 +1760,19 @@ Signature: ``Collection::tails();``
 takeWhile
 ~~~~~~~~~
 
-It inspects the original collection and takes from it its elements to the moment when the condition fails,
-then it stops processing.
+Iterate over the collection items when the provided callback(s) are satisfied.
+
+It stops iterating when the callback(s) are not met.
+
+.. warning:: The `callbacks` parameter is variadic and they are evaluated as a logical ``OR``.
+             If you're looking for a logical ``AND``, you have make multiple calls to the
+             since operations.
+
+Be careful, this operation is not the same as the 'filter' operation.
 
 Interface: `TakeWhileable`_
 
-Signature: ``Collection::takeWhile(callable $callback);``
+Signature: ``Collection::takeWhile(callable ...$callbacks);``
 
 .. code-block:: php
 

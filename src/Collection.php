@@ -707,9 +707,9 @@ final class Collection implements CollectionInterface
         return new self(Tails::of(), $this->getIterator());
     }
 
-    public function takeWhile(callable $callback): CollectionInterface
+    public function takeWhile(callable ...$callbacks): CollectionInterface
     {
-        return new self(TakeWhile::of()($callback), $this->getIterator());
+        return new self(TakeWhile::of()(...$callbacks), $this->getIterator());
     }
 
     public static function times(int $number = 0, ?callable $callback = null): CollectionInterface

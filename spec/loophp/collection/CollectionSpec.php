@@ -2365,15 +2365,39 @@ EOF;
 
     public function it_can_takeWhile(): void
     {
-        $isSmallerThanThree = static function ($value) {
-            return 3 > $value;
-        };
+        $isSmallerThan = static fn (int $bound) => static fn ($value): bool => $bound > $value;
 
         $this::fromIterable([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3])
-            ->takeWhile($isSmallerThanThree)
+            ->takeWhile($isSmallerThan(5))
             ->shouldIterateAs([
                 0 => 1,
                 1 => 2,
+                2 => 3,
+                3 => 4,
+            ]);
+
+        $this::fromIterable([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3])
+            ->takeWhile(
+                $isSmallerThan(3),
+                $isSmallerThan(5)
+            )
+            ->shouldIterateAs([
+                0 => 1,
+                1 => 2,
+                2 => 3,
+                3 => 4,
+            ]);
+
+        $this::fromIterable([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3])
+            ->takeWhile(
+                $isSmallerThan(5),
+                $isSmallerThan(3),
+            )
+            ->shouldIterateAs([
+                0 => 1,
+                1 => 2,
+                2 => 3,
+                3 => 4,
             ]);
     }
 
