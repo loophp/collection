@@ -2177,11 +2177,26 @@ EOF;
             return 5 < $value;
         };
 
-        $this::fromIterable([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3])
-            ->since($isGreaterThanFive, $isGreaterThanThree)
+        $input = [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3];
+
+        $this::fromIterable($input)
+            ->since($isGreaterThanThree, $isGreaterThanFive)
             ->shouldIterateAs([
                 3 => 4,
                 4 => 5,
+                5 => 6,
+                6 => 7,
+                7 => 8,
+                8 => 9,
+                9 => 1,
+                10 => 2,
+                11 => 3,
+            ]);
+
+        $this::fromIterable($input)
+            ->since($isGreaterThanThree)
+            ->since($isGreaterThanFive)
+            ->shouldIterateAs([
                 5 => 6,
                 6 => 7,
                 7 => 8,
