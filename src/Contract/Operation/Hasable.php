@@ -19,5 +19,5 @@ interface Hasable
      *
      * @psalm-return \loophp\collection\Collection<int, bool>
      */
-    public function has(callable $callback): Collection;
+    public function has(callable ...$callbacks): Collection;
 }

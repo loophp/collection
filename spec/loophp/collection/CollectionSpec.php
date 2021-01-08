@@ -1261,7 +1261,9 @@ class CollectionSpec extends ObjectBehavior
 
     public function it_can_has(): void
     {
-        $this::fromIterable(range('A', 'C'))
+        $input = range('A', 'C');
+
+        $this::fromIterable($input)
             ->has(
                 static function ($value, $key) {
                     return 'A';
@@ -1269,7 +1271,7 @@ class CollectionSpec extends ObjectBehavior
             )
             ->shouldIterateAs([true]);
 
-        $this::fromIterable(range('A', 'C'))
+        $this::fromIterable($input)
             ->has(
                 static function ($value, $key) {
                     return 'Z';
@@ -1277,7 +1279,9 @@ class CollectionSpec extends ObjectBehavior
             )
             ->shouldIterateAs([false]);
 
-        $this::fromIterable(['b', 1, 'foo', 'bar'])
+        $input = ['b', 1, 'foo', 'bar'];
+
+        $this::fromIterable($input)
             ->has(
                 static function ($value, $key) {
                     return 'foo';
@@ -1285,7 +1289,7 @@ class CollectionSpec extends ObjectBehavior
             )
             ->shouldIterateAs([2 => true]);
 
-        $this::fromIterable(['b', 1, 'foo', 'bar'])
+        $this::fromIterable($input)
             ->has(
                 static function ($value, $key) {
                     return 'unknown';
@@ -1300,6 +1304,20 @@ class CollectionSpec extends ObjectBehavior
                 }
             )
             ->shouldIterateAs([false]);
+
+        $this::fromIterable($input)
+            ->has(
+                static fn () => 1,
+                static fn () => 'bar'
+            )
+            ->shouldIterateAs([1 => true]);
+
+        $this::fromIterable($input)
+            ->has(
+                static fn () => 'coin',
+                static fn () => 'bar'
+            )
+            ->shouldIterateAs([3 => true]);
     }
 
     public function it_can_head(): void
