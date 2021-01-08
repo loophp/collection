@@ -1097,7 +1097,7 @@ The returned value of the operation is ``true`` when the callback match at least
 of the collection. ``false`` otherwise.
 
 If you want to match the ``user callback`` against another value (other than ``true``), you must
-provide your own ``matcher callback`` as a second argument.
+provide your own ``matcher callback`` as a second argument, it must returns a ``boolean``.
 
 Interface: `Matchable`_
 

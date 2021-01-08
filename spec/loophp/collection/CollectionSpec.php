@@ -1624,8 +1624,8 @@ EOF;
 
         $this::fromIterable($input)
             ->match(
-                static fn (int $value): string => 5 === $value ? 'foo' : 'bar',
-                static fn (): string => 'foo'
+                static fn (int $value): bool => 5 !== $value,
+                static fn (): bool => false
             )
             ->shouldIterateAs([4 => true]);
     }
