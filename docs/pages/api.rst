@@ -505,8 +505,12 @@ Signature: ``Collection::drop(int ...$counts);``
 dropWhile
 ~~~~~~~~~
 
-It inspects the original collection and takes from it its elements from the moment when the condition fails for the
+Iterate over the collection items and takes from it its elements from the moment when the condition fails for the
 first time till the end of the list.
+
+.. warning:: The `callbacks` parameter is variadic and they are evaluated as a logical ``OR``.
+             If you're looking for a logical ``AND``, you have make multiple calls to the
+             since operations.
 
 Interface: `DropWhileable`_
 
