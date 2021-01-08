@@ -18,39 +18,65 @@ use Iterator;
 final class Every extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(callable(T, TKey, Iterator<TKey, T> ): bool):Closure (Iterator<TKey, T>): Generator<TKey, bool>
+     * @psalm-return Closure(callable(T, TKey, Iterator<TKey, T>): bool ...): Closure(Iterator<TKey, T>): Generator<int|TKey, bool>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, bool>
+             * @psalm-param callable(T, TKey, Iterator<TKey, T>): bool ...$callbacks
              */
-            static function (callable $callback): Closure {
-                $callbackBuilder =
+            static function (callable ...$callbacks): Closure {
+                $reducerCallback =
                     /**
-                     * @psalm-param callable(T, TKey, Iterator<TKey, T>): bool $callback
+                     * @param mixed $key
+                     * @psalm-param TKey $key
+                     *
+                     * @psalm-return Closure(T): Closure(Iterator<TKey, T>): Closure(bool, callable(T, TKey, Iterator<TKey, T>): bool): bool
                      */
-                    static fn (callable $callback): Closure =>
+                    static fn ($key): Closure =>
                         /**
-                         * @param mixed $carry
-                         * @psalm-param T $carry
+                         * @param mixed $current
+                         * @psalm-param T $current
                          *
-                         * @param mixed $value
-                         * @psalm-param T $value
-                         *
-                         * @param mixed $key
-                         * @psalm-param TKey $key
-                         *
-                         * @psalm-param Iterator<TKey, T> $iterator
+                         * @psalm-return Closure(Iterator<TKey, T>): Closure(bool, callable(T, TKey, Iterator<TKey, T>): bool): bool
                          */
-                        static fn ($carry, $value, $key, Iterator $iterator): bool => $callback($value, $key, $iterator);
+                        static fn ($current): Closure =>
+                            /**
+                             * @psalm-param Iterator<TKey, T> $iterator
+                             *
+                             * @psalm-return Closure(bool, callable(T, TKey, Iterator<TKey, T>): bool): bool
+                             */
+                            static fn (Iterator $iterator): Closure =>
+                                /**
+                                 * @psalm-param bool $carry
+                                 * @psalm-param callable(T, TKey, Iterator<TKey, T>): bool $callable
+                                 */
+                                static fn (bool $carry, callable $callable): bool => $carry || ($callable($current, $key, $iterator));
 
-                /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, bool> $foldLeft */
-                $foldLeft = FoldLeft::of()($callbackBuilder($callback))(true);
+                return
+                    /**
+                     * @psalm-param Iterator<TKey, T> $iterator
+                     *
+                     * @psalm-return Generator<int|TKey, bool>
+                     */
+                    static function (Iterator $iterator) use ($callbacks, $reducerCallback): Generator {
+                        // We could use FoldLeft but there is no need to go through all the items,
+                        // we just need to return false as soon as the callbacks returns false.
+                        foreach ($iterator as $key => $value) {
+                            $result = array_reduce(
+                                $callbacks,
+                                $reducerCallback($key)($value)($iterator),
+                                false
+                            );
 
-                // Point free style.
-                return $foldLeft;
+                            if (false === $result) {
+                                return yield $key => false;
+                            }
+                        }
+
+                        return yield true;
+                    };
             };
     }
 }

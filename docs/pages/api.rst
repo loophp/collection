@@ -545,11 +545,15 @@ Signature: ``Collection::duplicate();``
 every
 ~~~~~
 
-This operation tests whether all elements in the collection pass the test implemented by the provided callback.
+This operation tests whether all elements in the collection pass the test implemented by the provided callback(s).
+
+.. warning:: The `callbacks` parameter is variadic and they are evaluated as a logical ``OR``.
+             If you're looking for a logical ``AND``, you have make multiple calls to the
+             since operations.
 
 Interface: `Everyable`_
 
-Signature: ``Collection::every(callable $callback);``
+Signature: ``Collection::every(callable ...$callbacks);``
 
 .. code-block:: php
 

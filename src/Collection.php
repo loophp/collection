@@ -290,9 +290,9 @@ final class Collection implements CollectionInterface
         return self::fromIterable([]);
     }
 
-    public function every(callable $callback): CollectionInterface
+    public function every(callable ...$callbacks): CollectionInterface
     {
-        return new self(Every::of()($callback), $this->getIterator());
+        return new self(Every::of()(...$callbacks), $this->getIterator());
     }
 
     public function explode(...$explodes): CollectionInterface

@@ -752,33 +752,49 @@ class CollectionSpec extends ObjectBehavior
 
     public function it_can_every(): void
     {
+        $input = range(0, 10);
+
         $callback = static function ($value): bool {
             return 20 > $value;
         };
 
-        $this::fromIterable(range(0, 10))
+        $this::fromIterable($input)
             ->every($callback)
-            ->shouldIterateAs([10 => true]);
+            ->shouldIterateAs([0 => true]);
 
         $this::empty()
             ->every($callback)
-            ->shouldIterateAs([true]);
+            ->shouldIterateAs([0 => true]);
 
-        $this::fromIterable(range(0, 10))
+        $this::fromIterable($input)
             ->every(
                 static function ($value, $key, Iterator $iterator): bool {
                     return is_numeric($key);
                 }
             )
-            ->shouldIterateAs([10 => true]);
+            ->shouldIterateAs([0 => true]);
 
-        $this::fromIterable(range(0, 10))
+        $this::fromIterable($input)
             ->every(
                 static function ($value, $key, Iterator $iterator): bool {
                     return $iterator instanceof Iterator;
                 }
             )
-            ->shouldIterateAs([10 => true]);
+            ->shouldIterateAs([0 => true]);
+
+        $callback1 = static fn ($value, $key): bool => 20 > $value;
+        $this::fromIterable($input)
+            ->every($callback1)
+            ->shouldIterateAs([0 => true]);
+
+        $callback2 = static fn ($value, $key): bool => 50 < $value;
+        $this::fromIterable($input)
+            ->every($callback2)
+            ->shouldIterateAs([0 => false]);
+
+        $this::fromIterable($input)
+            ->every($callback2, $callback1)
+            ->shouldIterateAs([0 => true]);
     }
 
     public function it_can_explode(): void
