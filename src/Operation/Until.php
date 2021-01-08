@@ -19,13 +19,13 @@ use Iterator;
 final class Until extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(callable(T , TKey ): bool ...):Closure (Iterator<TKey, T>): Generator<TKey, T>
+     * @psalm-return Closure(callable(T, TKey, Iterator<TKey, T>): bool ...): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param callable(T, TKey):bool ...$callbacks
+             * @psalm-param callable(T, TKey, Iterator<TKey, T>): bool ...$callbacks
              *
              * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
@@ -61,7 +61,7 @@ final class Until extends AbstractOperation
                                      * @psalm-param bool $carry
                                      * @psalm-param callable(T, TKey, Iterator<TKey, T>): bool $callable
                                      */
-                                    static fn (bool $carry, callable $callable): bool => ($callable($current, $key, $iterator)) ? $carry : false;
+                                    static fn (bool $carry, callable $callable): bool => $carry || ($callable($current, $key, $iterator));
 
                     foreach ($iterator as $key => $current) {
                         yield $key => $current;
@@ -69,10 +69,10 @@ final class Until extends AbstractOperation
                         $result = array_reduce(
                             $callbacks,
                             $reducerCallback($key)($current)($iterator),
-                            true
+                            false
                         );
 
-                        if (false !== $result) {
+                        if (true === $result) {
                             break;
                         }
                     }

@@ -1896,7 +1896,11 @@ Signature: ``Collection::unpair();``
 until
 ~~~~~
 
-Limit a collection using a callback.
+Iterate over the collection items until the provided callback(s) are satisfied.
+
+.. warning:: The `callbacks` parameter is variadic and they are evaluated as a logical ``OR``.
+             If you're looking for a logical ``AND``, you have make multiple calls to the
+             since operations.
 
 Interface: `Untilable`_
 

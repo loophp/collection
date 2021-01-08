@@ -2577,12 +2577,8 @@ EOF;
                 $initial * 3 + 1;
         };
 
-        $until = static function (int $number): bool {
-            return 1 === $number;
-        };
-
         $this::unfold($collatz, 10)
-            ->until($until)
+            ->until(static fn (int $number): bool => 1 === $number)
             ->shouldIterateAs([
                 0 => 5,
                 1 => 16,
@@ -2590,6 +2586,23 @@ EOF;
                 3 => 4,
                 4 => 2,
                 5 => 1,
+            ]);
+
+        $input = range(1, 10);
+
+        $callback1 = static fn (int $number): bool => 8 < $number;
+        $callback2 = static fn (int $number): bool => 3 < $number;
+
+        $this::fromIterable($input)
+            ->until(
+                $callback2,
+                $callback1
+            )
+            ->shouldIterateAs([
+                0 => 1,
+                1 => 2,
+                2 => 3,
+                3 => 4,
             ]);
     }
 
