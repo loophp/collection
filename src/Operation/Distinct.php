@@ -8,8 +8,6 @@ use Closure;
 use Generator;
 use Iterator;
 
-use function in_array;
-
 /**
  * @psalm-template TKey
  * @psalm-template TKey of array-key
@@ -24,33 +22,34 @@ final class Distinct extends AbstractOperation
     {
         $foldLeftCallback =
             /**
-             * @psalm-param array<int, list<array{0:TKey, 1:T}>> $seen
-             * @psalm-param array{0:TKey, 1:T} $value
+             * @psalm-param list<array{0: TKey, 1: T}> $seen
              *
-             * @psalm-return array<int, list<array{0:TKey, 1:T}>>
+             * @psalm-param array{0: TKey, 1: T} $value
              */
             static function (array $seen, array $value): array {
-                $return = false;
+                $isSeen = false;
 
-                foreach ($seen as $seenTuple) {
-                    if ($seenTuple[1] === $value[1]) {
-                        $return = true;
+                foreach ($seen as $item) {
+                    if ($item[1] === $value[1]) {
+                        $isSeen = true;
+
                         break;
                     }
                 }
 
-                if (false === $return) {
+                if (false === $isSeen) {
                     $seen[] = $value;
                 }
 
                 return $seen;
             };
 
+        /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
         $pipe = Pipe::of()(
             Pack::of(),
             FoldLeft::of()($foldLeftCallback)([]),
             Unwrap::of(),
-            Unpack::of(),
+            Unpack::of()
         );
 
         // Point free style.
