@@ -65,6 +65,8 @@ final class Since extends AbstractOperation
 
                     $result = false;
 
+                    $result = false;
+
                     foreach ($iterator as $key => $current) {
                         if (false === $result) {
                             $result = array_reduce(
