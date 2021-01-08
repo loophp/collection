@@ -68,7 +68,7 @@ final class Split extends AbstractOperation
                                          * @psalm-param bool $carry
                                          * @psalm-param callable(T, TKey, Iterator<TKey, T>): bool $callable
                                          */
-                                        static fn (bool $carry, callable $callable): bool => ($callable($current, $key, $iterator)) || $carry;
+                                        static fn (bool $carry, callable $callable): bool => $carry || ($callable($current, $key, $iterator));
 
                         foreach ($iterator as $key => $value) {
                             $callbackReturn = array_reduce(
