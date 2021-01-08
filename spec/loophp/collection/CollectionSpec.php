@@ -585,7 +585,7 @@ class CollectionSpec extends ObjectBehavior
 
         $this::fromIterable(range('A', 'C'))
             ->contains('C', 'unknown', 'A')
-            ->shouldIterateAs([false]);
+            ->shouldIterateAs([true]);
     }
 
     public function it_can_convert_use_a_string_as_parameter(): void

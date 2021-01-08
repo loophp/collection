@@ -26,30 +26,22 @@ final class Contains extends AbstractOperation
              *
              * @psalm-return Closure(Iterator<TKey, T>): Generator<int, bool>
              */
-            static fn (...$values): Closure =>
-                /**
-                 * @psalm-param Iterator<TKey, T> $iterator
-                 *
-                 * @psalm-return Generator<int, bool>
-                 */
-                static function (Iterator $iterator) use ($values): Generator {
-                    // We could use something like:
-                    // yield count($values) === Intersect::of()(...$values)($iterator);
-                    // But it would not be very optimal because it would have to traverse
-                    // the whole iterator.
-                    foreach ($iterator as $value) {
-                        foreach ($values as $k => $v) {
-                            if ($v === $value) {
-                                unset($values[$k]);
-                            }
+            static function (...$values): Closure {
+                $callback =
+                    /**
+                     * @psalm-param T $left
+                     */
+                    static fn ($left): Closure =>
+                        /**
+                         * @psalm-param T $right
+                         */
+                        static fn ($right): bool => $left === $right;
 
-                            if ([] === $values) {
-                                return yield true;
-                            }
-                        }
-                    }
+                /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, bool> $matchOne */
+                $matchOne = MatchOne::of()(static fn () => true)(...array_map($callback, $values));
 
-                    return yield false;
-                };
+                // Point free style.
+                return $matchOne;
+            };
     }
 }
