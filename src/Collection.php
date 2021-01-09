@@ -179,15 +179,9 @@ final class Collection implements CollectionInterface
              * @param mixed $carry
              * @psalm-param T|TKey $carry
              *
-             * @param mixed $key
-             * @psalm-param TKey $key
-             *
-             * @param mixed $value
-             * @psalm-param T $value
-             *
-             * @psalm-return TKey|T
+             * @psalm-return T|TKey
              */
-            static fn ($carry, $key, $value) => $carry;
+            static fn ($carry) => $carry;
 
         $callbackForKeys ??= $defaultCallback;
         $callbackForValues ??= $defaultCallback;
@@ -455,11 +449,10 @@ final class Collection implements CollectionInterface
         $else ??=
             /**
              * @psalm-param T $value
-             * @psalm-param TKey $key
              *
              * @psalm-return T
              */
-            static fn ($value, $key) => $value;
+            static fn ($value) => $value;
 
         return new self(IfThenElse::of()($condition)($then)($else), $this->getIterator());
     }
@@ -585,10 +578,7 @@ final class Collection implements CollectionInterface
 
     public function pipe(callable ...$callables): self
     {
-        return new self(
-            Pipe::of()(...$callables),
-            $this->getIterator()
-        );
+        return new self(Pipe::of()(...$callables), $this->getIterator());
     }
 
     public function pluck($pluck, $default = null): CollectionInterface

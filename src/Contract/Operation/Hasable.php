@@ -15,7 +15,7 @@ use loophp\collection\Contract\Collection;
 interface Hasable
 {
     /**
-     * @psalm-param callable(T, TKey, Iterator<TKey, T>): bool $callback
+     * @psalm-param callable(T, TKey, Iterator<TKey, T>): bool ...$callbacks
      *
      * @psalm-return \loophp\collection\Collection<int, bool>
      */
