@@ -510,7 +510,7 @@ first time till the end of the list.
 
 .. warning:: The `callbacks` parameter is variadic and they are evaluated as a logical ``OR``.
              If you're looking for a logical ``AND``, you have make multiple calls to the
-             since operations.
+             same operation.
 
 Interface: `DropWhileable`_
 
@@ -553,7 +553,7 @@ This operation tests whether all elements in the collection pass the test implem
 
 .. warning:: The `callbacks` parameter is variadic and they are evaluated as a logical ``OR``.
              If you're looking for a logical ``AND``, you have make multiple calls to the
-             since operations.
+             same operation.
 
 Interface: `Everyable`_
 
@@ -827,7 +827,7 @@ Check if the collection has values.
 
 .. warning:: The `callbacks` parameter is variadic and they are evaluated as a logical ``OR``.
              If you're looking for a logical ``AND``, you have make multiple calls to the
-             since operations.
+             same operation.
 
 Interface: `Hasable`_
 
@@ -1552,7 +1552,7 @@ Skip items until callback is met.
 
 .. warning:: The `callbacks` parameter is variadic and they are evaluated as a logical ``OR``.
              If you're looking for a logical ``AND``, you have make multiple calls to the
-             since operations.
+             same operation.
 
 Interface: `Sinceable`_
 
@@ -1778,9 +1778,9 @@ It stops iterating when the callback(s) are not met.
 
 .. warning:: The `callbacks` parameter is variadic and they are evaluated as a logical ``OR``.
              If you're looking for a logical ``AND``, you have make multiple calls to the
-             since operations.
+             same operation.
 
-Be careful, this operation is not the same as the 'filter' operation.
+Be careful, this operation is not the same as the ``filter`` operation.
 
 Interface: `TakeWhileable`_
 
@@ -1919,7 +1919,7 @@ Iterate over the collection items until the provided callback(s) are satisfied.
 
 .. warning:: The `callbacks` parameter is variadic and they are evaluated as a logical ``OR``.
              If you're looking for a logical ``AND``, you have make multiple calls to the
-             since operations.
+             same operation.
 
 Interface: `Untilable`_
 
