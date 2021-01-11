@@ -42,11 +42,13 @@ final class Chunk extends AbstractOperation
                     $values = [];
 
                     foreach ($iterator as $value) {
-                        if (0 >= $sizesIterator->current()) {
+                        $size = $sizesIterator->current();
+
+                        if (0 >= $size) {
                             return new EmptyIterator();
                         }
 
-                        if (count($values) !== $sizesIterator->current()) {
+                        if (count($values) !== $size) {
                             $values[] = $value;
 
                             continue;

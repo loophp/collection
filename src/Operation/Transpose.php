@@ -54,9 +54,9 @@ final class Transpose extends AbstractOperation
                      */
                     static fn (array $carry, array $key, array $value): array => $value;
 
+                /** @psalm-var Generator<TKey, list<T>> $associate */
                 $associate = Associate::of()($callbackForKeys)($callbackForValues)($mit);
 
-                /** @psalm-var Generator<TKey, list<T>> $associate */
                 return $associate;
             };
     }
