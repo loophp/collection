@@ -37,7 +37,8 @@ final class Has extends AbstractOperation
                      * @psalm-return Generator<int|TKey, bool>
                      */
                     static function (Iterator $iterator) use ($callbacks): Generator {
-                        $callback =
+                        /** @psalm-var list<Closure(T, TKey, Iterator<TKey, T>): bool> $callbacks */
+                        $callbacks = array_map(
                             /**
                              * @psalm-param callable(T, TKey, Iterator<TKey, T>): bool $callback
                              */
@@ -51,9 +52,9 @@ final class Has extends AbstractOperation
                                  *
                                  * @psalm-param Iterator<TKey, T> $iterator
                                  */
-                                static fn ($value, $key, Iterator $iterator): bool => $callback($value, $key, $iterator) === $value;
-
-                        $callbacks = array_map($callback, $callbacks);
+                                static fn ($value, $key, Iterator $iterator): bool => $callback($value, $key, $iterator) === $value,
+                            $callbacks
+                        );
 
                         foreach ($iterator as $key => $current) {
                             /** @psalm-var Iterator<int, bool> $result */

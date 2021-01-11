@@ -33,13 +33,8 @@ final class Intersect extends AbstractOperation
                     /**
                      * @param mixed $value
                      * @psalm-param T $value
-                     *
-                     * @param mixed $key
-                     * @psalm-param TKey $key
-                     *
-                     * @psalm-param Iterator<TKey, T> $iterator
                      */
-                    static fn ($value, $key, Iterator $iterator): bool => in_array($value, $values, true);
+                    static fn ($value): bool => in_array($value, $values, true);
 
                 /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $filter */
                 $filter = Filter::of()($filterCallbackFactory($values));

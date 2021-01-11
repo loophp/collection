@@ -61,7 +61,7 @@ final class DropWhile extends AbstractOperation
                                  * @psalm-param bool $carry
                                  * @psalm-param callable(T, TKey, Iterator<TKey, T>): bool $callable
                                  */
-                                static fn (bool $carry, callable $callable): bool => $carry || ($callable($current, $key, $iterator));
+                                static fn (bool $carry, callable $callable): bool => $carry || $callable($current, $key, $iterator);
 
                 $result = true;
 

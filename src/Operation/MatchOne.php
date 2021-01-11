@@ -42,27 +42,21 @@ final class MatchOne extends AbstractOperation
                              *
                              * @psalm-return Closure(T, TKey, Iterator<TKey, T>): bool
                              */
-                            static function (array $callbacks): Closure {
-                                return
-                                    /**
-                                     * @psalm-param T $value
-                                     *
-                                     * @param mixed $value
-                                     *
-                                     * @psalm-param TKey $key
-                                     *
-                                     * @param mixed $key
-                                     *
-                                     * @psalm-param Iterator<TKey, T> $iterator
-                                     */
-                                    static function ($value, $key, Iterator $iterator) use ($callbacks): bool {
-                                        return array_reduce(
-                                            $callbacks,
-                                            static fn (bool $carry, callable $callback): bool => ($carry || $callback($value, $key, $iterator)),
-                                            false
-                                        );
-                                    };
-                            };
+                            static fn (array $callbacks): Closure =>
+                                /**
+                                 * @param mixed $value
+                                 * @psalm-param T $value
+                                 *
+                                 * @param mixed $key
+                                 * @psalm-param TKey $key
+                                 *
+                                 * @psalm-param Iterator<TKey, T> $iterator
+                                 */
+                                static fn ($value, $key, Iterator $iterator): bool => array_reduce(
+                                    $callbacks,
+                                    static fn (bool $carry, callable $callback): bool => $carry || $callback($value, $key, $iterator),
+                                    false
+                                );
 
                         $callback = $callbackReducer($callbacks);
 
