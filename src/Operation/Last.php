@@ -37,6 +37,10 @@ final class Last extends AbstractOperation
                     return new EmptyIterator();
                 }
 
+                /**
+                 * @psalm-var TKey $key
+                 * @psalm-var T $current
+                 */
                 return yield $key => $current;
             };
     }

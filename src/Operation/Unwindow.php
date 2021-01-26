@@ -25,9 +25,12 @@ final class Unwindow extends AbstractOperation
             /**
              * @psalm-param iterable<TKey, list<T>> $iterable
              *
-             * @psalm-return T
+             * @psalm-return T|null
              */
             static function (iterable $iterable) {
+                $value = null;
+
+                /** @psalm-var T $value */
                 foreach ($iterable as $value) {
                 }
 
