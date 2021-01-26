@@ -302,18 +302,39 @@ class CollectionSpec extends ObjectBehavior
 
     public function it_can_be_constructed_with_a_closure(): void
     {
-        $this
-            ->beConstructedThrough('fromCallable', [
-                static function (int $a, int $b): Generator {
-                    return yield from range($a, $b);
-                },
-                1,
-                5,
-            ]);
+        $test = $this::fromCallable(
+            static function (int $a, int $b): Generator {
+                return yield from range($a, $b);
+            },
+            1,
+            5,
+        );
 
-        $this->shouldImplement(Collection::class);
+        $test->shouldImplement(Collection::class);
 
-        $this
+        $test
+            ->getIterator()
+            ->shouldIterateAs(
+                [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                ]
+            );
+
+        $test = $this::fromCallable(
+            static function (int $a, int $b): array {
+                return range($a, $b);
+            },
+            1,
+            5,
+        );
+
+        $test->shouldImplement(Collection::class);
+
+        $test
             ->getIterator()
             ->shouldIterateAs(
                 [

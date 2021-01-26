@@ -7,7 +7,6 @@ namespace loophp\collection;
 use Closure;
 use Generator;
 use Iterator;
-use IteratorIterator;
 use loophp\collection\Contract\Collection as CollectionInterface;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Iterator\ClosureIterator;
@@ -351,17 +350,7 @@ final class Collection implements CollectionInterface
 
     public static function fromCallable(callable $callable, ...$parameters): self
     {
-        return new self(
-            /**
-             * @psalm-param callable(T...) $callable
-             * @psalm-param list<T> $parameters
-             *
-             * @psalm-return Iterator<TKey, T>
-             */
-            static fn (callable $callable, array $parameters): Iterator => new IteratorIterator($callable(...$parameters)),
-            $callable,
-            $parameters
-        );
+        return new self($callable, ...$parameters);
     }
 
     public static function fromFile(string $filepath): self
