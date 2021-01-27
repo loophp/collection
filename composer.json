@@ -22,7 +22,7 @@
         "amphp/parallel-functions": "^0.1 || ^1",
         "drupol/php-conventions": "^2.0.3 || ^3.0.0",
         "friends-of-phpspec/phpspec-code-coverage": "^5 || ^6",
-        "infection/infection": "^0.20.1",
+        "infection/infection": "^0.20.1 || ^0.21.0",
         "infection/phpspec-adapter": "^0.1.1",
         "phpspec/phpspec": "^7",
         "phpstan/phpstan-strict-rules": "^0.12",
