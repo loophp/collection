@@ -36,7 +36,7 @@ final class Apply extends AbstractOperation
                     $continue = true;
 
                     foreach ($iterator as $key => $value) {
-                        if ($continue !== false) {
+                        if (false !== $continue) {
                             foreach ($callbacks as $callback) {
                                 if (true === $continue = $callback($value, $key)) {
                                     continue;
