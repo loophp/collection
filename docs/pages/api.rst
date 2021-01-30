@@ -190,10 +190,11 @@ Signature: ``Collection::append(...$items);``
 apply
 ~~~~~
 
-Execute a callback for each element of the collection without
-altering the collection item itself.
+Execute callback(s) on each element of the collection.
 
-If the callback does not return `true` then it stops.
+Iterates on the collection items regardless of the return value of the callback.
+
+If the callback does not return `true` then it stops applying callbacks on subsequent items.
 
 Interface: `Applyable`_
 

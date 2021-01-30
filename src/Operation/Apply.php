@@ -12,17 +12,19 @@ use Iterator;
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
+ *
+ * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Apply extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(callable(T , TKey ): bool ...):Closure (Iterator<TKey, T>): Generator<TKey, T>
+     * @psalm-return Closure(callable(T, TKey, Iterator<TKey, T>):bool ...): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param callable(T, TKey):(bool) ...$callbacks
+             * @psalm-param callable(T, TKey, Iterator<TKey, T>):bool ...$callbacks
              *
              * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
@@ -34,12 +36,12 @@ final class Apply extends AbstractOperation
                  */
                 static function (Iterator $iterator) use ($callbacks): Generator {
                     foreach ($iterator as $key => $value) {
-                        foreach ($callbacks as $callback) {
-                            if (true === $callback($value, $key)) {
-                                continue;
-                            }
+                        foreach ($callbacks as $cKey => $callback) {
+                            $result = $callback($value, $key, $iterator);
 
-                            break;
+                            if (false === $result) {
+                                unset($callbacks[$cKey]);
+                            }
                         }
 
                         yield $key => $value;
