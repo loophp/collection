@@ -16,13 +16,13 @@ use Iterator;
 final class Apply extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(callable(T , TKey ): bool ...):Closure (Iterator<TKey, T>): Generator<TKey, T>
+     * @psalm-return Closure(callable(T , TKey, Iterator<TKey, T>):bool ...): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param callable(T, TKey):(bool) ...$callbacks
+             * @psalm-param callable(T, TKey, Iterator<TKey, T>):bool ...$callbacks
              *
              * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
@@ -33,16 +33,12 @@ final class Apply extends AbstractOperation
                  * @psalm-return Generator<TKey, T>
                  */
                 static function (Iterator $iterator) use ($callbacks): Generator {
-                    $continue = true;
-
                     foreach ($iterator as $key => $value) {
-                        if (true === $continue) {
-                            foreach ($callbacks as $cKey => $callback) {
-                                $result = $callback($value, $key);
+                        foreach ($callbacks as $cKey => $callback) {
+                            $result = $callback($value, $key, $iterator);
 
-                                if (false === $result) {
-                                    unset($callbacks[$cKey]);
-                                }
+                            if (false === $result) {
+                                unset($callbacks[$cKey]);
                             }
                         }
 
