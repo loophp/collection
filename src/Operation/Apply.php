@@ -18,7 +18,7 @@ use Iterator;
 final class Apply extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(callable(T , TKey, Iterator<TKey, T>):bool ...): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @psalm-return Closure(callable(T, TKey, Iterator<TKey, T>):bool ...): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {

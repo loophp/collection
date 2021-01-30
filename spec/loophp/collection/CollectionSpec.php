@@ -81,10 +81,8 @@ class CollectionSpec extends ObjectBehavior
         ];
 
         if ($stack !== $expected) {
-            throw new Exception('Error');
+            throw new Exception('The expected value does not match.');
         }
-
-        // ---
 
         $stack = [];
 
@@ -104,10 +102,8 @@ class CollectionSpec extends ObjectBehavior
         ];
 
         if ($stack !== $expected) {
-            throw new Exception('Error');
+            throw new Exception('The expected value does not match.');
         }
-
-        // ---
 
         $stack = [];
 
@@ -137,10 +133,8 @@ class CollectionSpec extends ObjectBehavior
         ];
 
         if ($stack !== $expected) {
-            throw new Exception('Error');
+            throw new Exception('The expected value does not match.');
         }
-
-        // ---
 
         $stack = [];
 
@@ -176,7 +170,7 @@ class CollectionSpec extends ObjectBehavior
         ];
 
         if ($stack !== $expected) {
-            throw new Exception('Error');
+            throw new Exception('The expected value does not match.');
         }
     }
 
