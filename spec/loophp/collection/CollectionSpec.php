@@ -58,92 +58,126 @@ class CollectionSpec extends ObjectBehavior
 
     public function it_can_apply(): void
     {
-        $input = array_combine(range('A', 'Z'), range('A', 'Z'));
-
-        $this::fromIterable($input)
-            ->apply(static function ($item) {
-                // do what you want here.
-
-                return true;
-            })
-            ->shouldIterateAs($input);
-
-        $this::fromIterable($input)
-            ->apply(static function ($item) {
-                // do what you want here.
-
-                return false;
-            })
-            ->shouldIterateAs($input);
+        $input = range('a', 'e');
+        $stack = [];
 
         $this::fromIterable($input)
             ->apply(
-                static function ($item) {
-                    return $item;
-                }
-            )
-            ->shouldIterateAs($input);
-
-        $this::fromIterable($input)
-            ->apply(
-                static function ($item) {
-                    return false;
-                }
-            )
-            ->shouldReturnAnInstanceOf(Collection::class);
-
-        $callback = static function (): void {
-            throw new Exception('foo');
-        };
-
-        $this::fromIterable($input)
-            ->apply($callback)
-            ->shouldThrow(Exception::class)
-            ->during('all');
-
-        $apply1 = static function ($value) {
-            return true === $value % 2;
-        };
-
-        $apply2 = static function ($value) {
-            return true === $value % 3;
-        };
-
-        $this::fromIterable([1, 2, 3, 4, 5, 6])
-            ->apply($apply1)
-            ->apply($apply2)
-            ->shouldIterateAs([1, 2, 3, 4, 5, 6]);
-
-        $a = (new stdClass());
-        $b = (new stdClass());
-        $c = (new stdClass());
-
-        $a->prop = 'a';
-        $b->prop = 'b';
-        $c->prop = 'c';
-
-        $input = [
-            $a, $b, $c,
-        ];
-
-        $this::fromIterable($input)
-            ->apply(
-                static function ($value, $key): bool {
-                    $value->prop = $key;
+                static function ($item) use (&$stack): bool {
+                    $stack += [$item => []];
+                    $stack[$item][] = 'fn1';
 
                     return true;
                 }
             )
-            ->map(
-                static function ($value): int {
-                    return $value->prop;
+            ->shouldIterateAs($input);
+
+        $expected = [
+            'a' => ['fn1'],
+            'b' => ['fn1'],
+            'c' => ['fn1'],
+            'd' => ['fn1'],
+            'e' => ['fn1'],
+        ];
+
+        if ($stack !== $expected) {
+            throw new Exception('Error');
+        }
+
+        // ---
+
+        $stack = [];
+
+        $this::fromIterable($input)
+            ->apply(
+                static function ($item) use (&$stack): bool {
+                    $stack += [$item => []];
+                    $stack[$item][] = 'fn1';
+
+                    return false;
                 }
             )
-            ->shouldIterateAs([
-                0,
-                1,
-                2,
-            ]);
+            ->shouldIterateAs($input);
+
+        $expected = [
+            'a' => ['fn1'],
+        ];
+
+        if ($stack !== $expected) {
+            throw new Exception('Error');
+        }
+
+        // ---
+
+        $stack = [];
+
+        $this::fromIterable($input)
+            ->apply(
+                static function ($item) use (&$stack): bool {
+                    $stack += [$item => []];
+                    $stack[$item][] = 'fn1';
+
+                    return true;
+                },
+                static function ($item) use (&$stack): bool {
+                    $stack += [$item => []];
+                    $stack[$item][] = 'fn2';
+
+                    return true;
+                }
+            )
+            ->shouldIterateAs($input);
+
+        $expected = [
+            'a' => ['fn1', 'fn2'],
+            'b' => ['fn1', 'fn2'],
+            'c' => ['fn1', 'fn2'],
+            'd' => ['fn1', 'fn2'],
+            'e' => ['fn1', 'fn2'],
+        ];
+
+        if ($stack !== $expected) {
+            throw new Exception('Error');
+        }
+
+        // ---
+
+        $stack = [];
+
+        $this::fromIterable($input)
+            ->apply(
+                static function ($item) use (&$stack): bool {
+                    $stack += [$item => []];
+                    $stack[$item][] = 'fn1';
+
+                    if ('c' === $item) {
+                        return false;
+                    }
+
+                    return true;
+                },
+                static function ($item) use (&$stack): bool {
+                    $stack += [$item => []];
+                    $stack[$item][] = 'fn2';
+
+                    if ('b' === $item) {
+                        return false;
+                    }
+
+                    return true;
+                }
+            )
+            ->shouldIterateAs($input);
+
+        $expected = [
+            'a' => ['fn1', 'fn2'],
+            'b' => ['fn1', 'fn2'],
+            'c' => ['fn1'],
+        ];
+
+        if ($stack !== $expected) {
+            throw new Exception('Error');
+        }
     }
 
     public function it_can_associate(): void
