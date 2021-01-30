@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
+use Iterator;
 use loophp\collection\Contract\Collection;
 
 /**
@@ -14,8 +15,8 @@ use loophp\collection\Contract\Collection;
 interface Associateable
 {
     /**
-     * @psalm-param null|callable(TKey, T):TKey $callbackForKeys
-     * @psalm-param null|callable(TKey, T):T $callbackForValues
+     * @psalm-param null|callable(TKey, TKey, T, Iterator<TKey, T>):TKey $callbackForKeys
+     * @psalm-param null|callable(T, TKey, T, Iterator<TKey, T>):T $callbackForValues
      *
      * @psalm-return \loophp\collection\Collection<TKey, T>
      */

@@ -20,13 +20,13 @@ use Iterator;
 final class Associate extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(callable(T , TKey , T , Iterator<TKey, T> ): (T | TKey) ...):Closure ((callable(T, TKey, T, Iterator<TKey, T>): (T|TKey))...): Closure(Iterator<TKey, T>): Generator<TKey|T, T|TKey>
+     * @psalm-return Closure(callable(TKey, TKey, T, Iterator<TKey, T>): (T|TKey) ...): Closure((callable(T, TKey, T, Iterator<TKey, T>): (T|TKey))...): Closure(Iterator<TKey, T>): iterable<TKey|T, T|TKey>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param callable(T, TKey, T, Iterator<TKey, T>): (T|TKey) ...$callbackForKeys
+             * @psalm-param callable(TKey, TKey, T, Iterator<TKey, T>): (T|TKey) ...$callbackForKeys
              *
              * @psalm-return Closure((callable(T, TKey, T, Iterator<TKey, T>): (T|TKey))...): Closure(Iterator<TKey, T>): Generator<TKey|T, T|TKey>
              */
@@ -48,25 +48,25 @@ final class Associate extends AbstractOperation
                              * @param mixed $key
                              * @psalm-param TKey $key
                              *
-                             * @psalm-return Closure(T): Closure(T, callable(T, TKey, T, Iterator<TKey, T>): (T|TKey), int, Iterator<TKey, T>): (T|TKey)
+                             * @psalm-return Closure(T): Closure(T|TKey, callable(T|TKey, TKey, T, Iterator<TKey, T>): (T|TKey), int, Iterator<TKey, T>): (T|TKey)
                              */
                             static fn ($key): Closure =>
                                 /**
                                  * @param mixed $value
                                  * @psalm-param T $value
                                  *
-                                 * @psalm-return Closure(T, callable(T, TKey, T, Iterator<TKey, T>): (T|TKey), int, Iterator<TKey, T>): (T|TKey)
+                                 * @psalm-return Closure(T|TKey, callable(T|TKey, TKey, T, Iterator<TKey, T>): (T|TKey), int, Iterator<TKey, T>): (T|TKey)
                                  */
                                 static fn ($value): Closure =>
                                     /**
-                                     * @param mixed $initial
-                                     * @psalm-param T $initial
-                                     * @psalm-param callable(T, TKey, T, Iterator<TKey, T>): (T|TKey) $callback
+                                     * @param mixed $accumulator
+                                     * @psalm-param T|TKey $accumulator
+                                     * @psalm-param callable(T|TKey, TKey, T, Iterator<TKey, T>): (T|TKey) $callback
                                      * @psalm-param Iterator<TKey, T> $iterator
                                      *
                                      * @psalm-return T|TKey
                                      */
-                                    static fn ($initial, callable $callback, int $callbackId, Iterator $iterator) => $callback($initial, $key, $value, $iterator);
+                                    static fn ($accumulator, callable $callback, int $callbackId, iterable $iterator) => $callback($accumulator, $key, $value, $iterator);
 
                         foreach ($iterator as $key => $value) {
                             /** @psalm-var Generator<int, TKey|T> $k */
