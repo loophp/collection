@@ -36,13 +36,13 @@ final class Apply extends AbstractOperation
                     $continue = true;
 
                     foreach ($iterator as $key => $value) {
-                        if (false !== $continue) {
-                            foreach ($callbacks as $callback) {
-                                if (true === $continue = $callback($value, $key)) {
-                                    continue;
-                                }
+                        if (true === $continue) {
+                            foreach ($callbacks as $cKey => $callback) {
+                                $result = $callback($value, $key);
 
-                                $continue = false;
+                                if (false === $result) {
+                                    unset($callbacks[$cKey]);
+                                }
                             }
                         }
 
