@@ -2,6 +2,7 @@
 
 on:
     - pull_request
+    - push
 
 name: "Static analysis"
 
@@ -57,5 +58,5 @@ jobs:
                 vendor/bin/psalm --output-format=github | cs2pr
 
             - name: Send PSALM data
-              run: vendor/bin/psalm --shepherd --stats
+              run: vendor/bin/psalm --shepherd --stats src/
               continue-on-error: true
