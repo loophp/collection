@@ -15,7 +15,6 @@ use Iterator;
  * @psalm-template T
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
- * phpcs:disable Generic.WhiteSpace.ScopeIndent.IncorrectExact
  */
 final class Associate extends AbstractOperation
 {

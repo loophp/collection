@@ -14,18 +14,17 @@ use Iterator;
  * @psalm-template T
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
- * phpcs:disable Generic.WhiteSpace.ScopeIndent.IncorrectExact
  */
 final class Since extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(callable(T , TKey ): bool ...):Closure (Iterator<TKey, T>): Generator<TKey, T>
+     * @psalm-return Closure(callable(T, TKey, Iterator<TKey, T>):bool ...): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param callable(T, TKey):bool ...$callbacks
+             * @psalm-param callable(T, TKey, Iterator<TKey, T>):bool ...$callbacks
              *
              * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */

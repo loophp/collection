@@ -15,7 +15,6 @@ use loophp\collection\Contract\Operation\Splitable;
  * @psalm-template T
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
- * phpcs:disable Generic.WhiteSpace.ScopeIndent.IncorrectExact
  */
 final class Split extends AbstractOperation
 {

@@ -29,7 +29,6 @@ if (false === function_exists('Amp\ParallelFunctions\parallel')) {
  * @psalm-template T
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
- * phpcs:disable Generic.WhiteSpace.ScopeIndent.IncorrectExact
  */
 final class AsyncMap extends AbstractOperation
 {

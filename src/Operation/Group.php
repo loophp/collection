@@ -12,8 +12,6 @@ use Iterator;
  * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
- *
- * phpcs:disable Generic.WhiteSpace.ScopeIndent.IncorrectExact
  */
 final class Group extends AbstractOperation
 {

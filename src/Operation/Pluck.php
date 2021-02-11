@@ -23,7 +23,6 @@ use function is_object;
  * @psalm-template T
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
- * phpcs:disable Generic.WhiteSpace.ScopeIndent.IncorrectExact
  */
 final class Pluck extends AbstractOperation
 {
