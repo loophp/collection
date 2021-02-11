@@ -1857,6 +1857,37 @@ EOF;
             ->shouldIterateAs($gen());
     }
 
+    public function it_can_partition(): void
+    {
+        $isGreaterThan = static fn (int $left): Closure => static fn (int $right): bool => $left < $right;
+
+        $input = array_combine(range('a', 'l'), [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3]);
+
+        $this::fromIterable($input)
+            ->partition(
+                $isGreaterThan(5),
+                $isGreaterThan(3)
+            )
+            ->shouldIterateAs([
+                [
+                    ['d', 4],
+                    ['e', 5],
+                    ['f', 6],
+                    ['g', 7],
+                    ['h', 8],
+                    ['i', 9],
+                ],
+                [
+                    ['a', 1],
+                    ['b', 2],
+                    ['c', 3],
+                    ['j', 1],
+                    ['k', 2],
+                    ['l', 3],
+                ],
+            ]);
+    }
+
     public function it_can_permutate(): void
     {
         $this::fromIterable(range('a', 'c'))

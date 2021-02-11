@@ -67,6 +67,7 @@ use loophp\collection\Contract\Operation\Nullsyable;
 use loophp\collection\Contract\Operation\Packable;
 use loophp\collection\Contract\Operation\Padable;
 use loophp\collection\Contract\Operation\Pairable;
+use loophp\collection\Contract\Operation\Partitionable;
 use loophp\collection\Contract\Operation\Permutateable;
 use loophp\collection\Contract\Operation\Pipeable;
 use loophp\collection\Contract\Operation\Pluckable;
@@ -275,6 +276,7 @@ interface Collection extends
     Packable,
     Padable,
     Pairable,
+    Partitionable,
     Permutateable,
     Pipeable,
     Pluckable,

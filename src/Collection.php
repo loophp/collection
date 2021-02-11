@@ -72,6 +72,7 @@ use loophp\collection\Operation\Nullsy;
 use loophp\collection\Operation\Pack;
 use loophp\collection\Operation\Pad;
 use loophp\collection\Operation\Pair;
+use loophp\collection\Operation\Partition;
 use loophp\collection\Operation\Permutate;
 use loophp\collection\Operation\Pipe;
 use loophp\collection\Operation\Pluck;
@@ -558,6 +559,11 @@ final class Collection implements CollectionInterface
     public function pair(): CollectionInterface
     {
         return new self(Pair::of(), $this->getIterator());
+    }
+
+    public function partition(callable ...$callbacks): CollectionInterface
+    {
+        return new self(Partition::of()(...$callbacks), $this->getIterator());
     }
 
     public function permutate(): CollectionInterface

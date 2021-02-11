@@ -1270,6 +1270,22 @@ Signature: ``Collection::pair();``
     //    ]
     // ]
 
+partition
+~~~~~~~~~
+
+With one or multiple callable, partition the items into 2 subgroups of items.
+
+.. warning:: The `callbacks` parameter is variadic and they are evaluated as a logical ``OR``.
+             If you're looking for a logical ``AND``, you have make multiple calls to the
+             same operation.
+
+Interface: `Partitionable`_
+
+Signature: ``Collection::partition(callable ...$callbacks);``
+
+.. literalinclude:: code/operations/partition.php
+  :language: php
+
 permutate
 ~~~~~~~~~
 
@@ -2162,6 +2178,7 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Packable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Packable.php
 .. _Padable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Padable.php
 .. _Pairable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Pairable.php
+.. _Partitionable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Partitionable.php
 .. _Permutateable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Permutateable.php
 .. _Pluckable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Pluckable.php
 .. _Prependable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Prependable.php
