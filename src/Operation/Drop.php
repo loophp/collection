@@ -30,8 +30,6 @@ final class Drop extends AbstractOperation
                  *
                  * @psalm-return Iterator<TKey, T>
                  */
-                static function (Iterator $iterator) use ($offsets): Iterator {
-                    return new LimitIterator($iterator, array_sum($offsets));
-                };
+                static fn (Iterator $iterator): Iterator => new LimitIterator($iterator, array_sum($offsets));
     }
 }
