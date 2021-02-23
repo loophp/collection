@@ -32,8 +32,6 @@ final class Append extends AbstractOperation
                  *
                  * @psalm-return Iterator<int|TKey, T>
                  */
-                static function (Iterator $iterator) use ($items): Iterator {
-                    return new MultipleIterableIterator($iterator, $items);
-                };
+                static fn (Iterator $iterator): Iterator => new MultipleIterableIterator($iterator, $items);
     }
 }
