@@ -30,8 +30,6 @@ final class Merge extends AbstractOperation
                  *
                  * @psalm-return Iterator<TKey, T>
                  */
-                static function (Iterator $iterator) use ($sources): Iterator {
-                    return new MultipleIterableIterator($iterator, ...$sources);
-                };
+                static fn (Iterator $iterator): Iterator => new MultipleIterableIterator($iterator, ...$sources);
     }
 }
