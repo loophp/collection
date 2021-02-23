@@ -32,8 +32,6 @@ final class Prepend extends AbstractOperation
                  *
                  * @psalm-return Iterator<int|TKey, T>
                  */
-                static function (Iterator $iterator) use ($items): Iterator {
-                    return new MultipleIterableIterator($items, $iterator);
-                };
+                static fn (Iterator $iterator): Iterator => new MultipleIterableIterator($items, $iterator);
     }
 }
