@@ -4,7 +4,7 @@ Requirements
 PHP
 ---
 
-PHP greater than 7.1.3 is required.
+PHP greater than 7.4 is required.
 
 Dependencies
 ------------
