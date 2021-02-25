@@ -800,6 +800,81 @@ class CollectionSpec extends ObjectBehavior
             ]);
     }
 
+    public function it_can_dump(): void
+    {
+        $count = 0;
+        $input = range('a', 'e');
+
+        $callback = static function (string $name, $key, $value) use (&$count) {
+            ++$count;
+        };
+
+        $this::fromIterable($input)
+            ->dump('here', 0, $callback)
+            ->shouldIterateAs($input);
+
+        if (5 !== $count) {
+            throw new Exception('Invalid count1');
+        }
+
+        $count = 0;
+
+        $callback = static function (string $name, $key, $value) use (&$count) {
+            ++$count;
+        };
+
+        $this::fromIterable($input)
+            ->dump('here', -1, $callback)
+            ->shouldIterateAs($input);
+
+        if (0 !== $count) {
+            throw new Exception('Invalid count2');
+        }
+
+        $callback = static function (string $name, $key, $value) use (&$count) {
+            ++$count;
+        };
+
+        $this::fromIterable($input)
+            ->dump('here', 2, $callback)
+            ->shouldIterateAs($input);
+
+        if (2 !== $count) {
+            throw new Exception('Invalid count3');
+        }
+
+        ob_start();
+        $this::fromIterable($input)
+            ->dump('debug', 2)
+            ->shouldIterateAs($input);
+        $output = ob_get_contents();
+        ob_end_clean();
+
+        $expectedOutput = <<<'EOF'
+array(3) {
+  ["name"]=>
+  string(5) "debug"
+  ["key"]=>
+  int(0)
+  ["value"]=>
+  string(1) "a"
+}
+array(3) {
+  ["name"]=>
+  string(5) "debug"
+  ["key"]=>
+  int(1)
+  ["value"]=>
+  string(1) "b"
+}
+
+EOF;
+
+        if ($expectedOutput !== $output) {
+            throw new Exception('Invalid output');
+        }
+    }
+
     public function it_can_duplicate(): void
     {
         $result = static function () {
