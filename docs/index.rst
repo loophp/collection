@@ -45,7 +45,7 @@ This library has been inspired by:
  * `mtdowling/transducers`_
  * `Ruby Array`_
  * `Collect.js`_
- * `Rambda`_
+ * `Ramda`_
  * `nikic/iter`_
  * `Haskell`_
  * `Lazy.js`_
@@ -147,7 +147,7 @@ For more detailed changelogs, please check `the release changelogs`_.
 .. _mtdowling/transducers: https://github.com/mtdowling/transducers.php
 .. _Ruby Array: https://ruby-doc.org/core-2.7.0/Array.html
 .. _Collect.js: https://collect.js.org
-.. _Rambda: https://ramdajs.com/
+.. _Ramda: https://ramdajs.com/
 .. _Haskell: https://www.haskell.org/
 .. _new Collection object: https://github.com/loophp/collection/blob/master/src/Collection.php
 .. _SplObjectStorage: https://www.php.net/manual/en/class.splobjectstorage.php
