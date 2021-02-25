@@ -526,6 +526,21 @@ Signature: ``Collection::dropWhile(callable ...$callbacks);``
     Collection::fromIterable([1,2,3,4,5,6,7,8,9,1,2,3])
         ->dropWhile($isSmallerThanThree); // [3,4,5,6,7,8,9,1,2,3]
 
+dump
+~~~~
+
+Dump one or multiple items. It uses `symfony/var-dumper`_ if it is available,
+`var_dump()`_ otherwise. A custom `callback` might be also used.
+
+Interface: `Dumpable`_
+
+Signature: ``Collection::dump(string $name = '', int $size = 1, ?Closure $closure = null);``
+
+.. code-block:: php
+
+    Collection::fromIterable(range('a', 'e'))
+        ->dump('Debug', 2); // Will debug the 2 first values.
+
 duplicate
 ~~~~~~~~~
 
@@ -2136,6 +2151,7 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Distinctable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Distinctable.php
 .. _Dropable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Dropable.php
 .. _DropWhileable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/DropWhileable.php
+.. _Dumpable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Dumpable.php
 .. _Duplicateable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Duplicateable.php
 .. _Everyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Everyable.php
 .. _Explodeable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Explodeable.php
@@ -2214,3 +2230,5 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Wordsable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Wordsable.php
 .. _Wrapable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Wrapable.php
 .. _Zipable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Zipable.php
+.. _symfony/var-dumper: https://packagist.org/packages/symfony/var-dumper
+.. _var_dump(): https://www.php.net/var_dump

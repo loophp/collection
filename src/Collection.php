@@ -32,6 +32,7 @@ use loophp\collection\Operation\DiffKeys;
 use loophp\collection\Operation\Distinct;
 use loophp\collection\Operation\Drop;
 use loophp\collection\Operation\DropWhile;
+use loophp\collection\Operation\Dump;
 use loophp\collection\Operation\Duplicate;
 use loophp\collection\Operation\Every;
 use loophp\collection\Operation\Explode;
@@ -272,6 +273,11 @@ final class Collection implements CollectionInterface
     public function dropWhile(callable ...$callbacks): CollectionInterface
     {
         return new self(DropWhile::of()(...$callbacks), $this->getIterator());
+    }
+
+    public function dump(string $name = '', int $size = 1, ?Closure $closure = null): CollectionInterface
+    {
+        return new self(Dump::of()($name)($size)($closure), $this->getIterator());
     }
 
     public function duplicate(): CollectionInterface
