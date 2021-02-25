@@ -1,7 +1,7 @@
 PHP Collection
 ==============
 
-Collection is a functional utility library for PHP greater than 7.1.3.
+Collection is a functional utility library for PHP greater than 7.4.
 
 It's similar to `other available collection libraries`_ based on regular PHP arrays,
 but with a lazy mechanism under the hood that strives to do as little work as possible while being as flexible
