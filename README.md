@@ -57,9 +57,9 @@ This library has been inspired by:
 * [mtdowling/transducers][mtdowling/transducers]
 * [Ruby Array][ruby array]
 * [Collect.js][collect.js]
-* [Rambda][rambda]
 * [nikic/iter][nikic/iter package]
 * [Haskell][haskell]
+* [Ramda][ramda]
 * [Lazy.js][lazy.js]
 
 ## Features
@@ -239,5 +239,5 @@ For more detailed changelogs, please check [the release changelogs][changelog-re
 [haskell]: https://www.haskell.org/
 [brian lonsdorf conference]: https://www.youtube.com/watch?v=m3svKOdZijA
 [hugh jackson post]: http://hughfdjackson.com/javascript/why-curry-helps/
-[rambda]: https://ramdajs.com/
+[ramda]: https://ramdajs.com/
 [flatmap]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flatMap
