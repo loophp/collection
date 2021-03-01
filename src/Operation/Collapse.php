@@ -16,22 +16,27 @@ use Iterator;
 final class Collapse extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<array-key, (T | iterable<TKey, T>)>):Generator<TKey, T>
+     * @psalm-return Closure(Iterator<TKey, (T|iterable<TKey, T>)>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param Iterator<array-key, T|iterable<TKey, T>> $iterator
+             * @psalm-param Iterator<TKey, T|iterable<TKey, T>> $iterator
              *
              * @psalm-return Generator<TKey, T>
              */
             static function (Iterator $iterator): Generator {
-                foreach ($iterator as $value) {
-                    if (false === is_iterable($value)) {
-                        continue;
-                    }
+                /** @psalm-var Closure(Iterator<TKey, T|iterable<TKey, T>>): Generator<TKey, iterable<TKey, T>> $filter */
+                $filter = Filter::of()(
+                    /**
+                     * @param mixed $value
+                     * @psalm-param T $value
+                     */
+                    static fn ($value): bool => is_iterable($value)
+                );
 
+                foreach ($filter($iterator) as $value) {
                     yield from $value;
                 }
             };

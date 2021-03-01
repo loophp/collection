@@ -18,7 +18,7 @@ use Iterator;
 final class GroupBy extends AbstractOperation
 {
     /**
-     * @psalm-return Closure((null | callable(TKey , T ): (TKey | null))):Closure (Iterator<TKey, T>): Generator<int, T|list<T>>
+     * @psalm-return Closure((null | callable(TKey, T ): (TKey | null))):Closure (Iterator<TKey, T>): Generator<int, T|list<T>>
      */
     public function __invoke(): Closure
     {

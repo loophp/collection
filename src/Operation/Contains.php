@@ -38,7 +38,7 @@ final class Contains extends AbstractOperation
                         static fn ($right): bool => $left === $right;
 
                 /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, bool> $matchOne */
-                $matchOne = MatchOne::of()(static fn () => true)(...array_map($callback, $values));
+                $matchOne = MatchOne::of()(static fn (): bool => true)(...array_map($callback, $values));
 
                 // Point free style.
                 return $matchOne;

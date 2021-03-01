@@ -523,7 +523,7 @@ final class Collection implements CollectionInterface
 
     public function match(callable $callback, ?callable $matcher = null): CollectionInterface
     {
-        $matcher = $matcher ?? static fn () => true;
+        $matcher = $matcher ?? static fn (): bool => true;
 
         // @todo: Rename this in next major version.
         // We cannot use Match::class because PHP 8 has

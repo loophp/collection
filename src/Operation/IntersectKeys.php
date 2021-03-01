@@ -38,7 +38,7 @@ final class IntersectKeys extends AbstractOperation
                      * @param mixed $value
                      * @param mixed $key
                      */
-                    static fn ($value, $key, Iterator $iterator): bool => in_array($key, $keys, true);
+                    static fn ($value, $key): bool => in_array($key, $keys, true);
 
                 /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $filter */
                 $filter = Filter::of()($filterCallbackFactory($keys));

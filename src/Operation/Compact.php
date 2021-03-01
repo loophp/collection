@@ -33,11 +33,11 @@ final class Compact extends AbstractOperation
             static function (...$values): Closure {
                 $filterCallback = static fn (array $values): Closure => static fn ($value): bool => !in_array($value, $values, true);
 
-                /** @psalm-var Closure(Iterator<TKey, T>):Generator<TKey, T> $filter */
+                /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $filter */
                 $filter = Filter::of()(
                     $filterCallback(
                         [] === $values ?
-                            [null, [], 0, false, ''] :
+                            Nullsy::VALUES :
                             $values
                     )
                 );

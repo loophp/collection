@@ -18,7 +18,7 @@ use Iterator;
 final class FoldRight extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(callable((T | null) , T , TKey , Iterator<TKey, T> ): (T | null)):Closure (T): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @psalm-return Closure(callable((T|null), T, TKey, Iterator<TKey, T>):(T|null)): Closure(T): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {

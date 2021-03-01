@@ -31,14 +31,13 @@ final class DiffKeys extends AbstractOperation
             static function (...$values): Closure {
                 $filterCallbackFactory = static fn (array $values): Closure =>
                     /**
-                     * @psalm-param T $value
-                     * @psalm-param TKey $key
-                     * @psalm-param Iterator<TKey, T> $iterator
-                     *
                      * @param mixed $value
                      * @param mixed $key
+                     *
+                     * @psalm-param T $value
+                     * @psalm-param TKey $key
                      */
-                    static fn ($value, $key, Iterator $iterator): bool => false === in_array($key, $values, true);
+                    static fn ($value, $key): bool => false === in_array($key, $values, true);
 
                 /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $filter */
                 $filter = Filter::of()($filterCallbackFactory($values));

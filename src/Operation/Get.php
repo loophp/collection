@@ -27,26 +27,33 @@ final class Get extends AbstractOperation
              *
              * @psalm-return Closure(T): Closure(Iterator<TKey, T>): Generator<int|TKey, T>
              */
-            static fn ($keyToGet): Closure => static function ($default) use ($keyToGet): Closure {
-                $filterCallback =
-                    /**
-                     * @param mixed $value
-                     * @psalm-param T $value
-                     *
-                     * @param mixed $key
-                     * @psalm-param TKey $key
-                     */
-                    static fn ($value, $key): bool => $key === $keyToGet;
+            static fn ($keyToGet): Closure =>
+                /**
+                 * @param mixed $default
+                 * @psalm-param T $default
+                 *
+                 * @psalm-return Closure(Iterator<TKey, T>): Generator<int|TKey, T>
+                 */
+                static function ($default) use ($keyToGet): Closure {
+                    $filterCallback =
+                        /**
+                         * @param mixed $value
+                         * @psalm-param T $value
+                         *
+                         * @param mixed $key
+                         * @psalm-param TKey $key
+                         */
+                        static fn ($value, $key): bool => $key === $keyToGet;
 
-                /** @psalm-var Closure(Iterator<TKey, T>):(Generator<int|TKey, T>) $pipe */
-                $pipe = Pipe::of()(
-                    Filter::of()($filterCallback),
-                    Append::of()($default),
-                    Head::of()
-                );
+                    /** @psalm-var Closure(Iterator<TKey, T>):(Generator<int|TKey, T>) $pipe */
+                    $pipe = Pipe::of()(
+                        Filter::of()($filterCallback),
+                        Append::of()($default),
+                        Head::of()
+                    );
 
-                // Point free style.
-                return $pipe;
-            };
+                    // Point free style.
+                    return $pipe;
+                };
     }
 }

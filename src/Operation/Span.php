@@ -18,7 +18,7 @@ use Iterator;
 final class Span extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(callable(T , TKey , Iterator<TKey, T> ): bool):Closure (Iterator<TKey, T>): Generator<int, Iterator<TKey, T>>
+     * @psalm-return Closure(callable(T , TKey, Iterator<TKey, T>): bool):Closure (Iterator<TKey, T>): Generator<int, Iterator<TKey, T>>
      */
     public function __invoke(): Closure
     {

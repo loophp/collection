@@ -18,7 +18,7 @@ use Iterator;
 final class Filter extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(callable(T , TKey , Iterator<TKey, T> ): bool ...): Closure (Iterator<TKey, T>): Iterator<TKey, T>
+     * @psalm-return Closure(callable(T , TKey, Iterator<TKey, T>): bool ...): Closure (Iterator<TKey, T>): Iterator<TKey, T>
      */
     public function __invoke(): Closure
     {
@@ -39,13 +39,8 @@ final class Filter extends AbstractOperation
                         /**
                          * @param mixed $value
                          * @psalm-param T $value
-                         *
-                         * @param mixed $key
-                         * @psalm-param TKey $key
-                         *
-                         * @psalm-param Iterator<TKey, T> $iterator
                          */
-                        static fn ($value, $key, Iterator $iterator): bool => (bool) $value;
+                        static fn ($value): bool => (bool) $value;
 
                     $callbacks = [] === $callbacks ?
                         [$defaultCallback] :

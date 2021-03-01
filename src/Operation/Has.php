@@ -24,11 +24,11 @@ final class Has extends AbstractOperation
     public function __invoke(): Closure
     {
         return
-            /**
-             * @psalm-param callable(T, TKey, Iterator<TKey, T>): T ...$callbacks
-             *
-             * @psalm-return Closure(Iterator<TKey, T>): Generator<int|TKey, bool>
-             */
+                /**
+                 * @psalm-param callable(T, TKey, Iterator<TKey, T>): T ...$callbacks
+                 *
+                 * @psalm-return Closure(Iterator<TKey, T>): Generator<int|TKey, bool>
+                 */
             static function (callable ...$callbacks): Closure {
                 return
                     /**
@@ -58,7 +58,7 @@ final class Has extends AbstractOperation
 
                         foreach ($iterator as $key => $current) {
                             /** @psalm-var Iterator<int, bool> $result */
-                            $result = MatchOne::of()(static fn () => true)(...$callbacks)(Pair::of()(new ArrayIterator([$key, $current])));
+                            $result = MatchOne::of()(static fn (): bool => true)(...$callbacks)(Pair::of()(new ArrayIterator([$key, $current])));
 
                             if (true === $result->current()) {
                                 return yield $key => true;

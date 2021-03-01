@@ -18,6 +18,11 @@ use function in_array;
 final class Nullsy extends AbstractOperation
 {
     /**
+     * @psalm-param list<null, array, int, bool, string>
+     */
+    public const VALUES = [null, [], 0, false, ''];
+
+    /**
      * @psalm-return Closure(Iterator<TKey, T>): Generator<int, bool>
      */
     public function __invoke(): Closure
@@ -27,7 +32,7 @@ final class Nullsy extends AbstractOperation
              * @param mixed $value
              * @psalm-param T $value
              */
-            static fn ($value): bool => in_array($value, [null, [], 0, false, ''], true);
+            static fn ($value): bool => in_array($value, self::VALUES, true);
 
         /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, bool> $pipe */
         $pipe = Pipe::of()(

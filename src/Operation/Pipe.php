@@ -18,7 +18,7 @@ use Iterator;
 final class Pipe extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(callable(Iterator<TKey, T> ): Iterator<TKey, T> ...): Closure (Iterator<TKey, T>): Iterator<TKey, T>
+     * @psalm-return Closure(callable(Iterator<TKey, T>): Iterator<TKey, T> ...): Closure (Iterator<TKey, T>): Iterator<TKey, T>
      */
     public function __invoke(): Closure
     {

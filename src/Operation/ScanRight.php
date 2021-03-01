@@ -18,7 +18,7 @@ use Iterator;
 final class ScanRight extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(callable((T | null) , T , TKey , Iterator<TKey, T> ): (T | null)):Closure (T|null): Closure(Iterator<TKey, T>): Generator<int|TKey, T|null>
+     * @psalm-return Closure(callable((T|null), T, TKey, Iterator<TKey, T>): (T|null)):Closure (T|null): Closure(Iterator<TKey, T>): Generator<int|TKey, T|null>
      */
     public function __invoke(): Closure
     {
