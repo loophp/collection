@@ -24,11 +24,11 @@ final class Has extends AbstractOperation
     public function __invoke(): Closure
     {
         return
-            /**
-             * @psalm-param callable(T, TKey, Iterator<TKey, T>): T ...$callbacks
-             *
-             * @psalm-return Closure(Iterator<TKey, T>): Generator<int|TKey, bool>
-             */
+                /**
+                 * @psalm-param callable(T, TKey, Iterator<TKey, T>): T ...$callbacks
+                 *
+                 * @psalm-return Closure(Iterator<TKey, T>): Generator<int|TKey, bool>
+                 */
             static function (callable ...$callbacks): Closure {
                 return
                     /**
