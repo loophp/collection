@@ -99,7 +99,6 @@ final class Pluck extends AbstractOperation
                                         /** @psalm-var T $target */
                                         $target = (new ReflectionClass($target))->getProperty($segment)->getValue($target);
                                     } else {
-                                        /** @psalm-var T $target */
                                         $target = $default;
                                     }
                                 }
