@@ -851,24 +851,24 @@ class CollectionSpec extends ObjectBehavior
         ob_end_clean();
 
         $expectedOutput = <<<'EOF'
-array(3) {
-  ["name"]=>
-  string(5) "debug"
-  ["key"]=>
-  int(0)
-  ["value"]=>
-  string(1) "a"
-}
-array(3) {
-  ["name"]=>
-  string(5) "debug"
-  ["key"]=>
-  int(1)
-  ["value"]=>
-  string(1) "b"
-}
+            array(3) {
+              ["name"]=>
+              string(5) "debug"
+              ["key"]=>
+              int(0)
+              ["value"]=>
+              string(1) "a"
+            }
+            array(3) {
+              ["name"]=>
+              string(5) "debug"
+              ["key"]=>
+              int(1)
+              ["value"]=>
+              string(1) "b"
+            }
 
-EOF;
+            EOF;
 
         if ($expectedOutput !== $output) {
             throw new Exception('Invalid output');
@@ -1722,10 +1722,10 @@ EOF;
     public function it_can_lines(): void
     {
         $string = <<<'EOF'
-The quick brow fox jumps over the lazy dog.
+            The quick brow fox jumps over the lazy dog.
 
-This is another sentence.
-EOF;
+            This is another sentence.
+            EOF;
 
         $lines = [
             'The quick brow fox jumps over the lazy dog.',
@@ -2986,10 +2986,10 @@ EOF;
     public function it_can_unwords(): void
     {
         $string = <<<'EOF'
-The quick brow fox jumps over the lazy dog.
+            The quick brow fox jumps over the lazy dog.
 
-This is another sentence.
-EOF;
+            This is another sentence.
+            EOF;
 
         $words = [
             'The',
@@ -3277,10 +3277,10 @@ EOF;
     public function it_can_words(): void
     {
         $string = <<<'EOF'
-The quick brow fox jumps over the lazy dog.
+            The quick brow fox jumps over the lazy dog.
 
-This is another sentence.
-EOF;
+            This is another sentence.
+            EOF;
 
         $words = [
             0 => 'The',

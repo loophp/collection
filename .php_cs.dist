@@ -1,8 +1,8 @@
 <?php
 
-use drupol\PhpCsFixerConfigsPhp\Config\Php71;
+use drupol\PhpCsFixerConfigsPhp\Config\Php73;
 
-$config = Php71::create();
+$config = Php73::create();
 
 $rules = $config->getRules();
 
