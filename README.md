@@ -190,7 +190,7 @@ For more detailed changelogs, please check [the release changelogs][changelog-re
 [github workflow status]: https://img.shields.io/github/workflow/status/loophp/collection/Unit%20tests?style=flat-square
 [code quality]: https://img.shields.io/scrutinizer/quality/g/loophp/collection/master.svg?style=flat-square
 [scrutinizer code quality]: https://scrutinizer-ci.com/g/loophp/collection/?branch=master
-[type coverage]: https://shepherd.dev/github/loophp/collection/coverage.svg
+[type coverage]: https://img.shields.io/badge/dynamic/json?style=flat-square&color=color&label=Type%20coverage&query=message&url=https%3A%2F%2Fshepherd.dev%2Fgithub%2Floophp%2Fcollection%2Fcoverage
 [sheperd type coverage]: https://shepherd.dev/github/loophp/collection
 [code coverage]: https://img.shields.io/scrutinizer/coverage/g/loophp/collection/master.svg?style=flat-square
 [license]: https://img.shields.io/packagist/l/loophp/collection.svg?style=flat-square
