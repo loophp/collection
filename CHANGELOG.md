@@ -5,11 +5,82 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.4.3](https://github.com/loophp/collection/compare/3.4.2...3.4.3)
+## [4.0.0](https://github.com/loophp/collection/compare/3.4.3...4.0.0)
+
+### Merged
+
+- update psalm type for map operation [`#72`](https://github.com/loophp/collection/pull/72)
+- chore(deps): Bump actions/stale from v3.0.17 to v3.0.18 [`#70`](https://github.com/loophp/collection/pull/70)
+- Fix typo in the docs [`#68`](https://github.com/loophp/collection/pull/68)
+- Fix minimum PHP version in the docs [`#69`](https://github.com/loophp/collection/pull/69)
+- feat: Add Dump operation. [`#67`](https://github.com/loophp/collection/pull/67)
+- chore(deps): Bump actions/stale from v3.0.16 to v3.0.17 [`#66`](https://github.com/loophp/collection/pull/66)
+- chore(deps): Bump actions/cache from v2 to v2.1.4 [`#64`](https://github.com/loophp/collection/pull/64)
+- chore(deps): Bump actions/stale from v3.0.15 to v3.0.16 [`#65`](https://github.com/loophp/collection/pull/65)
+- fix: Update behavior of Apply operation. [`#63`](https://github.com/loophp/collection/pull/63)
+- chore(deps): Bump actions/stale from v3.0.14 to v3.0.15 [`#60`](https://github.com/loophp/collection/pull/60)
+- chore(deps-dev): Update infection/infection requirement from ^0.20.1 to ^0.20.1 || ^0.21.0 [`#61`](https://github.com/loophp/collection/pull/61)
+
+### Fixed
+
+- update psalm type for map operation [`#71`](https://github.com/loophp/collection/issues/71)
+
+### Commits
+
+- **Breaking change:** fix: Update behavior of Apply operation. [`e4fa034`](https://github.com/loophp/collection/commit/e4fa03447be559f4c5a835d788e408c06a31ff62)
+- **Breaking change:** refactor: Update Every operation. [`fb542be`](https://github.com/loophp/collection/commit/fb542bea984d222c57c742874ae0e960a2631ed6)
+- **Breaking change:** refactor: Update TakeWhile operation. [`dbb9307`](https://github.com/loophp/collection/commit/dbb9307a118519ab2aaa1d941c4afbf58ffbba9b)
+- **Breaking change:** refactor: Update Until operation. [`71a7693`](https://github.com/loophp/collection/commit/71a769368bfed5d92cb799024692b6a252eb10f3)
+- refactor: Minor syntax update (php74). [`3c2d3e3`](https://github.com/loophp/collection/commit/3c2d3e31536ca095be5e50c7498968d7b237ea41)
+- chore: Update badge. [`c5a9e58`](https://github.com/loophp/collection/commit/c5a9e58298de080f6ec1ed94e1620346ca4a9800)
+- fix: Documentation code style. [`cd0f8f8`](https://github.com/loophp/collection/commit/cd0f8f818ed730df004bc5211e49b0e846167094)
+- cs: Fix minor things here and there. [`9780bbd`](https://github.com/loophp/collection/commit/9780bbdfbc768b6cb2a8475a6754e0cdb4e06523)
+- fix: Documentation code style. [`152447b`](https://github.com/loophp/collection/commit/152447b9d894f88a01fdb3878c1c9a4c0f6739f3)
+- docs: Minor typing update. [`5aa1d02`](https://github.com/loophp/collection/commit/5aa1d0270be6afc0c5c18519b2e5e6c1346bf5da)
+-  docs: Minor typing update. [`f620859`](https://github.com/loophp/collection/commit/f6208598e5f2e24c928a427cd8b42039a66d996c)
+-  docs: Minor typing update. [`84ea356`](https://github.com/loophp/collection/commit/84ea356cb372351a9a7deb4673c4acb18792ace8)
+- fix: Typo in README. [`be4aec3`](https://github.com/loophp/collection/commit/be4aec30db6d61320018bc1bae362d6e12af6d54)
+- refactor: Update Merge operation - use PHP 7.4 code style. [`e967e01`](https://github.com/loophp/collection/commit/e967e014c2c0c5ccb6c18c3a29b40c15473baed4)
+- refactor: Update Append operation - use PHP 7.4 code style. [`27285f8`](https://github.com/loophp/collection/commit/27285f8b695ec4fe5e2e8cd4cb543b3886e5dbc9)
+- refactor: Update Prepend operation - use PHP 7.4 code style. [`b990edb`](https://github.com/loophp/collection/commit/b990edbd2d94ea3c5b731f75483388ef72d40bae)
+- refactor: Update Drop operation - use PHP 7.4 code style. [`406afee`](https://github.com/loophp/collection/commit/406afee28725ebcd7c671b9d191010e3901725e6)
+- feat: Add Partition command. [`97f8479`](https://github.com/loophp/collection/commit/97f847987bca1c2484288df9b2e0644ea1b6b88b)
+- refactor: Remove obsolete PHPCS options. [`bc6d61e`](https://github.com/loophp/collection/commit/bc6d61e95f375f5cc7303870592dc98ab1563ab8)
+- fix: Update Github configuration. [`9327044`](https://github.com/loophp/collection/commit/9327044665b04978c0708ae8a60f9f3f3fa135f2)
+- refactor: Minor cosmetic stuff. [`42197be`](https://github.com/loophp/collection/commit/42197be7bf929b77311949cc6633363fc56c9123)
+- refactor: Fix CS. [`bd8c40f`](https://github.com/loophp/collection/commit/bd8c40f8c3af745303fcfb69ea2b998bc9e9f234)
+- docs: Update Apply documentation. [`51b2494`](https://github.com/loophp/collection/commit/51b2494d23eac2aa93d92deec8ebca3506d157f8)
+- refactor: Cleanup. [`0d87d15`](https://github.com/loophp/collection/commit/0d87d15dd3b5e90c5ebae047e35b06287d24b4b3)
+- docs: Update typing information. [`51eff67`](https://github.com/loophp/collection/commit/51eff672b25ff8a7767ca62924dfba5957fd1b0a)
+- Update Apply. [`2797d5d`](https://github.com/loophp/collection/commit/2797d5dbf58250ca9fe3ff18e470b97564ce0748)
+- Add tests. [`0567c27`](https://github.com/loophp/collection/commit/0567c27285e05fb2f9f89727b16d7c6b1f08b405)
+- Fix CS. [`7705b94`](https://github.com/loophp/collection/commit/7705b949fe2f8e047f2442eb333de1deb8366212)
+- chore(deps-dev): Update infection/infection requirement || ^0.21.0 [`e591835`](https://github.com/loophp/collection/commit/e591835bc0fbeeac0827ebaf717a8043a964a602)
+- refactor: Minor optimization in Collection::fromCallable(). [`6d2e65a`](https://github.com/loophp/collection/commit/6d2e65af370e043be99f05f8b2db437cb99e4ee7)
+- docs: Update typing information. [`0f2d096`](https://github.com/loophp/collection/commit/0f2d0961c43135684423e2321c6bb640557e7bab)
+- refactor: Minor style and type changes. [`34d626c`](https://github.com/loophp/collection/commit/34d626ce0fc6de32692e6fc0ffa0d68d1c725df1)
+- docs: Update typing information. [`6c14308`](https://github.com/loophp/collection/commit/6c143083c6d0fa5fd1324216a5c84956040b1748)
+- docs: Update. [`79d8b2a`](https://github.com/loophp/collection/commit/79d8b2a9159362c3a5a61abc188494a245965583)
+- docs: Update typing information. [`861cb9f`](https://github.com/loophp/collection/commit/861cb9f1f593eea41ebafb40a761eabf606a95d3)
+- refactor: Update Split operation. [`7502dc0`](https://github.com/loophp/collection/commit/7502dc05725a34b562ecf47e04fedae18826b222)
+- refactor: Update Has operation. [`88cae79`](https://github.com/loophp/collection/commit/88cae79815effff64fce34d3e1ae15f102843ce4)
+- refactor: Update Contains operation. [`e646c8c`](https://github.com/loophp/collection/commit/e646c8cce4b844bcf27fbd99a9b957548fca072c)
+- refactor: Update Distinct operation. [`102a45d`](https://github.com/loophp/collection/commit/102a45deaa3d2147cb6b88d33dcdf5c87284a038)
+- refactor: Update DropWhile operation. [`0a91335`](https://github.com/loophp/collection/commit/0a91335c203deb80165ed1a295e6f34ad14c3474)
+- refactor: Update MatchOne operation. [`d1bdbdf`](https://github.com/loophp/collection/commit/d1bdbdf8cc71769050c498bfb6d1c783e59cda24)
+- refactor: Update Since operation. [`c8c3d9b`](https://github.com/loophp/collection/commit/c8c3d9ba5ae7bf2025f5c1a8c9e5b8ab4acf10a0)
+- refactor: Update Distinct operation. [`80e676b`](https://github.com/loophp/collection/commit/80e676b5f9c3b648bc93982e60d7cec2d1ab7502)
+- refactor: Minor - Fix typing information. [`c7aebfe`](https://github.com/loophp/collection/commit/c7aebfefa301b9e02600766646b122edff135f0e)
+- refactor: Minor - add missing return types. [`837bd76`](https://github.com/loophp/collection/commit/837bd769ddc6ff4db15d3d89e72ed20827c28681)
+- refactor: Minor optimization in Unwindow operation. [`710c52f`](https://github.com/loophp/collection/commit/710c52f9d1b8204c82db2a1253501b7a32ac7397)
+- refactor: Minor optimization in Split operation. [`ae36094`](https://github.com/loophp/collection/commit/ae3609417f241e716274dba6d236c15b6eb48ea4)
+
+## [3.4.3](https://github.com/loophp/collection/compare/3.4.2...3.4.3) - 2021-01-03
 
 ### Commits
 
 - **Breaking change:** refactor: Update Since operation. [`0420906`](https://github.com/loophp/collection/commit/04209063779ec48e44d8d8b3e772c0b67446e052)
+- docs: Update changelog. [`9be6443`](https://github.com/loophp/collection/commit/9be6443c532e447f26f3cdc38f9876bb0ce8c5ba)
 - refactor: Update Split operation. [`5b9d153`](https://github.com/loophp/collection/commit/5b9d1535f6b16ec27c8b778ab5afad83bbf8a43d)
 
 ## [3.4.2](https://github.com/loophp/collection/compare/3.4.1...3.4.2) - 2021-01-03
