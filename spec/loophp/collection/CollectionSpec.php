@@ -870,6 +870,12 @@ class CollectionSpec extends ObjectBehavior
 
             EOF;
 
+        var_dump('------');
+        print_r($expectedOutput);
+        var_dump('------');
+        print_r($output);
+        var_dump('------');
+
         if ($expectedOutput !== $output) {
             throw new Exception('Invalid output');
         }
