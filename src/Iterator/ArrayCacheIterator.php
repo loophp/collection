@@ -39,7 +39,6 @@ final class ArrayCacheIterator extends ProxyIterator
      */
     public function current()
     {
-        /** @psalm-var array{TKey, T} $data */
         $data = $this->getTupleFromCache($this->key);
 
         return $data[1];
@@ -50,7 +49,6 @@ final class ArrayCacheIterator extends ProxyIterator
      */
     public function key()
     {
-        /** @psalm-var array{TKey, T} $data */
         $data = $this->getTupleFromCache($this->key);
 
         return $data[0];

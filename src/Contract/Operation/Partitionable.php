@@ -17,7 +17,7 @@ interface Partitionable
      * @param callable ...$callbacks
      * @psalm-param callable(T, TKey):bool ...$callbacks
      *
-     * @psalm-return \loophp\collection\Collection<int, array{int, array<0: TKey, 1: T>}>
+     * @psalm-return \loophp\collection\Collection<int, array<int, array{0: TKey, 1: T}>>
      */
     public function partition(callable ...$callbacks): Collection;
 }

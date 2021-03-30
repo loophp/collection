@@ -24,16 +24,15 @@ final class Reverse extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        /**
-         * @param array $carry
-         * @psalm-param array<int, array{0: TKey, 1: T}> $carry
-         *
-         * @param array $value
-         * @psalm-param array{0: TKey, 1: T} $value
-         *
-         * @psalm-return array<int, array{0: TKey, 1: T}>
-         */
-        $callback = static fn (array $carry, array $value): array => [...$value, ...$carry];
+        $callback =
+            /**
+             * @psalm-param list<array{0: TKey, 1: T}> $carry
+             *
+             * @psalm-param list<array{0: TKey, 1: T}> $value
+             *
+             * @psalm-return list<array{0: TKey, 1: T}>
+             */
+            static fn (array $carry, array $value): array => [...$value, ...$carry];
 
         /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
         $pipe = Pipe::of()(
