@@ -8,6 +8,8 @@ use Closure;
 use Generator;
 use Iterator;
 
+use function call_user_func_array;
+
 /**
  * @psalm-template TKey
  * @psalm-template TKey of array-key
@@ -60,7 +62,7 @@ final class Partition extends AbstractOperation
                                      * @psalm-param bool $carry
                                      * @psalm-param callable(T, TKey, Iterator<TKey, T>): bool $callable
                                      */
-                                    static fn (bool $carry, callable $callable): bool => $carry || $callable($current, $key, $iterator);
+                                    static fn (bool $carry, callable $callable): bool => $carry || call_user_func_array($callable, [$current, $key, $iterator]);
 
                     $true = $false = [];
 

@@ -9,6 +9,8 @@ use Closure;
 use Generator;
 use Iterator;
 
+use function call_user_func_array;
+
 /**
  * @psalm-template TKey
  * @psalm-template TKey of array-key
@@ -52,7 +54,7 @@ final class Has extends AbstractOperation
                                  *
                                  * @psalm-param Iterator<TKey, T> $iterator
                                  */
-                                static fn ($value, $key, Iterator $iterator): bool => $callback($value, $key, $iterator) === $value,
+                                static fn ($value, $key, Iterator $iterator): bool => call_user_func_array($callback, [$value, $key, $iterator]) === $value,
                             $callbacks
                         );
 

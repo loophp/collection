@@ -14,6 +14,7 @@ use function Amp\Iterator\fromIterable;
 use function Amp\ParallelFunctions\parallel;
 use function Amp\Promise\wait;
 use function Amp\Sync\ConcurrentIterator\map;
+use function call_user_func_array;
 use function function_exists;
 
 // phpcs:disable
@@ -65,7 +66,7 @@ final class AsyncMap extends AbstractOperation
                              *
                              * @psalm-return T
                              */
-                            static fn ($carry, callable $callback) => $callback($carry, $key);
+                            static fn ($carry, callable $callback) => call_user_func_array($callback, [$carry, $key]);
 
                     $callback =
                         /**

@@ -9,6 +9,8 @@ use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation\Splitable;
 
+use function call_user_func_array;
+
 /**
  * @psalm-template TKey
  * @psalm-template TKey of array-key
@@ -67,7 +69,7 @@ final class Split extends AbstractOperation
                                          * @psalm-param bool $carry
                                          * @psalm-param callable(T, TKey, Iterator<TKey, T>): bool $callable
                                          */
-                                        static fn (bool $carry, callable $callable): bool => $carry || $callable($current, $key, $iterator);
+                                        static fn (bool $carry, callable $callable): bool => $carry || call_user_func_array($callable, [$current, $key, $iterator]);
 
                         foreach ($iterator as $key => $value) {
                             $callbackReturn = array_reduce(

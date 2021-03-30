@@ -8,6 +8,8 @@ use Closure;
 use Generator;
 use Iterator;
 
+use function call_user_func_array;
+
 /**
  * @psalm-template TKey
  * @psalm-template TKey of array-key
@@ -43,7 +45,7 @@ final class Reduction extends AbstractOperation
                      */
                     static function (Iterator $iterator) use ($callback, $initial): Generator {
                         foreach ($iterator as $key => $value) {
-                            yield $key => ($initial = $callback($initial, $value, $key, $iterator));
+                            yield $key => ($initial = call_user_func_array($callback, [$initial, $value, $key, $iterator]));
                         }
                     };
     }
