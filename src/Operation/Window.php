@@ -40,14 +40,10 @@ final class Window extends AbstractOperation
                     ++$size;
                     $size *= -1;
 
-                    /** @psalm-var list<T> $stack */
                     $stack = [];
 
                     foreach ($iterator as $key => $current) {
-                        // @todo Should we use Pack ?
-                        $stack[$key] = $current;
-
-                        yield $key => $stack = array_slice($stack, $size);
+                        yield $key => $stack = array_slice([...$stack, $current], $size);
                     }
                 };
     }
