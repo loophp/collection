@@ -5,7 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [4.0.0](https://github.com/loophp/collection/compare/3.4.3...4.0.0)
+## [4.0.1](https://github.com/loophp/collection/compare/4.0.0...4.0.1)
+
+### Merged
+
+- collection: implements missing \Countable interface [`#74`](https://github.com/loophp/collection/pull/74)
+- Fix minimum PHP version in the readme [`#73`](https://github.com/loophp/collection/pull/73)
+
+### Commits
+
+- refactor: Use call_user_func_array() functions. [`614a663`](https://github.com/loophp/collection/commit/614a66349af4e4aea801d5e298e96e99e0918b28)
+- refactor: Minor optimization in Window operation. [`1e8de4a`](https://github.com/loophp/collection/commit/1e8de4acb4e659dfb52cf00ebf2b6f18eb989b97)
+- refactor: Minor types fixes. [`77db2cd`](https://github.com/loophp/collection/commit/77db2cddf5d1b7718b7f041305689034144b1699)
+
+## [4.0.0](https://github.com/loophp/collection/compare/3.4.3...4.0.0) - 2021-03-18
 
 ### Merged
 
@@ -31,6 +44,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Breaking change:** refactor: Update Every operation. [`fb542be`](https://github.com/loophp/collection/commit/fb542bea984d222c57c742874ae0e960a2631ed6)
 - **Breaking change:** refactor: Update TakeWhile operation. [`dbb9307`](https://github.com/loophp/collection/commit/dbb9307a118519ab2aaa1d941c4afbf58ffbba9b)
 - **Breaking change:** refactor: Update Until operation. [`71a7693`](https://github.com/loophp/collection/commit/71a769368bfed5d92cb799024692b6a252eb10f3)
+- docs: Update changelog for release 4.0.0. [`730a638`](https://github.com/loophp/collection/commit/730a63823b972332a7bb27b322424ab8db440264)
 - refactor: Minor syntax update (php74). [`3c2d3e3`](https://github.com/loophp/collection/commit/3c2d3e31536ca095be5e50c7498968d7b237ea41)
 - chore: Update badge. [`c5a9e58`](https://github.com/loophp/collection/commit/c5a9e58298de080f6ec1ed94e1620346ca4a9800)
 - fix: Documentation code style. [`cd0f8f8`](https://github.com/loophp/collection/commit/cd0f8f818ed730df004bc5211e49b0e846167094)
