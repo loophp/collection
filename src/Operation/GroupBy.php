@@ -8,8 +8,6 @@ use Closure;
 use Generator;
 use Iterator;
 
-use function call_user_func_array;
-
 /**
  * @psalm-template TKey
  * @psalm-template TKey of array-key
@@ -64,7 +62,7 @@ final class GroupBy extends AbstractOperation
                          * @psalm-return non-empty-array<TKey, T|list<T>>
                          */
                         static function (array $collect, $value, $key) use ($callback): array {
-                            if (null !== $groupKey = call_user_func_array($callback, [$value, $key])) {
+                            if (null !== $groupKey = $callback($value, $key)) {
                                 $collect[$groupKey][] = $value;
                             } else {
                                 $collect[$key] = $value;

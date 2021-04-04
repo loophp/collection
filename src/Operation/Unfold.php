@@ -7,8 +7,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 
-use function call_user_func_array;
-
 /**
  * @psalm-template TKey
  * @psalm-template TKey of array-key
@@ -43,7 +41,7 @@ final class Unfold extends AbstractOperation
                     static function () use ($parameters, $callback): Generator {
                         while (true) {
                             /** @psalm-var T $parameters */
-                            $parameters = call_user_func_array($callback, array_values((array) $parameters));
+                            $parameters = $callback(...array_values((array) $parameters));
 
                             yield $parameters;
                         }

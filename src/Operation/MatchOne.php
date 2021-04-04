@@ -8,8 +8,6 @@ use Closure;
 use Generator;
 use Iterator;
 
-use function call_user_func_array;
-
 /**
  * @psalm-template TKey
  * @psalm-template TKey of array-key
@@ -56,7 +54,7 @@ final class MatchOne extends AbstractOperation
                                  */
                                 static fn ($value, $key, Iterator $iterator): bool => array_reduce(
                                     $callbacks,
-                                    static fn (bool $carry, callable $callback): bool => $carry || call_user_func_array($callback, [$value, $key, $iterator]),
+                                    static fn (bool $carry, callable $callback): bool => $carry || $callback($value, $key, $iterator),
                                     false
                                 );
 
@@ -72,7 +70,7 @@ final class MatchOne extends AbstractOperation
                              *
                              * @psalm-param Iterator<TKey, T> $iterator
                              */
-                            static fn ($value, $key, Iterator $iterator): bool => call_user_func_array($matcher, [$value, $key, $iterator]) === call_user_func_array($callback, [$value, $key, $iterator]);
+                            static fn ($value, $key, Iterator $iterator): bool => $matcher($value, $key, $iterator) === $callback($value, $key, $iterator);
 
                         $dropWhileCallback =
                             /**

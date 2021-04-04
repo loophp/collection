@@ -8,8 +8,6 @@ use Closure;
 use Generator;
 use Iterator;
 
-use function call_user_func_array;
-
 /**
  * @psalm-template TKey
  * @psalm-template TKey of array-key
@@ -50,7 +48,7 @@ final class Map extends AbstractOperation
                              *
                              * @psalm-return T
                              */
-                            static fn ($carry, callable $callback) => call_user_func_array($callback, [$carry, $key, $iterator]);
+                            static fn ($carry, callable $callback) => $callback($carry, $key, $iterator);
 
                     foreach ($iterator as $key => $value) {
                         yield $key => array_reduce($callbacks, $callbackFactory($key), $value);

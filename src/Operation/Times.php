@@ -9,8 +9,6 @@ use EmptyIterator;
 use Generator;
 use Iterator;
 
-use function call_user_func;
-
 /**
  * @psalm-template TKey
  * @psalm-template TKey of array-key
@@ -47,7 +45,7 @@ final class Times extends AbstractOperation
                         $callback ??= static fn (int $value): int => $value;
 
                         for ($current = 1; $current <= $number; ++$current) {
-                            yield call_user_func($callback, $current);
+                            yield $callback($current);
                         }
                     };
     }

@@ -11,8 +11,6 @@ use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 
-use function call_user_func_array;
-
 /**
  * @psalm-template TKey
  * @psalm-template TKey of array-key
@@ -78,7 +76,7 @@ final class Sort extends AbstractOperation
                                  * @psalm-param array{0:TKey|T, 1:T|TKey} $left
                                  * @psalm-param array{0:TKey|T, 1:T|TKey} $right
                                  */
-                                static fn (array $left, array $right): int => call_user_func_array($callback, [$left[1], $right[1]]);
+                                static fn (array $left, array $right): int => $callback($left[1], $right[1]);
 
                         /** @psalm-var callable(Iterator<TKey, T>): Generator<int, array{0:TKey, 1:T}> | callable(Iterator<TKey, T>): Generator<int, array{0:T, 1:TKey}> $before */
                         $before = Pipe::of()(...$operations['before']);
