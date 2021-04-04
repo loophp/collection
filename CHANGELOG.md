@@ -5,7 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [4.0.1](https://github.com/loophp/collection/compare/4.0.0...4.0.1)
+## [4.0.2](https://github.com/loophp/collection/compare/4.0.1...4.0.2)
+
+### Commits
+
+- Revert "refactor: Use call_user_func_array() functions." [`54327af`](https://github.com/loophp/collection/commit/54327afcdcb4a1e8f2d806aa5941ab20a6dcbea3)
+
+## [4.0.1](https://github.com/loophp/collection/compare/4.0.0...4.0.1) - 2021-04-03
 
 ### Merged
 
@@ -14,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Commits
 
+- docs: Update Changelog. [`78b5e2e`](https://github.com/loophp/collection/commit/78b5e2e26d7ceafe0b65650fac500fc43e3e70d7)
 - refactor: Use call_user_func_array() functions. [`614a663`](https://github.com/loophp/collection/commit/614a66349af4e4aea801d5e298e96e99e0918b28)
 - refactor: Minor optimization in Window operation. [`1e8de4a`](https://github.com/loophp/collection/commit/1e8de4acb4e659dfb52cf00ebf2b6f18eb989b97)
 - refactor: Minor types fixes. [`77db2cd`](https://github.com/loophp/collection/commit/77db2cddf5d1b7718b7f041305689034144b1699)
