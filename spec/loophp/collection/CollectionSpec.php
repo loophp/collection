@@ -939,6 +939,15 @@ class CollectionSpec extends ObjectBehavior
         $this::fromIterable($input)
             ->every($callback2, $callback1)
             ->shouldIterateAs([0 => true]);
+
+        // Validate a date
+        $date = '2021-04-09xxx';
+
+        $this::fromString($date, '-')
+            ->every(static fn (string $value): bool => is_numeric($value))
+            ->shouldIterateAs([
+                2 => false,
+            ]);
     }
 
     public function it_can_explode(): void
@@ -2333,15 +2342,46 @@ class CollectionSpec extends ObjectBehavior
 
     public function it_can_shuffle(): void
     {
-        $data = range('A', 'Z');
+        $input = range('A', 'Z');
 
-        $this::fromIterable($data)
+        $this::fromIterable($input)
             ->shuffle()
-            ->shouldNotIterateAs($data);
+            ->shouldNotIterateAs($input);
 
-        $this::fromIterable($data)
+        $this::fromIterable($input)
             ->shuffle()
             ->shouldNotIterateAs([]);
+
+        $this::fromIterable($input)
+            ->shuffle(123)
+            ->shouldIterateAs([
+                2 => 'C',
+                20 => 'U',
+                8 => 'I',
+                3 => 'D',
+                7 => 'H',
+                9 => 'J',
+                0 => 'A',
+                21 => 'V',
+                12 => 'M',
+                15 => 'P',
+                13 => 'N',
+                4 => 'E',
+                19 => 'T',
+                10 => 'K',
+                22 => 'W',
+                11 => 'L',
+                1 => 'B',
+                5 => 'F',
+                18 => 'S',
+                23 => 'X',
+                17 => 'R',
+                24 => 'Y',
+                16 => 'Q',
+                25 => 'Z',
+                14 => 'O',
+                6 => 'G',
+            ]);
     }
 
     public function it_can_since(): void
