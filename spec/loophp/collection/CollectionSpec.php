@@ -1804,13 +1804,6 @@ class CollectionSpec extends ObjectBehavior
 
         $this::fromIterable($input)
             ->match(
-                static fn (int $value): string => 17 === $value ? 'foo' : 'bar',
-                static fn (): string => 'foo'
-            )
-            ->shouldIterateAs([0 => false]);
-
-        $this::fromIterable($input)
-            ->match(
                 static fn (int $value): bool => 5 !== $value,
                 static fn (): bool => false
             )

@@ -18,7 +18,7 @@ use Iterator;
 final class MatchOne extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(callable(T, TKey, Iterator<TKey, T>): T): Closure(callable(T, TKey, Iterator<TKey, T>): bool): Closure(Iterator<TKey, T>): Generator<int, bool>
+     * @psalm-return Closure(callable(T, TKey, Iterator<TKey, T>): T): Closure(callable(T, TKey, Iterator<TKey, T>): bool): Closure(Iterator<TKey, T>): Generator<TKey|int, bool>
      */
     public function __invoke(): Closure
     {
@@ -26,16 +26,16 @@ final class MatchOne extends AbstractOperation
             /**
              * @psalm-param callable(T, TKey, Iterator<TKey, T>): T $matcher
              *
-             * @psalm-return Closure(callable(T, TKey, Iterator<TKey, T>): bool): Closure(Iterator<TKey, T>): Generator<int, bool>
+             * @psalm-return Closure(callable(T, TKey, Iterator<TKey, T>): bool): Closure(Iterator<TKey, T>): Generator<TKey|int, bool>
              */
-            static function (callable $matcher): Closure {
+            static function (callable ...$matchers): Closure {
                 return
                     /**
                      * @psalm-param callable(T, TKey, Iterator<TKey, T>): bool ...$callbacks
                      *
-                     * @psalm-return Closure(Iterator<TKey, T>): Generator<int, bool>
+                     * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey|int, bool>
                      */
-                    static function (callable ...$callbacks) use ($matcher): Closure {
+                    static function (callable ...$callbacks) use ($matchers): Closure {
                         $callbackReducer =
                             /**
                              * @psalm-param list<callable(T, TKey, Iterator<TKey, T>): bool> $callbacks
@@ -58,30 +58,40 @@ final class MatchOne extends AbstractOperation
                                     false
                                 );
 
-                        $callback = $callbackReducer($callbacks);
-
                         $mapCallback =
                             /**
-                             * @param mixed $value
-                             * @psalm-param T $value
+                             * @psalm-param callable(T, TKey, Iterator<TKey, T>) $reducer1
                              *
-                             * @param mixed $key
-                             * @psalm-param TKey $key
-                             *
-                             * @psalm-param Iterator<TKey, T> $iterator
+                             * @psalm-return Closure(callable(T, TKey, Iterator<TKey, T>)): Closure(T, TKey, Iterator<TKey, T>): bool
                              */
-                            static fn ($value, $key, Iterator $iterator): bool => $matcher($value, $key, $iterator) === $callback($value, $key, $iterator);
+                            static fn (callable $reducer1): Closure =>
+                                /**
+                                 * @psalm-param callable(T, TKey, Iterator<TKey, T>) $reducer2
+                                 *
+                                 * @psalm-return Closure(T, TKey, Iterator<TKey, T>): bool
+                                 */
+                                static fn (callable $reducer2): Closure =>
+                                    /**
+                                     * @param mixed $value
+                                     * @psalm-param T $value
+                                     *
+                                     * @param mixed $key
+                                     * @psalm-param TKey $key
+                                     *
+                                     * @psalm-param Iterator<TKey, T> $iterator
+                                     */
+                                    static fn ($value, $key, Iterator $iterator): bool => $reducer1($value, $key, $iterator) === $reducer2($value, $key, $iterator);
 
                         $dropWhileCallback =
                             /**
                              * @param mixed $value
                              * @psalm-param T $value
                              */
-                            static fn ($value): bool => !(bool) $value;
+                            static fn (bool $value): bool => false === $value;
 
-                        /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, bool> $pipe */
+                        /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey|int, bool> $pipe */
                         $pipe = Pipe::of()(
-                            Map::of()($mapCallback),
+                            Map::of()($mapCallback($callbackReducer($callbacks))($callbackReducer($matchers))),
                             DropWhile::of()($dropWhileCallback),
                             Append::of()(false),
                             Head::of()
