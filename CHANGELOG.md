@@ -5,10 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [4.0.2](https://github.com/loophp/collection/compare/4.0.1...4.0.2)
+## [4.0.3](https://github.com/loophp/collection/compare/4.0.2...4.0.3)
 
 ### Commits
 
+- refactor: Update MatchOne operation. [`287b158`](https://github.com/loophp/collection/commit/287b158628619c8248be05cd11541aa1b32529cd)
+- tests: Add more tests. [`372b1d1`](https://github.com/loophp/collection/commit/372b1d1907d1a1ce586f5a49bf1fc9568ac67398)
+- refactor: Update Every operation. [`e0cc29c`](https://github.com/loophp/collection/commit/e0cc29ce58c49e53965ece1700ff7881a8443937)
+
+## [4.0.2](https://github.com/loophp/collection/compare/4.0.1...4.0.2) - 2021-04-04
+
+### Commits
+
+- docs: Update Changelog. [`e183f29`](https://github.com/loophp/collection/commit/e183f294b860dc409470ad9c154641a4329484b1)
 - Revert "refactor: Use call_user_func_array() functions." [`54327af`](https://github.com/loophp/collection/commit/54327afcdcb4a1e8f2d806aa5941ab20a6dcbea3)
 
 ## [4.0.1](https://github.com/loophp/collection/compare/4.0.0...4.0.1) - 2021-04-03
@@ -386,10 +395,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Breaking change:** refactor: Update Falsy, Nullsy and Truthy operations. [`07fbce4`](https://github.com/loophp/collection/commit/07fbce4f560528bcbfa81112fd5e19049273a527)
 - **Breaking change:** refactor: Update Fold* operations. [`f6828f0`](https://github.com/loophp/collection/commit/f6828f0fc1d1792f84cfda9e9a299c1d38702f42)
 - **Breaking change:** refactor: Rename Run into Pipe. [`e3b3261`](https://github.com/loophp/collection/commit/e3b32615f338a94664a25756d77ffe094cb27d4a)
-- **Breaking change:** refactor: Rename Group operation into GroupBy [`248e5a4`](https://github.com/loophp/collection/commit/248e5a4e2d6f7882801d95128bf36748a0f9019c)
 - docs: Update changelog. [`bca5780`](https://github.com/loophp/collection/commit/bca578096280182d7565580204c23274407ec419)
 - docs: Update README. [`ce14a0d`](https://github.com/loophp/collection/commit/ce14a0d71698bf7264a36011903f6ab0bb907279)
 - feat: Add Group operation. [`a7df56c`](https://github.com/loophp/collection/commit/a7df56c8e8c503aa8ffbfe24425e4479e9d1de00)
+- refactor: Rename Group operation into GroupBy [`248e5a4`](https://github.com/loophp/collection/commit/248e5a4e2d6f7882801d95128bf36748a0f9019c)
 
 ## [2.6.3](https://github.com/loophp/collection/compare/2.6.2...2.6.3) - 2020-10-07
 
