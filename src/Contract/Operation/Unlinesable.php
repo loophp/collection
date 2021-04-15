@@ -14,7 +14,7 @@ use loophp\collection\Contract\Collection;
 interface Unlinesable
 {
     /**
-     * @psalm-return \loophp\collection\Collection<TKey, T>
+     * @psalm-return \loophp\collection\Collection<TKey, string>
      */
     public function unlines(): Collection;
 }

@@ -19,7 +19,7 @@ use Iterator;
 final class Associate extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(callable(TKey, TKey, T, Iterator<TKey, T>): (T|TKey) ...): Closure((callable(T, TKey, T, Iterator<TKey, T>): (T|TKey))...): Closure(Iterator<TKey, T>): iterable<TKey|T, T|TKey>
+     * @psalm-return Closure(callable(TKey, TKey, T, Iterator<TKey, T>): (T|TKey) ...): Closure((callable(T, TKey, T, Iterator<TKey, T>): (T|TKey))...): Closure(Iterator<TKey, T>): Generator<TKey|T, T|TKey>
      */
     public function __invoke(): Closure
     {

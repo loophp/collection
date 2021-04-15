@@ -16,7 +16,7 @@ interface Normalizeable
     /**
      * Replace, reorder and use numeric keys on a collection.
      *
-     * @psalm-return \loophp\collection\Collection<TKey, T>
+     * @psalm-return \loophp\collection\Collection<int, T>
      */
     public function normalize(): Collection;
 }

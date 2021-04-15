@@ -18,11 +18,11 @@ use const PHP_EOL;
 final class Unlines extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, (T|string)>): Generator<TKey, T|string, mixed, void>
+     * @psalm-return Closure(Iterator<TKey, (T|string)>): Generator<TKey, string, mixed, void>
      */
     public function __invoke(): Closure
     {
-        /** @psalm-var Closure(Iterator<TKey, (T|string)>):Generator<TKey, T|string> $implode */
+        /** @psalm-var Closure(Iterator<TKey, (T|string)>):Generator<TKey, string> $implode */
         $implode = Implode::of()(PHP_EOL);
 
         // Point free style.

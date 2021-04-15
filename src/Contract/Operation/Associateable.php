@@ -15,10 +15,10 @@ use loophp\collection\Contract\Collection;
 interface Associateable
 {
     /**
-     * @psalm-param null|callable(TKey, TKey, T, Iterator<TKey, T>):TKey $callbackForKeys
-     * @psalm-param null|callable(T, TKey, T, Iterator<TKey, T>):T $callbackForValues
+     * @psalm-param null|callable(TKey, TKey, T, Iterator<TKey, T>):(T|TKey) $callbackForKeys
+     * @psalm-param null|callable(T, TKey, T, Iterator<TKey, T>):(T|TKey) $callbackForValues
      *
-     * @psalm-return \loophp\collection\Collection<TKey, T>
+     * @psalm-return \loophp\collection\Collection<TKey|T, T|TKey>
      */
     public function associate(?callable $callbackForKeys = null, ?callable $callbackForValues = null): Collection;
 }

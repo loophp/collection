@@ -18,7 +18,7 @@ interface Explodeable
      *
      * @param mixed ...$explodes
      *
-     * @psalm-return \loophp\collection\Collection<TKey, T>
+     * @psalm-return \loophp\collection\Collection<int, list<T>>
      */
     public function explode(...$explodes): Collection;
 }

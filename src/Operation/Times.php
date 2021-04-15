@@ -19,13 +19,13 @@ use Iterator;
 final class Times extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(int): Closure(null|callable(int): T): Closure(null|Iterator<TKey, T>): Generator<int, int|T>
+     * @psalm-return Closure(int): Closure(null|callable(int): (int|T)): Closure(null|Iterator<TKey, T>): Generator<int, int|T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-return Closure(null|callable(int): int|T): Closure(null|Iterator<TKey, T>): Generator<int, int|T>
+             * @psalm-return Closure(null|callable(int): (int|T)): Closure(null|Iterator<TKey, T>): Generator<int, int|T>
              */
             static fn (int $number = 0): Closure =>
                 /**
