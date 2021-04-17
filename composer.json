@@ -8,26 +8,30 @@
         "iterator",
         "yield"
     ],
+    "homepage": "https://github.com/loophp/collection",
+    "readme": "README.md",
     "license": "MIT",
     "authors": [
         {
             "name": "Pol Dellaiera",
-            "email": "pol.dellaiera@protonmail.com"
+            "email": "pol.dellaiera@protonmail.com",
+            "homepage": "https://not-a-number.io",
+            "role": "author"
         }
     ],
     "require": {
         "php": ">= 7.4"
     },
     "require-dev": {
-        "amphp/parallel-functions": "^0.1 || ^1",
-        "drupol/php-conventions": "^2.0.3 || ^3.0.0",
-        "friends-of-phpspec/phpspec-code-coverage": "^5 || ^6",
-        "infection/infection": "^0.20.1 || ^0.21.0",
+        "amphp/parallel-functions": "^1",
+        "drupol/php-conventions": "^3.0.3",
+        "friends-of-phpspec/phpspec-code-coverage": "^6",
+        "infection/infection": "^0.21.0",
         "infection/phpspec-adapter": "^0.1.1",
         "phpspec/phpspec": "^7",
         "phpstan/phpstan-strict-rules": "^0.12",
         "psr/cache": "^1.0",
-        "symfony/cache": "^4.4 || ^5.1",
+        "symfony/cache": "^5",
         "symfony/polyfill-mbstring": "^1.18",
         "vimeo/psalm": "^4"
     },
@@ -49,9 +53,23 @@
         }
     },
     "scripts": {
-        "bench": "vendor/bin/phpbench run --report='generator: \"table\", cols: [ \"suite\", \"subject\", \"mean\", \"diff\", \"mem_peak\", \"mem_real\"], break: [\"benchmark\"]'",
         "grumphp": "vendor/bin/grumphp run",
         "infection": "vendor/bin/infection run -j 2",
-        "phpspec": "vendor/bin/phpspec run"
-    }
+        "phpspec": "vendor/bin/phpspec run -vvv --stop-on-failure"
+    },
+    "support": {
+        "issues": "https://github.com/loophp/collection/issues",
+        "source": "https://github.com/loophp/collection",
+        "docs": "https://loophp-collection.rtfd.io"
+    },
+    "funding": [
+        {
+            "type": "github",
+            "url": "https://github.com/drupol"
+        },
+        {
+            "type": "paypal",
+            "url": "https://www.paypal.me/drupol"
+        }
+    ]
 }
