@@ -5,10 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [4.0.3](https://github.com/loophp/collection/compare/4.0.2...4.0.3)
+## [4.0.4](https://github.com/loophp/collection/compare/4.0.3...4.0.4)
+
+### Merged
+
+- chore(deps): Bump actions/cache from v2.1.4 to v2.1.5 [`#75`](https://github.com/loophp/collection/pull/75)
 
 ### Commits
 
+- docs: Update README.md. [`4fa857b`](https://github.com/loophp/collection/commit/4fa857b53d5719a03ec578c4a8c055a39ef89d71)
+- chore: Update composer.json - update dev dependencies constraints. [`dbf6441`](https://github.com/loophp/collection/commit/dbf6441ba55b65d23efb014a15565a2e44bb7634)
+- refactor: Fix a couple of PSalm issues. [`89db061`](https://github.com/loophp/collection/commit/89db0612ce137355edc4f77473522ff0ca6a645f)
+- refactor: Minor update on MatchOne operation. [`b913a6b`](https://github.com/loophp/collection/commit/b913a6b7e1702746fedb9e4fedf5700e43102bca)
+
+## [4.0.3](https://github.com/loophp/collection/compare/4.0.2...4.0.3) - 2021-04-11
+
+### Commits
+
+- docs: Update changelog. [`2a5a141`](https://github.com/loophp/collection/commit/2a5a14143c45bacf1756d5f6efc8c0bf10aa1b15)
 - refactor: Update MatchOne operation. [`287b158`](https://github.com/loophp/collection/commit/287b158628619c8248be05cd11541aa1b32529cd)
 - tests: Add more tests. [`372b1d1`](https://github.com/loophp/collection/commit/372b1d1907d1a1ce586f5a49bf1fc9568ac67398)
 - refactor: Update Every operation. [`e0cc29c`](https://github.com/loophp/collection/commit/e0cc29ce58c49e53965ece1700ff7881a8443937)
