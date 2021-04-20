@@ -8,8 +8,6 @@ use Closure;
 use Generator;
 use Iterator;
 
-use function call_user_func;
-
 /**
  * @psalm-template TKey
  * @psalm-template TKey of array-key
@@ -46,7 +44,7 @@ final class Pipe extends AbstractOperation
                          *
                          * @psalm-return Iterator<TKey, T>
                          */
-                        static fn (Iterator $iterator, callable $callable): Iterator => call_user_func($callable, $iterator);
+                        static fn (Iterator $iterator, callable $callable): Iterator => $callable($iterator);
 
                     return array_reduce($operations, $callback, $iterator);
                 };
