@@ -5,7 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [4.0.4](https://github.com/loophp/collection/compare/4.0.3...4.0.4)
+## [4.0.5](https://github.com/loophp/collection/compare/4.0.4...4.0.5)
+
+### Commits
+
+- docs: Update changelog. [`4516aef`](https://github.com/loophp/collection/commit/4516aef71eebf9f7350df9b2d4e4d8fecb9849d2)
+- ci: Update Docker stack - now includes service for creating changelogs. [`228831e`](https://github.com/loophp/collection/commit/228831effa5c680576540495066b291fa871460a)
+- refactor: Remove variable assignation. [`afe71bf`](https://github.com/loophp/collection/commit/afe71bf762a35202c53685eb41e43faffd848e07)
+- refactor: Update Pipe operation - remove call_user_func. [`d31df6f`](https://github.com/loophp/collection/commit/d31df6fc1a4770731fe1725f9084fa87201721f8)
+- feat: Add Coalesce operation. [`6e5c758`](https://github.com/loophp/collection/commit/6e5c758e5f8cc465359737840bf0a5797421965f)
+- refactor: Improve Has operation. [`1425343`](https://github.com/loophp/collection/commit/14253435b5577e47ee51753ab1641a7bef8ef745)
+
+## [4.0.4](https://github.com/loophp/collection/compare/4.0.3...4.0.4) - 2021-04-17
 
 ### Merged
 
@@ -13,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Commits
 
+- docs: Update changelog. [`583e95b`](https://github.com/loophp/collection/commit/583e95bb06f9e8946534f01b770cebf60c0196f0)
 - docs: Update README.md. [`4fa857b`](https://github.com/loophp/collection/commit/4fa857b53d5719a03ec578c4a8c055a39ef89d71)
 - chore: Update composer.json - update dev dependencies constraints. [`dbf6441`](https://github.com/loophp/collection/commit/dbf6441ba55b65d23efb014a15565a2e44bb7634)
 - refactor: Fix a couple of PSalm issues. [`89db061`](https://github.com/loophp/collection/commit/89db0612ce137355edc4f77473522ff0ca6a645f)
