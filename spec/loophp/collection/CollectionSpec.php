@@ -476,6 +476,25 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs([[0 => 'A', 1 => 'B'], [0 => 'C', 1 => 'D', 2 => 'E'], [0 => 'F']]);
     }
 
+    public function it_can_coalesce(): void
+    {
+        $input = range('a', 'e');
+
+        $this::fromIterable($input)
+            ->coalesce()
+            ->shouldIterateAs([
+                0 => 'a',
+            ]);
+
+        $input = ['', null, 'foo', false, ...range('a', 'e')];
+
+        $this::fromIterable($input)
+            ->coalesce()
+            ->shouldIterateAs([
+                2 => 'foo',
+            ]);
+    }
+
     public function it_can_collapse(): void
     {
         $generator = static function () {

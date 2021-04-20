@@ -15,6 +15,7 @@ use loophp\collection\Contract\Operation\Associateable;
 use loophp\collection\Contract\Operation\AsyncMapable;
 use loophp\collection\Contract\Operation\Cacheable;
 use loophp\collection\Contract\Operation\Chunkable;
+use loophp\collection\Contract\Operation\Coalesceable;
 use loophp\collection\Contract\Operation\Collapseable;
 use loophp\collection\Contract\Operation\Columnable;
 use loophp\collection\Contract\Operation\Combinateable;
@@ -123,6 +124,7 @@ use loophp\collection\Contract\Operation\Zipable;
  * @template-extends AsyncMapable<TKey, T>
  * @template-extends Cacheable<TKey, T>
  * @template-extends Chunkable<TKey, T>
+ * @template-extends Coalesceable<TKey, T>
  * @template-extends Collapseable<TKey, T>
  * @template-extends Columnable<TKey, T>
  * @template-extends Combinateable<TKey, T>
@@ -224,6 +226,7 @@ interface Collection extends
     AsyncMapable,
     Cacheable,
     Chunkable,
+    Coalesceable,
     Collapseable,
     Columnable,
     Combinateable,

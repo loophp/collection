@@ -18,6 +18,7 @@ use loophp\collection\Operation\Associate;
 use loophp\collection\Operation\AsyncMap;
 use loophp\collection\Operation\Cache;
 use loophp\collection\Operation\Chunk;
+use loophp\collection\Operation\Coalesce;
 use loophp\collection\Operation\Collapse;
 use loophp\collection\Operation\Column;
 use loophp\collection\Operation\Combinate;
@@ -199,6 +200,11 @@ final class Collection implements CollectionInterface
     public function chunk(int ...$sizes): CollectionInterface
     {
         return new self(Chunk::of()(...$sizes), $this->getIterator());
+    }
+
+    public function coalesce(): CollectionInterface
+    {
+        return new self(Coalesce::of(), $this->getIterator());
     }
 
     public function collapse(): CollectionInterface
