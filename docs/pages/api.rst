@@ -309,6 +309,26 @@ Signature: ``Collection::chunk(int $size);``
 
     $collection->chunk(2);
 
+coalesce
+~~~~~~~~
+
+Return the first *non-nullsy* value in a collection.
+
+*Nullsy* values are:
+
+* The null value: null
+* Empty array: []
+* The integer zero: 0
+* The boolean: false
+* The empty string: ''
+
+Interface: `Coalesceable`_
+
+Signature: ``Collection::coalesce();``
+
+.. literalinclude:: code/operations/coalesce.php
+  :language: php
+
 collapse
 ~~~~~~~~
 
@@ -1179,7 +1199,15 @@ Signature: ``Collection::nth(int $step, int $offset = 0);``
 nullsy
 ~~~~~~
 
-Check if the collection contains nullsy values.
+Check if the collection contains *nullsy* values.
+
+*Nullsy* values are:
+
+* The null value: `null`
+* Empty array: `[]`
+* The integer zero: `0`
+* The boolean: `false`
+* The empty string: `''`
 
 Interface: `Nullsyable`_
 
@@ -2143,6 +2171,7 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Combinateable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Combinateable.php
 .. _Combineable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Combineable.php
 .. _Compactable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Compactable.php
+.. _Coalesceable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Coalesceable.php
 .. _Containsable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Containsable.php
 .. _Currentable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Currentable.php
 .. _Cycleable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Cycleable.php
