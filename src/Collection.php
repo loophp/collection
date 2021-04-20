@@ -525,13 +525,11 @@ final class Collection implements CollectionInterface
 
     public function match(callable $callback, ?callable $matcher = null): CollectionInterface
     {
-        $matcher = $matcher ?? static fn (): bool => true;
-
         // @todo: Rename this in next major version.
         // We cannot use Match::class because PHP 8 has
         // a new "match" function and we cannot use the same name.
         // @See https://github.com/loophp/collection/issues/56
-        return new self(MatchOne::of()($matcher)($callback), $this->getIterator());
+        return new self(MatchOne::of()($matcher ?? static fn (): bool => true)($callback), $this->getIterator());
     }
 
     public function merge(iterable ...$sources): CollectionInterface
