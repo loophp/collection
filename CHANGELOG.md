@@ -5,11 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [4.0.5](https://github.com/loophp/collection/compare/4.0.4...4.0.5)
+## [4.0.6](https://github.com/loophp/collection/compare/4.0.5...4.0.6)
 
 ### Commits
 
-- docs: Update changelog. [`4516aef`](https://github.com/loophp/collection/commit/4516aef71eebf9f7350df9b2d4e4d8fecb9849d2)
+- fix: Fix Psalm annotations. [`4ace8ef`](https://github.com/loophp/collection/commit/4ace8ef72640423799a365d40245c48aaf986591)
+
+## [4.0.5](https://github.com/loophp/collection/compare/4.0.4...4.0.5) - 2021-04-20
+
+### Commits
+
+- docs: Update changelog. [`a53167d`](https://github.com/loophp/collection/commit/a53167d6995df4b5555d7aafcde15b7d710acd16)
 - ci: Update Docker stack - now includes service for creating changelogs. [`228831e`](https://github.com/loophp/collection/commit/228831effa5c680576540495066b291fa871460a)
 - refactor: Remove variable assignation. [`afe71bf`](https://github.com/loophp/collection/commit/afe71bf762a35202c53685eb41e43faffd848e07)
 - refactor: Update Pipe operation - remove call_user_func. [`d31df6f`](https://github.com/loophp/collection/commit/d31df6fc1a4770731fe1725f9084fa87201721f8)
