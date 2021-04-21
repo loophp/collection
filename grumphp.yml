@@ -3,9 +3,9 @@ imports:
 
 parameters:
   tasks.phpcsfixer.config: .php_cs.dist
+  tasks.license.holder: Pol Dellaiera
+  tasks.license.date_from: 2019
   extra_tasks:
-    psalm:
-      show_info: true
     phpspec:
       verbose: true
     infection:
