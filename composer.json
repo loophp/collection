@@ -24,7 +24,7 @@
     },
     "require-dev": {
         "amphp/parallel-functions": "^1",
-        "drupol/php-conventions": "^3.0.3",
+        "drupol/php-conventions": "^4.0.2",
         "friends-of-phpspec/phpspec-code-coverage": "^6",
         "infection/infection": "^0.21.0",
         "infection/phpspec-adapter": "^0.1.1",
@@ -32,8 +32,7 @@
         "phpstan/phpstan-strict-rules": "^0.12",
         "psr/cache": "^1.0",
         "symfony/cache": "^5",
-        "symfony/polyfill-mbstring": "^1.18",
-        "vimeo/psalm": "^4"
+        "symfony/polyfill-mbstring": "^1.18"
     },
     "suggest": {
         "symfony/polyfill-mbstring": "Use it if you do not have the PHP mbstring extension."
