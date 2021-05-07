@@ -38,7 +38,7 @@ $distribution = Collection::unfold($randomGenerator)
     )
     ->map(
         static function (array $value): int {
-            return \count($value);
+            return count($value);
         }
     )
     ->sort(
