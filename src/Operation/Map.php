@@ -14,28 +14,28 @@ use Generator;
 use Iterator;
 
 /**
- * @psalm-template TKey
  * @psalm-template TKey of array-key
  * @psalm-template T
+ * @psalm-template V
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Map extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(callable(T, TKey, Iterator<TKey, T>): T ...): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @psalm-return Closure(callable(T, TKey, Iterator<TKey, T>): V ...): Closure(Iterator<TKey, V>): Generator<TKey, V>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param callable(T, TKey, Iterator<TKey, T>): T ...$callbacks
+             * @psalm-param callable(T, TKey, Iterator<TKey, T>): V ...$callbacks
              */
             static fn (callable ...$callbacks): Closure =>
                 /**
                  * @psalm-param Iterator<TKey, T> $iterator
                  *
-                 * @psalm-return Generator<TKey, T>
+                 * @psalm-return Generator<TKey, V>
                  */
                 static function (Iterator $iterator) use ($callbacks): Generator {
                     $callbackFactory =
@@ -43,15 +43,15 @@ final class Map extends AbstractOperation
                          * @param mixed $key
                          * @psalm-param TKey $key
                          *
-                         * @psalm-return Closure(T, callable(T, TKey, Iterator<TKey, T>): T): T
+                         * @psalm-return Closure(T, callable(T, TKey, Iterator<TKey, T>): V): V
                          */
                         static fn ($key): Closure =>
                             /**
                              * @param mixed $carry
                              * @psalm-param T $carry
-                             * @psalm-param callable(T, TKey, Iterator<TKey, T>): T $callback
+                             * @psalm-param callable(T, TKey, Iterator<TKey, T>): V $callback
                              *
-                             * @psalm-return T
+                             * @psalm-return V
                              */
                             static fn ($carry, callable $callback) => $callback($carry, $key, $iterator);
 
