@@ -23,9 +23,9 @@ interface Mapable
      * Apply one or more callbacks to a collection and use the return value.
      *
      * @param callable ...$callbacks
-     * @psalm-param callable(T, TKey, Iterator<TKey, T>): V ...$callbacks
+     * @psalm-param callable(T|V, TKey, Iterator<TKey, T>): V ...$callbacks
      *
-     * @psalm-return \loophp\collection\Collection<TKey, V>
+     * @psalm-return \loophp\collection\Collection<TKey, T|V>
      */
     public function map(callable ...$callbacks): Collection;
 }

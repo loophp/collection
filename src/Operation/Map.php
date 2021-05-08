@@ -23,19 +23,21 @@ use Iterator;
 final class Map extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(callable(T, TKey, Iterator<TKey, T>): V ...): Closure(Iterator<TKey, V>): Generator<TKey, V>
+     * @psalm-return Closure(callable(T|V, TKey, Iterator<TKey, T>): V ...): Closure(Iterator<TKey, T>): Generator<TKey, T|V>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param callable(T, TKey, Iterator<TKey, T>): V ...$callbacks
+             * @psalm-param callable(T|V, TKey, Iterator<TKey, T>): V ...$callbacks
+             *
+             * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T|V>
              */
             static fn (callable ...$callbacks): Closure =>
                 /**
                  * @psalm-param Iterator<TKey, T> $iterator
                  *
-                 * @psalm-return Generator<TKey, V>
+                 * @psalm-return Generator<TKey, T|V>
                  */
                 static function (Iterator $iterator) use ($callbacks): Generator {
                     $callbackFactory =
@@ -43,13 +45,13 @@ final class Map extends AbstractOperation
                          * @param mixed $key
                          * @psalm-param TKey $key
                          *
-                         * @psalm-return Closure(T, callable(T, TKey, Iterator<TKey, T>): V): V
+                         * @psalm-return Closure(T|V, callable(T|V, TKey, Iterator<TKey, T>): V): V
                          */
                         static fn ($key): Closure =>
                             /**
                              * @param mixed $carry
-                             * @psalm-param T $carry
-                             * @psalm-param callable(T, TKey, Iterator<TKey, T>): V $callback
+                             * @psalm-param T|V $carry
+                             * @psalm-param callable(T|V, TKey, Iterator<TKey, T>): V $callback
                              *
                              * @psalm-return V
                              */
