@@ -332,43 +332,6 @@ interface Collection extends
     Zipable
 {
     /**
-     * Create a new instance with no items.
-     *
-     * @psalm-template NewTKey
-     * @psalm-template NewTKey of array-key
-     * @psalm-template NewT
-     */
-    public static function empty(): self;
-
-    /**
-     * @psalm-template NewTKey
-     * @psalm-template NewTKey of array-key
-     * @psalm-template NewT
-     *
-     * @param mixed ...$parameters
-     */
-    public static function fromCallable(callable $callable, ...$parameters): self;
-
-    public static function fromFile(string $filepath): self;
-
-    /**
-     * @psalm-template NewTKey
-     * @psalm-template NewTKey of array-key
-     * @psalm-template NewT
-     *
-     * @param iterable<mixed> $iterable
-     * @psalm-param iterable<NewTKey, NewT> $iterable
-     */
-    public static function fromIterable(iterable $iterable): self;
-
-    /**
-     * @param resource $resource
-     */
-    public static function fromResource($resource): self;
-
-    public static function fromString(string $string, string $delimiter = ''): self;
-
-    /**
      * @psalm-return \Iterator<TKey, T>
      */
     public function getIterator(): Iterator;

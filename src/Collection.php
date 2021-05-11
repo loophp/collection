@@ -292,6 +292,13 @@ final class Collection implements CollectionInterface
         return new self(Duplicate::of(), $this->getIterator());
     }
 
+    /**
+     * Create a new instance with no items.
+     *
+     * @psalm-template NewTKey
+     * @psalm-template NewTKey of array-key
+     * @psalm-template NewT
+     */
     public static function empty(): CollectionInterface
     {
         return self::fromIterable([]);
@@ -362,6 +369,13 @@ final class Collection implements CollectionInterface
         return new self(Frequency::of(), $this->getIterator());
     }
 
+    /**
+     * @psalm-template NewTKey
+     * @psalm-template NewTKey of array-key
+     * @psalm-template NewT
+     *
+     * @param mixed ...$parameters
+     */
     public static function fromCallable(callable $callable, ...$parameters): self
     {
         return new self($callable, ...$parameters);
@@ -378,6 +392,14 @@ final class Collection implements CollectionInterface
         );
     }
 
+    /**
+     * @psalm-template NewTKey
+     * @psalm-template NewTKey of array-key
+     * @psalm-template NewT
+     *
+     * @param iterable<mixed> $iterable
+     * @psalm-param iterable<NewTKey, NewT> $iterable
+     */
     public static function fromIterable(iterable $iterable): self
     {
         return new self(
@@ -391,6 +413,9 @@ final class Collection implements CollectionInterface
         );
     }
 
+    /**
+     * @param resource $resource
+     */
     public static function fromResource($resource): self
     {
         return new self(
