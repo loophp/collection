@@ -39,6 +39,7 @@ use loophp\collection\Operation\Drop;
 use loophp\collection\Operation\DropWhile;
 use loophp\collection\Operation\Dump;
 use loophp\collection\Operation\Duplicate;
+use loophp\collection\Operation\Eager;
 use loophp\collection\Operation\Every;
 use loophp\collection\Operation\Explode;
 use loophp\collection\Operation\Falsy;
@@ -290,6 +291,11 @@ final class Collection implements CollectionInterface
     public function duplicate(): CollectionInterface
     {
         return new self(Duplicate::of(), $this->getIterator());
+    }
+
+    public function eager(): CollectionInterface
+    {
+        return self::fromIterable(Eager::of()($this->getIterator()));
     }
 
     /**
