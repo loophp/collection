@@ -713,9 +713,9 @@ final class Collection implements CollectionInterface
         return new self(Split::of()($type)(...$callbacks), $this->getIterator());
     }
 
-    public function squash(bool $throwOnException = true): CollectionInterface
+    public function squash(): CollectionInterface
     {
-        return new self(Squash::of()($throwOnException)($this->getIterator()), $this->getIterator());
+        return new self(Squash::of()($this->getIterator()), $this->getIterator());
     }
 
     public function tail(): CollectionInterface
