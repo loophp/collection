@@ -158,6 +158,18 @@ Interface: `Allable`_
 
 Signature: ``Collection::all();``
 
+.. code-block:: php
+
+        $generator = static function (): Generator {
+            yield 0 => 'a';
+            yield 1 => 'b';
+            yield 0 => 'a';
+            yield 2 => 'c';
+        };
+
+        Collection::fromIterable($generator())
+            ->all(); // [0 => 'a', 1 => 'b', 2 => 'c']
+
 append
 ~~~~~~
 
@@ -342,7 +354,7 @@ Signature: ``Collection::collapse();``
 
     $collection = Collection::fromIterable([[1,2], [3, 4]]);
 
-    $collection->collapse();
+    $collection->collapse(); // [1, 2, 3, 4]
 
 column
 ~~~~~~
@@ -392,8 +404,8 @@ Signature: ``Collection::combinate(?int $length);``
 
 .. code-block:: php
 
-    $collection = Collection::fromIterable(['a', 'b', 'c', 'd'])
-        ->combinate(3);
+    $collection = Collection::fromIterable(['a', 'b', 'c'])
+        ->combinate(2); // [['a', 'b'], ['b', 'c'], ['a', 'c']]
 
 combine
 ~~~~~~~
@@ -407,7 +419,7 @@ Signature: ``Collection::combine(...$keys);``
 .. code-block:: php
 
     $collection = Collection::fromIterable(['a', 'b', 'c', 'd'])
-        ->combine('w', 'x', 'y', 'z')
+        ->combine('w', 'x', 'y', 'z'); // ['w' => 'a', 'x' => 'b', 'y' => 'c', 'z' => 'd']
 
 compact
 ~~~~~~~
@@ -420,10 +432,10 @@ Signature: ``Collection::compact(...$values);``
 
 .. code-block:: php
 
-    $collection = Collection::fromIterable(['a', 1 => 'b', null, false, 0, 'c'];)
+    $collection = Collection::fromIterable(['a', 1 => 'b', null, false, 0, 'c'])
         ->compact(); // ['a', 1 => 'b', 3 => false, 4 => 0, 5 => 'c']
 
-    $collection = Collection::fromIterable(['a', 1 => 'b', null, false, 0, 'c'];)
+    $collection = Collection::fromIterable(['a', 1 => 'b', null, false, 0, 'c'])
         ->compact(null, 0); // ['a', 1 => 'b', 3 => false, 5 => 'c']
 
 contains
@@ -434,6 +446,11 @@ Check if the collection contains one or more value.
 Interface: `Containsable`_
 
 Signature: ``Collection::contains(...$value);``
+
+.. code-block:: php
+
+    $collection = Collection::fromIterable(range('a', 'c'))
+        ->contains('d'); // [false]
 
 current
 ~~~~~~~
@@ -454,16 +471,16 @@ Signature: ``Collection::current(int $index = 0);``
 cycle
 ~~~~~
 
-Cycle around a collection of items.
+Cycle indefinitely around a collection of items.
 
 Interface: `Cycleable`_
 
-Signature: ``Collection::cycle(int $length = 0);``
+Signature: ``Collection::cycle();``
 
 .. code-block:: php
 
     $collection = Collection::fromIterable(['a', 'b', 'c', 'd'])
-        ->cycle(10)
+        ->cycle();
 
 diff
 ~~~~
@@ -498,7 +515,7 @@ Signature: ``Collection::diffKeys(...$values);``
 distinct
 ~~~~~~~~
 
-Remove duplicated values from a collection.
+Remove duplicated values from a collection, preserving keys.
 
 Interface: `Distinctable`_
 
@@ -506,8 +523,8 @@ Signature: ``Collection::distinct();``
 
 .. code-block:: php
 
-    $collection = Collection::fromIterable(['a', 'b', 'c', 'd', 'a'])
-        ->distinct()
+    $collection = Collection::fromIterable(['a', 'b', 'a', 'c'])
+        ->distinct(); // [0 => 'a', 1 => 'b', 3 => 'c']
 
 drop
 ~~~~
@@ -572,7 +589,7 @@ Signature: ``Collection::duplicate();``
 
 .. code-block:: php
 
-    // It might returns duplicated values !
+    // It might return duplicated values !
     Collection::fromIterable(['a', 'b', 'c', 'a', 'c', 'a'])
             ->duplicate(); // [3 => 'a', 4 => 'c', 5 => 'a']
 
@@ -628,10 +645,10 @@ Signature: ``Collection::explode(...$items);``
 
 .. code-block:: php
 
-    $string = 'I am just a random piece of text.';
+    $string = 'I am a text.';
 
     $collection = Collection::fromIterable($string)
-        ->explode('o');
+        ->explode(' '); // [['I', 'a', 'm', 'a', 't', 'e', 'x', 't', '.']]
 
 falsy
 ~~~~~
