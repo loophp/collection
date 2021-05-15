@@ -149,7 +149,7 @@ This library has been inspired by:
 
 ## Usage
 
-Check out the [usage][32] and [examples][46] pages, they contains trivial and
+Check out the [usage][32] page for both trivial and
 more advanced use cases.
 
 ## Documentation
@@ -236,7 +236,6 @@ For more detailed changelogs, please check [the release changelogs][45].
 [33]: https://loophp-collection.rtfd.io
 [28]: https://loophp-collection.readthedocs.io/en/latest/pages/api.html
 [32]: https://loophp-collection.readthedocs.io/en/latest/pages/usage.html
-[46]: https://loophp-collection.readthedocs.io/en/latest/pages/examples.html
 [34]: https://github.com/loophp/collection/issues
 [2]: https://github.com/loophp/collection/actions
 [35]: http://www.phpspec.net/
