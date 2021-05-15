@@ -715,7 +715,7 @@ final class Collection implements CollectionInterface
 
     public function squash(): CollectionInterface
     {
-        return new self(Squash::of()($this->getIterator()), $this->getIterator());
+        return self::fromIterable(iterator_to_array($this->pack()))->unpack();
     }
 
     public function tail(): CollectionInterface
