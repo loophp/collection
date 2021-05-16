@@ -1875,17 +1875,20 @@ class CollectionSpec extends ObjectBehavior
 
         $generator = static function (): Generator {
             yield 1 => 'a';
+
             yield 2 => 'b';
+
             yield 1 => 'c';
+
             yield 3 => 'd';
         };
-        
+
         $this::fromIterable($generator())
             ->normalize()
             ->shouldIterateAs([0 => 'a', 1 => 'b', 2 => 'c', 3 => 'd']);
-            
+
         $this::fromIterable(range(1, 5))
-            ->filter(static fn(int $val): bool => $val % 2 === 0)
+            ->filter(static fn (int $val): bool => $val % 2 === 0)
             ->normalize()
             ->shouldIterateAs([0 => 2, 1 => 4]);
     }
