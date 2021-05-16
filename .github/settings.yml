@@ -16,6 +16,7 @@ branches:
                   - "Mutation Testing"
                   - "Code Style"
           restrictions: null
+          required_linear_history: true
 
 labels:
     - name: bug
