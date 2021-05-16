@@ -465,7 +465,7 @@ Signature: ``Collection::contains(...$value);``
 current
 ~~~~~~~
 
-Get the value of an item in the collection given a numeric index or the default 0.
+Get the value of an item in the collection given a numeric index or the default ``0``.
 
 Interface: `Currentable`_
 
