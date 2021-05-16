@@ -348,15 +348,19 @@ collapse
 
 Collapse a collection of items into a simple flat collection.
 
+.. warning:: Key differences compared to ``flatten`` are that only one level will be collapsed and values at the bottom level will be removed.
+
 Interface: `Collapseable`_
 
 Signature: ``Collection::collapse();``
 
 .. code-block:: php
 
-    $collection = Collection::fromIterable([[1,2], [3, 4]]);
+    $collection = Collection::fromIterable([[1], [2, 3], [4, [5]]])
+        ->collapse(); // [1, 2, 3, 4, [5]]
 
-    $collection->collapse(); // [1, 2, 3, 4]
+    $collection = Collection::fromIterable([1, 2, [3]])
+        ->collapse(); // [3]
 
 column
 ~~~~~~
@@ -393,7 +397,7 @@ Signature: ``Collection::column($index);``
     ];
 
     $result = Collection::fromIterable($records)
-        ->column('first_name');
+        ->column('first_name'); // ['John', 'Sally', 'Jane', 'Peter']
 
 combinate
 ~~~~~~~~~
@@ -665,6 +669,18 @@ Interface: `Falsyable`_
 
 Signature: ``Collection::falsy();``
 
+.. code-block:: php
+
+    $truthyCollection = Collection::fromIterable([2, 3, 4])
+        ->falsy(); // [false]
+
+    $falsyCollection = Collection::fromIterable(['a', '', 'c', 'd'])
+        ->falsy(); // [true]
+
+    if ($falsyCollection->falsy()->current()) {
+        // do something
+    }
+
 filter
 ~~~~~~
 
@@ -680,8 +696,8 @@ Signature: ``Collection::filter(callable ...$callbacks);``
         return 0 === $value % 3;
     };
 
-    $collection = Collection::fromIterable(range(1, 100))
-        ->filter($callback);
+    $collection = Collection::fromIterable(range(1, 10))
+        ->filter($callback); // [3, 6, 9]
 
 first
 ~~~~~
@@ -718,7 +734,10 @@ Signature: ``Collection::flatten(int $depth = PHP_INT_MAX);``
 .. code-block:: php
 
     $collection = Collection::fromIterable([0, [1, 2], [3, [4, [5, 6]]]])
-        ->flatten();
+        ->flatten(); // [0, 1, 2, 3, 4, 5, 6]
+
+    $collection = Collection::fromIterable([0, [1, 2], [3, [4, 5]])
+        ->flatten(1); // [0, 1, 2, 3, [4, 5]]
 
 flip
 ~~~~
@@ -765,6 +784,18 @@ Interface: `FoldLeftable`_
 
 Signature: ``Collection::foldLeft(callable $callback, $initial = null);``
 
+.. code-block:: php
+
+    Collection::fromIterable(range('A', 'C'))
+        ->foldLeft(
+            static function (string $carry, string $item): string {
+                $carry .= $item;
+
+                return $carry;
+            },
+            ''
+        ); // [2 => 'ABC']
+
 foldLeft1
 ~~~~~~~~~
 
@@ -775,6 +806,11 @@ Interface: `FoldLeft1able`_
 
 Signature: ``Collection::foldLeft1(callable $callback);``
 
+.. code-block:: php
+
+    Collection::fromIterable([64, 4, 2, 8])
+        ->foldLeft1(static fn(float $carry, float $value): float => $carry / $value); // [3 => 1.0]
+        
 foldRight
 ~~~~~~~~~
 
@@ -784,6 +820,18 @@ the end and the result, and so on. See ``scanRight`` for intermediate results.
 Interface: `FoldRightable`_
 
 Signature: ``Collection::foldRight(callable $callback, $initial = null);``
+
+.. code-block:: php
+
+    Collection::fromIterable(range('A', 'C'))
+        ->foldLeft(
+            static function (string $carry, string $item): string {
+                $carry .= $item;
+
+                return $carry;
+            },
+            ''
+        ); // [0 => 'CBA']
 
 foldRight1
 ~~~~~~~~~~
@@ -795,6 +843,11 @@ Interface: `FoldRight1able`_
 
 Signature: ``Collection::foldRight1(callable $callback);``
 
+.. code-block:: php
+
+    Collection::fromIterable([8, 12, 24, 4])
+        ->foldLeft1(static fn(float $carry, float $value): float => $carry / $value); // [0 => 4.0]
+   
 forget
 ~~~~~~
 
@@ -806,8 +859,8 @@ Signature: ``Collection::forget(...$keys);``
 
 .. code-block:: php
 
-    $collection = Collection::fromIterable(range('a', 'z'))
-        ->forget(5, 6, 10, 15);
+    $collection = Collection::fromIterable(range('a', 'e'))
+        ->forget(0, 4); // [1 => 'b', 2 => 'c', 3 => 'd']
 
 frequency
 ~~~~~~~~~
@@ -822,7 +875,7 @@ Signature: ``Collection::frequency();``
 
 .. code-block:: php
 
-    $collection = Collection::fromIterable(['a', 'b', 'c', 'b', 'c', 'c')
+    $collection = Collection::fromIterable(['a', 'b', 'c', 'b', 'c', 'c'])
         ->frequency()
         ->all(); // [1 => 'a', 2 => 'b', 3 => 'c'];
 
@@ -834,6 +887,12 @@ Get a specific element of the collection from a key, if the key doesn't exists, 
 Interface: `Getable`_
 
 Signature: ``Collection::get($key, $default = null);``
+
+.. code-block:: php
+
+    Collection::fromIterable(range('a', 'c'))->get(1) // [1 => 'b']
+
+    Collection::fromIterable(range('a', 'c'))->get(4, '') // [0 => '']
 
 group
 ~~~~~
@@ -864,20 +923,15 @@ Signature: ``Collection::groupBy(?callable $callback = null);``
 
     $callback = static function () {
             yield 1 => 'a';
-
             yield 1 => 'b';
-
             yield 1 => 'c';
-
             yield 2 => 'd';
-
             yield 2 => 'e';
-
             yield 3 => 'f';
     };
 
-    $collection = Collection::fromIterable($callback)
-        ->groupBy();
+    $collection = Collection::fromIterable($callback())
+        ->groupBy(); // [1 => ['a', 'b', 'c'], 2 => ['d', 'e'], 3 => ['f']]
 
 has
 ~~~
