@@ -1833,8 +1833,8 @@ Interface: `Squashable`_
 
 Signature: ``Collection::squash();``
 
-.. code-block:: php
-
+.. literalinclude:: code/operations/squash.php
+  :language: php
 
 tail
 ~~~~
