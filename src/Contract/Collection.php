@@ -97,6 +97,7 @@ use loophp\collection\Contract\Operation\Sliceable;
 use loophp\collection\Contract\Operation\Sortable;
 use loophp\collection\Contract\Operation\Spanable;
 use loophp\collection\Contract\Operation\Splitable;
+use loophp\collection\Contract\Operation\Squashable;
 use loophp\collection\Contract\Operation\Tailable;
 use loophp\collection\Contract\Operation\Tailsable;
 use loophp\collection\Contract\Operation\TakeWhileable;
@@ -204,6 +205,7 @@ use loophp\collection\Contract\Operation\Zipable;
  * @template-extends Sortable<TKey, T>
  * @template-extends Spanable<TKey, T>
  * @template-extends Splitable<TKey, T>
+ * @template-extends Squashable<TKey, T>
  * @template-extends Tailable<TKey, T>
  * @template-extends Tailsable<TKey, T>
  * @template-extends TakeWhileable<TKey, T>
@@ -311,6 +313,7 @@ interface Collection extends
     Sortable,
     Spanable,
     Splitable,
+    Squashable,
     Tailable,
     Tailsable,
     TakeWhileable,

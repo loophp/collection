@@ -2623,6 +2623,24 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs([[0], [1, 2, 3], [4, 5, 6], [7, 8, 9], [10]]);
     }
 
+    public function it_can_squash(): void
+    {
+        $input = [16, 4, -9, 9];
+
+        $this::fromIterable($input)
+            ->map(
+                static function (int $value): int {
+                    if (0 > $value) {
+                        throw new Exception('Error');
+                    }
+
+                    return (int) sqrt($value);
+                }
+            )
+            ->shouldThrow(Exception::class)
+            ->during('squash');
+    }
+
     public function it_can_tail(): void
     {
         $this::fromIterable(range('A', 'F'))
@@ -3443,7 +3461,7 @@ class CollectionSpec extends ObjectBehavior
         $this->shouldHaveType(Collection::class);
     }
 
-    public function let()
+    public function let(): void
     {
         $this->beConstructedThrough('empty');
     }

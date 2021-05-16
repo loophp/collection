@@ -1824,6 +1824,18 @@ Signature: ``Collection::split(int $type = Splitable::BEFORE, callable ...$callb
     $collection = Collection::fromIterable(range(0, 10))
         ->split(Splitable::REMOVE, $splitter); [[1, 2], [4, 5], [7, 8], [10]]
 
+squash
+~~~~~~
+
+Eagerly apply operations in a collection rather than lazily.
+
+Interface: `Squashable`_
+
+Signature: ``Collection::squash();``
+
+.. literalinclude:: code/operations/squash.php
+  :language: php
+
 tail
 ~~~~
 
@@ -2265,6 +2277,7 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Sortable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Sortable.php
 .. _Spanable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Spanable.php
 .. _Splitable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Splitable.php
+.. _Squashable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Squashable.php
 .. _Tailable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Tailable.php
 .. _Tailsable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Tailsable.php
 .. _TakeWhileable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/TakeWhileable.php

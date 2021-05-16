@@ -712,6 +712,11 @@ final class Collection implements CollectionInterface
         return new self(Split::of()($type)(...$callbacks), $this->getIterator());
     }
 
+    public function squash(): CollectionInterface
+    {
+        return self::fromIterable($this->pack()->all())->unpack();
+    }
+
     public function tail(): CollectionInterface
     {
         return new self(Tail::of(), $this->getIterator());
