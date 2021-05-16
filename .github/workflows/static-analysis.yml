@@ -8,7 +8,7 @@ name: "Static analysis"
 
 jobs:
     run:
-        name: "CI"
+        name: "Static Analysis"
         runs-on: ${{ matrix.operating-system }}
         strategy:
             fail-fast: false
