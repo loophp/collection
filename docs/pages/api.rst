@@ -455,7 +455,7 @@ Signature: ``Collection::contains(...$value);``
         ->contains('d'); // [false]
 
     if ($collection->contains('d')->current()) {
-	    // do something
+        // do something
     }
 
 current
