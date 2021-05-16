@@ -145,16 +145,15 @@ Another example
 Methods (operations)
 --------------------
 
-.. note::
-	Operations always returns a new collection object, with the exception of ``all``, ``count``, ``current``, ``key``.
-
+.. note:: Operations always returns a new collection object, with the exception of ``all``, ``count``, ``current``, ``key``.
 
 all
 ~~~
 
 Convert the collection into an array.
 
-This is a lossy operation because PHP array keys cannot be duplicated and must either be int or string.
+.. warning:: This is a lossy operation because PHP array keys cannot be duplicated and must either be int or string.
+            If you want to ensure no data is lost in the case of duplicate keys, look at the ``Collection::normalize()`` operation.
 
 Interface: `Allable`_
 
@@ -663,7 +662,7 @@ Signature: ``Collection::explode(...$items);``
 falsy
 ~~~~~
 
-Check if the collection contains falsy values.
+Check if the collection contains *any falsy* values. A value is determined to be *falsy* by applying a ``bool`` cast.
 
 Interface: `Falsyable`_
 
@@ -988,7 +987,7 @@ Signature: ``Collection::head();``
 ifThenElse
 ~~~~~~~~~~
 
-Execute a callback when a condition is met.
+Execute a callback when a condition is met. If no ``else`` callback is provided, the identity function is applied (elements are not modified).
 
 Interface: `IfThenElseable`_
 
@@ -1019,13 +1018,18 @@ Signature: ``Collection::ifThenElse(callable $condition, callable $then, ?callab
 implode
 ~~~~~~~
 
-Convert all the elements of the collection to a single string.
+Join all the elements of the collection into a single string using a glue provided or the empty string as default.
 
-The glue character can be provided, default is the empty character.
+Note internally ``foldLeft`` is used, which is why the result will have the last element's key.
 
 Interface: `Implodeable`_
 
 Signature: ``Collection::implode(string $glue = '');``
+
+.. code-block:: php
+
+    Collection::fromIterable(range('a', 'c'))
+        ->implode('-'); // [2 => 'a-b-c']
 
 init
 ~~~~
@@ -1094,8 +1098,12 @@ Signature: ``Collection::intersperse($element, int $every = 1, int $startAt = 0)
 
 .. code-block:: php
 
-    $collection = Collection::fromIterable(range('a', 'z'))
-        ->intersperse('foo', 3);
+    $collection = Collection::fromIterable(range('a', 'c'))
+        ->intersperse('x');
+    
+    foreach($collection as $item) {
+        var_dump($item); // 'x', 'a', 'x', 'b', 'x', 'c'
+    }
 
 key
 ~~~
@@ -1124,8 +1132,8 @@ Signature: ``Collection::keys();``
 
 .. code-block:: php
 
-    $collection = Collection::fromIterable(range('a', 'z'))
-        ->keys();
+    $collection = Collection::fromIterable(range('a', 'd'))
+        ->keys(); // [0, 1, 2, 3]
 
 last
 ~~~~
@@ -1161,12 +1169,8 @@ Signature: ``Collection::limit(int $limit);``
 
 .. code-block:: php
 
-    $fibonacci = static function ($a = 0, $b = 1): array {
-        return [$b, $a + $b];
-    };
-
-    $collection = Collection::unfold($fibonacci)
-        ->limit(10);
+    $even = Collection::range(0, \INF, 2)
+        ->limit(5); // [0, 2, 4, 6, 8]
 
 lines
 ~~~~~
@@ -1180,20 +1184,20 @@ Signature: ``Collection::lines();``
 .. code-block:: php
 
     $string = <<<'EOF'
-    The quick brow fox jumps over the lazy dog.
+    The quick brown fox jumps over the lazy dog.
 
     This is another sentence.
     EOF;
 
     Collection::fromString($string)
-        ->lines();
+        ->lines(); // ['The quick brown fox jumps over the lazy dog.', '', 'This is another sentence.']
 
 map
 ~~~
 
 Apply one or more supplied callbacks to every item of a collection and use the return value.
 
-.. warning:: Keys are preserved, use the "normalize" operation if you want to re-index the keys.
+.. warning:: Keys are preserved, use the ``Collection::normalize`` operation if you want to re-index the keys.
 
 Interface: `Mapable`_
 
@@ -1205,8 +1209,8 @@ Signature: ``Collection::map(callable ...$callbacks);``
         return $value * 2;
     };
 
-    $collection = Collection::fromIterable(range(1, 100))
-        ->map($mapper);
+    $collection = Collection::fromIterable(range(1, 5))
+        ->map($mapper); // [2, 4, 6, 8, 10]
 
 match
 ~~~~~
@@ -1234,30 +1238,38 @@ Signature: ``Collection::match(callable $callback, ?callable $matcher = null);``
 merge
 ~~~~~
 
-Merge one or more collection of items onto a collection.
+Merge one or more iterables onto a collection.
 
 Interface: `Mergeable`_
 
-Signature: ``Collection::merge(...$sources);``
+Signature: ``Collection::merge(iterable ...$sources);``
 
 .. code-block:: php
 
-    $collection = Collection::fromIterable(range(1, 10))
-        ->merge(['a', 'b', 'c'])
+    Collection::fromIterable(range(1, 5))
+        ->merge(range(6, 10)) // range(1, 10)
+
+    $collection = Collection::fromIterable(['a', 'b', 'c'])
+        ->merge(Collection::fromIterable(['d', 'e']);
+    
+    $collection->all(); // ['d', 'e', 'c'] -> 'a' and 'b' are lost due to key overlap
+    $collection->normalize()->all() // ['a', 'b', 'c', 'd', 'e']
 
 normalize
 ~~~~~~~~~
 
 Replace, reorder and use numeric keys on a collection.
 
+.. note:: If you want to retrieve collection elements as an array via ``Collection::all()`` instead of
+        consuming the collection through a ``foreach``, most often you will want to use this method
+        before the array transformation in order to prevent data loss.
+
 Interface: `Normalizeable`_
 
 Signature: ``Collection::normalize();``
 
-.. code-block:: php
-
-    $collection = Collection::fromIterable(['a' => 'a', 'b' => 'b', 'c' => 'c'])
-        ->normalize();
+.. literalinclude:: code/operations/normalize.php
+  :language: php
 
 nth
 ~~~
@@ -1270,13 +1282,13 @@ Signature: ``Collection::nth(int $step, int $offset = 0);``
 
 .. code-block:: php
 
-    $collection = Collection::fromIterable(range(10, 100))
-        ->nth(3);
+    $collection = Collection::fromIterable(range(1, 20))
+        ->nth(5); // [0 => 1, 5 => 6, 10 => 11, 15 => 16]
 
 nullsy
 ~~~~~~
 
-Check if the collection contains *nullsy* values.
+Check if the collection contains *only nullsy* values.
 
 *Nullsy* values are:
 
@@ -1290,19 +1302,17 @@ Interface: `Nullsyable`_
 
 Signature: ``Collection::nullsy();``
 
-only
-~~~~
-
-Get items having corresponding given keys.
-
-Interface: `Onlyable`_
-
-Signature: ``Collection::only(...$keys);``
-
 .. code-block:: php
 
-    $collection = Collection::fromIterable(range(10, 100))
-        ->only(3, 10, 'a', 9);
+    $nullsy = Collection::fromIterable([null, null])
+        ->nullsy(); // [true]
+
+    $nonNullsy = Collection::fromIterable(['a', null, 'c'])
+        ->nullsy(); // [false]
+
+    if ($falsyCollection->nullsy()->current()) {
+        // do something
+    }
 
 pack
 ~~~~
@@ -2308,7 +2318,6 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Normalizeable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Normalizeable.php
 .. _Nthable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Nthable.php
 .. _Nullsyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Nullsyable.php
-.. _Onlyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Onlyable.php
 .. _Packable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Packable.php
 .. _Padable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Padable.php
 .. _Pairable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Pairable.php
