@@ -100,7 +100,6 @@ use loophp\collection\Operation\Slice;
 use loophp\collection\Operation\Sort;
 use loophp\collection\Operation\Span;
 use loophp\collection\Operation\Split;
-use loophp\collection\Operation\Squash;
 use loophp\collection\Operation\Tail;
 use loophp\collection\Operation\Tails;
 use loophp\collection\Operation\TakeWhile;
