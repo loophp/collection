@@ -152,7 +152,7 @@ all
 
 Convert the collection into an array.
 
-.. warning:: This is a lossy operation because PHP array keys cannot be duplicated and must either be int or string.
+.. warning:: This is a lossy operation because PHP array keys cannot be duplicated and must either be ``int`` or ``string``.
             If you want to ensure no data is lost in the case of duplicate keys, look at the ``Collection::normalize()`` operation.
 
 Interface: `Allable`_
