@@ -145,7 +145,9 @@ Another example
 Methods (operations)
 --------------------
 
-Operations always returns a new collection object.
+.. note::
+	Operations always returns a new collection object, with the exception of ``all``, ``count``, ``current``, ``key``.
+
 
 all
 ~~~
@@ -163,12 +165,12 @@ Signature: ``Collection::all();``
         $generator = static function (): Generator {
             yield 0 => 'a';
             yield 1 => 'b';
-            yield 0 => 'a';
-            yield 2 => 'c';
+            yield 0 => 'c';
+            yield 2 => 'd';
         };
 
         Collection::fromIterable($generator())
-            ->all(); // [0 => 'a', 1 => 'b', 2 => 'c']
+            ->all(); // [0 => 'c', 1 => 'b', 2 => 'd']
 
 append
 ~~~~~~
@@ -206,7 +208,7 @@ Execute callback(s) on each element of the collection.
 
 Iterates on the collection items regardless of the return value of the callback.
 
-If the callback does not return `true` then it stops applying callbacks on subsequent items.
+If the callback does not return ``true`` then it stops applying callbacks on subsequent items.
 
 Interface: `Applyable`_
 
@@ -452,6 +454,10 @@ Signature: ``Collection::contains(...$value);``
     $collection = Collection::fromIterable(range('a', 'c'))
         ->contains('d'); // [false]
 
+    if ($collection->contains('d')->current()) {
+	    // do something
+    }
+
 current
 ~~~~~~~
 
@@ -567,7 +573,7 @@ dump
 ~~~~
 
 Dump one or multiple items. It uses `symfony/var-dumper`_ if it is available,
-`var_dump()`_ otherwise. A custom `callback` might be also used.
+`var_dump()`_ otherwise. A custom ``callback`` might be also used.
 
 Interface: `Dumpable`_
 
@@ -753,7 +759,7 @@ foldLeft
 ~~~~~~~~
 
 Takes the initial value and the first item of the list and applies the function to them, then feeds the function with
-this result and the second argument and so on. See `scanLeft` for intermediate results.
+this result and the second argument and so on. See ``scanLeft`` for intermediate results.
 
 Interface: `FoldLeftable`_
 
@@ -763,7 +769,7 @@ foldLeft1
 ~~~~~~~~~
 
 Takes the first 2 items of the list and applies the function to them, then feeds the function with this result and the
-third argument and so on. See `scanLeft1` for intermediate results.
+third argument and so on. See ``scanLeft1`` for intermediate results.
 
 Interface: `FoldLeft1able`_
 
@@ -773,7 +779,7 @@ foldRight
 ~~~~~~~~~
 
 Takes the initial value and the last item of the list and applies the function, then it takes the penultimate item from
-the end and the result, and so on. See `scanRight` for intermediate results.
+the end and the result, and so on. See ``scanRight`` for intermediate results.
 
 Interface: `FoldRightable`_
 
@@ -783,7 +789,7 @@ foldRight1
 ~~~~~~~~~~
 
 Takes the last two items of the list and applies the function, then it takes the third item from the end and the result,
-and so on. See `scanRight1` for intermediate results.
+and so on. See ``scanRight1`` for intermediate results.
 
 Interface: `FoldRight1able`_
 
@@ -1220,11 +1226,11 @@ Check if the collection contains *nullsy* values.
 
 *Nullsy* values are:
 
-* The null value: `null`
-* Empty array: `[]`
-* The integer zero: `0`
-* The boolean: `false`
-* The empty string: `''`
+* The null value: ``null``
+* Empty array: ``[]``
+* The integer zero: ``0``
+* The boolean: ``false``
+* The empty string: ``''``
 
 Interface: `Nullsyable`_
 
