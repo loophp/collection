@@ -7,7 +7,7 @@ name: "Code style"
 
 jobs:
     run:
-        name: "CI"
+        name: "Code Style"
         runs-on: ${{ matrix.operating-system }}
         strategy:
             fail-fast: false
