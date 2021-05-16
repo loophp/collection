@@ -111,7 +111,7 @@ Signature: ``Collection::times($number = INF, ?callable $callback = null);``
 unfold
 ~~~~~~
 
-Create a collection by yielding from a callback with a initial value.
+Create a collection by yielding from a callback with an initial value.
 
 .. warning:: The callback return values are reused as callback arguments at the next callback call.
 
@@ -268,9 +268,10 @@ asyncMap
 
 Apply one callback to every item of a collection and use the return value.
 
-.. warning:: Asynchronously apply callbacks to a collection. This operation is non-deterministic, we cannot ensure the elements order at the end.
+.. warning:: Asynchronously apply callbacks to a collection. 
+            This operation is non-deterministic, we cannot ensure the order of the elements at the end.
 
-.. warning:: Keys are preserved, use the "normalize" operation if you want to re-index the keys.
+.. warning:: Keys are preserved, use the ``Collection::normalize`` operation if you want to re-index the keys.
 
 Interface: `AsyncMapable`_
 
@@ -310,7 +311,7 @@ Signature: ``Collection::cache(CacheItemPoolInterface $cache = null);``
 chunk
 ~~~~~
 
-Chunk a collection of item into chunks of items of a given size.
+Chunk a collection of items into chunks of items of a given size.
 
 Interface: `Chunkable`_
 
@@ -446,7 +447,7 @@ Signature: ``Collection::compact(...$values);``
 contains
 ~~~~~~~~
 
-Check if the collection contains one or more value.
+Check if the collection contains one or more values.
 
 Interface: `Containsable`_
 
@@ -464,7 +465,7 @@ Signature: ``Collection::contains(...$value);``
 current
 ~~~~~~~
 
-Get the value of an item in the collection given a numeric index, default index is 0.
+Get the value of an item in the collection given a numeric index or the default 0.
 
 Interface: `Currentable`_
 
@@ -556,7 +557,7 @@ Iterate over the collection items and takes from it its elements from the moment
 first time till the end of the list.
 
 .. warning:: The `callbacks` parameter is variadic and they are evaluated as a logical ``OR``.
-             If you're looking for a logical ``AND``, you have make multiple calls to the
+             If you're looking for a logical ``AND``, you have to make multiple calls to the
              same operation.
 
 Interface: `DropWhileable`_
@@ -598,7 +599,7 @@ Signature: ``Collection::duplicate();``
 
 .. code-block:: php
 
-    // It might return duplicated values !
+    // It might return duplicated values!
     Collection::fromIterable(['a', 'b', 'c', 'a', 'c', 'a'])
             ->duplicate(); // [3 => 'a', 4 => 'c', 5 => 'a']
 
@@ -614,7 +615,7 @@ every
 This operation tests whether all elements in the collection pass the test implemented by the provided callback(s).
 
 .. warning:: The `callbacks` parameter is variadic and they are evaluated as a logical ``OR``.
-             If you're looking for a logical ``AND``, you have make multiple calls to the
+             If you're looking for a logical ``AND``, you have to make multiple calls to the
              same operation.
 
 Interface: `Everyable`_
@@ -645,7 +646,7 @@ explode
 
 Explode a collection into subsets based on a given value.
 
-This operation use the Split operation with the flag ``Splitable::REMOVE`` and thus, values used to explode the
+This operation uses the ``Collection::split`` operation with the flag ``Splitable::REMOVE`` and thus, values used to explode the
 collection are removed from the chunks.
 
 Interface: `Explodeable`_
@@ -754,7 +755,7 @@ Signature: ``Collection::flip(int $depth = PHP_INT_MAX);``
 
 .. tip:: array_flip() and Collection::flip() can behave different, check the following examples.
 
-When using regular arrays, `array_flip()`_ can be used to remove duplicates (dedup-licate an array).
+When using regular arrays, `array_flip()`_ can be used to remove duplicates (deduplicate an array).
 
 .. code-block:: php
 
@@ -881,7 +882,7 @@ Signature: ``Collection::frequency();``
 get
 ~~~
 
-Get a specific element of the collection from a key, if the key doesn't exists, returns the default value.
+Get a specific element of the collection from a key; if the key doesn't exist, returns the default value.
 
 Interface: `Getable`_
 
@@ -938,7 +939,7 @@ has
 Check if the collection has values.
 
 .. warning:: The `callbacks` parameter is variadic and they are evaluated as a logical ``OR``.
-             If you're looking for a logical ``AND``, you have make multiple calls to the
+             If you're looking for a logical ``AND``, you have to make multiple calls to the
              same operation.
 
 Interface: `Hasable`_
@@ -1161,7 +1162,7 @@ Signature: ``Collection::last();``
 limit
 ~~~~~
 
-Limit the amount of values in the collection.
+Limit the number of values in the collection.
 
 Interface: `Limitable`_
 
@@ -1217,7 +1218,7 @@ match
 
 Check if the collection match a ``user callback``.
 
-User must provide a callback that will get the ``key``, the ``current value`` and the ``iterator`` as parameters.
+You must provide a callback that will get the ``key``, the ``current value``, and the ``iterator`` as parameters.
 
 When no matcher callback is provided, the user callback must return ``true`` (the
 default value of the ``matcher callback``) in order to stop.
@@ -1226,7 +1227,7 @@ The returned value of the operation is ``true`` when the callback match at least
 of the collection. ``false`` otherwise.
 
 If you want to match the ``user callback`` against another value (other than ``true``), you must
-provide your own ``matcher callback`` as a second argument, it must returns a ``boolean``.
+provide your own ``matcher callback`` as a second argument, and it must return a ``boolean``.
 
 Interface: `Matchable`_
 
@@ -1247,7 +1248,7 @@ Signature: ``Collection::merge(iterable ...$sources);``
 .. code-block:: php
 
     Collection::fromIterable(range(1, 5))
-        ->merge(range(6, 10)) // range(1, 10)
+        ->merge(range(6, 10)); // range(1, 10)
 
     $collection = Collection::fromIterable(['a', 'b', 'c'])
         ->merge(Collection::fromIterable(['d', 'e']);
@@ -1317,7 +1318,7 @@ Signature: ``Collection::nullsy();``
 pack
 ~~~~
 
-Wrap each items into an array containing 2 items: the key and the value.
+Wrap each item into an array containing 2 items: the key and the value.
 
 Interface: `Packable`_
 
@@ -1406,7 +1407,7 @@ partition
 With one or multiple callable, partition the items into 2 subgroups of items.
 
 .. warning:: The `callbacks` parameter is variadic and they are evaluated as a logical ``OR``.
-             If you're looking for a logical ``AND``, you have make multiple calls to the
+             If you're looking for a logical ``AND``, you have to make multiple calls to the
              same operation.
 
 Interface: `Partitionable`_
@@ -1481,7 +1482,7 @@ Signature: ``Collection::prepend(...$items);``
 product
 ~~~~~~~
 
-Get the the cartesian product of items of a collection.
+Get the cartesian product of items of a collection.
 
 Interface: `Productable`_
 
@@ -1695,10 +1696,10 @@ Signature: ``Collection::shuffle(?int $seed = null);``
 since
 ~~~~~
 
-Skip items until callback is met.
+Skip items until the callback is met.
 
 .. warning:: The `callbacks` parameter is variadic and they are evaluated as a logical ``OR``.
-             If you're looking for a logical ``AND``, you have make multiple calls to the
+             If you're looking for a logical ``AND``, you have to make multiple calls to the
              same operation.
 
 Interface: `Sinceable`_
@@ -1848,7 +1849,8 @@ Signature: ``Collection::sort(?callable $callback = null);``
 span
 ~~~~
 
-Returns a tuple where first element is longest prefix (possibly empty) of elements that satisfy the callback and second element is the remainder.
+Returns a tuple where the first element is the longest prefix (possibly empty) of elements
+that satisfy the callback and the second element is the remainder.
 
 Interface: `Spanable`_
 
@@ -1936,7 +1938,7 @@ Iterate over the collection items when the provided callback(s) are satisfied.
 It stops iterating when the callback(s) are not met.
 
 .. warning:: The `callbacks` parameter is variadic and they are evaluated as a logical ``OR``.
-             If you're looking for a logical ``AND``, you have make multiple calls to the
+             If you're looking for a logical ``AND``, you have to make multiple calls to the
              same operation.
 
 Be careful, this operation is not the same as the ``filter`` operation.
@@ -2012,7 +2014,7 @@ Signature: ``Collection::unlines();``
 .. code-block:: php
 
     $lines = [
-        'The quick brow fox jumps over the lazy dog.',
+        'The quick brown fox jumps over the lazy dog.',
         '',
         'This is another sentence.',
     ];
@@ -2077,7 +2079,7 @@ until
 Iterate over the collection items until the provided callback(s) are satisfied.
 
 .. warning:: The `callbacks` parameter is variadic and they are evaluated as a logical ``OR``.
-             If you're looking for a logical ``AND``, you have make multiple calls to the
+             If you're looking for a logical ``AND``, you have to make multiple calls to the
              same operation.
 
 Interface: `Untilable`_
@@ -2102,7 +2104,7 @@ Signature: ``Collection::until(callable ...$callbacks);``
 unwindow
 ~~~~~~~~
 
-Contrary of ``Collection::window()``, usually needed after a call to that operation.
+Opposite of ``Collection::window()``, usually needed after a call to that operation.
 
 Interface: `Unwindowable`_
 
@@ -2215,7 +2217,7 @@ Signature: ``Collection::words();``
 .. code-block:: php
 
     $string = <<<'EOF'
-    The quick brow fox jumps over the lazy dog.
+    The quick brown fox jumps over the lazy dog.
 
     This is another sentence.
     EOF;
