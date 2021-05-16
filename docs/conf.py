@@ -158,8 +158,8 @@ html_static_path = ['_static']
 
 
 def setup(app):
-    app.add_stylesheet('custom.css')
-    app.add_stylesheet('highlight.css')
+    app.add_css_file('custom.css')
+    app.add_css_file('highlight.css')
 
 # Custom sidebar templates, maps document names to template names.
 #html_sidebars = {}
@@ -291,5 +291,3 @@ texinfo_documents = [
 
 # If true, do not generate a @detailmenu in the "Top" node's menu.
 #texinfo_no_detailmenu = False
-
-
