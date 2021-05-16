@@ -7,7 +7,7 @@ name: "Mutations testing"
 
 jobs:
     run:
-        name: "CI"
+        name: "Mutation Testing"
         runs-on: ${{ matrix.operating-system }}
         strategy:
             fail-fast: false
