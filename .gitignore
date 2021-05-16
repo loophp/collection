@@ -1,11 +1,11 @@
 /composer.lock
 /vendor
 /build
+/docs/_build
 /.php_cs.cache
 /examples/
 /.idea/
 /test.php
-/examples/
 /node_modules/
 /benchmarks/
 /.vscode/

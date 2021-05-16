@@ -26,7 +26,7 @@ $commandStream = static function (string $command): Generator {
 $buildIfThenElseCallbacks = static function (string $lineStart): array {
     return [
         static function ($line) use ($lineStart): bool {
-            return \is_string($line) && 0 === mb_strpos($line, $lineStart);
+            return is_string($line) && 0 === mb_strpos($line, $lineStart);
         },
         static function ($line) use ($lineStart): array {
             [, $line] = explode($lineStart, $line);
@@ -57,7 +57,7 @@ $c = Collection::fromIterable($commandStream('git log'))
     ->split(
         Splitable::BEFORE,
         static function ($value): bool {
-            return \is_array($value) ?
+            return is_array($value) ?
                 (1 === preg_match('/^commit:\b[0-9a-f]{5,40}\b/', $value[0])) :
                 false;
         }
@@ -72,12 +72,12 @@ $c = Collection::fromIterable($commandStream('git log'))
             return $collection
                 ->groupBy(
                     static function ($value): ?string {
-                        return \is_array($value) ? 'headers' : null;
+                        return is_array($value) ? 'headers' : null;
                     }
                 )
                 ->groupBy(
                     static function ($value): ?string {
-                        return \is_string($value) ? 'log' : null;
+                        return is_string($value) ? 'log' : null;
                     }
                 )
                 ->ifThenElse(

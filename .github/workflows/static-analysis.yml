@@ -8,7 +8,7 @@ name: "Static analysis"
 
 jobs:
     run:
-        name: "CI"
+        name: "Static Analysis"
         runs-on: ${{ matrix.operating-system }}
         strategy:
             fail-fast: false
@@ -28,7 +28,7 @@ jobs:
                   fetch-depth: 1
 
             - name: Install PHP
-              uses: shivammathur/setup-php@v2
+              uses: shivammathur/setup-php@2.11.0
               with:
                   php-version: ${{ matrix.php-versions }}
                   extensions: gd,mbstring,pcov,xdebug

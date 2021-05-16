@@ -2,7 +2,7 @@ imports:
   - { resource: vendor/drupol/php-conventions/config/php73/grumphp.yml }
 
 parameters:
-  tasks.phpcsfixer.config: .php_cs.dist
+  tasks.phpcsfixer.config: .php-cs-fixer.dist.php
   tasks.license.holder: Pol Dellaiera
   tasks.license.date_from: 2019
   extra_tasks:
