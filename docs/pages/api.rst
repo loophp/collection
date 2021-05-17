@@ -330,11 +330,11 @@ Return the first *non-nullsy* value in a collection.
 
 *Nullsy* values are:
 
-* The null value: null
-* Empty array: []
-* The integer zero: 0
-* The boolean: false
-* The empty string: ''
+* The null value: ``null``
+* Empty array: ``[]``
+* The integer zero: ``0``
+* The boolean: ``false``
+* The empty string: ``''``
 
 Interface: `Coalesceable`_
 
@@ -402,7 +402,7 @@ Signature: ``Collection::column($index);``
 combinate
 ~~~~~~~~~
 
-Get all the combinations of a given length of a collection of items.
+Get all the `combinations <https://en.wikipedia.org/wiki/Combination>`_ of a given length of a collection of items.
 
 Interface: `Combinateable`_
 
@@ -1021,7 +1021,7 @@ implode
 
 Join all the elements of the collection into a single string using a glue provided or the empty string as default.
 
-Note internally ``foldLeft`` is used, which is why the result will have the last element's key.
+.. tip:: Internally this operation uses ``foldLeft``, which is why the result will have the last element's key.
 
 Interface: `Implodeable`_
 
@@ -1349,7 +1349,7 @@ Signature: ``Collection::pad(int $size, $value);``
 .. code-block:: php
 
     $collection = Collection::fromIterable(range(1, 5))
-        ->pad(10, 'foo');
+        ->pad(8, 'foo'); // [1, 2, 3, 4, 5, 'foo', 'foo', 'foo']
 
 pair
 ~~~~
@@ -1387,9 +1387,7 @@ Signature: ``Collection::pair();``
 
     $c = Collection::fromIterable($input)
         ->unwrap()
-        ->pair()
-        ->group()
-        ->all();
+        ->pair();
 
     // [
     //    [k1] => v1
@@ -1420,7 +1418,7 @@ Signature: ``Collection::partition(callable ...$callbacks);``
 permutate
 ~~~~~~~~~
 
-Find all the permutations of a collection.
+Find all the `permutations <https://en.wikipedia.org/wiki/Permutation>`_ of a collection.
 
 Interface: `Permutateable`_
 
@@ -1428,34 +1426,28 @@ Signature: ``Collection::permutate(int $size, $value);``
 
 .. code-block:: php
 
-    $collection = Collection::fromIterable(['hello', 'how', 'are', 'you'])
-        ->permutate();
+    $collection = Collection::fromIterable(['a', 'b'])
+        ->permutate(); // [['a', 'b'], ['b', 'a']]
 
 pluck
 ~~~~~
 
 Retrieves all of the values of a collection for a given key.
+Nested values can be retrieved using "dot notation" and the wildcard character ``*``.
 
 Interface: `Pluckable`_
 
 Signature: ``Collection::pluck($pluck, $default = null);``
 
-.. code-block:: php
-
-    $fibonacci = static function ($a = 0, $b = 1): array {
-        return [$b, $a + $b];
-    };
-
-    $collection = Collection::unfold($fibonacci)
-        ->limit(10)
-        ->pluck(0);
+.. literalinclude:: code/operations/pluck.php
+  :language: php
 
 prepend
 ~~~~~~~
 
 Push an item onto the beginning of the collection.
 
-.. warning:: If prepended values overwrite existing values, you might find that this operation doesn't work correctly
+.. warning:: If prepended values overwrite existing values or keys, you might find that this operation doesn't work correctly
              when the collection is converted into an array.
              It's always better to never convert the collection to an array and use it in a loop.
              However, if for some reason, you absolutely need to convert it into an array, then use the
@@ -1472,17 +1464,19 @@ Signature: ``Collection::prepend(...$items);``
 
     Collection::fromIterable(['1', '2', '3'])
         ->prepend('4')
-        ->prepend('5', '6'); // [0 => 1, 1 => 2, 2 => 3]
+        ->prepend('5', '6')
+        ->all(); // [0 => 1, 1 => 2, 2 => 3]
 
     Collection::fromIterable(['1', '2', '3'])
         ->prepend('4')
         ->prepend('5', '6')
-        ->normalize(); // ['5', '6', '4', '1', '2', '3']
+        ->normalize()
+        ->all(); // ['5', '6', '4', '1', '2', '3']
 
 product
 ~~~~~~~
 
-Get the cartesian product of items of a collection.
+Get the `cartesian product <https://en.wikipedia.org/wiki/Cartesian_product>`_ of items of a collection.
 
 Interface: `Productable`_
 
@@ -1490,8 +1484,8 @@ Signature: ``Collection::product(iterable ...$iterables);``
 
 .. code-block:: php
 
-    $collection = Collection::fromIterable(['4', '5', '6'])
-        ->product(['1', '2', '3'], ['a', 'b'], ['foo', 'bar']);
+    $collection = Collection::fromIterable(range('A', 'C'))
+        ->product([1, 2]); // [['A', 1], ['A', 2], ['B', 1], ['B', 2], ['C', 1], ['C', 2]]
 
 random
 ~~~~~~
