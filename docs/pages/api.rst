@@ -1515,30 +1515,10 @@ Signature: ``Collection::reduction(callable $callback, $initial = null);``
 
 .. code-block:: php
 
-    $multiplication = static function ($value1, $value2) {
-        return $value1 * $value2;
-    };
+    $callback = static fn ($carry, $item) => $carry + $item;
 
-    $addition = static function ($value1, $value2) {
-        return $value1 + $value2;
-    };
-
-    $fact = static function (int $number) use ($multiplication) {
-        return Collection::range(1, $number + 1)
-            ->reduce(
-                $multiplication,
-                1
-            );
-    };
-
-    $e = static function (int $value) use ($fact): float {
-        return $value / $fact($value);
-    };
-
-    $number_e_approximation = Collection::times()
-        ->map($e)
-        ->limit(10)
-        ->reduction($addition);
+    $collection = Collection::fromIterable(range(1, 5))
+        ->reduction($callback); // [1, 3, 6, 10, 15]
 
 reverse
 ~~~~~~~
@@ -1552,12 +1532,22 @@ Signature: ``Collection::reverse();``
 .. code-block:: php
 
     $collection = Collection::fromIterable(['a', 'b', 'c'])
-        ->reverse();
+        ->reverse(); // ['c', 'b', 'a']
 
 rsample
 ~~~~~~~
 
 Work in progress... sorry.
+
+Interface: `RSampleable`_
+
+Signature: ``Collection::rsample();``
+
+.. code-block:: php
+
+    $collection = Collection::fromIterable(range(1, 5));
+    $collection->rsample(1.0); // [1, 2, 3, 4, 5]
+    $collection->rsample(0.5); // will get about half of the elements at random
 
 scale
 ~~~~~
@@ -1571,10 +1561,10 @@ Signature: ``Collection::scale(float $lowerBound, float $upperBound, ?float $wan
 .. code-block:: php
 
     $collection = Collection::range(0, 10, 2)
-        ->scale(0, 10);
+        ->scale(0, 10); // [0, 0.2, 0.4, 0.6, 0.8]
 
     $collection = Collection::range(0, 10, 2)
-        ->scale(0, 10, 5, 15, 3);
+        ->scale(0, 10, 5, 15, 3); // [5, 8.01, 11.02, 12.78, 14.03]
 
 scanLeft
 ~~~~~~~~
@@ -2325,6 +2315,7 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Randomable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Randomable.php
 .. _Reductionable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Reductionable.php
 .. _Reverseable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Reverseable.php
+.. _RSampleable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/RSampleable.php
 .. _Scaleable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Scaleable.php
 .. _ScanLeftable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/ScanLeftable.php
 .. _ScanLeft1able: https://github.com/loophp/collection/blob/master/src/Contract/Operation/ScanLeft1able.php

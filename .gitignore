@@ -3,6 +3,7 @@
 /build
 /docs/_build
 /.php_cs.cache
+/.php-cs-fixer.cache
 /examples/
 /.idea/
 /test.php
