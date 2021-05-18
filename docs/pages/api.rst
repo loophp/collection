@@ -1590,7 +1590,7 @@ Signature: ``Collection::scanLeft(callable $callback, $initial = null);``
 
     Collection::fromIterable([4, 2, 4])
         ->scanLeft($callback, 64)
-        ->normalize(); // [64 ,16 ,8 ,2]
+        ->normalize(); // [64, 16, 8, 2]
 
     Collection::empty()
         ->scanLeft($callback, 3); // [0 => 3]
@@ -1615,7 +1615,7 @@ Signature: ``Collection::scanLeft1(callable $callback);``
     };
 
     Collection::fromIterable([64, 4, 2, 8])
-        ->scanLeft1($callback); // [64 ,16 ,8 ,1]
+        ->scanLeft1($callback); // [64, 16, 8, 1]
 
     Collection::fromIterable([12])
         ->scanLeft1($callback); // [12]
@@ -1799,7 +1799,8 @@ Signature: ``Collection::tail();``
 tails
 ~~~~~
 
-Returns the list of initial segments of its argument list, shortest last.
+Returns the list of initial segments of the collection, shortest last.
+Similar to applying ``tail`` successively and collecting all results in one list.
 
 Interface: `Tailsable`_
 
@@ -1813,7 +1814,7 @@ Signature: ``Collection::tails();``
 takeWhile
 ~~~~~~~~~
 
-Iterate over the collection items when the provided callback(s) are satisfied.
+Iterate over the collection items while the provided callback(s) are satisfied.
 
 It stops iterating when the callback(s) are not met.
 
@@ -1839,48 +1840,36 @@ Signature: ``Collection::takeWhile(callable ...$callbacks);``
 transpose
 ~~~~~~~~~
 
-Matrix transposition.
+Computes the `transpose <https://en.wikipedia.org/wiki/Transpose>`_ of a matrix.
 
 Interface: `Transposeable`_
 
 Signature: ``Collection::transpose();``
 
-.. code-block:: php
-
-    $records = [
-        [
-            'id' => 2135,
-            'first_name' => 'John',
-            'last_name' => 'Doe',
-        ],
-        [
-            'id' => 3245,
-            'first_name' => 'Sally',
-            'last_name' => 'Smith',
-        ],
-        [
-            'id' => 5342,
-            'first_name' => 'Jane',
-            'last_name' => 'Jones',
-        ],
-        [
-            'id' => 5623,
-            'first_name' => 'Peter',
-            'last_name' => 'Doe',
-        ],
-    ];
-
-    $result = Collection::fromIterable($records)
-        ->transpose();
+.. literalinclude:: code/operations/transpose.php
+  :language: php
 
 truthy
 ~~~~~~
 
-Check if the collection contains truthy values.
+Check if the collection contains *any truthy* values. Opposite of ``falsy``.
+A value is determined to be *truthy* by applying a ``bool`` cast.
 
 Interface: `Truthyable`_
 
 Signature: ``Collection::truthy();``
+
+.. code-block:: php
+
+    $truthyCollection = Collection::fromIterable([2, 3, 4])
+        ->truthy(); // [true]
+
+    $falsyCollection = Collection::fromIterable(['a', '', 'c', 'd'])
+        ->truthy(); // [false]
+
+    if ($falsyCollection->truthy()->current()) {
+        // do something
+    }
 
 unlines
 ~~~~~~~
