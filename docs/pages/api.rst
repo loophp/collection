@@ -1537,11 +1537,13 @@ Signature: ``Collection::reverse();``
 rsample
 ~~~~~~~
 
-Work in progress... sorry.
+Take a random sample of elements of items from a collection. Accepts a probability parameter
+which will influence the number of items sampled - higher probabilities increase the chance of
+sampling close to the entire collection.
 
 Interface: `RSampleable`_
 
-Signature: ``Collection::rsample();``
+Signature: ``Collection::rsample(float $probability);``
 
 .. code-block:: php
 
@@ -1552,19 +1554,23 @@ Signature: ``Collection::rsample();``
 scale
 ~~~~~
 
-Scale/normalize values.
+Scale/`normalize <https://en.wikipedia.org/wiki/Normalization_(statistics)>`_ values.
+Values will be scaled between ``0`` and ``1`` by default, if no desired bounds are provided.
 
 Interface: `Scaleable`_
 
-Signature: ``Collection::scale(float $lowerBound, float $upperBound, ?float $wantedLowerBound = null, ?float $wantedUpperBound = null, ?float $base = null);``
+Signature: ``Collection::scale(float $lowerBound, float $upperBound, float $wantedLowerBound = 0.0, float $wantedUpperBound = 1.0, float $base = 0.0);``
 
 .. code-block:: php
 
-    $collection = Collection::range(0, 10, 2)
-        ->scale(0, 10); // [0, 0.2, 0.4, 0.6, 0.8]
+    $default = Collection::fromIterable([0, 5, 10, 15, 20])
+        ->scale(0, 20); // [0, 0.25, 0.5, 0.75, 1]
 
-    $collection = Collection::range(0, 10, 2)
-        ->scale(0, 10, 5, 15, 3); // [5, 8.01, 11.02, 12.78, 14.03]
+    $withBounds = Collection::fromIterable([0, 5, 10, 15, 20])
+        ->scale(0, 20, 0, 12); // [0, 3, 6, 9, 12]
+
+    $withBoundsAndBase = Collection::fromIterable([0, 5, 10, 15, 20])
+        ->scale(0, 20, 0, 12, \M_E); // [1, 6.90, 9.45, 10.94, 12]
 
 scanLeft
 ~~~~~~~~
