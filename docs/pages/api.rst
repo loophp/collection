@@ -1663,7 +1663,7 @@ Signature: ``Collection::scanRight1(callable $callback);``
 shuffle
 ~~~~~~~
 
-Shuffle a collection.
+Shuffle a collection, randomly changing the order of items.
 
 Interface: `Shuffleable`_
 
@@ -1690,88 +1690,9 @@ Interface: `Sinceable`_
 
 Signature: ``Collection::since(callable ...$callbacks);``
 
-.. code-block:: php
-
-    // Example 1
-    // Parse the composer.json of a package and get the require-dev dependencies.
-    $collection = Collection::fromResource(fopen(__DIR__ . '/composer.json', 'rb'))
-        // Group items when EOL character is found.
-        ->split(
-            Splitable::REMOVE,
-            static function (string $character): bool {
-                return "\n" === $character;
-            }
-        )
-        // Implode characters to create a line string
-        ->map(
-            static function (array $characters): string {
-                return implode('', $characters);
-            }
-        )
-        // Skip items until the string "require-dev" is found.
-        ->since(
-            static function ($line) {
-                return false !== strpos($line, 'require-dev');
-            }
-        )
-        // Skip items after the string "}" is found.
-        ->until(
-            static function ($line) {
-                return false !== strpos($line, '}');
-            }
-        )
-        // Re-index the keys
-        ->normalize()
-        // Filter out the first line and the last line.
-        ->filter(
-            static function ($line, $index) {
-                return 0 !== $index;
-            },
-            static function ($line) {
-                return false === strpos($line, '}');
-            }
-        )
-        // Trim remaining results and explode the string on ':'.
-        ->map(
-            static function ($line) {
-                return trim($line);
-            },
-            static function ($line) {
-                return explode(':', $line);
-            }
-        )
-        // Take the first item.
-        ->pluck(0)
-        // Convert to array.
-        ->all();
-
-    print_r($collection);
-
-    // Example 2
-    $input = [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3];
-
-    $isGreaterThanThree = static function (int $value): bool {
-        return 3 < $value;
-    };
-
-    $isGreaterThanEight = static function (int $value): bool {
-        return 8 < $value;
-    };
-
-    $collection = Collection::fromIterable($input)
-        ->since(
-            $isGreaterThanThree,
-            $isGreaterThanEight
-        ); // [4, 5, 6, 7, 8, 9, 1, 2, 3]
-
-    $collection = Collection::fromIterable($input)
-        ->since(
-            $isGreaterThanThree
-        )
-        ->since(
-            $isGreaterThanEight
-        ); // [9, 1, 2, 3]
-
+.. literalinclude:: code/operations/since.php
+  :language: php
+   
 slice
 ~~~~~
 
@@ -1784,7 +1705,7 @@ Signature: ``Collection::slice(int $offset, ?int $length = null);``
 .. code-block:: php
 
     $collection = Collection::fromIterable(range('a', 'z'))
-        ->slice(5, 5);
+        ->slice(5, 3); // [5 => 'f', 6 => 'g', 7 => 'h']
 
 sort
 ~~~~
@@ -1798,37 +1719,8 @@ Interface: `Sortable`_
 
 Signature: ``Collection::sort(?callable $callback = null);``
 
-.. code-block:: php
-
-    // Regular values sorting
-    $collection = Collection::fromIterable(['z', 'y', 'x'])
-        ->sort();
-
-    // Regular values sorting
-    $collection = Collection::fromIterable(['z', 'y', 'x'])
-        ->sort(Operation\Sortable::BY_VALUES);
-
-    // Regular values sorting with a custom callback
-    $collection = Collection::fromIterable(['z', 'y', 'x'])
-        ->sort(
-                Operation\Sortable::BY_VALUES,
-                static function ($left, $right): int {
-                    // Do the comparison here.
-                    return $left <=> $right;
-                }
-        );
-
-    // Regular keys sorting (no callback is needed here)
-    $collection = Collection::fromIterable(['z', 'y', 'x'])
-        ->sort(
-                Operation\Sortable::BY_KEYS
-        );
-
-    // Regular keys sorting using flip() operations.
-    $collection = Collection::fromIterable(['z', 'y', 'x'])
-        ->flip() // Exchange values and keys
-        ->sort() // Sort the values (which are now the keys)
-        ->flip(); // Flip again to put back the keys and values, sorted by keys.
+.. literalinclude:: code/operations/sort.php
+  :language: php
 
 span
 ~~~~
@@ -1845,7 +1737,7 @@ Signature: ``Collection::span(callable $callback);``
     $input = range(1, 10);
 
     Collection::fromIterable($input)
-        ->span(fn ($x) => $x < 4); // [ [1, 2, 3], [4, 5, 6, 7, 8, 9, 10] ]
+        ->span(fn ($x) => $x < 4); // [[1, 2, 3], [4, 5, 6, 7, 8, 9, 10]]
 
 split
 ~~~~~
@@ -1861,18 +1753,16 @@ Signature: ``Collection::split(int $type = Splitable::BEFORE, callable ...$callb
 
 .. code-block:: php
 
-    $splitter = static function ($value): bool {
-        return 0 === $value % 3;
-    };
+    $splitter = static function ($value): bool => 0 === $value % 3;
 
     $collection = Collection::fromIterable(range(0, 10))
-        ->split(Splitable::BEFORE, $splitter); [[0, 1, 2], [3, 4, 5], [6, 7, 8], [9, 10]]
+        ->split(Splitable::BEFORE, $splitter); // [[0, 1, 2], [3, 4, 5], [6, 7, 8], [9, 10]]
 
     $collection = Collection::fromIterable(range(0, 10))
         ->split(Splitable::AFTER, $splitter); [[0], [1, 2, 3], [4, 5, 6], [7, 8, 9], [10]]
 
     $collection = Collection::fromIterable(range(0, 10))
-        ->split(Splitable::REMOVE, $splitter); [[1, 2], [4, 5], [7, 8], [10]]
+        ->split(Splitable::REMOVE, $splitter); [[], [1, 2], [4, 5], [7, 8], [10]]
 
 squash
 ~~~~~~
