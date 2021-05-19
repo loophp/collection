@@ -1874,7 +1874,7 @@ Signature: ``Collection::truthy();``
 unlines
 ~~~~~~~
 
-Create a string from lines.
+Opposite of ``Collection::lines()``, creates a single string from multiple lines using ``PHP_EOL`` as the glue.
 
 Interface: `Unlinesable`_
 
@@ -1889,13 +1889,17 @@ Signature: ``Collection::unlines();``
     ];
 
     Collection::fromIterable($lines)
-        ->unlines()
-        ->current();
+        ->unlines(); 
+    // [
+    //    'The quick brown fox jumps over the lazy dog.
+    //
+    //     This is another sentence.'
+    // ]
 
 unpack
 ~~~~~~
 
-Unpack items.
+Opposite of ``Collection::pack()`, transforms groupings of items representing a key and a value into actual keys and values.
 
 Interface: `Unpackable`_
 
@@ -1917,7 +1921,7 @@ Signature: ``Collection::unpack();``
 unpair
 ~~~~~~
 
-Unpair a collection of pairs.
+Opposite of ``Collection::pair()``, creates a flat list of values from a collection of key-value pairs.
 
 Interface: `Unpairable`_
 
@@ -1933,14 +1937,7 @@ Signature: ``Collection::unpair();``
     ];
 
     $c = Collection::fromIterable($input)
-        ->unpair();
-
-    // [
-    //     ['k1', 'v1'],
-    //     ['k2', 'v2'],
-    //     ['k3', 'v3'],
-    //     ['k4', 'v4'],
-    // ];
+        ->unpair(); // ['k1', 'v1', 'k2', 'v2', 'k3', 'v3', 'k4', 'v4']
 
 until
 ~~~~~
@@ -1974,6 +1971,7 @@ unwindow
 ~~~~~~~~
 
 Opposite of ``Collection::window()``, usually needed after a call to that operation.
+Turns already-created windows back into a flat list.
 
 Interface: `Unwindowable`_
 
@@ -1986,11 +1984,7 @@ Signature: ``Collection::unwindow();``
 
     Collection::fromIterable($input)
         ->window(4)
-        ->dropWhile(
-            static function (array $value): bool {
-                return $value !== [9, 9, 9, 9, 9];
-            }
-        )
+        ->dropWhile(static fn (array $value): bool => $value !== [9, 9, 9, 9, 9])
         ->unwindow()
         ->drop(1)
         ->normalize(); // [10, 11, 12, 13, 14, 15, 16, 17, 18]
@@ -1998,7 +1992,8 @@ Signature: ``Collection::unwindow();``
 unwords
 ~~~~~~~
 
-Create a string from words.
+Opposite of ``Collection::words()`` and similar to ``Collection::unlines()``,
+creates a single string from multiple strings using one space as the glue.
 
 Interface: `Unwordsable`_
 
@@ -2009,25 +2004,23 @@ Signature: ``Collection::unwords();``
     $words = [
         'The',
         'quick',
-        'brow',
+        'brown',
         'fox',
         'jumps',
         'over',
         'the',
         'lazy',
-        "dog.\n\nThis",
-        'is',
-        'another',
-        'sentence.',
+        'dog.'
     ];
 
     Collection::fromIterable($words)
-        ->unwords();
+        ->unwords(); // ['The quick brown fox jumps over the lazy dog.']
 
 unwrap
 ~~~~~~
 
-Unwrap every collection element.
+Opposite of ``Collection::wrap()``, turn a collection of arrays into a flat list.
+Equivalent to ``Collection::flatten(1)``.
 
 Interface: `Unwrapable`_
 
@@ -2035,15 +2028,16 @@ Signature: ``Collection::unwrap();``
 
 .. code-block:: php
 
-     $data = [['a' => 'A'], ['b' => 'B'], ['c' => 'C']];
+    $asociative = Collection::fromIterable([['a' => 'A'], ['b' => 'B'], ['c' => 'C']])
+        ->unwrap(); // ['a' => 'A', 'b' => 'B', 'c' => 'C']
 
-     $collection = Collection::fromIterable($data)
-        ->unwrap();
+    $list = Collection::fromIterable([['a'], ['b'], ['c']])
+        ->unwrap(); // ['a', 'b', 'c']
 
 unzip
 ~~~~~
 
-Unzip a collection.
+Opposite of ``Collection::zip()``, splits zipped items in a collection.
 
 Interface: `Unzipable`_
 
@@ -2068,16 +2062,17 @@ Signature: ``Collection::window(int $size);``
 
 .. code-block:: php
 
-     $data = range('a', 'z');
+     $data = range('a', 'd');
 
      Collection::fromIterable($data)
-        ->window(2)
-        ->all(); // [ ['a'], ['a', 'b'], ['b', 'c'], ['c', 'd'], ... ]
+        ->window(2); // [['a'], ['a', 'b'], ['a', 'b', 'c'], ['b', 'c', 'd']]
 
 words
 ~~~~~
 
-Get words from a string.
+Get a list of words from a string.
+
+.. tip:: The single string is split based on the character list: ``\t, \n, ' '``.
 
 Interface: `Wordsable`_
 
@@ -2092,7 +2087,8 @@ Signature: ``Collection::words();``
     EOF;
 
     Collection::fromString($string)
-        ->words()
+        ->words(); 
+    // ['The', 'quick', 'brown', 'fox', 'jumps', 'over', 'the', 'lazy', 'dog.', 'This', 'is', 'another', 'sentence.']
 
 wrap
 ~~~~
@@ -2105,10 +2101,11 @@ Signature: ``Collection::wrap();``
 
 .. code-block:: php
 
-     $data = ['a' => 'A', 'b' => 'B', 'c' => 'C'];
+     $associative = Collection::fromIterable(['a' => 'A', 'b' => 'B', 'c' => 'C'])
+        ->wrap(); // [['a' => 'A'], ['b' => 'B'], ['c' => 'C']]
 
-     $collection = Collection::fromIterable($data)
-        ->wrap();
+     $list = Collection::fromIterable(range('a', 'c'))
+        ->wrap(); // [['a'], ['b'], ['c']]
 
 zip
 ~~~

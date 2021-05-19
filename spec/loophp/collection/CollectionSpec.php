@@ -3421,8 +3421,8 @@ class CollectionSpec extends ObjectBehavior
             ]);
 
         $this::fromIterable(range('a', 'e'))
-            ->window(0)
-            ->shouldIterateAs(['a', 'b', 'c', 'd', 'e']);
+            ->wrap()
+            ->shouldIterateAs(['a'], ['b'], ['c'], ['d'], ['e']);
     }
 
     public function it_can_zip(): void
