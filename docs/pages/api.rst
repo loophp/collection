@@ -111,7 +111,7 @@ Signature: ``Collection::times($number = INF, ?callable $callback = null);``
 unfold
 ~~~~~~
 
-Create a collection by yielding from a callback with a initial value.
+Create a collection by yielding from a callback with an initial value.
 
 .. warning:: The callback return values are reused as callback arguments at the next callback call.
 
@@ -145,16 +145,15 @@ Another example
 Methods (operations)
 --------------------
 
-.. note::
-	Operations always returns a new collection object, with the exception of ``all``, ``count``, ``current``, ``key``.
-
+.. note:: Operations always returns a new collection object, with the exception of ``all``, ``count``, ``current``, ``key``.
 
 all
 ~~~
 
 Convert the collection into an array.
 
-This is a lossy operation because PHP array keys cannot be duplicated and must either be int or string.
+.. warning:: This is a lossy operation because PHP array keys cannot be duplicated and must either be ``int`` or ``string``.
+            If you want to ensure no data is lost in the case of duplicate keys, look at the ``Collection::normalize()`` operation.
 
 Interface: `Allable`_
 
@@ -269,9 +268,10 @@ asyncMap
 
 Apply one callback to every item of a collection and use the return value.
 
-.. warning:: Asynchronously apply callbacks to a collection. This operation is non-deterministic, we cannot ensure the elements order at the end.
+.. warning:: Asynchronously apply callbacks to a collection. 
+            This operation is non-deterministic, we cannot ensure the order of the elements at the end.
 
-.. warning:: Keys are preserved, use the "normalize" operation if you want to re-index the keys.
+.. warning:: Keys are preserved, use the ``Collection::normalize`` operation if you want to re-index the keys.
 
 Interface: `AsyncMapable`_
 
@@ -311,7 +311,7 @@ Signature: ``Collection::cache(CacheItemPoolInterface $cache = null);``
 chunk
 ~~~~~
 
-Chunk a collection of item into chunks of items of a given size.
+Chunk a collection of items into chunks of items of a given size.
 
 Interface: `Chunkable`_
 
@@ -330,11 +330,11 @@ Return the first *non-nullsy* value in a collection.
 
 *Nullsy* values are:
 
-* The null value: null
-* Empty array: []
-* The integer zero: 0
-* The boolean: false
-* The empty string: ''
+* The null value: ``null``
+* Empty array: ``[]``
+* The integer zero: ``0``
+* The boolean: ``false``
+* The empty string: ``''``
 
 Interface: `Coalesceable`_
 
@@ -348,15 +348,19 @@ collapse
 
 Collapse a collection of items into a simple flat collection.
 
+.. warning:: Key differences compared to ``flatten`` are that only one level will be collapsed and values at the bottom level will be removed.
+
 Interface: `Collapseable`_
 
 Signature: ``Collection::collapse();``
 
 .. code-block:: php
 
-    $collection = Collection::fromIterable([[1,2], [3, 4]]);
+    $collection = Collection::fromIterable([[1], [2, 3], [4, [5]]])
+        ->collapse(); // [1, 2, 3, 4, [5]]
 
-    $collection->collapse(); // [1, 2, 3, 4]
+    $collection = Collection::fromIterable([1, 2, [3]])
+        ->collapse(); // [3]
 
 column
 ~~~~~~
@@ -393,12 +397,12 @@ Signature: ``Collection::column($index);``
     ];
 
     $result = Collection::fromIterable($records)
-        ->column('first_name');
+        ->column('first_name'); // ['John', 'Sally', 'Jane', 'Peter']
 
 combinate
 ~~~~~~~~~
 
-Get all the combinations of a given length of a collection of items.
+Get all the `combinations <https://en.wikipedia.org/wiki/Combination>`_ of a given length of a collection of items.
 
 Interface: `Combinateable`_
 
@@ -443,7 +447,7 @@ Signature: ``Collection::compact(...$values);``
 contains
 ~~~~~~~~
 
-Check if the collection contains one or more value.
+Check if the collection contains one or more values.
 
 Interface: `Containsable`_
 
@@ -461,7 +465,7 @@ Signature: ``Collection::contains(...$value);``
 current
 ~~~~~~~
 
-Get the value of an item in the collection given a numeric index, default index is 0.
+Get the value of an item in the collection given a numeric index or the default ``0``.
 
 Interface: `Currentable`_
 
@@ -553,7 +557,7 @@ Iterate over the collection items and takes from it its elements from the moment
 first time till the end of the list.
 
 .. warning:: The `callbacks` parameter is variadic and they are evaluated as a logical ``OR``.
-             If you're looking for a logical ``AND``, you have make multiple calls to the
+             If you're looking for a logical ``AND``, you have to make multiple calls to the
              same operation.
 
 Interface: `DropWhileable`_
@@ -595,7 +599,7 @@ Signature: ``Collection::duplicate();``
 
 .. code-block:: php
 
-    // It might return duplicated values !
+    // It might return duplicated values!
     Collection::fromIterable(['a', 'b', 'c', 'a', 'c', 'a'])
             ->duplicate(); // [3 => 'a', 4 => 'c', 5 => 'a']
 
@@ -611,7 +615,7 @@ every
 This operation tests whether all elements in the collection pass the test implemented by the provided callback(s).
 
 .. warning:: The `callbacks` parameter is variadic and they are evaluated as a logical ``OR``.
-             If you're looking for a logical ``AND``, you have make multiple calls to the
+             If you're looking for a logical ``AND``, you have to make multiple calls to the
              same operation.
 
 Interface: `Everyable`_
@@ -642,7 +646,7 @@ explode
 
 Explode a collection into subsets based on a given value.
 
-This operation use the Split operation with the flag ``Splitable::REMOVE`` and thus, values used to explode the
+This operation uses the ``Collection::split`` operation with the flag ``Splitable::REMOVE`` and thus, values used to explode the
 collection are removed from the chunks.
 
 Interface: `Explodeable`_
@@ -659,11 +663,23 @@ Signature: ``Collection::explode(...$items);``
 falsy
 ~~~~~
 
-Check if the collection contains falsy values.
+Check if the collection contains *any falsy* values. A value is determined to be *falsy* by applying a ``bool`` cast.
 
 Interface: `Falsyable`_
 
 Signature: ``Collection::falsy();``
+
+.. code-block:: php
+
+    $truthyCollection = Collection::fromIterable([2, 3, 4])
+        ->falsy(); // [false]
+
+    $falsyCollection = Collection::fromIterable(['a', '', 'c', 'd'])
+        ->falsy(); // [true]
+
+    if ($falsyCollection->falsy()->current()) {
+        // do something
+    }
 
 filter
 ~~~~~~
@@ -680,8 +696,8 @@ Signature: ``Collection::filter(callable ...$callbacks);``
         return 0 === $value % 3;
     };
 
-    $collection = Collection::fromIterable(range(1, 100))
-        ->filter($callback);
+    $collection = Collection::fromIterable(range(1, 10))
+        ->filter($callback); // [3, 6, 9]
 
 first
 ~~~~~
@@ -718,7 +734,10 @@ Signature: ``Collection::flatten(int $depth = PHP_INT_MAX);``
 .. code-block:: php
 
     $collection = Collection::fromIterable([0, [1, 2], [3, [4, [5, 6]]]])
-        ->flatten();
+        ->flatten(); // [0, 1, 2, 3, 4, 5, 6]
+
+    $collection = Collection::fromIterable([0, [1, 2], [3, [4, 5]])
+        ->flatten(1); // [0, 1, 2, 3, [4, 5]]
 
 flip
 ~~~~
@@ -736,7 +755,7 @@ Signature: ``Collection::flip(int $depth = PHP_INT_MAX);``
 
 .. tip:: array_flip() and Collection::flip() can behave different, check the following examples.
 
-When using regular arrays, `array_flip()`_ can be used to remove duplicates (dedup-licate an array).
+When using regular arrays, `array_flip()`_ can be used to remove duplicates (deduplicate an array).
 
 .. code-block:: php
 
@@ -765,6 +784,18 @@ Interface: `FoldLeftable`_
 
 Signature: ``Collection::foldLeft(callable $callback, $initial = null);``
 
+.. code-block:: php
+
+    Collection::fromIterable(range('A', 'C'))
+        ->foldLeft(
+            static function (string $carry, string $item): string {
+                $carry .= $item;
+
+                return $carry;
+            },
+            ''
+        ); // [2 => 'ABC']
+
 foldLeft1
 ~~~~~~~~~
 
@@ -775,6 +806,11 @@ Interface: `FoldLeft1able`_
 
 Signature: ``Collection::foldLeft1(callable $callback);``
 
+.. code-block:: php
+
+    Collection::fromIterable([64, 4, 2, 8])
+        ->foldLeft1(static fn(float $carry, float $value): float => $carry / $value); // [3 => 1.0]
+        
 foldRight
 ~~~~~~~~~
 
@@ -784,6 +820,18 @@ the end and the result, and so on. See ``scanRight`` for intermediate results.
 Interface: `FoldRightable`_
 
 Signature: ``Collection::foldRight(callable $callback, $initial = null);``
+
+.. code-block:: php
+
+    Collection::fromIterable(range('A', 'C'))
+        ->foldLeft(
+            static function (string $carry, string $item): string {
+                $carry .= $item;
+
+                return $carry;
+            },
+            ''
+        ); // [0 => 'CBA']
 
 foldRight1
 ~~~~~~~~~~
@@ -795,6 +843,11 @@ Interface: `FoldRight1able`_
 
 Signature: ``Collection::foldRight1(callable $callback);``
 
+.. code-block:: php
+
+    Collection::fromIterable([8, 12, 24, 4])
+        ->foldLeft1(static fn(float $carry, float $value): float => $carry / $value); // [0 => 4.0]
+   
 forget
 ~~~~~~
 
@@ -806,8 +859,8 @@ Signature: ``Collection::forget(...$keys);``
 
 .. code-block:: php
 
-    $collection = Collection::fromIterable(range('a', 'z'))
-        ->forget(5, 6, 10, 15);
+    $collection = Collection::fromIterable(range('a', 'e'))
+        ->forget(0, 4); // [1 => 'b', 2 => 'c', 3 => 'd']
 
 frequency
 ~~~~~~~~~
@@ -822,18 +875,24 @@ Signature: ``Collection::frequency();``
 
 .. code-block:: php
 
-    $collection = Collection::fromIterable(['a', 'b', 'c', 'b', 'c', 'c')
+    $collection = Collection::fromIterable(['a', 'b', 'c', 'b', 'c', 'c'])
         ->frequency()
         ->all(); // [1 => 'a', 2 => 'b', 3 => 'c'];
 
 get
 ~~~
 
-Get a specific element of the collection from a key, if the key doesn't exists, returns the default value.
+Get a specific element of the collection from a key; if the key doesn't exist, returns the default value.
 
 Interface: `Getable`_
 
 Signature: ``Collection::get($key, $default = null);``
+
+.. code-block:: php
+
+    Collection::fromIterable(range('a', 'c'))->get(1) // [1 => 'b']
+
+    Collection::fromIterable(range('a', 'c'))->get(4, '') // [0 => '']
 
 group
 ~~~~~
@@ -864,20 +923,15 @@ Signature: ``Collection::groupBy(?callable $callback = null);``
 
     $callback = static function () {
             yield 1 => 'a';
-
             yield 1 => 'b';
-
             yield 1 => 'c';
-
             yield 2 => 'd';
-
             yield 2 => 'e';
-
             yield 3 => 'f';
     };
 
-    $collection = Collection::fromIterable($callback)
-        ->groupBy();
+    $collection = Collection::fromIterable($callback())
+        ->groupBy(); // [1 => ['a', 'b', 'c'], 2 => ['d', 'e'], 3 => ['f']]
 
 has
 ~~~
@@ -885,7 +939,7 @@ has
 Check if the collection has values.
 
 .. warning:: The `callbacks` parameter is variadic and they are evaluated as a logical ``OR``.
-             If you're looking for a logical ``AND``, you have make multiple calls to the
+             If you're looking for a logical ``AND``, you have to make multiple calls to the
              same operation.
 
 Interface: `Hasable`_
@@ -934,7 +988,7 @@ Signature: ``Collection::head();``
 ifThenElse
 ~~~~~~~~~~
 
-Execute a callback when a condition is met.
+Execute a callback when a condition is met. If no ``else`` callback is provided, the identity function is applied (elements are not modified).
 
 Interface: `IfThenElseable`_
 
@@ -965,13 +1019,18 @@ Signature: ``Collection::ifThenElse(callable $condition, callable $then, ?callab
 implode
 ~~~~~~~
 
-Convert all the elements of the collection to a single string.
+Join all the elements of the collection into a single string using a glue provided or the empty string as default.
 
-The glue character can be provided, default is the empty character.
+.. tip:: Internally this operation uses ``foldLeft``, which is why the result will have the last element's key.
 
 Interface: `Implodeable`_
 
 Signature: ``Collection::implode(string $glue = '');``
+
+.. code-block:: php
+
+    Collection::fromIterable(range('a', 'c'))
+        ->implode('-'); // [2 => 'a-b-c']
 
 init
 ~~~~
@@ -1040,8 +1099,12 @@ Signature: ``Collection::intersperse($element, int $every = 1, int $startAt = 0)
 
 .. code-block:: php
 
-    $collection = Collection::fromIterable(range('a', 'z'))
-        ->intersperse('foo', 3);
+    $collection = Collection::fromIterable(range('a', 'c'))
+        ->intersperse('x');
+    
+    foreach($collection as $item) {
+        var_dump($item); // 'x', 'a', 'x', 'b', 'x', 'c'
+    }
 
 key
 ~~~
@@ -1070,8 +1133,8 @@ Signature: ``Collection::keys();``
 
 .. code-block:: php
 
-    $collection = Collection::fromIterable(range('a', 'z'))
-        ->keys();
+    $collection = Collection::fromIterable(range('a', 'd'))
+        ->keys(); // [0, 1, 2, 3]
 
 last
 ~~~~
@@ -1099,7 +1162,7 @@ Signature: ``Collection::last();``
 limit
 ~~~~~
 
-Limit the amount of values in the collection.
+Limit the number of values in the collection.
 
 Interface: `Limitable`_
 
@@ -1107,12 +1170,8 @@ Signature: ``Collection::limit(int $limit);``
 
 .. code-block:: php
 
-    $fibonacci = static function ($a = 0, $b = 1): array {
-        return [$b, $a + $b];
-    };
-
-    $collection = Collection::unfold($fibonacci)
-        ->limit(10);
+    $even = Collection::range(0, \INF, 2)
+        ->limit(5); // [0, 2, 4, 6, 8]
 
 lines
 ~~~~~
@@ -1126,20 +1185,20 @@ Signature: ``Collection::lines();``
 .. code-block:: php
 
     $string = <<<'EOF'
-    The quick brow fox jumps over the lazy dog.
+    The quick brown fox jumps over the lazy dog.
 
     This is another sentence.
     EOF;
 
     Collection::fromString($string)
-        ->lines();
+        ->lines(); // ['The quick brown fox jumps over the lazy dog.', '', 'This is another sentence.']
 
 map
 ~~~
 
 Apply one or more supplied callbacks to every item of a collection and use the return value.
 
-.. warning:: Keys are preserved, use the "normalize" operation if you want to re-index the keys.
+.. warning:: Keys are preserved, use the ``Collection::normalize`` operation if you want to re-index the keys.
 
 Interface: `Mapable`_
 
@@ -1151,15 +1210,15 @@ Signature: ``Collection::map(callable ...$callbacks);``
         return $value * 2;
     };
 
-    $collection = Collection::fromIterable(range(1, 100))
-        ->map($mapper);
+    $collection = Collection::fromIterable(range(1, 5))
+        ->map($mapper); // [2, 4, 6, 8, 10]
 
 match
 ~~~~~
 
 Check if the collection match a ``user callback``.
 
-User must provide a callback that will get the ``key``, the ``current value`` and the ``iterator`` as parameters.
+You must provide a callback that will get the ``key``, the ``current value``, and the ``iterator`` as parameters.
 
 When no matcher callback is provided, the user callback must return ``true`` (the
 default value of the ``matcher callback``) in order to stop.
@@ -1168,7 +1227,7 @@ The returned value of the operation is ``true`` when the callback match at least
 of the collection. ``false`` otherwise.
 
 If you want to match the ``user callback`` against another value (other than ``true``), you must
-provide your own ``matcher callback`` as a second argument, it must returns a ``boolean``.
+provide your own ``matcher callback`` as a second argument, and it must return a ``boolean``.
 
 Interface: `Matchable`_
 
@@ -1180,30 +1239,38 @@ Signature: ``Collection::match(callable $callback, ?callable $matcher = null);``
 merge
 ~~~~~
 
-Merge one or more collection of items onto a collection.
+Merge one or more iterables onto a collection.
 
 Interface: `Mergeable`_
 
-Signature: ``Collection::merge(...$sources);``
+Signature: ``Collection::merge(iterable ...$sources);``
 
 .. code-block:: php
 
-    $collection = Collection::fromIterable(range(1, 10))
-        ->merge(['a', 'b', 'c'])
+    Collection::fromIterable(range(1, 5))
+        ->merge(range(6, 10)); // range(1, 10)
+
+    $collection = Collection::fromIterable(['a', 'b', 'c'])
+        ->merge(Collection::fromIterable(['d', 'e']);
+    
+    $collection->all(); // ['d', 'e', 'c'] -> 'a' and 'b' are lost due to key overlap
+    $collection->normalize()->all() // ['a', 'b', 'c', 'd', 'e']
 
 normalize
 ~~~~~~~~~
 
 Replace, reorder and use numeric keys on a collection.
 
+.. note:: If you want to retrieve collection elements as an array via ``Collection::all()`` instead of
+        consuming the collection through a ``foreach``, most often you will want to use this method
+        before the array transformation in order to prevent data loss.
+
 Interface: `Normalizeable`_
 
 Signature: ``Collection::normalize();``
 
-.. code-block:: php
-
-    $collection = Collection::fromIterable(['a' => 'a', 'b' => 'b', 'c' => 'c'])
-        ->normalize();
+.. literalinclude:: code/operations/normalize.php
+  :language: php
 
 nth
 ~~~
@@ -1216,13 +1283,13 @@ Signature: ``Collection::nth(int $step, int $offset = 0);``
 
 .. code-block:: php
 
-    $collection = Collection::fromIterable(range(10, 100))
-        ->nth(3);
+    $collection = Collection::fromIterable(range(1, 20))
+        ->nth(5); // [0 => 1, 5 => 6, 10 => 11, 15 => 16]
 
 nullsy
 ~~~~~~
 
-Check if the collection contains *nullsy* values.
+Check if the collection contains *only nullsy* values.
 
 *Nullsy* values are:
 
@@ -1236,24 +1303,22 @@ Interface: `Nullsyable`_
 
 Signature: ``Collection::nullsy();``
 
-only
-~~~~
-
-Get items having corresponding given keys.
-
-Interface: `Onlyable`_
-
-Signature: ``Collection::only(...$keys);``
-
 .. code-block:: php
 
-    $collection = Collection::fromIterable(range(10, 100))
-        ->only(3, 10, 'a', 9);
+    $nullsy = Collection::fromIterable([null, null])
+        ->nullsy(); // [true]
+
+    $nonNullsy = Collection::fromIterable(['a', null, 'c'])
+        ->nullsy(); // [false]
+
+    if ($falsyCollection->nullsy()->current()) {
+        // do something
+    }
 
 pack
 ~~~~
 
-Wrap each items into an array containing 2 items: the key and the value.
+Wrap each item into an array containing 2 items: the key and the value.
 
 Interface: `Packable`_
 
@@ -1284,7 +1349,7 @@ Signature: ``Collection::pad(int $size, $value);``
 .. code-block:: php
 
     $collection = Collection::fromIterable(range(1, 5))
-        ->pad(10, 'foo');
+        ->pad(8, 'foo'); // [1, 2, 3, 4, 5, 'foo', 'foo', 'foo']
 
 pair
 ~~~~
@@ -1322,9 +1387,7 @@ Signature: ``Collection::pair();``
 
     $c = Collection::fromIterable($input)
         ->unwrap()
-        ->pair()
-        ->group()
-        ->all();
+        ->pair();
 
     // [
     //    [k1] => v1
@@ -1342,7 +1405,7 @@ partition
 With one or multiple callable, partition the items into 2 subgroups of items.
 
 .. warning:: The `callbacks` parameter is variadic and they are evaluated as a logical ``OR``.
-             If you're looking for a logical ``AND``, you have make multiple calls to the
+             If you're looking for a logical ``AND``, you have to make multiple calls to the
              same operation.
 
 Interface: `Partitionable`_
@@ -1355,7 +1418,7 @@ Signature: ``Collection::partition(callable ...$callbacks);``
 permutate
 ~~~~~~~~~
 
-Find all the permutations of a collection.
+Find all the `permutations <https://en.wikipedia.org/wiki/Permutation>`_ of a collection.
 
 Interface: `Permutateable`_
 
@@ -1363,34 +1426,28 @@ Signature: ``Collection::permutate(int $size, $value);``
 
 .. code-block:: php
 
-    $collection = Collection::fromIterable(['hello', 'how', 'are', 'you'])
-        ->permutate();
+    $collection = Collection::fromIterable(['a', 'b'])
+        ->permutate(); // [['a', 'b'], ['b', 'a']]
 
 pluck
 ~~~~~
 
 Retrieves all of the values of a collection for a given key.
+Nested values can be retrieved using "dot notation" and the wildcard character ``*``.
 
 Interface: `Pluckable`_
 
 Signature: ``Collection::pluck($pluck, $default = null);``
 
-.. code-block:: php
-
-    $fibonacci = static function ($a = 0, $b = 1): array {
-        return [$b, $a + $b];
-    };
-
-    $collection = Collection::unfold($fibonacci)
-        ->limit(10)
-        ->pluck(0);
+.. literalinclude:: code/operations/pluck.php
+  :language: php
 
 prepend
 ~~~~~~~
 
 Push an item onto the beginning of the collection.
 
-.. warning:: If prepended values overwrite existing values, you might find that this operation doesn't work correctly
+.. warning:: If prepended values overwrite existing values or keys, you might find that this operation doesn't work correctly
              when the collection is converted into an array.
              It's always better to never convert the collection to an array and use it in a loop.
              However, if for some reason, you absolutely need to convert it into an array, then use the
@@ -1407,17 +1464,19 @@ Signature: ``Collection::prepend(...$items);``
 
     Collection::fromIterable(['1', '2', '3'])
         ->prepend('4')
-        ->prepend('5', '6'); // [0 => 1, 1 => 2, 2 => 3]
+        ->prepend('5', '6')
+        ->all(); // [0 => 1, 1 => 2, 2 => 3]
 
     Collection::fromIterable(['1', '2', '3'])
         ->prepend('4')
         ->prepend('5', '6')
-        ->normalize(); // ['5', '6', '4', '1', '2', '3']
+        ->normalize()
+        ->all(); // ['5', '6', '4', '1', '2', '3']
 
 product
 ~~~~~~~
 
-Get the the cartesian product of items of a collection.
+Get the `cartesian product <https://en.wikipedia.org/wiki/Cartesian_product>`_ of items of a collection.
 
 Interface: `Productable`_
 
@@ -1425,8 +1484,8 @@ Signature: ``Collection::product(iterable ...$iterables);``
 
 .. code-block:: php
 
-    $collection = Collection::fromIterable(['4', '5', '6'])
-        ->product(['1', '2', '3'], ['a', 'b'], ['foo', 'bar']);
+    $collection = Collection::fromIterable(range('A', 'C'))
+        ->product([1, 2]); // [['A', 1], ['A', 2], ['B', 1], ['B', 2], ['C', 1], ['C', 2]]
 
 random
 ~~~~~~
@@ -1456,30 +1515,10 @@ Signature: ``Collection::reduction(callable $callback, $initial = null);``
 
 .. code-block:: php
 
-    $multiplication = static function ($value1, $value2) {
-        return $value1 * $value2;
-    };
+    $callback = static fn ($carry, $item) => $carry + $item;
 
-    $addition = static function ($value1, $value2) {
-        return $value1 + $value2;
-    };
-
-    $fact = static function (int $number) use ($multiplication) {
-        return Collection::range(1, $number + 1)
-            ->reduce(
-                $multiplication,
-                1
-            );
-    };
-
-    $e = static function (int $value) use ($fact): float {
-        return $value / $fact($value);
-    };
-
-    $number_e_approximation = Collection::times()
-        ->map($e)
-        ->limit(10)
-        ->reduction($addition);
+    $collection = Collection::fromIterable(range(1, 5))
+        ->reduction($callback); // [1, 3, 6, 10, 15]
 
 reverse
 ~~~~~~~
@@ -1493,29 +1532,45 @@ Signature: ``Collection::reverse();``
 .. code-block:: php
 
     $collection = Collection::fromIterable(['a', 'b', 'c'])
-        ->reverse();
+        ->reverse(); // ['c', 'b', 'a']
 
 rsample
 ~~~~~~~
 
-Work in progress... sorry.
+Take a random sample of elements of items from a collection. Accepts a probability parameter
+which will influence the number of items sampled - higher probabilities increase the chance of
+sampling close to the entire collection.
+
+Interface: `RSampleable`_
+
+Signature: ``Collection::rsample(float $probability);``
+
+.. code-block:: php
+
+    $collection = Collection::fromIterable(range(1, 5));
+    $collection->rsample(1.0); // [1, 2, 3, 4, 5]
+    $collection->rsample(0.5); // will get about half of the elements at random
 
 scale
 ~~~~~
 
-Scale/normalize values.
+Scale/`normalize <https://en.wikipedia.org/wiki/Normalization_(statistics)>`_ values.
+Values will be scaled between ``0`` and ``1`` by default, if no desired bounds are provided.
 
 Interface: `Scaleable`_
 
-Signature: ``Collection::scale(float $lowerBound, float $upperBound, ?float $wantedLowerBound = null, ?float $wantedUpperBound = null, ?float $base = null);``
+Signature: ``Collection::scale(float $lowerBound, float $upperBound, float $wantedLowerBound = 0.0, float $wantedUpperBound = 1.0, float $base = 0.0);``
 
 .. code-block:: php
 
-    $collection = Collection::range(0, 10, 2)
-        ->scale(0, 10);
+    $default = Collection::fromIterable([0, 5, 10, 15, 20])
+        ->scale(0, 20); // [0, 0.25, 0.5, 0.75, 1]
 
-    $collection = Collection::range(0, 10, 2)
-        ->scale(0, 10, 5, 15, 3);
+    $withBounds = Collection::fromIterable([0, 5, 10, 15, 20])
+        ->scale(0, 20, 0, 12); // [0, 3, 6, 9, 12]
+
+    $withBoundsAndBase = Collection::fromIterable([0, 5, 10, 15, 20])
+        ->scale(0, 20, 0, 12, \M_E); // [1, 6.90, 9.45, 10.94, 12]
 
 scanLeft
 ~~~~~~~~
@@ -1535,7 +1590,7 @@ Signature: ``Collection::scanLeft(callable $callback, $initial = null);``
 
     Collection::fromIterable([4, 2, 4])
         ->scanLeft($callback, 64)
-        ->normalize(); // [64 ,16 ,8 ,2]
+        ->normalize(); // [64, 16, 8, 2]
 
     Collection::empty()
         ->scanLeft($callback, 3); // [0 => 3]
@@ -1560,7 +1615,7 @@ Signature: ``Collection::scanLeft1(callable $callback);``
     };
 
     Collection::fromIterable([64, 4, 2, 8])
-        ->scanLeft1($callback); // [64 ,16 ,8 ,1]
+        ->scanLeft1($callback); // [64, 16, 8, 1]
 
     Collection::fromIterable([12])
         ->scanLeft1($callback); // [12]
@@ -1614,7 +1669,7 @@ Signature: ``Collection::scanRight1(callable $callback);``
 shuffle
 ~~~~~~~
 
-Shuffle a collection.
+Shuffle a collection, randomly changing the order of items.
 
 Interface: `Shuffleable`_
 
@@ -1631,98 +1686,19 @@ Signature: ``Collection::shuffle(?int $seed = null);``
 since
 ~~~~~
 
-Skip items until callback is met.
+Skip items until the callback is met.
 
 .. warning:: The `callbacks` parameter is variadic and they are evaluated as a logical ``OR``.
-             If you're looking for a logical ``AND``, you have make multiple calls to the
+             If you're looking for a logical ``AND``, you have to make multiple calls to the
              same operation.
 
 Interface: `Sinceable`_
 
 Signature: ``Collection::since(callable ...$callbacks);``
 
-.. code-block:: php
-
-    // Example 1
-    // Parse the composer.json of a package and get the require-dev dependencies.
-    $collection = Collection::fromResource(fopen(__DIR__ . '/composer.json', 'rb'))
-        // Group items when EOL character is found.
-        ->split(
-            Splitable::REMOVE,
-            static function (string $character): bool {
-                return "\n" === $character;
-            }
-        )
-        // Implode characters to create a line string
-        ->map(
-            static function (array $characters): string {
-                return implode('', $characters);
-            }
-        )
-        // Skip items until the string "require-dev" is found.
-        ->since(
-            static function ($line) {
-                return false !== strpos($line, 'require-dev');
-            }
-        )
-        // Skip items after the string "}" is found.
-        ->until(
-            static function ($line) {
-                return false !== strpos($line, '}');
-            }
-        )
-        // Re-index the keys
-        ->normalize()
-        // Filter out the first line and the last line.
-        ->filter(
-            static function ($line, $index) {
-                return 0 !== $index;
-            },
-            static function ($line) {
-                return false === strpos($line, '}');
-            }
-        )
-        // Trim remaining results and explode the string on ':'.
-        ->map(
-            static function ($line) {
-                return trim($line);
-            },
-            static function ($line) {
-                return explode(':', $line);
-            }
-        )
-        // Take the first item.
-        ->pluck(0)
-        // Convert to array.
-        ->all();
-
-    print_r($collection);
-
-    // Example 2
-    $input = [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3];
-
-    $isGreaterThanThree = static function (int $value): bool {
-        return 3 < $value;
-    };
-
-    $isGreaterThanEight = static function (int $value): bool {
-        return 8 < $value;
-    };
-
-    $collection = Collection::fromIterable($input)
-        ->since(
-            $isGreaterThanThree,
-            $isGreaterThanEight
-        ); // [4, 5, 6, 7, 8, 9, 1, 2, 3]
-
-    $collection = Collection::fromIterable($input)
-        ->since(
-            $isGreaterThanThree
-        )
-        ->since(
-            $isGreaterThanEight
-        ); // [9, 1, 2, 3]
-
+.. literalinclude:: code/operations/since.php
+  :language: php
+   
 slice
 ~~~~~
 
@@ -1735,7 +1711,7 @@ Signature: ``Collection::slice(int $offset, ?int $length = null);``
 .. code-block:: php
 
     $collection = Collection::fromIterable(range('a', 'z'))
-        ->slice(5, 5);
+        ->slice(5, 3); // [5 => 'f', 6 => 'g', 7 => 'h']
 
 sort
 ~~~~
@@ -1749,42 +1725,14 @@ Interface: `Sortable`_
 
 Signature: ``Collection::sort(?callable $callback = null);``
 
-.. code-block:: php
-
-    // Regular values sorting
-    $collection = Collection::fromIterable(['z', 'y', 'x'])
-        ->sort();
-
-    // Regular values sorting
-    $collection = Collection::fromIterable(['z', 'y', 'x'])
-        ->sort(Operation\Sortable::BY_VALUES);
-
-    // Regular values sorting with a custom callback
-    $collection = Collection::fromIterable(['z', 'y', 'x'])
-        ->sort(
-                Operation\Sortable::BY_VALUES,
-                static function ($left, $right): int {
-                    // Do the comparison here.
-                    return $left <=> $right;
-                }
-        );
-
-    // Regular keys sorting (no callback is needed here)
-    $collection = Collection::fromIterable(['z', 'y', 'x'])
-        ->sort(
-                Operation\Sortable::BY_KEYS
-        );
-
-    // Regular keys sorting using flip() operations.
-    $collection = Collection::fromIterable(['z', 'y', 'x'])
-        ->flip() // Exchange values and keys
-        ->sort() // Sort the values (which are now the keys)
-        ->flip(); // Flip again to put back the keys and values, sorted by keys.
+.. literalinclude:: code/operations/sort.php
+  :language: php
 
 span
 ~~~~
 
-Returns a tuple where first element is longest prefix (possibly empty) of elements that satisfy the callback and second element is the remainder.
+Returns a tuple where the first element is the longest prefix (possibly empty) of elements
+that satisfy the callback and the second element is the remainder.
 
 Interface: `Spanable`_
 
@@ -1795,7 +1743,7 @@ Signature: ``Collection::span(callable $callback);``
     $input = range(1, 10);
 
     Collection::fromIterable($input)
-        ->span(fn ($x) => $x < 4); // [ [1, 2, 3], [4, 5, 6, 7, 8, 9, 10] ]
+        ->span(fn ($x) => $x < 4); // [[1, 2, 3], [4, 5, 6, 7, 8, 9, 10]]
 
 split
 ~~~~~
@@ -1811,18 +1759,16 @@ Signature: ``Collection::split(int $type = Splitable::BEFORE, callable ...$callb
 
 .. code-block:: php
 
-    $splitter = static function ($value): bool {
-        return 0 === $value % 3;
-    };
+    $splitter = static function ($value): bool => 0 === $value % 3;
 
     $collection = Collection::fromIterable(range(0, 10))
-        ->split(Splitable::BEFORE, $splitter); [[0, 1, 2], [3, 4, 5], [6, 7, 8], [9, 10]]
+        ->split(Splitable::BEFORE, $splitter); // [[0, 1, 2], [3, 4, 5], [6, 7, 8], [9, 10]]
 
     $collection = Collection::fromIterable(range(0, 10))
         ->split(Splitable::AFTER, $splitter); [[0], [1, 2, 3], [4, 5, 6], [7, 8, 9], [10]]
 
     $collection = Collection::fromIterable(range(0, 10))
-        ->split(Splitable::REMOVE, $splitter); [[1, 2], [4, 5], [7, 8], [10]]
+        ->split(Splitable::REMOVE, $splitter); [[], [1, 2], [4, 5], [7, 8], [10]]
 
 squash
 ~~~~~~
@@ -1853,7 +1799,8 @@ Signature: ``Collection::tail();``
 tails
 ~~~~~
 
-Returns the list of initial segments of its argument list, shortest last.
+Returns the list of initial segments of the collection, shortest last.
+Similar to applying ``tail`` successively and collecting all results in one list.
 
 Interface: `Tailsable`_
 
@@ -1867,12 +1814,12 @@ Signature: ``Collection::tails();``
 takeWhile
 ~~~~~~~~~
 
-Iterate over the collection items when the provided callback(s) are satisfied.
+Iterate over the collection items while the provided callback(s) are satisfied.
 
 It stops iterating when the callback(s) are not met.
 
 .. warning:: The `callbacks` parameter is variadic and they are evaluated as a logical ``OR``.
-             If you're looking for a logical ``AND``, you have make multiple calls to the
+             If you're looking for a logical ``AND``, you have to make multiple calls to the
              same operation.
 
 Be careful, this operation is not the same as the ``filter`` operation.
@@ -1893,53 +1840,41 @@ Signature: ``Collection::takeWhile(callable ...$callbacks);``
 transpose
 ~~~~~~~~~
 
-Matrix transposition.
+Computes the `transpose <https://en.wikipedia.org/wiki/Transpose>`_ of a matrix.
 
 Interface: `Transposeable`_
 
 Signature: ``Collection::transpose();``
 
-.. code-block:: php
-
-    $records = [
-        [
-            'id' => 2135,
-            'first_name' => 'John',
-            'last_name' => 'Doe',
-        ],
-        [
-            'id' => 3245,
-            'first_name' => 'Sally',
-            'last_name' => 'Smith',
-        ],
-        [
-            'id' => 5342,
-            'first_name' => 'Jane',
-            'last_name' => 'Jones',
-        ],
-        [
-            'id' => 5623,
-            'first_name' => 'Peter',
-            'last_name' => 'Doe',
-        ],
-    ];
-
-    $result = Collection::fromIterable($records)
-        ->transpose();
+.. literalinclude:: code/operations/transpose.php
+  :language: php
 
 truthy
 ~~~~~~
 
-Check if the collection contains truthy values.
+Check if the collection contains *any truthy* values. Opposite of ``falsy``.
+A value is determined to be *truthy* by applying a ``bool`` cast.
 
 Interface: `Truthyable`_
 
 Signature: ``Collection::truthy();``
 
+.. code-block:: php
+
+    $truthyCollection = Collection::fromIterable([2, 3, 4])
+        ->truthy(); // [true]
+
+    $falsyCollection = Collection::fromIterable(['a', '', 'c', 'd'])
+        ->truthy(); // [false]
+
+    if ($falsyCollection->truthy()->current()) {
+        // do something
+    }
+
 unlines
 ~~~~~~~
 
-Create a string from lines.
+Opposite of ``Collection::lines()``, creates a single string from multiple lines using ``PHP_EOL`` as the glue.
 
 Interface: `Unlinesable`_
 
@@ -1948,19 +1883,23 @@ Signature: ``Collection::unlines();``
 .. code-block:: php
 
     $lines = [
-        'The quick brow fox jumps over the lazy dog.',
+        'The quick brown fox jumps over the lazy dog.',
         '',
         'This is another sentence.',
     ];
 
     Collection::fromIterable($lines)
-        ->unlines()
-        ->current();
+        ->unlines(); 
+    // [
+    //    'The quick brown fox jumps over the lazy dog.
+    //
+    //     This is another sentence.'
+    // ]
 
 unpack
 ~~~~~~
 
-Unpack items.
+Opposite of ``Collection::pack()`, transforms groupings of items representing a key and a value into actual keys and values.
 
 Interface: `Unpackable`_
 
@@ -1982,7 +1921,7 @@ Signature: ``Collection::unpack();``
 unpair
 ~~~~~~
 
-Unpair a collection of pairs.
+Opposite of ``Collection::pair()``, creates a flat list of values from a collection of key-value pairs.
 
 Interface: `Unpairable`_
 
@@ -1998,14 +1937,7 @@ Signature: ``Collection::unpair();``
     ];
 
     $c = Collection::fromIterable($input)
-        ->unpair();
-
-    // [
-    //     ['k1', 'v1'],
-    //     ['k2', 'v2'],
-    //     ['k3', 'v3'],
-    //     ['k4', 'v4'],
-    // ];
+        ->unpair(); // ['k1', 'v1', 'k2', 'v2', 'k3', 'v3', 'k4', 'v4']
 
 until
 ~~~~~
@@ -2013,7 +1945,7 @@ until
 Iterate over the collection items until the provided callback(s) are satisfied.
 
 .. warning:: The `callbacks` parameter is variadic and they are evaluated as a logical ``OR``.
-             If you're looking for a logical ``AND``, you have make multiple calls to the
+             If you're looking for a logical ``AND``, you have to make multiple calls to the
              same operation.
 
 Interface: `Untilable`_
@@ -2038,7 +1970,8 @@ Signature: ``Collection::until(callable ...$callbacks);``
 unwindow
 ~~~~~~~~
 
-Contrary of ``Collection::window()``, usually needed after a call to that operation.
+Opposite of ``Collection::window()``, usually needed after a call to that operation.
+Turns already-created windows back into a flat list.
 
 Interface: `Unwindowable`_
 
@@ -2051,11 +1984,7 @@ Signature: ``Collection::unwindow();``
 
     Collection::fromIterable($input)
         ->window(4)
-        ->dropWhile(
-            static function (array $value): bool {
-                return $value !== [9, 9, 9, 9, 9];
-            }
-        )
+        ->dropWhile(static fn (array $value): bool => $value !== [9, 9, 9, 9, 9])
         ->unwindow()
         ->drop(1)
         ->normalize(); // [10, 11, 12, 13, 14, 15, 16, 17, 18]
@@ -2063,7 +1992,8 @@ Signature: ``Collection::unwindow();``
 unwords
 ~~~~~~~
 
-Create a string from words.
+Opposite of ``Collection::words()`` and similar to ``Collection::unlines()``,
+creates a single string from multiple strings using one space as the glue.
 
 Interface: `Unwordsable`_
 
@@ -2074,25 +2004,23 @@ Signature: ``Collection::unwords();``
     $words = [
         'The',
         'quick',
-        'brow',
+        'brown',
         'fox',
         'jumps',
         'over',
         'the',
         'lazy',
-        "dog.\n\nThis",
-        'is',
-        'another',
-        'sentence.',
+        'dog.'
     ];
 
     Collection::fromIterable($words)
-        ->unwords();
+        ->unwords(); // ['The quick brown fox jumps over the lazy dog.']
 
 unwrap
 ~~~~~~
 
-Unwrap every collection element.
+Opposite of ``Collection::wrap()``, turn a collection of arrays into a flat list.
+Equivalent to ``Collection::flatten(1)``.
 
 Interface: `Unwrapable`_
 
@@ -2100,15 +2028,16 @@ Signature: ``Collection::unwrap();``
 
 .. code-block:: php
 
-     $data = [['a' => 'A'], ['b' => 'B'], ['c' => 'C']];
+    $asociative = Collection::fromIterable([['a' => 'A'], ['b' => 'B'], ['c' => 'C']])
+        ->unwrap(); // ['a' => 'A', 'b' => 'B', 'c' => 'C']
 
-     $collection = Collection::fromIterable($data)
-        ->unwrap();
+    $list = Collection::fromIterable([['a'], ['b'], ['c']])
+        ->unwrap(); // ['a', 'b', 'c']
 
 unzip
 ~~~~~
 
-Unzip a collection.
+Opposite of ``Collection::zip()``, splits zipped items in a collection.
 
 Interface: `Unzipable`_
 
@@ -2125,7 +2054,8 @@ Signature: ``Collection::unzip();``
 window
 ~~~~~~
 
-Loop the collection by yielding a specific window of data of a given length.
+Loop the collection yielding windows of data by adding a given number of items to the current item.
+Initially the windows yielded will be smaller, until size ``1 + $size`` is reached.
 
 Interface: `Windowable`_
 
@@ -2133,16 +2063,15 @@ Signature: ``Collection::window(int $size);``
 
 .. code-block:: php
 
-     $data = range('a', 'z');
+     $data = range('a', 'd');
 
      Collection::fromIterable($data)
-        ->window(2)
-        ->all(); // [ ['a'], ['a', 'b'], ['b', 'c'], ['c', 'd'], ... ]
+        ->window(2); // [['a'], ['a', 'b'], ['a', 'b', 'c'], ['b', 'c', 'd']]
 
 words
 ~~~~~
 
-Get words from a string.
+Get a list of words from a string, splitting based on the character set: ``\t, \n, ' '``.
 
 Interface: `Wordsable`_
 
@@ -2151,13 +2080,14 @@ Signature: ``Collection::words();``
 .. code-block:: php
 
     $string = <<<'EOF'
-    The quick brow fox jumps over the lazy dog.
+    The quick brown fox jumps over the lazy dog.
 
     This is another sentence.
     EOF;
 
     Collection::fromString($string)
-        ->words()
+        ->words(); 
+    // ['The', 'quick', 'brown', 'fox', 'jumps', 'over', 'the', 'lazy', 'dog.', 'This', 'is', 'another', 'sentence.']
 
 wrap
 ~~~~
@@ -2170,10 +2100,11 @@ Signature: ``Collection::wrap();``
 
 .. code-block:: php
 
-     $data = ['a' => 'A', 'b' => 'B', 'c' => 'C'];
+     $associative = Collection::fromIterable(['a' => 'A', 'b' => 'B', 'c' => 'C'])
+        ->wrap(); // [['a' => 'A'], ['b' => 'B'], ['c' => 'C']]
 
-     $collection = Collection::fromIterable($data)
-        ->wrap();
+     $list = Collection::fromIterable(range('a', 'c'))
+        ->wrap(); // [[0 => 'a'], [1 => 'b'], [2 => 'c']]
 
 zip
 ~~~
@@ -2254,7 +2185,6 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Normalizeable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Normalizeable.php
 .. _Nthable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Nthable.php
 .. _Nullsyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Nullsyable.php
-.. _Onlyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Onlyable.php
 .. _Packable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Packable.php
 .. _Padable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Padable.php
 .. _Pairable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Pairable.php
@@ -2266,6 +2196,7 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Randomable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Randomable.php
 .. _Reductionable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Reductionable.php
 .. _Reverseable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Reverseable.php
+.. _RSampleable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/RSampleable.php
 .. _Scaleable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Scaleable.php
 .. _ScanLeftable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/ScanLeftable.php
 .. _ScanLeft1able: https://github.com/loophp/collection/blob/master/src/Contract/Operation/ScanLeft1able.php

@@ -1867,6 +1867,32 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs($generator());
     }
 
+    public function it_can_normalize(): void
+    {
+        $this::fromIterable(['a' => 10, 'b' => 100, 'c' => 1000])
+            ->normalize()
+            ->shouldIterateAs([0 => 10, 1 => 100, 2 => 1000]);
+
+        $generator = static function (): Generator {
+            yield 1 => 'a';
+
+            yield 2 => 'b';
+
+            yield 1 => 'c';
+
+            yield 3 => 'd';
+        };
+
+        $this::fromIterable($generator())
+            ->normalize()
+            ->shouldIterateAs([0 => 'a', 1 => 'b', 2 => 'c', 3 => 'd']);
+
+        $this::fromIterable(range(1, 5))
+            ->filter(static fn (int $val): bool => $val % 2 === 0)
+            ->normalize()
+            ->shouldIterateAs([0 => 2, 1 => 4]);
+    }
+
     public function it_can_nth(): void
     {
         $this::fromIterable(range(0, 70))
@@ -3395,8 +3421,8 @@ class CollectionSpec extends ObjectBehavior
             ]);
 
         $this::fromIterable(range('a', 'e'))
-            ->window(0)
-            ->shouldIterateAs(['a', 'b', 'c', 'd', 'e']);
+            ->wrap()
+            ->shouldIterateAs([[0 => 'a'], [1 => 'b'], [2 => 'c'], [3 => 'd'], [4 => 'e']]);
     }
 
     public function it_can_zip(): void

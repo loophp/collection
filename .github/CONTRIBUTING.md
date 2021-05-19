@@ -1,8 +1,8 @@
 # CONTRIBUTING
 
-We're using [Travis CI](https://travis-ci.com) as a continuous integration system.
+We're using [GitHub Actions](https://docs.github.com/en/actions) as a continuous integration system.
  
-For details, see [`.travis.yml`](../.travis.yml). 
+For details, see the workflows in [.github/workflows](../.github/workflows). 
  
 ## Tests
 
