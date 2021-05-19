@@ -2054,7 +2054,8 @@ Signature: ``Collection::unzip();``
 window
 ~~~~~~
 
-Loop the collection by yielding a specific window of data of a given length.
+Loop the collection yielding windows of data by adding a given number of items to the current item.
+Initially the windows yielded will be smaller, until size ``1 + $size`` is reached.
 
 Interface: `Windowable`_
 
@@ -2070,9 +2071,7 @@ Signature: ``Collection::window(int $size);``
 words
 ~~~~~
 
-Get a list of words from a string.
-
-.. tip:: The single string is split based on the character list: ``\t, \n, ' '``.
+Get a list of words from a string, splitting based on the character set: ``\t, \n, ' '``.
 
 Interface: `Wordsable`_
 
