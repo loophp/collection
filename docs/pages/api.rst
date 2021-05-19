@@ -2105,7 +2105,7 @@ Signature: ``Collection::wrap();``
         ->wrap(); // [['a' => 'A'], ['b' => 'B'], ['c' => 'C']]
 
      $list = Collection::fromIterable(range('a', 'c'))
-        ->wrap(); // [['a'], ['b'], ['c']]
+        ->wrap(); // [[0 => 'a'], [1 => 'b'], [2 => 'c']]
 
 zip
 ~~~

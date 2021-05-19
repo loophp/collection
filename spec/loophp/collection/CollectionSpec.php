@@ -3422,7 +3422,7 @@ class CollectionSpec extends ObjectBehavior
 
         $this::fromIterable(range('a', 'e'))
             ->wrap()
-            ->shouldIterateAs(['a'], ['b'], ['c'], ['d'], ['e']);
+            ->shouldIterateAs([[0 => 'a'], [1 => 'b'], [2 => 'c'], [3 => 'd'], [4 => 'e']]);
     }
 
     public function it_can_zip(): void
