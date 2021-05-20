@@ -266,12 +266,13 @@ Signature: ``Collection::associate(?callable $callbackForKeys = null, ?callable 
 asyncMap
 ~~~~~~~~
 
-Apply one callback to every item of a collection and use the return value.
+Asynchronously apply one or more supplied callbacks to every item of a collection and use the return value.
 
-.. warning:: Asynchronously apply callbacks to a collection. 
-            This operation is non-deterministic, we cannot ensure the order of the elements at the end.
+.. warning:: This method requires `ampphp/parallel-functions <https://github.com/amphp/parallel-functions>`_ to be installed.
 
-.. warning:: Keys are preserved, use the ``Collection::normalize`` operation if you want to re-index the keys.
+.. warning:: 
+        This operation is non-deterministic, we cannot ensure the order of the elements at the end. Additionally,
+        keys are preserved - use the ``Collection::normalize`` operation if you want to re-index the keys.
 
 Interface: `AsyncMapable`_
 
@@ -461,6 +462,20 @@ Signature: ``Collection::contains(...$value);``
     if ($collection->contains('d')->current()) {
         // do something
     }
+
+count
+~~~~~~~~
+
+Returns the number of elements in a collection
+
+Interface: `Countable`_
+
+Signature: ``Collection::count();``
+
+.. code-block:: php
+
+    $collection = Collection::fromIterable(range('a', 'c'))
+        ->count(); // 3
 
 current
 ~~~~~~~
@@ -1429,6 +1444,46 @@ Signature: ``Collection::permutate(int $size, $value);``
     $collection = Collection::fromIterable(['a', 'b'])
         ->permutate(); // [['a', 'b'], ['b', 'a']]
 
+pipe
+~~~~
+
+Pipe together multiple operations and apply them in succession to the collection items.
+To maintain a lazy nature, each operation needs to return a ``Generator``.
+Custom operations and operations provided in the API can be combined together.
+
+Interface: `Pipeable`_
+
+Signature: ``Collection::pipe(callable ...$callables);``
+
+.. code-block:: php
+
+    $square = static function ($collection): Generator {
+        foreach ($collection as $item) {
+            yield $item ** 2;
+        }
+    };
+
+    $toString = static function ($collection): Generator {
+        foreach ($collection as $item) {
+            yield (string) $item;
+        }
+    };
+
+    $times = new class() extends AbstractOperation {
+        public function __invoke(): Closure
+        {
+            return static function ($collection): Generator {
+                foreach ($collection as $item) {
+                    yield "{$item}x";
+                }
+            };
+        }
+    };
+
+    Collection::fromIterable(range(1, 5))
+        ->pipe($square, Reverse::of(), $toString, $times())
+        ->all(); // ['25x', '16x', '9x', '4x', '1x']
+
 pluck
 ~~~~~
 
@@ -2139,6 +2194,7 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Compactable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Compactable.php
 .. _Coalesceable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Coalesceable.php
 .. _Containsable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Containsable.php
+.. _Countable: https://www.php.net/manual/en/class.countable.php
 .. _Currentable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Currentable.php
 .. _Cycleable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Cycleable.php
 .. _Diffable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Diffable.php
@@ -2190,6 +2246,7 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Pairable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Pairable.php
 .. _Partitionable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Partitionable.php
 .. _Permutateable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Permutateable.php
+.. _Pipeable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Pipeable.php
 .. _Pluckable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Pluckable.php
 .. _Prependable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Prependable.php
 .. _Productable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Productable.php

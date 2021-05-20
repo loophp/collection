@@ -9,7 +9,7 @@ as possible.
 
 Functions like `array_map()`_, `array_filter()`_ and `array_reduce()`_ are great, but they create new arrays and
 everything is eagerly done before going to the next step.
-Lazy collection leverages PHP's generators, iterators and yield statements to allow you to work with very large data
+Lazy collection leverages PHP's generators, iterators, and yield statements to allow you to work with very large data
 sets while keeping memory usage as low as possible.
 
 For example, imagine your application needs to process a multi-gigabyte log file while taking advantage of this
@@ -28,15 +28,15 @@ On top of this, this library:
  * type safe (*type safe @ > 95%*),
  * framework agnostic.
 
-Except a few methods, most methods are `pure`_ and return a `new Collection object`_.
+Except for a few methods, most methods are `pure`_ and return a `new Collection object`_.
 
-Also, unlike regular PHP arrays where keys must be either of type `int` or `string`, this collection library let you use
+Also, unlike regular PHP arrays where keys must be either of type `int` or `string`, this collection library lets you use
 any kind of type for keys: integer, string, objects, arrays, ... anything!
 This library could be a valid replacement for `\SplObjectStorage`_ but with much more features.
 This way of working opens up new perspectives and another way of handling data, in a more functional way.
 
-And last but not least, collection keys are preserved throughout most operations, and it might be leading to some
-confusions, carefully read `this example`_ for the full explanation.
+And last but not least, collection keys are preserved throughout most operations; while it might lead to some confusion at first,
+please carefully read `this example`_ for the full explanation and benefits.
 
 This library has been inspired by:
 
@@ -53,15 +53,15 @@ This library has been inspired by:
 Features
 --------
 
--  **Decoupled**: Each Collection methods is a shortcut to one isolated
-   standard class, each operation has its own responsibility. Usually
+-  **Decoupled**: Each Collection method is a shortcut to one isolated
+   standard class, each operation has its own responsibility. Usually,
    the arguments needed are standard PHP variables like ``int``,
    ``string``, ``callable`` or ``iterator``. It allows users to use
-   those operations individually, at their own will to build up
+   those operations individually, at their own will, to build up
    something custom. Currently, more than :ref:`80 operations <api>`
-   are available in this library. This library is basically an
-   example of what you can do with all those small bricks, but nothing
-   prevent users to use an operation on its own as well.
+   are available in this library. This library is an example of what
+   you can do with all those small bricks, but nothing prevents users
+   from using an operation on its own as well.
 
 -  **It takes function first, data-last**: In the following example,
    multiple operations are created. The data to be operated on is
@@ -151,7 +151,7 @@ For more detailed changelogs, please check `the release changelogs`_.
 .. _Haskell: https://www.haskell.org/
 .. _new Collection object: https://github.com/loophp/collection/blob/master/src/Collection.php
 .. _SplObjectStorage: https://www.php.net/manual/en/class.splobjectstorage.php
-.. _this example: https://loophp-collection.readthedocs.io/en/latest/pages/usage.html#manipulate-keys-and-values
+.. _this example: https://loophp-collection.readthedocs.io/en/latest/pages/usage.html#working-with-keys-and-values
 .. _Lazy.js: http://danieltao.com/lazy.js/
 .. _Laravel Support Package: https://github.com/illuminate/support
 .. _pure: https://en.wikipedia.org/wiki/Pure_function
@@ -160,10 +160,6 @@ For more detailed changelogs, please check `the release changelogs`_.
 .. _generators: https://www.php.net/manual/en/class.generator.php
 .. _immutable: https://en.wikipedia.org/wiki/Immutable_object
 .. _other available collection libraries: https://packagist.org/?query=collection
-.. _PHP Standards Recommendations: https://www.php-fig.org/
-.. _PSR-4: https://www.php-fig.org/psr/psr-4/
-.. _PSR-12: https://www.php-fig.org/psr/psr-12/
-.. _Ruby arrays: https://apidock.com/ruby/Array
 .. _Brian Lonsdorf's conference: https://www.youtube.com/watch?v=m3svKOdZijA
 .. _this Hugh Jackson article: http://hughfdjackson.com/javascript/why-curry-helps/
 .. _flatMap: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flatMap

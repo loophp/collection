@@ -21,7 +21,7 @@ $addition = static function (float $value1, float $value2): float {
 
 $fact = static function (int $number) use ($multiplication): float {
     return Collection::range(1, $number + 1)
-        ->foldleft(
+        ->foldLeft(
             $multiplication,
             1
         )
@@ -49,7 +49,7 @@ $number_e_approximation = Collection::fromIterable($naturals)
     ->until(static function (float $value): bool {
         return 10 ** -12 > $value;
     })
-    ->foldleft($addition, 0)
+    ->foldLeft($addition, 0)
     ->current();
 
 var_dump($number_e_approximation); // 2.718281828459

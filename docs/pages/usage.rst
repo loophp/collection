@@ -3,6 +3,11 @@ Usage
 
 Find here some working examples.
 
+.. tip:: Read the section on :ref:`Working with keys and values` to better understand
+    the differences between working with Collection compared to normal PHP arrays.
+    The same principles apply to all :ref:`API methods <Methods (operations)>`,
+    giving you great power to manipulate various types of data if used correctly.
+
 Simple
 -------
 
@@ -12,17 +17,17 @@ Simple
 Advanced
 --------
 
-Manipulate keys and values
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+Working with keys and values
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This example show the power of a lazy library and highlight also how to use
-it in a wrong way.
+This example shows the power of a lazy library and highlight also how to use
+it in the wrong way.
 
 Unlike regular PHP arrays where there can only be one key of type int or
 string, a lazy library can have multiple times the same keys and they can
-be of any type !
+be of any type!
 
-.. code-block:: bash
+.. code-block:: php
 
     // This following example is perfectly valid, despite that having array for keys
     // in a regular PHP arrays is impossible.
@@ -36,26 +41,26 @@ be of any type !
 A lazy collection library can also have multiple times the same key.
 
 Here we are going to make a frequency analysis on the text and see the
-result. We can see that some data are missing, why ?
+result. We can see that some data is missing, why?
 
-.. code-block:: bash
+.. code-block:: php
 
     $string = 'aaaaabbbbcccddddeeeee';
 
-    $collection = Collection::fromIterable($string)
+    $collection = Collection::fromString($string)
         // Run the frequency analysis tool.
         ->frequency()
         // Convert to regular array.
         ->all(); // [5 => 'e', 4 => 'd', 3 => 'c']
 
-The reason that the frequency analysis for letters 'a' and 'b' are missing
-is because when you call the method ->all(), the collection converts the
-lazy collection into a regular PHP array, and PHP doesn't allow having
-multiple time the same key, so it overrides the previous data and there are
+The reason that the frequency analysis for letters 'a' and 'b' is missing
+is because when you call the method ``Collection::all()``, the collection converts
+the lazy collection into a regular PHP array, and PHP doesn't allow having
+multiple time the same key, so it overrides the previous data and there will be
 missing information in the resulting array.
 
-In order to circumvent this, you can either wrap the final result or
-normalize it.
+In order to circumvent this, you can either ``wrap`` the final result or
+``normalize`` it.
 A better way would be to not convert this into an array and use the lazy
 collection as an iterator.
 
@@ -65,24 +70,8 @@ you might lose some information then.
 
 It's up to you to decide which one you want to use.
 
-.. code-block:: bash
-
-    $collection = Collection::fromIterable($string)
-        // Run the frequency analysis tool.
-        ->frequency()
-        // Wrap each result into an array.
-        ->wrap()
-        // Convert to regular array.
-        ->all();
-    /**
-     * [
-     *   [5 => 'a'],
-     *   [4 => 'b'],
-     *   [3 => 'c'],
-     *   [4 => 'd'],
-     *   [5 => 'e'],
-     * ]
-     */
+.. literalinclude:: code/duplicate-keys.php
+  :language: php
 
 Manipulate strings
 ~~~~~~~~~~~~~~~~~~
