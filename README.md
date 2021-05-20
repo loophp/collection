@@ -42,7 +42,7 @@ On top of this, this library:
 * uses strict types,
 * framework agnostic.
 
-Except a few methods, most methods are [pure][15] and return a
+Except for a few methods, most methods are [pure][15] and return a
 [new Collection object][16].
 
 Also, unlike regular PHP arrays where keys must be either of type `int` or
@@ -54,8 +54,8 @@ This way of working opens up new perspectives and another way of handling data,
 in a more functional way.
 
 And last but not least, collection keys are preserved throughout most
-operations, and it might be leading to some confusions, carefully read
-[this example][18] for the full explanation.
+operations; while it might lead to some confusion at first, please carefully
+read [this example][18] for the full explanation and benefits.
 
 This library has been inspired by:
 
@@ -75,10 +75,10 @@ This library has been inspired by:
     class, each operation has its own responsibility. Usually, the arguments
     needed are standard PHP variables like `int`, `string`, `callable` or
     `iterator`.
-    It allows users to use those operations individually, at their own will to
+    It allows users to use those operations individually, at their own will, to
     build up something custom. Currently, more than [**80 operations**][28] are
     available in this library. This library is an example of what you can do
-    with all those small bricks, but nothing prevents users to use an operation
+    with all those small bricks, but nothing prevents users from using an operation
     on its own as well.
 
 * **It takes function first, data-last**: In the following example, multiple
@@ -225,7 +225,7 @@ For more detailed changelogs, please check [the release changelogs][45].
 [9]: https://www.php.net/array-filter
 [10]: https://www.php.net/array-reduce
 [17]: https://www.php.net/manual/en/class.splobjectstorage.php
-[18]: https://loophp-collection.readthedocs.io/en/latest/pages/usage.html#manipulate-keys-and-values
+[18]: https://loophp-collection.readthedocs.io/en/latest/pages/usage.html#working-with-keys-and-values
 [19]: https://github.com/illuminate/support
 [20]: https://github.com/DusanKasan/Knapsack
 [21]: https://github.com/mtdowling/transducers.php
