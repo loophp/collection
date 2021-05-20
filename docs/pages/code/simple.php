@@ -70,15 +70,15 @@ Collection::fromIterable(['A' => 'A', 'B' => 'B', 'C' => 'C', 'D' => 'D', 'E' =>
     ->all(); // ['A' => 'a', B => 'b', 'C' => 'c', 'D' = >'d', 'E' => 'e']
 
 // Tail
-Collection::fromIterable(range('a', 'z'))
+Collection::fromIterable(range('a', 'e'))
     ->tail()
-    ->all(); // [23 => 'x', 24 => 'y', 25 => 'z']
+    ->all(); // [1 => 'b', 2 => 'c', 3 => 'd', 4 => 'e']
 
 // Reverse
-Collection::fromIterable(range('a', 'z'))
+Collection::fromIterable(range('a', 'e'))
     ->tail()
     ->reverse()
-    ->all(); // [25 => 'z', 24 => 'y', 23 => 'x', 22 => 'w']
+    ->all(); // [4 => 'e', 3 => 'd', 2 => 'c', 1 => 'b']
 
 // Flip operation.
 // array_flip() can be used in PHP to remove duplicates from an array.(dedup-licate an array)
