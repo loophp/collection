@@ -463,6 +463,20 @@ Signature: ``Collection::contains(...$value);``
         // do something
     }
 
+count
+~~~~~~~~
+
+Returns the number of elements in a collection
+
+Interface: `Countable`_
+
+Signature: ``Collection::count();``
+
+.. code-block:: php
+
+    $collection = Collection::fromIterable(range('a', 'c'))
+        ->count(); // 3
+
 current
 ~~~~~~~
 
@@ -1430,6 +1444,35 @@ Signature: ``Collection::permutate(int $size, $value);``
     $collection = Collection::fromIterable(['a', 'b'])
         ->permutate(); // [['a', 'b'], ['b', 'a']]
 
+pipe
+~~~~~~~~~
+
+Pipe together multiple operations and apply them in succession to the collection items.
+To maintain a lazy nature, each operation needs to return a ``Generator``.
+Custom operations and operations provided in the API can be combined together.
+
+Interface: `Pipeable`_
+
+Signature: ``Collection::pipe(callable ...$callables);``
+
+.. code-block:: php
+
+    $square = static function ($collection): Generator {
+        foreach ($collection as $item) {
+            yield $item ** 2;
+        }
+    };
+
+    $toString = static function ($collection): Generator {
+        foreach ($collection as $item) {
+            yield (string) $item;
+        }
+    };
+
+    Collection::fromIterable(range(1, 5))
+        ->pipe($square, Reverse::of(), $toString)
+        ->all(); // ['25', '16', '9', '4', '1']
+
 pluck
 ~~~~~
 
@@ -2140,6 +2183,7 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Compactable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Compactable.php
 .. _Coalesceable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Coalesceable.php
 .. _Containsable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Containsable.php
+.. _Countable: https://www.php.net/manual/en/class.countable.php
 .. _Currentable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Currentable.php
 .. _Cycleable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Cycleable.php
 .. _Diffable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Diffable.php
@@ -2191,6 +2235,7 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Pairable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Pairable.php
 .. _Partitionable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Partitionable.php
 .. _Permutateable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Permutateable.php
+.. _Pipeable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Pipeable.php
 .. _Pluckable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Pluckable.php
 .. _Prependable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Prependable.php
 .. _Productable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Productable.php
