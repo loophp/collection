@@ -1445,7 +1445,7 @@ Signature: ``Collection::permutate(int $size, $value);``
         ->permutate(); // [['a', 'b'], ['b', 'a']]
 
 pipe
-~~~~~~~~~
+~~~~
 
 Pipe together multiple operations and apply them in succession to the collection items.
 To maintain a lazy nature, each operation needs to return a ``Generator``.
@@ -1469,9 +1469,20 @@ Signature: ``Collection::pipe(callable ...$callables);``
         }
     };
 
+    $times = new class() extends AbstractOperation {
+        public function __invoke(): Closure
+        {
+            return static function ($collection) {
+                foreach ($collection as $item) {
+                    yield "{$item}x";
+                }
+            };
+        }
+    };
+
     Collection::fromIterable(range(1, 5))
-        ->pipe($square, Reverse::of(), $toString)
-        ->all(); // ['25', '16', '9', '4', '1']
+        ->pipe($square, Reverse::of(), $toString, $times())
+        ->all(); // ['25x', '16x', '9x', '4x', '1x']
 
 pluck
 ~~~~~

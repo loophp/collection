@@ -36,7 +36,7 @@ This library could be a valid replacement for `\SplObjectStorage`_ but with much
 This way of working opens up new perspectives and another way of handling data, in a more functional way.
 
 And last but not least, collection keys are preserved throughout most operations; while it might lead to some confusion at first,
-please carefullyread `this example`_ for the full explanation and benefits.
+please carefully read `this example`_ for the full explanation and benefits.
 
 This library has been inspired by:
 
@@ -61,7 +61,7 @@ Features
    something custom. Currently, more than :ref:`80 operations <api>`
    are available in this library. This library is an example of what
    you can do with all those small bricks, but nothing prevents users
-   prevent users from using an operation on its own as well.
+   from using an operation on its own as well.
 
 -  **It takes function first, data-last**: In the following example,
    multiple operations are created. The data to be operated on is
