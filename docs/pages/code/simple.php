@@ -51,7 +51,7 @@ $collection
 // Map data
 $collection
     ->map(
-        static function ($value, $key) {
+        static function ($value, $key): string {
             return sprintf('%s.%s', $value, $value);
         }
     )
@@ -71,12 +71,12 @@ Collection::fromIterable(['A' => 'A', 'B' => 'B', 'C' => 'C', 'D' => 'D', 'E' =>
 
 // Tail
 Collection::fromIterable(range('a', 'z'))
-    ->tail(3)
+    ->tail()
     ->all(); // [23 => 'x', 24 => 'y', 25 => 'z']
 
 // Reverse
 Collection::fromIterable(range('a', 'z'))
-    ->tail(4)
+    ->tail()
     ->reverse()
     ->all(); // [25 => 'z', 24 => 'y', 23 => 'x', 22 => 'w']
 
@@ -106,7 +106,7 @@ Collection::range(0, \INF)
         }
     )
     ->filter(
-        static function ($value, $key) {
+        static function ($value, $key): int {
             return $value % 5;
         }
     )
@@ -117,7 +117,7 @@ Collection::range(0, \INF)
 // If the callback returns false, then it will stop.
 Collection::fromIterable(range('A', 'Z'))
     ->apply(
-        static function ($value, $key) {
+        static function ($value, $key): bool {
             echo mb_strtolower($value);
 
             return true;
@@ -184,7 +184,7 @@ Collection::fromIterable($readFileLineByLine($hugeFile))
     )
     // Find public static fields or methods among the results.
     ->filter(
-        static function ($value, $key) {
+        static function ($value, $key): bool {
             return false !== mb_strpos(trim($value), 'public static');
         }
     )
@@ -233,7 +233,7 @@ $function = static function ($x = .3, $r = 2) {
 };
 
 Collection::unfold($function)
-    ->map(static function ($value) {
+    ->map(static function ($value): float {
         return round($value, 2);
     })
     ->limit(10)
