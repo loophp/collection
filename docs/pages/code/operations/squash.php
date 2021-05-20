@@ -18,12 +18,12 @@ $results = Collection::fromIterable(range(0, 100))
     ->filter(static fn (int $int) => 0 === $int % 2)
     ->map(static fn (int $int) => 'document' . $int . '.pdf')
     ->map(
-        static function (string $doc): bool {
-            if (false === file_exists('/doc/' . $doc)) {
-                throw new Exception('Unexistent file');
+        static function (string $doc): string {
+            if (!file_exists('/doc/' . $doc)) {
+                throw new Exception('Nonexistent file');
             }
 
-            return file_get_contents($doc);
+            return (string) file_get_contents($doc);
         }
     )
     ->squash(); // Instantly trigger an exception if a file does not exist.

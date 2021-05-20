@@ -19,20 +19,17 @@ $addition = static function (float $value1, float $value2): float {
     return $value1 + $value2;
 };
 
-$fact = static function (int $number) use ($multiplication): float {
-    return Collection::range(1, $number + 1)
-        ->foldLeft(
-            $multiplication,
-            1
-        )
+$fact = static function (float $number) use ($multiplication): float {
+    return (float) Collection::range(1, $number + 1)
+        ->foldLeft($multiplication, 1)
         ->current();
 };
 
-$e = static function (int $value) use ($fact): float {
+$e = static function (float $value) use ($fact): float {
     return $value / $fact($value);
 };
 
-$listInt = static function (int $init, callable $succ): Generator {
+$listInt = static function (float $init, callable $succ): Generator {
     yield $init;
 
     while (true) {
@@ -40,7 +37,7 @@ $listInt = static function (int $init, callable $succ): Generator {
     }
 };
 
-$naturals = $listInt(1, static function (int $n): int {
+$naturals = $listInt(1, static function (float $n): float {
     return $n + 1;
 });
 

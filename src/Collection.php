@@ -376,12 +376,12 @@ final class Collection implements CollectionInterface
      *
      * @param mixed ...$parameters
      */
-    public static function fromCallable(callable $callable, ...$parameters): self
+    public static function fromCallable(callable $callable, ...$parameters): CollectionInterface
     {
         return new self($callable, ...$parameters);
     }
 
-    public static function fromFile(string $filepath): self
+    public static function fromFile(string $filepath): CollectionInterface
     {
         return new self(
             /**
@@ -400,7 +400,7 @@ final class Collection implements CollectionInterface
      * @param iterable<mixed> $iterable
      * @psalm-param iterable<NewTKey, NewT> $iterable
      */
-    public static function fromIterable(iterable $iterable): self
+    public static function fromIterable(iterable $iterable): CollectionInterface
     {
         return new self(
             /**
@@ -416,7 +416,7 @@ final class Collection implements CollectionInterface
     /**
      * @param resource $resource
      */
-    public static function fromResource($resource): self
+    public static function fromResource($resource): CollectionInterface
     {
         return new self(
             /**
@@ -430,7 +430,7 @@ final class Collection implements CollectionInterface
         );
     }
 
-    public static function fromString(string $string, string $delimiter = ''): self
+    public static function fromString(string $string, string $delimiter = ''): CollectionInterface
     {
         return new self(
             /**
@@ -607,7 +607,7 @@ final class Collection implements CollectionInterface
         return new self(Permutate::of(), $this->getIterator());
     }
 
-    public function pipe(callable ...$callables): self
+    public function pipe(callable ...$callables): CollectionInterface
     {
         return new self(Pipe::of()(...$callables), $this->getIterator());
     }

@@ -17,11 +17,7 @@ $random = static function () {
 };
 
 $random_numbers = Collection::unfold($random)
-    ->map(
-        static function ($value) {
-            return floor($value * 1000) + 1;
-        }
-    )
+    ->map(static fn ($value): float => floor($value * 1000) + 1)
     ->distinct()
     ->limit(300)
     ->normalize()
