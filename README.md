@@ -22,7 +22,7 @@ possible while being as flexible as possible.
 Functions like [`array_map()`][8], [`array_filter()`][9] and
 [`array_reduce()`][10] are great, but they create new arrays and everything is
 eagerly done before going to the next step.
-Lazy collection leverages PHP's generators, iterators and yield statements to
+Lazy collection leverages PHP's generators, iterators, and yield statements to
 allow you to work with very large data sets while keeping memory usage as low as
 possible.
 
@@ -46,7 +46,7 @@ Except a few methods, most methods are [pure][15] and return a
 [new Collection object][16].
 
 Also, unlike regular PHP arrays where keys must be either of type `int` or
-`string`, this collection library let you use any kind of type for keys:
+`string`, this collection library lets you use any kind of type for keys:
 `integer`, `string`, `objects`, `arrays`, ... anything!
 This library could be a valid replacement for [\SplObjectStorage][17] but with
 much more features.
@@ -71,15 +71,15 @@ This library has been inspired by:
 
 ## Features
 
-* **Decoupled**: Each Collection methods is a shortcut to one isolated standard
-    class, each operation has its own responsibility. Usually the arguments
+* **Decoupled**: Each Collection method is a shortcut to one isolated standard
+    class, each operation has its own responsibility. Usually, the arguments
     needed are standard PHP variables like `int`, `string`, `callable` or
     `iterator`.
     It allows users to use those operations individually, at their own will to
     build up something custom. Currently, more than [**80 operations**][28] are
-    available in this library. This library is basically an example of what you
-    can do with all those small bricks, but nothing prevent users to use an
-    operation on its own as well.
+    available in this library. This library is an example of what you can do
+    with all those small bricks, but nothing prevents users to use an operation
+    on its own as well.
 
 * **It takes function first, data-last**: In the following example, multiple
     operations are created. The data to be operated on is generally supplied at
@@ -102,11 +102,11 @@ This library has been inspired by:
     $reverse = Reverse::of();
     $pipe = Pipe::of()($reverse, $filter);
 
-    print_r(iterator_to_array($pipe(new ArrayIterator($data)))); //['baz','bar']
+    print_r(iterator_to_array($pipe(new ArrayIterator($data)))); // ['baz','bar']
     ```
 
     More information about this in the [Brian Lonsdorf's conference][29], even
-    if this is for Javascript, those concepts are common to other programming
+    if this is for JavaScript, those concepts are common in other programming
     languages.
 
     In a nutshell, the combination of currying and function-first enables the
@@ -154,7 +154,7 @@ more advanced use cases.
 
 ## Documentation
 
-On top of a complete documented code, the package include a full documentation
+On top of well-documented code, the package includes a complete documentation
 that gets automatically compiled and published upon each commit at
 [https://loophp-collection.rtfd.io][33].
 
@@ -164,27 +164,27 @@ you can do with it.
 I'm doing my best to keep the documentation up to date, if you found something
 odd, please let me know in the [issue queue][34].
 
-## Code quality, tests and benchmarks
+## Code quality, tests, benchmarks
 
-Every time changes are introduced into the library, [Github][2] run the
+Every time changes are introduced into the library, [Github][2] runs the
 tests.
 
 The library has tests written with [PHPSpec][35].
 Feel free to check them out in the `spec` directory. Run `composer phpspec` to
 trigger the tests.
 
-Before each commit some inspections are executed with [GrumPHP][36], run
+Before each commit, some inspections are executed with [GrumPHP][36]; run
 `composer grumphp` to check manually.
 
 The quality of the tests is tested with [Infection][37] a PHP Mutation testing
-framework,  run `composer infection` to try it.
+framework, run `composer infection` to try it.
 
 Static analyzers are also controlling the code. [PHPStan][38] and
 [PSalm][39] are enabled to their maximum level.
 
 ## Contributing
 
-Feel free to contribute by sending Github pull requests. I'm quite reactive :-)
+Feel free to contribute by sending Github pull requests. I'm quite responsive :-)
 
 If you can't contribute to the code, you can also sponsor me on [Github][5] or
 [Paypal][6].
