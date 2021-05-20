@@ -266,12 +266,13 @@ Signature: ``Collection::associate(?callable $callbackForKeys = null, ?callable 
 asyncMap
 ~~~~~~~~
 
-Apply one callback to every item of a collection and use the return value.
+Asynchronously apply one or more supplied callbacks to every item of a collection and use the return value.
 
-.. warning:: Asynchronously apply callbacks to a collection. 
-            This operation is non-deterministic, we cannot ensure the order of the elements at the end.
+.. warning:: This method requires `ampphp/parallel-functions <https://github.com/amphp/parallel-functions>`_ to be installed.
 
-.. warning:: Keys are preserved, use the ``Collection::normalize`` operation if you want to re-index the keys.
+.. warning:: 
+        This operation is non-deterministic, we cannot ensure the order of the elements at the end. Additionally,
+        keys are preserved - use the ``Collection::normalize`` operation if you want to re-index the keys.
 
 Interface: `AsyncMapable`_
 
