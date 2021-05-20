@@ -1472,7 +1472,7 @@ Signature: ``Collection::pipe(callable ...$callables);``
     $times = new class() extends AbstractOperation {
         public function __invoke(): Closure
         {
-            return static function ($collection) {
+            return static function ($collection): Generator {
                 foreach ($collection as $item) {
                     yield "{$item}x";
                 }
