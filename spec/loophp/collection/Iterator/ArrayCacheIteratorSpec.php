@@ -11,7 +11,7 @@ namespace spec\loophp\collection\Iterator;
 
 use ArrayIterator;
 use loophp\collection\Iterator\ArrayCacheIterator;
-use PhpSpec\Exception\Exception;
+use PhpSpec\Exception\Example\MatcherException;
 use PhpSpec\ObjectBehavior;
 
 class ArrayCacheIteratorSpec extends ObjectBehavior
@@ -37,7 +37,7 @@ class ArrayCacheIteratorSpec extends ObjectBehavior
             ->shouldReturn(true);
 
         if (5 !== iterator_count($this->getWrappedObject())) {
-            throw new Exception('The count is invalid.');
+            throw new MatcherException('The count is invalid.');
         }
 
         $this

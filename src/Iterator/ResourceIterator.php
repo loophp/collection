@@ -42,8 +42,12 @@ final class ResourceIterator extends ProxyIterator
              * @psalm-return Generator<int, string>
              */
             static function ($resource): Generator {
-                while (false !== $chunk = fgetc($resource)) {
-                    yield $chunk;
+                try {
+                    while (false !== $chunk = fgetc($resource)) {
+                        yield $chunk;
+                    }
+                } finally {
+                    fclose($resource);
                 }
             };
 
