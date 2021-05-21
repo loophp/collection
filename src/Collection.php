@@ -376,12 +376,12 @@ final class Collection implements CollectionInterface
      *
      * @param mixed ...$parameters
      */
-    public static function fromCallable(callable $callable, ...$parameters): CollectionInterface
+    public static function fromCallable(callable $callable, ...$parameters): self
     {
         return new self($callable, ...$parameters);
     }
 
-    public static function fromFile(string $filepath): CollectionInterface
+    public static function fromFile(string $filepath): self
     {
         return new self(
             /**
@@ -400,7 +400,7 @@ final class Collection implements CollectionInterface
      * @param iterable<mixed> $iterable
      * @psalm-param iterable<NewTKey, NewT> $iterable
      */
-    public static function fromIterable(iterable $iterable): CollectionInterface
+    public static function fromIterable(iterable $iterable): self
     {
         return new self(
             /**
@@ -416,7 +416,7 @@ final class Collection implements CollectionInterface
     /**
      * @param resource $resource
      */
-    public static function fromResource($resource): CollectionInterface
+    public static function fromResource($resource): self
     {
         return new self(
             /**
@@ -430,7 +430,7 @@ final class Collection implements CollectionInterface
         );
     }
 
-    public static function fromString(string $string, string $delimiter = ''): CollectionInterface
+    public static function fromString(string $string, string $delimiter = ''): self
     {
         return new self(
             /**
