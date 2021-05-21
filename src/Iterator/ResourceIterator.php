@@ -12,6 +12,7 @@ namespace loophp\collection\Iterator;
 use Generator;
 use InvalidArgumentException;
 use IteratorIterator;
+
 use function is_resource;
 
 /**
