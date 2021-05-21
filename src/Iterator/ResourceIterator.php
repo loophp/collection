@@ -12,6 +12,7 @@ namespace loophp\collection\Iterator;
 use Generator;
 use InvalidArgumentException;
 use IteratorIterator;
+use function is_resource;
 
 /**
  * @internal
@@ -25,11 +26,11 @@ use IteratorIterator;
 final class ResourceIterator extends ProxyIterator
 {
     /**
-     * @param resource $resource
+     * @param false|resource $resource
      */
     public function __construct($resource)
     {
-        if ('stream' !== get_resource_type($resource)) {
+        if (!is_resource($resource) || 'stream' !== get_resource_type($resource)) {
             throw new InvalidArgumentException('Invalid resource type.');
         }
 

@@ -16,11 +16,6 @@ parameters:
 			path: src/Collection.php
 
 		-
-			message: "#^Method loophp\\\\collection\\\\Collection\\:\\:fromFile\\(\\) return type with generic class loophp\\\\collection\\\\Collection does not specify its types\\: TKey, T$#"
-			count: 1
-			path: src/Collection.php
-
-		-
 			message: "#^Method loophp\\\\collection\\\\Collection\\:\\:fromIterable\\(\\) return type with generic class loophp\\\\collection\\\\Collection does not specify its types\\: TKey, T$#"
 			count: 1
 			path: src/Collection.php
@@ -37,11 +32,6 @@ parameters:
 
 		-
 			message: "#^Method loophp\\\\collection\\\\Collection\\:\\:getIterator\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Collection.php
-
-		-
-			message: "#^Parameter \\#1 \\$resource of class loophp\\\\collection\\\\Iterator\\\\ResourceIterator constructor expects resource, resource\\|false given\\.$#"
 			count: 1
 			path: src/Collection.php
 

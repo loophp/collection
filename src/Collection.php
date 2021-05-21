@@ -381,12 +381,12 @@ final class Collection implements CollectionInterface
         return new self($callable, ...$parameters);
     }
 
+    /**
+     * @return self<int, string>
+     */
     public static function fromFile(string $filepath): self
     {
         return new self(
-            /**
-             * @psalm-return Iterator<int, string>
-             */
             static fn (string $filepath): Iterator => new ResourceIterator(fopen($filepath, 'rb')),
             $filepath
         );
