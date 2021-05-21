@@ -100,16 +100,8 @@ Collection::fromIterable(['a', 'b'])
 
 // Infinitely loop over numbers, cube them, filter those that are not divisible by 5, take the first 100 of them.
 Collection::range(0, \INF)
-    ->map(
-        static function ($value, $key) {
-            return $value ** 3;
-        }
-    )
-    ->filter(
-        static function ($value, $key): int {
-            return $value % 5;
-        }
-    )
+    ->map(static fn ($value): float => $value ** 3)
+    ->filter(static fn ($value): int => $value % 5)
     ->limit(100)
     ->all(); // [1, 8, 27, ..., 1815848, 1860867, 1906624]
 
@@ -130,11 +122,7 @@ $random = static function () {
 };
 
 Collection::unfold($random)
-    ->map(
-        static function ($value) {
-            return floor($value * 1000) + 1;
-        }
-    )
+    ->map(static fn ($value): float => floor($value * 1000) + 1)
     ->distinct()
     ->limit(300)
     ->normalize()
@@ -164,6 +152,7 @@ Collection::unfold($fibonacci)
 
 // Use an existing Generator as input data.
 $readFileLineByLine = static function (string $filepath): Generator {
+    /** @var resource $fh */
     $fh = fopen($filepath, 'rb');
 
     while (false !== $line = fgets($fh)) {

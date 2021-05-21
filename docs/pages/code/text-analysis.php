@@ -11,17 +11,14 @@ include __DIR__ . '/../../../vendor/autoload.php';
 
 use loophp\collection\Collection;
 
-$collection = Collection::fromString(file_get_contents('http://loripsum.net/api'))
+/** @var string $contents */
+$contents = file_get_contents('https://loripsum.net/api');
+
+$collection = Collection::fromString($contents)
     // Filter out some characters.
-    ->filter(
-        static function ($item, $key): bool {
-            return (bool) preg_match('/^[a-zA-Z]+$/', $item);
-        }
-    )
+    ->filter(static fn ($item): bool => (bool) preg_match('/^[a-zA-Z]+$/', $item))
     // Lowercase each character.
-    ->map(static function (string $letter): string {
-        return mb_strtolower($letter);
-    })
+    ->map(static fn (string $letter): string => mb_strtolower($letter))
     // Run the frequency tool.
     ->frequency()
     // Flip keys and values.

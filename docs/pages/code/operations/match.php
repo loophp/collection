@@ -39,7 +39,5 @@ $input = [
 
 $pattern = '/\(EU\)$/';
 
-$colletion = Collection::fromIterable($input)
-    ->match(
-        static fn (string $value): bool => preg_match($pattern, $value)
-    ); // true
+$collection = Collection::fromIterable($input)
+    ->match(static fn (string $value): bool => (bool) preg_match($pattern, $value)); // true

@@ -36,13 +36,13 @@ final class StringIterator extends ProxyIterator
                     mb_strlen($input) > $offset
                     && false !== $nextOffset = '' !== $delimiter ? mb_strpos($input, $delimiter, $offset) : 1 + $offset
                 ) {
-                    yield (string) mb_substr($input, $offset, $nextOffset - $offset);
+                    yield mb_substr($input, $offset, $nextOffset - $offset);
 
                     $offset = $nextOffset + mb_strlen($delimiter);
                 }
 
                 if ('' !== $delimiter) {
-                    yield (string) mb_substr($input, $offset);
+                    yield mb_substr($input, $offset);
                 }
             };
 

@@ -9,7 +9,10 @@ declare(strict_types=1);
 
 namespace loophp\collection\Iterator;
 
+use BadMethodCallException;
 use Iterator;
+
+use function assert;
 
 use const PHP_INT_MAX;
 use const PHP_INT_MIN;
@@ -51,6 +54,12 @@ final class RandomIterator extends ProxyIterator
 
     public function current()
     {
+        if (!$this->valid()) {
+            throw new BadMethodCallException("Cannot call 'current()' on invalid RandomIterator.");
+        }
+
+        assert(null !== $this->key);
+
         $keyValueTuple = $this->getNextItemAtKey($this->key);
 
         return $keyValueTuple[1];
@@ -58,6 +67,12 @@ final class RandomIterator extends ProxyIterator
 
     public function key()
     {
+        if (!$this->valid()) {
+            throw new BadMethodCallException("Cannot call 'key()' on invalid RandomIterator.");
+        }
+
+        assert(null !== $this->key);
+
         $keyValueTuple = $this->getNextItemAtKey($this->key);
 
         return $keyValueTuple[0];
@@ -82,7 +97,7 @@ final class RandomIterator extends ProxyIterator
 
     public function valid(): bool
     {
-        return [] !== $this->indexes;
+        return [] !== $this->indexes && null !== $this->key;
     }
 
     /**
@@ -104,6 +119,11 @@ final class RandomIterator extends ProxyIterator
         return [$this->wrappedIterator->key(), $this->wrappedIterator->current()];
     }
 
+    /**
+     * @param array<int, int> $array
+     *
+     * @return array<int, int>
+     */
     private function predictableRandomArray(array $array, int $seed): array
     {
         mt_srand($seed);

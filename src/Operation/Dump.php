@@ -47,6 +47,7 @@ final class Dump extends AbstractOperation
                         static function (Iterator $iterator) use ($name, $size, $callback): Generator {
                             $j = 0;
 
+                            /** @var callable $debugFunction */
                             $debugFunction = class_exists(VarDumper::class) ? 'dump' : 'var_dump';
 
                             $callback ??=

@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace spec\loophp\collection\Iterator;
 
 use ArrayIterator;
+use BadMethodCallException;
 use Exception;
 use loophp\collection\Iterator\RandomIterator;
 use PhpSpec\ObjectBehavior;
@@ -77,6 +78,30 @@ class RandomIteratorSpec extends ObjectBehavior
         if (iterator_to_array($iterator1) === iterator_to_array($this->getWrappedObject())) {
             throw new Exception('Iterator1 is equal to Iterator2');
         }
+    }
+
+    public function it_can_get_current()
+    {
+        $this->beConstructedWith(new ArrayIterator(['a']));
+        $this->valid()->shouldReturn(false);
+        $this->shouldThrow(BadMethodCallException::class)->during('current');
+
+        $this->rewind();
+
+        $this->valid()->shouldReturn(true);
+        $this->current()->shouldReturn('a');
+    }
+
+    public function it_can_get_key()
+    {
+        $this->beConstructedWith(new ArrayIterator(['a' => 1]));
+        $this->valid()->shouldReturn(false);
+        $this->shouldThrow(BadMethodCallException::class)->during('key');
+
+        $this->rewind();
+
+        $this->valid()->shouldReturn(true);
+        $this->key()->shouldReturn('a');
     }
 
     public function it_can_get_the_innerIterator()

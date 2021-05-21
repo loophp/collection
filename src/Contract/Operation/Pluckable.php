@@ -21,7 +21,7 @@ interface Pluckable
     /**
      * Retrieves all of the values of a collection for a given key.
      *
-     * @param array<int, string>|string $pluck
+     * @param array<int, string>|array-key $pluck
      * @param mixed|null $default
      *
      * @psalm-return \loophp\collection\Collection<TKey, T>

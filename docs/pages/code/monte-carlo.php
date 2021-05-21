@@ -11,7 +11,7 @@ include __DIR__ . '/../../../vendor/autoload.php';
 
 use loophp\collection\Collection;
 
-$monteCarloMethod = static function ($in = 0, $total = 1) {
+$monteCarloMethod = static function ($in = 0, $total = 1): array {
     $randomNumber1 = mt_rand(0, mt_getrandmax() - 1) / mt_getrandmax();
     $randomNumber2 = mt_rand(0, mt_getrandmax() - 1) / mt_getrandmax();
 

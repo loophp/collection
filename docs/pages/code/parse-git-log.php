@@ -14,6 +14,7 @@ use loophp\collection\Contract\Collection as CollectionInterface;
 use loophp\collection\Contract\Operation\Splitable;
 
 $commandStream = static function (string $command): Generator {
+    /** @var resource $fh */
     $fh = popen($command, 'r');
 
     while (false !== $line = fgets($fh)) {

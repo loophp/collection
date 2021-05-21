@@ -15,7 +15,9 @@ use loophp\collection\Contract\Operation\Splitable;
 include __DIR__ . '/../../../../vendor/autoload.php';
 
 // Example 1 -> Parse the composer.json of a package and get the require-dev dependencies.
-$collection = Collection::fromResource(fopen(__DIR__ . '/composer.json', 'rb'))
+/** @var resource $fileResource */
+$fileResource = fopen(__DIR__ . '/composer.json', 'rb');
+$collection = Collection::fromResource($fileResource)
     // Group items when EOL character is found.
     ->split(Splitable::REMOVE, static fn (string $character): bool => "\n" === $character)
     // Implode characters to create a line string
