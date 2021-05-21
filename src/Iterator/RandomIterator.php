@@ -13,6 +13,7 @@ use BadMethodCallException;
 use Iterator;
 
 use function assert;
+
 use const PHP_INT_MAX;
 use const PHP_INT_MIN;
 
