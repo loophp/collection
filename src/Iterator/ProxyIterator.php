@@ -17,6 +17,8 @@ use OuterIterator;
  *
  * @psalm-template TKey
  * @psalm-template T
+ *
+ * @implements OuterIterator<TKey, T>
  */
 abstract class ProxyIterator implements OuterIterator
 {
