@@ -144,3 +144,9 @@ Read a file
 
 .. literalinclude:: code/read-file.php
   :language: php
+
+Lazy json parsing
+~~~~~~~~~~~~~~~~~
+
+.. literalinclude:: code/lazy-json-parsing.php
+  :language: php
