@@ -26,12 +26,15 @@
         "amphp/parallel-functions": "^1",
         "drupol/php-conventions": "^5",
         "friends-of-phpspec/phpspec-code-coverage": "^6",
+        "guzzlehttp/guzzle": "^7.3",
+        "halaxa/json-machine": "^0.7.0",
         "infection/infection": "^0.22.0 || ^0.23.0",
         "infection/phpspec-adapter": "^0.1.1",
         "phpspec/phpspec": "^7",
         "phpstan/phpstan-strict-rules": "^0.12",
         "psr/cache": "^1.0",
         "symfony/cache": "^5",
+        "symfony/http-client": "^5.2",
         "symfony/polyfill-mbstring": "^1.18"
     },
     "suggest": {
