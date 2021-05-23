@@ -387,7 +387,7 @@ final class Collection implements CollectionInterface
     public static function fromFile(string $filepath): self
     {
         return new self(
-            static fn (string $filepath): Iterator => new ResourceIterator(fopen($filepath, 'rb')),
+            static fn (string $filepath): Iterator => new ResourceIterator(fopen($filepath, 'rb'), true),
             $filepath
         );
     }
@@ -415,16 +415,12 @@ final class Collection implements CollectionInterface
 
     /**
      * @param resource $resource
+     *
+     * @return self<int, string>
      */
     public static function fromResource($resource): self
     {
         return new self(
-            /**
-             * @param mixed $resource
-             * @psalm-param resource $resource
-             *
-             * @psalm-return Iterator<int, string>
-             */
             static fn ($resource): Iterator => new ResourceIterator($resource),
             $resource
         );

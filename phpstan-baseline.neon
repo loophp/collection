@@ -21,11 +21,6 @@ parameters:
 			path: src/Collection.php
 
 		-
-			message: "#^Method loophp\\\\collection\\\\Collection\\:\\:fromResource\\(\\) return type with generic class loophp\\\\collection\\\\Collection does not specify its types\\: TKey, T$#"
-			count: 1
-			path: src/Collection.php
-
-		-
 			message: "#^Method loophp\\\\collection\\\\Collection\\:\\:fromString\\(\\) return type with generic class loophp\\\\collection\\\\Collection does not specify its types\\: TKey, T$#"
 			count: 1
 			path: src/Collection.php
