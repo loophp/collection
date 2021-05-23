@@ -429,12 +429,12 @@ final class Collection implements CollectionInterface
         );
     }
 
+    /**
+     * @return self<int, string>
+     */
     public static function fromString(string $string, string $delimiter = ''): self
     {
         return new self(
-            /**
-             * @psalm-return Iterator<int, string>
-             */
             static fn (string $string, string $delimiter): Iterator => new StringIterator($string, $delimiter),
             $string,
             $delimiter
