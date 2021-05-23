@@ -72,7 +72,7 @@ $classWithStaticMethod = new class() {
         return yield from range(1, 5);
     }
 };
-$invokableClassRange = new class() {
+$invokableClassNumeric = new class() {
     /**
      * @return Generator<int, int>
      */
@@ -106,5 +106,5 @@ checkMap(Collection::fromCallable([$classWithMethod, 'getKeyValues']));
 checkNumeric(Collection::fromCallable([$classWithStaticMethod, 'getValues']));
 checkMap(Collection::fromCallable([$classWithStaticMethod, 'getKeyValues']));
 
-checkNumeric(Collection::fromCallable($invokableClassRange));
+checkNumeric(Collection::fromCallable($invokableClassNumeric));
 checkMap(Collection::fromCallable($invokableClassMap));
