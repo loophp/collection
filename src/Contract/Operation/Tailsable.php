@@ -18,7 +18,7 @@ use loophp\collection\Contract\Collection;
 interface Tailsable
 {
     /**
-     * @psalm-return \loophp\collection\Collection<int, list<T>>
+     * @return \loophp\collection\Collection<int, list<T>>
      */
     public function tails(): Collection;
 }

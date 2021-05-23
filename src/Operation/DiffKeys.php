@@ -22,7 +22,7 @@ use function in_array;
 final class DiffKeys extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(TKey...): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(TKey...): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
@@ -30,7 +30,7 @@ final class DiffKeys extends AbstractOperation
             /**
              * @psalm-param TKey ...$values
              *
-             * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static function (...$values): Closure {
                 $filterCallbackFactory = static fn (array $values): Closure =>

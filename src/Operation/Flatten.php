@@ -21,13 +21,13 @@ use loophp\collection\Iterator\IterableIterator;
 final class Flatten extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(int): Closure(Iterator<TKey, T>): Generator<int|TKey, T>
+     * @return Closure(int): Closure(Iterator<TKey, T>): Generator<int|TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-return Closure(Iterator<TKey, T>): Generator<int|TKey, T>
+             * @return Closure(Iterator<TKey, T>): Generator<int|TKey, T>
              */
             static fn (int $depth): Closure =>
                 /**

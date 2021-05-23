@@ -20,7 +20,7 @@ use Iterator;
 final class Group extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, T>): Generator<int, list<T>>
+     * @return Closure(Iterator<TKey, T>): Generator<int, list<T>>
      */
     public function __invoke(): Closure
     {
@@ -28,7 +28,7 @@ final class Group extends AbstractOperation
             /**
              * @psalm-param Iterator<TKey, T> $iterator
              *
-             * @psalm-return Generator<int, list<T>>
+             * @return Generator<int, list<T>>
              */
             static function (Iterator $iterator): Generator {
                 $last = [];

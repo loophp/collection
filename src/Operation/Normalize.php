@@ -20,7 +20,7 @@ use Iterator;
 final class Normalize extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, T>): Generator<int, T, mixed, void>
+     * @return Closure(Iterator<TKey, T>): Generator<int, T, mixed, void>
      */
     public function __invoke(): Closure
     {
@@ -28,7 +28,7 @@ final class Normalize extends AbstractOperation
             /**
              * @psalm-param Iterator<TKey, T> $iterator
              *
-             * @psalm-return Generator<int, T, mixed, void>
+             * @return Generator<int, T, mixed, void>
              */
             static function (Iterator $iterator): Generator {
                 foreach ($iterator as $value) {

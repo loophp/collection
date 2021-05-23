@@ -39,7 +39,7 @@ final class ArrayCacheIterator extends ProxyIterator
     }
 
     /**
-     * @psalm-return T
+     * @return T
      */
     public function current()
     {
@@ -49,7 +49,7 @@ final class ArrayCacheIterator extends ProxyIterator
     }
 
     /**
-     * @psalm-return TKey
+     * @return TKey
      */
     public function key()
     {
@@ -79,7 +79,7 @@ final class ArrayCacheIterator extends ProxyIterator
     }
 
     /**
-     * @psalm-return array{0: TKey, 1: T}
+     * @return array{0: TKey, 1: T}
      */
     private function getTupleFromCache(int $key): array
     {

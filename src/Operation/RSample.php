@@ -22,13 +22,13 @@ use Iterator;
 final class RSample extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(float): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(float): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static function (float $probability): Closure {
                 $callback = static fn (): bool => (mt_rand() / mt_getrandmax()) < $probability;

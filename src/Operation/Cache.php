@@ -23,19 +23,19 @@ use Psr\Cache\CacheItemPoolInterface;
 final class Cache extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(CacheItemPoolInterface): Closure(Iterator<TKey, T>): Iterator<TKey, T>
+     * @return Closure(CacheItemPoolInterface): Closure(Iterator<TKey, T>): Iterator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-return Closure(Iterator<TKey, T>): Iterator<TKey, T>
+             * @return Closure(Iterator<TKey, T>): Iterator<TKey, T>
              */
             static fn (CacheItemPoolInterface $cache): Closure =>
                 /**
                  * @psalm-param Iterator<TKey, T> $iterator
                  *
-                 * @psalm-return Iterator<TKey, T>
+                 * @return Iterator<TKey, T>
                  */
                 static fn (Iterator $iterator): Iterator => new PsrCacheIterator($iterator, $cache);
     }

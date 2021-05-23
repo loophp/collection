@@ -20,7 +20,7 @@ interface Intersectable
     /**
      * @param mixed ...$values
      *
-     * @psalm-return \loophp\collection\Collection<TKey, T>
+     * @return \loophp\collection\Collection<TKey, T>
      */
     public function intersect(...$values): Collection;
 }

@@ -103,7 +103,7 @@ final class RandomIterator extends ProxyIterator
      * We do not cache the values in here.
      * It's already done in the ArrayCacheIterator.
      *
-     * @psalm-return array{0: TKey, 1: T}
+     * @return array{0: TKey, 1: T}
      */
     private function getNextItemAtKey(int $key): array
     {

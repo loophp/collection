@@ -22,7 +22,7 @@ interface Reductionable
      *
      * @param mixed $initial
      *
-     * @psalm-return \loophp\collection\Collection<TKey, T>
+     * @return \loophp\collection\Collection<TKey, T>
      */
     public function reduction(callable $callback, $initial = null): Collection;
 }

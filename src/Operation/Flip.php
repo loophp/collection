@@ -21,7 +21,7 @@ use Iterator;
 final class Flip extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, T>): Generator<T, TKey>
+     * @return Closure(Iterator<TKey, T>): Generator<T, TKey>
      */
     public function __invoke(): Closure
     {
@@ -31,7 +31,7 @@ final class Flip extends AbstractOperation
              * @psalm-param TKey $key
              * @psalm-param T $value
              *
-             * @psalm-return T
+             * @return T
              */
             static fn ($carry, $key, $value) => $value;
 
@@ -40,7 +40,7 @@ final class Flip extends AbstractOperation
              * @psalm-param mixed $carry
              * @psalm-param TKey $key
              *
-             * @psalm-return TKey
+             * @return TKey
              */
             static fn ($carry, $key) => $key;
 

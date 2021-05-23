@@ -24,7 +24,7 @@ use Iterator;
 final class Reverse extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T, mixed, void>
+     * @return Closure(Iterator<TKey, T>): Generator<TKey, T, mixed, void>
      */
     public function __invoke(): Closure
     {
@@ -34,7 +34,7 @@ final class Reverse extends AbstractOperation
              *
              * @psalm-param list<array{0: TKey, 1: T}> $value
              *
-             * @psalm-return list<array{0: TKey, 1: T}>
+             * @return list<array{0: TKey, 1: T}>
              */
             static fn (array $carry, array $value): array => [...$value, ...$carry];
 

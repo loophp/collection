@@ -20,7 +20,7 @@ use Iterator;
 final class Current extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(int): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(int): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
@@ -28,7 +28,7 @@ final class Current extends AbstractOperation
             /**
              * @psalm-param int $index
              *
-             * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static function (int $index): Closure {
                 /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $limit */

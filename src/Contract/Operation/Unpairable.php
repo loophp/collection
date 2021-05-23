@@ -18,7 +18,7 @@ use loophp\collection\Contract\Collection;
 interface Unpairable
 {
     /**
-     * @psalm-return \loophp\collection\Collection<int, array{TKey, T}>
+     * @return \loophp\collection\Collection<int, array{0: TKey, 1: T}>
      */
     public function unpair(): Collection;
 }

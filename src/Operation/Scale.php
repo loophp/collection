@@ -24,29 +24,29 @@ use const INF;
 final class Scale extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(float): Closure(float): Closure(float): Closure(float): Closure(float): Closure(Iterator<TKey, float|int>): Generator<TKey, float|int>
+     * @return Closure(float): Closure(float): Closure(float): Closure(float): Closure(float): Closure(Iterator<TKey, float|int>): Generator<TKey, float|int>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-return Closure(float): Closure(float): Closure(float): Closure(float): Closure(Iterator<TKey, float|int>): Generator<TKey, float|int>
+             * @return Closure(float): Closure(float): Closure(float): Closure(float): Closure(Iterator<TKey, float|int>): Generator<TKey, float|int>
              */
             static fn (float $lowerBound): Closure =>
                 /**
-                 * @psalm-return Closure(float): Closure(float): Closure(float): Closure(Iterator<TKey, float|int>): Generator<TKey, float|int>
+                 * @return Closure(float): Closure(float): Closure(float): Closure(Iterator<TKey, float|int>): Generator<TKey, float|int>
                  */
                 static fn (float $upperBound): Closure =>
                     /**
-                     * @psalm-return Closure(float): Closure(float): Closure(Iterator<TKey, float|int>): Generator<TKey, float|int>
+                     * @return Closure(float): Closure(float): Closure(Iterator<TKey, float|int>): Generator<TKey, float|int>
                      */
                     static fn (float $wantedLowerBound = 0.0): Closure =>
                         /**
-                         * @psalm-return Closure(float): Closure(Iterator<TKey, float|int>): Generator<TKey, float|int>
+                         * @return Closure(float): Closure(Iterator<TKey, float|int>): Generator<TKey, float|int>
                          */
                         static fn (float $wantedUpperBound = 1.0): Closure =>
                             /**
-                             * @psalm-return Closure(Iterator<TKey, float|int>): Generator<TKey, float|int>
+                             * @return Closure(Iterator<TKey, float|int>): Generator<TKey, float|int>
                              */
                             static function (float $base = 0.0) use ($lowerBound, $upperBound, $wantedLowerBound, $wantedUpperBound): Closure {
                                 $wantedLowerBound = (0.0 === $wantedLowerBound) ? (0.0 === $base ? 0.0 : 1.0) : $wantedLowerBound;

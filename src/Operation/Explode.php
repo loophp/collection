@@ -21,7 +21,7 @@ use loophp\collection\Contract\Operation\Splitable;
 final class Explode extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(T...): Closure(Iterator<TKey, T>): Generator<int, list<T>>
+     * @return Closure(T...): Closure(Iterator<TKey, T>): Generator<int, list<T>>
      */
     public function __invoke(): Closure
     {
@@ -29,7 +29,7 @@ final class Explode extends AbstractOperation
             /**
              * @psalm-param T ...$explodes
              *
-             * @psalm-return Closure(Iterator<TKey, T>): Generator<int, list<T>>
+             * @return Closure(Iterator<TKey, T>): Generator<int, list<T>>
              */
             static function (...$explodes): Closure {
                 /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, list<T>> $split */

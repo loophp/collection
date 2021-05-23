@@ -20,26 +20,26 @@ use Iterator;
 final class Pad extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(int): Closure(T): Closure(Iterator<TKey, T>): Generator<int|TKey, T>
+     * @return Closure(int): Closure(T): Closure(Iterator<TKey, T>): Generator<int|TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-return Closure(T): Closure(Iterator<TKey, T>): Generator<int|TKey, T>
+             * @return Closure(T): Closure(Iterator<TKey, T>): Generator<int|TKey, T>
              */
             static fn (int $size): Closure =>
                 /**
                  * @param mixed $padValue
                  * @psalm-param T $padValue
                  *
-                 * @psalm-return Closure(Iterator<TKey, T>): Generator<int|TKey, T>
+                 * @return Closure(Iterator<TKey, T>): Generator<int|TKey, T>
                  */
                 static fn ($padValue): Closure =>
                     /**
                      * @psalm-param Iterator<TKey, T> $iterator
                      *
-                     * @psalm-return Generator<int|TKey, T>
+                     * @return Generator<int|TKey, T>
                      */
                     static function (Iterator $iterator) use ($size, $padValue): Generator {
                         $y = 0;

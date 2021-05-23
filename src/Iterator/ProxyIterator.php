@@ -28,8 +28,7 @@ abstract class ProxyIterator implements OuterIterator
     protected Iterator $iterator;
 
     /**
-     * @return mixed
-     * @psalm-return T
+     * @return T
      */
     public function current()
     {
@@ -37,7 +36,7 @@ abstract class ProxyIterator implements OuterIterator
     }
 
     /**
-     * @psalm-return Iterator<TKey, T>
+     * @return Iterator<TKey, T>
      */
     public function getInnerIterator(): Iterator
     {
@@ -45,7 +44,7 @@ abstract class ProxyIterator implements OuterIterator
     }
 
     /**
-     * @psalm-return TKey
+     * @return TKey
      */
     public function key()
     {

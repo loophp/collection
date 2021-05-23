@@ -23,7 +23,7 @@ use const E_USER_WARNING;
 final class Combine extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(T...): Closure(Iterator<TKey, T>): Generator<T, T>
+     * @return Closure(T...): Closure(Iterator<TKey, T>): Generator<T, T>
      */
     public function __invoke(): Closure
     {
@@ -31,7 +31,7 @@ final class Combine extends AbstractOperation
             /**
              * @psalm-param T ...$keys
              *
-             * @psalm-return Closure(Iterator<TKey, T>): Generator<T, T>
+             * @return Closure(Iterator<TKey, T>): Generator<T, T>
              */
             static fn (...$keys): Closure =>
                 /**

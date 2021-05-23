@@ -16,7 +16,7 @@ namespace loophp\collection\Contract\Operation;
 interface Keyable
 {
     /**
-     * @psalm-return T|TKey
+     * @return T|TKey
      */
     public function key(int $index = 0);
 }

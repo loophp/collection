@@ -20,7 +20,7 @@ use Iterator;
 final class Column extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(T): Closure(Iterator<TKey, T>): Generator<int, iterable<TKey, T>>
+     * @return Closure(T): Closure(Iterator<TKey, T>): Generator<int, iterable<TKey, T>>
      */
     public function __invoke(): Closure
     {
@@ -29,7 +29,7 @@ final class Column extends AbstractOperation
              * @param mixed $column
              * @psalm-param T $column
              *
-             * @psalm-return Closure(Iterator<TKey, T>): Generator<int, iterable<TKey, T>>
+             * @return Closure(Iterator<TKey, T>): Generator<int, iterable<TKey, T>>
              */
             static function ($column): Closure {
                 $filterCallbackBuilder =

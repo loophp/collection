@@ -22,7 +22,7 @@ use function in_array;
 final class IntersectKeys extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(TKey...): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(TKey...): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
@@ -30,7 +30,7 @@ final class IntersectKeys extends AbstractOperation
             /**
              * @psalm-param TKey ...$keys
              *
-             * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static function (...$keys): Closure {
                 $filterCallbackFactory = static fn (array $keys): Closure =>

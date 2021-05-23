@@ -22,7 +22,7 @@ use Iterator;
 final class Filter extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(callable(T , TKey, Iterator<TKey, T>): bool ...): Closure (Iterator<TKey, T>): Iterator<TKey, T>
+     * @return Closure(callable(T , TKey, Iterator<TKey, T>): bool ...): Closure (Iterator<TKey, T>): Iterator<TKey, T>
      */
     public function __invoke(): Closure
     {
@@ -30,13 +30,13 @@ final class Filter extends AbstractOperation
             /**
              * @psalm-param callable(T, TKey, Iterator<TKey, T>): bool ...$callbacks
              *
-             * @psalm-return Closure(Iterator<TKey, T>): Iterator<TKey, T>
+             * @return Closure(Iterator<TKey, T>): Iterator<TKey, T>
              */
             static fn (callable ...$callbacks): Closure =>
                 /**
                  * @psalm-param Iterator<TKey, T> $iterator
                  *
-                 * @psalm-return Iterator<TKey, T>
+                 * @return Iterator<TKey, T>
                  */
                 static function (Iterator $iterator) use ($callbacks): Iterator {
                     $defaultCallback =

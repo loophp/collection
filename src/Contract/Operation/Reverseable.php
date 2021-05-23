@@ -20,7 +20,7 @@ interface Reverseable
     /**
      * Reverse order items of a collection.
      *
-     * @psalm-return \loophp\collection\Collection<TKey, T>
+     * @return \loophp\collection\Collection<TKey, T>
      */
     public function reverse(): Collection;
 }

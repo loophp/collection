@@ -20,7 +20,7 @@ use Iterator;
 final class Get extends AbstractOperation
 {
     /**
-     * @psalm-return Closure((T | TKey)):Closure (T): Closure(Iterator<TKey, T>): Generator<int|TKey, T>
+     * @return Closure((T | TKey)):Closure (T): Closure(Iterator<TKey, T>): Generator<int|TKey, T>
      */
     public function __invoke(): Closure
     {
@@ -29,14 +29,14 @@ final class Get extends AbstractOperation
              * @param mixed $keyToGet
              * @psalm-param T|TKey $keyToGet
              *
-             * @psalm-return Closure(T): Closure(Iterator<TKey, T>): Generator<int|TKey, T>
+             * @return Closure(T): Closure(Iterator<TKey, T>): Generator<int|TKey, T>
              */
             static fn ($keyToGet): Closure =>
                 /**
                  * @param mixed $default
                  * @psalm-param T $default
                  *
-                 * @psalm-return Closure(Iterator<TKey, T>): Generator<int|TKey, T>
+                 * @return Closure(Iterator<TKey, T>): Generator<int|TKey, T>
                  */
                 static function ($default) use ($keyToGet): Closure {
                     $filterCallback =

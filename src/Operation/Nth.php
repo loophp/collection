@@ -20,17 +20,17 @@ use Iterator;
 final class Nth extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(int): Closure(int): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(int): Closure(int): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-return Closure(int): Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @return Closure(int): Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static fn (int $step): Closure =>
                 /**
-                 * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
+                 * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
                  */
                 static function (int $offset) use ($step): Closure {
                     $filterCallback =

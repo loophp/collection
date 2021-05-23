@@ -20,7 +20,7 @@ use Iterator;
 final class Words extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, string>
+     * @return Closure(Iterator<TKey, T>): Generator<TKey, string>
      */
     public function __invoke(): Closure
     {

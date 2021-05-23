@@ -26,8 +26,7 @@ interface FoldLeftable
      * @param mixed $initial
      * @psalm-param T|null $initial
      *
-     * @return mixed
-     * @psalm-return \loophp\collection\Collection<TKey, T|null>
+     * @return \loophp\collection\Collection<TKey, T|null>
      */
     public function foldLeft(callable $callback, $initial = null): Collection;
 }

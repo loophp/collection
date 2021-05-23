@@ -21,7 +21,7 @@ use Generator;
 final class Unfold extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(T...): Closure(callable(mixed|T...): (mixed|array<TKey, T>)): Closure(): Generator<int, T>
+     * @return Closure(T...): Closure(callable(mixed|T...): (mixed|array<TKey, T>)): Closure(): Generator<int, T>
      */
     public function __invoke(): Closure
     {
@@ -30,17 +30,17 @@ final class Unfold extends AbstractOperation
              * @param mixed $parameters
              * @psalm-param T ...$parameters
              *
-             * @psalm-return Closure(callable(mixed|T...): (array<TKey, T>)): Closure(): Generator<int, T>
+             * @return Closure(callable(mixed|T...): (array<TKey, T>)): Closure(): Generator<int, T>
              */
             static fn (...$parameters): Closure =>
                 /**
                  * @psalm-param callable(mixed|T...): (mixed|array<TKey, T>) $callback
                  *
-                 * @psalm-return Closure(): Generator<int, T>
+                 * @return Closure(): Generator<int, T>
                  */
                 static fn (callable $callback): Closure =>
                     /**
-                     * @psalm-return Generator<int, T>
+                     * @return Generator<int, T>
                      */
                     static function () use ($parameters, $callback): Generator {
                         while (true) {

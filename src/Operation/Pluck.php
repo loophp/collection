@@ -31,7 +31,7 @@ use function is_object;
 final class Pluck extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(T):Closure(T):Closure(Iterator<TKey, T>):Generator<int, T|iterable<int, T>, mixed, void>
+     * @return Closure(T):Closure(T):Closure(Iterator<TKey, T>):Generator<int, T|iterable<int, T>, mixed, void>
      */
     public function __invoke(): Closure
     {
@@ -40,20 +40,20 @@ final class Pluck extends AbstractOperation
              * @param mixed $key
              * @psalm-param T $key
              *
-             * @psalm-return Closure(T): Closure(Iterator<TKey, T>): Generator<int, T|iterable<int, T>, mixed, void>
+             * @return Closure(T): Closure(Iterator<TKey, T>): Generator<int, T|iterable<int, T>, mixed, void>
              */
             static fn ($key): Closure =>
                 /**
                  * @param mixed $default
                  * @psalm-param T $default
                  *
-                 * @psalm-return Closure(Iterator<TKey, T>): Generator<int, T|iterable<int, T>, mixed, void>
+                 * @return Closure(Iterator<TKey, T>): Generator<int, T|iterable<int, T>, mixed, void>
                  */
                 static fn ($default): Closure =>
                     /**
                      * @psalm-param Iterator<TKey, T> $iterator
                      *
-                     * @psalm-return Generator<int, T|iterable<int, T>, mixed, void>
+                     * @return Generator<int, T|iterable<int, T>, mixed, void>
                      */
                     static function (Iterator $iterator) use ($key, $default): Generator {
                         $pick =
@@ -68,7 +68,7 @@ final class Pluck extends AbstractOperation
                              * @param mixed|null $default
                              * @psalm-param T $default
                              *
-                             * @psalm-return T|iterable<int, T>
+                             * @return iterable<int, T>|T
                              */
                             static function (Iterator $iterator, $target, array $key, $default = null) use (&$pick) {
                                 while (null !== $segment = array_shift($key)) {

@@ -180,7 +180,7 @@ final class Collection implements CollectionInterface
              * @param mixed $carry
              * @psalm-param T|TKey $carry
              *
-             * @psalm-return T|TKey
+             * @return T|TKey
              */
             static fn ($carry) => $carry;
 
@@ -403,7 +403,7 @@ final class Collection implements CollectionInterface
             /**
              * @psalm-param iterable<TKey, T> $iterable
              *
-             * @psalm-return Iterator<TKey, T>
+             * @return Iterator<TKey, T>
              */
             static fn (iterable $iterable): Iterator => new IterableIterator($iterable),
             $iterable
@@ -477,7 +477,7 @@ final class Collection implements CollectionInterface
             /**
              * @psalm-param T $value
              *
-             * @psalm-return T
+             * @return T
              */
             static fn ($value) => $value;
 

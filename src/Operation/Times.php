@@ -23,23 +23,23 @@ use Iterator;
 final class Times extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(int): Closure(null|callable(int): (int|T)): Closure(null|Iterator<TKey, T>): Generator<int, int|T>
+     * @return Closure(int): Closure(null|callable(int): (int|T)): Closure(null|Iterator<TKey, T>): Generator<int, int|T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-return Closure(null|callable(int): (int|T)): Closure(null|Iterator<TKey, T>): Generator<int, int|T>
+             * @return Closure(null|callable(int): (int|T)): Closure(null|Iterator<TKey, T>): Generator<int, int|T>
              */
             static fn (int $number = 0): Closure =>
                 /**
-                 * @psalm-return Closure(null|Iterator<TKey, T>): Generator<int, int|T>
+                 * @return Closure(null|Iterator<TKey, T>): Generator<int, int|T>
                  */
                 static fn (?callable $callback = null): Closure =>
                     /**
                      * @psalm-param null|Iterator<TKey, T> $iterator
                      *
-                     * @psalm-return Generator<int, int|T>
+                     * @return Generator<int, int|T>
                      */
                     static function (?Iterator $iterator = null) use ($number, $callback): Generator {
                         if (1 > $number) {

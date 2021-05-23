@@ -20,7 +20,7 @@ use Iterator;
 final class Collapse extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, (T|iterable<TKey, T>)>): Generator<TKey, T>
+     * @return Closure(Iterator<TKey, (T|iterable<TKey, T>)>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
@@ -28,7 +28,7 @@ final class Collapse extends AbstractOperation
             /**
              * @psalm-param Iterator<TKey, T|iterable<TKey, T>> $iterator
              *
-             * @psalm-return Generator<TKey, T>
+             * @return Generator<TKey, T>
              */
             static function (Iterator $iterator): Generator {
                 /** @psalm-var Closure(Iterator<TKey, T|iterable<TKey, T>>): Generator<TKey, iterable<TKey, T>> $filter */

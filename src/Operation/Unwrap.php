@@ -20,7 +20,7 @@ use Iterator;
 final class Unwrap extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, array<TKey, T>>): Generator<TKey, T>
+     * @return Closure(Iterator<TKey, array<TKey, T>>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {

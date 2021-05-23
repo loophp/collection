@@ -21,8 +21,7 @@ interface FoldLeft1able
     /**
      * @psalm-param callable(T, T, TKey, Iterator<TKey, T>): T $callback
      *
-     * @return mixed
-     * @psalm-return \loophp\collection\Collection<TKey, T|null>
+     * @return \loophp\collection\Collection<TKey, T|null>
      */
     public function foldLeft1(callable $callback): Collection;
 }

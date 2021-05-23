@@ -22,7 +22,7 @@ interface Timesable
      *
      * @psalm-param null|callable(int): (int|T) $callback
      *
-     * @psalm-return \loophp\collection\Collection<int, int|T>
+     * @return \loophp\collection\Collection<int, int|T>
      */
     public static function times(int $number = 0, ?callable $callback = null): Collection;
 }

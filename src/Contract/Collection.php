@@ -334,7 +334,7 @@ interface Collection extends
     Zipable
 {
     /**
-     * @psalm-return \Iterator<TKey, T>
+     * @return Iterator<TKey, T>
      */
     public function getIterator(): Iterator;
 }

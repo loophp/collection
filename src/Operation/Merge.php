@@ -20,7 +20,7 @@ use loophp\collection\Iterator\MultipleIterableIterator;
 final class Merge extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(iterable<TKey, T>...): Closure(Iterator<TKey, T>): Iterator<TKey, T>
+     * @return Closure(iterable<TKey, T>...): Closure(Iterator<TKey, T>): Iterator<TKey, T>
      */
     public function __invoke(): Closure
     {
@@ -32,7 +32,7 @@ final class Merge extends AbstractOperation
                 /**
                  * @psalm-param Iterator<TKey, T> $iterator
                  *
-                 * @psalm-return Iterator<TKey, T>
+                 * @return Iterator<TKey, T>
                  */
                 static fn (Iterator $iterator): Iterator => new MultipleIterableIterator($iterator, ...$sources);
     }

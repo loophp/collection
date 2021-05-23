@@ -20,7 +20,7 @@ interface Coalesceable
     /**
      * Return the first non-nullsy value of the collection.
      *
-     * @psalm-return \loophp\collection\Collection<TKey, T>
+     * @return \loophp\collection\Collection<TKey, T>
      */
     public function coalesce(): Collection;
 }

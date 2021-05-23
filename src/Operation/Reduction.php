@@ -22,7 +22,7 @@ use Iterator;
 final class Reduction extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(callable((T|null), T, TKey, Iterator<TKey, T>): (T|null)):Closure (T|null): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(callable((T|null), T, TKey, Iterator<TKey, T>): (T|null)):Closure (T|null): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
@@ -30,20 +30,20 @@ final class Reduction extends AbstractOperation
             /**
              * @psalm-param callable(T|null, T, TKey, Iterator<TKey, T>):(T|null) $callback
              *
-             * @psalm-return Closure(T|null): Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @return Closure(T|null): Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static fn (callable $callback): Closure =>
                 /**
                  * @param mixed|null $initial
                  * @psalm-param T|null $initial
                  *
-                 * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
+                 * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
                  */
                 static fn ($initial = null): Closure =>
                     /**
                      * @psalm-param Iterator<TKey, T> $iterator
                      *
-                     * @psalm-return Generator<TKey, T|null>
+                     * @return Generator<TKey, T|null>
                      */
                     static function (Iterator $iterator) use ($callback, $initial): Generator {
                         foreach ($iterator as $key => $value) {

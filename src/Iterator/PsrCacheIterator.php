@@ -37,7 +37,7 @@ final class PsrCacheIterator extends ProxyIterator
     }
 
     /**
-     * @psalm-return T
+     * @return T
      */
     public function current()
     {
@@ -48,7 +48,7 @@ final class PsrCacheIterator extends ProxyIterator
     }
 
     /**
-     * @psalm-return TKey
+     * @return TKey
      */
     public function key()
     {

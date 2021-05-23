@@ -37,7 +37,7 @@ if (false === function_exists('Amp\ParallelFunctions\parallel')) {
 final class AsyncMap extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(callable(T, TKey): T ...): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(callable(T, TKey): T ...): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
@@ -45,13 +45,13 @@ final class AsyncMap extends AbstractOperation
             /**
              * @psalm-param callable(T, TKey): T ...$callbacks
              *
-             * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static fn (callable ...$callbacks): Closure =>
                 /**
                  * @psalm-param Iterator<TKey, T> $iterator
                  *
-                 * @psalm-return Generator<TKey, T>
+                 * @return Generator<TKey, T>
                  */
                 static function (Iterator $iterator) use ($callbacks): Generator {
                     $callbackFactory =
@@ -59,7 +59,7 @@ final class AsyncMap extends AbstractOperation
                          * @param mixed $key
                          * @psalm-param TKey $key
                          *
-                         * @psalm-return Closure(T, callable(T, TKey): T): T
+                         * @return Closure(T, callable(T, TKey): T): T
                          */
                         static fn ($key): Closure =>
                             /**
@@ -67,7 +67,7 @@ final class AsyncMap extends AbstractOperation
                              * @psalm-param T $carry
                              * @psalm-param callable(T, TKey): T $callback
                              *
-                             * @psalm-return T
+                             * @return T
                              */
                             static fn ($carry, callable $callback) => $callback($carry, $key);
 
@@ -75,7 +75,7 @@ final class AsyncMap extends AbstractOperation
                         /**
                          * @psalm-param array{0: TKey, 1:T} $value
                          *
-                         * @psalm-return array{0: TKey, 1: T}
+                         * @return array{0: TKey, 1: T}
                          */
                         static function (array $value) use ($callbacks, $callbackFactory): array {
                             [$key, $value] = $value;

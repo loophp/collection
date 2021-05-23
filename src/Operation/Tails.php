@@ -21,7 +21,7 @@ use Iterator;
 final class Tails extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, T>): Generator<int, list<T>, mixed, void>
+     * @return Closure(Iterator<TKey, T>): Generator<int, list<T>, mixed, void>
      */
     public function __invoke(): Closure
     {
@@ -29,7 +29,7 @@ final class Tails extends AbstractOperation
             /**
              * @psalm-param Iterator<TKey, T> $iterator
              *
-             * @psalm-return Generator<int, list<T>, mixed, void>
+             * @return Generator<int, list<T>, mixed, void>
              */
             static function (Iterator $iterator): Generator {
                 /** @psalm-var Iterator<int, array{0: TKey, 1: T}> $iterator */

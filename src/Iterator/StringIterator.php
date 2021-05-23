@@ -26,7 +26,7 @@ final class StringIterator extends ProxyIterator
     {
         $callback =
             /**
-             * @psalm-return Generator<int, string>
+             * @return Generator<int, string>
              */
             static function (string $input, string $delimiter): Generator {
                 $offset = 0;

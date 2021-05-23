@@ -22,7 +22,7 @@ use const PHP_EOL;
 final class Unlines extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, (T|string)>): Generator<TKey, string, mixed, void>
+     * @return Closure(Iterator<TKey, (T|string)>): Generator<TKey, string, mixed, void>
      */
     public function __invoke(): Closure
     {

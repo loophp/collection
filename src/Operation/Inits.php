@@ -20,7 +20,7 @@ use Iterator;
 final class Inits extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, T>): Generator<int, list<T>>
+     * @return Closure(Iterator<TKey, T>): Generator<int, list<T>>
      */
     public function __invoke(): Closure
     {
@@ -31,10 +31,10 @@ final class Inits extends AbstractOperation
              * @psalm-param TKey $key
              * @psalm-param Iterator<TKey, T> $iterator
              *
-             * @psalm-return array<TKey, T>
-             *
              * @param mixed $value
              * @param mixed $key
+             *
+             * @return array<TKey, T>
              */
             static function (array $carry, $value, $key): array {
                 $carry[$key] = $value;

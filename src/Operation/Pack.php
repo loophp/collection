@@ -20,7 +20,7 @@ use Iterator;
 final class Pack extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, T>): Generator<int, array{0: TKey, 1: T}>
+     * @return Closure(Iterator<TKey, T>): Generator<int, array{0: TKey, 1: T}>
      */
     public function __invoke(): Closure
     {
@@ -32,7 +32,7 @@ final class Pack extends AbstractOperation
              * @param mixed $key
              * @psalm-param TKey $key
              *
-             * @psalm-return array{0: TKey, 1: T}
+             * @return array{0: TKey, 1: T}
              */
             static fn ($value, $key): array => [$key, $value];
 

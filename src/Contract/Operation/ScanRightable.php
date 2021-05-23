@@ -21,7 +21,7 @@ interface ScanRightable
      * @param mixed $initial
      * @psalm-param T|null $initial
      *
-     * @psalm-return \loophp\collection\Collection<TKey, T>
+     * @return \loophp\collection\Collection<TKey, T>
      */
     public function scanRight(callable $callback, $initial = null): Collection;
 }

@@ -31,7 +31,7 @@ final class Combinate extends AbstractOperation
                  * @psalm-param array<int, T> $dataset
                  *
                  * @return Generator<array<mixed>>
-                 * @psalm-return Generator<array<int, T>>
+                 * @return Generator<array<int, T>>
                  */
                 static function (array $dataset, int $length) use (&$getCombinations): Generator {
                     for ($i = 0; count($dataset) - $length >= $i; ++$i) {
@@ -54,7 +54,7 @@ final class Combinate extends AbstractOperation
                 /**
                  * @psalm-param Iterator<TKey, T> $iterator
                  *
-                 * @psalm-return Generator<int, array<int, T>>
+                 * @return Generator<int, array<int, T>>
                  */
                 static function (Iterator $iterator) use ($length, $getCombinations): Generator {
                     $dataset = [...$iterator];

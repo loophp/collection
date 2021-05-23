@@ -20,18 +20,18 @@ use Iterator;
 final class Random extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(int): Closure(int): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(int): Closure(int): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-return Closure(int): Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @return Closure(int): Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static function (int $seed): Closure {
                 return
                     /**
-                     * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
+                     * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
                      */
                     static function (int $size) use ($seed): Closure {
                         /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */

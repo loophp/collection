@@ -22,7 +22,7 @@ interface Rangeable
      * @template TKey of array-key
      * @template T
      *
-     * @psalm-return \loophp\collection\Collection<int, float>
+     * @return \loophp\collection\Collection<int, float>
      */
     public static function range(float $start = 0.0, float $end = INF, float $step = 1.0): Collection;
 }

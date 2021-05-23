@@ -22,7 +22,7 @@ use Iterator;
 final class IfThenElse extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(callable(T, TKey): bool): Closure(callable(T, TKey): (T)): Closure(callable(T, TKey): (T)): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(callable(T, TKey): bool): Closure(callable(T, TKey): (T)): Closure(callable(T, TKey): (T)): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
@@ -30,19 +30,19 @@ final class IfThenElse extends AbstractOperation
             /**
              * @psalm-param callable(T, TKey):bool $condition
              *
-             * @psalm-return Closure(callable(T, TKey): (T)): Closure(callable(T, TKey): (T)): Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @return Closure(callable(T, TKey): (T)): Closure(callable(T, TKey): (T)): Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static fn (callable $condition): Closure =>
                 /**
                  * @psalm-param callable(T, TKey):T $then
                  *
-                 * @psalm-return Closure(callable(T, TKey): (T)): Closure(Iterator<TKey, T>): Generator<TKey, T>
+                 * @return Closure(callable(T, TKey): (T)): Closure(Iterator<TKey, T>): Generator<TKey, T>
                  */
                 static fn (callable $then): Closure =>
                     /**
                      * @psalm-param callable(T, TKey):T $else
                      *
-                     * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
+                     * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
                      */
                     static function (callable $else) use ($condition, $then): Closure {
                         /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $map */
@@ -54,7 +54,7 @@ final class IfThenElse extends AbstractOperation
                              * @param mixed $key
                              * @psalm-param TKey $key
                              *
-                             * @psalm-return T
+                             * @return T
                              */
                             static fn ($value, $key, Iterator $iterator) => $condition($value, $key, $iterator) ? $then($value, $key, $iterator) : $else($value, $key, $iterator)
                         );

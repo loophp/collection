@@ -20,7 +20,7 @@ use Iterator;
 final class Pair extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, T>): Generator<T|TKey, T>
+     * @return Closure(Iterator<TKey, T>): Generator<T|TKey, T>
      */
     public function __invoke(): Closure
     {
@@ -30,10 +30,10 @@ final class Pair extends AbstractOperation
              * @psalm-param TKey $key
              * @psalm-param array{0: TKey, 1: T} $value
              *
-             * @psalm-return TKey|T
-             *
              * @param mixed $initial
              * @param mixed $key
+             *
+             * @return T|TKey
              */
             static fn ($initial, $key, array $value) => $value[0];
 
@@ -43,10 +43,10 @@ final class Pair extends AbstractOperation
              * @psalm-param TKey $key
              * @psalm-param array{0: TKey, 1: T} $value
              *
-             * @psalm-return T|TKey
-             *
              * @param mixed $initial
              * @param mixed $key
+             *
+             * @return T|TKey
              */
             static fn ($initial, $key, array $value) => $value[1];
 

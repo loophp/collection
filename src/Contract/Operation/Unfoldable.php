@@ -21,7 +21,7 @@ interface Unfoldable
      * @psalm-param callable(mixed|T...): (mixed|array<TKey, T>) $callback
      * @psalm-param T ...$parameters
      *
-     * @psalm-return \loophp\collection\Collection<TKey, T>
+     * @return \loophp\collection\Collection<TKey, T>
      */
     public static function unfold(callable $callback, ...$parameters): Collection;
 }

@@ -22,7 +22,7 @@ use Iterator;
 final class Map extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(callable(T, TKey, Iterator<TKey, T>): T ...): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(callable(T, TKey, Iterator<TKey, T>): T ...): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
@@ -34,7 +34,7 @@ final class Map extends AbstractOperation
                 /**
                  * @psalm-param Iterator<TKey, T> $iterator
                  *
-                 * @psalm-return Generator<TKey, T>
+                 * @return Generator<TKey, T>
                  */
                 static function (Iterator $iterator) use ($callbacks): Generator {
                     $callbackFactory =
@@ -42,7 +42,7 @@ final class Map extends AbstractOperation
                          * @param mixed $key
                          * @psalm-param TKey $key
                          *
-                         * @psalm-return Closure(T, callable(T, TKey, Iterator<TKey, T>): T): T
+                         * @return Closure(T, callable(T, TKey, Iterator<TKey, T>): T): T
                          */
                         static fn ($key): Closure =>
                             /**
@@ -50,7 +50,7 @@ final class Map extends AbstractOperation
                              * @psalm-param T $carry
                              * @psalm-param callable(T, TKey, Iterator<TKey, T>): T $callback
                              *
-                             * @psalm-return T
+                             * @return T
                              */
                             static fn ($carry, callable $callback) => $callback($carry, $key, $iterator);
 

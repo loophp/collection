@@ -21,7 +21,7 @@ interface Sinceable
      * @param callable ...$callbacks
      * @psalm-param callable(T, TKey):bool ...$callbacks
      *
-     * @psalm-return \loophp\collection\Collection<TKey, T>
+     * @return \loophp\collection\Collection<TKey, T>
      */
     public function since(callable ...$callbacks): Collection;
 }

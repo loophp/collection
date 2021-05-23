@@ -20,7 +20,7 @@ interface Keysable
     /**
      * Get the keys of the items.
      *
-     * @psalm-return \loophp\collection\Collection<int, TKey>
+     * @return \loophp\collection\Collection<int, TKey>
      */
     public function keys(): Collection;
 }

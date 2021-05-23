@@ -24,7 +24,7 @@ use function in_array;
 final class Compact extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(T...): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(T...): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
@@ -32,7 +32,7 @@ final class Compact extends AbstractOperation
             /**
              * @psalm-param T ...$values
              *
-             * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static function (...$values): Closure {
                 $filterCallback = static fn (array $values): Closure => static fn ($value): bool => !in_array($value, $values, true);

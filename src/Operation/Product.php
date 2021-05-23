@@ -27,13 +27,13 @@ final class Product extends AbstractOperation
             /**
              * @psalm-param iterable<TKey, T> ...$iterables
              *
-             * @psalm-return Closure(Iterator<TKey, T>): Generator<int, array<int, T>>
+             * @return Closure(Iterator<TKey, T>): Generator<int, array<int, T>>
              */
             static fn (iterable ...$iterables): Closure =>
                 /**
                  * @psalm-param Iterator<TKey, T> $iterator
                  *
-                 * @psalm-return Generator<int, array<int, T>>
+                 * @return Generator<int, array<int, T>>
                  */
                 static function (Iterator $iterator) use ($iterables): Iterator {
                     /** @psalm-var Closure(iterable<TKey, T>...): Generator<int, array<int, T>> $cartesian */
@@ -43,7 +43,7 @@ final class Product extends AbstractOperation
                          *
                          * @psalm-param iterable<TKey, T> ...$iterables
                          *
-                         * @psalm-return Generator<int, array<int, T>>
+                         * @return Generator<int, array<int, T>>
                          */
                         static function (iterable ...$iterables) use (&$cartesian): Generator {
                             $iterable = array_pop($iterables);

@@ -22,7 +22,7 @@ interface Filterable
      *
      * @param callable ...$callbacks
      *
-     * @psalm-return \loophp\collection\Collection<TKey, T>
+     * @return \loophp\collection\Collection<TKey, T>
      */
     public function filter(callable ...$callbacks): Collection;
 }

@@ -20,7 +20,7 @@ use Iterator;
 final class Unwindow extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, list<T>>): Generator<TKey, T>
+     * @return Closure(Iterator<TKey, list<T>>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
@@ -29,7 +29,7 @@ final class Unwindow extends AbstractOperation
             /**
              * @psalm-param iterable<TKey, list<T>> $iterable
              *
-             * @psalm-return T|null
+             * @return T|null
              */
             static function (iterable $iterable) {
                 $value = null;

@@ -20,7 +20,7 @@ interface Sliceable
     /**
      * Get a slice of a collection.
      *
-     * @psalm-return \loophp\collection\Collection<TKey, T>
+     * @return \loophp\collection\Collection<TKey, T>
      */
     public function slice(int $offset, int $length = -1): Collection;
 }

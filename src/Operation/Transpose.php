@@ -22,7 +22,7 @@ use MultipleIterator;
 final class Transpose extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, list<T>>
+     * @return Closure(Iterator<TKey, T>): Generator<TKey, list<T>>
      */
     public function __invoke(): Closure
     {
@@ -30,7 +30,7 @@ final class Transpose extends AbstractOperation
             /**
              * @psalm-param Iterator<TKey, T> $iterator
              *
-             * @psalm-return Generator<TKey, list<T>>
+             * @return Generator<TKey, list<T>>
              */
             static function (Iterator $iterator): Generator {
                 $mit = new MultipleIterator(MultipleIterator::MIT_NEED_ANY);
@@ -44,7 +44,7 @@ final class Transpose extends AbstractOperation
                      * @psalm-param array $carry
                      * @psalm-param array<int, TKey> $key
                      *
-                     * @psalm-return TKey
+                     * @return TKey
                      */
                     static fn (array $carry, array $key) => current($key);
 
@@ -54,7 +54,7 @@ final class Transpose extends AbstractOperation
                      * @psalm-param array<int, TKey> $key
                      * @psalm-param array<int, T> $value
                      *
-                     * @psalm-return array<int, T>
+                     * @return array<int, T>
                      */
                     static fn (array $carry, array $key, array $value): array => $value;
 

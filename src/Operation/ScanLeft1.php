@@ -22,7 +22,7 @@ use Iterator;
 final class ScanLeft1 extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(callable((T|null), T, TKey, Iterator<TKey, T>): (T|null)):Closure (Iterator<TKey, T>): Generator<int|TKey, T|null>
+     * @return Closure(callable((T|null), T, TKey, Iterator<TKey, T>): (T|null)):Closure (Iterator<TKey, T>): Generator<int|TKey, T|null>
      */
     public function __invoke(): Closure
     {
@@ -30,13 +30,13 @@ final class ScanLeft1 extends AbstractOperation
             /**
              * @psalm-param callable(T|null, T, TKey, Iterator<TKey, T>):(T|null) $callback
              *
-             * @psalm-return Closure(Iterator<TKey, T>): Generator<int|TKey, T|null>
+             * @return Closure(Iterator<TKey, T>): Generator<int|TKey, T|null>
              */
             static fn (callable $callback): Closure =>
                 /**
                  * @psalm-param Iterator<TKey, T> $iterator
                  *
-                 * @psalm-return Generator<int|TKey, T|null>
+                 * @return Generator<int|TKey, T|null>
                  */
                 static function (Iterator $iterator) use ($callback): Iterator {
                     $initial = $iterator->current();

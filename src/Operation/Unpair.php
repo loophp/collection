@@ -20,7 +20,7 @@ use Iterator;
 final class Unpair extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, T>): Generator<int, array{TKey, T}>
+     * @return Closure(Iterator<TKey, T>): Generator<int, array{TKey, T}>
      */
     public function __invoke(): Closure
     {
@@ -28,7 +28,7 @@ final class Unpair extends AbstractOperation
             /**
              * @psalm-param Iterator<TKey, T> $iterator
              *
-             * @psalm-return Generator<int, array{TKey, T}>
+             * @return Generator<int, array{TKey, T}>
              */
             static function (Iterator $iterator): Generator {
                 foreach ($iterator as $key => $value) {

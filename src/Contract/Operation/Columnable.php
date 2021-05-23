@@ -22,7 +22,7 @@ interface Columnable
      *
      * @param int|string $index
      *
-     * @psalm-return \loophp\collection\Collection<TKey, T>
+     * @return \loophp\collection\Collection<TKey, T>
      */
     public function column($index): Collection;
 }

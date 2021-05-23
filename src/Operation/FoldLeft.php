@@ -22,7 +22,7 @@ use Iterator;
 final class FoldLeft extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(callable((T|null), T, TKey, Iterator<TKey, T>):(T|null)): Closure(T): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(callable((T|null), T, TKey, Iterator<TKey, T>):(T|null)): Closure(T): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
@@ -30,14 +30,14 @@ final class FoldLeft extends AbstractOperation
             /**
              * @psalm-param callable(T|null, T, TKey, Iterator<TKey, T>):(T|null) $callback
              *
-             * @psalm-return Closure(T): Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @return Closure(T): Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static fn (callable $callback): Closure =>
                 /**
                  * @param mixed|null $initial
                  * @psalm-param null|T $initial
                  *
-                 * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
+                 * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
                  */
                 static function ($initial = null) use ($callback): Closure {
                     /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */

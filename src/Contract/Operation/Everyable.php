@@ -18,7 +18,7 @@ use loophp\collection\Contract\Collection;
 interface Everyable
 {
     /**
-     * @psalm-return \loophp\collection\Collection<TKey, bool>
+     * @return \loophp\collection\Collection<TKey, bool>
      */
     public function every(callable ...$callbacks): Collection;
 }

@@ -22,7 +22,7 @@ use Iterator;
 final class Has extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(callable(T, TKey, Iterator<TKey, T>): T ...): Closure(Iterator<TKey, T>): Generator<int|TKey, bool>
+     * @return Closure(callable(T, TKey, Iterator<TKey, T>): T ...): Closure(Iterator<TKey, T>): Generator<int|TKey, bool>
      */
     public function __invoke(): Closure
     {
@@ -30,7 +30,7 @@ final class Has extends AbstractOperation
             /**
              * @psalm-param callable(T, TKey, Iterator<TKey, T>): T ...$callbacks
              *
-             * @psalm-return Closure(Iterator<TKey, T>): Generator<int|TKey, bool>
+             * @return Closure(Iterator<TKey, T>): Generator<int|TKey, bool>
              */
             static function (callable ...$callbacks): Closure {
                 /** @psalm-var Closure(Iterator<TKey, T>): Generator<int|TKey, bool> $pipe */

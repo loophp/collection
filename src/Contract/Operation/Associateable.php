@@ -22,7 +22,7 @@ interface Associateable
      * @psalm-param null|callable(TKey, TKey, T, Iterator<TKey, T>):(T|TKey) $callbackForKeys
      * @psalm-param null|callable(T, TKey, T, Iterator<TKey, T>):(T|TKey) $callbackForValues
      *
-     * @psalm-return \loophp\collection\Collection<TKey|T, T|TKey>
+     * @return \loophp\collection\Collection<T|TKey, T|TKey>
      */
     public function associate(?callable $callbackForKeys = null, ?callable $callbackForValues = null): Collection;
 }

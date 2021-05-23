@@ -20,13 +20,13 @@ use Iterator;
 final class Key extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(int): Closure(Iterator<TKey, T>): Generator<int, TKey>
+     * @return Closure(int): Closure(Iterator<TKey, T>): Generator<int, TKey>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-return Closure(Iterator<TKey, T>): Generator<int, TKey>
+             * @return Closure(Iterator<TKey, T>): Generator<int, TKey>
              */
             static function (int $index): Closure {
                 /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, TKey> $pipe */

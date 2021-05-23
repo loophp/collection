@@ -22,13 +22,13 @@ use Iterator;
 final class Implode extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(string): Closure(Iterator<TKey, T>): Generator<int, string>
+     * @return Closure(string): Closure(Iterator<TKey, T>): Generator<int, string>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-return Closure(Iterator<TKey, T>): Generator<int, string>
+             * @return Closure(Iterator<TKey, T>): Generator<int, string>
              */
             static function (string $glue): Closure {
                 $reducer =

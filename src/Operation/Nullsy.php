@@ -27,7 +27,7 @@ final class Nullsy extends AbstractOperation
     public const VALUES = [null, [], 0, false, ''];
 
     /**
-     * @psalm-return Closure(Iterator<TKey, T>): Generator<int, bool>
+     * @return Closure(Iterator<TKey, T>): Generator<int, bool>
      */
     public function __invoke(): Closure
     {

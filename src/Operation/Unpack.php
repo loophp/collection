@@ -21,7 +21,7 @@ use loophp\collection\Iterator\IterableIterator;
 final class Unpack extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<int, array{0: TKey, 1: T}>): Generator<T, T>
+     * @return Closure(Iterator<int, array{0: TKey, 1: T}>): Generator<T, T>
      */
     public function __invoke(): Closure
     {
@@ -33,7 +33,7 @@ final class Unpack extends AbstractOperation
              * @psalm-param T $initial
              * @psalm-param array{0: TKey, 1: T} $value
              *
-             * @psalm-return TKey
+             * @return TKey
              */
             static fn ($initial, int $key, array $value) => $value[0];
 
@@ -43,7 +43,7 @@ final class Unpack extends AbstractOperation
              * @psalm-param T $initial
              * @psalm-param array{0: TKey, 1: T} $value
              *
-             * @psalm-return T
+             * @return T
              */
             static fn ($initial, int $key, array $value) => $value[1];
 

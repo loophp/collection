@@ -18,7 +18,7 @@ use Closure;
 final class Coalesce extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(\Iterator<TKey, T>): \Generator<TKey, T>
+     * @return Closure(\Iterator<TKey, T>): \Generator<TKey, T>
      */
     public function __invoke(): Closure
     {

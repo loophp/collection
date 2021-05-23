@@ -20,7 +20,7 @@ interface Lastable
     /**
      * Get the last item from the collection.
      *
-     * @psalm-return \loophp\collection\Collection<TKey, T>
+     * @return \loophp\collection\Collection<TKey, T>
      */
     public function last(): Collection;
 }

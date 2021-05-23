@@ -22,7 +22,7 @@ use Iterator;
 final class GroupBy extends AbstractOperation
 {
     /**
-     * @psalm-return Closure((null | callable(TKey, T ): (TKey | null))):Closure (Iterator<TKey, T>): Generator<int, T|list<T>>
+     * @return Closure((null | callable(TKey, T ): (TKey | null))):Closure (Iterator<TKey, T>): Generator<int, T|list<T>>
      */
     public function __invoke(): Closure
     {
@@ -30,7 +30,7 @@ final class GroupBy extends AbstractOperation
             /**
              * @psalm-param null|callable(TKey, T):(TKey|null) $callable
              *
-             * @psalm-return Closure(Iterator<TKey, T>): Generator<int, T|list<T>>
+             * @return Closure(Iterator<TKey, T>): Generator<int, T|list<T>>
              */
             static function (?callable $callable = null): Closure {
                 /** @psalm-var callable(T, TKey): (TKey|null) $callable */
@@ -42,8 +42,7 @@ final class GroupBy extends AbstractOperation
                      * @param mixed $key
                      * @psalm-param TKey $key
                      *
-                     * @return mixed
-                     * @psalm-return TKey
+                     * @return TKey
                      */
                     static fn ($value, $key) => $key;
 
@@ -51,7 +50,7 @@ final class GroupBy extends AbstractOperation
                     /**
                      * @psalm-param callable(T, TKey): (TKey|null) $callback
                      *
-                     * @psalm-return Closure(array<TKey, T|list<T>>, T, TKey): array<TKey, T|list<T>>
+                     * @return Closure(array<TKey, T|list<T>>, T, TKey): array<TKey, T|list<T>>
                      */
                     static fn (callable $callback): Closure =>
                         /**
@@ -63,7 +62,7 @@ final class GroupBy extends AbstractOperation
                          * @param mixed $key
                          * @psalm-param TKey $key
                          *
-                         * @psalm-return non-empty-array<TKey, T|list<T>>
+                         * @return non-empty-array<TKey, T|list<T>>
                          */
                         static function (array $collect, $value, $key) use ($callback): array {
                             if (null !== $groupKey = $callback($value, $key)) {

@@ -20,7 +20,7 @@ use Iterator;
 final class Unzip extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, list<T>>): Generator<int, list<T>>
+     * @return Closure(Iterator<TKey, list<T>>): Generator<int, list<T>>
      */
     public function __invoke(): Closure
     {
@@ -29,7 +29,7 @@ final class Unzip extends AbstractOperation
              * @psalm-param array<int, list<T>> $carry
              * @psalm-param iterable<TKey, T> $value
              *
-             * @psalm-return array<int, list<T>>
+             * @return array<int, list<T>>
              */
             static function (array $carry, iterable $value): array {
                 $index = 0;

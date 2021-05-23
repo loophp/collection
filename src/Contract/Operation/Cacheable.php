@@ -19,7 +19,7 @@ use Psr\Cache\CacheItemPoolInterface;
 interface Cacheable
 {
     /**
-     * @psalm-return \loophp\collection\Collection<TKey, T>
+     * @return \loophp\collection\Collection<TKey, T>
      */
     public function cache(?CacheItemPoolInterface $cache = null): Collection;
 }

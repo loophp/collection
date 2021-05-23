@@ -20,7 +20,7 @@ use Iterator;
 final class Wrap extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, T>): Generator<int, array<TKey, T>>
+     * @return Closure(Iterator<TKey, T>): Generator<int, array<TKey, T>>
      */
     public function __invoke(): Closure
     {
@@ -32,7 +32,7 @@ final class Wrap extends AbstractOperation
              * @psalm-param T $value
              * @psalm-param TKey $key
              *
-             * @psalm-return array<TKey, T>
+             * @return array<TKey, T>
              */
             static fn ($value, $key): array => [$key => $value];
 

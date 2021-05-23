@@ -22,7 +22,7 @@ interface Forgetable
      *
      * @param mixed ...$keys
      *
-     * @psalm-return \loophp\collection\Collection<TKey, T>
+     * @return \loophp\collection\Collection<TKey, T>
      */
     public function forget(...$keys): Collection;
 }

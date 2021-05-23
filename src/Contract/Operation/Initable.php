@@ -18,7 +18,7 @@ use loophp\collection\Contract\Collection;
 interface Initable
 {
     /**
-     * @psalm-return \loophp\collection\Collection<TKey, T>
+     * @return \loophp\collection\Collection<TKey, T>
      */
     public function init(): Collection;
 }

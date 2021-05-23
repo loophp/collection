@@ -20,7 +20,7 @@ use Iterator;
 final class Contains extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(T...): Closure(Iterator<TKey, T>): Generator<int, bool>
+     * @return Closure(T...): Closure(Iterator<TKey, T>): Generator<int, bool>
      */
     public function __invoke(): Closure
     {
@@ -28,7 +28,7 @@ final class Contains extends AbstractOperation
             /**
              * @psalm-param T ...$values
              *
-             * @psalm-return Closure(Iterator<TKey, T>): Generator<int, bool>
+             * @return Closure(Iterator<TKey, T>): Generator<int, bool>
              */
             static function (...$values): Closure {
                 $callback =

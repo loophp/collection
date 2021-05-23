@@ -23,7 +23,7 @@ interface Compactable
      * @param mixed ...$values
      * @psalm-param T ...$values
      *
-     * @psalm-return \loophp\collection\Collection<TKey, T>
+     * @return \loophp\collection\Collection<TKey, T>
      */
     public function compact(...$values): Collection;
 }

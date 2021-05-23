@@ -18,7 +18,7 @@ use loophp\collection\Contract\Collection;
 interface Wrapable
 {
     /**
-     * @psalm-return \loophp\collection\Collection<int, array<TKey, T>>
+     * @return \loophp\collection\Collection<int, array<TKey, T>>
      */
     public function wrap(): Collection;
 }

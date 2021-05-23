@@ -22,7 +22,7 @@ interface Dropable
      *
      * @param int ...$counts
      *
-     * @psalm-return \loophp\collection\Collection<TKey, T>
+     * @return \loophp\collection\Collection<TKey, T>
      */
     public function drop(int ...$counts): Collection;
 }

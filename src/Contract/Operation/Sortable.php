@@ -24,7 +24,7 @@ interface Sortable
     /**
      * Sort a collection using a callback.
      *
-     * @psalm-return \loophp\collection\Collection<TKey, T>
+     * @return \loophp\collection\Collection<TKey, T>
      */
     public function sort(int $type = Sortable::BY_VALUES, ?callable $callback = null): Collection;
 }

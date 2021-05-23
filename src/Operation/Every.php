@@ -22,7 +22,7 @@ use Iterator;
 final class Every extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(callable(T, TKey, Iterator<TKey, T>...): bool): Closure(callable(T, TKey, Iterator<TKey, T>...): bool): Closure(Iterator<TKey, T>): Generator<int|TKey, bool>
+     * @return Closure(callable(T, TKey, Iterator<TKey, T>...): bool): Closure(callable(T, TKey, Iterator<TKey, T>...): bool): Closure(Iterator<TKey, T>): Generator<int|TKey, bool>
      */
     public function __invoke(): Closure
     {
@@ -30,21 +30,21 @@ final class Every extends AbstractOperation
             /**
              * @psalm-param callable(T, TKey, Iterator<TKey, T>): bool ...$matchers
              *
-             * @psalm-return Closure(...callable(T, TKey, Iterator<TKey, T>): bool): Closure(Iterator<TKey, T>): Generator<int|TKey, bool>
+             * @return Closure(...callable(T, TKey, Iterator<TKey, T>): bool): Closure(Iterator<TKey, T>): Generator<int|TKey, bool>
              */
             static function (callable ...$matchers): Closure {
                 return
                     /**
                      * @psalm-param callable(T, TKey, Iterator<TKey, T>): bool ...$callbacks
                      *
-                     * @psalm-return Closure(Iterator<TKey, T>): Generator<int|TKey, bool>
+                     * @return Closure(Iterator<TKey, T>): Generator<int|TKey, bool>
                      */
                     static function (callable ...$callbacks) use ($matchers): Closure {
                         $callbackReducer =
                             /**
                              * @psalm-param list<callable(T, TKey, Iterator<TKey, T>): bool> $callbacks
                              *
-                             * @psalm-return Closure(T, TKey, Iterator<TKey, T>): bool
+                             * @return Closure(T, TKey, Iterator<TKey, T>): bool
                              */
                             static fn (array $callbacks): Closure =>
                                 /**
@@ -66,13 +66,13 @@ final class Every extends AbstractOperation
                             /**
                              * @psalm-param callable(T, TKey, Iterator<TKey, T>) $reducer1
                              *
-                             * @psalm-return Closure(callable(T, TKey, Iterator<TKey, T>)): Closure(T, TKey, Iterator<TKey, T>): bool
+                             * @return Closure(callable(T, TKey, Iterator<TKey, T>)): Closure(T, TKey, Iterator<TKey, T>): bool
                              */
                             static fn (callable $reducer1): Closure =>
                                 /**
                                  * @psalm-param callable(T, TKey, Iterator<TKey, T>) $reducer2
                                  *
-                                 * @psalm-return Closure(T, TKey, Iterator<TKey, T>): bool
+                                 * @return Closure(T, TKey, Iterator<TKey, T>): bool
                                  */
                                 static fn (callable $reducer2): Closure =>
                                     /**

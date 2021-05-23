@@ -22,7 +22,7 @@ use const PHP_EOL;
 final class Lines extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, (T|string)>): Generator<int, string>
+     * @return Closure(Iterator<TKey, (T|string)>): Generator<int, string>
      */
     public function __invoke(): Closure
     {

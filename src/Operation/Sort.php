@@ -25,17 +25,17 @@ use loophp\collection\Contract\Operation;
 final class Sort extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(int): Closure(callable(T|TKey, T|TKey): int): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(int): Closure(callable(T|TKey, T|TKey): int): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-return Closure(callable(T|TKey, T|TKey): int): Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @return Closure(callable(T|TKey, T|TKey): int): Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static fn (int $type = Operation\Sortable::BY_VALUES): Closure =>
                 /**
-                 * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
+                 * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
                  */
                 static function (?callable $callback = null) use ($type): Closure {
                     $callback ??=
@@ -52,7 +52,7 @@ final class Sort extends AbstractOperation
                     /**
                      * @psalm-param Iterator<TKey, T> $iterator
                      *
-                     * @psalm-return Generator<TKey, T>
+                     * @return Generator<TKey, T>
                      */
                     static function (Iterator $iterator) use ($type, $callback): Iterator {
                         if (Operation\Sortable::BY_VALUES !== $type && Operation\Sortable::BY_KEYS !== $type) {
@@ -73,7 +73,7 @@ final class Sort extends AbstractOperation
                             /**
                              * @psalm-param callable(T|TKey, T|TKey): int $callback
                              *
-                             * @psalm-return Closure(array{0:TKey|T, 1:T|TKey}, array{0:TKey|T, 1:T|TKey}): int
+                             * @return Closure(array{0:TKey|T, 1:T|TKey, array{0:TKey|T, 1:T|TKey}): int
                              */
                             static fn (callable $callback): Closure =>
                                 /**
