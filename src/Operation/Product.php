@@ -16,9 +16,8 @@ use Iterator;
 use function count;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey of array-key
+ * @template T
  */
 final class Product extends AbstractOperation
 {

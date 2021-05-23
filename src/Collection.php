@@ -127,9 +127,8 @@ use const PHP_INT_MAX;
 use const PHP_INT_MIN;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey of array-key
+ * @template T
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  *
@@ -291,9 +290,9 @@ final class Collection implements CollectionInterface
     /**
      * Create a new instance with no items.
      *
-     * @psalm-template NewTKey
-     * @psalm-template NewTKey of array-key
-     * @psalm-template NewT
+     * @template NewTKey
+     * @template NewTKey of array-key
+     * @template NewT
      */
     public static function empty(): CollectionInterface
     {
@@ -366,8 +365,8 @@ final class Collection implements CollectionInterface
     }
 
     /**
-     * @psalm-template NewTKey of array-key
-     * @psalm-template NewT
+     * @template NewTKey
+     * @template NewT
      *
      * @param callable(mixed ...$parameters): iterable<NewTKey, NewT> $callable
      * @param mixed ...$parameters
@@ -391,9 +390,9 @@ final class Collection implements CollectionInterface
     }
 
     /**
-     * @psalm-template NewTKey
-     * @psalm-template NewTKey of array-key
-     * @psalm-template NewT
+     * @template NewTKey
+     * @template NewTKey of array-key
+     * @template NewT
      *
      * @param iterable<mixed> $iterable
      * @psalm-param iterable<NewTKey, NewT> $iterable

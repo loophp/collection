@@ -18,9 +18,8 @@ use function is_resource;
 /**
  * @internal
  *
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey of array-key
+ * @template T
  *
  * @extends ProxyIterator<int, string>
  */

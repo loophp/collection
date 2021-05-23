@@ -29,9 +29,8 @@ if (false === function_exists('Amp\ParallelFunctions\parallel')) {
 /**
  * Class AsyncMap.
  *
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey of array-key
+ * @template T
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */

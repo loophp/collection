@@ -15,9 +15,8 @@ use Iterator;
 use loophp\collection\Iterator\IterableIterator;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey of array-key
+ * @template T
  */
 final class Unpack extends AbstractOperation
 {

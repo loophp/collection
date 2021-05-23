@@ -15,9 +15,8 @@ use IteratorIterator;
 /**
  * @internal
  *
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T of string
+ * @template TKey of array-key
+ * @template T of string
  *
  * @extends ProxyIterator<int, string>
  */

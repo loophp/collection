@@ -17,9 +17,8 @@ use Iterator;
 use const E_USER_WARNING;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey of array-key
+ * @template T
  */
 final class Combine extends AbstractOperation
 {

@@ -12,9 +12,8 @@ namespace loophp\collection\Contract\Operation;
 use loophp\collection\Contract\Collection;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey of array-key
+ * @template T
  */
 interface Untilable
 {

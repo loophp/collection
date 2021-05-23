@@ -16,9 +16,8 @@ use loophp\collection\Iterator\IterableIterator;
 use MultipleIterator;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey of array-key
+ * @template T
  */
 final class Transpose extends AbstractOperation
 {

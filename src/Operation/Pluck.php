@@ -23,9 +23,8 @@ use function is_array;
 use function is_object;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey of array-key
+ * @template T
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */

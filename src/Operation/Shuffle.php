@@ -14,9 +14,8 @@ use Iterator;
 use loophp\collection\Iterator\RandomIterator;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey of array-key
+ * @template T
  */
 final class Shuffle extends AbstractOperation
 {

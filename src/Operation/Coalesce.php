@@ -12,9 +12,8 @@ namespace loophp\collection\Operation;
 use Closure;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey of array-key
+ * @template T
  */
 final class Coalesce extends AbstractOperation
 {

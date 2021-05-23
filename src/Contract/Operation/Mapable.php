@@ -13,9 +13,9 @@ use Iterator;
 use loophp\collection\Contract\Collection;
 
 /**
- * @psalm-template TKey of array-key
- * @psalm-template T
- * @psalm-template V
+ * @template TKey of array-key
+ * @template T
+ * @template V
  */
 interface Mapable
 {

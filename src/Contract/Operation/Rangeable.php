@@ -18,9 +18,9 @@ interface Rangeable
     /**
      * Create a new Collection with a range of number.
      *
-     * @psalm-template TKey
-     * @psalm-template TKey of array-key
-     * @psalm-template T
+     * @template TKey
+     * @template TKey of array-key
+     * @template T
      *
      * @psalm-return \loophp\collection\Collection<int, float>
      */

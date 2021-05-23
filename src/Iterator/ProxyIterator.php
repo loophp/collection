@@ -15,8 +15,8 @@ use OuterIterator;
 /**
  * @internal
  *
- * @psalm-template TKey
- * @psalm-template T
+ * @template TKey
+ * @template T
  *
  * @implements OuterIterator<TKey, T>
  */

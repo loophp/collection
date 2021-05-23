@@ -14,9 +14,9 @@ use Generator;
 use Iterator;
 
 /**
- * @psalm-template TKey
- * @psalm-template T
- * @psalm-template T of array-key
+ * @template TKey
+ * @template T
+ * @template T of array-key
  */
 final class Flip extends AbstractOperation
 {

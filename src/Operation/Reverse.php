@@ -18,9 +18,8 @@ use Iterator;
  * @todo They are only needed when: Collection::empty()->reverse()
  * @todo Most probably that the FoldLeft operation needs an update.
  *
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey of array-key
+ * @template T
  */
 final class Reverse extends AbstractOperation
 {

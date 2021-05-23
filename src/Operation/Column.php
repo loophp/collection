@@ -14,9 +14,8 @@ use Generator;
 use Iterator;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey of array-key
+ * @template T
  */
 final class Column extends AbstractOperation
 {
