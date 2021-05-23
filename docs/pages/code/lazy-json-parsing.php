@@ -46,7 +46,7 @@ $json = Collection::fromIterable(\JsonMachine\JsonMachine::fromStream($phpStream
 foreach ($json as $key => $value) {
 }
 
-// Parse a remote JSON file with Guzzle
+// Parse a remote JSON file with Symfony HTTP client
 $client = HttpClient::create();
 $response = $client->request('GET', $remoteFile);
 
