@@ -50,6 +50,7 @@ final class IfThenElse extends AbstractOperation
                             /**
                              * @param T $value
                              * @param TKey $key
+                             *
                              * @return T
                              */
                             static fn ($value, $key, Iterator $iterator) => $condition($value, $key, $iterator) ? $then($value, $key, $iterator) : $else($value, $key, $iterator)

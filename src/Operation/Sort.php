@@ -70,7 +70,7 @@ final class Sort extends AbstractOperation
                             /**
                              * @param callable(T|TKey, T|TKey): int $callback
                              *
-                             * @return Closure(array{0:TKey|T, 1:T|TKey, array{0:TKey|T, 1:T|TKey}): int
+                             * @return Closure(array{0:TKey|T, 1:T|TKey}, array{0:TKey|T, 1:T|TKey}): int
                              */
                             static fn (callable $callback): Closure =>
                                 /**

@@ -42,7 +42,7 @@ final class Range extends AbstractOperation
                      */
                     static fn (float $step = 1.0): Closure =>
                         /**
-                         * @param null|Iterator<TKey, T> $iterator
+                         * @param Iterator<TKey, T>|null $iterator
                          *
                          * @return Generator<int, float>
                          */

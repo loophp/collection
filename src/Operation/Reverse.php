@@ -31,7 +31,6 @@ final class Reverse extends AbstractOperation
         $callback =
             /**
              * @param list<array{0: TKey, 1: T}> $carry
-             *
              * @param list<array{0: TKey, 1: T}> $value
              *
              * @return list<array{0: TKey, 1: T}>

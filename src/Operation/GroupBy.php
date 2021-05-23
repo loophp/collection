@@ -38,6 +38,7 @@ final class GroupBy extends AbstractOperation
                     /**
                      * @param T $value
                      * @param TKey $key
+                     *
                      * @return TKey
                      */
                     static fn ($value, $key) => $key;
@@ -53,6 +54,7 @@ final class GroupBy extends AbstractOperation
                          * @param array<TKey, list<T>> $collect
                          * @param T $value
                          * @param TKey $key
+                         *
                          * @return non-empty-array<TKey, T|list<T>>
                          */
                         static function (array $collect, $value, $key) use ($callback): array {

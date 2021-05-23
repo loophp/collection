@@ -22,7 +22,6 @@ interface FoldRightable
      * Fold the collection from the right to the left.
      *
      * @param callable(T, T, TKey, Iterator<TKey, T>): T $callback
-     *
      * @param T|null $initial
      *
      * @return \loophp\collection\Collection<TKey, T|null>

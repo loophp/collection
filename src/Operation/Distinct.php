@@ -27,7 +27,6 @@ final class Distinct extends AbstractOperation
         $foldLeftCallback =
             /**
              * @param list<array{0: TKey, 1: T}> $seen
-             *
              * @param array{0: TKey, 1: T} $value
              */
             static function (array $seen, array $value): array {

@@ -29,6 +29,7 @@ final class Pair extends AbstractOperation
              * @param T $initial
              * @param TKey $key
              * @param array{0: TKey, 1: T} $value
+             *
              * @return T|TKey
              */
             static fn ($initial, $key, array $value) => $value[0];
@@ -38,6 +39,7 @@ final class Pair extends AbstractOperation
              * @param T $initial
              * @param TKey $key
              * @param array{0: TKey, 1: T} $value
+             *
              * @return T|TKey
              */
             static fn ($initial, $key, array $value) => $value[1];

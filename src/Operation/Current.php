@@ -26,8 +26,6 @@ final class Current extends AbstractOperation
     {
         return
             /**
-             * @param int $index
-             *
              * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static function (int $index): Closure {

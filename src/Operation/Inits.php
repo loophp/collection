@@ -29,7 +29,7 @@ final class Inits extends AbstractOperation
              * @param array<TKey, T> $carry
              * @param T $value
              * @param TKey $key
-             * @param Iterator<TKey, T> $iterator
+             *
              * @return array<TKey, T>
              */
             static function (array $carry, $value, $key): array {

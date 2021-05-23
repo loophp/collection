@@ -34,7 +34,7 @@ final class FoldLeft extends AbstractOperation
              */
             static fn (callable $callback): Closure =>
                 /**
-                 * @param null|T $initial
+                 * @param T|null $initial
                  *
                  * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
                  */

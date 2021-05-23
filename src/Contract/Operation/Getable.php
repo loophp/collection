@@ -21,7 +21,6 @@ interface Getable
      * Get an item by key.
      *
      * @param TKey $key
-     *
      * @param T|null $default
      *
      * @return \loophp\collection\Collection<TKey, T|null>

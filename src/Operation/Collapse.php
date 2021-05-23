@@ -26,7 +26,7 @@ final class Collapse extends AbstractOperation
     {
         return
             /**
-             * @param Iterator<TKey, T|iterable<TKey, T>> $iterator
+             * @param Iterator<TKey, iterable<TKey, T>|T> $iterator
              *
              * @return Generator<TKey, T>
              */

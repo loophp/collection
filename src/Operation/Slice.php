@@ -30,8 +30,6 @@ final class Slice extends AbstractOperation
              */
             static fn (int $offset): Closure =>
                 /**
-                 * @param int $length
-                 *
                  * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
                  */
                 static function (int $length = -1) use ($offset): Closure {

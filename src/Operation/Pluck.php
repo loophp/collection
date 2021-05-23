@@ -57,7 +57,7 @@ final class Pluck extends AbstractOperation
                         $pick =
                             /**
                              * @param Iterator<TKey, T> $iterator
-                             * @param T|iterable<TKey, T> $target
+                             * @param iterable<TKey, T>|T $target
                              * @param array<int, string> $key
                              * @param T $default
                              *

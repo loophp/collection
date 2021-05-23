@@ -60,13 +60,13 @@ final class Every extends AbstractOperation
 
                         $mapCallback =
                             /**
-                             * @param callable(T, TKey, Iterator<TKey, T>) $reducer1
+                             * @param callable(T, TKey, Iterator<TKey, T>): mixed $reducer1
                              *
                              * @return Closure(callable(T, TKey, Iterator<TKey, T>)): Closure(T, TKey, Iterator<TKey, T>): bool
                              */
                             static fn (callable $reducer1): Closure =>
                                 /**
-                                 * @param callable(T, TKey, Iterator<TKey, T>) $reducer2
+                                 * @param callable(T, TKey, Iterator<TKey, T>): mixed $reducer2
                                  *
                                  * @return Closure(T, TKey, Iterator<TKey, T>): bool
                                  */
