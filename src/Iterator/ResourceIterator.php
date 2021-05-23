@@ -29,7 +29,7 @@ final class ResourceIterator extends ProxyIterator
     /**
      * @param false|resource $resource
      */
-    public function __construct($resource)
+    public function __construct($resource, bool $closeResource = false)
     {
         if (!is_resource($resource) || 'stream' !== get_resource_type($resource)) {
             throw new InvalidArgumentException('Invalid resource type.');
@@ -41,13 +41,15 @@ final class ResourceIterator extends ProxyIterator
              *
              * @psalm-return Generator<int, string>
              */
-            static function ($resource): Generator {
+            static function ($resource) use ($closeResource): Generator {
                 try {
                     while (false !== $chunk = fgetc($resource)) {
                         yield $chunk;
                     }
                 } finally {
-                    fclose($resource);
+                    if ($closeResource) {
+                        fclose($resource);
+                    }
                 }
             };
 
