@@ -27,7 +27,7 @@ final class Explode extends AbstractOperation
     {
         return
             /**
-             * @psalm-param T ...$explodes
+             * @param T ...$explodes
              *
              * @return Closure(Iterator<TKey, T>): Generator<int, list<T>>
              */
@@ -36,13 +36,11 @@ final class Explode extends AbstractOperation
                 $split = Split::of()(Splitable::REMOVE)(
                     ...array_map(
                         /**
-                         * @param mixed $explode
-                         * @psalm-param T $explode
+                         * @param T $explode
                          */
                         static fn ($explode): Closure =>
                             /**
-                             * @param mixed $value
-                             * @psalm-param T $value
+                             * @param T $value
                              */
                             static fn ($value): bool => $value === $explode,
                         $explodes

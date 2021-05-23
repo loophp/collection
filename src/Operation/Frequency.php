@@ -26,10 +26,8 @@ final class Frequency extends AbstractOperation
     {
         $reduceCallback =
             /**
-             * @psalm-param array<int, array{0: int, 1: T}> $storage
-             * @psalm-param T $value
-             *
-             * @param mixed $value
+             * @param array<int, array{0: int, 1: T}> $storage
+             * @param T $value
              *
              * @return array<int, array{0: int, 1: T}>
              */

@@ -20,10 +20,8 @@ interface Getable
     /**
      * Get an item by key.
      *
-     * @param int|string $key
      * @psalm-param TKey $key
      *
-     * @param mixed $default
      * @psalm-param T|null $default
      *
      * @return \loophp\collection\Collection<TKey, T|null>

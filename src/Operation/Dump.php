@@ -51,10 +51,8 @@ final class Dump extends AbstractOperation
 
                             $callback ??=
                                 /**
-                                 * @param mixed $key
-                                 * @param mixed $value
-                                 * @psalm-param TKey $key
-                                 * @psalm-param T $value
+                                 * @param TKey $key
+                                 * @param T $value
                                  *
                                  * @return mixed
                                  */

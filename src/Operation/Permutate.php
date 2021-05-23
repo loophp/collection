@@ -23,8 +23,7 @@ final class Permutate extends AbstractOperation
     {
         $getPermutations =
             /**
-             * @param array<int, mixed> $dataset
-             * @psalm-param list<T> $dataset
+             * @param list<T> $dataset
              *
              * @return Generator<int, list<T>>
              */
@@ -32,7 +31,7 @@ final class Permutate extends AbstractOperation
 
         return
             /**
-             * @psalm-param Iterator<TKey, T> $iterator
+             * @param Iterator<TKey, T> $iterator
              *
              * @return Generator<int, list<T>>
              */
@@ -40,10 +39,8 @@ final class Permutate extends AbstractOperation
     }
 
     /**
-     * @param array<mixed> $dataset
-     * @psalm-param list<T> $dataset
+     * @param list<T> $dataset
      *
-     * @return Generator<array<mixed>>
      * @return Generator<int, list<T>>
      */
     private function getPermutations(array $dataset): Generator
@@ -60,6 +57,7 @@ final class Permutate extends AbstractOperation
             }
 
             foreach ($this->getPermutations($remaining) as $permutation) {
+                // TODO: Fix this.
                 array_unshift($permutation, $firstItem);
 
                 yield $permutation;

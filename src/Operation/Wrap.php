@@ -26,11 +26,8 @@ final class Wrap extends AbstractOperation
     {
         $mapCallback =
             /**
-             * @param mixed $value
-             * @param mixed $key
-             *
-             * @psalm-param T $value
-             * @psalm-param TKey $key
+             * @param T $value
+             * @param TKey $key
              *
              * @return array<TKey, T>
              */

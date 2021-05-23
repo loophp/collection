@@ -26,14 +26,10 @@ final class Inits extends AbstractOperation
     {
         $scanLeftCallback =
             /**
-             * @psalm-param array<TKey, T> $carry
-             * @psalm-param T $value
-             * @psalm-param TKey $key
-             * @psalm-param Iterator<TKey, T> $iterator
-             *
-             * @param mixed $value
-             * @param mixed $key
-             *
+             * @param array<TKey, T> $carry
+             * @param T $value
+             * @param TKey $key
+             * @param Iterator<TKey, T> $iterator
              * @return array<TKey, T>
              */
             static function (array $carry, $value, $key): array {

@@ -43,29 +43,27 @@ final class AsyncMap extends AbstractOperation
     {
         return
             /**
-             * @psalm-param callable(T, TKey): T ...$callbacks
+             * @param callable(T, TKey): T ...$callbacks
              *
              * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static fn (callable ...$callbacks): Closure =>
                 /**
-                 * @psalm-param Iterator<TKey, T> $iterator
+                 * @param Iterator<TKey, T> $iterator
                  *
                  * @return Generator<TKey, T>
                  */
                 static function (Iterator $iterator) use ($callbacks): Generator {
                     $callbackFactory =
                         /**
-                         * @param mixed $key
-                         * @psalm-param TKey $key
+                         * @param TKey $key
                          *
                          * @return Closure(T, callable(T, TKey): T): T
                          */
                         static fn ($key): Closure =>
                             /**
-                             * @param mixed $carry
-                             * @psalm-param T $carry
-                             * @psalm-param callable(T, TKey): T $callback
+                             * @param T $carry
+                             * @param callable(T, TKey): T $callback
                              *
                              * @return T
                              */
@@ -73,7 +71,7 @@ final class AsyncMap extends AbstractOperation
 
                     $callback =
                         /**
-                         * @psalm-param array{0: TKey, 1:T} $value
+                         * @param array{0: TKey, 1:T} $value
                          *
                          * @return array{0: TKey, 1: T}
                          */

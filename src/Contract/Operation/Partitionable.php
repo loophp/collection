@@ -18,7 +18,6 @@ use loophp\collection\Contract\Collection;
 interface Partitionable
 {
     /**
-     * @param callable ...$callbacks
      * @psalm-param callable(T, TKey):bool ...$callbacks
      *
      * @return \loophp\collection\Collection<int, array<int, array{0: TKey, 1: T}>>

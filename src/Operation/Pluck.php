@@ -37,36 +37,29 @@ final class Pluck extends AbstractOperation
     {
         return
             /**
-             * @param mixed $key
-             * @psalm-param T $key
+             * @param T $key
              *
              * @return Closure(T): Closure(Iterator<TKey, T>): Generator<int, T|iterable<int, T>, mixed, void>
              */
             static fn ($key): Closure =>
                 /**
-                 * @param mixed $default
-                 * @psalm-param T $default
+                 * @param T $default
                  *
                  * @return Closure(Iterator<TKey, T>): Generator<int, T|iterable<int, T>, mixed, void>
                  */
                 static fn ($default): Closure =>
                     /**
-                     * @psalm-param Iterator<TKey, T> $iterator
+                     * @param Iterator<TKey, T> $iterator
                      *
                      * @return Generator<int, T|iterable<int, T>, mixed, void>
                      */
                     static function (Iterator $iterator) use ($key, $default): Generator {
                         $pick =
                             /**
-                             * @psalm-param Iterator<TKey, T> $iterator
-                             *
-                             * @param mixed $target
-                             * @psalm-param T|iterable<TKey, T> $target
-                             *
-                             * @psalm-param array<int, string> $key
-                             *
-                             * @param mixed|null $default
-                             * @psalm-param T $default
+                             * @param Iterator<TKey, T> $iterator
+                             * @param T|iterable<TKey, T> $target
+                             * @param array<int, string> $key
+                             * @param T $default
                              *
                              * @return iterable<int, T>|T
                              */

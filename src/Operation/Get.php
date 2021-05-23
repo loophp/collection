@@ -26,26 +26,21 @@ final class Get extends AbstractOperation
     {
         return
             /**
-             * @param mixed $keyToGet
-             * @psalm-param T|TKey $keyToGet
+             * @param T|TKey $keyToGet
              *
              * @return Closure(T): Closure(Iterator<TKey, T>): Generator<int|TKey, T>
              */
             static fn ($keyToGet): Closure =>
                 /**
-                 * @param mixed $default
-                 * @psalm-param T $default
+                 * @param T $default
                  *
                  * @return Closure(Iterator<TKey, T>): Generator<int|TKey, T>
                  */
                 static function ($default) use ($keyToGet): Closure {
                     $filterCallback =
                         /**
-                         * @param mixed $value
-                         * @psalm-param T $value
-                         *
-                         * @param mixed $key
-                         * @psalm-param TKey $key
+                         * @param T $value
+                         * @param TKey $key
                          */
                         static fn ($value, $key): bool => $key === $keyToGet;
 

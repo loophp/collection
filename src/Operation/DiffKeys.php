@@ -28,18 +28,15 @@ final class DiffKeys extends AbstractOperation
     {
         return
             /**
-             * @psalm-param TKey ...$values
+             * @param TKey ...$values
              *
              * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static function (...$values): Closure {
                 $filterCallbackFactory = static fn (array $values): Closure =>
                     /**
-                     * @param mixed $value
-                     * @param mixed $key
-                     *
-                     * @psalm-param T $value
-                     * @psalm-param TKey $key
+                     * @param T $value
+                     * @param TKey $key
                      */
                     static fn ($value, $key): bool => false === in_array($key, $values, true);
 

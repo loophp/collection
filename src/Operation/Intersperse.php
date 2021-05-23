@@ -27,8 +27,7 @@ final class Intersperse extends AbstractOperation
     {
         return
             /**
-             * @param mixed $element
-             * @psalm-param T $element
+             * @param T $element
              *
              * @return Closure(int): Closure(int): Closure(Iterator<TKey, T>): Generator<int|TKey, T>
              */
@@ -42,7 +41,7 @@ final class Intersperse extends AbstractOperation
                      */
                     static fn (int $startAt): Closure =>
                         /**
-                         * @psalm-param Iterator<TKey, T> $iterator
+                         * @param Iterator<TKey, T> $iterator
                          *
                          * @return Generator<int|TKey, T>
                          */

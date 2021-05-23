@@ -26,7 +26,7 @@ final class Collapse extends AbstractOperation
     {
         return
             /**
-             * @psalm-param Iterator<TKey, T|iterable<TKey, T>> $iterator
+             * @param Iterator<TKey, T|iterable<TKey, T>> $iterator
              *
              * @return Generator<TKey, T>
              */
@@ -34,8 +34,7 @@ final class Collapse extends AbstractOperation
                 /** @psalm-var Closure(Iterator<TKey, T|iterable<TKey, T>>): Generator<TKey, iterable<TKey, T>> $filter */
                 $filter = Filter::of()(
                     /**
-                     * @param mixed $value
-                     * @psalm-param T $value
+                     * @param T $value
                      */
                     static fn ($value): bool => is_iterable($value)
                 );

@@ -27,10 +27,8 @@ final class Combinate extends AbstractOperation
         return static function (?int $length = null): Closure {
             $getCombinations =
                 /**
-                 * @param array<mixed> $dataset
-                 * @psalm-param array<int, T> $dataset
+                 * @param array<int, T> $dataset
                  *
-                 * @return Generator<array<mixed>>
                  * @return Generator<array<int, T>>
                  */
                 static function (array $dataset, int $length) use (&$getCombinations): Generator {
@@ -52,7 +50,7 @@ final class Combinate extends AbstractOperation
 
             return
                 /**
-                 * @psalm-param Iterator<TKey, T> $iterator
+                 * @param Iterator<TKey, T> $iterator
                  *
                  * @return Generator<int, array<int, T>>
                  */

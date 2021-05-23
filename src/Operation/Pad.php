@@ -30,14 +30,13 @@ final class Pad extends AbstractOperation
              */
             static fn (int $size): Closure =>
                 /**
-                 * @param mixed $padValue
-                 * @psalm-param T $padValue
+                 * @param T $padValue
                  *
                  * @return Closure(Iterator<TKey, T>): Generator<int|TKey, T>
                  */
                 static fn ($padValue): Closure =>
                     /**
-                     * @psalm-param Iterator<TKey, T> $iterator
+                     * @param Iterator<TKey, T> $iterator
                      *
                      * @return Generator<int|TKey, T>
                      */

@@ -177,7 +177,6 @@ final class Collection implements CollectionInterface
     ): CollectionInterface {
         $defaultCallback =
             /**
-             * @param mixed $carry
              * @psalm-param T|TKey $carry
              *
              * @return T|TKey
@@ -394,7 +393,6 @@ final class Collection implements CollectionInterface
      * @template NewTKey of array-key
      * @template NewT
      *
-     * @param iterable<mixed> $iterable
      * @psalm-param iterable<NewTKey, NewT> $iterable
      */
     public static function fromIterable(iterable $iterable): self

@@ -28,14 +28,13 @@ final class ScanRight extends AbstractOperation
     {
         return
             /**
-             * @psalm-param callable(T|null, T, TKey, Iterator<TKey, T>):(T|null) $callback
+             * @param callable(T|null, T, TKey, Iterator<TKey, T>):(T|null) $callback
              *
              * @return Closure(T|null): Closure(Iterator<TKey, T>): Generator<int|TKey, T|null>
              */
             static fn (callable $callback): Closure =>
                 /**
-                 * @param mixed|null $initial
-                 * @psalm-param T|null $initial
+                 * @param T|null $initial
                  *
                  * @return Closure(Iterator<TKey, T>): Generator<int|TKey, T|null>
                  */

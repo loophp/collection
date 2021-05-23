@@ -28,15 +28,14 @@ final class Diff extends AbstractOperation
     {
         return
             /**
-             * @psalm-param T ...$values
+             * @param T ...$values
              *
              * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static function (...$values): Closure {
                 $filterCallbackFactory = static fn (array $values): Closure =>
                     /**
-                     * @param mixed $value
-                     * @psalm-param T $value
+                     * @param T $value
                      */
                     static fn ($value): bool => false === in_array($value, $values, true);
 

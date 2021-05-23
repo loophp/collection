@@ -18,7 +18,6 @@ use loophp\collection\Contract\Collection;
 interface ScanLeftable
 {
     /**
-     * @param mixed $initial
      * @psalm-param T|null $initial
      *
      * @return \loophp\collection\Collection<TKey, T>

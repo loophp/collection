@@ -23,7 +23,6 @@ interface FoldLeftable
      *
      * @psalm-param callable(T, T, TKey, Iterator<TKey, T>): T $callback
      *
-     * @param mixed $initial
      * @psalm-param T|null $initial
      *
      * @return \loophp\collection\Collection<TKey, T|null>

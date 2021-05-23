@@ -28,27 +28,25 @@ final class Map extends AbstractOperation
     {
         return
             /**
-             * @psalm-param callable(T, TKey, Iterator<TKey, T>): T ...$callbacks
+             * @param callable(T, TKey, Iterator<TKey, T>): T ...$callbacks
              */
             static fn (callable ...$callbacks): Closure =>
                 /**
-                 * @psalm-param Iterator<TKey, T> $iterator
+                 * @param Iterator<TKey, T> $iterator
                  *
                  * @return Generator<TKey, T>
                  */
                 static function (Iterator $iterator) use ($callbacks): Generator {
                     $callbackFactory =
                         /**
-                         * @param mixed $key
-                         * @psalm-param TKey $key
+                         * @param TKey $key
                          *
                          * @return Closure(T, callable(T, TKey, Iterator<TKey, T>): T): T
                          */
                         static fn ($key): Closure =>
                             /**
-                             * @param mixed $carry
-                             * @psalm-param T $carry
-                             * @psalm-param callable(T, TKey, Iterator<TKey, T>): T $callback
+                             * @param T $carry
+                             * @param callable(T, TKey, Iterator<TKey, T>): T $callback
                              *
                              * @return T
                              */

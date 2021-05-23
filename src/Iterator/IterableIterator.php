@@ -22,7 +22,6 @@ use Generator;
 final class IterableIterator extends ProxyIterator
 {
     /**
-     * @param iterable<mixed> $iterable
      * @psalm-param iterable<TKey, T> $iterable
      */
     public function __construct(iterable $iterable)

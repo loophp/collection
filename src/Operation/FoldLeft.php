@@ -28,14 +28,13 @@ final class FoldLeft extends AbstractOperation
     {
         return
             /**
-             * @psalm-param callable(T|null, T, TKey, Iterator<TKey, T>):(T|null) $callback
+             * @param callable(T|null, T, TKey, Iterator<TKey, T>):(T|null) $callback
              *
              * @return Closure(T): Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static fn (callable $callback): Closure =>
                 /**
-                 * @param mixed|null $initial
-                 * @psalm-param null|T $initial
+                 * @param null|T $initial
                  *
                  * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
                  */

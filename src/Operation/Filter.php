@@ -28,21 +28,20 @@ final class Filter extends AbstractOperation
     {
         return
             /**
-             * @psalm-param callable(T, TKey, Iterator<TKey, T>): bool ...$callbacks
+             * @param callable(T, TKey, Iterator<TKey, T>): bool ...$callbacks
              *
              * @return Closure(Iterator<TKey, T>): Iterator<TKey, T>
              */
             static fn (callable ...$callbacks): Closure =>
                 /**
-                 * @psalm-param Iterator<TKey, T> $iterator
+                 * @param Iterator<TKey, T> $iterator
                  *
                  * @return Iterator<TKey, T>
                  */
                 static function (Iterator $iterator) use ($callbacks): Iterator {
                     $defaultCallback =
                         /**
-                         * @param mixed $value
-                         * @psalm-param T $value
+                         * @param T $value
                          */
                         static fn ($value): bool => (bool) $value;
 

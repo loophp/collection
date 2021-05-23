@@ -27,14 +27,13 @@ final class Unfold extends AbstractOperation
     {
         return
             /**
-             * @param mixed $parameters
-             * @psalm-param T ...$parameters
+             * @param T ...$parameters
              *
              * @return Closure(callable(mixed|T...): (array<TKey, T>)): Closure(): Generator<int, T>
              */
             static fn (...$parameters): Closure =>
                 /**
-                 * @psalm-param callable(mixed|T...): (mixed|array<TKey, T>) $callback
+                 * @param callable(mixed|T...): (mixed|array<TKey, T>) $callback
                  *
                  * @return Closure(): Generator<int, T>
                  */

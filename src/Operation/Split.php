@@ -33,13 +33,13 @@ final class Split extends AbstractOperation
              */
             static fn (int $type = Splitable::BEFORE): Closure =>
                 /**
-                 * @psalm-param callable(T, TKey): bool ...$callbacks
+                 * @param callable(T, TKey): bool ...$callbacks
                  *
                  * @return Closure(Iterator<TKey, T>): Generator<int, list<T>>
                  */
                 static fn (callable ...$callbacks): Closure =>
                     /**
-                     * @psalm-param Iterator<TKey, T> $iterator
+                     * @param Iterator<TKey, T> $iterator
                      *
                      * @return Generator<int, list<T>>
                      */
@@ -48,28 +48,26 @@ final class Split extends AbstractOperation
 
                         $reducerCallback =
                             /**
-                             * @param mixed $key
-                             * @psalm-param TKey $key
+                             * @param TKey $key
                              *
                              * @return Closure(T): Closure(Iterator<TKey, T>): Closure(bool, callable(T, TKey, Iterator<TKey, T>): bool): bool
                              */
                             static fn ($key): Closure =>
                                 /**
-                                 * @param mixed $current
-                                 * @psalm-param T $current
+                                 * @param T $current
                                  *
                                  * @return Closure(Iterator<TKey, T>): Closure(bool, callable(T, TKey, Iterator<TKey, T>): bool): bool
                                  */
                                 static fn ($current): Closure =>
                                     /**
-                                     * @psalm-param Iterator<TKey, T> $iterator
+                                     * @param Iterator<TKey, T> $iterator
                                      *
                                      * @return Closure(bool, callable(T, TKey, Iterator<TKey, T>): bool): bool
                                      */
                                     static fn (Iterator $iterator): Closure =>
                                         /**
-                                         * @psalm-param bool $carry
-                                         * @psalm-param callable(T, TKey, Iterator<TKey, T>): bool $callable
+                                         * @param bool $carry
+                                         * @param callable(T, TKey, Iterator<TKey, T>): bool $callable
                                          */
                                         static fn (bool $carry, callable $callable): bool => $carry || $callable($current, $key, $iterator);
 

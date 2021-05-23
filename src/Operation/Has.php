@@ -28,7 +28,7 @@ final class Has extends AbstractOperation
     {
         return
             /**
-             * @psalm-param callable(T, TKey, Iterator<TKey, T>): T ...$callbacks
+             * @param callable(T, TKey, Iterator<TKey, T>): T ...$callbacks
              *
              * @return Closure(Iterator<TKey, T>): Generator<int|TKey, bool>
              */
@@ -38,13 +38,9 @@ final class Has extends AbstractOperation
                     ...array_map(
                         static fn (callable $callback): callable =>
                             /**
-                             * @param mixed $value
-                             * @psalm-param T $value
-                             *
-                             * @param mixed $key
-                             * @psalm-param TKey $key
-                             *
-                             * @psalm-param Iterator<TKey, T> $iterator
+                             * @param T $value
+                             * @param TKey $key
+                             * @param Iterator<TKey, T> $iterator
                              */
                             static fn ($value, $key, Iterator $iterator): bool => $callback($value, $key, $iterator) === $value,
                         $callbacks

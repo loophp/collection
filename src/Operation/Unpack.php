@@ -29,9 +29,8 @@ final class Unpack extends AbstractOperation
 
         $callbackForKeys =
             /**
-             * @param mixed $initial
-             * @psalm-param T $initial
-             * @psalm-param array{0: TKey, 1: T} $value
+             * @param T $initial
+             * @param array{0: TKey, 1: T} $value
              *
              * @return TKey
              */
@@ -39,9 +38,8 @@ final class Unpack extends AbstractOperation
 
         $callbackForValues =
             /**
-             * @param mixed $initial
-             * @psalm-param T $initial
-             * @psalm-param array{0: TKey, 1: T} $value
+             * @param T $initial
+             * @param array{0: TKey, 1: T} $value
              *
              * @return T
              */

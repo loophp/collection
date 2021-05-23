@@ -22,7 +22,7 @@ use function in_array;
 final class Nullsy extends AbstractOperation
 {
     /**
-     * @psalm-param list<null, array, int, bool, string>
+     * @param list<null, array, int, bool, string>
      */
     public const VALUES = [null, [], 0, false, ''];
 
@@ -33,8 +33,7 @@ final class Nullsy extends AbstractOperation
     {
         $mapCallback =
             /**
-             * @param mixed $value
-             * @psalm-param T $value
+             * @param T $value
              */
             static fn ($value): bool => in_array($value, self::VALUES, true);
 

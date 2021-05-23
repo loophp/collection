@@ -26,8 +26,7 @@ final class Truthy extends AbstractOperation
     {
         $callback =
             /**
-             * @param mixed $value
-             * @psalm-param T $value
+             * @param T $value
              */
             static fn ($value): bool => !(bool) $value;
 

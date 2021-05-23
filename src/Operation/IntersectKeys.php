@@ -28,19 +28,15 @@ final class IntersectKeys extends AbstractOperation
     {
         return
             /**
-             * @psalm-param TKey ...$keys
+             * @param TKey ...$keys
              *
              * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static function (...$keys): Closure {
                 $filterCallbackFactory = static fn (array $keys): Closure =>
                     /**
-                     * @psalm-param T $value
-                     * @psalm-param TKey $key
-                     * @psalm-param Iterator<TKey, T> $iterator
-                     *
-                     * @param mixed $value
-                     * @param mixed $key
+                     * @param T $value
+                     * @param TKey $key
                      */
                     static fn ($value, $key): bool => in_array($key, $keys, true);
 

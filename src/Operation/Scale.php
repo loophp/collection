@@ -54,8 +54,7 @@ final class Scale extends AbstractOperation
                                 /** @psalm-var callable(Generator<TKey, (float | int)>):Generator<TKey, float> $mapper */
                                 $mapper = Map::of()(
                                     /**
-                                     * @param mixed $v
-                                     * @psalm-param float|int $v
+                                     * @param float|int $v
                                      */
                                     static function ($v) use ($lowerBound, $upperBound, $wantedLowerBound, $wantedUpperBound, $base): float {
                                         $mx = 0.0 === $base ?

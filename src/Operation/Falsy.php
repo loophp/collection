@@ -26,15 +26,13 @@ final class Falsy extends AbstractOperation
     {
         $matchCallback =
             /**
-             * @param mixed $value
-             * @psalm-param T $value
+             * @param T $value
              */
             static fn ($value): bool => (bool) $value;
 
         $mapCallback =
             /**
-             * @param mixed $value
-             * @psalm-param T $value
+             * @param T $value
              */
             static fn ($value): bool => !(bool) $value;
 

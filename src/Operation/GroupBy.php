@@ -28,7 +28,7 @@ final class GroupBy extends AbstractOperation
     {
         return
             /**
-             * @psalm-param null|callable(TKey, T):(TKey|null) $callable
+             * @param null|callable(TKey, T):(TKey|null) $callable
              *
              * @return Closure(Iterator<TKey, T>): Generator<int, T|list<T>>
              */
@@ -36,32 +36,23 @@ final class GroupBy extends AbstractOperation
                 /** @psalm-var callable(T, TKey): (TKey|null) $callable */
                 $callable = $callable ??
                     /**
-                     * @param mixed $value
-                     * @psalm-param T $value
-                     *
-                     * @param mixed $key
-                     * @psalm-param TKey $key
-                     *
+                     * @param T $value
+                     * @param TKey $key
                      * @return TKey
                      */
                     static fn ($value, $key) => $key;
 
                 $reducerFactory =
                     /**
-                     * @psalm-param callable(T, TKey): (TKey|null) $callback
+                     * @param callable(T, TKey): (TKey|null) $callback
                      *
                      * @return Closure(array<TKey, T|list<T>>, T, TKey): array<TKey, T|list<T>>
                      */
                     static fn (callable $callback): Closure =>
                         /**
-                         * @psalm-param array<TKey, list<T>> $collect
-                         *
-                         * @param mixed $value
-                         * @psalm-param T $value
-                         *
-                         * @param mixed $key
-                         * @psalm-param TKey $key
-                         *
+                         * @param array<TKey, list<T>> $collect
+                         * @param T $value
+                         * @param TKey $key
                          * @return non-empty-array<TKey, T|list<T>>
                          */
                         static function (array $collect, $value, $key) use ($callback): array {

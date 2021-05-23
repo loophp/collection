@@ -28,20 +28,19 @@ final class Reduction extends AbstractOperation
     {
         return
             /**
-             * @psalm-param callable(T|null, T, TKey, Iterator<TKey, T>):(T|null) $callback
+             * @param callable(T|null, T, TKey, Iterator<TKey, T>):(T|null) $callback
              *
              * @return Closure(T|null): Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static fn (callable $callback): Closure =>
                 /**
-                 * @param mixed|null $initial
-                 * @psalm-param T|null $initial
+                 * @param T|null $initial
                  *
                  * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
                  */
                 static fn ($initial = null): Closure =>
                     /**
-                     * @psalm-param Iterator<TKey, T> $iterator
+                     * @param Iterator<TKey, T> $iterator
                      *
                      * @return Generator<TKey, T|null>
                      */

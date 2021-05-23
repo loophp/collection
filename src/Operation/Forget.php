@@ -28,18 +28,15 @@ final class Forget extends AbstractOperation
     {
         return
             /**
-             * @psalm-param TKey ...$keys
+             * @param TKey ...$keys
              *
              * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static function (...$keys): Closure {
                 $filterCallbackFactory = static fn (array $keys): Closure =>
                     /**
-                     * @param mixed $value
-                     * @psalm-param T $value
-                     *
-                     * @param mixed $key
-                     * @psalm-param TKey $key
+                     * @param T $value
+                     * @param TKey $key
                      */
                     static fn ($value, $key): bool => false === in_array($key, $keys, true);
 

@@ -26,11 +26,8 @@ final class Pack extends AbstractOperation
     {
         $mapCallback =
             /**
-             * @param mixed $value
-             * @psalm-param T $value
-             *
-             * @param mixed $key
-             * @psalm-param TKey $key
+             * @param T $value
+             * @param TKey $key
              *
              * @return array{0: TKey, 1: T}
              */

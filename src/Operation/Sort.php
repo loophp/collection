@@ -40,17 +40,14 @@ final class Sort extends AbstractOperation
                 static function (?callable $callback = null) use ($type): Closure {
                     $callback ??=
                     /**
-                     * @param mixed $left
-                     * @psalm-param T|TKey $left
-                     *
-                     * @param mixed $right
-                     * @psalm-param T|TKey $right
+                     * @param T|TKey $left
+                     * @param T|TKey $right
                      */
                     static fn ($left, $right): int => $left <=> $right;
 
                     return
                     /**
-                     * @psalm-param Iterator<TKey, T> $iterator
+                     * @param Iterator<TKey, T> $iterator
                      *
                      * @return Generator<TKey, T>
                      */
@@ -71,14 +68,14 @@ final class Sort extends AbstractOperation
 
                         $sortCallback =
                             /**
-                             * @psalm-param callable(T|TKey, T|TKey): int $callback
+                             * @param callable(T|TKey, T|TKey): int $callback
                              *
                              * @return Closure(array{0:TKey|T, 1:T|TKey, array{0:TKey|T, 1:T|TKey}): int
                              */
                             static fn (callable $callback): Closure =>
                                 /**
-                                 * @psalm-param array{0:TKey|T, 1:T|TKey} $left
-                                 * @psalm-param array{0:TKey|T, 1:T|TKey} $right
+                                 * @param array{0:TKey|T, 1:T|TKey} $left
+                                 * @param array{0:TKey|T, 1:T|TKey} $right
                                  */
                                 static fn (array $left, array $right): int => $callback($left[1], $right[1]);
 

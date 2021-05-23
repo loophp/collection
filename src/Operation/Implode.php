@@ -33,8 +33,7 @@ final class Implode extends AbstractOperation
             static function (string $glue): Closure {
                 $reducer =
                     /**
-                     * @param string $item
-                     * @psalm-param T|string $item
+                     * @param T|string $item
                      */
                     static fn (string $carry, $item): string => $carry .= $item;
 

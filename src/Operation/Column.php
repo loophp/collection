@@ -26,25 +26,20 @@ final class Column extends AbstractOperation
     {
         return
             /**
-             * @param mixed $column
-             * @psalm-param T $column
+             * @param T $column
              *
              * @return Closure(Iterator<TKey, T>): Generator<int, iterable<TKey, T>>
              */
             static function ($column): Closure {
                 $filterCallbackBuilder =
                     /**
-                     * @param mixed $column
-                     * @psalm-param T $column
+                     * @param T $column
                      */
                     static fn ($column): Closure =>
                         /**
-                         * @param mixed $value
-                         * @psalm-param T $value
-                         *
-                         * @param mixed $key
-                         * @psalm-param TKey $key
-                         * @psalm-param Iterator<TKey, T> $iterator
+                         * @param T $value
+                         * @param TKey $key
+                         * @param Iterator<TKey, T> $iterator
                          */
                         static fn ($value, $key, Iterator $iterator): bool => $key === $column;
 

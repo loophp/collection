@@ -26,26 +26,18 @@ final class Pair extends AbstractOperation
     {
         $callbackForKeys =
             /**
-             * @psalm-param T $initial
-             * @psalm-param TKey $key
-             * @psalm-param array{0: TKey, 1: T} $value
-             *
-             * @param mixed $initial
-             * @param mixed $key
-             *
+             * @param T $initial
+             * @param TKey $key
+             * @param array{0: TKey, 1: T} $value
              * @return T|TKey
              */
             static fn ($initial, $key, array $value) => $value[0];
 
         $callbackForValues =
             /**
-             * @psalm-param T $initial
-             * @psalm-param TKey $key
-             * @psalm-param array{0: TKey, 1: T} $value
-             *
-             * @param mixed $initial
-             * @param mixed $key
-             *
+             * @param T $initial
+             * @param TKey $key
+             * @param array{0: TKey, 1: T} $value
              * @return T|TKey
              */
             static fn ($initial, $key, array $value) => $value[1];
