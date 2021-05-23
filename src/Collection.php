@@ -421,6 +421,9 @@ final class Collection implements CollectionInterface
     public static function fromResource($resource): self
     {
         return new self(
+            /**
+             * @param resource $resource
+             */
             static fn ($resource): Iterator => new ResourceIterator($resource),
             $resource
         );

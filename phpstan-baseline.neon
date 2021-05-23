@@ -1,6 +1,11 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Parameter \\#1 \\.\\.\\.\\$callbacks of method loophp\\\\collection\\\\Collection\\<int,string\\>\\:\\:map\\(\\) expects callable\\(string, int, Iterator\\<int, string\\>\\)\\: mixed, Closure\\(array\\)\\: string given\\.$#"
+			count: 1
+			path: docs/pages/code/operations/since.php
+
+		-
 			message: "#^Method loophp\\\\collection\\\\Collection\\:\\:all\\(\\) should return array\\<TKey, T\\> but returns array\\.$#"
 			count: 1
 			path: src/Collection.php
