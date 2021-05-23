@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="4.7.2@83a0325c0a95c0ab531d6b90c877068b464377b5">
+  <file src="src/Collection.php">
+    <InvalidArgument occurrences="1">
+      <code>$this-&gt;source</code>
+    </InvalidArgument>
+    <InvalidReturnStatement occurrences="79">
+      <code>new self(Apply::of()(...$callables), $this-&gt;getIterator())</code>
+      <code>new self(Associate::of()($callbackForKeys ?? $defaultCallback)($callbackForValues ?? $defaultCallback), $this-&gt;getIterator())</code>
+      <code>new self(AsyncMap::of()(...$callbacks), $this-&gt;getIterator())</code>
+      <code>new self(Cache::of()($cache ?? new ArrayAdapter()), $this-&gt;getIterator())</code>
+      <code>new self(Coalesce::of(), $this-&gt;getIterator())</code>
+      <code>new self(Collapse::of(), $this-&gt;getIterator())</code>
+      <code>new self(Column::of()($column), $this-&gt;getIterator())</code>
+      <code>new self(Combinate::of()($length), $this-&gt;getIterator())</code>
+      <code>new self(Combine::of()(...$keys), $this-&gt;getIterator())</code>
+      <code>new self(Compact::of()(...$values), $this-&gt;getIterator())</code>
+      <code>new self(Cycle::of(), $this-&gt;getIterator())</code>
+      <code>new self(Diff::of()(...$values), $this-&gt;getIterator())</code>
+      <code>new self(DiffKeys::of()(...$values), $this-&gt;getIterator())</code>
+      <code>new self(Distinct::of(), $this-&gt;getIterator())</code>
+      <code>new self(Drop::of()(...$counts), $this-&gt;getIterator())</code>
+      <code>new self(DropWhile::of()(...$callbacks), $this-&gt;getIterator())</code>
+      <code>new self(Dump::of()($name)($size)($closure), $this-&gt;getIterator())</code>
+      <code>new self(Duplicate::of(), $this-&gt;getIterator())</code>
+      <code>new self(Every::of()(static fn (): bool =&gt; false)(...$callbacks), $this-&gt;getIterator())</code>
+      <code>new self(Filter::of()(...$callbacks), $this-&gt;getIterator())</code>
+      <code>new self(First::of(), $this-&gt;getIterator())</code>
+      <code>new self(Flatten::of()($depth), $this-&gt;getIterator())</code>
+      <code>new self(Flip::of(), $this-&gt;getIterator())</code>
+      <code>new self(FoldLeft1::of()($callback), $this-&gt;getIterator())</code>
+      <code>new self(FoldLeft::of()($callback)($initial), $this-&gt;getIterator())</code>
+      <code>new self(FoldRight1::of()($callback), $this-&gt;getIterator())</code>
+      <code>new self(Foldright::of()($callback)($initial), $this-&gt;getIterator())</code>
+      <code>new self(Forget::of()(...$keys), $this-&gt;getIterator())</code>
+      <code>new self(Frequency::of(), $this-&gt;getIterator())</code>
+      <code>new self(Get::of()($key)($default), $this-&gt;getIterator())</code>
+      <code>new self(Group::of(), $this-&gt;getIterator())</code>
+      <code>new self(GroupBy::of()($callable), $this-&gt;getIterator())</code>
+      <code>new self(Head::of(), $this-&gt;getIterator())</code>
+      <code>new self(IfThenElse::of()($condition)($then)($else ?? $identity), $this-&gt;getIterator())</code>
+      <code>new self(Init::of(), $this-&gt;getIterator())</code>
+      <code>new self(Inits::of(), $this-&gt;getIterator())</code>
+      <code>new self(Intersect::of()(...$values), $this-&gt;getIterator())</code>
+      <code>new self(IntersectKeys::of()(...$values), $this-&gt;getIterator())</code>
+      <code>new self(Intersperse::of()($element)($every)($startAt), $this-&gt;getIterator())</code>
+      <code>new self(Last::of(), $this-&gt;getIterator())</code>
+      <code>new self(Limit::of()($count)($offset), $this-&gt;getIterator())</code>
+      <code>new self(Lines::of(), $this-&gt;getIterator())</code>
+      <code>new self(Map::of()(...$callbacks), $this-&gt;getIterator())</code>
+      <code>new self(Merge::of()(...$sources), $this-&gt;getIterator())</code>
+      <code>new self(Nth::of()($step)($offset), $this-&gt;getIterator())</code>
+      <code>new self(Pair::of(), $this-&gt;getIterator())</code>
+      <code>new self(Permutate::of(), $this-&gt;getIterator())</code>
+      <code>new self(Pipe::of()(...$callables), $this-&gt;getIterator())</code>
+      <code>new self(Pluck::of()($pluck)($default), $this-&gt;getIterator())</code>
+      <code>new self(Product::of()(...$iterables), $this-&gt;getIterator())</code>
+      <code>new self(RSample::of()($probability), $this-&gt;getIterator())</code>
+      <code>new self(Random::of()($seed ?? random_int(PHP_INT_MIN, PHP_INT_MAX))($size), $this-&gt;getIterator())</code>
+      <code>new self(Reduction::of()($callback)($initial), $this-&gt;getIterator())</code>
+      <code>new self(Reverse::of(), $this-&gt;getIterator())</code>
+      <code>new self(Scale::of()($lowerBound)($upperBound)($wantedLowerBound)($wantedUpperBound)($base), $this-&gt;getIterator())</code>
+      <code>new self(ScanLeft1::of()($callback), $this-&gt;getIterator())</code>
+      <code>new self(ScanLeft::of()($callback)($initial), $this-&gt;getIterator())</code>
+      <code>new self(ScanRight1::of()($callback), $this-&gt;getIterator())</code>
+      <code>new self(ScanRight::of()($callback)($initial), $this-&gt;getIterator())</code>
+      <code>new self(Shuffle::of()($seed ?? random_int(PHP_INT_MIN, PHP_INT_MAX)), $this-&gt;getIterator())</code>
+      <code>new self(Since::of()(...$callbacks), $this-&gt;getIterator())</code>
+      <code>new self(Slice::of()($offset)($length), $this-&gt;getIterator())</code>
+      <code>new self(Sort::of()($type)($callback), $this-&gt;getIterator())</code>
+      <code>new self(Span::of()($callback), $this-&gt;getIterator())</code>
+      <code>new self(Split::of()($type)(...$callbacks), $this-&gt;getIterator())</code>
+      <code>new self(Tail::of(), $this-&gt;getIterator())</code>
+      <code>new self(TakeWhile::of()(...$callbacks), $this-&gt;getIterator())</code>
+      <code>new self(Transpose::of(), $this-&gt;getIterator())</code>
+      <code>new self(Unlines::of(), $this-&gt;getIterator())</code>
+      <code>new self(Unpack::of(), $this-&gt;getIterator())</code>
+      <code>new self(Until::of()(...$callbacks), $this-&gt;getIterator())</code>
+      <code>new self(Unwindow::of(), $this-&gt;getIterator())</code>
+      <code>new self(Unwords::of(), $this-&gt;getIterator())</code>
+      <code>new self(Unwrap::of(), $this-&gt;getIterator())</code>
+      <code>new self(Unzip::of(), $this-&gt;getIterator())</code>
+      <code>new self(Window::of()($size), $this-&gt;getIterator())</code>
+      <code>new self(Words::of(), $this-&gt;getIterator())</code>
+      <code>new self(Zip::of()(...$iterables), $this-&gt;getIterator())</code>
+      <code>self::empty()-&gt;pipe(Unfold::of()(...$parameters)($callback))</code>
+    </InvalidReturnStatement>
+    <InvalidReturnType occurrences="79">
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
+    </InvalidReturnType>
+  </file>
+  <file src="src/Contract/Operation/Associateable.php">
+    <InvalidTemplateParam occurrences="1">
+      <code>\loophp\collection\Collection&lt;TKey|T, T|TKey&gt;</code>
+    </InvalidTemplateParam>
+  </file>
+  <file src="src/Contract/Operation/Pairable.php">
+    <InvalidTemplateParam occurrences="1">
+      <code>\loophp\collection\Collection&lt;T|TKey, T&gt;</code>
+    </InvalidTemplateParam>
+  </file>
+  <file src="src/Iterator/RandomIterator.php">
+    <PossiblyNullArrayOffset occurrences="1">
+      <code>$this-&gt;indexes</code>
+    </PossiblyNullArrayOffset>
+  </file>
+</files>

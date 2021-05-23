@@ -13,6 +13,8 @@ use Generator;
 use InvalidArgumentException;
 use IteratorIterator;
 
+use function is_resource;
+
 /**
  * @internal
  *
@@ -25,11 +27,11 @@ use IteratorIterator;
 final class ResourceIterator extends ProxyIterator
 {
     /**
-     * @param resource $resource
+     * @param false|resource $resource
      */
-    public function __construct($resource)
+    public function __construct($resource, bool $closeResource = false)
     {
-        if ('stream' !== get_resource_type($resource)) {
+        if (!is_resource($resource) || 'stream' !== get_resource_type($resource)) {
             throw new InvalidArgumentException('Invalid resource type.');
         }
 
@@ -39,9 +41,15 @@ final class ResourceIterator extends ProxyIterator
              *
              * @psalm-return Generator<int, string>
              */
-            static function ($resource): Generator {
-                while (false !== $chunk = fgetc($resource)) {
-                    yield $chunk;
+            static function ($resource) use ($closeResource): Generator {
+                try {
+                    while (false !== $chunk = fgetc($resource)) {
+                        yield $chunk;
+                    }
+                } finally {
+                    if ($closeResource) {
+                        fclose($resource);
+                    }
                 }
             };
 

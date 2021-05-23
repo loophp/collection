@@ -21,6 +21,8 @@ use loophp\collection\Collection;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Operation\AbstractOperation;
 use OutOfBoundsException;
+use PhpSpec\Exception\Example\FailureException;
+use PhpSpec\Exception\Example\MatcherException;
 use PhpSpec\ObjectBehavior;
 use stdClass;
 use const INF;
@@ -86,7 +88,7 @@ class CollectionSpec extends ObjectBehavior
         ];
 
         if ($stack !== $expected) {
-            throw new Exception('The expected value does not match.');
+            throw new MatcherException('The expected value does not match.');
         }
 
         $stack = [];
@@ -107,7 +109,7 @@ class CollectionSpec extends ObjectBehavior
         ];
 
         if ($stack !== $expected) {
-            throw new Exception('The expected value does not match.');
+            throw new MatcherException('The expected value does not match.');
         }
 
         $stack = [];
@@ -138,7 +140,7 @@ class CollectionSpec extends ObjectBehavior
         ];
 
         if ($stack !== $expected) {
-            throw new Exception('The expected value does not match.');
+            throw new MatcherException('The expected value does not match.');
         }
 
         $stack = [];
@@ -175,7 +177,7 @@ class CollectionSpec extends ObjectBehavior
         ];
 
         if ($stack !== $expected) {
-            throw new Exception('The expected value does not match.');
+            throw new MatcherException('The expected value does not match.');
         }
     }
 
@@ -838,7 +840,7 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs($input);
 
         if (5 !== $count) {
-            throw new Exception('Invalid count1');
+            throw new FailureException('Invalid count1');
         }
 
         $count = 0;
@@ -852,7 +854,7 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs($input);
 
         if (0 !== $count) {
-            throw new Exception('Invalid count2');
+            throw new FailureException('Invalid count2');
         }
 
         $callback = static function (string $name, $key, $value) use (&$count) {
@@ -864,7 +866,7 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs($input);
 
         if (2 !== $count) {
-            throw new Exception('Invalid count3');
+            throw new FailureException('Invalid count3');
         }
 
         ob_start();
@@ -901,7 +903,7 @@ class CollectionSpec extends ObjectBehavior
         var_dump('------');
 
         if ($expectedOutput !== $output) {
-            throw new Exception('Invalid output');
+            throw new MatcherException('Invalid output');
         }
     }
 
