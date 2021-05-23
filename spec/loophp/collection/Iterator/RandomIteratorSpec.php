@@ -11,8 +11,8 @@ namespace spec\loophp\collection\Iterator;
 
 use ArrayIterator;
 use BadMethodCallException;
-use Exception;
 use loophp\collection\Iterator\RandomIterator;
+use PhpSpec\Exception\Example\MatcherException;
 use PhpSpec\ObjectBehavior;
 
 class RandomIteratorSpec extends ObjectBehavior
@@ -57,14 +57,14 @@ class RandomIteratorSpec extends ObjectBehavior
         ];
 
         if (iterator_to_array($this->getWrappedObject()) !== $expected) {
-            throw new Exception('Iterator is not equal to the expected array.');
+            throw new MatcherException('Iterator is not equal to the expected array.');
         }
 
         $iterator1 = new RandomIterator(new ArrayIterator(range('a', 'z')), $seed);
         $iterator2 = new RandomIterator(new ArrayIterator(range('a', 'z')), $seed + $seed);
 
         if (iterator_to_array($iterator1) === iterator_to_array($iterator2)) {
-            throw new Exception('Iterator1 is equal to Iterator2');
+            throw new MatcherException('Iterator1 is equal to Iterator2');
         }
     }
 
@@ -76,7 +76,7 @@ class RandomIteratorSpec extends ObjectBehavior
         $iterator1 = new RandomIterator(new ArrayIterator(range('a', 'z')));
 
         if (iterator_to_array($iterator1) === iterator_to_array($this->getWrappedObject())) {
-            throw new Exception('Iterator1 is equal to Iterator2');
+            throw new MatcherException('Iterator1 is equal to Iterator2');
         }
     }
 
