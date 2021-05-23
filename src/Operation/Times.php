@@ -37,7 +37,7 @@ final class Times extends AbstractOperation
                  */
                 static fn (?callable $callback = null): Closure =>
                     /**
-                     * @psalm-param null|Iterator<TKey, T> $iterator
+                     * @param null|Iterator<TKey, T> $iterator
                      *
                      * @return Generator<int, int|T>
                      */

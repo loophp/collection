@@ -26,8 +26,8 @@ final class Unzip extends AbstractOperation
     {
         $reduceCallback =
             /**
-             * @psalm-param array<int, list<T>> $carry
-             * @psalm-param iterable<TKey, T> $value
+             * @param array<int, list<T>> $carry
+             * @param iterable<TKey, T> $value
              *
              * @return array<int, list<T>>
              */
@@ -41,7 +41,7 @@ final class Unzip extends AbstractOperation
                 return $carry;
             };
 
-        /** @psalm-var Closure(Iterator<TKey, list<T>>): Generator<int, list<T>> $pipe */
+        /** @var Closure(Iterator<TKey, list<T>>): Generator<int, list<T>> $pipe */
         $pipe = Pipe::of()(
             FoldLeft::of()($reduceCallback)([]),
             Unwrap::of()

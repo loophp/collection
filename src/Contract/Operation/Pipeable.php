@@ -20,7 +20,7 @@ use loophp\collection\Contract\Collection;
 interface Pipeable
 {
     /**
-     * @psalm-param callable(Iterator<TKey, T>): Generator<TKey, T> ...$callables
+     * @param callable(Iterator<TKey, T>): Generator<TKey, T> ...$callables
      *
      * @return \loophp\collection\Collection<TKey, T>
      */

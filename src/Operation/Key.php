@@ -29,7 +29,7 @@ final class Key extends AbstractOperation
              * @return Closure(Iterator<TKey, T>): Generator<int, TKey>
              */
             static function (int $index): Closure {
-                /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, TKey> $pipe */
+                /** @var Closure(Iterator<TKey, T>): Generator<int, TKey> $pipe */
                 $pipe = Pipe::of()(
                     Limit::of()(1)($index),
                     Flip::of()

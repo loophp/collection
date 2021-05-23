@@ -24,7 +24,7 @@ final class First extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $head */
+        /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $head */
         $head = Head::of();
 
         // Point free style.

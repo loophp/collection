@@ -24,7 +24,7 @@ final class Keys extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, TKey> $pipe */
+        /** @var Closure(Iterator<TKey, T>): Generator<int, TKey> $pipe */
         $pipe = Pipe::of()(
             Flip::of(),
             Normalize::of()

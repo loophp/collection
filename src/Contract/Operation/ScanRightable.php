@@ -18,7 +18,7 @@ use loophp\collection\Contract\Collection;
 interface ScanRightable
 {
     /**
-     * @psalm-param T|null $initial
+     * @param T|null $initial
      *
      * @return \loophp\collection\Collection<TKey, T>
      */

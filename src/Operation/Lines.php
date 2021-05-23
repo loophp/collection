@@ -28,11 +28,11 @@ final class Lines extends AbstractOperation
     {
         $mapCallback =
             /**
-             * @psalm-param T $value
+             * @param T $value
              */
             static fn (array $value): string => implode('', $value);
 
-        /** @psalm-var Closure(Iterator<TKey, (T|string)>): Generator<int, string> $pipe */
+        /** @var Closure(Iterator<TKey, (T|string)>): Generator<int, string> $pipe */
         $pipe = Pipe::of()(
             Explode::of()(PHP_EOL, "\n", "\r\n"),
             Map::of()($mapCallback)

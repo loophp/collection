@@ -19,8 +19,8 @@ use loophp\collection\Contract\Collection;
 interface Matchable
 {
     /**
-     * @psalm-param callable(T, TKey, Iterator<TKey, T>): bool $callback
-     * @psalm-param null|callable(T, TKey, Iterator<TKey, T>): T $matcher
+     * @param callable(T, TKey, Iterator<TKey, T>): bool $callback
+     * @param null|callable(T, TKey, Iterator<TKey, T>): T $matcher
      *
      * @return \loophp\collection\Collection<int, bool>
      */

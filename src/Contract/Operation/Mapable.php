@@ -22,7 +22,7 @@ interface Mapable
     /**
      * Apply one or more callbacks to a collection and use the return value.
      *
-     * @psalm-param callable(T, TKey, Iterator<TKey, T>): V ...$callbacks
+     * @param callable(T, TKey, Iterator<TKey, T>): V ...$callbacks
      *
      * @return \loophp\collection\Collection<TKey, V>
      */

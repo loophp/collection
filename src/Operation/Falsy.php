@@ -36,7 +36,7 @@ final class Falsy extends AbstractOperation
              */
             static fn ($value): bool => !(bool) $value;
 
-        /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, bool> $pipe */
+        /** @var Closure(Iterator<TKey, T>): Generator<int, bool> $pipe */
         $pipe = Pipe::of()(
             MatchOne::of()(static fn (): bool => true)($matchCallback),
             Map::of()($mapCallback),

@@ -33,7 +33,7 @@ final class GroupBy extends AbstractOperation
              * @return Closure(Iterator<TKey, T>): Generator<int, T|list<T>>
              */
             static function (?callable $callable = null): Closure {
-                /** @psalm-var callable(T, TKey): (TKey|null) $callable */
+                /** @var callable(T, TKey): (TKey|null) $callable */
                 $callable = $callable ??
                     /**
                      * @param T $value
@@ -65,7 +65,7 @@ final class GroupBy extends AbstractOperation
                             return $collect;
                         };
 
-                /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, list<T>> $pipe */
+                /** @var Closure(Iterator<TKey, T>): Generator<int, list<T>> $pipe */
                 $pipe = Pipe::of()(
                     FoldLeft::of()($reducerFactory($callable))([]),
                     Unwrap::of()

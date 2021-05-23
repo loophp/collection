@@ -45,7 +45,7 @@ final class Unpack extends AbstractOperation
              */
             static fn ($initial, int $key, array $value) => $value[1];
 
-        /** @psalm-var Closure(Iterator<int, array{0: TKey, 1: T}>): Generator<T, T> $pipe */
+        /** @var Closure(Iterator<int, array{0: TKey, 1: T}>): Generator<T, T> $pipe */
         $pipe = Pipe::of()(
             Map::of()($toIterableIterator, Chunk::of()(2)),
             Unwrap::of(),

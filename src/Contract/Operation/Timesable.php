@@ -20,7 +20,7 @@ interface Timesable
      * @template TKey of array-key
      * @template T
      *
-     * @psalm-param null|callable(int): (int|T) $callback
+     * @param null|callable(int): (int|T) $callback
      *
      * @return \loophp\collection\Collection<int, int|T>
      */

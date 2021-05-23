@@ -40,7 +40,7 @@ final class DiffKeys extends AbstractOperation
                      */
                     static fn ($value, $key): bool => false === in_array($key, $values, true);
 
-                /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $filter */
+                /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $filter */
                 $filter = Filter::of()($filterCallbackFactory($values));
 
                 // Point free style.

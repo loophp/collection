@@ -79,7 +79,7 @@ final class Sort extends AbstractOperation
                                  */
                                 static fn (array $left, array $right): int => $callback($left[1], $right[1]);
 
-                        /** @psalm-var callable(Iterator<TKey, T>): Generator<int, array{0:TKey, 1:T}> | callable(Iterator<TKey, T>): Generator<int, array{0:T, 1:TKey}> $before */
+                        /** @var callable(Iterator<TKey, T>): Generator<int, array{0:TKey, 1:T}> | callable(Iterator<TKey, T>): Generator<int, array{0:T, 1:TKey}> $before */
                         $before = Pipe::of()(...$operations['before']);
 
                         $arrayIterator = new ArrayIterator([...$before($iterator)]);

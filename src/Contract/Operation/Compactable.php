@@ -20,7 +20,7 @@ interface Compactable
     /**
      * Combine a collection of items with some other keys.
      *
-     * @psalm-param T ...$values
+     * @param T ...$values
      *
      * @return \loophp\collection\Collection<TKey, T>
      */

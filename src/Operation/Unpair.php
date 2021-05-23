@@ -26,7 +26,7 @@ final class Unpair extends AbstractOperation
     {
         return
             /**
-             * @psalm-param Iterator<TKey, T> $iterator
+             * @param Iterator<TKey, T> $iterator
              *
              * @return Generator<int, array{TKey, T}>
              */

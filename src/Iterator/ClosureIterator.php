@@ -23,17 +23,31 @@ final class ClosureIterator extends ProxyIterator
 {
     /**
      * @var array<int, mixed>
+<<<<<<< HEAD
+=======
+     * @var list<mixed>
+>>>>>>> 4fe57bd9... Replace @psalm-var with @var.
      */
     private array $arguments;
 
     /**
+<<<<<<< HEAD
      * @var callable(mixed ...$parameters): iterable<TKey, T>
+=======
+     * @var callable
+     * @var callable(mixed ...):Generator<TKey, T>
+>>>>>>> 4fe57bd9... Replace @psalm-var with @var.
      */
     private $callable;
 
     /**
+<<<<<<< HEAD
      * @param callable(mixed ...$parameters): iterable<TKey, T> $callable
      * @param mixed ...$arguments
+=======
+     * @param mixed ...$arguments
+     * @param callable(mixed ...):Generator<TKey, T> $callable
+>>>>>>> 4fe57bd9... Replace @psalm-var with @var.
      */
     public function __construct(callable $callable, ...$arguments)
     {

@@ -24,7 +24,7 @@ final class Unwords extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        /** @psalm-var Closure(Iterator<TKey, (T | string)>): Generator<TKey, string> $implode */
+        /** @var Closure(Iterator<TKey, (T | string)>): Generator<TKey, string> $implode */
         $implode = Implode::of()(' ');
 
         // Point free style.

@@ -33,7 +33,7 @@ final class Cache extends AbstractOperation
              */
             static fn (CacheItemPoolInterface $cache): Closure =>
                 /**
-                 * @psalm-param Iterator<TKey, T> $iterator
+                 * @param Iterator<TKey, T> $iterator
                  *
                  * @return Iterator<TKey, T>
                  */

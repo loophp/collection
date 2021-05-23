@@ -43,7 +43,7 @@ final class Column extends AbstractOperation
                          */
                         static fn ($value, $key, Iterator $iterator): bool => $key === $column;
 
-                /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, iterable<TKey, T>> $pipe */
+                /** @var Closure(Iterator<TKey, T>): Generator<int, iterable<TKey, T>> $pipe */
                 $pipe = Pipe::of()(
                     Transpose::of(),
                     Filter::of()($filterCallbackBuilder($column)),

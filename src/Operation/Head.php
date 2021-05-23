@@ -27,7 +27,7 @@ final class Head extends AbstractOperation
     {
         return
             /**
-             * @psalm-param Iterator<TKey, T> $iterator
+             * @param Iterator<TKey, T> $iterator
              *
              * @return Generator<TKey, T, mixed, EmptyIterator|void>
              */
@@ -45,8 +45,8 @@ final class Head extends AbstractOperation
                 }
 
                 /**
-                 * @psalm-var TKey $key
-                 * @psalm-var T $current
+                 * @var TKey $key
+                 * @var T $current
                  */
                 return yield $key => $current;
             };

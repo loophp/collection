@@ -84,7 +84,7 @@ final class AsyncMap extends AbstractOperation
                     $iter = map(fromIterable(Pack::of()($iterator)), new LocalSemaphore(32), parallel($callback));
 
                     while (wait($iter->advance())) {
-                        /** @psalm-var array{0: TKey, 1: T} $item */
+                        /** @var array{0: TKey, 1: T} $item */
                         $item = $iter->getCurrent();
 
                         yield $item[0] => $item[1];

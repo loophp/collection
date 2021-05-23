@@ -34,12 +34,12 @@ final class Chunk extends AbstractOperation
              */
             static fn (int ...$sizes): Closure =>
                 /**
-                 * @psalm-param Iterator<TKey, T> $iterator
+                 * @param Iterator<TKey, T> $iterator
                  *
                  * @return Generator<int, list<T>>
                  */
                 static function (Iterator $iterator) use ($sizes): Generator {
-                    /** @psalm-var Iterator<int, int> $sizesIterator */
+                    /** @var Iterator<int, int> $sizesIterator */
                     $sizesIterator = Cycle::of()(new ArrayIterator($sizes));
                     $sizesIterator->rewind();
 

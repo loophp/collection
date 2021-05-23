@@ -137,17 +137,17 @@ use const PHP_INT_MIN;
 final class Collection implements CollectionInterface
 {
     /**
-     * @var array<int, mixed>
+     * @var list<mixed>
      */
     private array $parameters;
 
     /**
-     * @var callable(mixed ...$parameters): iterable<TKey, T>
+     * @var callable(...mixed): (\Generator<TKey, T>|Iterator<TKey, T>)
      */
     private $source;
 
     /**
-     * @param callable(mixed ...$parameters): iterable<TKey, T> $callable
+     * @param callable(...mixed): Iterator<TKey, T> $callable
      * @param mixed ...$parameters
      */
     public function __construct(callable $callable, ...$parameters)
@@ -177,7 +177,7 @@ final class Collection implements CollectionInterface
     ): CollectionInterface {
         $defaultCallback =
             /**
-             * @psalm-param T|TKey $carry
+             * @param T|TKey $carry
              *
              * @return T|TKey
              */
@@ -393,13 +393,13 @@ final class Collection implements CollectionInterface
      * @template NewTKey of array-key
      * @template NewT
      *
-     * @psalm-param iterable<NewTKey, NewT> $iterable
+     * @param iterable<NewTKey, NewT> $iterable
      */
     public static function fromIterable(iterable $iterable): self
     {
         return new self(
             /**
-             * @psalm-param iterable<TKey, T> $iterable
+             * @param iterable<TKey, T> $iterable
              *
              * @return Iterator<TKey, T>
              */
@@ -473,7 +473,7 @@ final class Collection implements CollectionInterface
     {
         $identity =
             /**
-             * @psalm-param T $value
+             * @param T $value
              *
              * @return T
              */

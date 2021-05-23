@@ -78,7 +78,7 @@ final class MatchOne extends AbstractOperation
                                      */
                                     static fn ($value, $key, Iterator $iterator): bool => $reducer1($value, $key, $iterator) === $reducer2($value, $key, $iterator);
 
-                        /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey|int, bool> $pipe */
+                        /** @var Closure(Iterator<TKey, T>): Generator<TKey|int, bool> $pipe */
                         $pipe = Pipe::of()(
                             Map::of()($mapCallback($callbackReducer($callbacks))($callbackReducer($matchers))),
                             DropWhile::of()(static fn (bool $value): bool => false === $value),

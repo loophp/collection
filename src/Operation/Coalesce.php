@@ -22,7 +22,7 @@ final class Coalesce extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        /** @psalm-var Closure(\Iterator<TKey, T>): \Generator<TKey, T> $pipe */
+        /** @var Closure(\Iterator<TKey, T>): \Generator<TKey, T> $pipe */
         $pipe = Pipe::of()(
             Compact::of()(),
             Head::of(),

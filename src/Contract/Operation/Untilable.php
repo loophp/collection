@@ -18,7 +18,7 @@ use loophp\collection\Contract\Collection;
 interface Untilable
 {
     /**
-     * @psalm-param callable(T, TKey):bool ...$callbacks
+     * @param callable(T, TKey):bool ...$callbacks
      *
      * @return \loophp\collection\Collection<TKey, T>
      */

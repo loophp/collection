@@ -37,12 +37,12 @@ final class RandomIterator extends ProxyIterator
     private int $seed;
 
     /**
-     * @psalm-var Iterator<TKey, T>
+     * @var Iterator<TKey, T>
      */
     private Iterator $wrappedIterator;
 
     /**
-     * @psalm-param Iterator<TKey, T> $iterator
+     * @param Iterator<TKey, T> $iterator
      */
     public function __construct(Iterator $iterator, ?int $seed = null)
     {

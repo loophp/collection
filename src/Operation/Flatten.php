@@ -31,7 +31,7 @@ final class Flatten extends AbstractOperation
              */
             static fn (int $depth): Closure =>
                 /**
-                 * @psalm-param Iterator<TKey, T> $iterator
+                 * @param Iterator<TKey, T> $iterator
                  */
                 static function (Iterator $iterator) use ($depth): Generator {
                     foreach ($iterator as $key => $value) {
@@ -42,7 +42,7 @@ final class Flatten extends AbstractOperation
                         }
 
                         if (1 !== $depth) {
-                            /** @psalm-var callable(Iterator<TKey, T>): Generator<TKey, T> $flatten */
+                            /** @var callable(Iterator<TKey, T>): Generator<TKey, T> $flatten */
                             $flatten = Flatten::of()($depth - 1);
 
                             $value = $flatten(new IterableIterator($value));

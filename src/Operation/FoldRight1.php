@@ -28,12 +28,12 @@ final class FoldRight1 extends AbstractOperation
     {
         return
             /**
-             * @psalm-param callable(T|null, T, TKey, Iterator<TKey, T>):(T|null) $callback
+             * @param callable(T|null, T, TKey, Iterator<TKey, T>):(T|null) $callback
              *
              * @return Closure(Iterator<TKey, T>): Generator<int|TKey, T|null>
              */
             static function (callable $callback): Closure {
-                /** @psalm-var Closure(Iterator<TKey, T>):(Generator<int|TKey, T|null>) $pipe */
+                /** @var Closure(Iterator<TKey, T>):(Generator<int|TKey, T|null>) $pipe */
                 $pipe = Pipe::of()(
                     ScanRight1::of()($callback),
                     Head::of()

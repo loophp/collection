@@ -26,7 +26,7 @@ final class Last extends AbstractOperation
     {
         return
             /**
-             * @psalm-param Iterator<TKey, T> $iterator
+             * @param Iterator<TKey, T> $iterator
              *
              * @return Iterator<TKey, T>
              */
@@ -42,8 +42,8 @@ final class Last extends AbstractOperation
                 }
 
                 /**
-                 * @psalm-var TKey $key
-                 * @psalm-var T $current
+                 * @var TKey $key
+                 * @var T $current
                  */
                 return yield $key => $current;
             };

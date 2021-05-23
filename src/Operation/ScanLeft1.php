@@ -28,20 +28,20 @@ final class ScanLeft1 extends AbstractOperation
     {
         return
             /**
-             * @psalm-param callable(T|null, T, TKey, Iterator<TKey, T>):(T|null) $callback
+             * @param callable(T|null, T, TKey, Iterator<TKey, T>):(T|null) $callback
              *
              * @return Closure(Iterator<TKey, T>): Generator<int|TKey, T|null>
              */
             static fn (callable $callback): Closure =>
                 /**
-                 * @psalm-param Iterator<TKey, T> $iterator
+                 * @param Iterator<TKey, T> $iterator
                  *
                  * @return Generator<int|TKey, T|null>
                  */
                 static function (Iterator $iterator) use ($callback): Iterator {
                     $initial = $iterator->current();
 
-                    /** @psalm-var Closure(Iterator<TKey, T>):(Generator<int|TKey, T|null>) $pipe */
+                    /** @var Closure(Iterator<TKey, T>):(Generator<int|TKey, T|null>) $pipe */
                     $pipe = Pipe::of()(
                         Tail::of(),
                         Reduction::of()($callback)($initial),

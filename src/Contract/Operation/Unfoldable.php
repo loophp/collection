@@ -18,8 +18,8 @@ interface Unfoldable
      * @template TKey of array-key
      * @template T
      *
-     * @psalm-param callable(mixed|T...): (mixed|array<TKey, T>) $callback
-     * @psalm-param T ...$parameters
+     * @param callable(mixed|T...): (mixed|array<TKey, T>) $callback
+     * @param T ...$parameters
      *
      * @return \loophp\collection\Collection<TKey, T>
      */

@@ -26,11 +26,11 @@ final class Words extends AbstractOperation
     {
         $mapCallback =
             /**
-             * @psalm-param list<string> $value
+             * @param list<string> $value
              */
             static fn (array $value): string => implode('', $value);
 
-        /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, string> $pipe */
+        /** @var Closure(Iterator<TKey, T>): Generator<TKey, string> $pipe */
         $pipe = Pipe::of()(
             Explode::of()("\t", "\n", ' '),
             Map::of()($mapCallback),

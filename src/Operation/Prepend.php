@@ -26,13 +26,13 @@ final class Prepend extends AbstractOperation
     {
         return
             /**
-             * @psalm-param T ...$items
+             * @param T ...$items
              *
              * @return Closure(Iterator<TKey, T>): Iterator<int|TKey, T>
              */
             static fn (...$items): Closure =>
                 /**
-                 * @psalm-param Iterator<TKey, T> $iterator
+                 * @param Iterator<TKey, T> $iterator
                  *
                  * @return Iterator<int|TKey, T>
                  */

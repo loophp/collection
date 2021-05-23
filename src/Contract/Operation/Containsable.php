@@ -18,7 +18,7 @@ use loophp\collection\Contract\Collection;
 interface Containsable
 {
     /**
-     * @psalm-param T ...$value
+     * @param T ...$value
      *
      * @return \loophp\collection\Collection<int, bool>
      */

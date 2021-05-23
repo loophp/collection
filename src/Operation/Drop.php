@@ -30,7 +30,7 @@ final class Drop extends AbstractOperation
              */
             static fn (int ...$offsets): Closure =>
                 /**
-                 * @psalm-param Iterator<TKey, T> $iterator
+                 * @param Iterator<TKey, T> $iterator
                  *
                  * @return Iterator<TKey, T>
                  */

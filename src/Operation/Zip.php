@@ -29,13 +29,13 @@ final class Zip extends AbstractOperation
     {
         return
             /**
-             * @psalm-param iterable<TKey, T> ...$iterables
+             * @param iterable<TKey, T> ...$iterables
              *
              * @return Closure(Iterator<TKey, T>): Iterator<list<TKey>, list<T>>
              */
             static fn (iterable ...$iterables): Closure =>
                 /**
-                 * @psalm-param Iterator<TKey, T>: Iterator<list<TKey>, list<T>>
+                 * @param Iterator<TKey, T>: Iterator<list<TKey>, list<T>>
                  *
                  * @return Iterator<list<TKey>, list<T>>
                  */

@@ -44,7 +44,7 @@ final class Get extends AbstractOperation
                          */
                         static fn ($value, $key): bool => $key === $keyToGet;
 
-                    /** @psalm-var Closure(Iterator<TKey, T>):(Generator<int|TKey, T>) $pipe */
+                    /** @var Closure(Iterator<TKey, T>):(Generator<int|TKey, T>) $pipe */
                     $pipe = Pipe::of()(
                         Filter::of()($filterCallback),
                         Append::of()($default),

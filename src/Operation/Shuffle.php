@@ -30,7 +30,7 @@ final class Shuffle extends AbstractOperation
              */
             static fn (int $seed): Closure =>
                 /**
-                 * @psalm-param Iterator<TKey, T> $iterator
+                 * @param Iterator<TKey, T> $iterator
                  *
                  * @return Iterator<TKey, T>
                  */

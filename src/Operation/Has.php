@@ -33,7 +33,7 @@ final class Has extends AbstractOperation
              * @return Closure(Iterator<TKey, T>): Generator<int|TKey, bool>
              */
             static function (callable ...$callbacks): Closure {
-                /** @psalm-var Closure(Iterator<TKey, T>): Generator<int|TKey, bool> $pipe */
+                /** @var Closure(Iterator<TKey, T>): Generator<int|TKey, bool> $pipe */
                 $pipe = MatchOne::of()(static fn (): bool => true)(
                     ...array_map(
                         static fn (callable $callback): callable =>

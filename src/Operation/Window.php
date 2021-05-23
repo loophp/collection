@@ -32,7 +32,7 @@ final class Window extends AbstractOperation
              */
             static fn (int $size): Closure =>
                 /**
-                 * @psalm-param Iterator<TKey, T> $iterator
+                 * @param Iterator<TKey, T> $iterator
                  *
                  * @return Generator<TKey, list<T>|T>
                  */

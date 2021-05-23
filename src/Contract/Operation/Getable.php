@@ -20,9 +20,9 @@ interface Getable
     /**
      * Get an item by key.
      *
-     * @psalm-param TKey $key
+     * @param TKey $key
      *
-     * @psalm-param T|null $default
+     * @param T|null $default
      *
      * @return \loophp\collection\Collection<TKey, T|null>
      */

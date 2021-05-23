@@ -42,7 +42,7 @@ final class Pair extends AbstractOperation
              */
             static fn ($initial, $key, array $value) => $value[1];
 
-        /** @psalm-var Closure(Iterator<TKey, T>): Generator<T|TKey, T> $pipe */
+        /** @var Closure(Iterator<TKey, T>): Generator<T|TKey, T> $pipe */
         $pipe = Pipe::of()(
             Chunk::of()(2),
             Map::of()(

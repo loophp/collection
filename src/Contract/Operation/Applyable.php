@@ -20,7 +20,7 @@ interface Applyable
     /**
      * Execute a callback for each element of the collection.
      *
-     * @psalm-param callable(TKey, T):bool ...$callables
+     * @param callable(TKey, T):bool ...$callables
      *
      * @return \loophp\collection\Collection<TKey, T>
      */

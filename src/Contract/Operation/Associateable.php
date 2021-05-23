@@ -19,8 +19,8 @@ use loophp\collection\Contract\Collection;
 interface Associateable
 {
     /**
-     * @psalm-param null|callable(TKey, TKey, T, Iterator<TKey, T>):(T|TKey) $callbackForKeys
-     * @psalm-param null|callable(T, TKey, T, Iterator<TKey, T>):(T|TKey) $callbackForValues
+     * @param null|callable(TKey, TKey, T, Iterator<TKey, T>):(T|TKey) $callbackForKeys
+     * @param null|callable(T, TKey, T, Iterator<TKey, T>):(T|TKey) $callbackForValues
      *
      * @return \loophp\collection\Collection<T|TKey, T|TKey>
      */

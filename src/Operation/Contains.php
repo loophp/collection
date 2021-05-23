@@ -26,22 +26,22 @@ final class Contains extends AbstractOperation
     {
         return
             /**
-             * @psalm-param T ...$values
+             * @param T ...$values
              *
              * @return Closure(Iterator<TKey, T>): Generator<int, bool>
              */
             static function (...$values): Closure {
                 $callback =
                     /**
-                     * @psalm-param T $left
+                     * @param T $left
                      */
                     static fn ($left): Closure =>
                         /**
-                         * @psalm-param T $right
+                         * @param T $right
                          */
                         static fn ($right): bool => $left === $right;
 
-                /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, bool> $matchOne */
+                /** @var Closure(Iterator<TKey, T>): Generator<int, bool> $matchOne */
                 $matchOne = MatchOne::of()(static fn (): bool => true)(...array_map($callback, $values));
 
                 // Point free style.

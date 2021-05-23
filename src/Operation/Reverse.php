@@ -30,15 +30,15 @@ final class Reverse extends AbstractOperation
     {
         $callback =
             /**
-             * @psalm-param list<array{0: TKey, 1: T}> $carry
+             * @param list<array{0: TKey, 1: T}> $carry
              *
-             * @psalm-param list<array{0: TKey, 1: T}> $value
+             * @param list<array{0: TKey, 1: T}> $value
              *
              * @return list<array{0: TKey, 1: T}>
              */
             static fn (array $carry, array $value): array => [...$value, ...$carry];
 
-        /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
+        /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
         $pipe = Pipe::of()(
             Pack::of(),
             Wrap::of(),

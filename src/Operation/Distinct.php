@@ -26,9 +26,9 @@ final class Distinct extends AbstractOperation
     {
         $foldLeftCallback =
             /**
-             * @psalm-param list<array{0: TKey, 1: T}> $seen
+             * @param list<array{0: TKey, 1: T}> $seen
              *
-             * @psalm-param array{0: TKey, 1: T} $value
+             * @param array{0: TKey, 1: T} $value
              */
             static function (array $seen, array $value): array {
                 $isSeen = false;
@@ -48,7 +48,7 @@ final class Distinct extends AbstractOperation
                 return $seen;
             };
 
-        /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
+        /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
         $pipe = Pipe::of()(
             Pack::of(),
             FoldLeft::of()($foldLeftCallback)([]),

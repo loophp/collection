@@ -26,7 +26,7 @@ final class Normalize extends AbstractOperation
     {
         return
             /**
-             * @psalm-param Iterator<TKey, T> $iterator
+             * @param Iterator<TKey, T> $iterator
              *
              * @return Generator<int, T, mixed, void>
              */

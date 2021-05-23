@@ -21,9 +21,9 @@ interface FoldRightable
     /**
      * Fold the collection from the right to the left.
      *
-     * @psalm-param callable(T, T, TKey, Iterator<TKey, T>): T $callback
+     * @param callable(T, T, TKey, Iterator<TKey, T>): T $callback
      *
-     * @psalm-param T|null $initial
+     * @param T|null $initial
      *
      * @return \loophp\collection\Collection<TKey, T|null>
      */

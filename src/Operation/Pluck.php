@@ -70,30 +70,30 @@ final class Pluck extends AbstractOperation
                                             return $default;
                                         }
 
-                                        /** @psalm-var array<int, T> $result */
+                                        /** @var array<int, T> $result */
                                         $result = [];
 
                                         foreach ($target as $item) {
                                             $result[] = $pick($iterator, $item, $key);
                                         }
 
-                                        /** @psalm-var Generator<TKey, T> $collapse */
+                                        /** @var Generator<TKey, T> $collapse */
                                         $collapse = Collapse::of()(new ArrayIterator($result));
 
                                         return in_array('*', $key, true) ? $collapse : $result;
                                     }
 
                                     if ((true === is_array($target)) && (true === array_key_exists($segment, $target))) {
-                                        /** @psalm-var T $target */
+                                        /** @var T $target */
                                         $target = $target[$segment];
                                     } elseif (($target instanceof ArrayAccess) && (true === $target->offsetExists($segment))) {
-                                        /** @psalm-var T $target */
+                                        /** @var T $target */
                                         $target = $target[$segment];
                                     } elseif ($target instanceof Collection) {
-                                        /** @psalm-var T $target */
+                                        /** @var T $target */
                                         $target = (Get::of()($segment)($default)($target->getIterator()))->current();
                                     } elseif ((true === is_object($target)) && (true === property_exists($target, $segment))) {
-                                        /** @psalm-var T $target */
+                                        /** @var T $target */
                                         $target = (new ReflectionClass($target))->getProperty($segment)->getValue($target);
                                     } else {
                                         $target = $default;

@@ -28,13 +28,13 @@ final class Apply extends AbstractOperation
     {
         return
             /**
-             * @psalm-param callable(T, TKey, Iterator<TKey, T>):bool ...$callbacks
+             * @param callable(T, TKey, Iterator<TKey, T>):bool ...$callbacks
              *
              * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static fn (callable ...$callbacks): Closure =>
                 /**
-                 * @psalm-param Iterator<TKey, T> $iterator
+                 * @param Iterator<TKey, T> $iterator
                  *
                  * @return Generator<TKey, T>
                  */

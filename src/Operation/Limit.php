@@ -36,7 +36,7 @@ final class Limit extends AbstractOperation
                  */
                 static fn (int $offset = 0): Closure =>
                     /**
-                     * @psalm-param Iterator<TKey, T> $iterator
+                     * @param Iterator<TKey, T> $iterator
                      *
                      * @return Iterator<TKey, T>
                      */

@@ -51,7 +51,7 @@ final class Scale extends AbstractOperation
                             static function (float $base = 0.0) use ($lowerBound, $upperBound, $wantedLowerBound, $wantedUpperBound): Closure {
                                 $wantedLowerBound = (0.0 === $wantedLowerBound) ? (0.0 === $base ? 0.0 : 1.0) : $wantedLowerBound;
                                 $wantedUpperBound = (1.0 === $wantedUpperBound) ? (0.0 === $base ? 1.0 : $base) : $wantedUpperBound;
-                                /** @psalm-var callable(Generator<TKey, (float | int)>):Generator<TKey, float> $mapper */
+                                /** @var callable(Generator<TKey, (float | int)>):Generator<TKey, float> $mapper */
                                 $mapper = Map::of()(
                                     /**
                                      * @param float|int $v
@@ -67,7 +67,7 @@ final class Scale extends AbstractOperation
                                     }
                                 );
 
-                                /** @psalm-var callable(Iterator<TKey, (float | int)>):(Generator<TKey, float|int>) $filter */
+                                /** @var callable(Iterator<TKey, (float | int)>):(Generator<TKey, float|int>) $filter */
                                 $filter = Filter::of()(
                                     /**
                                      * @param float|int $item
@@ -79,7 +79,7 @@ final class Scale extends AbstractOperation
                                     static fn ($item): bool => $item <= $upperBound
                                 );
 
-                                /** @psalm-var Closure(Iterator<TKey, (float | int)>):(Generator<TKey, float|int>) $pipe */
+                                /** @var Closure(Iterator<TKey, (float | int)>):(Generator<TKey, float|int>) $pipe */
                                 $pipe = Pipe::of()($filter, $mapper);
 
                                 // Point free style.

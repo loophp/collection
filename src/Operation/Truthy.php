@@ -30,7 +30,7 @@ final class Truthy extends AbstractOperation
              */
             static fn ($value): bool => !(bool) $value;
 
-        /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, bool> $pipe */
+        /** @var Closure(Iterator<TKey, T>): Generator<int, bool> $pipe */
         $pipe = Pipe::of()(
             MatchOne::of()(static fn (): bool => true)($callback),
             Map::of()($callback),

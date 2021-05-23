@@ -24,14 +24,14 @@ use function array_key_exists;
 final class ArrayCacheIterator extends ProxyIterator
 {
     /**
-     * @psalm-var array<int, array{0: TKey, 1: T}>
+     * @var array<int, array{0: TKey, 1: T}>
      */
     private array $cache = [];
 
     private int $key = 0;
 
     /**
-     * @psalm-param Iterator<TKey, T> $iterator
+     * @param Iterator<TKey, T> $iterator
      */
     public function __construct(Iterator $iterator)
     {

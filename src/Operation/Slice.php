@@ -30,19 +30,19 @@ final class Slice extends AbstractOperation
              */
             static fn (int $offset): Closure =>
                 /**
-                 * @psalm-param int $length
+                 * @param int $length
                  *
                  * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
                  */
                 static function (int $length = -1) use ($offset): Closure {
-                    /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $skip */
+                    /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $skip */
                     $skip = Drop::of()($offset);
 
                     if (-1 === $length) {
                         return $skip;
                     }
 
-                    /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
+                    /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
                     $pipe = Pipe::of()(
                         $skip,
                         Limit::of()($length)(0)

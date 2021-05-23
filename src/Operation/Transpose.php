@@ -28,7 +28,7 @@ final class Transpose extends AbstractOperation
     {
         return
             /**
-             * @psalm-param Iterator<TKey, T> $iterator
+             * @param Iterator<TKey, T> $iterator
              *
              * @return Generator<TKey, list<T>>
              */
@@ -41,8 +41,8 @@ final class Transpose extends AbstractOperation
 
                 $callbackForKeys =
                     /**
-                     * @psalm-param array $carry
-                     * @psalm-param array<int, TKey> $key
+                     * @param array $carry
+                     * @param array<int, TKey> $key
                      *
                      * @return TKey
                      */
@@ -50,15 +50,15 @@ final class Transpose extends AbstractOperation
 
                 $callbackForValues =
                     /**
-                     * @psalm-param array $carry
-                     * @psalm-param array<int, TKey> $key
-                     * @psalm-param array<int, T> $value
+                     * @param array $carry
+                     * @param array<int, TKey> $key
+                     * @param array<int, T> $value
                      *
                      * @return array<int, T>
                      */
                     static fn (array $carry, array $key, array $value): array => $value;
 
-                /** @psalm-var Generator<TKey, list<T>> $associate */
+                /** @var Generator<TKey, list<T>> $associate */
                 $associate = Associate::of()($callbackForKeys)($callbackForValues)($mit);
 
                 return $associate;

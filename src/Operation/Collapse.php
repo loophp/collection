@@ -31,7 +31,7 @@ final class Collapse extends AbstractOperation
              * @return Generator<TKey, T>
              */
             static function (Iterator $iterator): Generator {
-                /** @psalm-var Closure(Iterator<TKey, T|iterable<TKey, T>>): Generator<TKey, iterable<TKey, T>> $filter */
+                /** @var Closure(Iterator<TKey, T|iterable<TKey, T>>): Generator<TKey, iterable<TKey, T>> $filter */
                 $filter = Filter::of()(
                     /**
                      * @param T $value

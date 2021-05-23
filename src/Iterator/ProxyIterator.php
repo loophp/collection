@@ -23,7 +23,7 @@ use OuterIterator;
 abstract class ProxyIterator implements OuterIterator
 {
     /**
-     * @psalm-var Iterator<TKey, T>
+     * @var Iterator<TKey, T>
      */
     protected Iterator $iterator;
 

@@ -37,7 +37,7 @@ final class Implode extends AbstractOperation
                      */
                     static fn (string $carry, $item): string => $carry .= $item;
 
-                /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, string> $pipe */
+                /** @var Closure(Iterator<TKey, T>): Generator<int, string> $pipe */
                 $pipe = Pipe::of()(
                     Intersperse::of()($glue)(1)(0),
                     Drop::of()(1),

@@ -39,7 +39,7 @@ final class Combinate extends AbstractOperation
                             continue;
                         }
 
-                        /** @psalm-var array<int, T> $permutation */
+                        /** @var array<int, T> $permutation */
                         foreach ($getCombinations(array_slice($dataset, $i + 1), $length - 1) as $permutation) {
                             array_unshift($permutation, $dataset[$i]);
 

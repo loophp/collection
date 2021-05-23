@@ -26,12 +26,12 @@ final class Current extends AbstractOperation
     {
         return
             /**
-             * @psalm-param int $index
+             * @param int $index
              *
              * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static function (int $index): Closure {
-                /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $limit */
+                /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $limit */
                 $limit = Limit::of()(1)($index);
 
                 // Point free style.

@@ -29,13 +29,13 @@ final class Combine extends AbstractOperation
     {
         return
             /**
-             * @psalm-param T ...$keys
+             * @param T ...$keys
              *
              * @return Closure(Iterator<TKey, T>): Generator<T, T>
              */
             static fn (...$keys): Closure =>
                 /**
-                 * @psalm-param Iterator<TKey, T> $iterator
+                 * @param Iterator<TKey, T> $iterator
                  */
                 static function (Iterator $iterator) use ($keys): Generator {
                     $keys = new ArrayIterator($keys);

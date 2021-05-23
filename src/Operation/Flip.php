@@ -27,9 +27,9 @@ final class Flip extends AbstractOperation
     {
         $callbackForKeys =
             /**
-             * @psalm-param mixed $carry
-             * @psalm-param TKey $key
-             * @psalm-param T $value
+             * @param mixed $carry
+             * @param TKey $key
+             * @param T $value
              *
              * @return T
              */
@@ -37,14 +37,14 @@ final class Flip extends AbstractOperation
 
         $callbackForValues =
             /**
-             * @psalm-param mixed $carry
-             * @psalm-param TKey $key
+             * @param mixed $carry
+             * @param TKey $key
              *
              * @return TKey
              */
             static fn ($carry, $key) => $key;
 
-        /** @psalm-var Closure(Iterator<TKey, T>): Generator<T, TKey> $associate */
+        /** @var Closure(Iterator<TKey, T>): Generator<T, TKey> $associate */
         $associate = Associate::of()($callbackForKeys)($callbackForValues);
 
         // Point free style.

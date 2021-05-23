@@ -54,7 +54,7 @@ final class Frequency extends AbstractOperation
                 return $storage;
             };
 
-        /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, T> $pipe */
+        /** @var Closure(Iterator<TKey, T>): Generator<int, T> $pipe */
         $pipe = Pipe::of()(
             FoldLeft::of()($reduceCallback)([]),
             Flatten::of()(1),

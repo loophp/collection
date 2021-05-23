@@ -40,7 +40,7 @@ final class Forget extends AbstractOperation
                      */
                     static fn ($value, $key): bool => false === in_array($key, $keys, true);
 
-                /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $filter */
+                /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $filter */
                 $filter = Filter::of()($filterCallbackFactory($keys));
 
                 // Point free style.

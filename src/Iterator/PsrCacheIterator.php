@@ -28,7 +28,7 @@ final class PsrCacheIterator extends ProxyIterator
     private int $key = 0;
 
     /**
-     * @psalm-param Iterator<TKey, T> $iterator
+     * @param Iterator<TKey, T> $iterator
      */
     public function __construct(Iterator $iterator, CacheItemPoolInterface $cache)
     {
@@ -41,7 +41,7 @@ final class PsrCacheIterator extends ProxyIterator
      */
     public function current()
     {
-        /** @psalm-var array{TKey, T} $data */
+        /** @var array{TKey, T} $data */
         $data = $this->getTupleFromCache($this->key)->get();
 
         return $data[1];
@@ -52,7 +52,7 @@ final class PsrCacheIterator extends ProxyIterator
      */
     public function key()
     {
-        /** @psalm-var array{TKey, T} $data */
+        /** @var array{TKey, T} $data */
         $data = $this->getTupleFromCache($this->key)->get();
 
         return $data[0];

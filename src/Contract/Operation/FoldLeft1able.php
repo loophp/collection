@@ -19,7 +19,7 @@ use loophp\collection\Contract\Collection;
 interface FoldLeft1able
 {
     /**
-     * @psalm-param callable(T, T, TKey, Iterator<TKey, T>): T $callback
+     * @param callable(T, T, TKey, Iterator<TKey, T>): T $callback
      *
      * @return \loophp\collection\Collection<TKey, T|null>
      */

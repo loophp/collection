@@ -36,7 +36,7 @@ final class Product extends AbstractOperation
                  * @return Generator<int, array<int, T>>
                  */
                 static function (Iterator $iterator) use ($iterables): Iterator {
-                    /** @psalm-var Closure(iterable<TKey, T>...): Generator<int, array<int, T>> $cartesian */
+                    /** @var Closure(iterable<TKey, T>...): Generator<int, array<int, T>> $cartesian */
                     $cartesian =
                         /**
                          * @param iterable<TKey, T> ...$iterables
@@ -51,7 +51,7 @@ final class Product extends AbstractOperation
                             }
 
                             // @todo Find better algo, without recursion.
-                            /** @psalm-var array<int, T> $item */
+                            /** @var array<int, T> $item */
                             foreach ($cartesian(...$iterables) as $item) {
                                 foreach ($iterable as $value) {
                                     yield $item + [count($item) => $value];

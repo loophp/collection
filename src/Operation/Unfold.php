@@ -43,7 +43,7 @@ final class Unfold extends AbstractOperation
                      */
                     static function () use ($parameters, $callback): Generator {
                         while (true) {
-                            /** @psalm-var T $parameters */
+                            /** @var T $parameters */
                             $parameters = $callback(...array_values((array) $parameters));
 
                             yield $parameters;

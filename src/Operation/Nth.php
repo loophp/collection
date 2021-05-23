@@ -35,11 +35,11 @@ final class Nth extends AbstractOperation
                 static function (int $offset) use ($step): Closure {
                     $filterCallback =
                         /**
-                         * @psalm-param array{0: TKey, 1: T} $value
+                         * @param array{0: TKey, 1: T} $value
                          */
                         static fn (array $value, int $key): bool => (($key % $step) === $offset);
 
-                    /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
+                    /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
                     $pipe = Pipe::of()(
                         Pack::of(),
                         Filter::of()($filterCallback),

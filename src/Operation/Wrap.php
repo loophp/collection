@@ -33,7 +33,7 @@ final class Wrap extends AbstractOperation
              */
             static fn ($value, $key): array => [$key => $value];
 
-        /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, array<TKey, T>> $pipe */
+        /** @var Closure(Iterator<TKey, T>): Generator<int, array<TKey, T>> $pipe */
         $pipe = Pipe::of()(
             Map::of()($mapCallback),
             Normalize::of()

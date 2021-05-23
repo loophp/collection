@@ -39,7 +39,7 @@ final class FoldLeft extends AbstractOperation
                  * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
                  */
                 static function ($initial = null) use ($callback): Closure {
-                    /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
+                    /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
                     $pipe = Pipe::of()(
                         ScanLeft::of()($callback)($initial),
                         Last::of()

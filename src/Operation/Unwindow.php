@@ -24,17 +24,17 @@ final class Unwindow extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        /** @psalm-var Closure(Iterator<TKey, list<T>>): Generator<TKey, T> $unwindow */
+        /** @var Closure(Iterator<TKey, list<T>>): Generator<TKey, T> $unwindow */
         $unwindow = Map::of()(
             /**
-             * @psalm-param iterable<TKey, list<T>> $iterable
+             * @param iterable<TKey, list<T>> $iterable
              *
              * @return T|null
              */
             static function (iterable $iterable) {
                 $value = null;
 
-                /** @psalm-var T $value */
+                /** @var T $value */
                 foreach ($iterable as $value) {
                 }
 
