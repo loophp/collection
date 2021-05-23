@@ -335,51 +335,49 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs([]);
     }
 
-    public function it_can_be_constructed_with_a_closure(): void
+    public function it_can_be_constructed_with_a_callable(): void
     {
-        $test = $this::fromCallable(
-            static function (int $a, int $b): Generator {
-                return yield from range($a, $b);
-            },
-            1,
-            5,
-        );
+        $test1 = $this::fromCallable(static fn (int $a, int $b): Generator => yield from range($a, $b), ...[1, 5]);
+        $test1->shouldImplement(Collection::class);
+        $test1->getIterator()->shouldIterateAs([1, 2, 3, 4, 5]);
 
-        $test->shouldImplement(Collection::class);
+        $test2 = $this::fromCallable(static fn (int $a, int $b): array => range($a, $b), 1, 5);
+        $test2->shouldImplement(Collection::class);
+        $test2->getIterator()->shouldIterateAs([1, 2, 3, 4, 5]);
 
-        $test
-            ->getIterator()
-            ->shouldIterateAs(
-                [
-                    1,
-                    2,
-                    3,
-                    4,
-                    5,
-                ]
-            );
+        $test3 = $this::fromCallable(static fn (int $a, int $b): ArrayIterator => new ArrayIterator(range($a, $b)), 1, 5);
+        $test3->shouldImplement(Collection::class);
+        $test3->getIterator()->shouldIterateAs([1, 2, 3, 4, 5]);
 
-        $test = $this::fromCallable(
-            static function (int $a, int $b): array {
-                return range($a, $b);
-            },
-            1,
-            5,
-        );
+        $classWithMethod = new class() {
+            public function getValues(): Generator
+            {
+                yield from range(1, 5);
+            }
+        };
+        $test4 = $this::fromCallable([$classWithMethod, 'getValues']);
+        $test4->shouldImplement(Collection::class);
+        $test4->getIterator()->shouldIterateAs([1, 2, 3, 4, 5]);
 
-        $test->shouldImplement(Collection::class);
+        $classWithStaticMethod = new class() {
+            public static function getValues(): Generator
+            {
+                yield from range(1, 5);
+            }
+        };
+        $test5 = $this::fromCallable([$classWithStaticMethod, 'getValues']);
+        $test5->shouldImplement(Collection::class);
+        $test5->getIterator()->shouldIterateAs([1, 2, 3, 4, 5]);
 
-        $test
-            ->getIterator()
-            ->shouldIterateAs(
-                [
-                    1,
-                    2,
-                    3,
-                    4,
-                    5,
-                ]
-            );
+        $invokableClass = new class() {
+            public function __invoke(): Generator
+            {
+                yield from range(1, 5);
+            }
+        };
+        $test6 = $this::fromCallable($invokableClass);
+        $test6->shouldImplement(Collection::class);
+        $test6->getIterator()->shouldIterateAs([1, 2, 3, 4, 5]);
     }
 
     public function it_can_be_constructed_with_an_arrayObject(): void

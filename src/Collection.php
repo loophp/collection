@@ -139,21 +139,17 @@ final class Collection implements CollectionInterface
 {
     /**
      * @var array<int, mixed>
-     * @psalm-var list<mixed>
      */
     private array $parameters;
 
     /**
-     * @psalm-var callable(...mixed): (\Generator<TKey, T>|Iterator<TKey, T>)
+     * @var callable(mixed ...$parameters): iterable<TKey, T>
      */
     private $source;
 
     /**
-     * @param callable|Closure $callable
-     * @psalm-param callable(...mixed): Iterator<TKey, T> $callable
-     *
+     * @param callable(mixed ...$parameters): iterable<TKey, T> $callable
      * @param mixed ...$parameters
-     * @psalm-param mixed ...$parameters
      */
     public function __construct(callable $callable, ...$parameters)
     {
@@ -370,11 +366,13 @@ final class Collection implements CollectionInterface
     }
 
     /**
-     * @psalm-template NewTKey
      * @psalm-template NewTKey of array-key
      * @psalm-template NewT
      *
+     * @param callable(mixed ...$parameters): iterable<NewTKey, NewT> $callable
      * @param mixed ...$parameters
+     *
+     * @return self<NewTKey, NewT>
      */
     public static function fromCallable(callable $callable, ...$parameters): self
     {
@@ -446,6 +444,9 @@ final class Collection implements CollectionInterface
         return new self(Get::of()($key)($default), $this->getIterator());
     }
 
+    /**
+     * @return Iterator<TKey, T>
+     */
     public function getIterator(): Iterator
     {
         return new ClosureIterator($this->source, ...$this->parameters);
