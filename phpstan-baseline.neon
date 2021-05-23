@@ -6,17 +6,7 @@ parameters:
 			path: docs/pages/code/operations/since.php
 
 		-
-			message: "#^Method loophp\\\\collection\\\\Collection\\:\\:all\\(\\) should return array\\<TKey, T\\> but returns array\\.$#"
-			count: 1
-			path: src/Collection.php
-
-		-
 			message: "#^Method loophp\\\\collection\\\\Collection\\:\\:empty\\(\\) return type with generic interface loophp\\\\collection\\\\Contract\\\\Collection does not specify its types\\: TKey, T$#"
-			count: 1
-			path: src/Collection.php
-
-		-
-			message: "#^Method loophp\\\\collection\\\\Collection\\:\\:fromCallable\\(\\) return type with generic class loophp\\\\collection\\\\Collection does not specify its types\\: TKey, T$#"
 			count: 1
 			path: src/Collection.php
 
@@ -26,12 +16,7 @@ parameters:
 			path: src/Collection.php
 
 		-
-			message: "#^Method loophp\\\\collection\\\\Collection\\:\\:getIterator\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: src/Collection.php
-
-		-
-			message: "#^Return type \\(Iterator\\) of method loophp\\\\collection\\\\Collection\\:\\:getIterator\\(\\) should be covariant with return type \\(Iterator\\<mixed, mixed\\>\\) of method loophp\\\\collection\\\\Contract\\\\Collection\\<TKey,T\\>\\:\\:getIterator\\(\\)$#"
+			message: "#^Parameter \\#1 \\$callable of class loophp\\\\collection\\\\Collection constructor expects callable\\(\\.\\.\\.mixed\\)\\: iterable\\<int, string\\>, Closure\\(string, string\\)\\: loophp\\\\collection\\\\Iterator\\\\StringIterator\\<mixed, string\\> given\\.$#"
 			count: 1
 			path: src/Collection.php
 
@@ -79,4 +64,3 @@ parameters:
 			message: "#^Foreach overwrites \\$value with its value variable\\.$#"
 			count: 1
 			path: src/Operation/Unwindow.php
-
