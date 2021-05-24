@@ -291,13 +291,17 @@ final class Collection implements CollectionInterface
     /**
      * Create a new instance with no items.
      *
-     * @psalm-template NewTKey
-     * @psalm-template NewTKey of array-key
-     * @psalm-template NewT
+     * @template NewTKey of array-key
+     * @template NewT
+     *
+     * @return self<NewTKey, NewT>
      */
     public static function empty(): CollectionInterface
     {
-        return self::fromIterable([]);
+        /** @var array<NewTKey, NewT> $emptyArray */
+        $emptyArray = [];
+
+        return self::fromIterable($emptyArray);
     }
 
     public function every(callable ...$callbacks): CollectionInterface
@@ -366,8 +370,8 @@ final class Collection implements CollectionInterface
     }
 
     /**
-     * @psalm-template NewTKey of array-key
-     * @psalm-template NewT
+     * @template NewTKey of array-key
+     * @template NewT
      *
      * @param callable(mixed ...$parameters): iterable<NewTKey, NewT> $callable
      * @param mixed ...$parameters
@@ -391,21 +395,16 @@ final class Collection implements CollectionInterface
     }
 
     /**
-     * @psalm-template NewTKey
-     * @psalm-template NewTKey of array-key
-     * @psalm-template NewT
+     * @template NewTKey of array-key
+     * @template NewT
      *
-     * @param iterable<mixed> $iterable
-     * @psalm-param iterable<NewTKey, NewT> $iterable
+     * @param iterable<NewTKey, NewT> $iterable
+     *
+     * @return self<NewTKey, NewT>
      */
     public static function fromIterable(iterable $iterable): self
     {
         return new self(
-            /**
-             * @psalm-param iterable<TKey, T> $iterable
-             *
-             * @psalm-return Iterator<TKey, T>
-             */
             static fn (iterable $iterable): Iterator => new IterableIterator($iterable),
             $iterable
         );
