@@ -167,7 +167,7 @@ $hugeFile = __DIR__ . '/vendor/composer/autoload_static.php';
 Collection::fromIterable($readFileLineByLine($hugeFile))
     // Add the line number at the end of the line, as comment.
     ->map(
-        static function ($value, $key) {
+        static function ($value, $key): string {
             return str_replace(\PHP_EOL, ' // line ' . $key . \PHP_EOL, $value);
         }
     )
