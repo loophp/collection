@@ -14,7 +14,7 @@ use Iterator;
 use loophp\collection\Iterator\MultipleIterableIterator;
 
 /**
- * @template TKey of array-key
+ * @template TKey
  * @template T
  */
 final class Append extends AbstractOperation

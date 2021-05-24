@@ -15,7 +15,7 @@ use InvalidArgumentException;
 use Iterator;
 
 /**
- * @template TKey of array-key
+ * @template TKey
  * @template T
  */
 final class Intersperse extends AbstractOperation

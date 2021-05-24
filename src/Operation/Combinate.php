@@ -17,7 +17,7 @@ use function array_slice;
 use function count;
 
 /**
- * @template TKey of array-key
+ * @template TKey
  * @template T
  */
 final class Combinate extends AbstractOperation

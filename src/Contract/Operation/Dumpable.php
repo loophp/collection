@@ -13,7 +13,7 @@ use Closure;
 use loophp\collection\Contract\Collection;
 
 /**
- * @template TKey of array-key
+ * @template TKey
  * @template T
  */
 interface Dumpable

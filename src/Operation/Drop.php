@@ -14,7 +14,7 @@ use Iterator;
 use LimitIterator;
 
 /**
- * @template TKey of array-key
+ * @template TKey
  * @template T
  */
 final class Drop extends AbstractOperation

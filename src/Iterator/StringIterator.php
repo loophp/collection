@@ -15,7 +15,7 @@ use IteratorIterator;
 /**
  * @internal
  *
- * @template TKey of array-key
+ * @template TKey
  * @template T of string
  *
  * @extends ProxyIterator<int, string>

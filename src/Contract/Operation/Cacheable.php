@@ -13,7 +13,7 @@ use loophp\collection\Contract\Collection;
 use Psr\Cache\CacheItemPoolInterface;
 
 /**
- * @template TKey of array-key
+ * @template TKey
  * @template T
  */
 interface Cacheable

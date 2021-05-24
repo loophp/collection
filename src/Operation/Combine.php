@@ -17,7 +17,7 @@ use Iterator;
 use const E_USER_WARNING;
 
 /**
- * @template TKey of array-key
+ * @template TKey
  * @template T
  */
 final class Combine extends AbstractOperation

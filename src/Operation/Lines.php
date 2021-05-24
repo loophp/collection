@@ -16,7 +16,7 @@ use Iterator;
 use const PHP_EOL;
 
 /**
- * @template TKey of array-key
+ * @template TKey
  * @template T
  */
 final class Lines extends AbstractOperation

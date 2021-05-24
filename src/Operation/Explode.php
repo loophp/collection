@@ -15,7 +15,7 @@ use Iterator;
 use loophp\collection\Contract\Operation\Splitable;
 
 /**
- * @template TKey of array-key
+ * @template TKey
  * @template T
  */
 final class Explode extends AbstractOperation

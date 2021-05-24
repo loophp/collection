@@ -20,7 +20,7 @@ use const PHP_INT_MIN;
 /**
  * @internal
  *
- * @template TKey of array-key
+ * @template TKey
  * @template T of string
  *
  * @extends ProxyIterator<TKey, T>

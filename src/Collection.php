@@ -290,7 +290,7 @@ final class Collection implements CollectionInterface
      * Create a new instance with no items.
      *
      * @template NewTKey
-     * @template NewTKey of array-key
+     * @template NewTKey
      * @template NewT
      */
     public static function empty(): CollectionInterface

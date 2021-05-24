@@ -23,7 +23,7 @@ use function is_array;
 use function is_object;
 
 /**
- * @template TKey of array-key
+ * @template TKey
  * @template T
  *
  * phpcs:disable Generic.Files.LineLength.TooLong

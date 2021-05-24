@@ -15,7 +15,7 @@ use loophp\collection\Iterator\PsrCacheIterator;
 use Psr\Cache\CacheItemPoolInterface;
 
 /**
- * @template TKey of array-key
+ * @template TKey
  * @template T
  *
  * phpcs:disable Generic.Files.LineLength.TooLong

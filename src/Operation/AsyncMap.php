@@ -29,7 +29,7 @@ if (false === function_exists('Amp\ParallelFunctions\parallel')) {
 /**
  * Class AsyncMap.
  *
- * @template TKey of array-key
+ * @template TKey
  * @template T
  *
  * phpcs:disable Generic.Files.LineLength.TooLong

@@ -16,7 +16,7 @@ use function array_key_exists;
 /**
  * @internal
  *
- * @template TKey of array-key
+ * @template TKey
  * @template T
  *
  * @extends ProxyIterator<TKey, T>

@@ -18,7 +18,7 @@ use function is_resource;
 /**
  * @internal
  *
- * @template TKey of array-key
+ * @template TKey
  * @template T
  *
  * @extends ProxyIterator<int, string>

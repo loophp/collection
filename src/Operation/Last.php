@@ -14,7 +14,7 @@ use EmptyIterator;
 use Iterator;
 
 /**
- * @template TKey of array-key
+ * @template TKey
  * @template T
  */
 final class Last extends AbstractOperation

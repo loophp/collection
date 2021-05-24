@@ -15,7 +15,7 @@ interface Unfoldable
 {
     /**
      * @template TKey
-     * @template TKey of array-key
+     * @template TKey
      * @template T
      *
      * @param callable(mixed|T...): (mixed|array<TKey, T>) $callback

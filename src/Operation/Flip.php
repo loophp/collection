@@ -16,7 +16,6 @@ use Iterator;
 /**
  * @template TKey
  * @template T
- * @template T of array-key
  */
 final class Flip extends AbstractOperation
 {

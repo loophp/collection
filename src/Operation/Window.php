@@ -16,7 +16,7 @@ use Iterator;
 use function array_slice;
 
 /**
- * @template TKey of array-key
+ * @template TKey
  * @template T
  */
 final class Window extends AbstractOperation

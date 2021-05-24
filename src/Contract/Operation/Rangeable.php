@@ -19,7 +19,7 @@ interface Rangeable
      * Create a new Collection with a range of number.
      *
      * @template TKey
-     * @template TKey of array-key
+     * @template TKey
      * @template T
      *
      * @return \loophp\collection\Collection<int, float>

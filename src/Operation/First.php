@@ -14,7 +14,7 @@ use Generator;
 use Iterator;
 
 /**
- * @template TKey of array-key
+ * @template TKey
  * @template T
  */
 final class First extends AbstractOperation

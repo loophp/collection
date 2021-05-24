@@ -12,7 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 
 /**
- * @template TKey of array-key
+ * @template TKey
  * @template T
  */
 final class Coalesce extends AbstractOperation

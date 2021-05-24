@@ -15,7 +15,7 @@ use Generator;
 use Iterator;
 
 /**
- * @template TKey of array-key
+ * @template TKey
  * @template T
  *
  * phpcs:disable Generic.Files.LineLength.TooLong

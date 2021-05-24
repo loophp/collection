@@ -14,7 +14,7 @@ use InfiniteIterator;
 use Iterator;
 
 /**
- * @template TKey of array-key
+ * @template TKey
  * @template T
  */
 final class Cycle extends AbstractOperation

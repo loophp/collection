@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace loophp\collection\Contract\Operation;
 
 /**
- * @template TKey of array-key
+ * @template TKey
  * @template T
  */
 interface Currentable

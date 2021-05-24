@@ -14,7 +14,7 @@ use loophp\collection\Contract\Collection;
 use const PHP_INT_MAX;
 
 /**
- * @template TKey of array-key
+ * @template TKey
  * @template T
  */
 interface Flattenable

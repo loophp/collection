@@ -16,7 +16,7 @@ use Psr\Cache\CacheItemPoolInterface;
 /**
  * @internal
  *
- * @template TKey of array-key
+ * @template TKey
  * @template T
  *
  * @extends ProxyIterator<TKey, T>

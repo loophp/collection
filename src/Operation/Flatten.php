@@ -15,7 +15,7 @@ use Iterator;
 use loophp\collection\Iterator\IterableIterator;
 
 /**
- * @template TKey of array-key
+ * @template TKey
  * @template T
  */
 final class Flatten extends AbstractOperation
