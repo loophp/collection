@@ -127,7 +127,7 @@ use const PHP_INT_MAX;
 use const PHP_INT_MIN;
 
 /**
- * @template TKey of array-key
+ * @template TKey
  * @template T
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
@@ -367,7 +367,7 @@ final class Collection implements CollectionInterface
      * @template NewTKey
      * @template NewT
      *
-     * @param callable(mixed ...$parameters): iterable<NewTKey, NewT> $callable
+     * @param callable(...mixed): Iterator<NewTKey, NewT> $callable
      * @param mixed ...$parameters
      *
      * @return self<NewTKey, NewT>
@@ -390,7 +390,6 @@ final class Collection implements CollectionInterface
 
     /**
      * @template NewTKey
-     * @template NewTKey of array-key
      * @template NewT
      *
      * @param iterable<NewTKey, NewT> $iterable

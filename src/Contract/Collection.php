@@ -119,7 +119,7 @@ use loophp\collection\Contract\Operation\Wrapable;
 use loophp\collection\Contract\Operation\Zipable;
 
 /**
- * @template TKey of array-key
+ * @template TKey
  * @template T
  *
  * @template-extends Allable<TKey, T>
