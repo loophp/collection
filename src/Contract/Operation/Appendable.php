@@ -25,7 +25,7 @@ interface Appendable
      *
      * @param A ...$items
      *
-     * @return \loophp\collection\Collection<int|TKey, T|A>
+     * @return \loophp\collection\Collection<int|TKey, A|T>
      */
     public function append(...$items): Collection;
 }
