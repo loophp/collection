@@ -37,8 +37,11 @@ $generatorClosureMap = static fn (): Generator => yield 'myKey' => 1;
 /** @var Closure(): Generator<int, int|string> $generatorClosureMixed */
 $generatorClosureMixed = static function (): Generator {
     yield 1 => 2;
+
     yield 3 => 'b';
+
     yield 1 => 'c';
+
     yield 4 => '5';
 };
 
@@ -64,19 +67,21 @@ $classWithMethod = new class() {
     {
         yield 'myKey' => 1;
     }
+
+    /**
+     * @return Generator<int, int|string>
+     */
+    public function getMixed(): Generator
+    {
+        yield from [1, 2, '3', 'b', 5];
+    }
+
     /**
      * @return Generator<int, int>
      */
     public function getValues(): Generator
     {
         yield from range(1, 5);
-    }
-    /**
-     * @return Generator<int, string|int>
-     */
-    public function getMixed(): Generator
-    {
-        yield from [1, 2, '3', 'b', 5];
     }
 };
 $classWithStaticMethod = new class() {
@@ -87,19 +92,21 @@ $classWithStaticMethod = new class() {
     {
         yield 'myKey' => 1;
     }
+
+    /**
+     * @return Generator<int, int|string>
+     */
+    public static function getMixed(): Generator
+    {
+        yield from [1, 2, '3', 'b', 5];
+    }
+
     /**
      * @return Generator<int, int>
      */
     public static function getValues(): Generator
     {
         return yield from range(1, 5);
-    }
-    /**
-     * @return Generator<int, string|int>
-     */
-    public static function getMixed(): Generator
-    {
-        yield from [1, 2, '3', 'b', 5];
     }
 };
 $invokableClassNumeric = new class() {
@@ -122,7 +129,7 @@ $invokableClassMap = new class() {
 };
 $invokableClassMixed = new class() {
     /**
-     * @return Generator<int, string|int>
+     * @return Generator<int, int|string>
      */
     public function __invoke(): Generator
     {

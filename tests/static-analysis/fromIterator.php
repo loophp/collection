@@ -37,8 +37,11 @@ $generatorMap = static fn (): Generator => yield 'myKey' => 1;
 /** @var Closure(): Generator<int, int|string> $generatorMixed */
 $generatorMixed = static function (): Generator {
     yield 1 => 2;
+
     yield 3 => 'b';
+
     yield 1 => 'c';
+
     yield 4 => '5';
 };
 

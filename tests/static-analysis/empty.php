@@ -24,7 +24,7 @@ function empty_checkMap(Collection $collection): void
 {
 }
 /**
- * @param Collection<int, string|int> $collection
+ * @param Collection<int, int|string> $collection
  */
 function empty_checkMixed(Collection $collection): void
 {

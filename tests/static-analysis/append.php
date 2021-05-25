@@ -25,6 +25,12 @@ function append_checkNumeric(Collection $collection): void
 function append_checkListWithMap(Collection $collection): void
 {
 }
+/**
+ * @param Collection<int, int|string> $collection
+ */
+function append_checkMixed(Collection $collection): void
+{
+}
 
 append_checkNumeric(Collection::empty()->append(1));
 append_checkNumeric(Collection::empty()->append(1, 2));
@@ -46,3 +52,10 @@ append_checkListWithMap(Collection::empty()->append(...[$foo, $bar]));
 append_checkListWithMap(Collection::fromIterable([1 => $foo])->append($bar));
 append_checkListWithMap(Collection::fromIterable([1 => $foo])->append($bar, $baz));
 append_checkListWithMap(Collection::fromIterable([1 => $foo])->append(...[$bar, $baz]));
+
+append_checkMixed(Collection::empty()->append('1'));
+append_checkMixed(Collection::empty()->append('1', 2, 'b'));
+append_checkMixed(Collection::empty()->append(...['1', 2, 'b']));
+append_checkMixed(Collection::fromIterable([5])->append('1'));
+append_checkMixed(Collection::fromIterable([5, 'a', '3'])->append('1', 2, 'b'));
+append_checkMixed(Collection::fromIterable([5, 'a', '3'])->append(...['1', 2, 'b']));

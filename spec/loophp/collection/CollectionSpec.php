@@ -61,6 +61,24 @@ class CollectionSpec extends ObjectBehavior
         $this::fromIterable(['1', '2', '3'])
             ->append('5', '6')
             ->shouldIterateAs($generator());
+
+        $generator = static function (): Generator {
+            yield 1 => '2';
+
+            yield 2 => 'b';
+
+            yield 3 => 4;
+
+            yield 0 => 'c';
+
+            yield 1 => 'd';
+
+            yield 2 => 4;
+        };
+
+        $this::fromIterable([1 => '2', 2 => 'b', 3 => 4])
+            ->append('c', 'd', 4)
+            ->shouldIterateAs($generator());
     }
 
     public function it_can_apply(): void

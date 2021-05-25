@@ -24,7 +24,7 @@ function all_checkMap(array $array): void
 {
 }
 /**
- * @param array<int, string|int> $array
+ * @param array<int, int|string> $array
  */
 function all_checkMixed(array $array): void
 {

@@ -21,11 +21,9 @@ interface Appendable
     /**
      * Add one or more items to a collection.
      *
-     * @template A
+     * @param mixed ...$items
      *
-     * @param A ...$items
-     *
-     * @return \loophp\collection\Collection<int|TKey, A|T>
+     * @return \loophp\collection\Collection<int|TKey, mixed|T>
      */
     public function append(...$items): Collection;
 }
