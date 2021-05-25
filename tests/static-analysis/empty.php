@@ -23,6 +23,13 @@ function empty_checkNumeric(Collection $collection): void
 function empty_checkMap(Collection $collection): void
 {
 }
+/**
+ * @param Collection<int, string|int> $collection
+ */
+function empty_checkMixed(Collection $collection): void
+{
+}
 
 empty_checkNumeric(Collection::empty());
 empty_checkMap(Collection::empty());
+empty_checkMixed(Collection::empty());
