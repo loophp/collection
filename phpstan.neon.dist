@@ -1,2 +1,4 @@
 includes:
 	- phpstan-baseline.neon
+	- phpstan-docs-baseline.neon
+	- phpstan-unsupported-baseline.neon

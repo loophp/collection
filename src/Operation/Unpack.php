@@ -15,14 +15,16 @@ use Iterator;
 use loophp\collection\Iterator\IterableIterator;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template NewTKey of array-key
+ * @template NewT
+ *
+ * @template TKey of int
+ * @template T of array{0: NewTKey, 1: NewT}
  */
 final class Unpack extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<int, array{0: TKey, 1: T}>): Generator<T, T>
+     * @return Closure(Iterator<TKey, T>): Generator<NewTKey, NewT>
      */
     public function __invoke(): Closure
     {
@@ -30,25 +32,23 @@ final class Unpack extends AbstractOperation
 
         $callbackForKeys =
             /**
-             * @param mixed $initial
-             * @psalm-param T $initial
-             * @psalm-param array{0: TKey, 1: T} $value
+             * @param NewTKey $initial
+             * @param T $value
              *
-             * @psalm-return TKey
+             * @return NewTKey
              */
             static fn ($initial, int $key, array $value) => $value[0];
 
         $callbackForValues =
             /**
-             * @param mixed $initial
-             * @psalm-param T $initial
-             * @psalm-param array{0: TKey, 1: T} $value
+             * @param NewT $initial
+             * @param T $value
              *
-             * @psalm-return T
+             * @return NewT
              */
             static fn ($initial, int $key, array $value) => $value[1];
 
-        /** @psalm-var Closure(Iterator<int, array{0: TKey, 1: T}>): Generator<T, T> $pipe */
+        /** @var Closure(Iterator<TKey, T>): Generator<NewTKey, NewT> $pipe */
         $pipe = Pipe::of()(
             Map::of()($toIterableIterator, Chunk::of()(2)),
             Unwrap::of(),

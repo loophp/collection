@@ -22,20 +22,12 @@ use Generator;
 final class IterableIterator extends ProxyIterator
 {
     /**
-     * @param iterable<mixed> $iterable
-     * @psalm-param iterable<TKey, T> $iterable
+     * @param iterable<TKey, T> $iterable
      */
     public function __construct(iterable $iterable)
     {
         $this->iterator = new ClosureIterator(
-            /**
-             * @psalm-param iterable<TKey, T> $iterable
-             */
-            static function (iterable $iterable): Generator {
-                foreach ($iterable as $key => $value) {
-                    yield $key => $value;
-                }
-            },
+            static fn (iterable $iterable): Generator => yield from $iterable,
             $iterable
         );
     }

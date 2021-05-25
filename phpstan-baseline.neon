@@ -6,16 +6,6 @@ parameters:
 			path: docs/pages/code/operations/since.php
 
 		-
-			message: "#^Method loophp\\\\collection\\\\Collection\\:\\:empty\\(\\) return type with generic interface loophp\\\\collection\\\\Contract\\\\Collection does not specify its types\\: TKey, T$#"
-			count: 1
-			path: src/Collection.php
-
-		-
-			message: "#^Method loophp\\\\collection\\\\Collection\\:\\:fromIterable\\(\\) return type with generic class loophp\\\\collection\\\\Collection does not specify its types\\: TKey, T$#"
-			count: 1
-			path: src/Collection.php
-
-		-
 			message: "#^Parameter \\#1 \\$callable of class loophp\\\\collection\\\\Collection constructor expects callable\\(\\.\\.\\.mixed\\)\\: iterable\\<int, string\\>, Closure\\(string, string\\)\\: loophp\\\\collection\\\\Iterator\\\\StringIterator\\<mixed, string\\> given\\.$#"
 			count: 1
 			path: src/Collection.php
