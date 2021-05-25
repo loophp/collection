@@ -63,6 +63,32 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs($generator());
     }
 
+    public function it_can_get_all_items_as_array(): void
+    {
+        $this->beConstructedThrough('fromIterable', [[1, 2, 3, 4]]);
+
+        $this->all()->shouldIterateAs([1, 2, 3, 4]);
+    }
+
+    public function it_can_get_all_items_as_array_lossy(): void
+    {
+        $generator = static function (): Generator {
+            yield 0 => '1';
+
+            yield 1 => '2';
+
+            yield 2 => '3';
+
+            yield 0 => '5';
+
+            yield 1 => '6';
+        };
+
+        $this->beConstructedThrough('fromIterable', [$generator()]);
+
+        $this->all()->shouldIterateAs(['5', '6', '3']);
+    }
+
     public function it_can_apply(): void
     {
         $input = range('a', 'e');
