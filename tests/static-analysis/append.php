@@ -16,22 +16,22 @@ use loophp\collection\Collection;
 /**
  * @param Collection<int, int> $collection
  */
-function checkNumeric(Collection $collection): void
+function append_checkNumeric(Collection $collection): void
 {
 }
 /**
  * @param Collection<int, array<string, int>> $collection
  */
-function checkListWithMap(Collection $collection): void
+function append_checkListWithMap(Collection $collection): void
 {
 }
 
-checkNumeric(Collection::empty()->append(1));
-checkNumeric(Collection::empty()->append(1, 2));
-checkNumeric(Collection::empty()->append(...[1, 2]));
-checkNumeric(Collection::fromIterable([5])->append(1));
-checkNumeric(Collection::fromIterable([5])->append(1, 2));
-checkNumeric(Collection::fromIterable([5])->append(...[1, 2]));
+append_checkNumeric(Collection::empty()->append(1));
+append_checkNumeric(Collection::empty()->append(1, 2));
+append_checkNumeric(Collection::empty()->append(...[1, 2]));
+append_checkNumeric(Collection::fromIterable([5])->append(1));
+append_checkNumeric(Collection::fromIterable([5])->append(1, 2));
+append_checkNumeric(Collection::fromIterable([5])->append(...[1, 2]));
 
 /** @var array<string, int> $foo */
 $foo = ['foo' => 1];
@@ -40,7 +40,9 @@ $bar = ['bar' => 2];
 /** @var array<string, int> $baz */
 $baz = ['baz' => 3];
 
-checkListWithMap(Collection::empty()->append($foo));
-checkListWithMap(Collection::empty()->append($foo, $bar));
-checkListWithMap(Collection::empty()->append(...[$foo, $bar]));
-checkListWithMap(Collection::fromIterable([1 => $foo])->append($bar));
+append_checkListWithMap(Collection::empty()->append($foo));
+append_checkListWithMap(Collection::empty()->append($foo, $bar));
+append_checkListWithMap(Collection::empty()->append(...[$foo, $bar]));
+append_checkListWithMap(Collection::fromIterable([1 => $foo])->append($bar));
+append_checkListWithMap(Collection::fromIterable([1 => $foo])->append($bar, $baz));
+append_checkListWithMap(Collection::fromIterable([1 => $foo])->append(...[$bar, $baz]));

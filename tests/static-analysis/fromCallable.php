@@ -14,13 +14,13 @@ use loophp\collection\Collection;
 /**
  * @param Collection<int, int> $collection
  */
-function checkNumeric(Collection $collection): void
+function fromCallable_checkNumeric(Collection $collection): void
 {
 }
 /**
  * @param Collection<string, int> $collection
  */
-function checkMap(Collection $collection): void
+function fromCallable_checkMap(Collection $collection): void
 {
 }
 /** @var Closure(): Generator<int, int> $generatorClosureNumeric */
@@ -91,20 +91,20 @@ $invokableClassMap = new class() {
     }
 };
 
-checkNumeric(Collection::fromCallable($generatorClosureNumeric));
-checkMap(Collection::fromCallable($generatorClosureMap));
+fromCallable_checkNumeric(Collection::fromCallable($generatorClosureNumeric));
+fromCallable_checkMap(Collection::fromCallable($generatorClosureMap));
 
-checkNumeric(Collection::fromCallable($arrayNumeric));
-checkMap(Collection::fromCallable($arrayMap));
+fromCallable_checkNumeric(Collection::fromCallable($arrayNumeric));
+fromCallable_checkMap(Collection::fromCallable($arrayMap));
 
-checkNumeric(Collection::fromCallable($arrayIteratorNumeric, 1, 3));
-checkMap(Collection::fromCallable($arrayIteratorMap, 1));
+fromCallable_checkNumeric(Collection::fromCallable($arrayIteratorNumeric, 1, 3));
+fromCallable_checkMap(Collection::fromCallable($arrayIteratorMap, 1));
 
-checkNumeric(Collection::fromCallable([$classWithMethod, 'getValues']));
-checkMap(Collection::fromCallable([$classWithMethod, 'getKeyValues']));
+fromCallable_checkNumeric(Collection::fromCallable([$classWithMethod, 'getValues']));
+fromCallable_checkMap(Collection::fromCallable([$classWithMethod, 'getKeyValues']));
 
-checkNumeric(Collection::fromCallable([$classWithStaticMethod, 'getValues']));
-checkMap(Collection::fromCallable([$classWithStaticMethod, 'getKeyValues']));
+fromCallable_checkNumeric(Collection::fromCallable([$classWithStaticMethod, 'getValues']));
+fromCallable_checkMap(Collection::fromCallable([$classWithStaticMethod, 'getKeyValues']));
 
-checkNumeric(Collection::fromCallable($invokableClassNumeric));
-checkMap(Collection::fromCallable($invokableClassMap));
+fromCallable_checkNumeric(Collection::fromCallable($invokableClassNumeric));
+fromCallable_checkMap(Collection::fromCallable($invokableClassMap));

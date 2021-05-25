@@ -14,10 +14,10 @@ use loophp\collection\Collection;
 /**
  * @param Collection<int, string> $collection
  */
-function check(Collection $collection): void
+function fromResource_check(Collection $collection): void
 {
 }
 
 /** @var resource $resource */
 $resource = fopen('https://loripsum.net/api', 'rb');
-check(Collection::fromResource($resource)->limit(25));
+fromResource_check(Collection::fromResource($resource)->limit(25));

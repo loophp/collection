@@ -14,13 +14,13 @@ use loophp\collection\Collection;
 /**
  * @param Collection<int, int> $collection
  */
-function checkNumeric(Collection $collection): void
+function fromIterator_checkNumeric(Collection $collection): void
 {
 }
 /**
  * @param Collection<string, int> $collection
  */
-function checkMap(Collection $collection): void
+function fromIterator_checkMap(Collection $collection): void
 {
 }
 /** @var Closure(): Generator<int, int> $generatorNumeric */
@@ -38,11 +38,11 @@ $arrayIteratorNumeric = new ArrayIterator(range(1, 3));
 /** @var ArrayIterator<string, int> $arrayIteratorMap */
 $arrayIteratorMap = new ArrayIterator(['foo' => 1, 'bar' => 2]);
 
-checkNumeric(Collection::fromIterable($generatorNumeric()));
-checkMap(Collection::fromIterable($generatorMap()));
+fromIterator_checkNumeric(Collection::fromIterable($generatorNumeric()));
+fromIterator_checkMap(Collection::fromIterable($generatorMap()));
 
-checkNumeric(Collection::fromIterable($arrayNumeric));
-checkMap(Collection::fromIterable($arrayMap));
+fromIterator_checkNumeric(Collection::fromIterable($arrayNumeric));
+fromIterator_checkMap(Collection::fromIterable($arrayMap));
 
-checkNumeric(Collection::fromIterable($arrayIteratorNumeric));
-checkMap(Collection::fromIterable($arrayIteratorMap));
+fromIterator_checkNumeric(Collection::fromIterable($arrayIteratorNumeric));
+fromIterator_checkMap(Collection::fromIterable($arrayIteratorMap));

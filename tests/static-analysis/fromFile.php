@@ -14,8 +14,8 @@ use loophp\collection\Collection;
 /**
  * @param Collection<int, string> $collection
  */
-function check(Collection $collection): void
+function fromFile_check(Collection $collection): void
 {
 }
 
-check(Collection::fromFile('https://loripsum.net/api')->limit(25));
+fromFile_check(Collection::fromFile('https://loripsum.net/api')->limit(25));
