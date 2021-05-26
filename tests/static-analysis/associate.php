@@ -42,9 +42,9 @@ associate_checkNumeric(Collection::fromIterable([4, 5, 6])->associate(static fn 
 associate_checkNumeric(Collection::fromIterable([4, 5, 6])->associate(static fn (int $carry, int $key, int $value) => $key * 2));
 associate_checkNumeric(
     Collection::fromIterable([4, 5, 6])->associate(
-    null,
-    static fn (int $carry, int $key, int $value) => $value
-)
+        null,
+        static fn (int $carry, int $key, int $value) => $value
+    )
 );
 associate_checkNumeric(Collection::fromIterable([4, 5, 6])->associate(
     static fn (int $carry, int $key): int => $key * 2,

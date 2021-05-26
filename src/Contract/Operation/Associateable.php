@@ -24,7 +24,7 @@ interface Associateable
      * @param null|callable(TKey, TKey, T, Iterator<TKey, T>): U $callbackForKeys
      * @param null|callable(T, TKey, T, Iterator<TKey, T>): mixed $callbackForValues
      *
-     * @return \loophp\collection\Collection<TKey|U, T|mixed>
+     * @return \loophp\collection\Collection<TKey|U, mixed|T>
      */
     public function associate(?callable $callbackForKeys = null, ?callable $callbackForValues = null): Collection;
 }
