@@ -18,7 +18,7 @@ function associate_checkNumeric(Collection $collection): void
 {
 }
 /**
- * @param Collection<string, int> $collection
+ * @param Collection<non-empty-string, int> $collection
  */
 function associate_checkMap(Collection $collection): void
 {
