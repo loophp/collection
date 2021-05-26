@@ -172,10 +172,8 @@ final class Collection implements CollectionInterface
         return new self(Apply::of()(...$callables), $this->getIterator());
     }
 
-    public function associate(
-        ?callable $callbackForKeys = null,
-        ?callable $callbackForValues = null
-    ): CollectionInterface {
+    public function associate(?callable $callbackForKeys = null, ?callable $callbackForValues = null): CollectionInterface
+    {
         $defaultCallback =
             /**
              * @param mixed $carry
