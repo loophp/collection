@@ -57,7 +57,7 @@ $arrayIteratorNumeric = static fn (int $a, int $b): ArrayIterator => new ArrayIt
 /** @var Closure(): ArrayIterator<string, int> $arrayIteratorMap */
 $arrayIteratorMap = static fn (int $x): ArrayIterator => new ArrayIterator(['myKey' => $x]);
 /** @var Closure(): ArrayIterator<int, string|int> $arrayIteratorMixed */
-$arrayIteratorMixed = static fn (): ArrayIterator => new ArrayIterator([1, 2, '3', 'b', 5]);
+$arrayIteratorMixed = static fn (): ArrayIterator => new ArrayIterator([1, 2, '3', 5, 'b']);
 
 $classWithMethod = new class() {
     /**
