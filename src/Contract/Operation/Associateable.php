@@ -13,18 +13,17 @@ use Iterator;
 use loophp\collection\Contract\Collection;
 
 /**
- * @template TKey of array-key
- * @template T
+ * @psalm-template TKey
+ * @psalm-template TKey of array-key
+ * @psalm-template T
  */
 interface Associateable
 {
     /**
-     * @template U of array-key
+     * @psalm-param null|callable(TKey, TKey, T, Iterator<TKey, T>):(T|TKey) $callbackForKeys
+     * @psalm-param null|callable(T, TKey, T, Iterator<TKey, T>):(T|TKey) $callbackForValues
      *
-     * @param null|callable(TKey, TKey, T, Iterator<TKey, T>): U $callbackForKeys
-     * @param null|callable(T, TKey, T, Iterator<TKey, T>): mixed $callbackForValues
-     *
-     * @return \loophp\collection\Collection<TKey|U, mixed|T>
+     * @psalm-return \loophp\collection\Collection<TKey|T, T|TKey>
      */
     public function associate(?callable $callbackForKeys = null, ?callable $callbackForValues = null): Collection;
 }

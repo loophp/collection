@@ -14,27 +14,28 @@ use Iterator;
 use loophp\collection\Iterator\MultipleIterableIterator;
 
 /**
- * @template TKey
- * @template T
+ * @psalm-template TKey
+ * @psalm-template TKey of array-key
+ * @psalm-template T
  */
 final class Append extends AbstractOperation
 {
     /**
-     * @return Closure(mixed ...$items): Closure(Iterator<TKey, T>): Iterator<int|TKey, T|mixed>
+     * @psalm-return Closure(T...): Closure(Iterator<TKey, T>): Iterator<int|TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param mixed ...$items
+             * @psalm-param T ...$items
              *
-             * @return Closure(Iterator<TKey, T>): Iterator<int|TKey, T|mixed>
+             * @psalm-return Closure(Iterator<TKey, T>): Iterator<int|TKey, T>
              */
             static fn (...$items): Closure =>
                 /**
-                 * @param Iterator<TKey, T> $iterator
+                 * @psalm-param Iterator<TKey, T> $iterator
                  *
-                 * @return Iterator<int|TKey, mixed|T>
+                 * @psalm-return Iterator<int|TKey, T>
                  */
                 static fn (Iterator $iterator): Iterator => new MultipleIterableIterator($iterator, $items);
     }
