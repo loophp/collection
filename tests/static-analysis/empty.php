@@ -14,15 +14,22 @@ use loophp\collection\Collection;
 /**
  * @param Collection<int, int> $collection
  */
-function checkNumeric(Collection $collection): void
+function empty_checkNumeric(Collection $collection): void
 {
 }
 /**
  * @param Collection<string, int> $collection
  */
-function checkMap(Collection $collection): void
+function empty_checkMap(Collection $collection): void
+{
+}
+/**
+ * @param Collection<int, int|string> $collection
+ */
+function empty_checkMixed(Collection $collection): void
 {
 }
 
-checkNumeric(Collection::empty());
-checkMap(Collection::empty());
+empty_checkNumeric(Collection::empty());
+empty_checkMap(Collection::empty());
+empty_checkMixed(Collection::empty());
