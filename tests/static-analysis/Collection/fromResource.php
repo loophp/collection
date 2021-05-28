@@ -7,15 +7,17 @@
 
 declare(strict_types=1);
 
-include __DIR__ . '/../../vendor/autoload.php';
+include __DIR__.'/../../../vendor/autoload.php';
 
 use loophp\collection\Collection;
 
 /**
  * @param Collection<int, string> $collection
  */
-function fromString_check(Collection $collection): void
+function fromResource_check(Collection $collection): void
 {
 }
 
-fromString_check(Collection::fromString('hello world', ' '));
+/** @var resource $resource */
+$resource = fopen('https://loripsum.net/api', 'rb');
+fromResource_check(Collection::fromResource($resource)->limit(25));
