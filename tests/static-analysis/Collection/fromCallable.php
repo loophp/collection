@@ -7,14 +7,14 @@
 
 declare(strict_types=1);
 
-include __DIR__.'/../../../vendor/autoload.php';
+include __DIR__ . '/../../../vendor/autoload.php';
 
 use loophp\collection\Collection;
 
 /**
  * @param Collection<int, int> $collection
  */
-function fromCallable_checkNumeric(Collection $collection): void
+function fromCallable_checkList(Collection $collection): void
 {
 }
 /**
@@ -30,8 +30,8 @@ function fromCallable_checkMixed(Collection $collection): void
 {
 }
 
-/** @var Closure(): Generator<int, int> $generatorClosureNumeric */
-$generatorClosureNumeric = static fn (): Generator => yield from range(1, 3);
+/** @var Closure(): Generator<int, int> $generatorClosureList */
+$generatorClosureList = static fn (): Generator => yield from range(1, 3);
 /** @var Closure(): Generator<string, int> $generatorClosureMap */
 $generatorClosureMap = static fn (): Generator => yield 'myKey' => 1;
 /** @var Closure(): Generator<int, int|string> $generatorClosureMixed */
@@ -45,15 +45,15 @@ $generatorClosureMixed = static function (): Generator {
     yield 4 => '5';
 };
 
-/** @var Closure(): array<int, int> $arrayNumeric */
-$arrayNumeric = static fn (): array => range(1, 3);
+/** @var Closure(): array<int, int> $arrayList */
+$arrayList = static fn (): array => range(1, 3);
 /** @var Closure(): array<string, int> $arrayMap */
 $arrayMap = static fn (): array => ['myKey' => 1];
 /** @var Closure(): array<int, string|int> $arrayMixed */
 $arrayMixed = static fn (): array => [1, 2, '3', 'b', 5];
 
-/** @var Closure(): ArrayIterator<int, int> $arrayIteratorNumeric */
-$arrayIteratorNumeric = static fn (int $a, int $b): ArrayIterator => new ArrayIterator(range($a, $b));
+/** @var Closure(): ArrayIterator<int, int> $arrayIteratorList */
+$arrayIteratorList = static fn (int $a, int $b): ArrayIterator => new ArrayIterator(range($a, $b));
 /** @var Closure(): ArrayIterator<string, int> $arrayIteratorMap */
 $arrayIteratorMap = static fn (int $x): ArrayIterator => new ArrayIterator(['myKey' => $x]);
 /** @var Closure(): ArrayIterator<int, string|int> $arrayIteratorMixed */
@@ -109,7 +109,7 @@ $classWithStaticMethod = new class() {
         return yield from range(1, 5);
     }
 };
-$invokableClassNumeric = new class() {
+$invokableClassList = new class() {
     /**
      * @return Generator<int, int>
      */
@@ -137,26 +137,26 @@ $invokableClassMixed = new class() {
     }
 };
 
-fromCallable_checkNumeric(Collection::fromCallable($generatorClosureNumeric));
+fromCallable_checkList(Collection::fromCallable($generatorClosureList));
 fromCallable_checkMap(Collection::fromCallable($generatorClosureMap));
 fromCallable_checkMixed(Collection::fromCallable($generatorClosureMixed));
 
-fromCallable_checkNumeric(Collection::fromCallable($arrayNumeric));
+fromCallable_checkList(Collection::fromCallable($arrayList));
 fromCallable_checkMap(Collection::fromCallable($arrayMap));
 fromCallable_checkMixed(Collection::fromCallable($arrayMixed));
 
-fromCallable_checkNumeric(Collection::fromCallable($arrayIteratorNumeric, 1, 3));
+fromCallable_checkList(Collection::fromCallable($arrayIteratorList, 1, 3));
 fromCallable_checkMap(Collection::fromCallable($arrayIteratorMap, 1));
 fromCallable_checkMixed(Collection::fromCallable($arrayIteratorMixed));
 
-fromCallable_checkNumeric(Collection::fromCallable([$classWithMethod, 'getValues']));
+fromCallable_checkList(Collection::fromCallable([$classWithMethod, 'getValues']));
 fromCallable_checkMap(Collection::fromCallable([$classWithMethod, 'getKeyValues']));
 fromCallable_checkMixed(Collection::fromCallable([$classWithMethod, 'getMixed']));
 
-fromCallable_checkNumeric(Collection::fromCallable([$classWithStaticMethod, 'getValues']));
+fromCallable_checkList(Collection::fromCallable([$classWithStaticMethod, 'getValues']));
 fromCallable_checkMap(Collection::fromCallable([$classWithStaticMethod, 'getKeyValues']));
 fromCallable_checkMixed(Collection::fromCallable([$classWithStaticMethod, 'getMixed']));
 
-fromCallable_checkNumeric(Collection::fromCallable($invokableClassNumeric));
+fromCallable_checkList(Collection::fromCallable($invokableClassList));
 fromCallable_checkMap(Collection::fromCallable($invokableClassMap));
 fromCallable_checkMixed(Collection::fromCallable($invokableClassMixed));

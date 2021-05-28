@@ -9,20 +9,22 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
-use loophp\collection\Contract\Collection;
+use loophp\collection\Contract\CollectionT;
 
 /**
  * @template TKey
  * @template T
  */
-interface Appendable
+interface AppendableT
 {
     /**
      * Add one or more items to a collection.
      *
-     * @param mixed ...$items
+     * @template U of T
      *
-     * @psalm-return Collection<TKey|int, mixed>
+     * @param U ...$items
+     *
+     * @return CollectionT<int|TKey, T|U>
      */
-    public function append(...$items): Collection;
+    public function append(...$items): CollectionT;
 }

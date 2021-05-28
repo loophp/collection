@@ -120,7 +120,6 @@ use loophp\collection\Contract\Operation\Zipable;
 
 /**
  * @psalm-template TKey
- * @psalm-template TKey of array-key
  * @psalm-template T
  *
  * @template-extends Allable<TKey, T>

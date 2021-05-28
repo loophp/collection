@@ -128,7 +128,6 @@ use const PHP_INT_MIN;
 
 /**
  * @psalm-template TKey
- * @psalm-template TKey of array-key
  * @psalm-template T
  *
  * phpcs:disable Generic.Files.LineLength.TooLong

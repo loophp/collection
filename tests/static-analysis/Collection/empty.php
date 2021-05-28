@@ -7,29 +7,30 @@
 
 declare(strict_types=1);
 
-include __DIR__.'/../../../vendor/autoload.php';
+include __DIR__ . '/../../../vendor/autoload.php';
 
 use loophp\collection\Collection;
+use loophp\collection\Contract\Collection as CollectionInterface;
 
 /**
- * @param Collection<int, int> $collection
+ * @param CollectionInterface<int, int> $collection
  */
-function empty_checkNumeric(Collection $collection): void
+function empty_checkList(CollectionInterface $collection): void
 {
 }
 /**
- * @param Collection<string, int> $collection
+ * @param CollectionInterface<string, int> $collection
  */
-function empty_checkMap(Collection $collection): void
+function empty_checkMap(CollectionInterface $collection): void
 {
 }
 /**
- * @param Collection<int, int|string> $collection
+ * @param CollectionInterface<int, int|string> $collection
  */
-function empty_checkMixed(Collection $collection): void
+function empty_checkMixed(CollectionInterface $collection): void
 {
 }
 
-empty_checkNumeric(Collection::empty());
+empty_checkList(Collection::empty());
 empty_checkMap(Collection::empty());
 empty_checkMixed(Collection::empty());

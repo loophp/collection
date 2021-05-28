@@ -18,7 +18,7 @@ interface AllableT
     /**
      * Get all items from the collection.
      *
-     * @return array<TKey, T>
+     * @psalm-return array<TKey, T>
      */
     public function all(): array;
 }

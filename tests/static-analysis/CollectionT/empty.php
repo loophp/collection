@@ -7,14 +7,14 @@
 
 declare(strict_types=1);
 
-include __DIR__.'/../../../vendor/autoload.php';
+include __DIR__ . '/../../../vendor/autoload.php';
 
 use loophp\collection\CollectionT;
 
 /**
  * @param CollectionT<int, int> $collection
  */
-function emptyT_checkNumeric(CollectionT $collection): void
+function emptyT_checkList(CollectionT $collection): void
 {
 }
 /**
@@ -30,6 +30,6 @@ function emptyT_checkMixed(CollectionT $collection): void
 {
 }
 
-emptyT_checkNumeric(CollectionT::empty());
+emptyT_checkList(CollectionT::empty());
 emptyT_checkMap(CollectionT::empty());
 emptyT_checkMixed(CollectionT::empty());
