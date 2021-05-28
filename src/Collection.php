@@ -142,12 +142,12 @@ final class Collection implements CollectionInterface
     private array $parameters;
 
     /**
-     * @var callable(...mixed): (\Generator<TKey, T>|Iterator<TKey, T>)
+     * @var callable(mixed ...$parameters): iterable<TKey, T>
      */
     private $source;
 
     /**
-     * @param callable(...mixed): Iterator<TKey, T> $callable
+     * @param callable(mixed ...$parameters): iterable<TKey, T> $callable
      * @param mixed ...$parameters
      */
     public function __construct(callable $callable, ...$parameters)
@@ -367,7 +367,7 @@ final class Collection implements CollectionInterface
      * @template NewTKey
      * @template NewT
      *
-     * @param callable(...mixed): Iterator<NewTKey, NewT> $callable
+     * @param callable(mixed ...$parameters): iterable<NewTKey, NewT> $callable
      * @param mixed ...$parameters
      *
      * @return self<NewTKey, NewT>

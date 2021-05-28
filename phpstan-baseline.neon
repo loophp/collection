@@ -31,11 +31,6 @@ parameters:
 			path: src/Contract/Collection.php
 
 		-
-			message: "#^Type mixed in generic type loophp\\\\collection\\\\Contract\\\\Operation\\\\Mapable\\<mixed, mixed\\> in PHPDoc tag @extends is not subtype of template type TKey of \\(int\\|string\\) of interface loophp\\\\collection\\\\Contract\\\\Operation\\\\Mapable\\.$#"
-			count: 1
-			path: src/Contract/Collection.php
-
-		-
 			message: "#^Anonymous function with return type void returns void but should not return anything\\.$#"
 			count: 2
 			path: src/Operation/Combinate.php
