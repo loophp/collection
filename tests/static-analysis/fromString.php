@@ -14,8 +14,8 @@ use loophp\collection\Collection;
 /**
  * @param Collection<int, string> $collection
  */
-function check(Collection $collection): void
+function fromString_check(Collection $collection): void
 {
 }
 
-check(Collection::fromString('hello world', ' '));
+fromString_check(Collection::fromString('hello world', ' '));

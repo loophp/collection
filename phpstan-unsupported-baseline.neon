@@ -1,0 +1,27 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Generic type loophp\\\\collection\\\\Contract\\\\Operation\\\\Unpackable\\<mixed, mixed\\> in PHPDoc tag @extends does not specify all template types of interface loophp\\\\collection\\\\Contract\\\\Operation\\\\Unpackable\\: TKey, T, NewTKey, NewT$#"
+			count: 1
+			path: src/Contract/Collection.php
+
+		-
+			message: "#^Type mixed in generic type loophp\\\\collection\\\\Contract\\\\Operation\\\\Unpackable\\<mixed, mixed\\> in PHPDoc tag @extends is not subtype of template type TKey of int of interface loophp\\\\collection\\\\Contract\\\\Operation\\\\Unpackable\\.$#"
+			count: 1
+			path: src/Contract/Collection.php
+
+		-
+			message: "#^PHPDoc tag @template T for class loophp\\\\collection\\\\Contract\\\\Operation\\\\Unpackable with bound type array\\<int, int\\|NewT\\|string\\> is not supported\\.$#"
+			count: 1
+			path: src/Contract/Operation/Unpackable.php
+
+		-
+			message: "#^PHPDoc tag @template T for interface loophp\\\\collection\\\\Contract\\\\Operation\\\\Unpackable with bound type array\\<int, int\\|NewT\\|string\\> is not supported\\.$#"
+			count: 1
+			path: src/Contract/Operation/Unpackable.php
+
+		-
+			message: "#^PHPDoc tag @template T for class loophp\\\\collection\\\\Operation\\\\Unpack with bound type array\\<int, int\\|NewT\\|string\\> is not supported\\.$#"
+			count: 1
+			path: src/Operation/Unpack.php
+

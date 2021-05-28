@@ -11,41 +11,17 @@ include __DIR__ . '/../../../vendor/autoload.php';
 
 use loophp\collection\Collection;
 
-$multiplication = static function (float $value1, float $value2): float {
-    return $value1 * $value2;
-};
+$multiplication = static fn (float $value1, float $value2): float => $value1 * $value2;
 
-$addition = static function (float $value1, float $value2): float {
-    return $value1 + $value2;
-};
+$addition = static fn (float $value1, float $value2): float => $value1 + $value2;
 
-$fact = static function (float $number) use ($multiplication): float {
-    return (float) Collection::range(1, $number + 1)
-        ->foldLeft($multiplication, 1)
-        ->current();
-};
+$fact = static fn (float $number): float => (float) Collection::range(1, $number + 1)
+    ->foldLeft($multiplication, 1)
+    ->current();
 
-$e = static function (float $value) use ($fact): float {
-    return $value / $fact($value);
-};
-
-$listInt = static function (float $init, callable $succ): Generator {
-    yield $init;
-
-    while (true) {
-        yield $init = $succ($init);
-    }
-};
-
-$naturals = $listInt(1, static function (float $n): float {
-    return $n + 1;
-});
-
-$number_e_approximation = Collection::fromIterable($naturals)
-    ->map($e)
-    ->until(static function (float $value): bool {
-        return 10 ** -12 > $value;
-    })
+$number_e_approximation = Collection::unfold(static fn (int $i = 0): int => $i + 1)
+    ->map(static fn (float $value): float => $value / $fact($value))
+    ->until(static fn (float $value): bool => 10 ** -12 > $value)
     ->foldLeft($addition, 0)
     ->current();
 

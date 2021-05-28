@@ -20,9 +20,9 @@ interface Columnable
     /**
      * Return the values from a single column in the input iterables.
      *
-     * @param int|string $index
+     * @param int|string $column
      *
      * @return \loophp\collection\Collection<TKey, T>
      */
-    public function column($index): Collection;
+    public function column($column): Collection;
 }

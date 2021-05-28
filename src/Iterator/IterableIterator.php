@@ -27,14 +27,7 @@ final class IterableIterator extends ProxyIterator
     public function __construct(iterable $iterable)
     {
         $this->iterator = new ClosureIterator(
-            /**
-             * @param iterable<TKey, T> $iterable
-             */
-            static function (iterable $iterable): Generator {
-                foreach ($iterable as $key => $value) {
-                    yield $key => $value;
-                }
-            },
+            static fn (iterable $iterable): Generator => yield from $iterable,
             $iterable
         );
     }

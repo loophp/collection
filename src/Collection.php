@@ -290,12 +290,16 @@ final class Collection implements CollectionInterface
      * Create a new instance with no items.
      *
      * @template NewTKey
-     * @template NewTKey
      * @template NewT
+     *
+     * @return self<NewTKey, NewT>
      */
     public static function empty(): CollectionInterface
     {
-        return self::fromIterable([]);
+        /** @var array<NewTKey, NewT> $emptyArray */
+        $emptyArray = [];
+
+        return self::fromIterable($emptyArray);
     }
 
     public function every(callable ...$callbacks): CollectionInterface
@@ -393,15 +397,12 @@ final class Collection implements CollectionInterface
      * @template NewT
      *
      * @param iterable<NewTKey, NewT> $iterable
+     *
+     * @return self<NewTKey, NewT>
      */
     public static function fromIterable(iterable $iterable): self
     {
         return new self(
-            /**
-             * @param iterable<TKey, T> $iterable
-             *
-             * @return Iterator<TKey, T>
-             */
             static fn (iterable $iterable): Iterator => new IterableIterator($iterable),
             $iterable
         );

@@ -12,13 +12,16 @@ namespace loophp\collection\Contract\Operation;
 use loophp\collection\Contract\Collection;
 
 /**
- * @template TKey
- * @template T
+ * @template TKey of int
+ * @template T of array{0: NewTKey, 1: NewT}
+ *
+ * @template NewTKey
+ * @template NewT
  */
 interface Unpackable
 {
     /**
-     * @return \loophp\collection\Collection<TKey, T>
+     * @return \loophp\collection\Collection<NewTKey, NewT>
      */
     public function unpack(): Collection;
 }

@@ -20,5 +20,5 @@ interface GroupByable
     /**
      * @return \loophp\collection\Collection<TKey, T>
      */
-    public function groupBy(?callable $callback = null): Collection;
+    public function groupBy(?callable $callable = null): Collection;
 }

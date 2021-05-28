@@ -5,10 +5,38 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [4.0.6](https://github.com/loophp/collection/compare/4.0.5...4.0.6)
+## [4.0.7](https://github.com/loophp/collection/compare/4.0.6...4.0.7)
+
+### Merged
+
+- SA Checks: fromIterable, empty [`#96`](https://github.com/loophp/collection/pull/96)
+- SA Checks: fromCallable [`#94`](https://github.com/loophp/collection/pull/94)
+- docs: Add lazy JSON parsing examples using @halaxa JsonMachine library. [`#93`](https://github.com/loophp/collection/pull/93)
+- Introduce Static Analysis Checking System [`#90`](https://github.com/loophp/collection/pull/90)
+- Code Analysis Fixes - PHPStan [`#89`](https://github.com/loophp/collection/pull/89)
+- Update Documentation III [`#88`](https://github.com/loophp/collection/pull/88)
+- Update API Documentation II [`#86`](https://github.com/loophp/collection/pull/86)
+- chore(deps): Bump actions/stale from 3.0.18 to 3.0.19 [`#87`](https://github.com/loophp/collection/pull/87)
+- Feature: Add Squash operation [`#83`](https://github.com/loophp/collection/pull/83)
+- Fix CI configuration. [`#85`](https://github.com/loophp/collection/pull/85)
+- Update Documentation [`#84`](https://github.com/loophp/collection/pull/84)
+- chore(deps): Bump shivammathur/setup-php from 2 to 2.11.0 [`#79`](https://github.com/loophp/collection/pull/79)
+- chore(deps-dev): Update infection/infection requirement || ^0.23.0 [`#81`](https://github.com/loophp/collection/pull/81)
+- refactor: Remove static factory methods from contract [`#78`](https://github.com/loophp/collection/pull/78)
+- Update `drupol/php-conventions` [`#76`](https://github.com/loophp/collection/pull/76)
 
 ### Commits
 
+- chore: Add composer commands and necessary files to generate the changelog. [`645930e`](https://github.com/loophp/collection/commit/645930e3b7327862933451ba2af7678b0c16f0c1)
+- ci: Update CI configuration. [`3813450`](https://github.com/loophp/collection/commit/38134506c743161385ced57646514ae30a77458b)
+- refactor: Autofix code. [`540006b`](https://github.com/loophp/collection/commit/540006bb908ab57a7b43c532958ed857325890fa)
+- chore: Update drupol/php-conventions. [`cd50573`](https://github.com/loophp/collection/commit/cd505738bb56e4d2242c52ec71cdb3729df46e1c)
+
+## [4.0.6](https://github.com/loophp/collection/compare/4.0.5...4.0.6) - 2021-04-20
+
+### Commits
+
+- docs: Update changelog. [`a32164e`](https://github.com/loophp/collection/commit/a32164e83e2826dff1959005a1df12e29e0fd4bd)
 - fix: Fix Psalm annotations. [`4ace8ef`](https://github.com/loophp/collection/commit/4ace8ef72640423799a365d40245c48aaf986591)
 
 ## [4.0.5](https://github.com/loophp/collection/compare/4.0.4...4.0.5) - 2021-04-20
