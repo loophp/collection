@@ -15,34 +15,33 @@ use Iterator;
 use Symfony\Component\VarDumper\VarDumper;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Dump extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(string): Closure(int): Closure(?Closure): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(string): Closure(int): Closure(?Closure): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-return Closure(int): Closure(?Closure): Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @return Closure(int): Closure(?Closure): Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static fn (string $name = ''): Closure =>
                 /**
-                 * @psalm-return Closure(?Closure): Closure(Iterator<TKey, T>): Generator<TKey, T>
+                 * @return Closure(?Closure): Closure(Iterator<TKey, T>): Generator<TKey, T>
                  */
                 static fn (int $size = -1): Closure =>
                     /**
-                     * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
+                     * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
                      */
                     static fn (?Closure $callback = null): Closure =>
                         /**
-                         * @psalm-return Generator<TKey, T>
+                         * @return Generator<TKey, T>
                          */
                         static function (Iterator $iterator) use ($name, $size, $callback): Generator {
                             $j = 0;
@@ -52,12 +51,10 @@ final class Dump extends AbstractOperation
 
                             $callback ??=
                                 /**
-                                 * @param mixed $key
-                                 * @param mixed $value
-                                 * @psalm-param TKey $key
-                                 * @psalm-param T $value
+                                 * @param TKey $key
+                                 * @param T $value
                                  *
-                                 * @psalm-return mixed
+                                 * @return mixed
                                  */
                                 static fn (string $name, $key, $value) => $debugFunction(['name' => $name, 'key' => $key, 'value' => $value]);
 

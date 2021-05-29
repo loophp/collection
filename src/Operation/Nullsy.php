@@ -16,30 +16,28 @@ use Iterator;
 use function in_array;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  */
 final class Nullsy extends AbstractOperation
 {
     /**
-     * @psalm-param list<null, array, int, bool, string>
+     * @param list<null, array, int, bool, string>
      */
     public const VALUES = [null, [], 0, false, ''];
 
     /**
-     * @psalm-return Closure(Iterator<TKey, T>): Generator<int, bool>
+     * @return Closure(Iterator<TKey, T>): Generator<int, bool>
      */
     public function __invoke(): Closure
     {
         $mapCallback =
             /**
-             * @param mixed $value
-             * @psalm-param T $value
+             * @param T $value
              */
             static fn ($value): bool => in_array($value, self::VALUES, true);
 
-        /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, bool> $pipe */
+        /** @var Closure(Iterator<TKey, T>): Generator<int, bool> $pipe */
         $pipe = Pipe::of()(
             MatchOne::of()(static fn (): bool => false)($mapCallback),
             Map::of()(static fn ($value): bool => !$value),

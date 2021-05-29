@@ -14,27 +14,26 @@ use Generator;
 use Iterator;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class FoldRight extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(callable((T|null), T, TKey, Iterator<TKey, T>):(T|null)): Closure(T): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(callable((T|null), T, TKey, Iterator<TKey, T>):(T|null)): Closure(T): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param callable(T|null, T, TKey, Iterator<TKey, T>):(T|null) $callback
+             * @param callable(T|null, T, TKey, Iterator<TKey, T>):(T|null) $callback
              *
-             * @psalm-return Closure(T): Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @return Closure(T): Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static fn (callable $callback): Closure => static function ($initial = null) use ($callback): Closure {
-                /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
+                /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
                 $pipe = Pipe::of()(
                     ScanRight::of()($callback)($initial),
                     Head::of()

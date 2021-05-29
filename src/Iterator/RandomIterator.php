@@ -20,9 +20,8 @@ use const PHP_INT_MIN;
 /**
  * @internal
  *
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T of string
+ * @template TKey
+ * @template T of string
  *
  * @extends ProxyIterator<TKey, T>
  */
@@ -38,12 +37,12 @@ final class RandomIterator extends ProxyIterator
     private int $seed;
 
     /**
-     * @psalm-var Iterator<TKey, T>
+     * @var Iterator<TKey, T>
      */
     private Iterator $wrappedIterator;
 
     /**
-     * @psalm-param Iterator<TKey, T> $iterator
+     * @param Iterator<TKey, T> $iterator
      */
     public function __construct(Iterator $iterator, ?int $seed = null)
     {
@@ -104,7 +103,7 @@ final class RandomIterator extends ProxyIterator
      * We do not cache the values in here.
      * It's already done in the ArrayCacheIterator.
      *
-     * @psalm-return array{0: TKey, 1: T}
+     * @return array{0: TKey, 1: T}
      */
     private function getNextItemAtKey(int $key): array
     {

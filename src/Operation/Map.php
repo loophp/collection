@@ -14,44 +14,41 @@ use Generator;
 use Iterator;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Map extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(callable(T, TKey, Iterator<TKey, T>): T ...): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(callable(T, TKey, Iterator<TKey, T>): T ...): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param callable(T, TKey, Iterator<TKey, T>): T ...$callbacks
+             * @param callable(T, TKey, Iterator<TKey, T>): T ...$callbacks
              */
             static fn (callable ...$callbacks): Closure =>
                 /**
-                 * @psalm-param Iterator<TKey, T> $iterator
+                 * @param Iterator<TKey, T> $iterator
                  *
-                 * @psalm-return Generator<TKey, T>
+                 * @return Generator<TKey, T>
                  */
                 static function (Iterator $iterator) use ($callbacks): Generator {
                     $callbackFactory =
                         /**
-                         * @param mixed $key
-                         * @psalm-param TKey $key
+                         * @param TKey $key
                          *
-                         * @psalm-return Closure(T, callable(T, TKey, Iterator<TKey, T>): T): T
+                         * @return Closure(T, callable(T, TKey, Iterator<TKey, T>): T): T
                          */
                         static fn ($key): Closure =>
                             /**
-                             * @param mixed $carry
-                             * @psalm-param T $carry
-                             * @psalm-param callable(T, TKey, Iterator<TKey, T>): T $callback
+                             * @param T $carry
+                             * @param callable(T, TKey, Iterator<TKey, T>): T $callback
                              *
-                             * @psalm-return T
+                             * @return T
                              */
                             static fn ($carry, callable $callback) => $callback($carry, $key, $iterator);
 

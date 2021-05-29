@@ -12,14 +12,13 @@ namespace loophp\collection\Contract\Operation;
 use loophp\collection\Contract\Collection;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  */
 interface Pairable
 {
     /**
-     * @psalm-return \loophp\collection\Collection<T|TKey, T>
+     * @return \loophp\collection\Collection<T|TKey, T>
      */
     public function pair(): Collection;
 }

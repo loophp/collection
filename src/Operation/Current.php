@@ -14,25 +14,22 @@ use Generator;
 use Iterator;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  */
 final class Current extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(int): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(int): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param int $index
-             *
-             * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static function (int $index): Closure {
-                /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $limit */
+                /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $limit */
                 $limit = Limit::of()(1)($index);
 
                 // Point free style.

@@ -14,22 +14,21 @@ use EmptyIterator;
 use Iterator;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  */
 final class Last extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, T>): Iterator<TKey, T>
+     * @return Closure(Iterator<TKey, T>): Iterator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param Iterator<TKey, T> $iterator
+             * @param Iterator<TKey, T> $iterator
              *
-             * @psalm-return Iterator<TKey, T>
+             * @return Iterator<TKey, T>
              */
             static function (Iterator $iterator): Iterator {
                 $isEmpty = true;
@@ -43,8 +42,8 @@ final class Last extends AbstractOperation
                 }
 
                 /**
-                 * @psalm-var TKey $key
-                 * @psalm-var T $current
+                 * @var TKey $key
+                 * @var T $current
                  */
                 return yield $key => $current;
             };

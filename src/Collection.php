@@ -127,9 +127,8 @@ use const PHP_INT_MAX;
 use const PHP_INT_MIN;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  *
@@ -138,7 +137,7 @@ use const PHP_INT_MIN;
 final class Collection implements CollectionInterface
 {
     /**
-     * @var array<int, mixed>
+     * @var list<mixed>
      */
     private array $parameters;
 
@@ -178,10 +177,9 @@ final class Collection implements CollectionInterface
     ): CollectionInterface {
         $defaultCallback =
             /**
-             * @param mixed $carry
-             * @psalm-param T|TKey $carry
+             * @param T|TKey $carry
              *
-             * @psalm-return T|TKey
+             * @return T|TKey
              */
             static fn ($carry) => $carry;
 
@@ -291,7 +289,7 @@ final class Collection implements CollectionInterface
     /**
      * Create a new instance with no items.
      *
-     * @template NewTKey of array-key
+     * @template NewTKey
      * @template NewT
      *
      * @return self<NewTKey, NewT>
@@ -370,7 +368,7 @@ final class Collection implements CollectionInterface
     }
 
     /**
-     * @template NewTKey of array-key
+     * @template NewTKey
      * @template NewT
      *
      * @param callable(mixed ...$parameters): iterable<NewTKey, NewT> $callable
@@ -395,7 +393,7 @@ final class Collection implements CollectionInterface
     }
 
     /**
-     * @template NewTKey of array-key
+     * @template NewTKey
      * @template NewT
      *
      * @param iterable<NewTKey, NewT> $iterable
@@ -475,9 +473,9 @@ final class Collection implements CollectionInterface
     {
         $identity =
             /**
-             * @psalm-param T $value
+             * @param T $value
              *
-             * @psalm-return T
+             * @return T
              */
             static fn ($value) => $value;
 

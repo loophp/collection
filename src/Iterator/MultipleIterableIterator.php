@@ -15,15 +15,15 @@ use NoRewindIterator;
 /**
  * @internal
  *
- * @psalm-template TKey
- * @psalm-template T
+ * @template TKey
+ * @template T
  *
  * @extends ProxyIterator<TKey, T>
  */
 final class MultipleIterableIterator extends ProxyIterator
 {
     /**
-     * @psalm-param iterable<TKey, T> $iterators
+     * @param iterable<TKey, T> $iterators
      */
     public function __construct(iterable ...$iterators)
     {

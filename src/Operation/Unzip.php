@@ -14,23 +14,22 @@ use Generator;
 use Iterator;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  */
 final class Unzip extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, list<T>>): Generator<int, list<T>>
+     * @return Closure(Iterator<TKey, list<T>>): Generator<int, list<T>>
      */
     public function __invoke(): Closure
     {
         $reduceCallback =
             /**
-             * @psalm-param array<int, list<T>> $carry
-             * @psalm-param iterable<TKey, T> $value
+             * @param array<int, list<T>> $carry
+             * @param iterable<TKey, T> $value
              *
-             * @psalm-return array<int, list<T>>
+             * @return array<int, list<T>>
              */
             static function (array $carry, iterable $value): array {
                 $index = 0;
@@ -42,7 +41,7 @@ final class Unzip extends AbstractOperation
                 return $carry;
             };
 
-        /** @psalm-var Closure(Iterator<TKey, list<T>>): Generator<int, list<T>> $pipe */
+        /** @var Closure(Iterator<TKey, list<T>>): Generator<int, list<T>> $pipe */
         $pipe = Pipe::of()(
             FoldLeft::of()($reduceCallback)([]),
             Unwrap::of()

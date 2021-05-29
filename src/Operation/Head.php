@@ -15,22 +15,21 @@ use Generator;
 use Iterator;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  */
 final class Head extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, T>):Generator<TKey, T, mixed, EmptyIterator|mixed>
+     * @return Closure(Iterator<TKey, T>):Generator<TKey, T, mixed, EmptyIterator|mixed>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param Iterator<TKey, T> $iterator
+             * @param Iterator<TKey, T> $iterator
              *
-             * @psalm-return Generator<TKey, T, mixed, EmptyIterator|void>
+             * @return Generator<TKey, T, mixed, EmptyIterator|void>
              */
             static function (Iterator $iterator): Generator {
                 $isEmpty = true;
@@ -46,8 +45,8 @@ final class Head extends AbstractOperation
                 }
 
                 /**
-                 * @psalm-var TKey $key
-                 * @psalm-var T $current
+                 * @var TKey $key
+                 * @var T $current
                  */
                 return yield $key => $current;
             };

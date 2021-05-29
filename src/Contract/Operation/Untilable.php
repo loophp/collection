@@ -12,17 +12,15 @@ namespace loophp\collection\Contract\Operation;
 use loophp\collection\Contract\Collection;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  */
 interface Untilable
 {
     /**
-     * @param callable ...$callbacks
-     * @psalm-param callable(T, TKey):bool ...$callbacks
+     * @param callable(T, TKey):bool ...$callbacks
      *
-     * @psalm-return \loophp\collection\Collection<TKey, T>
+     * @return \loophp\collection\Collection<TKey, T>
      */
     public function until(callable ...$callbacks): Collection;
 }

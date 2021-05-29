@@ -18,9 +18,8 @@ use function is_resource;
 /**
  * @internal
  *
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  *
  * @extends ProxyIterator<int, string>
  */
@@ -39,7 +38,7 @@ final class ResourceIterator extends ProxyIterator
             /**
              * @param resource $resource
              *
-             * @psalm-return Generator<int, string>
+             * @return Generator<int, string>
              */
             static function ($resource) use ($closeResource): Generator {
                 try {

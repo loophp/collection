@@ -14,37 +14,35 @@ use Generator;
 use Iterator;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Reduction extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(callable((T|null), T, TKey, Iterator<TKey, T>): (T|null)):Closure (T|null): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(callable((T|null), T, TKey, Iterator<TKey, T>): (T|null)):Closure (T|null): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param callable(T|null, T, TKey, Iterator<TKey, T>):(T|null) $callback
+             * @param callable(T|null, T, TKey, Iterator<TKey, T>):(T|null) $callback
              *
-             * @psalm-return Closure(T|null): Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @return Closure(T|null): Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static fn (callable $callback): Closure =>
                 /**
-                 * @param mixed|null $initial
-                 * @psalm-param T|null $initial
+                 * @param T|null $initial
                  *
-                 * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
+                 * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
                  */
                 static fn ($initial = null): Closure =>
                     /**
-                     * @psalm-param Iterator<TKey, T> $iterator
+                     * @param Iterator<TKey, T> $iterator
                      *
-                     * @psalm-return Generator<TKey, T|null>
+                     * @return Generator<TKey, T|null>
                      */
                     static function (Iterator $iterator) use ($callback, $initial): Generator {
                         foreach ($iterator as $key => $value) {

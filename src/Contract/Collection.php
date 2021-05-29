@@ -119,9 +119,8 @@ use loophp\collection\Contract\Operation\Wrapable;
 use loophp\collection\Contract\Operation\Zipable;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  *
  * @template-extends Allable<TKey, T>
  * @template-extends Appendable<TKey, T>
@@ -335,7 +334,7 @@ interface Collection extends
     Zipable
 {
     /**
-     * @psalm-return \Iterator<TKey, T>
+     * @return Iterator<TKey, T>
      */
     public function getIterator(): Iterator;
 }

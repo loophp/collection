@@ -12,14 +12,13 @@ namespace loophp\collection\Contract\Operation;
 use loophp\collection\Contract\Collection;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  */
 interface Nullsyable
 {
     /**
-     * @psalm-return \loophp\collection\Collection<int, bool>
+     * @return \loophp\collection\Collection<int, bool>
      */
     public function nullsy(): Collection;
 }

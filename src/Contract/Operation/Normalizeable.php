@@ -12,16 +12,15 @@ namespace loophp\collection\Contract\Operation;
 use loophp\collection\Contract\Collection;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  */
 interface Normalizeable
 {
     /**
      * Replace, reorder and use numeric keys on a collection.
      *
-     * @psalm-return \loophp\collection\Collection<int, T>
+     * @return \loophp\collection\Collection<int, T>
      */
     public function normalize(): Collection;
 }

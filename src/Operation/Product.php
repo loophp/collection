@@ -16,9 +16,8 @@ use Iterator;
 use function count;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  */
 final class Product extends AbstractOperation
 {
@@ -26,25 +25,23 @@ final class Product extends AbstractOperation
     {
         return
             /**
-             * @psalm-param iterable<TKey, T> ...$iterables
+             * @param iterable<TKey, T> ...$iterables
              *
-             * @psalm-return Closure(Iterator<TKey, T>): Generator<int, array<int, T>>
+             * @return Closure(Iterator<TKey, T>): Generator<int, array<int, T>>
              */
             static fn (iterable ...$iterables): Closure =>
                 /**
-                 * @psalm-param Iterator<TKey, T> $iterator
+                 * @param Iterator<TKey, T> $iterator
                  *
-                 * @psalm-return Generator<int, array<int, T>>
+                 * @return Generator<int, array<int, T>>
                  */
                 static function (Iterator $iterator) use ($iterables): Iterator {
-                    /** @psalm-var Closure(iterable<TKey, T>...): Generator<int, array<int, T>> $cartesian */
+                    /** @var Closure(iterable<TKey, T>...): Generator<int, array<int, T>> $cartesian */
                     $cartesian =
                         /**
-                         * @param array<int, iterable> ...$iterables
+                         * @param iterable<TKey, T> ...$iterables
                          *
-                         * @psalm-param iterable<TKey, T> ...$iterables
-                         *
-                         * @psalm-return Generator<int, array<int, T>>
+                         * @return Generator<int, array<int, T>>
                          */
                         static function (iterable ...$iterables) use (&$cartesian): Generator {
                             $iterable = array_pop($iterables);
@@ -54,7 +51,7 @@ final class Product extends AbstractOperation
                             }
 
                             // @todo Find better algo, without recursion.
-                            /** @psalm-var array<int, T> $item */
+                            /** @var array<int, T> $item */
                             foreach ($cartesian(...$iterables) as $item) {
                                 foreach ($iterable as $value) {
                                     yield $item + [count($item) => $value];

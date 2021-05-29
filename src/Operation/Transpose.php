@@ -16,22 +16,21 @@ use loophp\collection\Iterator\IterableIterator;
 use MultipleIterator;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  */
 final class Transpose extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, list<T>>
+     * @return Closure(Iterator<TKey, T>): Generator<TKey, list<T>>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param Iterator<TKey, T> $iterator
+             * @param Iterator<TKey, T> $iterator
              *
-             * @psalm-return Generator<TKey, list<T>>
+             * @return Generator<TKey, list<T>>
              */
             static function (Iterator $iterator): Generator {
                 $mit = new MultipleIterator(MultipleIterator::MIT_NEED_ANY);
@@ -42,24 +41,24 @@ final class Transpose extends AbstractOperation
 
                 $callbackForKeys =
                     /**
-                     * @psalm-param array $carry
-                     * @psalm-param array<int, TKey> $key
+                     * @param array $carry
+                     * @param array<int, TKey> $key
                      *
-                     * @psalm-return TKey
+                     * @return TKey
                      */
                     static fn (array $carry, array $key) => current($key);
 
                 $callbackForValues =
                     /**
-                     * @psalm-param array $carry
-                     * @psalm-param array<int, TKey> $key
-                     * @psalm-param array<int, T> $value
+                     * @param array $carry
+                     * @param array<int, TKey> $key
+                     * @param array<int, T> $value
                      *
-                     * @psalm-return array<int, T>
+                     * @return array<int, T>
                      */
                     static fn (array $carry, array $key, array $value): array => $value;
 
-                /** @psalm-var Generator<TKey, list<T>> $associate */
+                /** @var Generator<TKey, list<T>> $associate */
                 $associate = Associate::of()($callbackForKeys)($callbackForValues)($mit);
 
                 return $associate;

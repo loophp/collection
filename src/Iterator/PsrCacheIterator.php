@@ -16,9 +16,8 @@ use Psr\Cache\CacheItemPoolInterface;
 /**
  * @internal
  *
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  *
  * @extends ProxyIterator<TKey, T>
  */
@@ -29,7 +28,7 @@ final class PsrCacheIterator extends ProxyIterator
     private int $key = 0;
 
     /**
-     * @psalm-param Iterator<TKey, T> $iterator
+     * @param Iterator<TKey, T> $iterator
      */
     public function __construct(Iterator $iterator, CacheItemPoolInterface $cache)
     {
@@ -38,22 +37,22 @@ final class PsrCacheIterator extends ProxyIterator
     }
 
     /**
-     * @psalm-return T
+     * @return T
      */
     public function current()
     {
-        /** @psalm-var array{TKey, T} $data */
+        /** @var array{TKey, T} $data */
         $data = $this->getTupleFromCache($this->key)->get();
 
         return $data[1];
     }
 
     /**
-     * @psalm-return TKey
+     * @return TKey
      */
     public function key()
     {
-        /** @psalm-var array{TKey, T} $data */
+        /** @var array{TKey, T} $data */
         $data = $this->getTupleFromCache($this->key)->get();
 
         return $data[0];

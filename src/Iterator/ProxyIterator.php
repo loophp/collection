@@ -15,21 +15,20 @@ use OuterIterator;
 /**
  * @internal
  *
- * @psalm-template TKey
- * @psalm-template T
+ * @template TKey
+ * @template T
  *
  * @implements OuterIterator<TKey, T>
  */
 abstract class ProxyIterator implements OuterIterator
 {
     /**
-     * @psalm-var Iterator<TKey, T>
+     * @var Iterator<TKey, T>
      */
     protected Iterator $iterator;
 
     /**
-     * @return mixed
-     * @psalm-return T
+     * @return T
      */
     public function current()
     {
@@ -37,7 +36,7 @@ abstract class ProxyIterator implements OuterIterator
     }
 
     /**
-     * @psalm-return Iterator<TKey, T>
+     * @return Iterator<TKey, T>
      */
     public function getInnerIterator(): Iterator
     {
@@ -45,7 +44,7 @@ abstract class ProxyIterator implements OuterIterator
     }
 
     /**
-     * @psalm-return TKey
+     * @return TKey
      */
     public function key()
     {

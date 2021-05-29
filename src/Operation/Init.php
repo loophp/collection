@@ -15,22 +15,21 @@ use Generator;
 use Iterator;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  */
 final class Init extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param Iterator<TKey, T> $iterator
+             * @param Iterator<TKey, T> $iterator
              *
-             * @psalm-return Generator<TKey, T>
+             * @return Generator<TKey, T>
              */
             static function (Iterator $iterator): Generator {
                 $cacheIterator = new CachingIterator($iterator, CachingIterator::FULL_CACHE);

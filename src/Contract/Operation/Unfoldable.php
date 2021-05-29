@@ -14,14 +14,14 @@ use loophp\collection\Contract\Collection;
 interface Unfoldable
 {
     /**
-     * @psalm-template TKey
-     * @psalm-template TKey of array-key
-     * @psalm-template T
+     * @template TKey
+     * @template TKey
+     * @template T
      *
-     * @psalm-param callable(mixed|T...): (mixed|array<TKey, T>) $callback
-     * @psalm-param T ...$parameters
+     * @param callable(mixed|T...): (mixed|array<TKey, T>) $callback
+     * @param T ...$parameters
      *
-     * @psalm-return \loophp\collection\Collection<TKey, T>
+     * @return \loophp\collection\Collection<TKey, T>
      */
     public static function unfold(callable $callback, ...$parameters): Collection;
 }

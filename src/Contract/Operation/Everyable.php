@@ -12,14 +12,13 @@ namespace loophp\collection\Contract\Operation;
 use loophp\collection\Contract\Collection;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  */
 interface Everyable
 {
     /**
-     * @psalm-return \loophp\collection\Collection<TKey, bool>
+     * @return \loophp\collection\Collection<TKey, bool>
      */
     public function every(callable ...$callbacks): Collection;
 }

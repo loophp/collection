@@ -12,9 +12,8 @@ namespace loophp\collection\Contract\Operation;
 use loophp\collection\Contract\Collection;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  */
 interface Forgetable
 {
@@ -23,7 +22,7 @@ interface Forgetable
      *
      * @param mixed ...$keys
      *
-     * @psalm-return \loophp\collection\Collection<TKey, T>
+     * @return \loophp\collection\Collection<TKey, T>
      */
     public function forget(...$keys): Collection;
 }

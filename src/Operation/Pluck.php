@@ -23,53 +23,45 @@ use function is_array;
 use function is_object;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Pluck extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(T):Closure(T):Closure(Iterator<TKey, T>):Generator<int, T|iterable<int, T>, mixed, void>
+     * @return Closure(T):Closure(T):Closure(Iterator<TKey, T>):Generator<int, T|iterable<int, T>, mixed, void>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param mixed $key
-             * @psalm-param T $key
+             * @param T $key
              *
-             * @psalm-return Closure(T): Closure(Iterator<TKey, T>): Generator<int, T|iterable<int, T>, mixed, void>
+             * @return Closure(T): Closure(Iterator<TKey, T>): Generator<int, T|iterable<int, T>, mixed, void>
              */
             static fn ($key): Closure =>
                 /**
-                 * @param mixed $default
-                 * @psalm-param T $default
+                 * @param T $default
                  *
-                 * @psalm-return Closure(Iterator<TKey, T>): Generator<int, T|iterable<int, T>, mixed, void>
+                 * @return Closure(Iterator<TKey, T>): Generator<int, T|iterable<int, T>, mixed, void>
                  */
                 static fn ($default): Closure =>
                     /**
-                     * @psalm-param Iterator<TKey, T> $iterator
+                     * @param Iterator<TKey, T> $iterator
                      *
-                     * @psalm-return Generator<int, T|iterable<int, T>, mixed, void>
+                     * @return Generator<int, T|iterable<int, T>, mixed, void>
                      */
                     static function (Iterator $iterator) use ($key, $default): Generator {
                         $pick =
                             /**
-                             * @psalm-param Iterator<TKey, T> $iterator
+                             * @param Iterator<TKey, T> $iterator
+                             * @param iterable<TKey, T>|T $target
+                             * @param array<int, string> $key
+                             * @param T $default
                              *
-                             * @param mixed $target
-                             * @psalm-param T|iterable<TKey, T> $target
-                             *
-                             * @psalm-param array<int, string> $key
-                             *
-                             * @param mixed|null $default
-                             * @psalm-param T $default
-                             *
-                             * @psalm-return T|iterable<int, T>
+                             * @return iterable<int, T>|T
                              */
                             static function (Iterator $iterator, $target, array $key, $default = null) use (&$pick) {
                                 while (null !== $segment = array_shift($key)) {
@@ -78,30 +70,30 @@ final class Pluck extends AbstractOperation
                                             return $default;
                                         }
 
-                                        /** @psalm-var array<int, T> $result */
+                                        /** @var array<int, T> $result */
                                         $result = [];
 
                                         foreach ($target as $item) {
                                             $result[] = $pick($iterator, $item, $key);
                                         }
 
-                                        /** @psalm-var Generator<TKey, T> $collapse */
+                                        /** @var Generator<TKey, T> $collapse */
                                         $collapse = Collapse::of()(new ArrayIterator($result));
 
                                         return in_array('*', $key, true) ? $collapse : $result;
                                     }
 
                                     if ((true === is_array($target)) && (true === array_key_exists($segment, $target))) {
-                                        /** @psalm-var T $target */
+                                        /** @var T $target */
                                         $target = $target[$segment];
                                     } elseif (($target instanceof ArrayAccess) && (true === $target->offsetExists($segment))) {
-                                        /** @psalm-var T $target */
+                                        /** @var T $target */
                                         $target = $target[$segment];
                                     } elseif ($target instanceof Collection) {
-                                        /** @psalm-var T $target */
+                                        /** @var T $target */
                                         $target = (Get::of()($segment)($default)($target->getIterator()))->current();
                                     } elseif ((true === is_object($target)) && (true === property_exists($target, $segment))) {
-                                        /** @psalm-var T $target */
+                                        /** @var T $target */
                                         $target = (new ReflectionClass($target))->getProperty($segment)->getValue($target);
                                     } else {
                                         $target = $default;

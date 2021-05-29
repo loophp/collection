@@ -14,8 +14,8 @@ use Generator;
 /**
  * @internal
  *
- * @psalm-template TKey
- * @psalm-template T
+ * @template TKey
+ * @template T
  *
  * @extends ProxyIterator<TKey, T>
  */

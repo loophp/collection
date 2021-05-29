@@ -15,10 +15,10 @@ use Iterator;
 use loophp\collection\Iterator\IterableIterator;
 
 /**
- * @template NewTKey of array-key
+ * @template NewTKey
  * @template NewT
  *
- * @template TKey of int
+ * @template TKey
  * @template T of array{0: NewTKey, 1: NewT}
  */
 final class Unpack extends AbstractOperation

@@ -17,9 +17,8 @@ use function array_slice;
 use function count;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  */
 final class Combinate extends AbstractOperation
 {
@@ -28,11 +27,9 @@ final class Combinate extends AbstractOperation
         return static function (?int $length = null): Closure {
             $getCombinations =
                 /**
-                 * @param array<mixed> $dataset
-                 * @psalm-param array<int, T> $dataset
+                 * @param array<int, T> $dataset
                  *
-                 * @return Generator<array<mixed>>
-                 * @psalm-return Generator<array<int, T>>
+                 * @return Generator<array<int, T>>
                  */
                 static function (array $dataset, int $length) use (&$getCombinations): Generator {
                     for ($i = 0; count($dataset) - $length >= $i; ++$i) {
@@ -42,7 +39,7 @@ final class Combinate extends AbstractOperation
                             continue;
                         }
 
-                        /** @psalm-var array<int, T> $permutation */
+                        /** @var array<int, T> $permutation */
                         foreach ($getCombinations(array_slice($dataset, $i + 1), $length - 1) as $permutation) {
                             array_unshift($permutation, $dataset[$i]);
 
@@ -53,9 +50,9 @@ final class Combinate extends AbstractOperation
 
             return
                 /**
-                 * @psalm-param Iterator<TKey, T> $iterator
+                 * @param Iterator<TKey, T> $iterator
                  *
-                 * @psalm-return Generator<int, array<int, T>>
+                 * @return Generator<int, array<int, T>>
                  */
                 static function (Iterator $iterator) use ($length, $getCombinations): Generator {
                     $dataset = [...$iterator];

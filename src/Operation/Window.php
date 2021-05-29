@@ -16,26 +16,25 @@ use Iterator;
 use function array_slice;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  */
 final class Window extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(int): Closure(Iterator<TKey, T>): Generator<TKey, T|list<T>>
+     * @return Closure(int): Closure(Iterator<TKey, T>): Generator<TKey, T|list<T>>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T|list<T>>
+             * @return Closure(Iterator<TKey, T>): Generator<TKey, T|list<T>>
              */
             static fn (int $size): Closure =>
                 /**
-                 * @psalm-param Iterator<TKey, T> $iterator
+                 * @param Iterator<TKey, T> $iterator
                  *
-                 * @psalm-return Generator<TKey, T|list<T>>
+                 * @return Generator<TKey, list<T>|T>
                  */
                 static function (Iterator $iterator) use ($size): Generator {
                     if (0 === $size) {

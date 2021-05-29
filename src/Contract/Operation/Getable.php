@@ -12,22 +12,18 @@ namespace loophp\collection\Contract\Operation;
 use loophp\collection\Contract\Collection;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  */
 interface Getable
 {
     /**
      * Get an item by key.
      *
-     * @param int|string $key
-     * @psalm-param TKey $key
+     * @param TKey $key
+     * @param T|null $default
      *
-     * @param mixed $default
-     * @psalm-param T|null $default
-     *
-     * @psalm-return \loophp\collection\Collection<TKey, T|null>
+     * @return \loophp\collection\Collection<TKey, T|null>
      */
     public function get($key, $default = null): Collection;
 }

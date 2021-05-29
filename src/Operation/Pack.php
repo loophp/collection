@@ -14,30 +14,26 @@ use Generator;
 use Iterator;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  */
 final class Pack extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, T>): Generator<int, array{0: TKey, 1: T}>
+     * @return Closure(Iterator<TKey, T>): Generator<int, array{0: TKey, 1: T}>
      */
     public function __invoke(): Closure
     {
         $mapCallback =
             /**
-             * @param mixed $value
-             * @psalm-param T $value
+             * @param T $value
+             * @param TKey $key
              *
-             * @param mixed $key
-             * @psalm-param TKey $key
-             *
-             * @psalm-return array{0: TKey, 1: T}
+             * @return array{0: TKey, 1: T}
              */
             static fn ($value, $key): array => [$key, $value];
 
-        /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, array{0: TKey, 1: T}> $pipe */
+        /** @var Closure(Iterator<TKey, T>): Generator<int, array{0: TKey, 1: T}> $pipe */
         $pipe = Pipe::of()(
             Map::of()($mapCallback),
             Normalize::of()

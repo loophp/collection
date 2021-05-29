@@ -12,14 +12,13 @@ namespace loophp\collection\Contract\Operation;
 use loophp\collection\Contract\Collection;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  */
 interface Wrapable
 {
     /**
-     * @psalm-return \loophp\collection\Collection<int, array<TKey, T>>
+     * @return \loophp\collection\Collection<int, array<TKey, T>>
      */
     public function wrap(): Collection;
 }

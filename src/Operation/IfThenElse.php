@@ -14,48 +14,44 @@ use Generator;
 use Iterator;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class IfThenElse extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(callable(T, TKey): bool): Closure(callable(T, TKey): (T)): Closure(callable(T, TKey): (T)): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(callable(T, TKey): bool): Closure(callable(T, TKey): (T)): Closure(callable(T, TKey): (T)): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param callable(T, TKey):bool $condition
+             * @param callable(T, TKey):bool $condition
              *
-             * @psalm-return Closure(callable(T, TKey): (T)): Closure(callable(T, TKey): (T)): Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @return Closure(callable(T, TKey): (T)): Closure(callable(T, TKey): (T)): Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static fn (callable $condition): Closure =>
                 /**
-                 * @psalm-param callable(T, TKey):T $then
+                 * @param callable(T, TKey):T $then
                  *
-                 * @psalm-return Closure(callable(T, TKey): (T)): Closure(Iterator<TKey, T>): Generator<TKey, T>
+                 * @return Closure(callable(T, TKey): (T)): Closure(Iterator<TKey, T>): Generator<TKey, T>
                  */
                 static fn (callable $then): Closure =>
                     /**
-                     * @psalm-param callable(T, TKey):T $else
+                     * @param callable(T, TKey):T $else
                      *
-                     * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
+                     * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
                      */
                     static function (callable $else) use ($condition, $then): Closure {
-                        /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $map */
+                        /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $map */
                         $map = Map::of()(
                             /**
-                             * @param mixed $value
-                             * @psalm-param T $value
+                             * @param T $value
+                             * @param TKey $key
                              *
-                             * @param mixed $key
-                             * @psalm-param TKey $key
-                             *
-                             * @psalm-return T
+                             * @return T
                              */
                             static fn ($value, $key, Iterator $iterator) => $condition($value, $key, $iterator) ? $then($value, $key, $iterator) : $else($value, $key, $iterator)
                         );

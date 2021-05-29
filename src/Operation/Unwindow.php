@@ -14,28 +14,27 @@ use Generator;
 use Iterator;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  */
 final class Unwindow extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, list<T>>): Generator<TKey, T>
+     * @return Closure(Iterator<TKey, list<T>>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
-        /** @psalm-var Closure(Iterator<TKey, list<T>>): Generator<TKey, T> $unwindow */
+        /** @var Closure(Iterator<TKey, list<T>>): Generator<TKey, T> $unwindow */
         $unwindow = Map::of()(
             /**
-             * @psalm-param iterable<TKey, list<T>> $iterable
+             * @param iterable<TKey, list<T>> $iterable
              *
-             * @psalm-return T|null
+             * @return T|null
              */
             static function (iterable $iterable) {
                 $value = null;
 
-                /** @psalm-var T $value */
+                /** @var T $value */
                 foreach ($iterable as $value) {
                 }
 

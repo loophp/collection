@@ -15,30 +15,29 @@ use loophp\collection\Iterator\IterableIterator;
 use MultipleIterator;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Zip extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(iterable<TKey, T>...): Closure(Iterator<TKey, T>): Iterator<list<TKey>, list<T>>
+     * @return Closure(iterable<TKey, T>...): Closure(Iterator<TKey, T>): Iterator<list<TKey>, list<T>>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param iterable<TKey, T> ...$iterables
+             * @param iterable<TKey, T> ...$iterables
              *
-             * @psalm-return Closure(Iterator<TKey, T>): Iterator<list<TKey>, list<T>>
+             * @return Closure(Iterator<TKey, T>): Iterator<list<TKey>, list<T>>
              */
             static fn (iterable ...$iterables): Closure =>
                 /**
-                 * @psalm-param Iterator<TKey, T>: Iterator<list<TKey>, list<T>>
+                 * @param Iterator<TKey, T> $iterator
                  *
-                 * @psalm-return Iterator<list<TKey>, list<T>>
+                 * @return Iterator<list<TKey>, list<T>>
                  */
                 static function (Iterator $iterator) use ($iterables): Iterator {
                     $mit = new MultipleIterator(MultipleIterator::MIT_NEED_ANY);

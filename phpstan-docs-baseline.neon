@@ -1,16 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Parameter \\#1 \\$iterable of static method loophp\\\\collection\\\\Collection\\<mixed,mixed\\>\\:\\:fromIterable\\(\\) expects iterable\\<\\(int\\|string\\), Symfony\\\\Contracts\\\\HttpClient\\\\ChunkInterface\\>, Symfony\\\\Contracts\\\\HttpClient\\\\ResponseStreamInterface given\\.$#"
-			count: 1
-			path: docs/pages/code/lazy-json-parsing.php
-
-		-
-			message: "#^Unable to resolve the template type NewTKey in call to method static method loophp\\\\collection\\\\Collection\\<mixed,mixed\\>\\:\\:fromIterable\\(\\)$#"
-			count: 4
-			path: docs/pages/code/lazy-json-parsing.php
-
-		-
 			message: "#^Unable to resolve the template type NewT in call to method static method loophp\\\\collection\\\\Collection\\<mixed,mixed\\>\\:\\:fromIterable\\(\\)$#"
 			count: 1
 			path: docs/pages/code/parse-git-log.php
@@ -21,12 +11,6 @@ parameters:
 			path: docs/pages/code/parse-git-log.php
 
 		-
-			message: "#^Unable to resolve the template type NewTKey in call to method static method loophp\\\\collection\\\\Collection\\<mixed,mixed\\>\\:\\:fromIterable\\(\\)$#"
-			count: 2
-			path: docs/pages/code/primes.php
-
-		-
 			message: "#^Parameter \\#1 \\$str of function mb_strtolower expects string, int given\\.$#"
 			count: 1
 			path: docs/pages/code/simple.php
-
