@@ -45,18 +45,13 @@ $generatorClosureMixed = static function (): Generator {
     yield 4 => '5';
 };
 
-/** @var Closure(): array<int, int> $arrayList */
 $arrayList = static fn (): array => range(1, 3);
-/** @var Closure(): array<string, int> $arrayMap */
 $arrayMap = static fn (): array => ['myKey' => 1];
-/** @var Closure(): array<int, string|int> $arrayMixed */
 $arrayMixed = static fn (): array => [1, 2, '3', 'b', 5];
 
 /** @var Closure(): ArrayIterator<int, int> $arrayIteratorList */
 $arrayIteratorList = static fn (int $a, int $b): ArrayIterator => new ArrayIterator(range($a, $b));
-/** @var Closure(): ArrayIterator<string, int> $arrayIteratorMap */
 $arrayIteratorMap = static fn (int $x): ArrayIterator => new ArrayIterator(['myKey' => $x]);
-/** @var Closure(): ArrayIterator<int, string|int> $arrayIteratorMixed */
 $arrayIteratorMixed = static fn (): ArrayIterator => new ArrayIterator([1, 2, '3', 5, 'b']);
 
 $classWithMethod = new class() {

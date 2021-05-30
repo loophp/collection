@@ -30,11 +30,8 @@ function fromIterable_checkMixed(Collection $collection): void
 {
 }
 
-/** @var Closure(): Generator<int, int> $generatorList */
 $generatorList = static fn (): Generator => yield from range(1, 3);
-/** @var Closure(): Generator<string, int> $generatorMap */
 $generatorMap = static fn (): Generator => yield 'myKey' => 1;
-/** @var Closure(): Generator<int, int|string> $generatorMixed */
 $generatorMixed = static function (): Generator {
     yield 1 => 2;
 
@@ -45,17 +42,12 @@ $generatorMixed = static function (): Generator {
     yield 4 => '5';
 };
 
-/** @var array<int, int> $arrayList */
 $arrayList = range(1, 3);
-/** @var array<string, int> $arrayMap */
 $arrayMap = ['foo' => 1, 'bar' => 2];
 $arrayMixed = [1, 2, '3', 'b', 5];
 
-/** @var ArrayIterator<int, int> $arrayIteratorList */
 $arrayIteratorList = new ArrayIterator(range(1, 3));
-/** @var ArrayIterator<string, int> $arrayIteratorMap */
 $arrayIteratorMap = new ArrayIterator(['foo' => 1, 'bar' => 2]);
-/** @var ArrayIterator<int, int|string> $arrayIteratorMixed */
 $arrayIteratorMixed = new ArrayIterator([1, 2, '3', 'b', 5]);
 
 fromIterable_checkList(Collection::fromIterable($generatorList()));

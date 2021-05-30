@@ -60,7 +60,7 @@ final class CollectionT implements CollectionTInterface
     /**
      * Create a new instance with no items.
      *
-     * @template NewTKey of array-key
+     * @template NewTKey
      * @template NewT
      *
      * @return self<NewTKey, NewT>
@@ -74,7 +74,7 @@ final class CollectionT implements CollectionTInterface
     }
 
     /**
-     * @template NewTKey of array-key
+     * @template NewTKey
      * @template NewT
      *
      * @param callable(mixed ...$parameters): iterable<NewTKey, NewT> $callable
@@ -99,7 +99,7 @@ final class CollectionT implements CollectionTInterface
     }
 
     /**
-     * @template NewTKey of array-key
+     * @template NewTKey
      * @template NewT
      *
      * @param iterable<NewTKey, NewT> $iterable
