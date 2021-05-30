@@ -15,35 +15,32 @@ use Iterator;
 use loophp\collection\Contract\Operation\Splitable;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  */
 final class Explode extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(T...): Closure(Iterator<TKey, T>): Generator<int, list<T>>
+     * @return Closure(T...): Closure(Iterator<TKey, T>): Generator<int, list<T>>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param T ...$explodes
+             * @param T ...$explodes
              *
-             * @psalm-return Closure(Iterator<TKey, T>): Generator<int, list<T>>
+             * @return Closure(Iterator<TKey, T>): Generator<int, list<T>>
              */
             static function (...$explodes): Closure {
-                /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, list<T>> $split */
+                /** @var Closure(Iterator<TKey, T>): Generator<int, list<T>> $split */
                 $split = Split::of()(Splitable::REMOVE)(
                     ...array_map(
                         /**
-                         * @param mixed $explode
-                         * @psalm-param T $explode
+                         * @param T $explode
                          */
                         static fn ($explode): Closure =>
                             /**
-                             * @param mixed $value
-                             * @psalm-param T $value
+                             * @param T $value
                              */
                             static fn ($value): bool => $value === $explode,
                         $explodes

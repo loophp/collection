@@ -12,9 +12,8 @@ namespace loophp\collection\Contract\Operation;
 use loophp\collection\Contract\Collection;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  */
 interface Sortable
 {
@@ -25,7 +24,7 @@ interface Sortable
     /**
      * Sort a collection using a callback.
      *
-     * @psalm-return \loophp\collection\Collection<TKey, T>
+     * @return \loophp\collection\Collection<TKey, T>
      */
     public function sort(int $type = Sortable::BY_VALUES, ?callable $callback = null): Collection;
 }

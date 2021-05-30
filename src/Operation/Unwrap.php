@@ -14,18 +14,17 @@ use Generator;
 use Iterator;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  */
 final class Unwrap extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, array<TKey, T>>): Generator<TKey, T>
+     * @return Closure(Iterator<TKey, array<TKey, T>>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
-        /** @psalm-var Closure(Iterator<TKey, array<TKey, T>>): Generator<TKey, T> $flatten */
+        /** @var Closure(Iterator<TKey, array<TKey, T>>): Generator<TKey, T> $flatten */
         $flatten = Flatten::of()(1);
 
         // Point free style.

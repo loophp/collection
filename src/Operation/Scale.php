@@ -16,47 +16,45 @@ use Iterator;
 use const INF;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Scale extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(float): Closure(float): Closure(float): Closure(float): Closure(float): Closure(Iterator<TKey, float|int>): Generator<TKey, float|int>
+     * @return Closure(float): Closure(float): Closure(float): Closure(float): Closure(float): Closure(Iterator<TKey, float|int>): Generator<TKey, float|int>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-return Closure(float): Closure(float): Closure(float): Closure(float): Closure(Iterator<TKey, float|int>): Generator<TKey, float|int>
+             * @return Closure(float): Closure(float): Closure(float): Closure(float): Closure(Iterator<TKey, float|int>): Generator<TKey, float|int>
              */
             static fn (float $lowerBound): Closure =>
                 /**
-                 * @psalm-return Closure(float): Closure(float): Closure(float): Closure(Iterator<TKey, float|int>): Generator<TKey, float|int>
+                 * @return Closure(float): Closure(float): Closure(float): Closure(Iterator<TKey, float|int>): Generator<TKey, float|int>
                  */
                 static fn (float $upperBound): Closure =>
                     /**
-                     * @psalm-return Closure(float): Closure(float): Closure(Iterator<TKey, float|int>): Generator<TKey, float|int>
+                     * @return Closure(float): Closure(float): Closure(Iterator<TKey, float|int>): Generator<TKey, float|int>
                      */
                     static fn (float $wantedLowerBound = 0.0): Closure =>
                         /**
-                         * @psalm-return Closure(float): Closure(Iterator<TKey, float|int>): Generator<TKey, float|int>
+                         * @return Closure(float): Closure(Iterator<TKey, float|int>): Generator<TKey, float|int>
                          */
                         static fn (float $wantedUpperBound = 1.0): Closure =>
                             /**
-                             * @psalm-return Closure(Iterator<TKey, float|int>): Generator<TKey, float|int>
+                             * @return Closure(Iterator<TKey, float|int>): Generator<TKey, float|int>
                              */
                             static function (float $base = 0.0) use ($lowerBound, $upperBound, $wantedLowerBound, $wantedUpperBound): Closure {
                                 $wantedLowerBound = (0.0 === $wantedLowerBound) ? (0.0 === $base ? 0.0 : 1.0) : $wantedLowerBound;
                                 $wantedUpperBound = (1.0 === $wantedUpperBound) ? (0.0 === $base ? 1.0 : $base) : $wantedUpperBound;
-                                /** @psalm-var callable(Generator<TKey, (float | int)>):Generator<TKey, float> $mapper */
+                                /** @var callable(Generator<TKey, (float | int)>):Generator<TKey, float> $mapper */
                                 $mapper = Map::of()(
                                     /**
-                                     * @param mixed $v
-                                     * @psalm-param float|int $v
+                                     * @param float|int $v
                                      */
                                     static function ($v) use ($lowerBound, $upperBound, $wantedLowerBound, $wantedUpperBound, $base): float {
                                         $mx = 0.0 === $base ?
@@ -69,7 +67,7 @@ final class Scale extends AbstractOperation
                                     }
                                 );
 
-                                /** @psalm-var callable(Iterator<TKey, (float | int)>):(Generator<TKey, float|int>) $filter */
+                                /** @var callable(Iterator<TKey, (float | int)>):(Generator<TKey, float|int>) $filter */
                                 $filter = Filter::of()(
                                     /**
                                      * @param float|int $item
@@ -81,7 +79,7 @@ final class Scale extends AbstractOperation
                                     static fn ($item): bool => $item <= $upperBound
                                 );
 
-                                /** @psalm-var Closure(Iterator<TKey, (float | int)>):(Generator<TKey, float|int>) $pipe */
+                                /** @var Closure(Iterator<TKey, (float | int)>):(Generator<TKey, float|int>) $pipe */
                                 $pipe = Pipe::of()($filter, $mapper);
 
                                 // Point free style.

@@ -12,9 +12,8 @@ namespace loophp\collection\Contract\Operation;
 use loophp\collection\Contract\Collection;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  */
 interface Padable
 {
@@ -23,7 +22,7 @@ interface Padable
      *
      * @param mixed $value
      *
-     * @psalm-return \loophp\collection\Collection<int|TKey, T>
+     * @return \loophp\collection\Collection<int|TKey, T>
      */
     public function pad(int $size, $value): Collection;
 }

@@ -16,18 +16,17 @@ use Iterator;
 use const PHP_EOL;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  */
 final class Unlines extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, (T|string)>): Generator<TKey, string, mixed, void>
+     * @return Closure(Iterator<TKey, (T|string)>): Generator<TKey, string, mixed, void>
      */
     public function __invoke(): Closure
     {
-        /** @psalm-var Closure(Iterator<TKey, (T|string)>):Generator<TKey, string> $implode */
+        /** @var Closure(Iterator<TKey, (T|string)>):Generator<TKey, string> $implode */
         $implode = Implode::of()(PHP_EOL);
 
         // Point free style.

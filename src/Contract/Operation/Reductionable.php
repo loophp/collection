@@ -12,9 +12,8 @@ namespace loophp\collection\Contract\Operation;
 use loophp\collection\Contract\Collection;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  */
 interface Reductionable
 {
@@ -23,7 +22,7 @@ interface Reductionable
      *
      * @param mixed $initial
      *
-     * @psalm-return \loophp\collection\Collection<TKey, T>
+     * @return \loophp\collection\Collection<TKey, T>
      */
     public function reduction(callable $callback, $initial = null): Collection;
 }

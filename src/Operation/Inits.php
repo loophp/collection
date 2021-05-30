@@ -14,28 +14,23 @@ use Generator;
 use Iterator;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  */
 final class Inits extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, T>): Generator<int, list<T>>
+     * @return Closure(Iterator<TKey, T>): Generator<int, list<T>>
      */
     public function __invoke(): Closure
     {
         $scanLeftCallback =
             /**
-             * @psalm-param array<TKey, T> $carry
-             * @psalm-param T $value
-             * @psalm-param TKey $key
-             * @psalm-param Iterator<TKey, T> $iterator
+             * @param array<TKey, T> $carry
+             * @param T $value
+             * @param TKey $key
              *
-             * @psalm-return array<TKey, T>
-             *
-             * @param mixed $value
-             * @param mixed $key
+             * @return array<TKey, T>
              */
             static function (array $carry, $value, $key): array {
                 $carry[$key] = $value;
@@ -43,7 +38,7 @@ final class Inits extends AbstractOperation
                 return $carry;
             };
 
-        /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, list<T>> $inits */
+        /** @var Closure(Iterator<TKey, T>): Generator<int, list<T>> $inits */
         $inits = Pipe::of()(
             ScanLeft::of()($scanLeftCallback)([]),
             Normalize::of()

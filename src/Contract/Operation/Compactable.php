@@ -12,19 +12,17 @@ namespace loophp\collection\Contract\Operation;
 use loophp\collection\Contract\Collection;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  */
 interface Compactable
 {
     /**
      * Combine a collection of items with some other keys.
      *
-     * @param mixed ...$values
-     * @psalm-param T ...$values
+     * @param T ...$values
      *
-     * @psalm-return \loophp\collection\Collection<TKey, T>
+     * @return \loophp\collection\Collection<TKey, T>
      */
     public function compact(...$values): Collection;
 }

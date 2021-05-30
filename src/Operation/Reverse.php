@@ -18,28 +18,26 @@ use Iterator;
  * @todo They are only needed when: Collection::empty()->reverse()
  * @todo Most probably that the FoldLeft operation needs an update.
  *
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  */
 final class Reverse extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T, mixed, void>
+     * @return Closure(Iterator<TKey, T>): Generator<TKey, T, mixed, void>
      */
     public function __invoke(): Closure
     {
         $callback =
             /**
-             * @psalm-param list<array{0: TKey, 1: T}> $carry
+             * @param list<array{0: TKey, 1: T}> $carry
+             * @param list<array{0: TKey, 1: T}> $value
              *
-             * @psalm-param list<array{0: TKey, 1: T}> $value
-             *
-             * @psalm-return list<array{0: TKey, 1: T}>
+             * @return list<array{0: TKey, 1: T}>
              */
             static fn (array $carry, array $value): array => [...$value, ...$carry];
 
-        /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
+        /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
         $pipe = Pipe::of()(
             Pack::of(),
             Wrap::of(),

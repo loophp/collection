@@ -16,23 +16,22 @@ use function array_key_exists;
 /**
  * @internal
  *
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  *
  * @extends ProxyIterator<TKey, T>
  */
 final class ArrayCacheIterator extends ProxyIterator
 {
     /**
-     * @psalm-var array<int, array{0: TKey, 1: T}>
+     * @var array<int, array{0: TKey, 1: T}>
      */
     private array $cache = [];
 
     private int $key = 0;
 
     /**
-     * @psalm-param Iterator<TKey, T> $iterator
+     * @param Iterator<TKey, T> $iterator
      */
     public function __construct(Iterator $iterator)
     {
@@ -40,7 +39,7 @@ final class ArrayCacheIterator extends ProxyIterator
     }
 
     /**
-     * @psalm-return T
+     * @return T
      */
     public function current()
     {
@@ -50,7 +49,7 @@ final class ArrayCacheIterator extends ProxyIterator
     }
 
     /**
-     * @psalm-return TKey
+     * @return TKey
      */
     public function key()
     {
@@ -80,7 +79,7 @@ final class ArrayCacheIterator extends ProxyIterator
     }
 
     /**
-     * @psalm-return array{0: TKey, 1: T}
+     * @return array{0: TKey, 1: T}
      */
     private function getTupleFromCache(int $key): array
     {

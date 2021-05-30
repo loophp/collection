@@ -13,39 +13,37 @@ use Closure;
 use Generator;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Unfold extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(T...): Closure(callable(mixed|T...): (mixed|array<TKey, T>)): Closure(): Generator<int, T>
+     * @return Closure(T...): Closure(callable(mixed|T...): (mixed|array<TKey, T>)): Closure(): Generator<int, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param mixed $parameters
-             * @psalm-param T ...$parameters
+             * @param T ...$parameters
              *
-             * @psalm-return Closure(callable(mixed|T...): (array<TKey, T>)): Closure(): Generator<int, T>
+             * @return Closure(callable(mixed|T...): (array<TKey, T>)): Closure(): Generator<int, T>
              */
             static fn (...$parameters): Closure =>
                 /**
-                 * @psalm-param callable(mixed|T...): (mixed|array<TKey, T>) $callback
+                 * @param callable(mixed|T...): (mixed|array<TKey, T>) $callback
                  *
-                 * @psalm-return Closure(): Generator<int, T>
+                 * @return Closure(): Generator<int, T>
                  */
                 static fn (callable $callback): Closure =>
                     /**
-                     * @psalm-return Generator<int, T>
+                     * @return Generator<int, T>
                      */
                     static function () use ($parameters, $callback): Generator {
                         while (true) {
-                            /** @psalm-var T $parameters */
+                            /** @var T $parameters */
                             $parameters = $callback(...array_values((array) $parameters));
 
                             yield $parameters;

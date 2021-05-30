@@ -15,9 +15,8 @@ use IteratorIterator;
 /**
  * @internal
  *
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T of string
+ * @template TKey
+ * @template T of string
  *
  * @extends ProxyIterator<int, string>
  */
@@ -27,7 +26,7 @@ final class StringIterator extends ProxyIterator
     {
         $callback =
             /**
-             * @psalm-return Generator<int, string>
+             * @return Generator<int, string>
              */
             static function (string $input, string $delimiter): Generator {
                 $offset = 0;

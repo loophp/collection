@@ -13,14 +13,13 @@ use loophp\collection\Contract\Collection;
 use Psr\Cache\CacheItemPoolInterface;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  */
 interface Cacheable
 {
     /**
-     * @psalm-return \loophp\collection\Collection<TKey, T>
+     * @return \loophp\collection\Collection<TKey, T>
      */
     public function cache(?CacheItemPoolInterface $cache = null): Collection;
 }

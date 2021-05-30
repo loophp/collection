@@ -16,13 +16,13 @@ interface Timesable
     /**
      * Create a new instance by invoking the callback a given amount of times.
      *
-     * @psalm-template TKey
-     * @psalm-template TKey of array-key
-     * @psalm-template T
+     * @template TKey
+     * @template TKey
+     * @template T
      *
-     * @psalm-param null|callable(int): (int|T) $callback
+     * @param null|callable(int): (int|T) $callback
      *
-     * @psalm-return \loophp\collection\Collection<int, int|T>
+     * @return \loophp\collection\Collection<int, int|T>
      */
     public static function times(int $number = 0, ?callable $callback = null): Collection;
 }

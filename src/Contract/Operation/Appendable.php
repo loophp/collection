@@ -22,7 +22,7 @@ interface Appendable
      *
      * @param mixed ...$items
      *
-     * @psalm-return Collection<TKey|int, mixed>
+     * @return \loophp\collection\Collection<int|TKey, T>
      */
     public function append(...$items): Collection;
 }

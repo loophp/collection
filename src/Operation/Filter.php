@@ -14,36 +14,34 @@ use Closure;
 use Iterator;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Filter extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(callable(T , TKey, Iterator<TKey, T>): bool ...): Closure (Iterator<TKey, T>): Iterator<TKey, T>
+     * @return Closure(callable(T , TKey, Iterator<TKey, T>): bool ...): Closure (Iterator<TKey, T>): Iterator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param callable(T, TKey, Iterator<TKey, T>): bool ...$callbacks
+             * @param callable(T, TKey, Iterator<TKey, T>): bool ...$callbacks
              *
-             * @psalm-return Closure(Iterator<TKey, T>): Iterator<TKey, T>
+             * @return Closure(Iterator<TKey, T>): Iterator<TKey, T>
              */
             static fn (callable ...$callbacks): Closure =>
                 /**
-                 * @psalm-param Iterator<TKey, T> $iterator
+                 * @param Iterator<TKey, T> $iterator
                  *
-                 * @psalm-return Iterator<TKey, T>
+                 * @return Iterator<TKey, T>
                  */
                 static function (Iterator $iterator) use ($callbacks): Iterator {
                     $defaultCallback =
                         /**
-                         * @param mixed $value
-                         * @psalm-param T $value
+                         * @param T $value
                          */
                         static fn ($value): bool => (bool) $value;
 

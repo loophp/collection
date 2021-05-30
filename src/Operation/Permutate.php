@@ -14,9 +14,8 @@ use Generator;
 use Iterator;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  */
 final class Permutate extends AbstractOperation
 {
@@ -24,28 +23,25 @@ final class Permutate extends AbstractOperation
     {
         $getPermutations =
             /**
-             * @param array<int, mixed> $dataset
-             * @psalm-param list<T> $dataset
+             * @param list<T> $dataset
              *
-             * @psalm-return Generator<int, list<T>>
+             * @return Generator<int, list<T>>
              */
             fn (array $dataset): Generator => $this->getPermutations($dataset);
 
         return
             /**
-             * @psalm-param Iterator<TKey, T> $iterator
+             * @param Iterator<TKey, T> $iterator
              *
-             * @psalm-return Generator<int, list<T>>
+             * @return Generator<int, list<T>>
              */
             static fn (Iterator $iterator): Iterator => $getPermutations([...$iterator]);
     }
 
     /**
-     * @param array<mixed> $dataset
-     * @psalm-param list<T> $dataset
+     * @param list<T> $dataset
      *
-     * @return Generator<array<mixed>>
-     * @psalm-return Generator<int, list<T>>
+     * @return Generator<int, list<T>>
      */
     private function getPermutations(array $dataset): Generator
     {
@@ -61,6 +57,7 @@ final class Permutate extends AbstractOperation
             }
 
             foreach ($this->getPermutations($remaining) as $permutation) {
+                // TODO: Fix this.
                 array_unshift($permutation, $firstItem);
 
                 yield $permutation;

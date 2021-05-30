@@ -14,25 +14,25 @@ use Generator;
 /**
  * @internal
  *
- * @psalm-template TKey
- * @psalm-template T
+ * @template TKey
+ * @template T
  *
  * @extends ProxyIterator<TKey, T>
  */
 final class ClosureIterator extends ProxyIterator
 {
     /**
-     * @var array<int, mixed>
+     * @var list<mixed>
      */
     private array $arguments;
 
     /**
-     * @var callable(mixed ...$parameters): iterable<TKey, T>
+     * @var callable(mixed ...$arguments): iterable<TKey, T>
      */
     private $callable;
 
     /**
-     * @param callable(mixed ...$parameters): iterable<TKey, T> $callable
+     * @param callable(mixed ...$arguments): iterable<TKey, T> $callable
      * @param mixed ...$arguments
      */
     public function __construct(callable $callable, ...$arguments)

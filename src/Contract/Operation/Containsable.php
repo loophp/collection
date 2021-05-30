@@ -12,17 +12,15 @@ namespace loophp\collection\Contract\Operation;
 use loophp\collection\Contract\Collection;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  */
 interface Containsable
 {
     /**
-     * @param mixed ...$value
-     * @psalm-param T ...$value
+     * @param T ...$value
      *
-     * @psalm-return \loophp\collection\Collection<int, bool>
+     * @return \loophp\collection\Collection<int, bool>
      */
     public function contains(...$value): Collection;
 }

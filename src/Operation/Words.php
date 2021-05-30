@@ -14,24 +14,23 @@ use Generator;
 use Iterator;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  */
 final class Words extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, string>
+     * @return Closure(Iterator<TKey, T>): Generator<TKey, string>
      */
     public function __invoke(): Closure
     {
         $mapCallback =
             /**
-             * @psalm-param list<string> $value
+             * @param list<string> $value
              */
             static fn (array $value): string => implode('', $value);
 
-        /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, string> $pipe */
+        /** @var Closure(Iterator<TKey, T>): Generator<TKey, string> $pipe */
         $pipe = Pipe::of()(
             Explode::of()("\t", "\n", ' '),
             Map::of()($mapCallback),

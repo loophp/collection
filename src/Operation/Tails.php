@@ -15,30 +15,29 @@ use Generator;
 use Iterator;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  */
 final class Tails extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, T>): Generator<int, list<T>, mixed, void>
+     * @return Closure(Iterator<TKey, T>): Generator<int, list<T>, mixed, void>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param Iterator<TKey, T> $iterator
+             * @param Iterator<TKey, T> $iterator
              *
-             * @psalm-return Generator<int, list<T>, mixed, void>
+             * @return Generator<int, list<T>, mixed, void>
              */
             static function (Iterator $iterator): Generator {
-                /** @psalm-var Iterator<int, array{0: TKey, 1: T}> $iterator */
+                /** @var Iterator<int, array{0: TKey, 1: T}> $iterator */
                 $iterator = Pack::of()($iterator);
                 $data = [...$iterator];
 
                 while ([] !== $data) {
-                    /** @psalm-var Iterator<TKey, T> $unpack */
+                    /** @var Iterator<TKey, T> $unpack */
                     $unpack = Unpack::of()(new ArrayIterator($data));
 
                     yield [...$unpack];

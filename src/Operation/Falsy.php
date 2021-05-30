@@ -14,32 +14,29 @@ use Generator;
 use Iterator;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  */
 final class Falsy extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(Iterator<TKey, T>): Generator<int, bool>
+     * @return Closure(Iterator<TKey, T>): Generator<int, bool>
      */
     public function __invoke(): Closure
     {
         $matchCallback =
             /**
-             * @param mixed $value
-             * @psalm-param T $value
+             * @param T $value
              */
             static fn ($value): bool => (bool) $value;
 
         $mapCallback =
             /**
-             * @param mixed $value
-             * @psalm-param T $value
+             * @param T $value
              */
             static fn ($value): bool => !(bool) $value;
 
-        /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, bool> $pipe */
+        /** @var Closure(Iterator<TKey, T>): Generator<int, bool> $pipe */
         $pipe = Pipe::of()(
             MatchOne::of()(static fn (): bool => true)($matchCallback),
             Map::of()($mapCallback),

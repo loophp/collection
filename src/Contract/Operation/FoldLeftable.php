@@ -13,22 +13,18 @@ use Iterator;
 use loophp\collection\Contract\Collection;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  */
 interface FoldLeftable
 {
     /**
      * Fold the collection from the left to the right.
      *
-     * @psalm-param callable(T, T, TKey, Iterator<TKey, T>): T $callback
+     * @param callable(T, T, TKey, Iterator<TKey, T>): T $callback
+     * @param T|null $initial
      *
-     * @param mixed $initial
-     * @psalm-param T|null $initial
-     *
-     * @return mixed
-     * @psalm-return \loophp\collection\Collection<TKey, T|null>
+     * @return \loophp\collection\Collection<TKey, T|null>
      */
     public function foldLeft(callable $callback, $initial = null): Collection;
 }

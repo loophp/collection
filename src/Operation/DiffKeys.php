@@ -16,35 +16,31 @@ use Iterator;
 use function in_array;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  */
 final class DiffKeys extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(TKey...): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(TKey...): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param TKey ...$values
+             * @param TKey ...$values
              *
-             * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static function (...$values): Closure {
                 $filterCallbackFactory = static fn (array $values): Closure =>
                     /**
-                     * @param mixed $value
-                     * @param mixed $key
-                     *
-                     * @psalm-param T $value
-                     * @psalm-param TKey $key
+                     * @param T $value
+                     * @param TKey $key
                      */
                     static fn ($value, $key): bool => false === in_array($key, $values, true);
 
-                /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $filter */
+                /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $filter */
                 $filter = Filter::of()($filterCallbackFactory($values));
 
                 // Point free style.

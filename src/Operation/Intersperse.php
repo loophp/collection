@@ -15,37 +15,35 @@ use InvalidArgumentException;
 use Iterator;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  */
 final class Intersperse extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(T): Closure(int): Closure(int): Closure(Iterator<TKey, T>): Generator<int|TKey, T>
+     * @return Closure(T): Closure(int): Closure(int): Closure(Iterator<TKey, T>): Generator<int|TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param mixed $element
-             * @psalm-param T $element
+             * @param T $element
              *
-             * @psalm-return Closure(int): Closure(int): Closure(Iterator<TKey, T>): Generator<int|TKey, T>
+             * @return Closure(int): Closure(int): Closure(Iterator<TKey, T>): Generator<int|TKey, T>
              */
             static fn ($element): Closure =>
                 /**
-                 * @psalm-return Closure(int): Closure(Iterator<TKey, T>): Generator<int|TKey, T>
+                 * @return Closure(int): Closure(Iterator<TKey, T>): Generator<int|TKey, T>
                  */
                 static fn (int $atEvery): Closure =>
                     /**
-                     * @psalm-return Closure(Iterator<TKey, T>): Generator<int|TKey, T>
+                     * @return Closure(Iterator<TKey, T>): Generator<int|TKey, T>
                      */
                     static fn (int $startAt): Closure =>
                         /**
-                         * @psalm-param Iterator<TKey, T> $iterator
+                         * @param Iterator<TKey, T> $iterator
                          *
-                         * @psalm-return Generator<int|TKey, T>
+                         * @return Generator<int|TKey, T>
                          */
                         static function (Iterator $iterator) use ($element, $atEvery, $startAt): Generator {
                             if (0 > $atEvery) {

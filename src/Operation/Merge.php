@@ -14,26 +14,25 @@ use Iterator;
 use loophp\collection\Iterator\MultipleIterableIterator;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  */
 final class Merge extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(iterable<TKey, T>...): Closure(Iterator<TKey, T>): Iterator<TKey, T>
+     * @return Closure(iterable<TKey, T>...): Closure(Iterator<TKey, T>): Iterator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param iterable<TKey, T> ...$sources
+             * @param iterable<TKey, T> ...$sources
              */
             static fn (iterable ...$sources): Closure =>
                 /**
-                 * @psalm-param Iterator<TKey, T> $iterator
+                 * @param Iterator<TKey, T> $iterator
                  *
-                 * @psalm-return Iterator<TKey, T>
+                 * @return Iterator<TKey, T>
                  */
                 static fn (Iterator $iterator): Iterator => new MultipleIterableIterator($iterator, ...$sources);
     }

@@ -12,9 +12,8 @@ namespace loophp\collection\Contract\Operation;
 use loophp\collection\Contract\Collection;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  */
 interface Splitable
 {
@@ -29,7 +28,7 @@ interface Splitable
      *
      * @param callable ...$callbacks
      *
-     * @psalm-return \loophp\collection\Collection<TKey, T>
+     * @return \loophp\collection\Collection<TKey, T>
      */
     public function split(int $type = Splitable::BEFORE, callable ...$callbacks): Collection;
 }

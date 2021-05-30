@@ -16,35 +16,31 @@ use Iterator;
 use function in_array;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  */
 final class Forget extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(TKey...): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(TKey...): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param TKey ...$keys
+             * @param TKey ...$keys
              *
-             * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static function (...$keys): Closure {
                 $filterCallbackFactory = static fn (array $keys): Closure =>
                     /**
-                     * @param mixed $value
-                     * @psalm-param T $value
-                     *
-                     * @param mixed $key
-                     * @psalm-param TKey $key
+                     * @param T $value
+                     * @param TKey $key
                      */
                     static fn ($value, $key): bool => false === in_array($key, $keys, true);
 
-                /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $filter */
+                /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $filter */
                 $filter = Filter::of()($filterCallbackFactory($keys));
 
                 // Point free style.

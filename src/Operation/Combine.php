@@ -17,26 +17,25 @@ use Iterator;
 use const E_USER_WARNING;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  */
 final class Combine extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(T...): Closure(Iterator<TKey, T>): Generator<T, T>
+     * @return Closure(T...): Closure(Iterator<TKey, T>): Generator<T, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-param T ...$keys
+             * @param T ...$keys
              *
-             * @psalm-return Closure(Iterator<TKey, T>): Generator<T, T>
+             * @return Closure(Iterator<TKey, T>): Generator<T, T>
              */
             static fn (...$keys): Closure =>
                 /**
-                 * @psalm-param Iterator<TKey, T> $iterator
+                 * @param Iterator<TKey, T> $iterator
                  */
                 static function (Iterator $iterator) use ($keys): Generator {
                     $keys = new ArrayIterator($keys);

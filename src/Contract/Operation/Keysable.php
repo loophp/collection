@@ -12,16 +12,15 @@ namespace loophp\collection\Contract\Operation;
 use loophp\collection\Contract\Collection;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  */
 interface Keysable
 {
     /**
      * Get the keys of the items.
      *
-     * @psalm-return \loophp\collection\Collection<int, TKey>
+     * @return \loophp\collection\Collection<int, TKey>
      */
     public function keys(): Collection;
 }

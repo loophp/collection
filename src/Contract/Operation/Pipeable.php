@@ -14,16 +14,15 @@ use Iterator;
 use loophp\collection\Contract\Collection;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  */
 interface Pipeable
 {
     /**
-     * @psalm-param callable(Iterator<TKey, T>): Generator<TKey, T> ...$callables
+     * @param callable(Iterator<TKey, T>): Generator<TKey, T> ...$callables
      *
-     * @psalm-return \loophp\collection\Collection<TKey, T>
+     * @return \loophp\collection\Collection<TKey, T>
      */
     public function pipe(callable ...$callables): Collection;
 }

@@ -12,9 +12,8 @@ namespace loophp\collection\Contract\Operation;
 use loophp\collection\Contract\Collection;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  */
 interface Prependable
 {
@@ -23,7 +22,7 @@ interface Prependable
      *
      * @param mixed ...$items
      *
-     * @psalm-return \loophp\collection\Collection<int|TKey, T>
+     * @return \loophp\collection\Collection<int|TKey, T>
      */
     public function prepend(...$items): Collection;
 }

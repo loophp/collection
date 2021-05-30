@@ -14,33 +14,32 @@ use Generator;
 use Iterator;
 
 /**
- * @psalm-template TKey
- * @psalm-template TKey of array-key
- * @psalm-template T
+ * @template TKey
+ * @template T
  */
 final class Nth extends AbstractOperation
 {
     /**
-     * @psalm-return Closure(int): Closure(int): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(int): Closure(int): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @psalm-return Closure(int): Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @return Closure(int): Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static fn (int $step): Closure =>
                 /**
-                 * @psalm-return Closure(Iterator<TKey, T>): Generator<TKey, T>
+                 * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
                  */
                 static function (int $offset) use ($step): Closure {
                     $filterCallback =
                         /**
-                         * @psalm-param array{0: TKey, 1: T} $value
+                         * @param array{0: TKey, 1: T} $value
                          */
                         static fn (array $value, int $key): bool => (($key % $step) === $offset);
 
-                    /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
+                    /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
                     $pipe = Pipe::of()(
                         Pack::of(),
                         Filter::of()($filterCallback),
