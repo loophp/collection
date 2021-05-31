@@ -24,7 +24,6 @@ parameters:
 
   # Psalm
   tasks.psalm.blocking: true
-  tasks.psalm.no_cache: true
 
   extra_tasks:
     phpspec:
