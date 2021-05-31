@@ -9,8 +9,3 @@ parameters:
 			message: "#^Unable to resolve the template type NewTKey in call to method static method loophp\\\\collection\\\\Collection\\<mixed,mixed\\>\\:\\:fromIterable\\(\\)$#"
 			count: 1
 			path: docs/pages/code/parse-git-log.php
-
-		-
-			message: "#^Parameter \\#1 \\$str of function mb_strtolower expects string, int given\\.$#"
-			count: 1
-			path: docs/pages/code/simple.php
