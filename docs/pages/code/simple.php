@@ -63,9 +63,7 @@ $data = (object) array_combine(range('A', 'E'), range('A', 'E'));
 // Keys are preserved during the map() operation.
 Collection::fromIterable(['A' => 'A', 'B' => 'B', 'C' => 'C', 'D' => 'D', 'E' => 'E'])
     ->map(
-        static function (string $value, string $key): string {
-            return mb_strtolower($value);
-        }
+        static fn (string $value): string => strtolower($value)
     )
     ->all(); // ['A' => 'a', B => 'b', 'C' => 'c', 'D' = >'d', 'E' => 'e']
 
