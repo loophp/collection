@@ -21,15 +21,12 @@ use function Amp\ParallelFunctions\parallel;
 use function Amp\Promise\wait;
 use function Amp\Sync\ConcurrentIterator\map;
 use function function_exists;
+
 use const PHP_VERSION_ID;
 
 // phpcs:disable
 if (false === function_exists('Amp\ParallelFunctions\parallel')) {
     throw new RuntimeException('You need amphp/parallel-functions to get this operation working.');
-}
-
-if (PHP_VERSION_ID >= Constant::PHP_VERSION_8) {
-    throw new RuntimeException('This operation is currently not supported on PHP 8.');
 }
 // phpcs:enable
 /**
@@ -47,6 +44,10 @@ final class AsyncMap extends AbstractOperation
      */
     public function __invoke(): Closure
     {
+        if (PHP_VERSION_ID >= Constant::PHP_VERSION_8) {
+            throw new RuntimeException('This operation is currently not supported on PHP 8.');
+        }
+
         return
             /**
              * @param callable(T, TKey): T ...$callbacks
