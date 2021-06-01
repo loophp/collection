@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
+use Iterator;
 use loophp\collection\Contract\Collection;
 
 /**
@@ -20,7 +21,7 @@ interface Applyable
     /**
      * Execute a callback for each element of the collection.
      *
-     * @param callable(TKey, T):bool ...$callables
+     * @param callable(T, TKey, Iterator<TKey, T>): bool ...$callables
      *
      * @return \loophp\collection\Collection<TKey, T>
      */
