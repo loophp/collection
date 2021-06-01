@@ -12,19 +12,20 @@ namespace spec\loophp\collection;
 use ArrayIterator;
 use ArrayObject;
 use Closure;
-use Error;
 use Exception;
 use Generator;
 use InvalidArgumentException;
 use Iterator;
 use JsonSerializable;
 use loophp\collection\Collection;
+use loophp\collection\Constant;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Operation\AbstractOperation;
 use OutOfBoundsException;
 use PhpSpec\Exception\Example\FailureException;
 use PhpSpec\Exception\Example\MatcherException;
 use PhpSpec\ObjectBehavior;
+use RuntimeException;
 use stdClass;
 use const INF;
 use const PHP_EOL;
@@ -32,8 +33,6 @@ use const PHP_VERSION_ID;
 
 class CollectionSpec extends ObjectBehavior
 {
-    private const PHP_VERSION_8 = 80000;
-
     public function it_can_append(): void
     {
         $generator = static function (): Generator {
@@ -232,11 +231,10 @@ class CollectionSpec extends ObjectBehavior
 
         $this->beConstructedThrough('fromIterable', [['c' => 3, 'b' => 2, 'a' => 1]]);
 
-        if (PHP_VERSION_ID >= self::PHP_VERSION_8) {
+        if (PHP_VERSION_ID >= Constant::PHP_VERSION_8) {
             $this
-                ->asyncMap($callback1, $callback2)
-                ->shouldThrow(Error::class)
-                ->during('all');
+                ->shouldThrow(RuntimeException::class)
+                ->during('asyncMap', [$callback1, $callback2]);
         } else {
             $this
                 ->asyncMap($callback1, $callback2)
