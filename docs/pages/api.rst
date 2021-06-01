@@ -268,7 +268,7 @@ asyncMap
 
 Asynchronously apply one or more supplied callbacks to every item of a collection and use the return value.
 
-.. warning:: This method requires `ampphp/parallel-functions <https://github.com/amphp/parallel-functions>`_ to be installed,
+.. warning:: This method requires `amphp/parallel-functions <https://github.com/amphp/parallel-functions>`_ to be installed,
         and is currently *not supported* in PHP 8.
 
 .. warning:: 
