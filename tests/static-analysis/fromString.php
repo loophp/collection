@@ -7,15 +7,15 @@
 
 declare(strict_types=1);
 
-include __DIR__ . '/../../../vendor/autoload.php';
+include __DIR__ . '/../../vendor/autoload.php';
 
 use loophp\collection\Collection;
 
 /**
  * @param Collection<int, string> $collection
  */
-function fromFile_check(Collection $collection): void
+function fromString_check(Collection $collection): void
 {
 }
 
-fromFile_check(Collection::fromFile('https://loripsum.net/api')->limit(25));
+fromString_check(Collection::fromString('hello world', ' '));
