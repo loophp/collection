@@ -166,9 +166,9 @@ final class Collection implements CollectionInterface
         return new self(Append::of()(...$items), $this->getIterator());
     }
 
-    public function apply(callable ...$callables): CollectionInterface
+    public function apply(callable ...$callbacks): CollectionInterface
     {
-        return new self(Apply::of()(...$callables), $this->getIterator());
+        return new self(Apply::of()(...$callbacks), $this->getIterator());
     }
 
     public function associate(
