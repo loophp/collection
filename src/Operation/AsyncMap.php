@@ -11,9 +11,9 @@ namespace loophp\collection\Operation;
 
 use Amp\Sync\LocalSemaphore;
 use Closure;
+use Exception;
 use Generator;
 use Iterator;
-use RuntimeException;
 
 use function Amp\Iterator\fromIterable;
 use function Amp\ParallelFunctions\parallel;
@@ -23,7 +23,7 @@ use function function_exists;
 
 // phpcs:disable
 if (false === function_exists('Amp\ParallelFunctions\parallel')) {
-    throw new RuntimeException('You need amphp/parallel-functions to get this operation working.');
+    throw new Exception('You need amphp/parallel-functions to get this operation working.');
 }
 // phpcs:enable
 /**
