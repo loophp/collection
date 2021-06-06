@@ -10,11 +10,12 @@ declare(strict_types=1);
 include __DIR__ . '/../../vendor/autoload.php';
 
 use loophp\collection\Collection;
+use loophp\collection\Contract\Collection as CollectionInterface;
 
 /**
  * @param Collection<int, string> $collection
  */
-function fromFile_check(Collection $collection): void
+function fromFile_check(CollectionInterface $collection): void
 {
 }
 

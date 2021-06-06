@@ -10,23 +10,24 @@ declare(strict_types=1);
 include __DIR__ . '/../../vendor/autoload.php';
 
 use loophp\collection\Collection;
+use loophp\collection\Contract\Collection as CollectionInterface;
 
 /**
- * @param Collection<int, int> $collection
+ * @param CollectionInterface<int, int> $collection
  */
-function fromIterable_checkList(Collection $collection): void
+function fromIterable_checkList(CollectionInterface $collection): void
 {
 }
 /**
- * @param Collection<string, int> $collection
+ * @param CollectionInterface<string, int> $collection
  */
-function fromIterable_checkMap(Collection $collection): void
+function fromIterable_checkMap(CollectionInterface $collection): void
 {
 }
 /**
- * @param Collection<int, int|string> $collection
+ * @param CollectionInterface<int, int|string> $collection
  */
-function fromIterable_checkMixed(Collection $collection): void
+function fromIterable_checkMixed(CollectionInterface $collection): void
 {
 }
 
