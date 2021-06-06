@@ -21,9 +21,9 @@ interface Applyable
     /**
      * Execute a callback for each element of the collection.
      *
-     * @param callable(T, TKey, Iterator<TKey, T>): bool ...$callables
+     * @param callable(T, TKey, Iterator<TKey, T>): bool ...$callbacks
      *
-     * @return \loophp\collection\Collection<TKey, T>
+     * @return Collection<TKey, T>
      */
-    public function apply(callable ...$callables): Collection;
+    public function apply(callable ...$callbacks): Collection;
 }
