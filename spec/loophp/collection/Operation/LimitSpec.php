@@ -15,7 +15,7 @@ use PhpSpec\ObjectBehavior;
 
 class LimitSpec extends ObjectBehavior
 {
-    public function it_can_set_a_limit()
+    public function it_can_set_a_limit(): void
     {
         $input = range('a', 'e');
 
@@ -30,7 +30,7 @@ class LimitSpec extends ObjectBehavior
             ->shouldHaveCount(2);
     }
 
-    public function it_can_set_an_offset()
+    public function it_can_set_an_offset(): void
     {
         $input = range('a', 'e');
 
@@ -45,7 +45,7 @@ class LimitSpec extends ObjectBehavior
             ->shouldHaveCount(2);
     }
 
-    public function it_does_not_change_anything_when_no_parameters_are_provided()
+    public function it_does_not_change_anything_when_no_parameters_are_provided(): void
     {
         $input = range('a', 'e');
 
@@ -56,7 +56,7 @@ class LimitSpec extends ObjectBehavior
             ->shouldIterateAs(['a', 'b', 'c', 'd', 'e']);
     }
 
-    public function it_is_initializable()
+    public function it_is_initializable(): void
     {
         $this->shouldHaveType(Limit::class);
     }

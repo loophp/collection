@@ -17,7 +17,7 @@ use PhpSpec\ObjectBehavior;
 
 class RandomIteratorSpec extends ObjectBehavior
 {
-    public function it_can_build_an_iterator_with_a_random_seed()
+    public function it_can_build_an_iterator_with_a_random_seed(): void
     {
         $input = new ArrayIterator(range('a', 'z'));
         $seed = 123;
@@ -68,7 +68,7 @@ class RandomIteratorSpec extends ObjectBehavior
         }
     }
 
-    public function it_can_build_an_iterator_without_a_random_seed()
+    public function it_can_build_an_iterator_without_a_random_seed(): void
     {
         $input = new ArrayIterator(range('a', 'z'));
         $this->beConstructedWith($input);
@@ -80,7 +80,7 @@ class RandomIteratorSpec extends ObjectBehavior
         }
     }
 
-    public function it_can_get_current()
+    public function it_can_get_current(): void
     {
         $this->beConstructedWith(new ArrayIterator(['a']));
         $this->valid()->shouldReturn(false);
@@ -92,7 +92,7 @@ class RandomIteratorSpec extends ObjectBehavior
         $this->current()->shouldReturn('a');
     }
 
-    public function it_can_get_key()
+    public function it_can_get_key(): void
     {
         $this->beConstructedWith(new ArrayIterator(['a' => 1]));
         $this->valid()->shouldReturn(false);
@@ -104,12 +104,12 @@ class RandomIteratorSpec extends ObjectBehavior
         $this->key()->shouldReturn('a');
     }
 
-    public function it_can_get_the_innerIterator()
+    public function it_can_get_the_innerIterator(): void
     {
         $this->getInnerIterator()->shouldBeAnInstanceOf(ArrayIterator::class);
     }
 
-    public function it_can_rewind()
+    public function it_can_rewind(): void
     {
         $iterator = new ArrayIterator(['a']);
 
@@ -147,12 +147,12 @@ class RandomIteratorSpec extends ObjectBehavior
             ->shouldReturn('a');
     }
 
-    public function it_is_initializable()
+    public function it_is_initializable(): void
     {
         $this->shouldHaveType(RandomIterator::class);
     }
 
-    public function let()
+    public function let(): void
     {
         $iterator = new ArrayIterator(range('a', 'c'));
 

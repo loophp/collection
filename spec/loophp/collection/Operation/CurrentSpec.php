@@ -15,7 +15,7 @@ use PhpSpec\ObjectBehavior;
 
 class CurrentSpec extends ObjectBehavior
 {
-    public function it_can_get_current()
+    public function it_can_get_current(): void
     {
         $input = range('a', 'e');
 
@@ -30,7 +30,7 @@ class CurrentSpec extends ObjectBehavior
             ->shouldHaveCount(1);
     }
 
-    public function it_is_initializable()
+    public function it_is_initializable(): void
     {
         $this->shouldHaveType(Current::class);
     }
