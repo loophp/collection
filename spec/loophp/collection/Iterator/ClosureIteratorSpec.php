@@ -17,9 +17,13 @@ use PhpSpec\ObjectBehavior;
 
 class ClosureIteratorSpec extends ObjectBehavior
 {
+    private const LIST_DATA = [1, 2, 3];
+
+    private const MAP_DATA = ['foo' => 1, 'bar' => 2];
+
     public function it_can_return_a_string_key(): void
     {
-        $this->beConstructedWith(static fn (array $iterable): Generator => yield from $iterable, ['foo' => 1, 'bar' => 2]);
+        $this->beConstructedWith(static fn (array $iterable): Generator => yield from $iterable, self::MAP_DATA);
 
         $this->key()->shouldBe('foo');
         $this->next();
@@ -28,11 +32,18 @@ class ClosureIteratorSpec extends ObjectBehavior
 
     public function it_can_return_an_int_key(): void
     {
-        $this->beConstructedWith(static fn (array $iterable): Generator => yield from $iterable, [1, 2, 3]);
+        $this->beConstructedWith(static fn (array $iterable): Generator => yield from $iterable, self::LIST_DATA);
 
         $this->key()->shouldBe(0);
         $this->next();
         $this->key()->shouldBe(1);
+    }
+
+    public function it_can_return_inner_iterator(): void
+    {
+        $this->beConstructedWith(static fn (array $iterable): Generator => yield from $iterable, self::LIST_DATA);
+
+        $this->getInnerIterator()->shouldIterateAs(self::LIST_DATA);
     }
 
     public function it_can_rewind(): void
@@ -40,40 +51,45 @@ class ClosureIteratorSpec extends ObjectBehavior
         $this->beConstructedWith(static fn (array $iterable): Generator => yield from $iterable, ['foo']);
 
         $this->current()->shouldBe('foo');
+
         $this->next();
+        $this->valid()->shouldBe(false);
         $this->current()->shouldBeNull();
 
         $this->rewind();
+        $this->valid()->shouldBe(true);
         $this->current()->shouldBe('foo');
     }
 
     public function it_is_initializable_from_callable_with_array(): void
     {
-        $this->beConstructedWith(static fn (array $iterable): array => $iterable, [1, 2, 3]);
+        $this->beConstructedWith(static fn (array $iterable): array => $iterable, self::LIST_DATA);
 
         $this->shouldHaveType(ClosureIterator::class);
 
         $this->valid()->shouldBe(true);
-        $this->current()->shouldBe(1);
+        $this->shouldIterateAs(self::LIST_DATA);
     }
 
     public function it_is_initializable_from_callable_with_generator(): void
     {
-        $this->beConstructedWith(static fn (array $iterable): Generator => yield from $iterable, [1, 2, 3]);
+        $data = ['foo' => 1, 2];
+
+        $this->beConstructedWith(static fn (array $iterable): Generator => yield from $iterable, $data);
 
         $this->shouldHaveType(ClosureIterator::class);
 
         $this->valid()->shouldBe(true);
-        $this->current()->shouldBe(1);
+        $this->shouldIterateAs($data);
     }
 
     public function it_is_initializable_from_callable_with_iterator(): void
     {
-        $this->beConstructedWith(static fn (array $iterable): Iterator => new ArrayIterator($iterable), [1, 2, 3]);
+        $this->beConstructedWith(static fn (array $iterable): Iterator => new ArrayIterator($iterable), self::MAP_DATA);
 
         $this->shouldHaveType(ClosureIterator::class);
 
         $this->valid()->shouldBe(true);
-        $this->current()->shouldBe(1);
+        $this->shouldIterateAs(self::MAP_DATA);
     }
 }
