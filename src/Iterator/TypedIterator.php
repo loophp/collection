@@ -11,6 +11,7 @@ namespace loophp\collection\Iterator;
 
 use Generator;
 use InvalidArgumentException;
+
 use function count;
 use function gettype;
 use function in_array;
@@ -42,7 +43,13 @@ final class TypedIterator extends ProxyIterator
                     }
 
                     if (!in_array($currentType, $allowedTypes, true)) {
-                        throw new InvalidArgumentException("Detected mixed types: {$allowedTypes[1]} and {$currentType}");
+                        throw new InvalidArgumentException(
+                            sprintf(
+                                'Detected mixed types: %s and %s!',
+                                $allowedTypes[1],
+                                $currentType
+                            )
+                        );
                     }
 
                     yield $key => $value;
