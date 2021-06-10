@@ -39,7 +39,8 @@ class TypedIteratorSpec extends ObjectBehavior
         $callback = static fn ($variable) => gettype($variable);
 
         $obj1 = new class() {
-            public function sayHello(): string {
+            public function sayHello(): string
+            {
                 return 'Hello';
             }
         };
