@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace loophp\collection;
 
 use Closure;
+use Generator;
 use Iterator;
 use loophp\collection\Contract\Collection as CollectionInterface;
 use loophp\collection\Contract\Operation;
@@ -17,6 +18,7 @@ use loophp\collection\Iterator\ClosureIterator;
 use loophp\collection\Iterator\IterableIterator;
 use loophp\collection\Iterator\ResourceIterator;
 use loophp\collection\Iterator\StringIterator;
+use loophp\collection\Iterator\TypedIterator;
 use loophp\collection\Operation\Append;
 use loophp\collection\Operation\Apply;
 use loophp\collection\Operation\Associate;
@@ -712,6 +714,11 @@ final class Collection implements CollectionInterface
     public function squash(): CollectionInterface
     {
         return self::fromIterable($this->pack()->all())->unpack();
+    }
+
+    public function strict(?callable $callback = null): CollectionInterface
+    {
+        return self::fromCallable(fn (): Generator => yield from (new TypedIterator($this->getIterator(), $callback)));
     }
 
     public function tail(): CollectionInterface

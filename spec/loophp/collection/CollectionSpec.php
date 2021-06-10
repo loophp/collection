@@ -2678,6 +2678,20 @@ class CollectionSpec extends ObjectBehavior
             ->during('squash');
     }
 
+    public function it_can_strict_allow(): void
+    {
+        $this->beConstructedThrough('fromIterable', [range('A', 'C')]);
+
+        $this->strict()->shouldIterateAs(['A', 'B', 'C']);
+    }
+
+    public function it_can_strict_throw(): void
+    {
+        $this->beConstructedThrough('fromIterable', [[1, 'foo', 2]]);
+
+        $this->strict()->shouldThrow(InvalidArgumentException::class)->during('all');
+    }
+
     public function it_can_tail(): void
     {
         $this::fromIterable(range('A', 'F'))
