@@ -12,9 +12,8 @@ namespace loophp\collection\Iterator;
 use Generator;
 use InvalidArgumentException;
 
-use function count;
+use function get_class;
 use function gettype;
-use function in_array;
 
 /**
  * @internal
@@ -27,26 +26,52 @@ use function in_array;
 final class TypedIterator extends ProxyIterator
 {
     /**
-     * @param iterable<TKey, T> $iterable
+     * @param iterable<TKey, T> $iterator
+     * @param null|callable(mixed): string $getType
      */
-    public function __construct(iterable $iterable)
+    public function __construct(iterable $iterator, ?callable $getType = null)
     {
+        $getType ??=
+            /**
+             * @param mixed $variable
+             */
+            static function ($variable): string {
+                $type = gettype($variable);
+
+                if ('object' !== $type) {
+                    return $type;
+                }
+
+                $interfaces = class_implements($variable);
+
+                if ([] === $interfaces || false === $interfaces) {
+                    return get_class($variable);
+                }
+
+                sort($interfaces);
+
+                return implode(',', $interfaces);
+            };
+
         $this->iterator = new ClosureIterator(
-            static function (iterable $iterator): Generator {
-                $allowedTypes = ['NULL'];
+            static function (iterable $iterator) use ($getType): Generator {
+                $previousType = null;
 
                 foreach ($iterator as $key => $value) {
-                    $currentType = gettype($value);
+                    if (null === $value) {
+                        yield $key => $value;
 
-                    if (count($allowedTypes) < 2) {
-                        $allowedTypes[] = $currentType;
+                        continue;
                     }
 
-                    if (!in_array($currentType, $allowedTypes, true)) {
+                    $currentType = $getType($value);
+                    $previousType ??= $currentType;
+
+                    if ($currentType !== $previousType) {
                         throw new InvalidArgumentException(
                             sprintf(
-                                'Detected mixed types: %s and %s!',
-                                $allowedTypes[1],
+                                "Detected mixed types: '%s' and '%s' !",
+                                $previousType,
                                 $currentType
                             )
                         );
@@ -55,7 +80,7 @@ final class TypedIterator extends ProxyIterator
                     yield $key => $value;
                 }
             },
-            $iterable
+            $iterator
         );
     }
 }
