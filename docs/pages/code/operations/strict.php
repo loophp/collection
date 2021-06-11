@@ -12,6 +12,7 @@ namespace App;
 use Countable;
 use loophp\collection\Collection;
 use stdClass;
+
 use function gettype;
 
 include __DIR__ . '/../../../../vendor/autoload.php';
@@ -33,14 +34,14 @@ Collection::fromIterable([$obj1, $obj2])
 
 // Example 3 -> allowed
 
-$obj1 = new class() implements Countable {
+$obj1 = new class () implements Countable {
     public function count(): int
     {
         return 0;
     }
 };
 
-$obj2 = new class() implements Countable {
+$obj2 = new class () implements Countable {
     public function count(): int
     {
         return 0;
@@ -68,14 +69,14 @@ Collection::fromIterable([1, 'foo', 3])
 
 // Example 6 -> not alowed + custom callback
 
-$obj1 = new class() implements Countable {
+$obj1 = new class () implements Countable {
     public function count(): int
     {
         return 0;
     }
 };
 
-$obj2 = new class() {
+$obj2 = new class () {
     public function count(): int
     {
         return 0;
