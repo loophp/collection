@@ -9,6 +9,20 @@ parameters:
   # PHP CS Fixer
   tasks.phpcsfixer.config: .php-cs-fixer.dist.php
 
+  # PHPCS
+  tasks.phpcs.ignore_patterns:
+      - "/.github/"
+      - "/.idea/"
+      - "/build/"
+      - "/benchmarks/"
+      - "/docs/"
+      - "/node_modules/"
+      - "/resource/"
+      - "/spec/"
+      - "/tests/"
+      - "/var/"
+      - "/vendor/"
+
   # PHPStan
   tasks.phpstan.blocking: true
   tasks.phpstan.ignore_patterns:
