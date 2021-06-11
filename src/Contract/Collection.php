@@ -367,6 +367,8 @@ interface Collection extends
     public function getIterator(): ClosureIterator;
 
     /**
+     * @deprecated Use other static constructors instead.
+     *
      * @psalm-template NewTKey
      * @psalm-template NewTKey of array-key
      * @psalm-template NewT

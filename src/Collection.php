@@ -853,6 +853,9 @@ final class Collection implements CollectionInterface
         return $this->pipe(Window::of()($size));
     }
 
+    /**
+     * @deprecated Use other static constructors instead.
+     */
     public static function with($data = [], ...$parameters): CollectionInterface
     {
         return new self($data, ...$parameters);
