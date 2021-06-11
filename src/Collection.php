@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace loophp\collection;
 
 use Closure;
-use Generator;
 use Iterator;
 use loophp\collection\Contract\Collection as CollectionInterface;
 use loophp\collection\Contract\Operation;
@@ -18,7 +17,6 @@ use loophp\collection\Iterator\ClosureIterator;
 use loophp\collection\Iterator\IterableIterator;
 use loophp\collection\Iterator\ResourceIterator;
 use loophp\collection\Iterator\StringIterator;
-use loophp\collection\Iterator\TypedIterator;
 use loophp\collection\Operation\Append;
 use loophp\collection\Operation\Apply;
 use loophp\collection\Operation\Associate;
@@ -102,6 +100,7 @@ use loophp\collection\Operation\Slice;
 use loophp\collection\Operation\Sort;
 use loophp\collection\Operation\Span;
 use loophp\collection\Operation\Split;
+use loophp\collection\Operation\Strict;
 use loophp\collection\Operation\Tail;
 use loophp\collection\Operation\Tails;
 use loophp\collection\Operation\TakeWhile;
@@ -718,7 +717,7 @@ final class Collection implements CollectionInterface
 
     public function strict(?callable $callback = null): CollectionInterface
     {
-        return self::fromCallable(fn (): Generator => yield from (new TypedIterator($this->getIterator(), $callback)));
+        return new self(Strict::of()($callback), $this->getIterator());
     }
 
     public function tail(): CollectionInterface
