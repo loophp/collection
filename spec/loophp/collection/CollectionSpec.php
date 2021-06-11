@@ -26,6 +26,7 @@ use PhpSpec\Exception\Example\FailureException;
 use PhpSpec\Exception\Example\MatcherException;
 use PhpSpec\ObjectBehavior;
 use stdClass;
+use function gettype;
 use const INF;
 use const PHP_EOL;
 use const PHP_VERSION_ID;
@@ -2683,6 +2684,23 @@ class CollectionSpec extends ObjectBehavior
         $this->beConstructedThrough('fromIterable', [range('A', 'C')]);
 
         $this->strict()->shouldIterateAs(['A', 'B', 'C']);
+    }
+
+    public function it_can_strict_allow_custom_callback(): void
+    {
+        $obj1 = new stdClass();
+        $obj2 = new class() {
+            public function count(): int
+            {
+                return 0;
+            }
+        };
+
+        $this->beConstructedThrough('fromIterable', [[$obj1, $obj2]]);
+
+        $callback = static fn ($value): string => gettype($value);
+
+        $this->strict($callback)->shouldNotThrow(InvalidArgumentException::class)->during('all');
     }
 
     public function it_can_strict_throw(): void
