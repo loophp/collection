@@ -30,6 +30,7 @@ parameters:
     - "/.idea/"
     - "/build/"
     - "/benchmarks/"
+    - "/docs/"
     - "/node_modules/"
     - "/resource/"
     - "/spec/"
