@@ -1831,7 +1831,7 @@ strict
 Enforce a single type in the collection at runtime. If the collection contains *objects*, they will either be
 expected to implement the same interfaces or be of the exact same class (no inheritance logic applies). 
 
-Note that the current logic allows *arrays* of any type in the collection.
+Note that the current logic allows *arrays* of any type in the collection, as well as *null*.
 
 .. warning:: This will trigger an ``InvalidArgumentException`` if the collection contains elements of mixed types when consumed.
 

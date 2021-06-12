@@ -27,10 +27,11 @@ Collection::fromIterable(range(1, 3))
 
 $obj1 = new stdClass();
 $obj2 = new stdClass();
+$obj3 = null;
 
-Collection::fromIterable([$obj1, $obj2])
+Collection::fromIterable([$obj1, $obj2, $obj3])
     ->strict()
-    ->all(); // [$obj1, $obj2]
+    ->all(); // [$obj1, $obj2, $obj3]
 
 // Example 3 -> allowed
 
