@@ -3289,6 +3289,23 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs([]);
     }
 
+    public function it_can_when(): void
+    {
+        $this::fromIterable(range('a', 'c'))
+            ->when(
+                static fn () => true,
+                static fn (Iterator $iterator) => new ArrayIterator(range('c', 'a'))
+            )
+            ->shouldIterateAs([0 => 'c', 1 => 'b', 2 => 'a']);
+
+        $this::fromIterable(range('a', 'c'))
+            ->when(
+                static fn () => false,
+                static fn (Iterator $iterator) => new ArrayIterator(range('c', 'a'))
+            )
+            ->shouldIterateAs([0 => 'a', 1 => 'b', 2 => 'c']);
+    }
+
     public function it_can_window(): void
     {
         $this::fromIterable(range('a', 'z'))
