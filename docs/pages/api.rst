@@ -678,7 +678,7 @@ Signature: ``Collection::explode(...$items);``
 falsy
 ~~~~~
 
-Check if the collection contains *any falsy* values. A value is determined to be *falsy* by applying a ``bool`` cast.
+Check if the collection contains *only falsy* values. A value is determined to be *falsy* by applying a ``bool`` cast.
 
 Interface: `Falsyable`_
 
@@ -689,7 +689,7 @@ Signature: ``Collection::falsy();``
     $truthyCollection = Collection::fromIterable([2, 3, 4])
         ->falsy(); // [false]
 
-    $falsyCollection = Collection::fromIterable(['a', '', 'c', 'd'])
+    $falsyCollection = Collection::fromIterable(['', null, 0])
         ->falsy(); // [true]
 
     if ($falsyCollection->falsy()->current()) {
@@ -1927,7 +1927,7 @@ Signature: ``Collection::transpose();``
 truthy
 ~~~~~~
 
-Check if the collection contains *any truthy* values. Opposite of ``falsy``.
+Check if the collection contains *only truthy* values. Opposite of ``falsy``.
 A value is determined to be *truthy* by applying a ``bool`` cast.
 
 Interface: `Truthyable`_
