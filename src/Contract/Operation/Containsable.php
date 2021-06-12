@@ -18,9 +18,9 @@ use loophp\collection\Contract\Collection;
 interface Containsable
 {
     /**
-     * @param T ...$value
+     * @param T ...$values
      *
-     * @return \loophp\collection\Collection<int, bool>
+     * @return Collection<TKey, bool>
      */
-    public function contains(...$value): Collection;
+    public function contains(...$values): Collection;
 }

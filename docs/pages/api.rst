@@ -450,16 +450,23 @@ Signature: ``Collection::compact(...$values);``
 contains
 ~~~~~~~~
 
-Check if the collection contains one or more values.
+Check if the collection contains one or more values. Note that if multiple values are passed the operation
+acts like a logical ``OR``.
 
 Interface: `Containsable`_
 
-Signature: ``Collection::contains(...$value);``
+Signature: ``Collection::contains(...$values);``
 
 .. code-block:: php
 
     $collection = Collection::fromIterable(range('a', 'c'))
         ->contains('d'); // [false]
+
+    $collection = Collection::fromIterable(range('a', 'c'))
+        ->contains('a', 'z'); // [true]
+
+    $collection = Collection::fromIterable(['a' => 'b', 'c' => 'd'])
+        ->contains('d'); // ['c' => true]
 
     if ($collection->contains('d')->current()) {
         // do something

@@ -136,7 +136,7 @@ use loophp\collection\Contract\Operation\Zipable;
  * @template-extends Combinateable<TKey, T>
  * @template-extends Combineable<TKey, T>
  * @template-extends Compactable<TKey, T>
- * @template-extends Containsable<int, bool>
+ * @template-extends Containsable<TKey, T>
  * @template-extends Currentable<TKey, T>
  * @template-extends Cycleable<TKey, T>
  * @template-extends Diffable<TKey, T>
