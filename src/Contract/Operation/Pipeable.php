@@ -20,9 +20,9 @@ use loophp\collection\Contract\Collection;
 interface Pipeable
 {
     /**
-     * @param callable(Iterator<TKey, T>): Generator<TKey, T> ...$callables
+     * @param callable(Iterator<TKey, T>): Generator<TKey, T> ...$callbacks
      *
      * @return \loophp\collection\Collection<TKey, T>
      */
-    public function pipe(callable ...$callables): Collection;
+    public function pipe(callable ...$callbacks): Collection;
 }

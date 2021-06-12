@@ -1453,7 +1453,7 @@ Custom operations and operations provided in the API can be combined together.
 
 Interface: `Pipeable`_
 
-Signature: ``Collection::pipe(callable ...$callables);``
+Signature: ``Collection::pipe(callable ...$callbacks);``
 
 .. code-block:: php
 

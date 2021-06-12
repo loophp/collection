@@ -605,9 +605,9 @@ final class Collection implements CollectionInterface
         return new self(Permutate::of(), $this->getIterator());
     }
 
-    public function pipe(callable ...$callables): CollectionInterface
+    public function pipe(callable ...$callbacks): CollectionInterface
     {
-        return new self(Pipe::of()(...$callables), $this->getIterator());
+        return new self(Pipe::of()(...$callbacks), $this->getIterator());
     }
 
     public function pluck($pluck, $default = null): CollectionInterface
