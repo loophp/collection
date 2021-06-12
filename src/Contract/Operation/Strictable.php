@@ -9,16 +9,18 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
+use loophp\collection\Contract\Collection;
+
 /**
  * @template TKey
  * @template T
  */
-interface Allable
+interface Strictable
 {
     /**
-     * Get all items from the collection in the form of an array.
+     * @param null|callable(mixed): string $callback
      *
-     * @return array<TKey, T>
+     * @return Collection<TKey, T>
      */
-    public function all(): array;
+    public function strict(?callable $callback = null): Collection;
 }

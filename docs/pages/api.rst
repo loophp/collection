@@ -1825,6 +1825,26 @@ Signature: ``Collection::split(int $type = Splitable::BEFORE, callable ...$callb
     $collection = Collection::fromIterable(range(0, 10))
         ->split(Splitable::REMOVE, $splitter); [[], [1, 2], [4, 5], [7, 8], [10]]
 
+strict
+~~~~~
+
+Enforce a single type in the collection at runtime. If the collection contains *objects*, they will either be
+expected to implement the same interfaces or be of the exact same class (no inheritance logic applies). 
+
+Note that the current logic allows *arrays* of any type in the collection, as well as *null*.
+
+.. warning:: This will trigger an ``InvalidArgumentException`` if the collection contains elements of mixed types when consumed.
+
+.. tip:: The logic for determining the type of items comes from the `TypedIterator`_. 
+    In addition, an optional callback can be provided to this operation if a different logic for type enforcement is desired.
+
+Interface: `Strictable`_
+
+Signature: ``Collection::strict(?callable $callback = null);``
+
+.. literalinclude:: code/operations/strict.php
+  :language: php
+
 squash
 ~~~~~~
 
@@ -2265,6 +2285,7 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Sortable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Sortable.php
 .. _Spanable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Spanable.php
 .. _Splitable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Splitable.php
+.. _Strictable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Strictable.php
 .. _Squashable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Squashable.php
 .. _Tailable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Tailable.php
 .. _Tailsable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Tailsable.php
@@ -2284,4 +2305,5 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Wrapable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Wrapable.php
 .. _Zipable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Zipable.php
 .. _symfony/var-dumper: https://packagist.org/packages/symfony/var-dumper
+.. _TypedIterator: https://github.com/loophp/collection/blob/master/src/Iterator/TypedIterator.php
 .. _var_dump(): https://www.php.net/var_dump

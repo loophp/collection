@@ -15,7 +15,7 @@ use PhpSpec\ObjectBehavior;
 
 class CoalesceSpec extends ObjectBehavior
 {
-    public function it_can_coalesce()
+    public function it_can_coalesce(): void
     {
         $input = range('a', 'e');
 
@@ -46,7 +46,7 @@ class CoalesceSpec extends ObjectBehavior
             ]);
     }
 
-    public function it_is_initializable()
+    public function it_is_initializable(): void
     {
         $this->shouldHaveType(Coalesce::class);
     }

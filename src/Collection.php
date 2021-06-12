@@ -100,6 +100,7 @@ use loophp\collection\Operation\Slice;
 use loophp\collection\Operation\Sort;
 use loophp\collection\Operation\Span;
 use loophp\collection\Operation\Split;
+use loophp\collection\Operation\Strict;
 use loophp\collection\Operation\Tail;
 use loophp\collection\Operation\Tails;
 use loophp\collection\Operation\TakeWhile;
@@ -712,6 +713,11 @@ final class Collection implements CollectionInterface
     public function squash(): CollectionInterface
     {
         return self::fromIterable($this->pack()->all())->unpack();
+    }
+
+    public function strict(?callable $callback = null): CollectionInterface
+    {
+        return new self(Strict::of()($callback), $this->getIterator());
     }
 
     public function tail(): CollectionInterface

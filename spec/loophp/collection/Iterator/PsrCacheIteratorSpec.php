@@ -18,7 +18,7 @@ use Symfony\Component\Cache\CacheItem;
 
 class PsrCacheIteratorSpec extends ObjectBehavior
 {
-    public function it_can_cache_data(CacheItemPoolInterface $cache)
+    public function it_can_cache_data(CacheItemPoolInterface $cache): void
     {
         $it = new ArrayIterator(range('a', 'e'));
 
@@ -80,7 +80,7 @@ class PsrCacheIteratorSpec extends ObjectBehavior
             ->shouldHaveBeenCalledOnce();
     }
 
-    public function it_can_get_the_inner_iterator(Iterator $iterator, CacheItemPoolInterface $cache)
+    public function it_can_get_the_inner_iterator(Iterator $iterator, CacheItemPoolInterface $cache): void
     {
         $this
             ->beConstructedWith($iterator, $cache);
@@ -90,7 +90,7 @@ class PsrCacheIteratorSpec extends ObjectBehavior
             ->shouldReturn($iterator);
     }
 
-    public function it_is_initializable(Iterator $iterator, CacheItemPoolInterface $cache)
+    public function it_is_initializable(Iterator $iterator, CacheItemPoolInterface $cache): void
     {
         $this->beConstructedWith($iterator, $cache);
         $this->shouldHaveType(PsrCacheIterator::class);

@@ -16,7 +16,7 @@ use PhpSpec\ObjectBehavior;
 
 class ArrayCacheIteratorSpec extends ObjectBehavior
 {
-    public function it_can_cache_an_iterator_of_type_generator()
+    public function it_can_cache_an_iterator_of_type_generator(): void
     {
         $generator = static function () {
             yield 'a';
@@ -46,7 +46,7 @@ class ArrayCacheIteratorSpec extends ObjectBehavior
             );
     }
 
-    public function it_is_initializable()
+    public function it_is_initializable(): void
     {
         $this->beConstructedWith(new ArrayIterator([]));
 

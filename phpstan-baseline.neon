@@ -6,11 +6,6 @@ parameters:
 			path: docs/pages/code/operations/since.php
 
 		-
-			message: "#^Parameter \\#1 \\$callable of class loophp\\\\collection\\\\Collection constructor expects callable\\(\\.\\.\\.mixed\\)\\: iterable\\<int, string\\>, Closure\\(string, string\\)\\: loophp\\\\collection\\\\Iterator\\\\StringIterator\\<mixed, string\\> given\\.$#"
-			count: 1
-			path: src/Collection.php
-
-		-
 			message: "#^Generic type loophp\\\\collection\\\\Contract\\\\Operation\\\\Mapable\\<mixed, mixed\\> in PHPDoc tag @extends does not specify all template types of interface loophp\\\\collection\\\\Contract\\\\Operation\\\\Mapable\\: TKey, T, V$#"
 			count: 1
 			path: src/Contract/Collection.php

@@ -20,3 +20,7 @@ parameters:
 			count: 1
 			path: src/Operation/Unpack.php
 
+		-
+			message: "#^Parameter \\#1 \\$callable of class loophp\\\\collection\\\\Collection constructor expects callable\\(\\.\\.\\.mixed\\)\\: iterable\\<int, string\\>, Closure\\(string, string\\)\\: loophp\\\\collection\\\\Iterator\\\\StringIterator\\<mixed, string\\> given\\.$#"
+			count: 1
+			path: src/Collection.php
