@@ -116,6 +116,7 @@ use loophp\collection\Operation\Unwindow;
 use loophp\collection\Operation\Unwords;
 use loophp\collection\Operation\Unwrap;
 use loophp\collection\Operation\Unzip;
+use loophp\collection\Operation\When;
 use loophp\collection\Operation\Window;
 use loophp\collection\Operation\Words;
 use loophp\collection\Operation\Wrap;
@@ -793,6 +794,13 @@ final class Collection implements CollectionInterface
     public function unzip(): CollectionInterface
     {
         return new self(Unzip::of(), $this->getIterator());
+    }
+
+    public function when(callable $predicate, callable $whenTrue, ?callable $whenFalse = null): CollectionInterface
+    {
+        $whenFalse ??= static fn (Iterator $collection): iterable => $collection;
+
+        return new self(When::of()($predicate)($whenTrue)($whenFalse), $this->getIterator());
     }
 
     public function window(int $size): CollectionInterface
