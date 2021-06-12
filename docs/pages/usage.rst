@@ -73,6 +73,29 @@ It's up to you to decide which one you want to use.
 .. literalinclude:: code/duplicate-keys.php
   :language: php
 
+Extending collection
+~~~~~~~~~~~~~~~~~~~~
+
+Sometimes, it is possible that the feature set provided by this library is
+not enough.
+
+Then, you would like to create your own collection class with some specific
+feature added on top of it.
+
+Every classes of this library are ``final`` and then it is impossible to use
+inheritance and use the original Collection class as parent of another one.
+
+If you want to **extend** the Collection, you must use the Composition pattern.
+
+You can read more about Inheritance and Composition by doing a query on your
+favorite search engine. I also wrote an `article`_ about this.
+
+Find here an example on how you could extend the collection class and add a
+new Operation ``foobar``.
+
+.. literalinclude:: code/extending-collection.php
+  :language: php
+
 Manipulate strings
 ~~~~~~~~~~~~~~~~~~
 
@@ -150,3 +173,5 @@ Lazy json parsing
 
 .. literalinclude:: code/lazy-json-parsing.php
   :language: php
+
+.. _article: https://not-a-number.io/2019/php-composition-and-inheritance/
