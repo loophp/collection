@@ -316,13 +316,15 @@ Chunk a collection of items into chunks of items of a given size.
 
 Interface: `Chunkable`_
 
-Signature: ``Collection::chunk(int $size);``
+Signature: ``Collection::chunk(int ...$sizes);``
 
 .. code-block:: php
 
-    $collection = Collection::fromIterable(range(0, 10));
+    $collection = Collection::fromIterable(range(0, 6))
+        ->chunk(2); // [[0, 1], [2, 3], [4, 5], [6]]
 
-    $collection->chunk(2);
+    $collection = Collection::fromIterable(range(0, 6))
+        ->chunk(1, 2); // [[0], [1, 2], [3], [4, 5], [6]]
 
 coalesce
 ~~~~~~~~
