@@ -20,7 +20,7 @@ use Iterator;
 final class Current extends AbstractOperation
 {
     /**
-     * @return Closure(int): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(int $index): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {

@@ -711,6 +711,10 @@ class CollectionSpec extends ObjectBehavior
         $this::fromIterable(['a'])
             ->current(0)
             ->shouldReturn('a');
+
+        $this::fromIterable(new ArrayIterator())
+            ->current()
+            ->shouldBeNull();
     }
 
     public function it_can_cycle(): void

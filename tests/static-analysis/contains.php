@@ -41,3 +41,7 @@ contains_checkMap(Collection::fromIterable(['foo' => 'bar', 'baz' => 'taz'])->co
 contains_checkBool(Collection::fromIterable([1, 2, 3])->contains(2)->current());
 /** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
 contains_checkBool(Collection::fromIterable(['foo' => 'bar', 'baz' => 'taz'])->contains('bar')->current());
+
+// explicit check is needed for PHPStan because the value is of type `bool|null`
+if (true === Collection::fromIterable([1, 2, 3])->contains(2)->current()) {
+}
