@@ -22,7 +22,7 @@ interface Zipable
      *
      * @param iterable<mixed> ...$iterables
      *
-     * @return \loophp\collection\Collection<TKey,T>
+     * @return Collection<TKey,T>
      */
     public function zip(iterable ...$iterables): Collection;
 }

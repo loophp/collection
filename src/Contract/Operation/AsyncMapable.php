@@ -20,7 +20,7 @@ interface AsyncMapable
     /**
      * Asynchronously apply callbacks to a collection.
      *
-     * @return \loophp\collection\Collection<TKey, T>
+     * @return Collection<TKey, T>
      */
     public function asyncMap(callable ...$callbacks): Collection;
 }

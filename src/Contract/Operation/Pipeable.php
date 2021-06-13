@@ -22,7 +22,7 @@ interface Pipeable
     /**
      * @param callable(Iterator<TKey, T>): Generator<TKey, T> ...$callbacks
      *
-     * @return \loophp\collection\Collection<TKey, T>
+     * @return Collection<TKey, T>
      */
     public function pipe(callable ...$callbacks): Collection;
 }

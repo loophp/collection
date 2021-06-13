@@ -28,7 +28,7 @@ interface Splitable
      *
      * @param callable ...$callbacks
      *
-     * @return \loophp\collection\Collection<TKey, T>
+     * @return Collection<TKey, T>
      */
     public function split(int $type = Splitable::BEFORE, callable ...$callbacks): Collection;
 }

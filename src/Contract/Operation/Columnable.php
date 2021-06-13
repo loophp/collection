@@ -22,7 +22,7 @@ interface Columnable
      *
      * @param int|string $column
      *
-     * @return \loophp\collection\Collection<TKey, T>
+     * @return Collection<TKey, T>
      */
     public function column($column): Collection;
 }

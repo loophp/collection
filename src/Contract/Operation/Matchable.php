@@ -22,7 +22,7 @@ interface Matchable
      * @param callable(T, TKey, Iterator<TKey, T>): bool $callback
      * @param null|callable(T, TKey, Iterator<TKey, T>): T $matcher
      *
-     * @return \loophp\collection\Collection<int, bool>
+     * @return Collection<int, bool>
      */
     public function match(callable $callback, ?callable $matcher = null): Collection;
 }

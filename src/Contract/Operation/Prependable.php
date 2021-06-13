@@ -22,7 +22,7 @@ interface Prependable
      *
      * @param mixed ...$items
      *
-     * @return \loophp\collection\Collection<int|TKey, T>
+     * @return Collection<int|TKey, T>
      */
     public function prepend(...$items): Collection;
 }

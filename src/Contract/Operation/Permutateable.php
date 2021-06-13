@@ -20,7 +20,7 @@ interface Permutateable
     /**
      * Find all the permutations of a collection.
      *
-     * @return \loophp\collection\Collection<TKey, T>
+     * @return Collection<TKey, T>
      */
     public function permutate(): Collection;
 }

@@ -20,7 +20,7 @@ interface ScanRightable
     /**
      * @param T|null $initial
      *
-     * @return \loophp\collection\Collection<TKey, T>
+     * @return Collection<TKey, T>
      */
     public function scanRight(callable $callback, $initial = null): Collection;
 }

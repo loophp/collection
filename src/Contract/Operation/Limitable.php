@@ -20,7 +20,7 @@ interface Limitable
     /**
      * Limit the amount of items in the collection to...
      *
-     * @return \loophp\collection\Collection<TKey, T>
+     * @return Collection<TKey, T>
      */
     public function limit(int $count = -1, int $offset = 0): Collection;
 }

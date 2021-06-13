@@ -18,7 +18,7 @@ use loophp\collection\Contract\Collection;
 interface Nullsyable
 {
     /**
-     * @return \loophp\collection\Collection<int, bool>
+     * @return Collection<int, bool>
      */
     public function nullsy(): Collection;
 }

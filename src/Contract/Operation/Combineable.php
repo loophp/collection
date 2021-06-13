@@ -22,7 +22,7 @@ interface Combineable
      *
      * @param mixed ...$keys
      *
-     * @return \loophp\collection\Collection<TKey, T>
+     * @return Collection<TKey, T>
      */
     public function combine(...$keys): Collection;
 }

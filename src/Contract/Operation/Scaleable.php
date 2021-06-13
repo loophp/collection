@@ -20,7 +20,7 @@ interface Scaleable
     /**
      * Scale/normalize values.
      *
-     * @return \loophp\collection\Collection<TKey, T>
+     * @return Collection<TKey, T>
      */
     public function scale(
         float $lowerBound,

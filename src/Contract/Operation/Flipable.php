@@ -20,7 +20,7 @@ interface Flipable
     /**
      * Flip keys and items in a collection.
      *
-     * @return \loophp\collection\Collection<TKey, T>
+     * @return Collection<TKey, T>
      */
     public function flip(): Collection;
 }

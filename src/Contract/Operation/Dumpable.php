@@ -19,7 +19,7 @@ use loophp\collection\Contract\Collection;
 interface Dumpable
 {
     /**
-     * @return \loophp\collection\Collection<TKey, T>
+     * @return Collection<TKey, T>
      */
     public function dump(string $name = '', int $size = 1, ?Closure $closure = null): Collection;
 }

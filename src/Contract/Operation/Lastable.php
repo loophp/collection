@@ -20,7 +20,7 @@ interface Lastable
     /**
      * Get the last item from the collection.
      *
-     * @return \loophp\collection\Collection<TKey, T>
+     * @return Collection<TKey, T>
      */
     public function last(): Collection;
 }

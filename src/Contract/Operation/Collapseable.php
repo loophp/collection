@@ -20,7 +20,7 @@ interface Collapseable
     /**
      * Collapse a collection of items into a simple flat collection.
      *
-     * @return \loophp\collection\Collection<TKey, T>
+     * @return Collection<TKey, T>
      */
     public function collapse(): Collection;
 }

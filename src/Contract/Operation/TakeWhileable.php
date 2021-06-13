@@ -18,7 +18,7 @@ use loophp\collection\Contract\Collection;
 interface TakeWhileable
 {
     /**
-     * @return \loophp\collection\Collection<TKey, T>
+     * @return Collection<TKey, T>
      */
     public function takeWhile(callable ...$callbacks): Collection;
 }

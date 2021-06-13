@@ -20,7 +20,7 @@ interface Diffable
     /**
      * @param mixed ...$values
      *
-     * @return \loophp\collection\Collection<TKey, T>
+     * @return Collection<TKey, T>
      */
     public function diff(...$values): Collection;
 }

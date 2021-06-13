@@ -22,7 +22,7 @@ interface Productable
      *
      * @param iterable<mixed> ...$iterables
      *
-     * @return \loophp\collection\Collection<TKey, T>
+     * @return Collection<TKey, T>
      */
     public function product(iterable ...$iterables): Collection;
 }

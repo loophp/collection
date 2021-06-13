@@ -13,7 +13,7 @@ use loophp\collection\Collection;
 use loophp\collection\Contract\Collection as CollectionInterface;
 
 /**
- * @param Collection<int, string> $collection
+ * @param CollectionInterface<int, string> $collection
  */
 function fromFile_check(CollectionInterface $collection): void
 {

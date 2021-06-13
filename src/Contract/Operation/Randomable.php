@@ -18,7 +18,7 @@ use loophp\collection\Contract\Collection;
 interface Randomable
 {
     /**
-     * @return \loophp\collection\Collection<TKey, T>
+     * @return Collection<TKey, T>
      */
     public function random(int $size = 1): Collection;
 }
