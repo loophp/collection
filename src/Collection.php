@@ -798,7 +798,13 @@ final class Collection implements CollectionInterface
 
     public function when(callable $predicate, callable $whenTrue, ?callable $whenFalse = null): CollectionInterface
     {
-        $whenFalse ??= static fn (Iterator $collection): iterable => $collection;
+        $whenFalse ??=
+            /**
+             * @param Iterator<TKey, T> $collection
+             *
+             * @return iterable<TKey, T>
+             */
+            static fn (Iterator $collection): iterable => $collection;
 
         return new self(When::of()($predicate)($whenTrue)($whenFalse), $this->getIterator());
     }
