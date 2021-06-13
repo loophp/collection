@@ -1829,13 +1829,13 @@ strict
 ~~~~~
 
 Enforce a single type in the collection at runtime. If the collection contains *objects*, they will either be
-expected to implement the same interfaces or be of the exact same class (no inheritance logic applies). 
+expected to implement the same interfaces or be of the exact same class (no inheritance logic applies).
 
 Note that the current logic allows *arrays* of any type in the collection, as well as *null*.
 
 .. warning:: This will trigger an ``InvalidArgumentException`` if the collection contains elements of mixed types when consumed.
 
-.. tip:: The logic for determining the type of items comes from the `TypedIterator`_. 
+.. tip:: The logic for determining the type of items comes from the `TypedIterator`_.
     In addition, an optional callback can be provided to this operation if a different logic for type enforcement is desired.
 
 Interface: `Strictable`_
@@ -2129,7 +2129,11 @@ Signature: ``Collection::unzip();``
 when
 ~~~~
 
-TODO
+This operation will execute the given ``$whenTrue`` callback when the given ``$predicate`` callback
+evaluates to true. Otherwise it will execute the ``$whenFalse`` callback if any.
+
+Unlike the ``ifThenElse`` operation where the operation is applied to each element of the collection,
+this operation operates on the collection directly.
 
 Interface: `Whenable`_
 
@@ -2137,7 +2141,11 @@ Signature: ``Collection::when(callable $predicate, callable $whenTrue, callable 
 
 .. code-block:: php
 
-    // TODO
+    Collection::fromIterable([1, 2])
+        ->when(
+            static fn() => true,
+            static fn(Iterator $collection): Collection => Collection::fromIterable($collection)->append(3)
+        ); // [1, 2, 3]
 
 window
 ~~~~~~
