@@ -270,7 +270,7 @@ Asynchronously apply one or more supplied callbacks to every item of a collectio
 
 .. warning:: This method requires `amphp/parallel-functions <https://github.com/amphp/parallel-functions>`_ to be installed.
 
-.. warning:: 
+.. warning::
         This operation is non-deterministic, we cannot ensure the order of the elements at the end. Additionally,
         keys are preserved - use the ``Collection::normalize`` operation if you want to re-index the keys.
 
@@ -834,7 +834,7 @@ Signature: ``Collection::foldLeft1(callable $callback);``
 
     Collection::fromIterable([64, 4, 2, 8])
         ->foldLeft1(static fn(float $carry, float $value): float => $carry / $value); // [3 => 1.0]
-        
+
 foldRight
 ~~~~~~~~~
 
@@ -871,7 +871,7 @@ Signature: ``Collection::foldRight1(callable $callback);``
 
     Collection::fromIterable([8, 12, 24, 4])
         ->foldLeft1(static fn(float $carry, float $value): float => $carry / $value); // [0 => 4.0]
-   
+
 forget
 ~~~~~~
 
@@ -1125,7 +1125,7 @@ Signature: ``Collection::intersperse($element, int $every = 1, int $startAt = 0)
 
     $collection = Collection::fromIterable(range('a', 'c'))
         ->intersperse('x');
-    
+
     foreach($collection as $item) {
         var_dump($item); // 'x', 'a', 'x', 'b', 'x', 'c'
     }
@@ -1276,7 +1276,7 @@ Signature: ``Collection::merge(iterable ...$sources);``
 
     $collection = Collection::fromIterable(['a', 'b', 'c'])
         ->merge(Collection::fromIterable(['d', 'e']);
-    
+
     $collection->all(); // ['d', 'e', 'c'] -> 'a' and 'b' are lost due to key overlap
     $collection->normalize()->all() // ['a', 'b', 'c', 'd', 'e']
 
@@ -1762,7 +1762,7 @@ Signature: ``Collection::since(callable ...$callbacks);``
 
 .. literalinclude:: code/operations/since.php
   :language: php
-   
+
 slice
 ~~~~~
 
@@ -1838,13 +1838,13 @@ strict
 ~~~~~
 
 Enforce a single type in the collection at runtime. If the collection contains *objects*, they will either be
-expected to implement the same interfaces or be of the exact same class (no inheritance logic applies). 
+expected to implement the same interfaces or be of the exact same class (no inheritance logic applies).
 
 Note that the current logic allows *arrays* of any type in the collection, as well as *null*.
 
 .. warning:: This will trigger an ``InvalidArgumentException`` if the collection contains elements of mixed types when consumed.
 
-.. tip:: The logic for determining the type of items comes from the `TypedIterator`_. 
+.. tip:: The logic for determining the type of items comes from the `TypedIterator`_.
     In addition, an optional callback can be provided to this operation if a different logic for type enforcement is desired.
 
 Interface: `Strictable`_
@@ -1973,7 +1973,7 @@ Signature: ``Collection::unlines();``
     ];
 
     Collection::fromIterable($lines)
-        ->unlines(); 
+        ->unlines();
     // [
     //    'The quick brown fox jumps over the lazy dog.
     //
@@ -2135,6 +2135,27 @@ Signature: ``Collection::unzip();``
     $b = Collection::fromIterable($a)
         ->unzip(); // [ ['a','b','c',null,null], ['d','e','f','g',null], [1,2,3,4,5] ]
 
+when
+~~~~
+
+This operation will execute the given ``$whenTrue`` callback when the given ``$predicate`` callback
+evaluates to true. Otherwise it will execute the ``$whenFalse`` callback if any.
+
+Unlike the ``ifThenElse`` operation where the operation is applied to each element of the collection,
+this operation operates on the collection directly.
+
+Interface: `Whenable`_
+
+Signature: ``Collection::when(callable $predicate, callable $whenTrue, callable $whenFalse);``
+
+.. code-block:: php
+
+    Collection::fromIterable([1, 2])
+        ->when(
+            static fn() => true,
+            static fn(Iterator $collection): Collection => Collection::fromIterable($collection)->append(3)
+        ); // [1, 2, 3]
+
 window
 ~~~~~~
 
@@ -2170,7 +2191,7 @@ Signature: ``Collection::words();``
     EOF;
 
     Collection::fromString($string)
-        ->words(); 
+        ->words();
     // ['The', 'quick', 'brown', 'fox', 'jumps', 'over', 'the', 'lazy', 'dog.', 'This', 'is', 'another', 'sentence.']
 
 wrap
@@ -2309,6 +2330,7 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Unwordsable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Unwordsable.php
 .. _Unwrapable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Unwrapable.php
 .. _Unzipable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Unzipable.php
+.. _Whenable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Whenable.php
 .. _Windowable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Windowable.php
 .. _Wordsable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Wordsable.php
 .. _Wrapable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Wrapable.php

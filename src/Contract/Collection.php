@@ -114,6 +114,7 @@ use loophp\collection\Contract\Operation\Unwindowable;
 use loophp\collection\Contract\Operation\Unwordsable;
 use loophp\collection\Contract\Operation\Unwrapable;
 use loophp\collection\Contract\Operation\Unzipable;
+use loophp\collection\Contract\Operation\Whenable;
 use loophp\collection\Contract\Operation\Windowable;
 use loophp\collection\Contract\Operation\Wordsable;
 use loophp\collection\Contract\Operation\Wrapable;
@@ -220,6 +221,7 @@ use loophp\collection\Contract\Operation\Zipable;
  * @template-extends Unwordsable<TKey, T>
  * @template-extends Unwrapable<TKey, T>
  * @template-extends Unzipable<TKey, T>
+ * @template-extends Whenable<TKey, T>
  * @template-extends Windowable<TKey, T>
  * @template-extends Wordsable<TKey, T>
  * @template-extends Wrapable<TKey, T>
@@ -331,6 +333,7 @@ interface Collection extends
     Unwordsable,
     Unwrapable,
     Unzipable,
+    Whenable,
     Windowable,
     Wordsable,
     Wrapable,
