@@ -20,7 +20,7 @@ interface Chunkable
     /**
      * Chunk the collection into chunks of the given size.
      *
-     * @return \loophp\collection\Collection<int, list<T>>
+     * @return Collection<int, list<T>>
      */
     public function chunk(int ...$sizes): Collection;
 }

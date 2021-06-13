@@ -39,6 +39,16 @@ parameters:
 
   # Psalm
   tasks.psalm.blocking: true
+  tasks.psalm.ignore_patterns:
+      - "/.github/"
+      - "/.idea/"
+      - "/build/"
+      - "/benchmarks/"
+      - "/node_modules/"
+      - "/resource/"
+      - "/spec/"
+      - "/var/"
+      - "/vendor/"
 
   extra_tasks:
     phpspec:

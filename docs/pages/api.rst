@@ -316,13 +316,15 @@ Chunk a collection of items into chunks of items of a given size.
 
 Interface: `Chunkable`_
 
-Signature: ``Collection::chunk(int $size);``
+Signature: ``Collection::chunk(int ...$sizes);``
 
 .. code-block:: php
 
-    $collection = Collection::fromIterable(range(0, 10));
+    $collection = Collection::fromIterable(range(0, 6))
+        ->chunk(2); // [[0, 1], [2, 3], [4, 5], [6]]
 
-    $collection->chunk(2);
+    $collection = Collection::fromIterable(range(0, 6))
+        ->chunk(1, 2); // [[0], [1, 2], [3], [4, 5], [6]]
 
 coalesce
 ~~~~~~~~
@@ -450,14 +452,24 @@ contains
 
 Check if the collection contains one or more values.
 
+.. warning:: The `values` parameter is variadic and will be evaluated as a logical ``OR``.
+             If you're looking for a logical ``AND``, you have to make separate calls to this method;
+             note the calls cannot be in succession because the collection will contain a boolean after the first call.
+
 Interface: `Containsable`_
 
-Signature: ``Collection::contains(...$value);``
+Signature: ``Collection::contains(...$values);``
 
 .. code-block:: php
 
     $collection = Collection::fromIterable(range('a', 'c'))
         ->contains('d'); // [false]
+
+    $collection = Collection::fromIterable(range('a', 'c'))
+        ->contains('a', 'z'); // [true]
+
+    $collection = Collection::fromIterable(['a' => 'b', 'c' => 'd'])
+        ->contains('d'); // ['c' => true]
 
     if ($collection->contains('d')->current()) {
         // do something
@@ -571,7 +583,7 @@ dropWhile
 Iterate over the collection items and takes from it its elements from the moment when the condition fails for the
 first time till the end of the list.
 
-.. warning:: The `callbacks` parameter is variadic and they are evaluated as a logical ``OR``.
+.. warning:: The `callbacks` parameter is variadic and will be evaluated as a logical ``OR``.
              If you're looking for a logical ``AND``, you have to make multiple calls to the
              same operation.
 
@@ -629,7 +641,7 @@ every
 
 This operation tests whether all elements in the collection pass the test implemented by the provided callback(s).
 
-.. warning:: The `callbacks` parameter is variadic and they are evaluated as a logical ``OR``.
+.. warning:: The `callbacks` parameter is variadic and will be evaluated as a logical ``OR``.
              If you're looking for a logical ``AND``, you have to make multiple calls to the
              same operation.
 
@@ -678,7 +690,7 @@ Signature: ``Collection::explode(...$items);``
 falsy
 ~~~~~
 
-Check if the collection contains *any falsy* values. A value is determined to be *falsy* by applying a ``bool`` cast.
+Check if the collection contains *only falsy* values. A value is determined to be *falsy* by applying a ``bool`` cast.
 
 Interface: `Falsyable`_
 
@@ -689,7 +701,7 @@ Signature: ``Collection::falsy();``
     $truthyCollection = Collection::fromIterable([2, 3, 4])
         ->falsy(); // [false]
 
-    $falsyCollection = Collection::fromIterable(['a', '', 'c', 'd'])
+    $falsyCollection = Collection::fromIterable(['', null, 0])
         ->falsy(); // [true]
 
     if ($falsyCollection->falsy()->current()) {
@@ -953,7 +965,7 @@ has
 
 Check if the collection has values.
 
-.. warning:: The `callbacks` parameter is variadic and they are evaluated as a logical ``OR``.
+.. warning:: The `callbacks` parameter is variadic and will be evaluated as a logical ``OR``.
              If you're looking for a logical ``AND``, you have to make multiple calls to the
              same operation.
 
@@ -1419,7 +1431,7 @@ partition
 
 With one or multiple callable, partition the items into 2 subgroups of items.
 
-.. warning:: The `callbacks` parameter is variadic and they are evaluated as a logical ``OR``.
+.. warning:: The `callbacks` parameter is variadic and will be evaluated as a logical ``OR``.
              If you're looking for a logical ``AND``, you have to make multiple calls to the
              same operation.
 
@@ -1453,7 +1465,7 @@ Custom operations and operations provided in the API can be combined together.
 
 Interface: `Pipeable`_
 
-Signature: ``Collection::pipe(callable ...$callables);``
+Signature: ``Collection::pipe(callable ...$callbacks);``
 
 .. code-block:: php
 
@@ -1743,7 +1755,7 @@ since
 
 Skip items until the callback is met.
 
-.. warning:: The `callbacks` parameter is variadic and they are evaluated as a logical ``OR``.
+.. warning:: The `callbacks` parameter is variadic and will be evaluated as a logical ``OR``.
              If you're looking for a logical ``AND``, you have to make multiple calls to the
              same operation.
 
@@ -1893,7 +1905,7 @@ Iterate over the collection items while the provided callback(s) are satisfied.
 
 It stops iterating when the callback(s) are not met.
 
-.. warning:: The `callbacks` parameter is variadic and they are evaluated as a logical ``OR``.
+.. warning:: The `callbacks` parameter is variadic and will be evaluated as a logical ``OR``.
              If you're looking for a logical ``AND``, you have to make multiple calls to the
              same operation.
 
@@ -1927,7 +1939,7 @@ Signature: ``Collection::transpose();``
 truthy
 ~~~~~~
 
-Check if the collection contains *any truthy* values. Opposite of ``falsy``.
+Check if the collection contains *only truthy* values. Opposite of ``falsy``.
 A value is determined to be *truthy* by applying a ``bool`` cast.
 
 Interface: `Truthyable`_
@@ -2019,7 +2031,7 @@ until
 
 Iterate over the collection items until the provided callback(s) are satisfied.
 
-.. warning:: The `callbacks` parameter is variadic and they are evaluated as a logical ``OR``.
+.. warning:: The `callbacks` parameter is variadic and will be evaluated as a logical ``OR``.
              If you're looking for a logical ``AND``, you have to make multiple calls to the
              same operation.
 

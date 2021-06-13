@@ -20,7 +20,7 @@ use Iterator;
 final class Contains extends AbstractOperation
 {
     /**
-     * @return Closure(T...): Closure(Iterator<TKey, T>): Generator<int, bool>
+     * @return Closure(T ...$values): Closure(Iterator<TKey, T>): Generator<TKey, bool>
      */
     public function __invoke(): Closure
     {
@@ -28,7 +28,7 @@ final class Contains extends AbstractOperation
             /**
              * @param T ...$values
              *
-             * @return Closure(Iterator<TKey, T>): Generator<int, bool>
+             * @return Closure(Iterator<TKey, T>): Generator<TKey, bool>
              */
             static function (...$values): Closure {
                 $callback =
@@ -41,7 +41,7 @@ final class Contains extends AbstractOperation
                          */
                         static fn ($right): bool => $left === $right;
 
-                /** @var Closure(Iterator<TKey, T>): Generator<int, bool> $matchOne */
+                /** @var Closure(Iterator<TKey, T>): Generator<TKey, bool> $matchOne */
                 $matchOne = MatchOne::of()(static fn (): bool => true)(...array_map($callback, $values));
 
                 // Point free style.

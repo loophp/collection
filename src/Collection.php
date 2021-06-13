@@ -233,9 +233,9 @@ final class Collection implements CollectionInterface
         return new self(Compact::of()(...$values), $this->getIterator());
     }
 
-    public function contains(...$value): CollectionInterface
+    public function contains(...$values): CollectionInterface
     {
-        return new self(Contains::of()(...$value), $this->getIterator());
+        return new self(Contains::of()(...$values), $this->getIterator());
     }
 
     public function count(): int
@@ -554,10 +554,6 @@ final class Collection implements CollectionInterface
 
     public function match(callable $callback, ?callable $matcher = null): CollectionInterface
     {
-        // @todo: Rename this in next major version.
-        // We cannot use Match::class because PHP 8 has
-        // a new "match" function and we cannot use the same name.
-        // @See https://github.com/loophp/collection/issues/56
         return new self(MatchOne::of()($matcher ?? static fn (): bool => true)($callback), $this->getIterator());
     }
 
@@ -606,9 +602,9 @@ final class Collection implements CollectionInterface
         return new self(Permutate::of(), $this->getIterator());
     }
 
-    public function pipe(callable ...$callables): CollectionInterface
+    public function pipe(callable ...$callbacks): CollectionInterface
     {
-        return new self(Pipe::of()(...$callables), $this->getIterator());
+        return new self(Pipe::of()(...$callbacks), $this->getIterator());
     }
 
     public function pluck($pluck, $default = null): CollectionInterface
