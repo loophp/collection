@@ -20,7 +20,7 @@ interface Transposeable
     /**
      * Matrix transposition.
      *
-     * @return \loophp\collection\Collection<TKey, list<T>>
+     * @return Collection<TKey, list<T>>
      */
     public function transpose(): Collection;
 }

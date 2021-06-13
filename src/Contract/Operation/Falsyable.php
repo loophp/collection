@@ -18,7 +18,7 @@ use loophp\collection\Contract\Collection;
 interface Falsyable
 {
     /**
-     * @return \loophp\collection\Collection<int, bool>
+     * @return Collection<int, bool>
      */
     public function falsy(): Collection;
 }

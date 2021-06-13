@@ -21,7 +21,7 @@ use loophp\collection\Contract\Collection;
 interface Unpackable
 {
     /**
-     * @return \loophp\collection\Collection<NewTKey, NewT>
+     * @return Collection<NewTKey, NewT>
      */
     public function unpack(): Collection;
 }

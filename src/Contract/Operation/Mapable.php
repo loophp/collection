@@ -24,7 +24,7 @@ interface Mapable
      *
      * @param callable(T, TKey, Iterator<TKey, T>): V ...$callbacks
      *
-     * @return \loophp\collection\Collection<TKey, V>
+     * @return Collection<TKey, V>
      */
     public function map(callable ...$callbacks): Collection;
 }

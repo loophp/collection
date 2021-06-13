@@ -23,7 +23,7 @@ interface Whenable
      * @param callable(Iterator<TKey, T>): iterable<TKey, T> $whenTrue
      * @param callable(Iterator<TKey, T>): iterable<TKey, T> $whenFalse
      *
-     * @return \loophp\collection\Collection<TKey, T>
+     * @return Collection<TKey, T>
      */
     public function when(callable $predicate, callable $whenTrue, ?callable $whenFalse = null): Collection;
 }

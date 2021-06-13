@@ -22,7 +22,7 @@ interface Mergeable
      *
      * @param iterable<mixed> ...$sources
      *
-     * @return \loophp\collection\Collection<TKey, T>
+     * @return Collection<TKey, T>
      */
     public function merge(iterable ...$sources): Collection;
 }

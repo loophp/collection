@@ -20,7 +20,7 @@ interface Normalizeable
     /**
      * Replace, reorder and use numeric keys on a collection.
      *
-     * @return \loophp\collection\Collection<int, T>
+     * @return Collection<int, T>
      */
     public function normalize(): Collection;
 }

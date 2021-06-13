@@ -22,7 +22,7 @@ interface Padable
      *
      * @param mixed $value
      *
-     * @return \loophp\collection\Collection<int|TKey, T>
+     * @return Collection<int|TKey, T>
      */
     public function pad(int $size, $value): Collection;
 }

@@ -23,7 +23,7 @@ interface Pluckable
      * @param array<int, string>|array-key $pluck
      * @param mixed|null $default
      *
-     * @return \loophp\collection\Collection<TKey, T>
+     * @return Collection<TKey, T>
      */
     public function pluck($pluck, $default = null): Collection;
 }

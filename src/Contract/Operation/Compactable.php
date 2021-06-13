@@ -22,7 +22,7 @@ interface Compactable
      *
      * @param T ...$values
      *
-     * @return \loophp\collection\Collection<TKey, T>
+     * @return Collection<TKey, T>
      */
     public function compact(...$values): Collection;
 }

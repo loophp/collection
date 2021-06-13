@@ -23,7 +23,7 @@ interface Getable
      * @param TKey $key
      * @param T|null $default
      *
-     * @return \loophp\collection\Collection<TKey, T|null>
+     * @return Collection<TKey, T|null>
      */
     public function get($key, $default = null): Collection;
 }

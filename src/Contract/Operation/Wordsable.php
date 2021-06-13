@@ -18,7 +18,7 @@ use loophp\collection\Contract\Collection;
 interface Wordsable
 {
     /**
-     * @return \loophp\collection\Collection<TKey, string>
+     * @return Collection<TKey, string>
      */
     public function words(): Collection;
 }

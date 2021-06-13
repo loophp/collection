@@ -20,7 +20,7 @@ interface Sinceable
     /**
      * @param callable(T, TKey):bool ...$callbacks
      *
-     * @return \loophp\collection\Collection<TKey, T>
+     * @return Collection<TKey, T>
      */
     public function since(callable ...$callbacks): Collection;
 }

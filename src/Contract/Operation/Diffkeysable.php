@@ -20,7 +20,7 @@ interface Diffkeysable
     /**
      * @param mixed ...$values
      *
-     * @return \loophp\collection\Collection<TKey, T>
+     * @return Collection<TKey, T>
      */
     public function diffKeys(...$values): Collection;
 }

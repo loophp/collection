@@ -18,7 +18,7 @@ use loophp\collection\Contract\Collection;
 interface Pairable
 {
     /**
-     * @return \loophp\collection\Collection<T|TKey, T>
+     * @return Collection<T|TKey, T>
      */
     public function pair(): Collection;
 }

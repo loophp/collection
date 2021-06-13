@@ -20,7 +20,7 @@ interface Firstable
     /**
      * Get the first item from the collection.
      *
-     * @return \loophp\collection\Collection<TKey, T>
+     * @return Collection<TKey, T>
      */
     public function first(): Collection;
 }

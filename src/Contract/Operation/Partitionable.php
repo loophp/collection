@@ -20,7 +20,7 @@ interface Partitionable
     /**
      * @param callable(T, TKey):bool ...$callbacks
      *
-     * @return \loophp\collection\Collection<int, array<int, array{0: TKey, 1: T}>>
+     * @return Collection<int, array<int, array{0: TKey, 1: T}>>
      */
     public function partition(callable ...$callbacks): Collection;
 }

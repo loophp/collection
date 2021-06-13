@@ -22,7 +22,7 @@ interface Explodeable
      *
      * @param mixed ...$explodes
      *
-     * @return \loophp\collection\Collection<int, list<T>>
+     * @return Collection<int, list<T>>
      */
     public function explode(...$explodes): Collection;
 }

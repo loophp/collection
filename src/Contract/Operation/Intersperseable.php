@@ -23,7 +23,7 @@ interface Intersperseable
      *
      * @param mixed $element
      *
-     * @return \loophp\collection\Collection<TKey, T>
+     * @return Collection<TKey, T>
      */
     public function intersperse($element, int $every = 1, int $startAt = 0): Collection;
 }

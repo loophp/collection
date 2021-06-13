@@ -18,7 +18,7 @@ use loophp\collection\Contract\Collection;
 interface Distinctable
 {
     /**
-     * @return \loophp\collection\Collection<TKey, T>
+     * @return Collection<TKey, T>
      */
     public function distinct(): Collection;
 }

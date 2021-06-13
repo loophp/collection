@@ -18,7 +18,7 @@ use loophp\collection\Contract\Collection;
 interface Unwordsable
 {
     /**
-     * @return \loophp\collection\Collection<TKey, string>
+     * @return Collection<TKey, string>
      */
     public function unwords(): Collection;
 }

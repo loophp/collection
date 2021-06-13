@@ -24,7 +24,7 @@ interface FoldRightable
      * @param callable(T, T, TKey, Iterator<TKey, T>): T $callback
      * @param T|null $initial
      *
-     * @return \loophp\collection\Collection<TKey, T|null>
+     * @return Collection<TKey, T|null>
      */
     public function foldRight(callable $callback, $initial = null): Collection;
 }
