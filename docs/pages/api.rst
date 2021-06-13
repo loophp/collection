@@ -450,8 +450,11 @@ Signature: ``Collection::compact(...$values);``
 contains
 ~~~~~~~~
 
-Check if the collection contains one or more values. Note that if multiple values are passed the operation
-acts like a logical ``OR``.
+Check if the collection contains one or more values.
+
+.. warning:: The `values` parameter is variadic and will be evaluated as a logical ``OR``.
+             If you're looking for a logical ``AND``, you have to make separate calls to this method;
+             note the calls cannot be in succession because the collection will contain a boolean after the first call.
 
 Interface: `Containsable`_
 
@@ -580,7 +583,7 @@ dropWhile
 Iterate over the collection items and takes from it its elements from the moment when the condition fails for the
 first time till the end of the list.
 
-.. warning:: The `callbacks` parameter is variadic and they are evaluated as a logical ``OR``.
+.. warning:: The `callbacks` parameter is variadic and will be evaluated as a logical ``OR``.
              If you're looking for a logical ``AND``, you have to make multiple calls to the
              same operation.
 
@@ -638,7 +641,7 @@ every
 
 This operation tests whether all elements in the collection pass the test implemented by the provided callback(s).
 
-.. warning:: The `callbacks` parameter is variadic and they are evaluated as a logical ``OR``.
+.. warning:: The `callbacks` parameter is variadic and will be evaluated as a logical ``OR``.
              If you're looking for a logical ``AND``, you have to make multiple calls to the
              same operation.
 
@@ -962,7 +965,7 @@ has
 
 Check if the collection has values.
 
-.. warning:: The `callbacks` parameter is variadic and they are evaluated as a logical ``OR``.
+.. warning:: The `callbacks` parameter is variadic and will be evaluated as a logical ``OR``.
              If you're looking for a logical ``AND``, you have to make multiple calls to the
              same operation.
 
@@ -1428,7 +1431,7 @@ partition
 
 With one or multiple callable, partition the items into 2 subgroups of items.
 
-.. warning:: The `callbacks` parameter is variadic and they are evaluated as a logical ``OR``.
+.. warning:: The `callbacks` parameter is variadic and will be evaluated as a logical ``OR``.
              If you're looking for a logical ``AND``, you have to make multiple calls to the
              same operation.
 
@@ -1752,7 +1755,7 @@ since
 
 Skip items until the callback is met.
 
-.. warning:: The `callbacks` parameter is variadic and they are evaluated as a logical ``OR``.
+.. warning:: The `callbacks` parameter is variadic and will be evaluated as a logical ``OR``.
              If you're looking for a logical ``AND``, you have to make multiple calls to the
              same operation.
 
@@ -1902,7 +1905,7 @@ Iterate over the collection items while the provided callback(s) are satisfied.
 
 It stops iterating when the callback(s) are not met.
 
-.. warning:: The `callbacks` parameter is variadic and they are evaluated as a logical ``OR``.
+.. warning:: The `callbacks` parameter is variadic and will be evaluated as a logical ``OR``.
              If you're looking for a logical ``AND``, you have to make multiple calls to the
              same operation.
 
@@ -2028,7 +2031,7 @@ until
 
 Iterate over the collection items until the provided callback(s) are satisfied.
 
-.. warning:: The `callbacks` parameter is variadic and they are evaluated as a logical ``OR``.
+.. warning:: The `callbacks` parameter is variadic and will be evaluated as a logical ``OR``.
              If you're looking for a logical ``AND``, you have to make multiple calls to the
              same operation.
 
