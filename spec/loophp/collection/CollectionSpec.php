@@ -1313,6 +1313,10 @@ class CollectionSpec extends ObjectBehavior
         $this::fromIterable([])
             ->first()
             ->shouldIterateAs([]);
+
+        $this::fromIterable(['foo' => 'bar', 'baz' => 'bar'])
+            ->first()
+            ->shouldIterateAs(['foo' => 'bar']);
     }
 
     public function it_can_get_the_last_item(): void
@@ -1511,11 +1515,17 @@ class CollectionSpec extends ObjectBehavior
 
     public function it_can_head(): void
     {
-        $input = range('A', 'E');
-
-        $this::fromIterable($input)
+        $this::fromIterable(range(1, 10))
             ->head()
-            ->shouldIterateAs([0 => 'A']);
+            ->shouldIterateAs([0 => 1]);
+
+        $this::fromIterable([])
+            ->head()
+            ->shouldIterateAs([]);
+
+        $this::fromIterable(['foo' => 'bar', 'baz' => 'bar'])
+            ->head()
+            ->shouldIterateAs(['foo' => 'bar']);
     }
 
     public function it_can_if_then_else(): void

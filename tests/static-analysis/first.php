@@ -57,8 +57,8 @@ first_checkIntElement(Collection::fromIterable([1, 2, 3])->first()->current());
 /** @psalm-suppress PossiblyNullArgument @phpstan-ignore-next-line */
 first_checkStringElement(Collection::fromIterable(['foo' => 'bar'])->first()->current());
 
-// VALID failures - these keys don't exist and Psalm can tell
+// VALID failures - these keys don't exist
 /** @psalm-suppress InvalidArrayOffset */
 first_checkIntElement(Collection::fromIterable([1, 2, 3])->first()->all()[4]);
-/** @psalm-suppress InvalidArrayOffset */
+/** @psalm-suppress InvalidArrayOffset @phpstan-ignore-next-line */
 first_checkStringElement(Collection::fromIterable(['foo' => 'bar'])->first()->all()[0]);
