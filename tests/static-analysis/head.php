@@ -38,18 +38,19 @@ function head_checkNullableString(?string $value): void
 }
 
 head_checkList(Collection::fromIterable([1, 2, 3])->head());
-head_checkMap(Collection::fromIterable(['foo' => 'bar', 'baz' => 'taz'])->head());
+head_checkMap(Collection::fromIterable(['foo' => 'bar', 'baz' => 'bar'])->head());
 
 head_checkList(Collection::empty()->head());
 head_checkMap(Collection::empty()->head());
 
 head_checkNullableInt(Collection::fromIterable([1, 2, 3])->head()->current());
-head_checkNullableString(Collection::fromIterable(['foo' => 'bar'])->head()->current());
+head_checkNullableString(Collection::fromIterable(['foo' => 'bar', 'baz' => 'bar'])->head()->current());
 
-// Using this element retrieval method works with the static analysers,
-// but might not be the nicest looking
+// This retrieval method doesn't cause static analysis complaints
+// but is not always reliable because of that.
 head_checkIntElement(Collection::fromIterable([1, 2, 3])->head()->all()[0]);
-head_checkStringElement(Collection::fromIterable(['foo' => 'bar'])->head()->all()['foo']);
+head_checkStringElement(Collection::fromIterable(['foo' => 'bar', 'baz' => 'bar'])->head()->all()['foo']);
+head_checkStringElement(Collection::fromIterable(['foo' => 'bar', 'baz' => 'bar'])->head()->all()['baz']);
 
 // VALID failures - `current` returns T|null
 /** @psalm-suppress PossiblyNullArgument @phpstan-ignore-next-line */
@@ -61,4 +62,4 @@ head_checkStringElement(Collection::fromIterable(['foo' => 'bar'])->head()->curr
 /** @psalm-suppress InvalidArrayOffset */
 head_checkIntElement(Collection::fromIterable([1, 2, 3])->head()->all()[4]);
 /** @psalm-suppress InvalidArrayOffset @phpstan-ignore-next-line */
-head_checkStringElement(Collection::fromIterable(['foo' => 'bar'])->head()->all()[0]);
+head_checkStringElement(Collection::fromIterable(['foo' => 'bar', 'baz' => 'bar'])->head()->all()[0]);

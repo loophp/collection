@@ -1333,6 +1333,10 @@ class CollectionSpec extends ObjectBehavior
             ->last()
             ->shouldIterateAs([]);
 
+        $this::fromIterable(['foo' => 'bar', 'baz' => 'bar'])
+            ->last()
+            ->shouldIterateAs(['baz' => 'bar']);
+
         $input = [
             ['a'],
             ['b', 'a'],
