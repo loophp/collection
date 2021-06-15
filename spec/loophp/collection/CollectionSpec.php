@@ -1062,9 +1062,11 @@ class CollectionSpec extends ObjectBehavior
     {
         $input = array_merge([0, false], range(1, 10));
 
-        $callable = static function ($value, $key, $iterator) {
+        $callable = static function ($value) {
             return $value % 2;
         };
+
+        $callableWithKey = static fn (int $value, int $key): bool => $value % 2 === 0 && 4 < $key;
 
         $this::fromIterable($input)
             ->filter($callable)
@@ -1075,6 +1077,10 @@ class CollectionSpec extends ObjectBehavior
             ->filter($callable)
             ->normalize()
             ->shouldIterateAs([1, 3, 5, 7, 9]);
+
+        $this::fromIterable(range(0, 10))
+            ->filter($callableWithKey)
+            ->shouldIterateAs([6 => 6, 8 => 8, 10 => 10]);
 
         $this::fromIterable(['afooe', 'fooe', 'allo', 'llo'])
             ->filter(
