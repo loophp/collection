@@ -16,46 +16,64 @@ use Iterator;
 /**
  * @template TKey
  * @template T
+ *
+ * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Distinct extends AbstractOperation
 {
     /**
-     * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(callable(mixed): (Closure(mixed): bool)): Closure(callable(T, TKey): mixed): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
-        $foldLeftCallback =
+        return
             /**
-             * @param list<array{0: TKey, 1: T}> $seen
-             * @param array{0: TKey, 1: T} $value
+             * @param callable(mixed): (Closure(mixed): bool) $comparatorCallback
+             *
+             * @return Closure(callable(T, TKey): mixed): Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
-            static function (array $seen, array $value): array {
-                $isSeen = false;
+            static fn (callable $comparatorCallback): Closure =>
+                /**
+                 * @param callable(T, TKey): mixed $accessorCallback
+                 *
+                 * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
+                 */
+                static function (callable $accessorCallback) use ($comparatorCallback): Closure {
+                    $foldLeftCallbackBuilder =
+                        static fn (callable $accessorCallback): Closure => static fn (callable $comparatorCallback): Closure =>
+                            /**
+                             * @param list<array{0: TKey, 1: T}> $seen
+                             * @param array{0: TKey, 1: T} $value
+                             */
+                            static function (array $seen, array $value) use ($accessorCallback, $comparatorCallback): array {
+                                $isSeen = false;
+                                $comparator = $comparatorCallback($accessorCallback($value[1], $value[0]));
 
-                foreach ($seen as $item) {
-                    if ($item[1] === $value[1]) {
-                        $isSeen = true;
+                                foreach ($seen as $item) {
+                                    if (true === $comparator($accessorCallback($item[1], $item[0]))) {
+                                        $isSeen = true;
 
-                        break;
-                    }
-                }
+                                        break;
+                                    }
+                                }
 
-                if (false === $isSeen) {
-                    $seen[] = $value;
-                }
+                                if (false === $isSeen) {
+                                    $seen[] = $value;
+                                }
 
-                return $seen;
-            };
+                                return $seen;
+                            };
 
-        /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
-        $pipe = Pipe::of()(
-            Pack::of(),
-            FoldLeft::of()($foldLeftCallback)([]),
-            Unwrap::of(),
-            Unpack::of()
-        );
+                    /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
+                    $pipe = Pipe::of()(
+                        Pack::of(),
+                        FoldLeft::of()($foldLeftCallbackBuilder($accessorCallback)($comparatorCallback))([]),
+                        Unwrap::of(),
+                        Unpack::of()
+                    );
 
-        // Point free style.
-        return $pipe;
+                    // Point free style.
+                    return $pipe;
+                };
     }
 }

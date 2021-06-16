@@ -554,14 +554,22 @@ distinct
 
 Remove duplicated values from a collection, preserving keys.
 
+The operation has 2 optional parameters that allow you to customize precisely
+how values are accessed and compared to each other.
+
+The first parameter is the comparator. This is a curried function which takes
+first the left part, then the right part and then returns a boolean.
+
+The second parameter is the accessor. This binary function take the value and
+the key of the current iterated value and then return the value to compare.
+This is useful when you want to compare objects.
+
 Interface: `Distinctable`_
 
-Signature: ``Collection::distinct();``
+Signature: ``Collection::distinct(?callable $comparatorCallback = null, ?callable $accessorCallback = null);``
 
-.. code-block:: php
-
-    $collection = Collection::fromIterable(['a', 'b', 'a', 'c'])
-        ->distinct(); // [0 => 'a', 1 => 'b', 3 => 'c']
+.. literalinclude:: code/operations/distinct.php
+  :language: php
 
 drop
 ~~~~

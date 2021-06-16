@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
+use Closure;
 use loophp\collection\Contract\Collection;
 
 /**
@@ -18,7 +19,10 @@ use loophp\collection\Contract\Collection;
 interface Distinctable
 {
     /**
+     * @param null|callable(mixed): (Closure(mixed): bool) $comparatorCallback
+     * @param null|callable(T, TKey): mixed $accessorCallback
+     *
      * @return Collection<TKey, T>
      */
-    public function distinct(): Collection;
+    public function distinct(?callable $comparatorCallback = null, ?callable $accessorCallback = null): Collection;
 }

@@ -264,9 +264,30 @@ final class Collection implements CollectionInterface
         return new self(DiffKeys::of()(...$values), $this->getIterator());
     }
 
-    public function distinct(): CollectionInterface
+    public function distinct(?callable $comparatorCallback = null, ?callable $accessorCallback = null): CollectionInterface
     {
-        return new self(Distinct::of(), $this->getIterator());
+        $accessorCallback ??=
+            /**
+             * @param T $value
+             * @param TKey $key
+             *
+             * @return T
+             */
+            static fn ($value, $key) => $value;
+
+        $comparatorCallback ??=
+            /**
+             * @param mixed $left
+             *
+             * @return Closure(mixed): bool
+             */
+            static fn ($left): Closure =>
+                /**
+                 * @param mixed $right
+                 */
+                static fn ($right): bool => $left === $right;
+
+        return new self(Distinct::of()($comparatorCallback)($accessorCallback), $this->getIterator());
     }
 
     public function drop(int ...$counts): CollectionInterface
