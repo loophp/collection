@@ -1062,9 +1062,11 @@ class CollectionSpec extends ObjectBehavior
     {
         $input = array_merge([0, false], range(1, 10));
 
-        $callable = static function ($value, $key, $iterator) {
+        $callable = static function ($value) {
             return $value % 2;
         };
+
+        $callableWithKey = static fn (int $value, int $key): bool => $value % 2 === 0 && 4 < $key;
 
         $this::fromIterable($input)
             ->filter($callable)
@@ -1075,6 +1077,10 @@ class CollectionSpec extends ObjectBehavior
             ->filter($callable)
             ->normalize()
             ->shouldIterateAs([1, 3, 5, 7, 9]);
+
+        $this::fromIterable(range(0, 10))
+            ->filter($callableWithKey)
+            ->shouldIterateAs([6 => 6, 8 => 8, 10 => 10]);
 
         $this::fromIterable(['afooe', 'fooe', 'allo', 'llo'])
             ->filter(
@@ -1307,6 +1313,10 @@ class CollectionSpec extends ObjectBehavior
         $this::fromIterable([])
             ->first()
             ->shouldIterateAs([]);
+
+        $this::fromIterable(['foo' => 'bar', 'baz' => 'bar'])
+            ->first()
+            ->shouldIterateAs(['foo' => 'bar']);
     }
 
     public function it_can_get_the_last_item(): void
@@ -1322,6 +1332,10 @@ class CollectionSpec extends ObjectBehavior
         $this::fromIterable([])
             ->last()
             ->shouldIterateAs([]);
+
+        $this::fromIterable(['foo' => 'bar', 'baz' => 'bar'])
+            ->last()
+            ->shouldIterateAs(['baz' => 'bar']);
 
         $input = [
             ['a'],
@@ -1505,11 +1519,17 @@ class CollectionSpec extends ObjectBehavior
 
     public function it_can_head(): void
     {
-        $input = range('A', 'E');
-
-        $this::fromIterable($input)
+        $this::fromIterable(range(1, 10))
             ->head()
-            ->shouldIterateAs([0 => 'A']);
+            ->shouldIterateAs([0 => 1]);
+
+        $this::fromIterable([])
+            ->head()
+            ->shouldIterateAs([]);
+
+        $this::fromIterable(['foo' => 'bar', 'baz' => 'bar'])
+            ->head()
+            ->shouldIterateAs(['foo' => 'bar']);
     }
 
     public function it_can_if_then_else(): void

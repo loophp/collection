@@ -711,7 +711,7 @@ Signature: ``Collection::falsy();``
 filter
 ~~~~~~
 
-Filter collection items based on one or more callbacks.
+Filter collection items based on one or more callbacks. Multiple callbacks will be treated as a logical ``AND``.
 
 Interface: `Filterable`_
 
@@ -719,12 +719,14 @@ Signature: ``Collection::filter(callable ...$callbacks);``
 
 .. code-block:: php
 
-    $callback = static function($value): bool {
-        return 0 === $value % 3;
-    };
+    $divisibleBy3 = static fn($value): bool => 0 === $value % 3;
+    $divisibleBy6 = static fn($value): bool => 0 === $value % 6;
 
     $collection = Collection::fromIterable(range(1, 10))
-        ->filter($callback); // [3, 6, 9]
+        ->filter($divisibleBy3); // [3, 6, 9]
+
+    $collection = Collection::fromIterable(range(1, 10))
+        ->filter($divisibleBy3, $divisibleBy6); // [6]
 
 first
 ~~~~~

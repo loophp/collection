@@ -21,7 +21,7 @@ use Iterator;
 final class Head extends AbstractOperation
 {
     /**
-     * @return Closure(Iterator<TKey, T>):Generator<TKey, T, mixed, EmptyIterator|mixed>
+     * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
@@ -29,7 +29,7 @@ final class Head extends AbstractOperation
             /**
              * @param Iterator<TKey, T> $iterator
              *
-             * @return Generator<TKey, T, mixed, EmptyIterator|void>
+             * @return Generator<TKey, T>
              */
             static function (Iterator $iterator): Generator {
                 $isEmpty = true;

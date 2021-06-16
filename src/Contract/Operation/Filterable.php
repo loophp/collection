@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
+use Iterator;
 use loophp\collection\Contract\Collection;
 
 /**
@@ -20,7 +21,7 @@ interface Filterable
     /**
      * Filter collection items based on one or more callbacks.
      *
-     * @param callable ...$callbacks
+     * @param callable(T, TKey, Iterator<TKey, T>): bool ...$callbacks
      *
      * @return Collection<TKey, T>
      */
