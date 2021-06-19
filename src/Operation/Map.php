@@ -43,7 +43,7 @@ final class Map extends AbstractOperation
                 static function (Iterator $iterator) use ($callbacks): Generator {
                     if (count($callbacks) > 1) {
                         @trigger_error(
-                            'Using `map` with multiple callbacks is deprecated, and will be removed in a future major version; use `mapN` instead.',
+                            'Using `Map` with multiple callbacks is deprecated, and will be removed in a future major version; use `MapN` instead.',
                             E_USER_DEPRECATED
                         );
                     }
