@@ -12,7 +12,9 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+
 use function count;
+
 use const E_USER_DEPRECATED;
 
 /**
