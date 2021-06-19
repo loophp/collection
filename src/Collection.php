@@ -70,6 +70,7 @@ use loophp\collection\Operation\Last;
 use loophp\collection\Operation\Limit;
 use loophp\collection\Operation\Lines;
 use loophp\collection\Operation\Map;
+use loophp\collection\Operation\MapN;
 use loophp\collection\Operation\MatchOne;
 use loophp\collection\Operation\Merge;
 use loophp\collection\Operation\Normalize;
@@ -550,6 +551,11 @@ final class Collection implements CollectionInterface
     public function map(callable ...$callbacks): CollectionInterface
     {
         return new self(Map::of()(...$callbacks), $this->getIterator());
+    }
+
+    public function mapN(callable ...$callbacks): CollectionInterface
+    {
+        return new self(MapN::of()(...$callbacks), $this->getIterator());
     }
 
     public function match(callable $callback, ?callable $matcher = null): CollectionInterface

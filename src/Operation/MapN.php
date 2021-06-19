@@ -12,8 +12,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use function count;
-use const E_USER_DEPRECATED;
 
 /**
  * @template TKey
@@ -21,43 +19,36 @@ use const E_USER_DEPRECATED;
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
-final class Map extends AbstractOperation
+final class MapN extends AbstractOperation
 {
     /**
-     * @return Closure(callable(T, TKey, Iterator<TKey, T>): T ...): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(callable(mixed, mixed, Iterator<TKey, T>): mixed ...): Closure(Iterator<TKey, T>): Generator<mixed, mixed>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable(T, TKey, Iterator<TKey, T>): T ...$callbacks
+             * @param callable(mixed, mixed, Iterator<TKey, T>): mixed ...$callbacks
              */
             static fn (callable ...$callbacks): Closure =>
                 /**
                  * @param Iterator<TKey, T> $iterator
                  *
-                 * @return Generator<TKey, T>
+                 * @return Generator<mixed, mixed>
                  */
                 static function (Iterator $iterator) use ($callbacks): Generator {
-                    if (count($callbacks) > 1) {
-                        @trigger_error(
-                            'Using `map` with multiple callbacks is deprecated, and will be removed in a future major version; use `mapN` instead.',
-                            E_USER_DEPRECATED
-                        );
-                    }
-
                     $callbackFactory =
                         /**
-                         * @param TKey $key
+                         * @param mixed $key
                          *
-                         * @return Closure(T, callable(T, TKey, Iterator<TKey, T>): T): T
+                         * @return Closure(mixed, callable(mixed, mixed, Iterator<TKey, T>): mixed): mixed
                          */
                         static fn ($key): Closure =>
                             /**
-                             * @param T $carry
-                             * @param callable(T, TKey, Iterator<TKey, T>): T $callback
+                             * @param mixed $carry
+                             * @param callable(mixed, mixed, Iterator<TKey, T>): mixed $callback
                              *
-                             * @return T
+                             * @return mixed
                              */
                             static fn ($carry, callable $callback) => $callback($carry, $key, $iterator);
 

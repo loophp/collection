@@ -16,18 +16,14 @@ use loophp\collection\Contract\Collection;
  * @template TKey
  * @template T
  */
-interface Mapable
+interface MapNable
 {
     /**
      * Apply one or more callbacks to a collection and use the return value.
-     * Usage with multiple callbacks is deprecated and will be removed in a future major version.
-     * Use mapN instead for multiple callbacks.
      *
-     * @template V
+     * @param callable(mixed, mixed, Iterator<TKey, T>): mixed ...$callbacks
      *
-     * @param callable(T, TKey, Iterator<TKey, T>): V ...$callbacks
-     *
-     * @return Collection<TKey, V>
+     * @return Collection<mixed, mixed>
      */
-    public function map(callable ...$callbacks): Collection;
+    public function mapN(callable ...$callbacks): Collection;
 }
