@@ -1866,9 +1866,9 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs(['1', '4', '9']);
 
         $this::fromIterable(range(1, 3))
-            ->map(static fn (int $item): int => $item ** 2)
-            ->map(static fn (int $item): string => (string) $item)
-            ->map(static fn (string $item): string => $item . 'bar')
+            ->mapN(static fn (int $item): int => $item ** 2)
+            ->mapN(static fn (int $item): string => (string) $item)
+            ->mapN(static fn (string $item): string => $item . 'bar')
             ->shouldIterateAs(['1bar', '4bar', '9bar']);
     }
 
