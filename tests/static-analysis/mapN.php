@@ -39,7 +39,7 @@ function mapN_checkMapClass(CollectionInterface $collection): void
 
 $square = static fn (int $val): int => $val ** 2;
 $toString = static fn (int $val): string => (string) $val;
-$appendBar = static fn (string $val): string => "{$val}bar";
+$appendBar = static fn (string $val): string => $val . 'bar';
 $toClass = static function (string $val): stdClass {
     $class = new stdClass();
     $class->val = $val;

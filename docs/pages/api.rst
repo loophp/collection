@@ -1225,7 +1225,11 @@ Signature: ``Collection::lines();``
 map
 ~~~
 
-Apply one or more supplied callbacks to every item of a collection and use the return value.
+Apply a single callback to every item of a collection and use the return value.
+
+.. warning:: An earlier version of this operation allowed usage with multiple callbacks. This behaviour
+        is deprecated and will be removed in a future major version; ``mapN`` should be used instead, or,
+        alternatively, multiple successive ``map`` calls can achieve the same result.
 
 .. warning:: Keys are preserved, use the ``Collection::normalize`` operation if you want to re-index the keys.
 
@@ -1235,12 +1239,37 @@ Signature: ``Collection::map(callable ...$callbacks);``
 
 .. code-block:: php
 
-    $mapper = static function($value, $key) {
-        return $value * 2;
-    };
+    $square = static fn (int $val): int => $val ** 2;
+    $toString = static fn (int $val): string => (string) $val;
+    $appendBar = static fn (int $val): string => $val . 'bar';
 
-    $collection = Collection::fromIterable(range(1, 5))
-        ->map($mapper); // [2, 4, 6, 8, 10]
+    $collection = Collection::fromIterable(range(1, 3))
+        ->map($square)
+        ->map($toString)
+        ->map($appendBar); // ['1bar', '4bar', '9bar']
+
+mapN
+~~~~
+
+Apply one or more callbacks to every item of a collection and use the return value.
+
+.. tip:: This operation is best used when multiple callbacks need to be applied. If you only want to apply
+        a single callback, ``map`` should be prefered as it benefits from more specific type hints.
+
+.. warning:: Keys are preserved, use the ``Collection::normalize`` operation if you want to re-index the keys.
+
+Interface: `MapNable`_
+
+Signature: ``Collection::mapN(callable ...$callbacks);``
+
+.. code-block:: php
+
+    $square = static fn (int $val): int => $val ** 2;
+    $toString = static fn (int $val): string => (string) $val;
+    $appendBar = static fn (int $val): string => $val . 'bar';
+
+    $collection = Collection::fromIterable(range(1, 3))
+        ->mapN($square, $toString, $appendBar); // ['1bar', '4bar', '9bar']
 
 match
 ~~~~~
@@ -2291,6 +2320,7 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Limitable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Limitable.php
 .. _Linesable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Linesable.php
 .. _Mapable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Mapable.php
+.. _MapNable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/MapNable.php
 .. _Matchable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Matchable.php
 .. _Mergeable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Mergeable.php
 .. _Normalizeable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Normalizeable.php
