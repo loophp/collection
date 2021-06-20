@@ -21,7 +21,6 @@ use loophp\collection\Collection;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Operation\AbstractOperation;
 use OutOfBoundsException;
-use PhpSpec\Exception\Example\ErrorException;
 use PhpSpec\Exception\Example\FailureException;
 use PhpSpec\Exception\Example\MatcherException;
 use PhpSpec\ObjectBehavior;
