@@ -6,11 +6,6 @@ parameters:
 			path: docs/pages/code/operations/since.php
 
 		-
-			message: "#^Generic type loophp\\\\collection\\\\Contract\\\\Operation\\\\Mapable\\<mixed, mixed\\> in PHPDoc tag @extends does not specify all template types of interface loophp\\\\collection\\\\Contract\\\\Operation\\\\Mapable\\: TKey, T, V$#"
-			count: 1
-			path: src/Contract/Collection.php
-
-		-
 			message: "#^Interface loophp\\\\collection\\\\Contract\\\\Collection extends generic interface loophp\\\\collection\\\\Contract\\\\Operation\\\\Partitionable but does not specify its types\\: TKey, T$#"
 			count: 1
 			path: src/Contract/Collection.php

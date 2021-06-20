@@ -26,6 +26,7 @@ use PhpSpec\Exception\Example\MatcherException;
 use PhpSpec\ObjectBehavior;
 use stdClass;
 use function gettype;
+use const E_USER_DEPRECATED;
 use const INF;
 use const PHP_EOL;
 
@@ -1813,28 +1814,44 @@ class CollectionSpec extends ObjectBehavior
         $input = array_combine(range('A', 'E'), range('A', 'E'));
 
         $this::fromIterable($input)
-            ->map(static function (string $item): string {
-                return $item . $item;
-            })
+            ->map(static fn (string $item): string => $item . $item)
             ->shouldIterateAs(['A' => 'AA', 'B' => 'BB', 'C' => 'CC', 'D' => 'DD', 'E' => 'EE']);
 
-        $callback1 = static function (string $a): string {
-            return $a . $a;
-        };
+        $square = static fn (int $a): int => $a ** 2;
+        $toString = static fn (int $a): string => (string) $a;
+        $appendBar = static fn (string $a): string => $a . 'bar';
 
-        $callback2 = static function (string $a): string {
-            return '[' . $a . ']';
-        };
+        $this::fromIterable(range(1, 3))
+            ->map($square)
+            ->map($toString)
+            ->map($appendBar)
+            ->shouldIterateAs(['1bar', '4bar', '9bar']);
 
-        $this::fromIterable(range('a', 'e'))
-            ->map($callback1, $callback2)
-            ->shouldIterateAs([
-                '[aa]',
-                '[bb]',
-                '[cc]',
-                '[dd]',
-                '[ee]',
-            ]);
+        $this::fromIterable(range(1, 3))
+            ->map($square, $toString)
+            ->shouldIterateAs(['1', '4', '9']);
+    }
+
+    public function it_can_mapN(): void
+    {
+        $input = array_combine(range('A', 'E'), range('A', 'E'));
+
+        $this::fromIterable($input)
+            ->mapN(static fn (string $item): string => $item . $item)
+            ->shouldIterateAs(['A' => 'AA', 'B' => 'BB', 'C' => 'CC', 'D' => 'DD', 'E' => 'EE']);
+
+        $square = static fn (int $a): int => $a ** 2;
+        $toString = static fn (int $a): string => (string) $a;
+
+        $this::fromIterable(range(1, 3))
+            ->mapN($square, $toString)
+            ->shouldIterateAs(['1', '4', '9']);
+
+        $this::fromIterable(range(1, 3))
+            ->mapN(static fn (int $item): int => $item ** 2)
+            ->mapN(static fn (int $item): string => (string) $item)
+            ->mapN(static fn (string $item): string => $item . 'bar')
+            ->shouldIterateAs(['1bar', '4bar', '9bar']);
     }
 
     public function it_can_match(): void
@@ -3564,6 +3581,16 @@ class CollectionSpec extends ObjectBehavior
     public function it_is_initializable(): void
     {
         $this->shouldHaveType(Collection::class);
+    }
+
+    public function it_shows_deprecation_for_map_multiple_callbacks(): void
+    {
+        $square = static fn (int $a): int => $a ** 2;
+        $toString = static fn (int $a): string => (string) $a;
+
+        $this::fromIterable(range(1, 3))
+            ->map($square, $toString)
+            ->shouldTrigger(E_USER_DEPRECATED)->during('all');
     }
 
     public function let(): void
