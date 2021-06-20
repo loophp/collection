@@ -12,7 +12,6 @@ namespace spec\loophp\collection;
 use ArrayIterator;
 use ArrayObject;
 use Closure;
-use Error;
 use Exception;
 use Generator;
 use InvalidArgumentException;
@@ -31,7 +30,6 @@ use function gettype;
 use const E_USER_DEPRECATED;
 use const INF;
 use const PHP_EOL;
-use const PHP_VERSION_ID;
 
 class CollectionSpec extends ObjectBehavior
 {
@@ -233,17 +231,9 @@ class CollectionSpec extends ObjectBehavior
 
         $this->beConstructedThrough('fromIterable', [['c' => 3, 'b' => 2, 'a' => 1]]);
 
-        // Note this will work in PHP 8 but fails during testing due to: https://github.com/phpspec/phpspec/issues/1375
-        if (PHP_VERSION_ID >= 80000) {
-            $this
-                ->asyncMap($callback1, $callback2)
-                ->shouldThrow(Error::class)
-                ->during('all');
-        } else {
-            $this
-                ->asyncMap($callback1, $callback2)
-                ->shouldIterateAs(['a' => 2, 'b' => 4, 'c' => 6]);
-        }
+        $this
+            ->asyncMap($callback1, $callback2)
+            ->shouldIterateAs(['a' => 2, 'b' => 4, 'c' => 6]);
     }
 
     public function it_can_be_constructed_from_a_file(): void
@@ -1838,16 +1828,9 @@ class CollectionSpec extends ObjectBehavior
             ->map($appendBar)
             ->shouldIterateAs(['1bar', '4bar', '9bar']);
 
-        // Note this will work in PHP 8 but fails during testing due to: https://github.com/phpspec/phpspec/issues/1375
-        if (PHP_VERSION_ID >= 80000) {
-            $this::fromIterable(range(1, 3))
-                ->map($square, $toString)
-                ->shouldThrow(ErrorException::class)->during('all');
-        } else {
-            $this::fromIterable(range(1, 3))
-                ->map($square, $toString)
-                ->shouldIterateAs(['1', '4', '9']);
-        }
+        $this::fromIterable(range(1, 3))
+            ->map($square, $toString)
+            ->shouldIterateAs(['1', '4', '9']);
     }
 
     public function it_can_mapN(): void
