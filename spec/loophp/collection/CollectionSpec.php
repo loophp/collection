@@ -12,7 +12,6 @@ namespace spec\loophp\collection;
 use ArrayIterator;
 use ArrayObject;
 use Closure;
-use Error;
 use Exception;
 use Generator;
 use InvalidArgumentException;
@@ -29,7 +28,6 @@ use stdClass;
 use function gettype;
 use const INF;
 use const PHP_EOL;
-use const PHP_VERSION_ID;
 
 class CollectionSpec extends ObjectBehavior
 {
@@ -231,16 +229,9 @@ class CollectionSpec extends ObjectBehavior
 
         $this->beConstructedThrough('fromIterable', [['c' => 3, 'b' => 2, 'a' => 1]]);
 
-        if (PHP_VERSION_ID >= 80000) {
-            $this
-                ->asyncMap($callback1, $callback2)
-                ->shouldThrow(Error::class)
-                ->during('all');
-        } else {
-            $this
-                ->asyncMap($callback1, $callback2)
-                ->shouldIterateAs(['a' => 2, 'b' => 4, 'c' => 6]);
-        }
+        $this
+            ->asyncMap($callback1, $callback2)
+            ->shouldIterateAs(['a' => 2, 'b' => 4, 'c' => 6]);
     }
 
     public function it_can_be_constructed_from_a_file(): void
