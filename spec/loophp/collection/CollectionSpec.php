@@ -12,7 +12,6 @@ namespace spec\loophp\collection;
 use ArrayIterator;
 use ArrayObject;
 use Closure;
-use Error;
 use Exception;
 use Generator;
 use InvalidArgumentException;
