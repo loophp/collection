@@ -42,9 +42,9 @@ every_checkMap(Collection::fromIterable(['foo' => 'bar', 'baz' => 'looooooooong'
 // VALID failures below -> `current` can return `NULL` if the collection is empty
 
 /** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
-every_checkList(Collection::fromIterable([1, 2, 3])->every($even)->current());
+every_checkBool(Collection::fromIterable([1, 2, 3])->every($even)->current());
 /** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
-every_checkMap(Collection::fromIterable(['foo' => 'bar', 'baz' => 'taz'])->every($bar)->current());
+every_checkBool(Collection::fromIterable(['foo' => 'bar', 'baz' => 'taz'])->every($bar)->current());
 
 // explicit check is needed for PHPStan because the value is of type `bool|null`
 if (true === Collection::fromIterable([1, 2, 3])->every($even)->current()) {
