@@ -22,7 +22,7 @@ use Iterator;
 final class Every extends AbstractOperation
 {
     /**
-     * @return Closure(callable(T, TKey, Iterator<TKey, T>...): bool): Closure(callable(T, TKey, Iterator<TKey, T>...): bool): Closure(Iterator<TKey, T>): Generator<int|TKey, bool>
+     * @return Closure(callable(T, TKey, Iterator<TKey, T>...): bool): Closure(callable(T, TKey, Iterator<TKey, T>...): bool): Closure(Iterator<TKey, T>): Generator<TKey, bool>
      */
     public function __invoke(): Closure
     {
@@ -30,14 +30,14 @@ final class Every extends AbstractOperation
             /**
              * @param callable(T, TKey, Iterator<TKey, T>): bool ...$matchers
              *
-             * @return Closure(...callable(T, TKey, Iterator<TKey, T>): bool): Closure(Iterator<TKey, T>): Generator<int|TKey, bool>
+             * @return Closure(...callable(T, TKey, Iterator<TKey, T>): bool): Closure(Iterator<TKey, T>): Generator<TKey, bool>
              */
             static function (callable ...$matchers): Closure {
                 return
                     /**
                      * @param callable(T, TKey, Iterator<TKey, T>): bool ...$callbacks
                      *
-                     * @return Closure(Iterator<TKey, T>): Generator<int|TKey, bool>
+                     * @return Closure(Iterator<TKey, T>): Generator<TKey, bool>
                      */
                     static function (callable ...$callbacks) use ($matchers): Closure {
                         $callbackReducer =
@@ -78,7 +78,7 @@ final class Every extends AbstractOperation
                                      */
                                     static fn ($value, $key, Iterator $iterator): bool => $reducer1($value, $key, $iterator) !== $reducer2($value, $key, $iterator);
 
-                        /** @var Closure(Iterator<TKey, T>): Generator<TKey|int, bool> $pipe */
+                        /** @var Closure(Iterator<TKey, T>): Generator<TKey, bool> $pipe */
                         $pipe = Pipe::of()(
                             Map::of()($mapCallback($callbackReducer($callbacks))($callbackReducer($matchers))),
                             DropWhile::of()(static fn (bool $value): bool => true === $value),

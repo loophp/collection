@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
+use Iterator;
 use loophp\collection\Contract\Collection;
 
 /**
@@ -18,6 +19,8 @@ use loophp\collection\Contract\Collection;
 interface Everyable
 {
     /**
+     * @param callable(T, TKey, Iterator<TKey, T>): bool ...$callbacks
+     *
      * @return Collection<TKey, bool>
      */
     public function every(callable ...$callbacks): Collection;
