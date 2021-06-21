@@ -1762,6 +1762,14 @@ class CollectionSpec extends ObjectBehavior
             ->shouldReturn('a');
 
         $this::fromIterable($input)
+            ->key()
+            ->shouldReturn('a');
+
+        $this::fromIterable($input)
+            ->key(9)
+            ->shouldReturn(null);
+
+        $this::fromIterable($input)
             ->key(4)
             ->shouldReturn('e');
     }
@@ -2699,19 +2707,30 @@ class CollectionSpec extends ObjectBehavior
 
     public function it_can_squash(): void
     {
-        $input = [16, 4, -9, 9];
-
-        $this::fromIterable($input)
+        $this::fromIterable([16, 4, -9, 9])
             ->map(
                 static function (int $value): int {
                     if (0 > $value) {
-                        throw new Exception('Error');
+                        throw new Exception('This should error');
                     }
 
                     return (int) sqrt($value);
                 }
             )
             ->shouldThrow(Exception::class)
+            ->during('squash');
+
+        $this::fromIterable([16, 4, 9, 9])
+            ->map(
+                static function (int $value): int {
+                    if (-100 > $value) {
+                        throw new Exception('This should not error');
+                    }
+
+                    return (int) sqrt($value);
+                }
+            )
+            ->shouldNotThrow(Exception::class)
             ->during('squash');
     }
 

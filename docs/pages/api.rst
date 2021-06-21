@@ -682,9 +682,7 @@ Signature: ``Collection::explode(...$items);``
 
 .. code-block:: php
 
-    $string = 'I am a text.';
-
-    $collection = Collection::fromIterable($string)
+    $collection = Collection::fromString('I am a text.')
         ->explode(' '); // [['I', 'a', 'm', 'a', 't', 'e', 'x', 't', '.']]
 
 falsy
