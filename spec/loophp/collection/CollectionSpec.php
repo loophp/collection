@@ -1762,6 +1762,14 @@ class CollectionSpec extends ObjectBehavior
             ->shouldReturn('a');
 
         $this::fromIterable($input)
+            ->key()
+            ->shouldReturn('a');
+
+        $this::fromIterable($input)
+            ->key(9)
+            ->shouldReturn(null);
+
+        $this::fromIterable($input)
             ->key(4)
             ->shouldReturn('e');
     }

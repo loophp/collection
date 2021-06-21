@@ -16,7 +16,7 @@ namespace loophp\collection\Contract\Operation;
 interface Keyable
 {
     /**
-     * @return T|TKey
+     * @return TKey|null
      */
     public function key(int $index = 0);
 }
