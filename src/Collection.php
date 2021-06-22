@@ -277,13 +277,13 @@ final class Collection implements CollectionInterface
 
         $comparatorCallback ??=
             /**
-             * @param mixed $left
+             * @param T $left
              *
-             * @return Closure(mixed): bool
+             * @return Closure(T): bool
              */
             static fn ($left): Closure =>
                 /**
-                 * @param mixed $right
+                 * @param T $right
                  */
                 static fn ($right): bool => $left === $right;
 

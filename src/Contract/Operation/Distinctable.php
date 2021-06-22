@@ -19,8 +19,10 @@ use loophp\collection\Contract\Collection;
 interface Distinctable
 {
     /**
-     * @param null|callable(mixed): (Closure(mixed): bool) $comparatorCallback
-     * @param null|callable(T, TKey): mixed $accessorCallback
+     * @template U
+     *
+     * @param null|callable(U): (Closure(U): bool) $comparatorCallback
+     * @param null|callable(T, TKey): U $accessorCallback
      *
      * @return Collection<TKey, T>
      */

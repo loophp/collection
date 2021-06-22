@@ -560,7 +560,7 @@ how values are accessed and compared to each other.
 The first parameter is the comparator. This is a curried function which takes
 first the left part, then the right part and then returns a boolean.
 
-The second parameter is the accessor. This binary function take the value and
+The second parameter is the accessor. This binary function takes the value and
 the key of the current iterated value and then return the value to compare.
 This is useful when you want to compare objects.
 

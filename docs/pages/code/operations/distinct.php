@@ -14,11 +14,11 @@ use loophp\collection\Collection;
 
 include __DIR__ . '/../../../../vendor/autoload.php';
 
-// Example 1 -> Using the default callback, with scalar values
+// Example 1 -> Using the default callbacks, with scalar values
 $collection = Collection::fromIterable(['a', 'b', 'a', 'c'])
     ->distinct(); // [0 => 'a', 1 => 'b', 3 => 'c']
 
-// Example 2 -> Using one custom callback, with object values
+// Example 2 -> Using a custom comparator callback, with object values
 final class User
 {
     private string $name;
@@ -46,7 +46,36 @@ $collection = Collection::fromIterable($users)
         static fn (User $left): Closure => static fn (User $right): bool => $left->name() === $right->name()
     ); // [0 => User<foo>, 1 => User<bar>, 3 => User<a>]
 
-// Example 3 -> Using two custom callbacks, with object values
+// Example 3 -> Using a custom accessor callback, with object values
+final class Person
+{
+    private string $name;
+
+    public function __construct(string $name)
+    {
+        $this->name = $name;
+    }
+
+    public function name(): string
+    {
+        return $this->name;
+    }
+}
+
+$users = [
+    new Person('foo'),
+    new Person('bar'),
+    new Person('foo'),
+    new Person('a'),
+];
+
+$collection = Collection::fromIterable($users)
+    ->distinct(
+        null,
+        static fn (Person $person): string => $person->name()
+    ); // [0 => Person<foo>, 1 => Person<bar>, 3 => Person<a>]
+
+// Example 4 -> Using both accessor and comparator callbacks, with object values
 final class Cat
 {
     private string $name;

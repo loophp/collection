@@ -765,6 +765,10 @@ class CollectionSpec extends ObjectBehavior
             ->distinct()
             ->shouldIterateAs([0 => 1, 2 => 2, 4 => 3, 6 => $stdclass]);
 
+        $this::fromIterable(['foo' => 'f', 'bar' => 'b', 'baz' => 'f'])
+            ->distinct()
+            ->shouldIterateAs(['foo' => 'f', 'bar' => 'b']);
+
         $cat = static fn (string $name) => new class($name) {
             private string $name;
 
@@ -792,21 +796,21 @@ class CollectionSpec extends ObjectBehavior
 
         $this::fromIterable($cats)
             ->distinct(
-                static fn ($left) => static fn ($right) => $left->name() === $right->name()
+                static fn (object $left) => static fn (object $right) => $left->name() === $right->name()
             )
             ->shouldIterateAs([$cat1, $cat2, $cat3]);
 
         $this::fromIterable($cats)
             ->distinct(
-                static fn ($left) => static fn ($right) => $left === $right,
-                static fn ($cat): string => $cat->name()
+                static fn (string $left) => static fn (string $right) => $left === $right,
+                static fn (object $cat): string => $cat->name()
             )
             ->shouldIterateAs([$cat1, $cat2, $cat3]);
 
         $this::fromIterable($cats)
             ->distinct(
                 null,
-                static fn ($cat): string => $cat->name()
+                static fn (object $cat): string => $cat->name()
             )
             ->shouldIterateAs([$cat1, $cat2, $cat3]);
     }

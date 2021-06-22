@@ -22,47 +22,60 @@ use Iterator;
 final class Distinct extends AbstractOperation
 {
     /**
-     * @return Closure(callable(mixed): (Closure(mixed): bool)): Closure(callable(T, TKey): mixed): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @template U
+     *
+     * @return Closure(callable(U): Closure(U): bool): Closure(callable(T, TKey): U): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable(mixed): (Closure(mixed): bool) $comparatorCallback
+             * @param callable(U): (Closure(U): bool) $comparatorCallback
              *
-             * @return Closure(callable(T, TKey): mixed): Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @return Closure(callable(T, TKey): U): Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static fn (callable $comparatorCallback): Closure =>
                 /**
-                 * @param callable(T, TKey): mixed $accessorCallback
+                 * @param callable(T, TKey): U $accessorCallback
                  *
                  * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
                  */
                 static function (callable $accessorCallback) use ($comparatorCallback): Closure {
+                    /**
+                     * @param callable(T, TKey): U $accessorCallback
+                     *
+                     * @return Closure(callable(U): Closure(U): bool): Closure(list<array{0: TKey, 1: T}>, array{0: TKey, 1: T}): list<array{0: TKey, 1: T}>
+                     */
                     $foldLeftCallbackBuilder =
-                        static fn (callable $accessorCallback): Closure => static fn (callable $comparatorCallback): Closure =>
+                        static fn (callable $accessorCallback): Closure =>
                             /**
-                             * @param list<array{0: TKey, 1: T}> $seen
-                             * @param array{0: TKey, 1: T} $value
+                             * @param callable(U): (Closure(U): bool) $comparatorCallback
+                             *
+                             * @return Closure(list<array{0: TKey, 1: T}>, array{0: TKey, 1: T}): list<array{0: TKey, 1: T}>
                              */
-                            static function (array $seen, array $value) use ($accessorCallback, $comparatorCallback): array {
-                                $isSeen = false;
-                                $comparator = $comparatorCallback($accessorCallback($value[1], $value[0]));
+                            static fn (callable $comparatorCallback): Closure =>
+                                /**
+                                 * @param list<array{0: TKey, 1: T}> $seen
+                                 * @param array{0: TKey, 1: T} $value
+                                 */
+                                static function (array $seen, array $value) use ($accessorCallback, $comparatorCallback): array {
+                                    $isSeen = false;
+                                    $comparator = $comparatorCallback($accessorCallback($value[1], $value[0]));
 
-                                foreach ($seen as $item) {
-                                    if (true === $comparator($accessorCallback($item[1], $item[0]))) {
-                                        $isSeen = true;
+                                    foreach ($seen as $item) {
+                                        if (true === $comparator($accessorCallback($item[1], $item[0]))) {
+                                            $isSeen = true;
 
-                                        break;
+                                            break;
+                                        }
                                     }
-                                }
 
-                                if (false === $isSeen) {
-                                    $seen[] = $value;
-                                }
+                                    if (false === $isSeen) {
+                                        $seen[] = $value;
+                                    }
 
-                                return $seen;
-                            };
+                                    return $seen;
+                                };
 
                     /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
                     $pipe = Pipe::of()(

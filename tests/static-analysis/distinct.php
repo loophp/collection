@@ -15,7 +15,13 @@ use loophp\collection\Contract\Collection as CollectionInterface;
 /**
  * @param CollectionInterface<int, int> $collection
  */
-function distinct_checkList(CollectionInterface $collection): void
+function distinct_checkIntList(CollectionInterface $collection): void
+{
+}
+/**
+ * @param CollectionInterface<int, stdClass> $collection
+ */
+function distinct_checkObjectList(CollectionInterface $collection): void
 {
 }
 /**
@@ -24,42 +30,53 @@ function distinct_checkList(CollectionInterface $collection): void
 function distinct_checkMap(CollectionInterface $collection): void
 {
 }
-function distinct_checkIntElement(int $value): void
-{
-}
-function distinct_checkNullableInt(?int $value): void
-{
-}
-function distinct_checkStringElement(string $value): void
-{
-}
-function distinct_checkNullableString(?string $value): void
-{
-}
 
-distinct_checkList(Collection::fromIterable([1, 2, 3, 1])->distinct());
-distinct_checkMap(Collection::fromIterable(['a' => 'foo', 'b' => 'bar', 'c' => 'baz', 'd' => 'bar'])->distinct());
+$cat = static function (string $name): stdClass {
+    $instance = new stdClass();
+    $instance->name = $name;
 
-distinct_checkList(Collection::empty()->distinct());
-distinct_checkMap(Collection::empty()->distinct());
+    return $instance;
+};
 
-distinct_checkNullableInt(Collection::fromIterable([1, 2, 3, 1])->distinct()->current());
-distinct_checkNullableString(Collection::fromIterable(['foo' => 'bar', 'baz' => 'bar'])->head()->current());
+$cats = [
+    $cat1 = $cat('izumi'),
+    $cat2 = $cat('nakano'),
+    $cat3 = $cat('booba'),
+    $cat3,
+];
 
-// This retrieval method doesn't cause static analysis complaints
-// but is not always reliable because of that.
-distinct_checkIntElement(Collection::fromIterable([1, 2, 3, 1])->distinct()->all()[0]);
-distinct_checkStringElement(Collection::fromIterable(['a' => 'foo', 'b' => 'bar', 'c' => 'baz', 'd' => 'bar'])->distinct()->all()['a']);
-distinct_checkStringElement(Collection::fromIterable(['a' => 'foo', 'b' => 'bar', 'c' => 'baz', 'd' => 'bar'])->distinct()->all()['b']);
+$accessor = static fn (stdClass $object): string => $object->name;
+$stringComparator = static fn (string $left): Closure => static fn (string $right): bool => $left === $right;
+$objectComparator = static fn (stdClass $left): Closure => static fn (stdClass $right): bool => $left->name === $right->name;
 
-// VALID failures - `current` returns T|null
-/** @psalm-suppress PossiblyNullArgument @phpstan-ignore-next-line */
-distinct_checkIntElement(Collection::fromIterable([1, 2, 3, 1])->distinct()->current());
-/** @psalm-suppress PossiblyNullArgument @phpstan-ignore-next-line */
-distinct_checkStringElement(Collection::fromIterable(['foo' => 'bar', 'bar'])->distinct()->current());
+distinct_checkIntList(Collection::fromIterable([11, 12, 11, 13])->distinct());
+distinct_checkMap(Collection::fromIterable(['foo' => 'f', 'bar' => 'b', 'baz' => 'f'])->distinct());
 
-// VALID failures - these keys don't exist
-/** @psalm-suppress InvalidArrayOffset */
-distinct_checkIntElement(Collection::fromIterable([1, 2, 3, 1])->distinct()->all()[4]);
-/** @psalm-suppress InvalidArrayOffset @phpstan-ignore-next-line */
-distinct_checkStringElement(Collection::fromIterable(['foo' => 'bar', 'baz' => 'bar'])->distinct()->all()['plop']);
+distinct_checkObjectList(Collection::fromIterable($cats)->distinct());
+distinct_checkObjectList(Collection::fromIterable($cats)->distinct($objectComparator));
+distinct_checkObjectList(Collection::fromIterable($cats)->distinct($stringComparator, $accessor));
+distinct_checkObjectList(Collection::fromIterable($cats)->distinct(null, $accessor));
+
+// VALID failures
+
+// `distinct` does not change the collection types TKey, T
+/** @psalm-suppress InvalidScalarArgument @phpstan-ignore-next-line */
+distinct_checkIntList(Collection::fromIterable(['a', 'b', 'c'])->distinct());
+/** @psalm-suppress InvalidScalarArgument @phpstan-ignore-next-line */
+distinct_checkMap(Collection::fromIterable(['foo' => 1, 'bar' => 2, 'baz' => 'f'])->distinct());
+
+// mixing object comparator parameter types
+$objectComparator = static fn (stdClass $left): Closure => static fn (string $right): bool => $left->name === $right;
+/** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
+distinct_checkObjectList(Collection::fromIterable($cats)->distinct($objectComparator));
+
+// using wrong type parameter for accessor callback
+$accessor = static fn (string $object): string => $object;
+/** @psalm-suppress InvalidArgument */
+distinct_checkObjectList(Collection::fromIterable($cats)->distinct(null, $accessor));
+
+// comparator parameter types need to match accessor return type
+$accessor = static fn (stdClass $object): string => $object->name;
+$objectComparator = static fn (stdClass $left): Closure => static fn (stdClass $right): bool => $left->name === $right->name;
+/** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
+distinct_checkObjectList(Collection::fromIterable($cats)->distinct($objectComparator, $accessor));
