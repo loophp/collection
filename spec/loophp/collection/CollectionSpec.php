@@ -764,6 +764,55 @@ class CollectionSpec extends ObjectBehavior
         $this::fromIterable([1, 1, 2, 2, 3, 3, $stdclass, $stdclass])
             ->distinct()
             ->shouldIterateAs([0 => 1, 2 => 2, 4 => 3, 6 => $stdclass]);
+
+        $this::fromIterable(['foo' => 'f', 'bar' => 'b', 'baz' => 'f'])
+            ->distinct()
+            ->shouldIterateAs(['foo' => 'f', 'bar' => 'b']);
+
+        $cat = static fn (string $name) => new class($name) {
+            private string $name;
+
+            public function __construct(string $name)
+            {
+                $this->name = $name;
+            }
+
+            public function name(): string
+            {
+                return $this->name;
+            }
+        };
+
+        $cats = [
+            $cat1 = $cat('izumi'),
+            $cat2 = $cat('nakano'),
+            $cat3 = $cat('booba'),
+            $cat3,
+        ];
+
+        $this::fromIterable($cats)
+            ->distinct()
+            ->shouldIterateAs([$cat1, $cat2, $cat3]);
+
+        $this::fromIterable($cats)
+            ->distinct(
+                static fn (object $left) => static fn (object $right) => $left->name() === $right->name()
+            )
+            ->shouldIterateAs([$cat1, $cat2, $cat3]);
+
+        $this::fromIterable($cats)
+            ->distinct(
+                static fn (string $left) => static fn (string $right) => $left === $right,
+                static fn (object $cat): string => $cat->name()
+            )
+            ->shouldIterateAs([$cat1, $cat2, $cat3]);
+
+        $this::fromIterable($cats)
+            ->distinct(
+                null,
+                static fn (object $cat): string => $cat->name()
+            )
+            ->shouldIterateAs([$cat1, $cat2, $cat3]);
     }
 
     public function it_can_do_the_cartesian_product(): void
