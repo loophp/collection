@@ -1,11 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Parameter \\#1 \\.\\.\\.\\$callbacks of method loophp\\\\collection\\\\Collection\\<int,string\\>\\:\\:map\\(\\) expects callable\\(string, int, Iterator\\<int, string\\>\\)\\: mixed, Closure\\(array\\)\\: string given\\.$#"
-			count: 1
-			path: docs/pages/code/operations/since.php
-
-		-
 			message: "#^Anonymous function with return type void returns void but should not return anything\\.$#"
 			count: 2
 			path: src/Operation/Combinate.php
@@ -34,3 +29,4 @@ parameters:
 			message: "#^Foreach overwrites \\$value with its value variable\\.$#"
 			count: 1
 			path: src/Operation/Unwindow.php
+
