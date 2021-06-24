@@ -188,6 +188,7 @@ use loophp\collection\Contract\Operation\Zipable;
  * @template-extends Packable<TKey, T>
  * @template-extends Padable<TKey, T>
  * @template-extends Pairable<TKey, T>
+ * @template-extends Partitionable<TKey, T>
  * @template-extends Permutateable<TKey, T>
  * @template-extends Pipeable<TKey, T>
  * @template-extends Pluckable<TKey, T>

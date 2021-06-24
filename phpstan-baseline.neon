@@ -6,11 +6,6 @@ parameters:
 			path: docs/pages/code/operations/since.php
 
 		-
-			message: "#^Interface loophp\\\\collection\\\\Contract\\\\Collection extends generic interface loophp\\\\collection\\\\Contract\\\\Operation\\\\Partitionable but does not specify its types\\: TKey, T$#"
-			count: 1
-			path: src/Contract/Collection.php
-
-		-
 			message: "#^Anonymous function with return type void returns void but should not return anything\\.$#"
 			count: 2
 			path: src/Operation/Combinate.php
