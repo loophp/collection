@@ -1,6 +1,26 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Method loophp\\\\collection\\\\Collection\\:\\:matching\\(\\) return type with generic interface loophp\\\\collection\\\\Contract\\\\Collection does not specify its types\\: TKey, T$#"
+			count: 1
+			path: src/Collection.php
+
+		-
+			message: "#^Return type \\(loophp\\\\collection\\\\Contract\\\\Collection\\) of method loophp\\\\collection\\\\Collection\\:\\:matching\\(\\) should be covariant with return type \\(Doctrine\\\\Common\\\\Collections\\\\Collection\\<mixed, mixed\\>\\) of method Doctrine\\\\Common\\\\Collections\\\\Selectable\\<TKey,T\\>\\:\\:matching\\(\\)$#"
+			count: 1
+			path: src/Collection.php
+
+		-
+			message: "#^Return type \\(loophp\\\\collection\\\\Contract\\\\Collection\\) of method loophp\\\\collection\\\\Collection\\:\\:matching\\(\\) should be covariant with return type \\(loophp\\\\collection\\\\Contract\\\\Collection\\<mixed, mixed\\>\\) of method loophp\\\\collection\\\\Contract\\\\Operation\\\\Matchingable\\<TKey,T\\>\\:\\:matching\\(\\)$#"
+			count: 2
+			path: src/Collection.php
+
+		-
+			message: "#^Return type \\(loophp\\\\collection\\\\Contract\\\\Collection\\<TKey, T\\>\\) of method loophp\\\\collection\\\\Contract\\\\Operation\\\\Matchingable\\:\\:matching\\(\\) should be covariant with return type \\(Doctrine\\\\Common\\\\Collections\\\\Collection\\<mixed, mixed\\>\\) of method Doctrine\\\\Common\\\\Collections\\\\Selectable\\<TKey,T\\>\\:\\:matching\\(\\)$#"
+			count: 1
+			path: src/Contract/Operation/Matchingable.php
+
+		-
 			message: "#^Anonymous function with return type void returns void but should not return anything\\.$#"
 			count: 2
 			path: src/Operation/Combinate.php
