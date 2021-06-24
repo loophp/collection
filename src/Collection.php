@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace loophp\collection;
 
 use Closure;
+use Doctrine\Common\Collections\Criteria;
 use Iterator;
 use loophp\collection\Contract\Collection as CollectionInterface;
 use loophp\collection\Contract\Operation;
@@ -72,6 +73,7 @@ use loophp\collection\Operation\Limit;
 use loophp\collection\Operation\Lines;
 use loophp\collection\Operation\Map;
 use loophp\collection\Operation\MapN;
+use loophp\collection\Operation\Matching;
 use loophp\collection\Operation\MatchOne;
 use loophp\collection\Operation\Merge;
 use loophp\collection\Operation\Normalize;
@@ -592,6 +594,11 @@ final class Collection implements CollectionInterface
     public function match(callable $callback, ?callable $matcher = null): CollectionInterface
     {
         return new self(MatchOne::of()($matcher ?? static fn (): bool => true)($callback), $this->getIterator());
+    }
+
+    public function matching(Criteria $criteria): CollectionInterface
+    {
+        return new self(Matching::of()($criteria), $this->getIterator());
     }
 
     public function merge(iterable ...$sources): CollectionInterface

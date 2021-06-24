@@ -1334,6 +1334,21 @@ Signature: ``Collection::match(callable $callback, ?callable $matcher = null);``
 .. literalinclude:: code/operations/match.php
   :language: php
 
+matching
+~~~~~~~~
+
+Collection implements the ``Selectable`` interface provided by `Doctrine Collections`_.
+
+That means it let you use the Criteria API provided by Doctrine,
+in a complete lazy way.
+
+Interface: `Matchingable`_
+
+Signature: ``Collection::matching(Criteria $criteria);``
+
+.. literalinclude:: code/operations/matching.php
+  :language: php
+
 merge
 ~~~~~
 
@@ -2304,6 +2319,7 @@ Signature: ``Collection::zip(iterable ...$iterables);``
         ->limit(100)
         ->unwrap(); // [0, 1, 2, 3 ... 196, 197, 198, 199]
 
+.. _Doctrine Collections: https://github.com/doctrine/collections
 .. _Allable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Allable.php
 .. _Appendable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Appendable.php
 .. _Applyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Applyable.php
@@ -2320,6 +2336,7 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Containsable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Containsable.php
 .. _Countable: https://www.php.net/manual/en/class.countable.php
 .. _Currentable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Currentable.php
+.. _Criteria: https://www.doctrine-project.org/projects/doctrine-collections/en/1.6/index.html#matching
 .. _Cycleable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Cycleable.php
 .. _Diffable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Diffable.php
 .. _Diffkeysable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Diffkeysable.php
@@ -2362,6 +2379,7 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Mapable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Mapable.php
 .. _MapNable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/MapNable.php
 .. _Matchable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Matchable.php
+.. _Matchingable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Matchingable.php
 .. _Mergeable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Mergeable.php
 .. _Normalizeable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Normalizeable.php
 .. _Nthable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Nthable.php
