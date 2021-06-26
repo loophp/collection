@@ -10,6 +10,8 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
+use Generator;
+use Iterator;
 
 /**
  * @template TKey
@@ -18,11 +20,11 @@ use Closure;
 final class Coalesce extends AbstractOperation
 {
     /**
-     * @return Closure(\Iterator<TKey, T>): \Generator<TKey, T>
+     * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
-        /** @var Closure(\Iterator<TKey, T>): \Generator<TKey, T> $pipe */
+        /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
         $pipe = Pipe::of()(
             Compact::of()(),
             Head::of(),
