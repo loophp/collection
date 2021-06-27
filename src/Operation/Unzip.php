@@ -44,7 +44,7 @@ final class Unzip extends AbstractOperation
         /** @var Closure(Iterator<TKey, list<T>>): Generator<int, list<T>> $pipe */
         $pipe = Pipe::of()(
             FoldLeft::of()($reduceCallback)([]),
-            Unwrap::of()
+            Flatten::of()(1)
         );
 
         // Point free style.

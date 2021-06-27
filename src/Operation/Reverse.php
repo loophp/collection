@@ -42,7 +42,7 @@ final class Reverse extends AbstractOperation
             Pack::of(),
             Wrap::of(),
             FoldLeft::of()($callback)([]),
-            Unwrap::of(),
+            Flatten::of()(1),
             Unpack::of(),
         );
 

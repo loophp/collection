@@ -32,7 +32,7 @@ final class FlatMap extends AbstractOperation
                 /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $flatMap */
                 $flatMap = Pipe::of()(
                     Map::of()($callback),
-                    Unwrap::of()
+                    Flatten::of()(1)
                 );
 
                 // Point free style

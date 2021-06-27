@@ -81,7 +81,7 @@ final class Distinct extends AbstractOperation
                     $pipe = Pipe::of()(
                         Pack::of(),
                         FoldLeft::of()($foldLeftCallbackBuilder($accessorCallback)($comparatorCallback))([]),
-                        Unwrap::of(),
+                        Flatten::of()(1),
                         Unpack::of()
                     );
 

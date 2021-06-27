@@ -48,7 +48,7 @@ final class Column extends AbstractOperation
                     Transpose::of(),
                     Filter::of()($filterCallbackBuilder($column)),
                     Head::of(),
-                    Unwrap::of()
+                    Flatten::of()(1)
                 );
 
                 // Point free style.
