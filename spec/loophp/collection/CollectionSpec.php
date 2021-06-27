@@ -1142,20 +1142,48 @@ class CollectionSpec extends ObjectBehavior
     public function it_can_flatMap(): void
     {
         $this::fromIterable([1, 2, 3])
+            ->flatMap(static fn (int $item, int $key): array => [$key => $item * $item])
+            ->shouldIterateAs([1, 4, 9]);
+
+        $gen = static function (): Generator {
+            yield 0 => 1;
+
+            yield 0 => 4;
+
+            yield 0 => 9;
+        };
+
+        $this::fromIterable([1, 2, 3])
+            ->flatMap(static fn (int $item): array => [$item * $item])
+            ->shouldIterateAs($gen());
+
+        $this::fromIterable([1, 2, 3])
             ->flatMap(static fn (int $item): array => [$item + $item, $item * $item])
+            ->normalize()
             ->shouldIterateAs([2, 1, 4, 4, 6, 9]);
 
         $this::fromIterable([1, 2, 3])
             ->flatMap(static fn (int $item): array => [[$item + $item], [$item * $item]])
+            ->normalize()
             ->shouldIterateAs([[2], [1], [4], [4], [6], [9]]);
 
         $this::fromIterable(['foo' => 'f', 'bar' => 'b'])
             ->flatMap(static fn (string $item, string $key): array => [$item => $key])
-            ->shouldIterateAs([0 => 'foo', 1 => 'bar']);
+            ->shouldIterateAs(['f' => 'foo', 'b' => 'bar']);
+
+        $gen = static function (): Generator {
+            yield 0 => ['f' => 'foo'];
+
+            yield 1 => ['FOO' => 'F'];
+
+            yield 0 => ['b' => 'bar'];
+
+            yield 1 => ['BAR' => 'B'];
+        };
 
         $this::fromIterable(['foo' => 'f', 'bar' => 'b'])
             ->flatMap(static fn (string $item, string $key): array => [[$item => $key], [mb_strtoupper($key) => mb_strtoupper($item)]])
-            ->shouldIterateAs([['f' => 'foo'], ['FOO' => 'F'], ['b' => 'bar'], ['BAR' => 'B']]);
+            ->shouldIterateAs($gen());
     }
 
     public function it_can_flatten(): void
