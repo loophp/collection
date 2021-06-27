@@ -44,6 +44,7 @@ use loophp\collection\Operation\Explode;
 use loophp\collection\Operation\Falsy;
 use loophp\collection\Operation\Filter;
 use loophp\collection\Operation\First;
+use loophp\collection\Operation\FlatMap;
 use loophp\collection\Operation\Flatten;
 use loophp\collection\Operation\Flip;
 use loophp\collection\Operation\FoldLeft;
@@ -349,6 +350,11 @@ final class Collection implements CollectionInterface
     public function first(): CollectionInterface
     {
         return new self(First::of(), $this->getIterator());
+    }
+
+    public function flatMap(callable $callback): CollectionInterface
+    {
+        return new self(FlatMap::of()($callback), $this->getIterator());
     }
 
     public function flatten(int $depth = PHP_INT_MAX): CollectionInterface

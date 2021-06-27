@@ -41,6 +41,7 @@ use loophp\collection\Contract\Operation\Explodeable;
 use loophp\collection\Contract\Operation\Falsyable;
 use loophp\collection\Contract\Operation\Filterable;
 use loophp\collection\Contract\Operation\Firstable;
+use loophp\collection\Contract\Operation\FlatMapable;
 use loophp\collection\Contract\Operation\Flattenable;
 use loophp\collection\Contract\Operation\Flipable;
 use loophp\collection\Contract\Operation\FoldLeft1able;
@@ -153,6 +154,7 @@ use loophp\collection\Contract\Operation\Zipable;
  * @template-extends Falsyable<int, bool>
  * @template-extends Filterable<TKey, T>
  * @template-extends Firstable<TKey, T>
+ * @template-extends FlatMapable<TKey, T>
  * @template-extends Flattenable<TKey, T>
  * @template-extends Flipable<TKey, T>
  * @template-extends FoldLeftable<TKey, T>
@@ -261,6 +263,7 @@ interface Collection extends
     Falsyable,
     Filterable,
     Firstable,
+    FlatMapable,
     Flattenable,
     Flipable,
     FoldLeft1able,

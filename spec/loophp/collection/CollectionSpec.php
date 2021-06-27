@@ -1139,6 +1139,25 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs([true]);
     }
 
+    public function it_can_flatMap(): void
+    {
+        $this::fromIterable([1, 2, 3])
+            ->flatMap(static fn (int $item): array => [$item + $item, $item * $item])
+            ->shouldIterateAs([2, 1, 4, 4, 6, 9]);
+
+        $this::fromIterable([1, 2, 3])
+            ->flatMap(static fn (int $item): array => [[$item + $item], [$item * $item]])
+            ->shouldIterateAs([[2], [1], [4], [4], [6], [9]]);
+
+        $this::fromIterable(['foo' => 'f', 'bar' => 'b'])
+            ->flatMap(static fn (string $item, string $key): array => [$item => $key])
+            ->shouldIterateAs([0 => 'foo', 1 => 'bar']);
+
+        $this::fromIterable(['foo' => 'f', 'bar' => 'b'])
+            ->flatMap(static fn (string $item, string $key): array => [[$item => $key], [mb_strtoupper($key) => mb_strtoupper($item)]])
+            ->shouldIterateAs([['f' => 'foo'], ['FOO' => 'F'], ['b' => 'bar'], ['BAR' => 'B']]);
+    }
+
     public function it_can_flatten(): void
     {
         $input = [

@@ -57,7 +57,7 @@ final class Frequency extends AbstractOperation
         /** @var Closure(Iterator<TKey, T>): Generator<int, T> $pipe */
         $pipe = Pipe::of()(
             FoldLeft::of()($reduceCallback)([]),
-            Flatten::of()(1),
+            Unwrap::of(),
             Unpack::of()
         );
 
