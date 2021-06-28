@@ -21,13 +21,13 @@ use loophp\collection\Iterator\IterableIterator;
 final class Flatten extends AbstractOperation
 {
     /**
-     * @return Closure(int): Closure(Iterator<TKey, T>): Generator<int|TKey, T>
+     * @return Closure(int): Closure(Iterator<TKey, T>): Generator<mixed, mixed>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @return Closure(Iterator<TKey, T>): Generator<int|TKey, T>
+             * @return Closure(Iterator<TKey, T>): Generator<mixed, mixed>
              */
             static fn (int $depth): Closure =>
                 /**
@@ -42,7 +42,7 @@ final class Flatten extends AbstractOperation
                         }
 
                         if (1 !== $depth) {
-                            /** @var callable(Iterator<TKey, T>): Generator<TKey, T> $flatten */
+                            /** @var callable(Iterator<TKey, T>): Generator<mixed, mixed> $flatten */
                             $flatten = Flatten::of()($depth - 1);
 
                             $value = $flatten(new IterableIterator($value));
