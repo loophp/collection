@@ -20,11 +20,11 @@ use Iterator;
 final class Unwrap extends AbstractOperation
 {
     /**
-     * @return Closure(Iterator<TKey, array<TKey, T>>): Generator<TKey, T>
+     * @return Closure(Iterator<TKey, T>): Generator<mixed, mixed>
      */
     public function __invoke(): Closure
     {
-        /** @var Closure(Iterator<TKey, array<TKey, T>>): Generator<TKey, T> $flatten */
+        /** @var Closure(Iterator<TKey, T>): Generator<mixed, mixed> $flatten */
         $flatten = Flatten::of()(1);
 
         // Point free style.
