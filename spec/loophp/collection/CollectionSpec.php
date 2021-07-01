@@ -1158,6 +1158,10 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs($gen());
 
         $this::fromIterable([1, 2, 3])
+            ->flatMap(static fn (int $item): iterable => new ArrayIterator([$item * $item]))
+            ->shouldIterateAs($gen());
+
+        $this::fromIterable([1, 2, 3])
             ->flatMap(static fn (int $item): array => [$item + $item, $item * $item])
             ->normalize()
             ->shouldIterateAs([2, 1, 4, 4, 6, 9]);
@@ -1230,6 +1234,20 @@ class CollectionSpec extends ObjectBehavior
 
         $this::fromIterable($input)
             ->flatten(1)
+            ->shouldIterateAs($output());
+
+        $output = static function (): Generator {
+            yield 0 => 1;
+
+            yield 0 => 2;
+
+            yield 1 => 3;
+
+            yield 2 => 4;
+        };
+
+        $this::fromIterable([1, new ArrayIterator([2, 3]), 4])
+            ->flatten()
             ->shouldIterateAs($output());
     }
 
@@ -3330,6 +3348,13 @@ class CollectionSpec extends ObjectBehavior
                 'c' => 'C',
                 'd' => 'D',
             ]);
+
+        $inner = static fn (): Generator => yield from [2, 3];
+
+        $this::fromIterable([1, $inner(), 4, 5])
+            ->unwrap()
+            ->normalize()
+            ->shouldIterateAs([1, 2, 3, 4, 5]);
     }
 
     public function it_can_unzip(): void
