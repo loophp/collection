@@ -757,6 +757,40 @@ Signature: ``Collection::first();``
         Collection::fromIterable($generator())
             ->first(); // ['a' => 'a']
 
+flatMap
+~~~~~~~
+
+Transform the collection using a callback and keep the return valie, then flatten it one level.
+The supplied callback needs to return an interable: either an ``array`` or a class that implements `Traversable`_.
+
+.. tip:: This operation is nothing more than a shortcut for ``map`` + ``flatten(1)``, or ``map`` + ``unwrap``.
+
+.. warning:: Keys are preserved, use the ``Collection::normalize`` operation if you want to re-index the keys.
+
+Interface: `FlatMapable`_
+
+Signature: ``Collection::flatMap(callable $callback);``
+
+.. code-block:: php
+
+    $square = static fn (int $val): int => $val ** 2;  
+    $squareArray = static fn (int $val): array => [$val ** 2];
+    $squareCollection = static fn (int $val): Collection => Collection::fromIterable([$val ** 2]);
+
+    $collection = Collection::fromIterable(range(1, 3))
+        ->flatMap($squareArray); // [1, 4, 9]
+    
+    $collection = Collection::fromIterable(range(1, 3))
+        ->flatMap($squareCollection); // [1, 4, 9]
+
+    $collection = Collection::fromIterable(range(1, 3))
+        ->map($square)
+        ->flatten(1); // [1, 4, 9]
+
+    $collection = Collection::fromIterable(range(1, 3))
+        ->map($square)
+        ->unwrap(); // [1, 4, 9]
+
 flatten
 ~~~~~~~
 
@@ -2299,9 +2333,9 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Falsyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Falsyable.php
 .. _Filterable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Filterable.php
 .. _Firstable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Firstable.php
+.. _FlatMapable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/FlatMapable.php
 .. _Flattenable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Flattenable.php
 .. _Flipable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Flipable.php
-.. _array_flip(): https://php.net/array_flip
 .. _FoldLeftable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/FoldLeftable.php
 .. _FoldLeft1able: https://github.com/loophp/collection/blob/master/src/Contract/Operation/FoldLeft1able.php
 .. _FoldRightable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/FoldRightable.php
@@ -2376,6 +2410,8 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Wordsable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Wordsable.php
 .. _Wrapable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Wrapable.php
 .. _Zipable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Zipable.php
+.. _array_flip(): https://php.net/array_flip
 .. _symfony/var-dumper: https://packagist.org/packages/symfony/var-dumper
+.. _Traversable: https://www.php.net/manual/en/class.traversable.php
 .. _TypedIterator: https://github.com/loophp/collection/blob/master/src/Iterator/TypedIterator.php
 .. _var_dump(): https://www.php.net/var_dump

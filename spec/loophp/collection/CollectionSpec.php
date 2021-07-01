@@ -1162,7 +1162,7 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs($gen());
 
         $this::fromIterable([1, 2, 3])
-            ->flatMap(static fn (int $item): array => [$item + $item, $item * $item])
+            ->flatMap(static fn (int $item): Collection => Collection::fromIterable([$item + $item, $item * $item]))
             ->normalize()
             ->shouldIterateAs([2, 1, 4, 4, 6, 9]);
 

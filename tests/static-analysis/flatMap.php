@@ -38,6 +38,7 @@ function flatMap_checkMapString(CollectionInterface $collection): void
 }
 
 $square = static fn (int $val): array => [$val ** 2];
+$squareCollection = static fn (int $val): CollectionInterface => Collection::fromIterable([$val ** 2]);
 $toString = static fn (int $val): array => [(string) $val];
 $appendBar = static fn (string $val): array => [$val . 'bar'];
 $toClass = static function (string $val): iterable {
@@ -46,8 +47,8 @@ $toClass = static function (string $val): iterable {
 
     return new ArrayIterator([$class]);
 };
-
 flatMap_checkListInt(Collection::fromIterable([1, 2, 3])->flatMap($square));
+flatMap_checkListInt(Collection::fromIterable([1, 2, 3])->flatMap($squareCollection));
 flatMap_checkListInt(Collection::fromIterable([1, 2, 3])->flatMap($square)->flatMap($square));
 
 flatMap_checkListClass(Collection::fromIterable(['foo' => 'bar', 'bar' => 'baz'])->flatMap($toClass));
