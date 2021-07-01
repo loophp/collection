@@ -18,7 +18,7 @@ use loophp\collection\Contract\Collection;
 interface Unwrapable
 {
     /**
-     * @return Collection<TKey, T>
+     * @return Collection<mixed, mixed>
      */
     public function unwrap(): Collection;
 }
