@@ -1175,6 +1175,16 @@ class CollectionSpec extends ObjectBehavior
             ->flatMap(static fn (string $item, string $key): array => [$item => $key])
             ->shouldIterateAs(['f' => 'foo', 'b' => 'bar']);
 
+        $barGen = static function (): Generator {
+            yield 0 => 'fbar';
+
+            yield 0 => 'bbar';
+        };
+
+        $this::fromIterable(['foo' => 'f', 'bar' => 'b'])
+            ->flatMap(static fn (string $item): array => [$item . 'bar'])
+            ->shouldIterateAs($barGen());
+
         $gen = static function (): Generator {
             yield 0 => ['f' => 'foo'];
 

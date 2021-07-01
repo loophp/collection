@@ -21,11 +21,12 @@ interface FlatMapable
     /**
      * Transform the collection through a callback and flatten one level.
      *
-     * @template V
+     * @template IKey
+     * @template IValue
      *
-     * @param callable(T, TKey, Iterator<TKey, T>): V $callback
+     * @param callable(T, TKey, Iterator<TKey, T>): iterable<IKey, IValue> $callback
      *
-     * @return Collection<TKey, V>
+     * @return Collection<IKey, IValue>
      */
     public function flatMap(callable $callback): Collection;
 }

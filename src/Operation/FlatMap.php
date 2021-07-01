@@ -20,16 +20,19 @@ use Iterator;
 final class FlatMap extends AbstractOperation
 {
     /**
-     * @return Closure(callable(T, TKey, Iterator<TKey, T>): T): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @template IKey
+     * @template IValue
+     *
+     * @return Closure(callable(T, TKey, Iterator<TKey, T>): iterable<IKey, IValue>): Closure(Iterator<TKey, T>): Generator<IKey, IValue>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable(T, TKey, Iterator<TKey, T>): T $callback
+             * @param callable(T, TKey, Iterator<TKey, T>): iterable<IKey, IValue> $callback
              */
             static function (callable $callback): Closure {
-                /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $flatMap */
+                /** @var Closure(Iterator<TKey, T>): Generator<IKey, IValue> $flatMap */
                 $flatMap = Pipe::of()(
                     Map::of()($callback),
                     Flatten::of()(1)
