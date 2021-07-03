@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace loophp\collection\Contract\Operation;
 
 use Doctrine\Common\Collections\Criteria;
-use Doctrine\Common\Collections\Selectable as DoctrineCollectionsSelectable;
+use Doctrine\Common\Collections\Selectable;
 use loophp\collection\Contract\Collection;
 
 /**
