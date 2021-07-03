@@ -1339,8 +1339,8 @@ matching
 
 Collection implements the ``Selectable`` interface provided by `Doctrine Collections`_.
 
-That means it let you use the Criteria API provided by Doctrine,
-in a complete lazy way.
+That means it lets you use the Criteria API provided by Doctrine,
+in a completely lazy way.
 
 Interface: `Matchingable`_
 
