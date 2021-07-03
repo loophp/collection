@@ -17,9 +17,9 @@ use loophp\collection\Contract\Collection;
  * @template TKey
  * @template T
  *
- * @template-extends DoctrineCollectionsSelectable<TKey, T>
+ * @extends Selectable<TKey, T>
  */
-interface Matchingable extends DoctrineCollectionsSelectable
+interface Matchingable extends Selectable
 {
     /**
      * @return Collection<TKey, T>
