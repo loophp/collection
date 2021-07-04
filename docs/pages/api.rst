@@ -1337,10 +1337,8 @@ Signature: ``Collection::match(callable $callback, ?callable $matcher = null);``
 matching
 ~~~~~~~~
 
-Collection implements the ``Selectable`` interface provided by `Doctrine Collections`_.
-
-That means it lets you use the Criteria API provided by Doctrine,
-in a completely lazy way.
+Collection lets you use the Criteria API provided by `Doctrine Collections`_,
+but in a lazy way.
 
 Interface: `Matchingable`_
 
