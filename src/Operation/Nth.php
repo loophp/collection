@@ -12,6 +12,8 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\fpt\FPT;
+use loophp\fpt\Operator;
 
 /**
  * @immutable
@@ -37,17 +39,17 @@ final class Nth extends AbstractOperation
                  * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
                  */
                 static function (int $offset) use ($step): Closure {
-                    $filterCallback =
-                        /**
-                         * @param array{0: TKey, 1: T} $value
-                         */
-                        static fn (array $value, int $key): bool => (($key % $step) === $offset);
-
-                    /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
-                    $pipe = Pipe::of()(
-                        Pack::of(),
-                        Filter::of()($filterCallback),
-                        Unpack::of()
+                    /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
+                    $pipe = Filter::of()(
+                        FPT::compose()(
+                            FPT::operator()(Operator::OP_EQUAL)($offset),
+                            FPT::partialLeft()( // Could be simpler? Use a flip only?
+                                FPT::uncurry()(
+                                    FPT::operator()(Operator::OP_MODULO)
+                                )
+                            )($step),
+                            FPT::arg()(1)
+                        )
                     );
 
                     // Point free style.

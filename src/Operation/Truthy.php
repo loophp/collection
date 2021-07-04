@@ -12,6 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\fpt\FPT;
 
 /**
  * @immutable
@@ -28,16 +29,22 @@ final class Truthy extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        $callback =
-            /**
-             * @param T $value
-             */
-            static fn ($value): bool => !(bool) $value;
+        /** @var callable(T, TKey, Iterator<TKey, T>): bool $boolVal */
+        $boolVal =
+            FPT::compose()(
+                'boolval',
+                FPT::arg()(0)
+            );
+
+        /** @var callable(T, TKey, Iterator<TKey, T>): bool $notBoolVal */
+        $notBoolVal =
+            FPT::not()($boolVal);
 
         /** @var Closure(Iterator<TKey, T>): Generator<int, bool> $pipe */
         $pipe = Pipe::of()(
-            MatchOne::of()(static fn (): bool => true)($callback),
-            Map::of()($callback),
+            Map::of()($boolVal),
+            MatchOne::of()(FPT::thunk()(true))($notBoolVal),
+            Map::of()($notBoolVal),
         );
 
         // Point free style.

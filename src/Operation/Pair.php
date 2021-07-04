@@ -12,6 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\fpt\FPT;
 
 /**
  * @immutable
@@ -28,33 +29,26 @@ final class Pair extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        $callbackForKeys =
-            /**
-             * @param T $initial
-             * @param TKey $key
-             * @param array{0: TKey, 1: T} $value
-             *
-             * @return T|TKey
-             */
-            static fn ($initial, $key, array $value) => $value[0];
-
-        $callbackForValues =
-            /**
-             * @param T $initial
-             * @param TKey $key
-             * @param array{0: TKey, 1: T} $value
-             *
-             * @return T|TKey
-             */
-            static fn ($initial, $key, array $value) => $value[1];
-
-        /** @var Closure(Iterator<TKey, T>): Generator<T|TKey, T> $pipe */
+        /** @psalm-var Closure(Iterator<TKey, T>): Generator<T|TKey, T> $pipe */
         $pipe = Pipe::of()(
             Chunk::of()(2),
             Map::of()(
-                static fn (array $value): array => array_values($value)
+                FPT::compose()(
+                    'array_values',
+                    FPT::arg()(0)
+                )
             ),
-            Associate::of()($callbackForKeys)($callbackForValues)
+            Associate::of()(
+                FPT::compose()(
+                    'current',
+                    FPT::arg()(2)
+                )
+            )(
+                FPT::compose()(
+                    'end',
+                    FPT::arg()(2)
+                )
+            )
         );
 
         // Point free style.

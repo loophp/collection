@@ -13,6 +13,7 @@ use Closure;
 use EmptyIterator;
 use Generator;
 use Iterator;
+use loophp\fpt\FPT;
 
 /**
  * @immutable
@@ -50,7 +51,7 @@ final class Times extends AbstractOperation
                             return new EmptyIterator();
                         }
 
-                        $callback ??= static fn (int $value): int => $value;
+                        $callback ??= FPT::identity();
 
                         for ($current = 1; $current <= $number; ++$current) {
                             yield $callback($current);

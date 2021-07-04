@@ -12,6 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\fpt\FPT;
 
 /**
  * @immutable
@@ -28,22 +29,19 @@ final class Falsy extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        $matchCallback =
-            /**
-             * @param T $value
-             */
-            static fn ($value): bool => (bool) $value;
+        /** @var callable(T, TKey, Iterator<TKey, T>): bool $boolVal */
+        $boolVal = FPT::compose()(
+            'boolval',
+            FPT::arg()(0)
+        );
 
-        $mapCallback =
-            /**
-             * @param T $value
-             */
-            static fn ($value): bool => !(bool) $value;
+        /** @var callable(T, TKey, Iterator<TKey, T>): bool $notBoolVal */
+        $notBoolVal = FPT::not()($boolVal);
 
         /** @var Closure(Iterator<TKey, T>): Generator<int, bool> $pipe */
         $pipe = Pipe::of()(
-            MatchOne::of()(static fn (): bool => true)($matchCallback),
-            Map::of()($mapCallback),
+            MatchOne::of()(FPT::thunk()(true))($boolVal),
+            Map::of()($notBoolVal),
         );
 
         // Point free style.

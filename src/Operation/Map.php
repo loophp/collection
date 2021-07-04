@@ -12,6 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\fpt\FPT;
 
 use function count;
 
@@ -52,24 +53,7 @@ final class Map extends AbstractOperation
                         );
                     }
 
-                    $callbackFactory =
-                        /**
-                         * @param TKey $key
-                         *
-                         * @return Closure(T, callable(T, TKey, Iterator<TKey, T>): T): T
-                         */
-                        static fn ($key): Closure =>
-                            /**
-                             * @param T $carry
-                             * @param callable(T, TKey, Iterator<TKey, T>): T $callback
-                             *
-                             * @return T
-                             */
-                            static fn ($carry, callable $callback) => $callback($carry, $key, $iterator);
-
-                    foreach ($iterator as $key => $value) {
-                        yield $key => array_reduce($callbacks, $callbackFactory($key), $value);
-                    }
+                    return yield from FPT::reduce()(static fn (Iterator $iterator, callable $callback): Iterator => FPT::map()($callback)($iterator))($iterator)($callbacks);
                 };
     }
 }
