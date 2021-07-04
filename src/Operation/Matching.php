@@ -12,16 +12,10 @@ namespace loophp\collection\Operation;
 use Closure;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Collections\Expr\ClosureExpressionVisitor;
-use Exception;
 use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation\Sortable;
 
-// phpcs:disable
-if (false === class_exists('Doctrine\Common\Collections\Criteria')) {
-    throw new Exception('You need doctrine/collections to get this operation working.');
-}
-// phpcs:enable
 /**
  * @template TKey
  * @template T

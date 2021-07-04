@@ -10,16 +10,13 @@ declare(strict_types=1);
 namespace loophp\collection\Contract\Operation;
 
 use Doctrine\Common\Collections\Criteria;
-use Doctrine\Common\Collections\Selectable;
 use loophp\collection\Contract\Collection;
 
 /**
  * @template TKey
  * @template T
- *
- * @extends Selectable<TKey, T>
  */
-interface Matchingable extends Selectable
+interface Matchingable
 {
     /**
      * @return Collection<TKey, T>
