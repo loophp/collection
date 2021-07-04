@@ -10,7 +10,9 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
+use Generator;
 use Iterator;
+use loophp\fpt\FPT;
 
 /**
  * @immutable
@@ -43,14 +45,6 @@ final class Pipe extends AbstractOperation
                  *
                  * @return Closure(Iterator<TKey, T>): Iterator<TKey, T>
                  */
-                static fn (callable $f, callable $g): Closure =>
-                    /**
-                     * @param Iterator<TKey, T> $iterator
-                     *
-                     * @return Iterator<TKey, T>
-                     */
-                    static fn (Iterator $iterator): Iterator => $g($f($iterator)),
-                static fn (Iterator $iterator): Iterator => $iterator
-            );
+                static fn (Iterator $iterator): Iterator => array_reduce($operations, FPT::flip()('call_user_func'), $iterator);
     }
 }

@@ -12,6 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\fpt\FPT;
 
 /**
  * @immutable
@@ -37,10 +38,10 @@ final class Collapse extends AbstractOperation
             static function (Iterator $iterator): Generator {
                 /** @var Closure(Iterator<TKey, T|iterable<TKey, T>>): Generator<TKey, iterable<TKey, T>> $filter */
                 $filter = Filter::of()(
-                    /**
-                     * @param T $value
-                     */
-                    static fn ($value): bool => is_iterable($value)
+                    FPT::compose()(
+                        'is_iterable',
+                        FPT::arg()(0)
+                    )
                 );
 
                 foreach ($filter($iterator) as $value) {

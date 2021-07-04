@@ -12,8 +12,8 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-
-use function in_array;
+use loophp\fpt\FPT;
+use loophp\fpt\Identity;
 
 /**
  * @immutable
@@ -37,10 +37,16 @@ final class Nullsy extends AbstractOperation
      */
     public function __invoke(): Closure
     {
+        /** @var callable(T, TKey, Iterator<TKey, T>): bool $mapCallback */
+        $mapCallback = FPT::compose()(
+            FPT::partialLeft()('in_array')(self::VALUES, true),
+            FPT::arg()(0)
+        );
+
         /** @var Closure(Iterator<TKey, T>): Generator<int, bool> $pipe */
         $pipe = Pipe::of()(
-            MatchOne::of()(static fn (): bool => false)(static fn ($value): bool => in_array($value, self::VALUES, true)),
-            Map::of()(static fn ($value): bool => !$value),
+            MatchOne::of()(FPT::thunk()(false))($mapCallback),
+            Map::of()(FPT::not()(Identity::of())),
         );
 
         // Point free style.

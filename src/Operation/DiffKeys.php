@@ -12,8 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-
-use function in_array;
+use loophp\fpt\FPT;
 
 /**
  * @immutable
@@ -36,16 +35,16 @@ final class DiffKeys extends AbstractOperation
              *
              * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
-            static function (...$keys): Closure {
-                $filterCallbackFactory = static fn (array $keys): Closure =>
-                    /**
-                     * @param T $value
-                     * @param TKey $key
-                     */
-                    static fn ($value, $key): bool => false === in_array($key, $keys, true);
-
+            static function (...$values): Closure {
                 /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $filter */
-                $filter = Filter::of()($filterCallbackFactory($keys));
+                $filter = Filter::of()(
+                    FPT::compose()(
+                        FPT::partialLeft()(
+                            FPT::not()('in_array')
+                        )($values, true),
+                        FPT::arg()(1),
+                    )
+                );
 
                 // Point free style.
                 return $filter;

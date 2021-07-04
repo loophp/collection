@@ -12,8 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-
-use function in_array;
+use loophp\fpt\FPT;
 
 /**
  * @immutable
@@ -39,14 +38,13 @@ final class Compact extends AbstractOperation
              * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static function (...$values): Closure {
-                $filterCallback = static fn (array $values): Closure => static fn ($value): bool => !in_array($value, $values, true);
-
-                /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $filter */
+                /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $filter */
                 $filter = Filter::of()(
-                    $filterCallback(
-                        [] === $values ?
-                            Nullsy::VALUES :
-                            $values
+                    FPT::compose()(
+                        FPT::partialLeft()(
+                            FPT::not()('in_array')
+                        )([] === $values ? Nullsy::VALUES : $values, true),
+                        FPT::arg()(0)
                     )
                 );
 

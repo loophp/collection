@@ -13,6 +13,7 @@ use Closure;
 use Generator;
 use Iterator;
 use loophp\collection\Iterator\IterableIterator;
+use loophp\fpt\FPT;
 use MultipleIterator;
 
 /**
@@ -43,27 +44,15 @@ final class Transpose extends AbstractOperation
                     $mit->attachIterator(new IterableIterator($iteratorIterator));
                 }
 
-                $callbackForKeys =
-                    /**
-                     * @param array $carry
-                     * @param non-empty-array<int, TKey> $key
-                     *
-                     * @return TKey
-                     */
-                    static fn (array $carry, array $key) => current($key);
-
-                $callbackForValues =
-                    /**
-                     * @param array $carry
-                     * @param array<int, TKey> $key
-                     * @param array<int, T> $value
-                     *
-                     * @return array<int, T>
-                     */
-                    static fn (array $carry, array $key, array $value): array => $value;
-
                 /** @var Generator<TKey, list<T>> $associate */
-                $associate = Associate::of()($callbackForKeys)($callbackForValues)($mit);
+                $associate = Associate::of()(
+                    FPT::compose()(
+                        'current',
+                        FPT::arg()(1)
+                    )
+                )(
+                    FPT::arg()(2)
+                )($mit);
 
                 return $associate;
             };
