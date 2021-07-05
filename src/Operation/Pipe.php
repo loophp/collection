@@ -40,12 +40,12 @@ final class Pipe extends AbstractOperation
             static fn (callable ...$operations): Closure => FPT::partialRight()('array_reduce')(
                 $operations,
                 /**
-                         * @param Iterator<TKey, T> $iterator
-                         * @param callable(Iterator<TKey, T>): Iterator<TKey, T> $callable
-                         *
-                         * @return Iterator<TKey, T>
-                         */
-                        static fn (Iterator $iterator, callable $callable): Iterator => $callable($iterator)
+                 * @param Iterator<TKey, T> $iterator
+                 * @param callable(Iterator<TKey, T>): Iterator<TKey, T> $callable
+                 *
+                 * @return Iterator<TKey, T>
+                 */
+                static fn (Iterator $iterator, callable $callable): Iterator => $callable($iterator)
             );
     }
 }

@@ -11,7 +11,6 @@ namespace loophp\collection\Operation;
 
 use ArrayIterator;
 use Closure;
-use EmptyIterator;
 use Generator;
 use Iterator;
 
