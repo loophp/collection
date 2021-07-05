@@ -12,8 +12,6 @@ namespace loophp\collection\Contract\Operation;
 use loophp\collection\Contract\Collection;
 
 /**
- * @immutable
- *
  * @template TKey
  * @template T
  */
