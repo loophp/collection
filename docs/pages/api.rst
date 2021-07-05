@@ -1018,14 +1018,10 @@ Signature: ``Collection::has(callable ...$callbacks);``
 .. code-block:: php
 
     Collection::fromIterable(range('A', 'C'))
-        ->has(
-            static fn ($value, $key, Iterator $iterator): string => 'A'
-        ); // [true]
+        ->has(static fn (): string => 'B'); // [1 => true]
 
     Collection::fromIterable(range('A', 'C'))
-        ->has(
-            static fn ($value, $key, Iterator $iterator): string => 'D'
-        ); // [false]
+        ->has(static fn (): string => 'D'); // [0 => false]
 
     Collection::fromIterable(range('A', 'C'))
         ->has(
