@@ -136,6 +136,8 @@ use const PHP_INT_MIN;
  * @template TKey
  * @template T
  *
+ * @psalm-immutable
+ *
  * phpcs:disable Generic.Files.LineLength.TooLong
  *
  * @implements \loophp\collection\Contract\Collection<TKey, T>

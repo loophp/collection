@@ -127,6 +127,8 @@ use loophp\collection\Contract\Operation\Zipable;
  * @template TKey
  * @template T
  *
+ * @psalm-immutable
+ *
  * @template-extends Allable<TKey, T>
  * @template-extends Appendable<TKey, T>
  * @template-extends Applyable<TKey, T>
