@@ -13,6 +13,7 @@ use Closure;
 use Generator;
 use Iterator;
 use loophp\collection\Utils\CallbacksArrayReducer;
+use loophp\fpt\FPT;
 
 /**
  * @immutable
