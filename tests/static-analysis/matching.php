@@ -16,21 +16,21 @@ use loophp\collection\Contract\Collection as CollectionInterface;
 /**
  * @param CollectionInterface<int, int> $collection
  */
-function matching_checkListInt(CollectionInterface $collection): void
+function matching_checkList(CollectionInterface $collection): void
 {
 }
 
 /**
- * @param CollectionInterface<int, string> $collection
+ * @param CollectionInterface<string, string> $collection
  */
-function matching_checkListString(CollectionInterface $collection): void
+function matching_checkMap(CollectionInterface $collection): void
 {
 }
 
 $criteria = Criteria::create()->where(Criteria::expr()->gt('age', 18));
 
-matching_checkListInt(Collection::fromIterable([1, 2, 3])->matching($criteria));
-matching_checkListInt(Collection::fromIterable([1, 2, 3])->matching($criteria)->matching($criteria));
+matching_checkList(Collection::fromIterable([1, 2, 3])->matching($criteria));
+matching_checkList(Collection::fromIterable([1, 2, 3])->matching($criteria)->matching($criteria));
 
-matching_checkListString(Collection::fromIterable(range('a', 'e'))->matching($criteria));
-matching_checkListString(Collection::fromIterable(range('a', 'e'))->matching($criteria)->matching($criteria));
+matching_checkMap(Collection::fromIterable(['foo' => 'bar'])->matching($criteria));
+matching_checkMap(Collection::fromIterable(['foo' => 'bar'])->matching($criteria)->matching($criteria));
