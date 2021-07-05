@@ -17,12 +17,16 @@ use loophp\collection\Contract\Operation;
  */
 abstract class AbstractOperation implements Operation
 {
-    /** @pure */
+    /**
+     * @pure
+     */
     final public function __construct()
     {
     }
 
-    /** @pure */
+    /**
+     * @pure
+     */
     public static function of(): Closure
     {
         return (new static())->__invoke();

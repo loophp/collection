@@ -14,9 +14,13 @@ use Closure;
 /** @immutable */
 interface Operation
 {
-    /** @pure */
+    /**
+     * @pure
+     */
     public function __invoke(): Closure;
 
-    /** @pure */
+    /**
+     * @pure
+     */
     public static function of(): Closure;
 }
