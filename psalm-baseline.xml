@@ -5,7 +5,4 @@
       <code>$this-&gt;indexes</code>
     </PossiblyNullArrayOffset>
   </file>
-  <file src="src/Contract/Operation/Matchingable.php">
-    <ImplementedReturnTypeMismatch occurrences="1"/>
-  </file>
 </files>
