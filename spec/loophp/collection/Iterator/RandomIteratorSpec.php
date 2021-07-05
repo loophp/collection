@@ -109,6 +109,22 @@ class RandomIteratorSpec extends ObjectBehavior
         $this->getInnerIterator()->shouldBeAnInstanceOf(ArrayIterator::class);
     }
 
+    public function it_can_next(): void
+    {
+        $this->beConstructedWith(new ArrayIterator([1, 2, 3]));
+        $this->rewind();
+        $this->valid()->shouldReturn(true);
+
+        $this->next();
+        $this->valid()->shouldReturn(true);
+
+        $this->next();
+        $this->valid()->shouldReturn(true);
+
+        $this->next();
+        $this->valid()->shouldReturn(false);
+    }
+
     public function it_can_rewind(): void
     {
         $iterator = new ArrayIterator(['a']);
