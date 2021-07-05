@@ -12,6 +12,7 @@ namespace spec\loophp\collection;
 use ArrayIterator;
 use ArrayObject;
 use Closure;
+use Doctrine\Common\Collections\Criteria;
 use Exception;
 use Generator;
 use InvalidArgumentException;
@@ -2012,6 +2013,53 @@ class CollectionSpec extends ObjectBehavior
                 static fn (): bool => false
             )
             ->shouldIterateAs([4 => true]);
+    }
+
+    public function it_can_matching(): void
+    {
+        $users = [
+            [
+                'name' => 'Pol',
+                'age' => 39,
+                'is_admin' => true,
+            ],
+            [
+                'name' => 'Sandra',
+                'age' => 38,
+                'is_admin' => false,
+            ],
+            [
+                'name' => 'Izumi',
+                'age' => 7,
+                'is_admin' => true,
+            ],
+            [
+                'name' => 'Nakano',
+                'age' => 4,
+                'is_admin' => false,
+            ],
+        ];
+
+        $criteria = Criteria::create()
+            ->andWhere(Criteria::expr()->eq('is_admin', true))
+            ->orderBy(['age' => 'ASC']);
+
+        $this::fromIterable($users)
+            ->matching($criteria)
+            ->shouldIterateAs(
+                [
+                    2 => [
+                        'name' => 'Izumi',
+                        'age' => 7,
+                        'is_admin' => true,
+                    ],
+                    0 => [
+                        'name' => 'Pol',
+                        'age' => 39,
+                        'is_admin' => true,
+                    ],
+                ]
+            );
     }
 
     public function it_can_merge(): void
