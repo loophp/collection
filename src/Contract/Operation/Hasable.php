@@ -19,9 +19,9 @@ use loophp\collection\Contract\Collection;
 interface Hasable
 {
     /**
-     * @param callable(T, TKey, Iterator<TKey, T>): bool ...$callbacks
+     * @param callable(T, TKey, Iterator<TKey, T>): T ...$callbacks
      *
-     * @return Collection<int, bool>
+     * @return Collection<TKey, bool>
      */
     public function has(callable ...$callbacks): Collection;
 }

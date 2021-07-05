@@ -22,7 +22,7 @@ use Iterator;
 final class Has extends AbstractOperation
 {
     /**
-     * @return Closure(callable(T, TKey, Iterator<TKey, T>): T ...): Closure(Iterator<TKey, T>): Generator<int|TKey, bool>
+     * @return Closure(callable(T, TKey, Iterator<TKey, T>): T ...$callbacks): Closure(Iterator<TKey, T>): Generator<TKey, bool>
      */
     public function __invoke(): Closure
     {
@@ -30,10 +30,10 @@ final class Has extends AbstractOperation
             /**
              * @param callable(T, TKey, Iterator<TKey, T>): T ...$callbacks
              *
-             * @return Closure(Iterator<TKey, T>): Generator<int|TKey, bool>
+             * @return Closure(Iterator<TKey, T>): Generator<TKey, bool>
              */
             static function (callable ...$callbacks): Closure {
-                /** @var Closure(Iterator<TKey, T>): Generator<int|TKey, bool> $pipe */
+                /** @var Closure(Iterator<TKey, T>): Generator<TKey, bool> $pipe */
                 $pipe = MatchOne::of()(static fn (): bool => true)(
                     ...array_map(
                         static fn (callable $callback): callable =>
