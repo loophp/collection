@@ -12,7 +12,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\fpt\FPT;
 
 /**
  * @immutable
@@ -29,16 +28,10 @@ final class Reverse extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        /** @var callable(T|null, T, TKey, Iterator<TKey, T>):(T|null) $callback */
-        $callback = FPT::compose()(
-            FPT::nary()(2),
-            FPT::flip(),
-        )('array_merge');
-
         /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
         $pipe = Pipe::of()(
             Pack::of(),
-            Reduce::of()($callback)([]),
+            Reduce::of()(static fn (array $carry, array $data): array => [...$data, ...$carry])([]),
             Unpack::of(),
         );
 

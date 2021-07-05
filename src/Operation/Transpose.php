@@ -54,6 +54,7 @@ final class Transpose extends AbstractOperation
                     FPT::arg()(2)
                 )($mit);
 
+                // Point free style.
                 return $associate;
             };
     }
