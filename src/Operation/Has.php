@@ -22,7 +22,7 @@ use Iterator;
 final class Has extends AbstractOperation
 {
     /**
-     * @return Closure(callable(T, TKey, Iterator<TKey, T>): T ...$callbacks): Closure(Iterator<TKey, T>): Generator<TKey, bool>
+     * @return Closure(callable(T, TKey, Iterator<TKey, T>): T ...): Closure(Iterator<TKey, T>): Generator<TKey, bool>
      */
     public function __invoke(): Closure
     {
