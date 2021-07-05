@@ -43,7 +43,7 @@ final class Last extends AbstractOperation
                 }
 
                 if (true === $isEmpty) {
-                    return new EmptyIterator();
+                    return yield from [];
                 }
 
                 /**

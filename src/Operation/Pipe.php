@@ -37,18 +37,15 @@ final class Pipe extends AbstractOperation
              *
              * @return Closure(Iterator<TKey, T>): Iterator<TKey, T>
              */
-            static fn (callable ...$operations): Closure =>
-                // Point free style.
-                FPT::curryLeft()('array_reduce', 3)
-                    ($operations)
-                    (
-                        /**
+            static fn (callable ...$operations): Closure => FPT::partialRight()('array_reduce')(
+                $operations,
+                /**
                          * @param Iterator<TKey, T> $iterator
                          * @param callable(Iterator<TKey, T>): Iterator<TKey, T> $callable
                          *
                          * @return Iterator<TKey, T>
                          */
                         static fn (Iterator $iterator, callable $callable): Iterator => $callable($iterator)
-                    );
+            );
     }
 }
