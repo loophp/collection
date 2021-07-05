@@ -16,12 +16,16 @@ use Iterator;
 use function array_slice;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  */
 final class Window extends AbstractOperation
 {
     /**
+     * @pure
+     *
      * @return Closure(int): Closure(Iterator<TKey, T>): Generator<TKey, T|list<T>>
      */
     public function __invoke(): Closure

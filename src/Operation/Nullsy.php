@@ -16,6 +16,8 @@ use Iterator;
 use function in_array;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  */
@@ -27,6 +29,8 @@ final class Nullsy extends AbstractOperation
     public const VALUES = [null, [], 0, false, ''];
 
     /**
+     * @pure
+     *
      * @return Closure(Iterator<TKey, T>): Generator<int, bool>
      */
     public function __invoke(): Closure

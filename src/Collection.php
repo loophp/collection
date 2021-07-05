@@ -133,10 +133,10 @@ use const PHP_INT_MAX;
 use const PHP_INT_MIN;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
- *
- * @psalm-immutable
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  *
@@ -155,6 +155,8 @@ final class Collection implements CollectionInterface
     private $source;
 
     /**
+     * @psalm-external-mutation-free
+     *
      * @param callable(mixed ...$parameters): iterable<TKey, T> $callable
      * @param mixed ...$parameters
      */
@@ -402,6 +404,7 @@ final class Collection implements CollectionInterface
     }
 
     /**
+     * @pure
      * @template NewTKey
      * @template NewT
      *
@@ -416,6 +419,8 @@ final class Collection implements CollectionInterface
     }
 
     /**
+     * @pure
+     *
      * @return self<int, string>
      */
     public static function fromFile(string $filepath): self
@@ -427,6 +432,8 @@ final class Collection implements CollectionInterface
     }
 
     /**
+     * @pure
+     *
      * @template NewTKey
      * @template NewT
      *
@@ -443,6 +450,8 @@ final class Collection implements CollectionInterface
     }
 
     /**
+     * @pure
+     *
      * @param resource $resource
      *
      * @return self<int, string>
@@ -459,6 +468,8 @@ final class Collection implements CollectionInterface
     }
 
     /**
+     * @pure
+     *
      * @return self<int, string>
      */
     public static function fromString(string $string, string $delimiter = ''): self

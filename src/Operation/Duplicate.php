@@ -16,12 +16,16 @@ use Iterator;
 use function in_array;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  */
 final class Duplicate extends AbstractOperation
 {
     /**
+     * @pure
+     *
      * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure

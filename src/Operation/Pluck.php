@@ -23,6 +23,8 @@ use function is_array;
 use function is_object;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  *
@@ -31,6 +33,8 @@ use function is_object;
 final class Pluck extends AbstractOperation
 {
     /**
+     * @pure
+     *
      * @return Closure(T):Closure(T):Closure(Iterator<TKey, T>):Generator<int, T|iterable<int, T>, mixed, void>
      */
     public function __invoke(): Closure

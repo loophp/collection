@@ -14,6 +14,8 @@ use Generator;
 use Iterator;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  *
@@ -22,6 +24,8 @@ use Iterator;
 final class Pipe extends AbstractOperation
 {
     /**
+     * @pure
+     *
      * @return Closure(...callable(Iterator<TKey, T>):Generator<TKey, T, mixed, mixed>):Closure(Iterator<TKey, T>):Iterator<TKey, T>
      */
     public function __invoke(): Closure

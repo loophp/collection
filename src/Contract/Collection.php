@@ -124,10 +124,10 @@ use loophp\collection\Contract\Operation\Wrapable;
 use loophp\collection\Contract\Operation\Zipable;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
- *
- * @psalm-immutable
  *
  * @template-extends Allable<TKey, T>
  * @template-extends Appendable<TKey, T>

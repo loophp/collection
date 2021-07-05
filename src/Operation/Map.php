@@ -18,6 +18,8 @@ use function count;
 use const E_USER_DEPRECATED;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  *
@@ -26,6 +28,8 @@ use const E_USER_DEPRECATED;
 final class Map extends AbstractOperation
 {
     /**
+     * @pure
+     *
      * @return Closure(callable(T, TKey, Iterator<TKey, T>): T ...): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure

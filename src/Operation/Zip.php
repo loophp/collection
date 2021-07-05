@@ -15,6 +15,8 @@ use loophp\collection\Iterator\IterableIterator;
 use MultipleIterator;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  *
@@ -23,6 +25,8 @@ use MultipleIterator;
 final class Zip extends AbstractOperation
 {
     /**
+     * @pure
+     *
      * @return Closure(iterable<TKey, T>...): Closure(Iterator<TKey, T>): Iterator<list<TKey>, list<T>>
      */
     public function __invoke(): Closure

@@ -15,6 +15,8 @@ use Iterator;
 use loophp\collection\Contract\Operation\Splitable;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  *
@@ -23,6 +25,8 @@ use loophp\collection\Contract\Operation\Splitable;
 final class Split extends AbstractOperation
 {
     /**
+     * @pure
+     *
      * @return Closure(int): Closure((callable(T, TKey): bool)...): Closure(Iterator<TKey, T>): Generator<int, list<T>>
      */
     public function __invoke(): Closure

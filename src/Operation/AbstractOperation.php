@@ -17,6 +17,7 @@ use loophp\collection\Contract\Operation;
  */
 abstract class AbstractOperation implements Operation
 {
+    /** @pure */
     final public function __construct()
     {
     }

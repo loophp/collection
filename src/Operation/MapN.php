@@ -14,6 +14,8 @@ use Generator;
 use Iterator;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  *
@@ -22,6 +24,8 @@ use Iterator;
 final class MapN extends AbstractOperation
 {
     /**
+     * @pure
+     *
      * @return Closure(callable(mixed, mixed, Iterator<TKey, T>): mixed ...): Closure(Iterator<TKey, T>): Generator<mixed, mixed>
      */
     public function __invoke(): Closure

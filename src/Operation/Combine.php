@@ -17,12 +17,16 @@ use Iterator;
 use const E_USER_WARNING;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  */
 final class Combine extends AbstractOperation
 {
     /**
+     * @pure
+     *
      * @return Closure(T...): Closure(Iterator<TKey, T>): Generator<T, T>
      */
     public function __invoke(): Closure

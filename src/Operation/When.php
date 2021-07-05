@@ -14,6 +14,8 @@ use Generator;
 use Iterator;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  *
@@ -22,6 +24,8 @@ use Iterator;
 final class When extends AbstractOperation
 {
     /**
+     * @pure
+     *
      * @return Closure(callable(Iterator<TKey, T>): bool): Closure(callable(Iterator<TKey, T>): iterable<TKey, T>): Closure(callable(Iterator<TKey, T>): iterable<TKey, T>): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure

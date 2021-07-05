@@ -14,6 +14,8 @@ use Closure;
 use Iterator;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  *
@@ -22,6 +24,8 @@ use Iterator;
 final class Filter extends AbstractOperation
 {
     /**
+     * @pure
+     *
      * @return Closure(callable(T , TKey, Iterator<TKey, T>): bool ...): Closure (Iterator<TKey, T>): Iterator<TKey, T>
      */
     public function __invoke(): Closure

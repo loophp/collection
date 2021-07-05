@@ -15,12 +15,16 @@ use InvalidArgumentException;
 use Iterator;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  */
 final class Intersperse extends AbstractOperation
 {
     /**
+     * @pure
+     *
      * @return Closure(T): Closure(int): Closure(int): Closure(Iterator<TKey, T>): Generator<int|TKey, T>
      */
     public function __invoke(): Closure

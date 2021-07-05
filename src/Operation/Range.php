@@ -16,6 +16,8 @@ use Iterator;
 use const INF;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  *
@@ -24,6 +26,8 @@ use const INF;
 final class Range extends AbstractOperation
 {
     /**
+     * @pure
+     *
      * @return Closure(float  = default):Closure (float=): Closure(float=): Closure(null|Iterator<TKey, T>): Generator<int, float>
      */
     public function __invoke(): Closure

@@ -14,12 +14,16 @@ use Iterator;
 use loophp\collection\Iterator\RandomIterator;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  */
 final class Shuffle extends AbstractOperation
 {
     /**
+     * @pure
+     *
      * @return Closure(int): Closure(Iterator<TKey, T>): Iterator<TKey, T>
      */
     public function __invoke(): Closure

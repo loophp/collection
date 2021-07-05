@@ -15,6 +15,8 @@ use Iterator;
 use loophp\collection\Iterator\IterableIterator;
 
 /**
+ * @immutable
+ *
  * @template NewTKey
  * @template NewT
  *
@@ -24,6 +26,8 @@ use loophp\collection\Iterator\IterableIterator;
 final class Unpack extends AbstractOperation
 {
     /**
+     * @pure
+     *
      * @return Closure(Iterator<TKey, T>): Generator<NewTKey, NewT>
      */
     public function __invoke(): Closure
