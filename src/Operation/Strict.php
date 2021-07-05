@@ -14,12 +14,16 @@ use Iterator;
 use loophp\collection\Iterator\TypedIterator;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  */
 final class Strict extends AbstractOperation
 {
     /**
+     * @pure
+     *
      * @return Closure(null|callable(mixed): string): Closure(Iterator<TKey, T>): Iterator<TKey, T>
      */
     public function __invoke(): Closure

@@ -15,6 +15,8 @@ use loophp\collection\Iterator\PsrCacheIterator;
 use Psr\Cache\CacheItemPoolInterface;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  *
@@ -23,6 +25,8 @@ use Psr\Cache\CacheItemPoolInterface;
 final class Cache extends AbstractOperation
 {
     /**
+     * @pure
+     *
      * @return Closure(CacheItemPoolInterface): Closure(Iterator<TKey, T>): Iterator<TKey, T>
      */
     public function __invoke(): Closure

@@ -17,6 +17,8 @@ use Iterator;
 use loophp\collection\Contract\Operation\Sortable;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  *
@@ -25,6 +27,8 @@ use loophp\collection\Contract\Operation\Sortable;
 final class Matching extends AbstractOperation
 {
     /**
+     * @pure
+     *
      * @return Closure(Criteria): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure

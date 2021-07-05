@@ -18,12 +18,16 @@ use Iterator;
 use function count;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  */
 final class Chunk extends AbstractOperation
 {
     /**
+     * @pure
+     *
      * @return Closure(int...): Closure(Iterator<TKey, T>): Generator<int, list<T>>
      */
     public function __invoke(): Closure

@@ -16,6 +16,8 @@ use Iterator;
 use const INF;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  *
@@ -24,6 +26,8 @@ use const INF;
 final class Scale extends AbstractOperation
 {
     /**
+     * @pure
+     *
      * @return Closure(float): Closure(float): Closure(float): Closure(float): Closure(float): Closure(Iterator<TKey, float|int>): Generator<TKey, float|int>
      */
     public function __invoke(): Closure

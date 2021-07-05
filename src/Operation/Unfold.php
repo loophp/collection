@@ -13,6 +13,8 @@ use Closure;
 use Generator;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  *
@@ -21,6 +23,8 @@ use Generator;
 final class Unfold extends AbstractOperation
 {
     /**
+     * @pure
+     *
      * @return Closure(T...): Closure(callable(mixed|T...): (mixed|array<TKey, T>)): Closure(): Generator<int, T>
      */
     public function __invoke(): Closure

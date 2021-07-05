@@ -15,6 +15,8 @@ use Generator;
 use Iterator;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  *
@@ -23,6 +25,8 @@ use Iterator;
 final class Associate extends AbstractOperation
 {
     /**
+     * @pure
+     *
      * @return Closure(callable(TKey, TKey, T, Iterator<TKey, T>): (T|TKey) ...): Closure((callable(T, TKey, T, Iterator<TKey, T>): (T|TKey))...): Closure(Iterator<TKey, T>): Generator<TKey|T, T|TKey>
      */
     public function __invoke(): Closure

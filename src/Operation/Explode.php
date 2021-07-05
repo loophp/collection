@@ -15,12 +15,16 @@ use Iterator;
 use loophp\collection\Contract\Operation\Splitable;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  */
 final class Explode extends AbstractOperation
 {
     /**
+     * @pure
+     *
      * @return Closure(T...): Closure(Iterator<TKey, T>): Generator<int, list<T>>
      */
     public function __invoke(): Closure

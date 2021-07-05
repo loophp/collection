@@ -27,7 +27,7 @@ if (false === function_exists('Amp\ParallelFunctions\parallel')) {
 }
 // phpcs:enable
 /**
- * Class AsyncMap.
+ * @immutable
  *
  * @template TKey
  * @template T
@@ -37,6 +37,8 @@ if (false === function_exists('Amp\ParallelFunctions\parallel')) {
 final class AsyncMap extends AbstractOperation
 {
     /**
+     * @pure
+     *
      * @return Closure(callable(T, TKey): T ...): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure

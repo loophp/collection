@@ -124,6 +124,8 @@ use loophp\collection\Contract\Operation\Wrapable;
 use loophp\collection\Contract\Operation\Zipable;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  *

@@ -14,6 +14,8 @@ use Generator;
 use Iterator;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  *
@@ -22,6 +24,8 @@ use Iterator;
 final class FlatMap extends AbstractOperation
 {
     /**
+     * @pure
+     *
      * @template IKey
      * @template IValue
      *

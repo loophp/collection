@@ -16,12 +16,16 @@ use Iterator;
 use const PHP_EOL;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  */
 final class Lines extends AbstractOperation
 {
     /**
+     * @pure
+     *
      * @return Closure(Iterator<TKey, (T|string)>): Generator<int, string>
      */
     public function __invoke(): Closure

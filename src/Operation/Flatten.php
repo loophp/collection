@@ -15,12 +15,16 @@ use Iterator;
 use loophp\collection\Iterator\IterableIterator;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  */
 final class Flatten extends AbstractOperation
 {
     /**
+     * @pure
+     *
      * @return Closure(int): Closure(Iterator<TKey, T>): Generator<mixed, mixed>
      */
     public function __invoke(): Closure

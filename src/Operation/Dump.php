@@ -15,6 +15,8 @@ use Iterator;
 use Symfony\Component\VarDumper\VarDumper;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  *
@@ -23,6 +25,8 @@ use Symfony\Component\VarDumper\VarDumper;
 final class Dump extends AbstractOperation
 {
     /**
+     * @pure
+     *
      * @return Closure(string): Closure(int): Closure(?Closure): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure

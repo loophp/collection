@@ -16,12 +16,16 @@ use loophp\collection\Iterator\IterableIterator;
 use MultipleIterator;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  */
 final class Transpose extends AbstractOperation
 {
     /**
+     * @pure
+     *
      * @return Closure(Iterator<TKey, T>): Generator<TKey, list<T>>
      */
     public function __invoke(): Closure

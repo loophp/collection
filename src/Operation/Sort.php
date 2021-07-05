@@ -17,6 +17,8 @@ use Iterator;
 use loophp\collection\Contract\Operation;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  *
@@ -25,6 +27,8 @@ use loophp\collection\Contract\Operation;
 final class Sort extends AbstractOperation
 {
     /**
+     * @pure
+     *
      * @return Closure(int): Closure(callable(T|TKey, T|TKey): int): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
