@@ -91,6 +91,7 @@ use loophp\collection\Operation\Product;
 use loophp\collection\Operation\Random;
 use loophp\collection\Operation\Range;
 use loophp\collection\Operation\Reduction;
+use loophp\collection\Operation\Reject;
 use loophp\collection\Operation\Reverse;
 use loophp\collection\Operation\RSample;
 use loophp\collection\Operation\Scale;
@@ -692,6 +693,11 @@ final class Collection implements CollectionInterface
     public function reduction(callable $callback, $initial = null): CollectionInterface
     {
         return new self(Reduction::of()($callback)($initial), $this->getIterator());
+    }
+
+    public function reject(callable ...$callbacks): CollectionInterface
+    {
+        return new self(Reject::of()(...$callbacks), $this->getIterator());
     }
 
     public function reverse(): CollectionInterface
