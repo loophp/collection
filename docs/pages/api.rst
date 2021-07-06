@@ -717,22 +717,18 @@ Signature: ``Collection::falsy();``
 filter
 ~~~~~~
 
-Filter collection items based on one or more callbacks. Multiple callbacks will be treated as a logical ``AND``.
+Filter collection items based on one or more callbacks.
+
+.. warning:: The `callbacks` parameter is variadic and will be evaluated as a logical ``OR``.
+             If you're looking for a logical ``AND``, you have to make multiple calls to the
+             same operation.
 
 Interface: `Filterable`_
 
 Signature: ``Collection::filter(callable ...$callbacks);``
 
-.. code-block:: php
-
-    $divisibleBy3 = static fn($value): bool => 0 === $value % 3;
-    $divisibleBy6 = static fn($value): bool => 0 === $value % 6;
-
-    $collection = Collection::fromIterable(range(1, 10))
-        ->filter($divisibleBy3); // [3, 6, 9]
-
-    $collection = Collection::fromIterable(range(1, 10))
-        ->filter($divisibleBy3, $divisibleBy6); // [6]
+.. literalinclude:: code/operations/filter.php
+  :language: php
 
 first
 ~~~~~
@@ -773,13 +769,13 @@ Signature: ``Collection::flatMap(callable $callback);``
 
 .. code-block:: php
 
-    $square = static fn (int $val): int => $val ** 2;  
+    $square = static fn (int $val): int => $val ** 2;
     $squareArray = static fn (int $val): array => [$val ** 2];
     $squareCollection = static fn (int $val): Collection => Collection::fromIterable([$val ** 2]);
 
     $collection = Collection::fromIterable(range(1, 3))
         ->flatMap($squareArray); // [1, 4, 9]
-    
+
     $collection = Collection::fromIterable(range(1, 3))
         ->flatMap($squareCollection); // [1, 4, 9]
 
