@@ -9,9 +9,9 @@ declare(strict_types=1);
 
 namespace App;
 
-include __DIR__ . '/../vendor/autoload.php';
-
 use loophp\collection\Collection;
+
+include __DIR__ . '/../../../../vendor/autoload.php';
 
 $divisibleBy2 = static fn ($value): bool => 0 === $value % 2;
 $divisibleBy3 = static fn ($value): bool => 0 === $value % 3;
