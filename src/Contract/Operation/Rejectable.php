@@ -19,7 +19,7 @@ use loophp\collection\Contract\Collection;
 interface Rejectable
 {
     /**
-     * Filter collection items based on one or more callbacks.
+     * Reject collection items based on one or more callbacks.
      *
      * @param callable(T, TKey, Iterator<TKey, T>): bool ...$callbacks
      *

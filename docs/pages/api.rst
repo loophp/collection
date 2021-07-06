@@ -725,7 +725,7 @@ Filter collection items based on one or more callbacks.
 
 .. tip:: It is only when the callback returns ``true`` that the value is kept.
 
-.. tip:: If you're looking for keeping value in the iterator when the return is ``false``, see the ``reject`` operation.
+.. tip:: If you're looking for keeping the value in the iterator when the return is ``false``, see the ``reject`` operation.
 
 Interface: `Filterable`_
 
@@ -1678,7 +1678,7 @@ Filter collection items based on one or more callbacks.
 
 .. tip:: It is only when the callback returns ``false`` that the value is kept.
 
-.. tip:: If you're looking for keeping value in the iterator when the return is ``true``, see the ``filter`` operation.
+.. tip:: If you're looking for keeping the value in the iterator when the return is ``true``, see the ``filter`` operation.
 
 Interface: `Rejectable`_
 

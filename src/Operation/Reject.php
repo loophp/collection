@@ -26,7 +26,7 @@ final class Reject extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(callable(T, TKey, Iterator<TKey, T>):bool...): Closure(Iterator<TKey, T>): Generator<int, list<array{0: TKey, 1: T}>>
+     * @return Closure(callable(T , TKey, Iterator<TKey, T>): bool ...): Closure (Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {

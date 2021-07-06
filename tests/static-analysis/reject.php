@@ -35,14 +35,14 @@ $stringValueCallback2 = static fn (string $value): bool => '' === $value;
 $stringKeyValueCallback1 = static fn (string $value, string $key): bool => 'bar' !== $value && 'foo' !== $key;
 $stringKeyValueCallback2 = static fn (string $value, string $key): bool => 'bar' !== $value && '' === $key;
 
-reject_checkList(Collection::fromIterable([1, 2, 3])->filter());
-reject_checkList(Collection::fromIterable([1, 2, 3])->filter($intValueCallback));
-reject_checkList(Collection::fromIterable([1, 2, 3])->filter($intValueCallback, $intValueCallback2));
-reject_checkList(Collection::fromIterable([1, 2, 3])->filter($intKeyValueCallback1));
-reject_checkList(Collection::fromIterable([1, 2, 3])->filter($intKeyValueCallback1, $intKeyValueCallback2));
+reject_checkList(Collection::fromIterable([1, 2, 3])->reject());
+reject_checkList(Collection::fromIterable([1, 2, 3])->reject($intValueCallback));
+reject_checkList(Collection::fromIterable([1, 2, 3])->reject($intValueCallback, $intValueCallback2));
+reject_checkList(Collection::fromIterable([1, 2, 3])->reject($intKeyValueCallback1));
+reject_checkList(Collection::fromIterable([1, 2, 3])->reject($intKeyValueCallback1, $intKeyValueCallback2));
 
-reject_checkMap(Collection::fromIterable(['foo' => 'bar', 'baz' => ''])->filter());
-reject_checkMap(Collection::fromIterable(['foo' => 'bar', 'baz' => ''])->filter($stringValueCallback));
-reject_checkMap(Collection::fromIterable(['foo' => 'bar', 'baz' => ''])->filter($stringValueCallback, $stringValueCallback2));
-reject_checkMap(Collection::fromIterable(['foo' => 'bar', 'baz' => ''])->filter($stringKeyValueCallback1));
-reject_checkMap(Collection::fromIterable(['foo' => 'bar', 'baz' => ''])->filter($stringKeyValueCallback1, $stringKeyValueCallback2));
+reject_checkMap(Collection::fromIterable(['foo' => 'bar', 'baz' => ''])->reject());
+reject_checkMap(Collection::fromIterable(['foo' => 'bar', 'baz' => ''])->reject($stringValueCallback));
+reject_checkMap(Collection::fromIterable(['foo' => 'bar', 'baz' => ''])->reject($stringValueCallback, $stringValueCallback2));
+reject_checkMap(Collection::fromIterable(['foo' => 'bar', 'baz' => ''])->reject($stringKeyValueCallback1));
+reject_checkMap(Collection::fromIterable(['foo' => 'bar', 'baz' => ''])->reject($stringKeyValueCallback1, $stringKeyValueCallback2));
