@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
+use Iterator;
 use loophp\collection\Contract\Collection;
 
 /**
@@ -18,9 +19,9 @@ use loophp\collection\Contract\Collection;
 interface Partitionable
 {
     /**
-     * @param callable(T, TKey):bool ...$callbacks
+     * @param callable(T, TKey, Iterator<TKey, T>): bool ...$callbacks
      *
-     * @return Collection<int, array<int, array{0: TKey, 1: T}>>
+     * @return Collection<int, Collection<TKey, T>>
      */
     public function partition(callable ...$callbacks): Collection;
 }

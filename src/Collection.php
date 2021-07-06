@@ -652,7 +652,20 @@ final class Collection implements CollectionInterface
 
     public function partition(callable ...$callbacks): CollectionInterface
     {
-        return new self(Partition::of()(...$callbacks), $this->getIterator());
+        return new self(
+            Pipe::of()(
+                Partition::of()(...$callbacks),
+                Map::of()(
+                    /**
+                     * @param Iterator<TKey, T> $iterator
+                     *
+                     * @return CollectionInterface<TKey, T>
+                     */
+                    static fn (Iterator $iterator): CollectionInterface => self::fromIterable($iterator)
+                ),
+            ),
+            $this->getIterator()
+        );
     }
 
     public function permutate(): CollectionInterface
