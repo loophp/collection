@@ -2230,23 +2230,33 @@ class CollectionSpec extends ObjectBehavior
                 $isGreaterThan(5),
                 $isGreaterThan(3)
             )
+            ->first()
+            ->current()
+            ->all()
             ->shouldIterateAs([
-                [
-                    ['d', 4],
-                    ['e', 5],
-                    ['f', 6],
-                    ['g', 7],
-                    ['h', 8],
-                    ['i', 9],
-                ],
-                [
-                    ['a', 1],
-                    ['b', 2],
-                    ['c', 3],
-                    ['j', 1],
-                    ['k', 2],
-                    ['l', 3],
-                ],
+                'd' => 4,
+                'e' => 5,
+                'f' => 6,
+                'g' => 7,
+                'h' => 8,
+                'i' => 9,
+            ]);
+
+        $this::fromIterable($input)
+            ->partition(
+                $isGreaterThan(5),
+                $isGreaterThan(3)
+            )
+            ->last()
+            ->current()
+            ->all()
+            ->shouldIterateAs([
+                'a' => 1,
+                'b' => 2,
+                'c' => 3,
+                'j' => 1,
+                'k' => 2,
+                'l' => 3,
             ]);
     }
 
