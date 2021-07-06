@@ -9,8 +9,8 @@ declare(strict_types=1);
 
 namespace loophp\collection\Operation;
 
-use CallbackFilterIterator;
 use Closure;
+use Generator;
 use Iterator;
 
 /**
@@ -26,7 +26,7 @@ final class Filter extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(callable(T , TKey, Iterator<TKey, T>): bool ...): Closure (Iterator<TKey, T>): Iterator<TKey, T>
+     * @return Closure(callable(T , TKey, Iterator<TKey, T>): bool ...): Closure (Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
@@ -34,15 +34,41 @@ final class Filter extends AbstractOperation
             /**
              * @param callable(T, TKey, Iterator<TKey, T>): bool ...$callbacks
              *
-             * @return Closure(Iterator<TKey, T>): Iterator<TKey, T>
+             * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static fn (callable ...$callbacks): Closure =>
                 /**
                  * @param Iterator<TKey, T> $iterator
                  *
-                 * @return Iterator<TKey, T>
+                 * @return Generator<TKey, T>
                  */
-                static function (Iterator $iterator) use ($callbacks): Iterator {
+                static function (Iterator $iterator) use ($callbacks): Generator {
+                    // TODO: Find a way to avoid repeating this everywhere.
+                    $reducerCallback =
+                        /**
+                         * @param TKey $key
+                         *
+                         * @return Closure(T): Closure(Iterator<TKey, T>): Closure(bool, callable(T, TKey, Iterator<TKey, T>): bool): bool
+                         */
+                        static fn ($key): Closure =>
+                            /**
+                             * @param T $current
+                             *
+                             * @return Closure(Iterator<TKey, T>): Closure(bool, callable(T, TKey, Iterator<TKey, T>): bool): bool
+                             */
+                            static fn ($current): Closure =>
+                                /**
+                                 * @param Iterator<TKey, T> $iterator
+                                 *
+                                 * @return Closure(bool, callable(T, TKey, Iterator<TKey, T>): bool): bool
+                                 */
+                                static fn (Iterator $iterator): Closure =>
+                                    /**
+                                     * @param bool $carry
+                                     * @param callable(T, TKey, Iterator<TKey, T>): bool $callable
+                                     */
+                                    static fn (bool $carry, callable $callable): bool => $carry || $callable($current, $key, $iterator);
+
                     $defaultCallback =
                         /**
                          * @param T $value
@@ -53,11 +79,17 @@ final class Filter extends AbstractOperation
                         [$defaultCallback] :
                         $callbacks;
 
-                    return array_reduce(
-                        $callbacks,
-                        static fn (Iterator $carry, callable $callback): CallbackFilterIterator => new CallbackFilterIterator($carry, $callback),
-                        $iterator
-                    );
+                    foreach ($iterator as $key => $current) {
+                        $result = array_reduce(
+                            $callbacks,
+                            $reducerCallback($key)($current)($iterator),
+                            false
+                        );
+
+                        if (true === $result) {
+                            yield $key => $current;
+                        }
+                    }
                 };
     }
 }

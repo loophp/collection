@@ -1124,16 +1124,17 @@ class CollectionSpec extends ObjectBehavior
             ->filter($callableWithKey)
             ->shouldIterateAs([6 => 6, 8 => 8, 10 => 10]);
 
-        $this::fromIterable(['afooe', 'fooe', 'allo', 'llo'])
+        $this::fromIterable(['a', 'b', 'c', 'd'])
             ->filter(
-                static function ($value) {
-                    return 0 === mb_strpos($value, 'a');
-                },
-                static function ($value) {
-                    return mb_strlen($value) - 1 === mb_strpos($value, 'o');
-                }
+                static fn (string $value): bool => 'a' === $value,
+                static fn (string $value): bool => 'd' === $value
             )
-            ->shouldIterateAs([2 => 'allo']);
+            ->shouldIterateAs([0 => 'a', 3 => 'd']);
+
+        $this::fromIterable(range(0, 10))
+            ->filter(static fn (int $value): bool => $value % 2 === 0)
+            ->filter(static fn (int $value): bool => $value % 3 === 0)
+            ->shouldIterateAs([0 => 0, 6 => 6]);
 
         $this::fromIterable([true, false, 0, '', null])
             ->filter()
