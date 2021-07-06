@@ -1131,6 +1131,11 @@ class CollectionSpec extends ObjectBehavior
             )
             ->shouldIterateAs([0 => 'a', 3 => 'd']);
 
+        $this::fromIterable(range(0, 10))
+            ->filter(static fn (int $value): bool => $value % 2 === 0)
+            ->filter(static fn (int $value): bool => $value % 3 === 0)
+            ->shouldIterateAs([0 => 0, 6 => 6]);
+
         $this::fromIterable([true, false, 0, '', null])
             ->filter()
             ->shouldIterateAs([true]);
