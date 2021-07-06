@@ -775,7 +775,20 @@ final class Collection implements CollectionInterface
 
     public function span(callable $callback): CollectionInterface
     {
-        return new self(Span::of()($callback), $this->getIterator());
+        return new self(
+            Pipe::of()(
+                Span::of()($callback),
+                Map::of()(
+                    /**
+                     * @param Iterator<TKey, T> $iterator
+                     *
+                     * @return CollectionInterface<TKey, T>
+                     */
+                    static fn (Iterator $iterator): CollectionInterface => self::fromIterable($iterator)
+                ),
+            ),
+            $this->getIterator()
+        );
     }
 
     public function split(int $type = Operation\Splitable::BEFORE, callable ...$callbacks): CollectionInterface

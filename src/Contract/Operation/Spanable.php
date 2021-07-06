@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
+use Iterator;
 use loophp\collection\Contract\Collection;
 
 /**
@@ -18,7 +19,9 @@ use loophp\collection\Contract\Collection;
 interface Spanable
 {
     /**
-     * @return Collection<TKey, T>
+     * @param callable(T, TKey, Iterator<TKey, T>): bool $callback
+     *
+     * @return Collection<int, Collection<TKey, T>>
      */
     public function span(callable $callback): Collection;
 }
