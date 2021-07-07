@@ -11,8 +11,27 @@ include __DIR__ . '/../../../vendor/autoload.php';
 
 use loophp\collection\Collection;
 
-$collection = Collection::fromIterable(['A', 'B', 'C', 'D', 'E']);
+$collection = Collection::range(0, 100_000_000);
 
+$times = 0;
+$for = range(1, 10);
+
+foreach ($for as $i) {
+    $start = microtime(true);
+
+    $isEmpty = $collection->count() === 0;
+
+    $end = microtime(true);
+
+    $times += $end - $start;
+}
+
+var_dump($times / count($for));
+
+
+
+
+exit;
 // Get the result as an array.
 $collection
     ->all(); // ['A', 'B', 'C', 'D', 'E']
