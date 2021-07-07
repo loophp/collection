@@ -2,7 +2,6 @@
 
 on:
     - pull_request
-    - push
 
 name: "Unit tests"
 
