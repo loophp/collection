@@ -1674,7 +1674,7 @@ Filter collection items based on one or more callbacks.
 
 .. warning:: The `callbacks` parameter is variadic and will be evaluated as a logical ``OR``.
              If you're looking for a logical ``AND``, you have to make multiple calls to the
-             same operation.
+             same operation. However, due to the nature of this operation, the behaviour is the same.
 
 .. tip:: It is only when the callback returns ``false`` that the value is kept.
 
