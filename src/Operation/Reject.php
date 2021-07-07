@@ -21,7 +21,7 @@ use Iterator;
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
-final class Filter extends AbstractOperation
+final class Reject extends AbstractOperation
 {
     /**
      * @pure
@@ -86,7 +86,7 @@ final class Filter extends AbstractOperation
                             false
                         );
 
-                        if (true === $result) {
+                        if (false === $result) {
                             yield $key => $current;
                         }
                     }

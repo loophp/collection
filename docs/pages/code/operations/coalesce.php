@@ -9,9 +9,9 @@ declare(strict_types=1);
 
 namespace App;
 
-include __DIR__ . '/../vendor/autoload.php';
-
 use loophp\collection\Collection;
+
+include __DIR__ . '/../../../../vendor/autoload.php';
 
 $input = range('a', 'e');
 

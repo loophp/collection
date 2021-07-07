@@ -723,6 +723,10 @@ Filter collection items based on one or more callbacks.
              If you're looking for a logical ``AND``, you have to make multiple calls to the
              same operation.
 
+.. tip:: It is only when the callback returns ``true`` that the value is kept.
+
+.. tip:: If you're looking for keeping the value in the iterator when the return is ``false``, see the ``reject`` operation.
+
 Interface: `Filterable`_
 
 Signature: ``Collection::filter(callable ...$callbacks);``
@@ -1663,6 +1667,26 @@ Signature: ``Collection::reduction(callable $callback, $initial = null);``
     $collection = Collection::fromIterable(range(1, 5))
         ->reduction($callback); // [1, 3, 6, 10, 15]
 
+reject
+~~~~~~
+
+Filter collection items based on one or more callbacks.
+
+.. warning:: The `callbacks` parameter is variadic and will be evaluated as a logical ``OR``.
+             If you're looking for a logical ``AND``, you have to make multiple calls to the
+             same operation. However, due to the nature of this operation, the behaviour is the same.
+
+.. tip:: It is only when the callback returns ``false`` that the value is kept.
+
+.. tip:: If you're looking for keeping the value in the iterator when the return is ``true``, see the ``filter`` operation.
+
+Interface: `Rejectable`_
+
+Signature: ``Collection::reject(callable ...$callbacks);``
+
+.. literalinclude:: code/operations/reject.php
+  :language: php
+
 reverse
 ~~~~~~~
 
@@ -2385,6 +2409,7 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Productable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Productable.php
 .. _Randomable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Randomable.php
 .. _Reductionable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Reductionable.php
+.. _Rejectable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Rejectable.php
 .. _Reverseable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Reverseable.php
 .. _RSampleable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/RSampleable.php
 .. _Scaleable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Scaleable.php

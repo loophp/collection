@@ -9,10 +9,10 @@ declare(strict_types=1);
 
 namespace App;
 
-include __DIR__ . '/../vendor/autoload.php';
-
 use Closure;
 use loophp\collection\Collection;
+
+include __DIR__ . '/../../../../vendor/autoload.php';
 
 $isGreaterThan = static fn (int $left): Closure => static fn (int $right): bool => $left < $right;
 

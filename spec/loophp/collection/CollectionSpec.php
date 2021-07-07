@@ -2478,6 +2478,47 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs([1, 3, 6, 10, 15]);
     }
 
+    public function it_can_reject(): void
+    {
+        $input = array_merge([0, false], range(1, 10));
+
+        $callable = static function ($value) {
+            return $value % 2;
+        };
+
+        $callableWithKey = static fn (int $value, int $key): bool => $value % 2 === 0 && 4 < $key;
+
+        $this::fromIterable($input)
+            ->reject($callable)
+            ->count()
+            ->shouldReturn(7);
+
+        $this::fromIterable($input)
+            ->reject($callable)
+            ->normalize()
+            ->shouldIterateAs([0, false, 2, 4, 6, 8, 10]);
+
+        $this::fromIterable(range(0, 10))
+            ->reject($callableWithKey)
+            ->shouldIterateAs([0, 1, 2, 3, 4, 5, 7 => 7, 9 => 9]);
+
+        $this::fromIterable(['a', 'b', 'c', 'd'])
+            ->reject(
+                static fn (string $value): bool => 'a' === $value,
+                static fn (string $value): bool => 'd' === $value
+            )
+            ->shouldIterateAs([1 => 'b', 2 => 'c']);
+
+        $this::fromIterable(range(0, 10))
+            ->reject(static fn (int $value): bool => $value % 2 === 0)
+            ->reject(static fn (int $value): bool => $value % 3 === 0)
+            ->shouldIterateAs([1 => 1, 5 => 5, 7 => 7]);
+
+        $this::fromIterable([true, false, 0, '', null])
+            ->reject()
+            ->shouldIterateAs([1 => false, 2 => 0, 3 => '', 4 => null]);
+    }
+
     public function it_can_reverse(): void
     {
         $this::empty()

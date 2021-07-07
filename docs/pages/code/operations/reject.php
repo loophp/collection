@@ -17,11 +17,11 @@ $divisibleBy2 = static fn ($value): bool => 0 === $value % 2;
 $divisibleBy3 = static fn ($value): bool => 0 === $value % 3;
 
 $collection = Collection::fromIterable(range(1, 10))
-    ->filter($divisibleBy3); // [3, 6, 9]
+    ->reject($divisibleBy2); // [1, 3, 5, 7, 9]
 
 $collection = Collection::fromIterable(range(1, 10))
-    ->filter($divisibleBy2, $divisibleBy3); // [2, 3, 4, 6, 8, 9, 10]
+    ->reject($divisibleBy2, $divisibleBy3); // [1, 5, 7]
 
 $collection = Collection::fromIterable(range(1, 10))
-    ->filter($divisibleBy2)
-    ->filter($divisibleBy3); // [6]
+    ->reject($divisibleBy2)
+    ->reject($divisibleBy3); // [1, 5, 7]
