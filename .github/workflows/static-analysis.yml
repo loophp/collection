@@ -1,8 +1,10 @@
 # https://help.github.com/en/categories/automating-your-workflow-with-github-actions
 
 on:
-    - pull_request
-    - push
+    push:
+        branches:
+            - master
+    pull_request:
 
 name: "Static analysis"
 
@@ -14,7 +16,7 @@ jobs:
             fail-fast: false
             matrix:
                 operating-system: [ubuntu-latest]
-                php-versions: ['7.4', '8.0']
+                php-versions: ["7.4", "8.0"]
 
         steps:
             - name: Set git to use LF
@@ -54,8 +56,8 @@ jobs:
             - name: Send feedback on Github
               if: ${{ failure() }}
               run: |
-                vendor/bin/phpstan analyse -l max --error-format=checkstyle src/ | cs2pr
-                vendor/bin/psalm --output-format=github | cs2pr
+                  vendor/bin/phpstan analyse -l max --error-format=checkstyle src/ | cs2pr
+                  vendor/bin/psalm --output-format=github | cs2pr
 
             - name: Send PSALM data
               run: vendor/bin/psalm --shepherd --stats src/
