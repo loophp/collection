@@ -1,59 +1,59 @@
 # https://help.github.com/en/categories/automating-your-workflow-with-github-actions
 
 on:
-  push:
-    branches:
-      - master
-  pull_request:
+    push:
+        branches:
+            - master
+    pull_request:
 
 name: "Unit tests"
 
 jobs:
-  run:
-    name: "Unit Tests"
-    runs-on: ${{ matrix.operating-system }}
-    strategy:
-      fail-fast: false
-      matrix:
-        operating-system: [ubuntu-latest, windows-latest]
-        php-versions: ["7.4", "8.0"]
+    run:
+        name: "Unit Tests"
+        runs-on: ${{ matrix.operating-system }}
+        strategy:
+            fail-fast: false
+            matrix:
+                operating-system: [ubuntu-latest, windows-latest]
+                php-versions: ["7.4", "8.0"]
 
-    steps:
-      - name: Set git to use LF
-        run: |
-          git config --global core.autocrlf false
-          git config --global core.eol lf
+        steps:
+            - name: Set git to use LF
+              run: |
+                  git config --global core.autocrlf false
+                  git config --global core.eol lf
 
-      - name: Checkout
-        uses: actions/checkout@v2.3.4
-        with:
-          fetch-depth: 1
+            - name: Checkout
+              uses: actions/checkout@v2.3.4
+              with:
+                  fetch-depth: 1
 
-      - name: Install PHP
-        uses: shivammathur/setup-php@2.11.0
-        with:
-          php-version: ${{ matrix.php-versions }}
-          extensions: gd,mbstring,pcov,xdebug
+            - name: Install PHP
+              uses: shivammathur/setup-php@2.11.0
+              with:
+                  php-version: ${{ matrix.php-versions }}
+                  extensions: gd,mbstring,pcov,xdebug
 
-      - name: Get Composer Cache Directory
-        id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+            - name: Get Composer Cache Directory
+              id: composer-cache
+              run: echo "::set-output name=dir::$(composer config cache-files-dir)"
 
-      - name: Cache dependencies
-        uses: actions/cache@v2.1.6
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
-          restore-keys: ${{ runner.os }}-composer-
+            - name: Cache dependencies
+              uses: actions/cache@v2.1.6
+              with:
+                  path: ${{ steps.composer-cache.outputs.dir }}
+                  key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
+                  restore-keys: ${{ runner.os }}-composer-
 
-      - name: Install dependencies
-        run: composer install --no-progress --prefer-dist --optimize-autoloader
+            - name: Install dependencies
+              run: composer install --no-progress --prefer-dist --optimize-autoloader
 
-      - name: Run Grumphp
-        run: vendor/bin/grumphp run --tasks=phpspec
+            - name: Run Grumphp
+              run: vendor/bin/grumphp run --tasks=phpspec
 
-      - name: Send Scrutinizer data
-        run: |
-          wget https://scrutinizer-ci.com/ocular.phar
-          php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml
-        continue-on-error: true
+            - name: Send Scrutinizer data
+              run: |
+                  wget https://scrutinizer-ci.com/ocular.phar
+                  php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml
+              continue-on-error: true
