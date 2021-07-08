@@ -480,7 +480,7 @@ count
 
 Returns the number of elements in a collection.
 
-.. tip:: If you only want to check whether the collection is empty or not, use the ``isEmpty`` 
+.. tip:: If you only want to check whether the collection is empty or not, use the ``isEmpty``
          operation as it will be significant more performant in a large collection.
 
 Interface: `Countable`_
@@ -1183,16 +1183,8 @@ Interface: `IsEmptyable`_
 
 Signature: ``Collection::isEmpty();``
 
-.. code-block:: php
-
-    Collection::fromIterable(range('a', 'c'))
-        ->isEmpty(); // false
-
-    Collection::fromIterable([])
-        ->isEmpty(); // true
-
-    Collection::fromIterable([null])
-        ->isEmpty(); // false
+.. literalinclude:: code/operations/isEmpty.php
+  :language: php
 
 key
 ~~~
