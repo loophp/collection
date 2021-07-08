@@ -19,6 +19,7 @@ use InvalidArgumentException;
 use Iterator;
 use JsonSerializable;
 use loophp\collection\Collection;
+use loophp\collection\Contract\Collection as CollectionInterface;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Operation\AbstractOperation;
 use OutOfBoundsException;
@@ -2225,14 +2226,15 @@ class CollectionSpec extends ObjectBehavior
 
         $input = array_combine(range('a', 'l'), [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3]);
 
+        $subject = $this::fromIterable($input)->partition($isGreaterThan(5));
+        $subject->shouldHaveCount(2);
+        $subject->first()->shouldBeAnInstanceOf(CollectionInterface::class);
+        $subject->last()->shouldBeAnInstanceOf(CollectionInterface::class);
+
         $this::fromIterable($input)
-            ->partition(
-                $isGreaterThan(5),
-                $isGreaterThan(3)
-            )
+            ->partition($isGreaterThan(5), $isGreaterThan(3))
             ->first()
             ->current()
-            ->all()
             ->shouldIterateAs([
                 'd' => 4,
                 'e' => 5,
@@ -2243,13 +2245,9 @@ class CollectionSpec extends ObjectBehavior
             ]);
 
         $this::fromIterable($input)
-            ->partition(
-                $isGreaterThan(5),
-                $isGreaterThan(3)
-            )
+            ->partition($isGreaterThan(5), $isGreaterThan(3))
             ->last()
             ->current()
-            ->all()
             ->shouldIterateAs([
                 'a' => 1,
                 'b' => 2,
@@ -2883,22 +2881,13 @@ class CollectionSpec extends ObjectBehavior
     {
         $input = range(1, 10);
 
-        $test = $this::fromIterable($input)
-            ->span(static function (int $x): bool {return 4 > $x; });
+        $subject = $this::fromIterable($input)->span(static fn (int $x): bool => 4 > $x);
+        $subject->shouldHaveCount(2);
+        $subject->first()->shouldBeAnInstanceOf(CollectionInterface::class);
+        $subject->last()->shouldBeAnInstanceOf(CollectionInterface::class);
 
-        $test
-            ->first()
-            ->current()
-            ->shouldIterateAs(
-                [1, 2, 3]
-            );
-
-        $test
-            ->last()
-            ->current()
-            ->shouldIterateAs(
-                [3 => 4, 4 => 5, 5 => 6, 6 => 7, 7 => 8, 8 => 9, 9 => 10]
-            );
+        $subject->first()->current()->shouldIterateAs([1, 2, 3]);
+        $subject->last()->current()->shouldIterateAs([3 => 4, 4 => 5, 5 => 6, 6 => 7, 7 => 8, 8 => 9, 9 => 10]);
     }
 
     public function it_can_split(): void
