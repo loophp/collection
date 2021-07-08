@@ -12,6 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Utils\OrCallbackReducer;
 
 /**
  * @immutable
@@ -43,37 +44,8 @@ final class TakeWhile extends AbstractOperation
              * @return Generator<TKey, T>
              */
             static function (Iterator $iterator) use ($callbacks): Generator {
-                $reducerCallback =
-                    /**
-                     * @param TKey $key
-                     *
-                     * @return Closure(T): Closure(Iterator<TKey, T>): Closure(bool, callable(T, TKey, Iterator<TKey, T>): bool): bool
-                     */
-                    static fn ($key): Closure =>
-                        /**
-                         * @param T $current
-                         *
-                         * @return Closure(Iterator<TKey, T>): Closure(bool, callable(T, TKey, Iterator<TKey, T>): bool): bool
-                         */
-                        static fn ($current): Closure =>
-                            /**
-                             * @param Iterator<TKey, T> $iterator
-                             *
-                             * @return Closure(bool, callable(T, TKey, Iterator<TKey, T>): bool): bool
-                             */
-                            static fn (Iterator $iterator): Closure =>
-                                /**
-                                 * @param bool $carry
-                                 * @param callable(T, TKey, Iterator<TKey, T>): bool $callable
-                                 */
-                                static fn (bool $carry, callable $callable): bool => $carry || $callable($current, $key, $iterator);
-
                 foreach ($iterator as $key => $current) {
-                    $result = array_reduce(
-                        $callbacks,
-                        $reducerCallback($key)($current)($iterator),
-                        false
-                    );
+                    $result = OrCallbackReducer::or()($callbacks, $current, $key, $iterator);
 
                     if (false === $result) {
                         break;
