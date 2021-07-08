@@ -1877,6 +1877,33 @@ class CollectionSpec extends ObjectBehavior
             ->during('all');
     }
 
+    public function it_can_isEmpty(): void
+    {
+        $gen = static fn (): Generator => yield from [];
+
+        $this::fromIterable([])->isEmpty()->shouldBe(true);
+        $this::fromIterable($gen())->isEmpty()->shouldBe(true);
+        $this::empty()->isEmpty()->shouldBe(true);
+
+        $this::fromIterable([null])->isEmpty()->shouldBe(false);
+        $this::fromIterable([[]])->isEmpty()->shouldBe(false);
+        $this::fromIterable([1, 2, 3])->isEmpty()->shouldBe(false);
+
+        $withValues = $this::fromIterable([1, 2, 3]);
+
+        foreach ($withValues as $value) {
+            // iterating once through it
+        }
+        $withValues->isEmpty()->shouldBe(false);
+
+        $withoutValues = $this::fromIterable([]);
+
+        foreach ($withoutValues as $value) {
+            // iterating once through it
+        }
+        $withoutValues->isEmpty()->shouldBe(true);
+    }
+
     public function it_can_key(): void
     {
         $input = array_combine(
@@ -2569,7 +2596,7 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs([5.0, 8.01, 11.02, 12.78, 14.03, 15.0]);
     }
 
-    public function it_can_scanleft(): void
+    public function it_can_scanLeft(): void
     {
         $callback = static function ($carry, $value) {
             return $carry / $value;
@@ -2594,7 +2621,7 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs([0 => 3]);
     }
 
-    public function it_can_scanleft1(): void
+    public function it_can_scanLeft1(): void
     {
         $callback = static function ($carry, $value) {
             return $carry / $value;
@@ -2609,7 +2636,7 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs([12]);
     }
 
-    public function it_can_scanright(): void
+    public function it_can_scanRight(): void
     {
         $callback = static function ($carry, $value) {
             return $value / $carry;

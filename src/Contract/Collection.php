@@ -62,6 +62,7 @@ use loophp\collection\Contract\Operation\Initsable;
 use loophp\collection\Contract\Operation\Intersectable;
 use loophp\collection\Contract\Operation\Intersectkeysable;
 use loophp\collection\Contract\Operation\Intersperseable;
+use loophp\collection\Contract\Operation\IsEmptyable;
 use loophp\collection\Contract\Operation\Keyable;
 use loophp\collection\Contract\Operation\Keysable;
 use loophp\collection\Contract\Operation\Lastable;
@@ -179,6 +180,7 @@ use loophp\collection\Contract\Operation\Zipable;
  * @template-extends Intersectable<TKey, T>
  * @template-extends Intersectkeysable<TKey, T>
  * @template-extends Intersperseable<TKey, T>
+ * @template-extends IsEmptyable<TKey, T>
  * @template-extends Keyable<TKey, T>
  * @template-extends Keysable<TKey, T>
  * @template-extends Lastable<TKey, T>
@@ -290,6 +292,7 @@ interface Collection extends
     Intersectable,
     Intersectkeysable,
     Intersperseable,
+    IsEmptyable,
     IteratorAggregate,
     JsonSerializable,
     Keyable,

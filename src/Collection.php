@@ -562,6 +562,11 @@ final class Collection implements CollectionInterface
         return new self(Intersperse::of()($element)($every)($startAt), $this->getIterator());
     }
 
+    public function isEmpty(): bool
+    {
+        return !$this->getIterator()->valid();
+    }
+
     /**
      * @return array<mixed>
      */

@@ -476,9 +476,12 @@ Signature: ``Collection::contains(...$values);``
     }
 
 count
-~~~~~~~~
+~~~~~
 
-Returns the number of elements in a collection
+Returns the number of elements in a collection.
+
+.. tip:: If you only want to check whether the collection is empty or not, use the ``isEmpty``
+         operation as it will be significant more performant in a large collection.
 
 Interface: `Countable`_
 
@@ -1170,6 +1173,18 @@ Signature: ``Collection::intersperse($element, int $every = 1, int $startAt = 0)
     foreach($collection as $item) {
         var_dump($item); // 'x', 'a', 'x', 'b', 'x', 'c'
     }
+
+isEmpty
+~~~~~~~
+
+Check if a collection has any elements inside.
+
+Interface: `IsEmptyable`_
+
+Signature: ``Collection::isEmpty();``
+
+.. literalinclude:: code/operations/isEmpty.php
+  :language: php
 
 key
 ~~~
@@ -2403,6 +2418,7 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Intersectable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Intersectable.php
 .. _Intersectkeysable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Intersectkeysable.php
 .. _Intersperseable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Intersperseable.php
+.. _IsEmptyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/IsEmptyable.php
 .. _Keyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Keyable.php
 .. _Keysable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Keysable.php
 .. _Lastable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Lastable.php
