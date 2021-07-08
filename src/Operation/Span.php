@@ -26,13 +26,13 @@ final class Span extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(callable(T, TKey, Iterator<TKey, T>): bool):Closure (Iterator<TKey, T>): Generator<int, Iterator<TKey, T>>
+     * @return Closure(callable(T, TKey, Iterator<TKey, T>): bool): Closure(Iterator<TKey, T>): Generator<int, Iterator<TKey, T>>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable(T, TKey, Iterator<TKey, T>):bool $callback
+             * @param callable(T, TKey, Iterator<TKey, T>): bool $callback
              *
              * @return Closure(Iterator<TKey, T>): Generator<int, Iterator<TKey, T>>
              */
