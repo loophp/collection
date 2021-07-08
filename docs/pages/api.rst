@@ -1524,11 +1524,24 @@ Signature: ``Collection::pair();``
 partition
 ~~~~~~~~~
 
-With one or multiple callable, partition the items into 2 subgroups of items.
+Partition the collection into two subgroups of items using one or more callables.
 
 .. warning:: The `callbacks` parameter is variadic and will be evaluated as a logical ``OR``.
              If you're looking for a logical ``AND``, you have to make multiple calls to the
              same operation.
+
+The raw ``Partition`` operation returns a generator yielding two iterators.
+
+The first inner iterator is the result of a ``filter`` operation, it contains items 
+that have met the provided callback(s).
+The second (and last) inner iterator is the result of a ``reject`` operation, it contains items
+that have not met the provided callback(s).
+
+When the ``partition`` operation is used through the ``Collection`` object, the two
+resulting iterators will be converted and mapped into a ``Collection`` object.
+
+The first inner collection contains items that have met the provided callback(s).
+The second (and last) collection contains items that have not met the provided callback(s).
 
 Interface: `Partitionable`_
 
@@ -1913,19 +1926,24 @@ Signature: ``Collection::sort(?callable $callback = null);``
 span
 ~~~~
 
-Returns a tuple where the first element is the longest prefix (possibly empty) of elements
-that satisfy the callback and the second element is the remainder.
+Partition the collection into two subgroups where the first element is the longest
+prefix (*possibly empty*) of elements that satisfy the callback and the second element
+is the remainder.
+
+The raw ``Span`` operation returns a generator yielding two iterators.
+
+The first inner iterator is the result of a ``TakeWhile`` operation.
+The second (and last) inner iterator is the result of a ``DropWhile`` operation.
+
+When the ``span`` operation is used through the ``Collection`` object, the two
+resulting iterators will be converted and mapped into ``Collection`` objects.
 
 Interface: `Spanable`_
 
 Signature: ``Collection::span(callable $callback);``
 
-.. code-block:: php
-
-    $input = range(1, 10);
-
-    Collection::fromIterable($input)
-        ->span(fn ($x) => $x < 4); // [[1, 2, 3], [4, 5, 6, 7, 8, 9, 10]]
+.. literalinclude:: code/operations/span.php
+  :language: php
 
 split
 ~~~~~

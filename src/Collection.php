@@ -657,7 +657,13 @@ final class Collection implements CollectionInterface
 
     public function partition(callable ...$callbacks): CollectionInterface
     {
-        return new self(Partition::of()(...$callbacks), $this->getIterator());
+        return new self(
+            Pipe::of()(
+                Partition::of()(...$callbacks),
+                Map::of()(static fn (Iterator $iterator): CollectionInterface => self::fromIterable($iterator))
+            ),
+            $this->getIterator()
+        );
     }
 
     public function permutate(): CollectionInterface
@@ -767,7 +773,13 @@ final class Collection implements CollectionInterface
 
     public function span(callable $callback): CollectionInterface
     {
-        return new self(Span::of()($callback), $this->getIterator());
+        return new self(
+            Pipe::of()(
+                Span::of()($callback),
+                Map::of()(static fn (Iterator $iterator): CollectionInterface => self::fromIterable($iterator))
+            ),
+            $this->getIterator()
+        );
     }
 
     public function split(int $type = Operation\Splitable::BEFORE, callable ...$callbacks): CollectionInterface

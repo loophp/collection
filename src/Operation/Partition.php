@@ -26,65 +26,29 @@ final class Partition extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(callable(T, TKey, Iterator<TKey, T>):bool...): Closure(Iterator<TKey, T>): Generator<int, list<array{0: TKey, 1: T}>>
+     * @return Closure(callable(T, TKey, Iterator<TKey, T>): bool...): Closure(Iterator<TKey, T>): Generator<int, Iterator<TKey, T>>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable(T, TKey, Iterator<TKey, T>):bool ...$callbacks
+             * @param callable(T, TKey, Iterator<TKey, T>): bool ...$callbacks
              *
-             * @return Closure(Iterator<TKey, T>): Generator<int, list<array{0: TKey, 1: T}>>
+             * @return Closure(Iterator<TKey, T>): Generator<int, Iterator<TKey, T>>
              */
             static fn (callable ...$callbacks): Closure =>
                 /**
                  * @param Iterator<TKey, T> $iterator
                  *
-                 * @return Generator<int, list<array{0: TKey, 1: T}>>
+                 * @return Generator<int, Iterator<TKey, T>>
                  */
-                static function (Iterator $iterator) use ($callbacks): Generator {
-                    $reducerCallback =
-                        /**
-                         * @param TKey $key
-                         *
-                         * @return Closure(T): Closure(Iterator<TKey, T>): Closure(bool, callable(T, TKey, Iterator<TKey, T>): bool): bool
-                         */
-                        static fn ($key): Closure =>
-                            /**
-                             * @param T $current
-                             *
-                             * @return Closure(Iterator<TKey, T>): Closure(bool, callable(T, TKey, Iterator<TKey, T>): bool): bool
-                             */
-                            static fn ($current): Closure =>
-                                /**
-                                 * @param Iterator<TKey, T> $iterator
-                                 *
-                                 * @return Closure(bool, callable(T, TKey, Iterator<TKey, T>): bool): bool
-                                 */
-                                static fn (Iterator $iterator): Closure =>
-                                    /**
-                                     * @param bool $carry
-                                     * @param callable(T, TKey, Iterator<TKey, T>): bool $callable
-                                     */
-                                    static fn (bool $carry, callable $callable): bool => $carry || $callable($current, $key, $iterator);
+                static function (Iterator $iterator) use ($callbacks): Iterator {
+                    /** @var Iterator<TKey, T> $filter */
+                    $filter = Filter::of()(...$callbacks)($iterator);
+                    /** @var Iterator<TKey, T> $reject */
+                    $reject = Reject::of()(...$callbacks)($iterator);
 
-                    $true = $false = [];
-
-                    foreach ($iterator as $key => $current) {
-                        $result = array_reduce(
-                            $callbacks,
-                            $reducerCallback($key)($current)($iterator),
-                            false
-                        );
-
-                        $result ?
-                            $true[] = [$key, $current] :
-                            $false[] = [$key, $current];
-                    }
-
-                    yield $true;
-
-                    return yield $false;
+                    return yield from [$filter, $reject];
                 };
     }
 }
