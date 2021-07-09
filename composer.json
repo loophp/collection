@@ -26,20 +26,13 @@
         "amphp/parallel-functions": "^1",
         "doctrine/collections": "^1.6",
         "drupol/php-conventions": "^5",
-        "friends-of-phpspec/phpspec-code-coverage": "^6",
-        "guzzlehttp/guzzle": "^7.3",
-        "halaxa/json-machine": "^0.7.0",
-        "infection/infection": "^0.22.0 || ^0.23.0",
-        "infection/phpspec-adapter": "^0.1.1",
+        "friends-of-phpspec/phpspec-code-coverage": "^6.1",
+        "infection/infection": "^0.23.0",
+        "infection/phpspec-adapter": "^0.1.2",
         "phpspec/phpspec": "^7.1",
         "phpstan/phpstan-strict-rules": "^0.12",
         "psr/cache": "^1.0",
-        "symfony/cache": "^5",
-        "symfony/http-client": "^5.2",
-        "symfony/polyfill-mbstring": "^1.18"
-    },
-    "suggest": {
-        "symfony/polyfill-mbstring": "Use it if you do not have the PHP mbstring extension."
+        "symfony/cache": "^5"
     },
     "config": {
         "sort-packages": true
