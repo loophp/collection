@@ -21,6 +21,7 @@ use JsonSerializable;
 use loophp\collection\Collection;
 use loophp\collection\Contract\Collection as CollectionInterface;
 use loophp\collection\Contract\Operation;
+use loophp\collection\Iterator\ClosureIterator;
 use loophp\collection\Operation\AbstractOperation;
 use OutOfBoundsException;
 use PhpSpec\Exception\Example\FailureException;
@@ -984,57 +985,42 @@ class CollectionSpec extends ObjectBehavior
     public function it_can_every(): void
     {
         $input = range(0, 10);
-
-        $callback = static function ($value): bool {
-            return 20 > $value;
-        };
+        $callback = static fn ($value): bool => 20 > $value;
 
         $this::fromIterable($input)
             ->every($callback)
-            ->shouldIterateAs([0 => true]);
+            ->shouldBe(true);
 
         $this::empty()
             ->every($callback)
-            ->shouldIterateAs([0 => true]);
+            ->shouldBe(true);
 
         $this::fromIterable($input)
-            ->every(
-                static function ($value, $key, Iterator $iterator): bool {
-                    return is_numeric($key);
-                }
-            )
-            ->shouldIterateAs([0 => true]);
+            ->every(static fn ($value, $key): bool => is_numeric($key))
+            ->shouldBe(true);
 
         $this::fromIterable($input)
-            ->every(
-                static function ($value, $key, Iterator $iterator): bool {
-                    return $iterator instanceof Iterator;
-                }
-            )
-            ->shouldIterateAs([0 => true]);
+            ->every(static fn ($value, $key, Iterator $iterator): bool => $iterator instanceof ClosureIterator)
+            ->shouldBe(true);
 
         $callback1 = static fn ($value, $key): bool => 20 > $value;
         $this::fromIterable($input)
             ->every($callback1)
-            ->shouldIterateAs([0 => true]);
+            ->shouldBe(true);
 
         $callback2 = static fn ($value, $key): bool => 50 < $value;
         $this::fromIterable($input)
             ->every($callback2)
-            ->shouldIterateAs([0 => false]);
+            ->shouldBe(false);
 
         $this::fromIterable($input)
             ->every($callback2, $callback1)
-            ->shouldIterateAs([0 => true]);
+            ->shouldBe(true);
 
         // Validate a date
-        $date = '2021-04-09xxx';
-
-        $this::fromString($date, '-')
+        $this::fromString('2021-04-09xxx', '-')
             ->every(static fn (string $value): bool => is_numeric($value))
-            ->shouldIterateAs([
-                2 => false,
-            ]);
+            ->shouldBe(false);
     }
 
     public function it_can_explode(): void

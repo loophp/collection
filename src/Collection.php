@@ -334,9 +334,9 @@ final class Collection implements CollectionInterface
         return self::fromIterable($emptyArray);
     }
 
-    public function every(callable ...$callbacks): CollectionInterface
+    public function every(callable ...$callbacks): bool
     {
-        return new self(Every::of()(static fn (): bool => false)(...$callbacks), $this->getIterator());
+        return (new self(Every::of()(static fn (): bool => false)(...$callbacks), $this->getIterator()))->getIterator()->current();
     }
 
     public function explode(...$explodes): CollectionInterface

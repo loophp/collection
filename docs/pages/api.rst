@@ -657,22 +657,17 @@ Signature: ``Collection::every(callable ...$callbacks);``
 
 .. code-block:: php
 
-    $callback = static function ($value): bool {
-        return $value < 20;
-    };
+    $callback = static function (int $value): bool => $value < 20;
 
     Collection::fromIterable(range(0, 10))
-        ->every($callback)
-        ->current(); // true
+        ->every($callback); // true
 
     Collection::fromIterable(range(0, 10))
         ->append(21)
-        ->every($callback)
-        ->current(); // false
+        ->every($callback); // false
 
     Collection::fromIterable([])
-        ->every($callback)
-        ->current(); // true
+        ->every($callback); // true
 
 explode
 ~~~~~~~
