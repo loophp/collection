@@ -13,6 +13,7 @@ use Closure;
 use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation\Splitable;
+use loophp\collection\Utils\CallbacksArrayReducer;
 
 /**
  * @immutable
@@ -50,40 +51,11 @@ final class Split extends AbstractOperation
                     static function (Iterator $iterator) use ($type, $callbacks): Generator {
                         $carry = [];
 
-                        $reducerCallback =
-                            /**
-                             * @param TKey $key
-                             *
-                             * @return Closure(T): Closure(Iterator<TKey, T>): Closure(bool, callable(T, TKey, Iterator<TKey, T>): bool): bool
-                             */
-                            static fn ($key): Closure =>
-                                /**
-                                 * @param T $current
-                                 *
-                                 * @return Closure(Iterator<TKey, T>): Closure(bool, callable(T, TKey, Iterator<TKey, T>): bool): bool
-                                 */
-                                static fn ($current): Closure =>
-                                    /**
-                                     * @param Iterator<TKey, T> $iterator
-                                     *
-                                     * @return Closure(bool, callable(T, TKey, Iterator<TKey, T>): bool): bool
-                                     */
-                                    static fn (Iterator $iterator): Closure =>
-                                        /**
-                                         * @param bool $carry
-                                         * @param callable(T, TKey, Iterator<TKey, T>): bool $callable
-                                         */
-                                        static fn (bool $carry, callable $callable): bool => $carry || $callable($current, $key, $iterator);
-
-                        foreach ($iterator as $key => $value) {
-                            $callbackReturn = array_reduce(
-                                $callbacks,
-                                $reducerCallback($key)($value)($iterator),
-                                false
-                            );
+                        foreach ($iterator as $key => $current) {
+                            $callbackReturn = CallbacksArrayReducer::or()($callbacks, $current, $key, $iterator);
 
                             if (Splitable::AFTER === $type) {
-                                $carry[] = $value;
+                                $carry[] = $current;
                             }
 
                             if (Splitable::REMOVE === $type && true === $callbackReturn) {
@@ -101,7 +73,7 @@ final class Split extends AbstractOperation
                             }
 
                             if (Splitable::AFTER !== $type) {
-                                $carry[] = $value;
+                                $carry[] = $current;
                             }
                         }
 
