@@ -54,6 +54,7 @@ final class IfThenElse extends AbstractOperation
                             /**
                              * @param T $value
                              * @param TKey $key
+                             * @param Iterator<TKey, T> $iterator
                              *
                              * @return T
                              */
