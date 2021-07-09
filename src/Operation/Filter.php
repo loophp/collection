@@ -12,7 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Utils\OrCallbackReducer;
+use loophp\collection\Utils\CallbacksArrayReducer;
 
 /**
  * @immutable
@@ -55,7 +55,7 @@ final class Filter extends AbstractOperation
                         $callbacks;
 
                     foreach ($iterator as $key => $current) {
-                        $result = OrCallbackReducer::or()($callbacks, $current, $key, $iterator);
+                        $result = CallbacksArrayReducer::or()($callbacks, $current, $key, $iterator);
 
                         if (true === $result) {
                             yield $key => $current;

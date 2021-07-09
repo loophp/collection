@@ -20,7 +20,7 @@ use Iterator;
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
-final class OrCallbackReducer
+final class CallbacksArrayReducer
 {
     /**
      * @pure

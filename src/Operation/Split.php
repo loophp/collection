@@ -13,7 +13,7 @@ use Closure;
 use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation\Splitable;
-use loophp\collection\Utils\OrCallbackReducer;
+use loophp\collection\Utils\CallbacksArrayReducer;
 
 /**
  * @immutable
@@ -52,7 +52,7 @@ final class Split extends AbstractOperation
                         $carry = [];
 
                         foreach ($iterator as $key => $current) {
-                            $callbackReturn = OrCallbackReducer::or()($callbacks, $current, $key, $iterator);
+                            $callbackReturn = CallbacksArrayReducer::or()($callbacks, $current, $key, $iterator);
 
                             if (Splitable::AFTER === $type) {
                                 $carry[] = $current;

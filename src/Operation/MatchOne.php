@@ -12,7 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Utils\OrCallbackReducer;
+use loophp\collection\Utils\CallbacksArrayReducer;
 
 /**
  * @immutable
@@ -57,7 +57,7 @@ final class MatchOne extends AbstractOperation
                                  * @param TKey $key
                                  * @param Iterator<TKey, T> $iterator
                                  */
-                                static fn ($current, $key, Iterator $iterator): bool => OrCallbackReducer::or()($callbacks, $current, $key, $iterator);
+                                static fn ($current, $key, Iterator $iterator): bool => CallbacksArrayReducer::or()($callbacks, $current, $key, $iterator);
 
                         $mapCallback =
                             /**
