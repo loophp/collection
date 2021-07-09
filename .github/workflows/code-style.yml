@@ -56,4 +56,4 @@ jobs:
             - name: Send feedback on Github
               if: ${{ failure() }}
               run: |
-                  vendor/bin/php-cs-fixer --allow-risky=yes --config=.php_cs.dist fix --dry-run --format=checkstyle | cs2pr
+                  vendor/bin/php-cs-fixer --allow-risky=yes --config=.php-cs-fixer.dist.php fix --dry-run --format=checkstyle | cs2pr
