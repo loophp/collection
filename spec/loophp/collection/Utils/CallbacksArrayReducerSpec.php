@@ -32,12 +32,12 @@ class CallbacksArrayReducerSpec extends ObjectBehavior
         $iterator = new ArrayIterator($input);
 
         $this::or()($callbacks, 0, 0, $iterator)
-                ->shouldReturn(true);
+            ->shouldReturn(true);
 
         $this::or()($callbacks, 13, 0, $iterator)
-                ->shouldReturn(true);
+            ->shouldReturn(true);
 
         $this::or()($callbacks, 3, 0, $iterator)
-                ->shouldReturn(false);
+            ->shouldReturn(false);
     }
 }
