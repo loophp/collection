@@ -1584,60 +1584,38 @@ class CollectionSpec extends ObjectBehavior
         $input = range('A', 'C');
 
         $this::fromIterable($input)
-            ->has(
-                static function ($value, $key) {
-                    return 'A';
-                }
-            )
-            ->shouldIterateAs([true]);
+            ->has(static fn () => 'A')
+            ->shouldBe(true);
 
         $this::fromIterable($input)
-            ->has(
-                static function ($value, $key) {
-                    return 'Z';
-                }
-            )
-            ->shouldIterateAs([false]);
+            ->has(static fn () => 'Z')
+            ->shouldBe(false);
 
         $input = ['b', 1, 'foo', 'bar'];
 
         $this::fromIterable($input)
-            ->has(
-                static function ($value, $key) {
-                    return 'foo';
-                }
-            )
-            ->shouldIterateAs([2 => true]);
+            ->has(static fn () => 'foo')
+            ->shouldBe(true);
 
         $this::fromIterable($input)
-            ->has(
-                static function ($value, $key) {
-                    return 'unknown';
-                }
-            )
-            ->shouldIterateAs([false]);
+            ->has(static fn () => 'unknown')
+            ->shouldBe(false);
 
         $this::empty()
-            ->has(
-                static function ($value, $key) {
-                    return $value;
-                }
-            )
-            ->shouldIterateAs([false]);
+            ->has(static fn ($value) => $value)
+            ->shouldBe(false);
 
         $this::fromIterable($input)
-            ->has(
-                static fn () => 1,
-                static fn () => 'bar'
-            )
-            ->shouldIterateAs([1 => true]);
+            ->has(static fn () => 1, static fn () => 'bar')
+            ->shouldBe(true);
 
         $this::fromIterable($input)
-            ->has(
-                static fn () => 'coin',
-                static fn () => 'bar'
-            )
-            ->shouldIterateAs([3 => true]);
+            ->has(static fn () => 'coin', static fn () => 'bar')
+            ->shouldBe(true);
+
+        $this::fromIterable($input)
+            ->has(static fn ($value, $key) => 5 < $key ? 'bar' : 'coin')
+            ->shouldBe(false);
     }
 
     public function it_can_head(): void

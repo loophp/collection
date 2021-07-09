@@ -1002,9 +1002,9 @@ Signature: ``Collection::groupBy(?callable $callback = null);``
 has
 ~~~
 
-Check if the collection has values.
+Check if the collection has values with the help of one or more callables.
 
-.. warning:: The `callbacks` parameter is variadic and will be evaluated as a logical ``OR``.
+.. warning:: The ``callbacks`` parameter is variadic and will be evaluated as a logical ``OR``.
              If you're looking for a logical ``AND``, you have to make multiple calls to the
              same operation.
 
@@ -1015,16 +1015,16 @@ Signature: ``Collection::has(callable ...$callbacks);``
 .. code-block:: php
 
     Collection::fromIterable(range('A', 'C'))
-        ->has(static fn (): string => 'B'); // [1 => true]
+        ->has(static fn (): string => 'B'); // true
 
     Collection::fromIterable(range('A', 'C'))
-        ->has(static fn (): string => 'D'); // [0 => false]
+        ->has(static fn (): string => 'D'); // false
 
     Collection::fromIterable(range('A', 'C'))
         ->has(
-            static fn ($value, $key, Iterator $iterator): string => 'A',
-            static fn ($value, $key, Iterator $iterator): string => 'Z'
-        ); // [true]
+            static fn ($value, $key): string => $key > 4 ? 'D' : A',
+            static fn ($value, $key): string => 'Z'
+        ); // true
 
 head
 ~~~~
