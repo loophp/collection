@@ -1090,15 +1090,19 @@ class CollectionSpec extends ObjectBehavior
     {
         $this::fromIterable([false, false, false])
             ->falsy()
-            ->shouldIterateAs([true]);
+            ->shouldBe(true);
 
         $this::fromIterable([false, true, false])
             ->falsy()
-            ->shouldIterateAs([1 => false]);
+            ->shouldBe(false);
+
+        $this::fromIterable([1, 2, null])
+            ->falsy()
+            ->shouldBe(false);
 
         $this::fromIterable([0, [], ''])
             ->falsy()
-            ->shouldIterateAs([true]);
+            ->shouldBe(true);
     }
 
     public function it_can_filter(): void

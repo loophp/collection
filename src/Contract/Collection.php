@@ -156,7 +156,7 @@ use loophp\collection\Contract\Operation\Zipable;
  * @template-extends Duplicateable<TKey, T>
  * @template-extends Everyable<TKey, T>
  * @template-extends Explodeable<TKey, T>
- * @template-extends Falsyable<int, bool>
+ * @template-extends Falsyable<TKey, T>
  * @template-extends Filterable<TKey, T>
  * @template-extends Firstable<TKey, T>
  * @template-extends FlatMapable<TKey, T>

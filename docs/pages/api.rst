@@ -703,14 +703,13 @@ Signature: ``Collection::falsy();``
 .. code-block:: php
 
     $truthyCollection = Collection::fromIterable([2, 3, 4])
-        ->falsy(); // [false]
+        ->falsy(); // false
+
+    $truthyCollection = Collection::fromIterable([2, null, 4])
+        ->falsy(); // false
 
     $falsyCollection = Collection::fromIterable(['', null, 0])
-        ->falsy(); // [true]
-
-    if ($falsyCollection->falsy()->current()) {
-        // do something
-    }
+        ->falsy(); // true
 
 filter
 ~~~~~~

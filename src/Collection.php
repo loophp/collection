@@ -344,9 +344,9 @@ final class Collection implements CollectionInterface
         return new self(Explode::of()(...$explodes), $this->getIterator());
     }
 
-    public function falsy(): CollectionInterface
+    public function falsy(): bool
     {
-        return new self(Falsy::of(), $this->getIterator());
+        return (new self(Falsy::of(), $this->getIterator()))->getIterator()->current();
     }
 
     public function filter(callable ...$callbacks): CollectionInterface
