@@ -452,8 +452,7 @@ contains
 
 Check if the collection contains one or more values.
 
-.. warning:: The `values` parameter is variadic and will be evaluated as a logical ``OR``.
-             If you're looking for a logical ``AND``, you have to make separate calls to this method.
+.. warning:: The ``values`` parameter is variadic and will be evaluated as a logical ``OR``.
 
 Interface: `Containsable`_
 
@@ -647,9 +646,7 @@ every
 
 This operation tests whether all elements in the collection pass the test implemented by the provided callback(s).
 
-.. warning:: The `callbacks` parameter is variadic and will be evaluated as a logical ``OR``.
-             If you're looking for a logical ``AND``, you have to make multiple calls to the
-             same operation.
+.. warning:: The ``callbacks`` parameter is variadic and will be evaluated as a logical ``OR``.
 
 Interface: `Everyable`_
 
@@ -1000,8 +997,6 @@ has
 Check if the collection has values with the help of one or more callables.
 
 .. warning:: The ``callbacks`` parameter is variadic and will be evaluated as a logical ``OR``.
-             If you're looking for a logical ``AND``, you have to make multiple calls to the
-             same operation.
 
 Interface: `Hasable`_
 
@@ -1017,7 +1012,7 @@ Signature: ``Collection::has(callable ...$callbacks);``
 
     Collection::fromIterable(range('A', 'C'))
         ->has(
-            static fn ($value, $key): string => $key > 4 ? 'D' : A',
+            static fn ($value, $key): string => $key > 4 ? 'D' : 'A',
             static fn ($value, $key): string => 'Z'
         ); // true
 
