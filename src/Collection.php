@@ -635,9 +635,9 @@ final class Collection implements CollectionInterface
         return new self(Nth::of()($step)($offset), $this->getIterator());
     }
 
-    public function nullsy(): CollectionInterface
+    public function nullsy(): bool
     {
-        return new self(Nullsy::of(), $this->getIterator());
+        return (new self(Nullsy::of(), $this->getIterator()))->getIterator()->current();
     }
 
     public function pack(): CollectionInterface

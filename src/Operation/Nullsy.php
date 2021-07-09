@@ -35,15 +35,9 @@ final class Nullsy extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        $mapCallback =
-            /**
-             * @param T $value
-             */
-            static fn ($value): bool => in_array($value, self::VALUES, true);
-
         /** @var Closure(Iterator<TKey, T>): Generator<int, bool> $pipe */
         $pipe = Pipe::of()(
-            MatchOne::of()(static fn (): bool => false)($mapCallback),
+            MatchOne::of()(static fn (): bool => false)(static fn ($value): bool => in_array($value, self::VALUES, true)),
             Map::of()(static fn ($value): bool => !$value),
         );
 

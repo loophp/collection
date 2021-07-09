@@ -193,7 +193,7 @@ use loophp\collection\Contract\Operation\Zipable;
  * @template-extends Mergeable<TKey, T>
  * @template-extends Normalizeable<TKey, T>
  * @template-extends Nthable<TKey, T>
- * @template-extends Nullsyable<int, bool>
+ * @template-extends Nullsyable<TKey, T>
  * @template-extends Packable<TKey, T>
  * @template-extends Padable<TKey, T>
  * @template-extends Pairable<TKey, T>

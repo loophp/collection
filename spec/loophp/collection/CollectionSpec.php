@@ -2169,19 +2169,19 @@ class CollectionSpec extends ObjectBehavior
     {
         $this::fromIterable([null, null, null])
             ->nullsy()
-            ->shouldIterateAs([true]);
+            ->shouldBe(true);
 
         $this::fromIterable([null, 0, null])
             ->nullsy()
-            ->shouldIterateAs([true]);
+            ->shouldBe(true);
 
         $this::fromIterable([null, [], 0, false, ''])
             ->nullsy()
-            ->shouldIterateAs([true]);
+            ->shouldBe(true);
 
         $this::fromIterable([null, [], 0, false, '', 'foo'])
             ->nullsy()
-            ->shouldIterateAs([5 => false]);
+            ->shouldBe(false);
     }
 
     public function it_can_pack(): void

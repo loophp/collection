@@ -1421,15 +1421,11 @@ Signature: ``Collection::nullsy();``
 
 .. code-block:: php
 
-    $nullsy = Collection::fromIterable([null, null])
-        ->nullsy(); // [true]
+    $nullsy = Collection::fromIterable([null, false])
+        ->nullsy(); // true
 
     $nonNullsy = Collection::fromIterable(['a', null, 'c'])
-        ->nullsy(); // [false]
-
-    if ($falsyCollection->nullsy()->current()) {
-        // do something
-    }
+        ->nullsy(); // false
 
 pack
 ~~~~
