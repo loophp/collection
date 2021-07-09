@@ -453,8 +453,7 @@ contains
 Check if the collection contains one or more values.
 
 .. warning:: The `values` parameter is variadic and will be evaluated as a logical ``OR``.
-             If you're looking for a logical ``AND``, you have to make separate calls to this method;
-             note the calls cannot be in succession because the collection will contain a boolean after the first call.
+             If you're looking for a logical ``AND``, you have to make separate calls to this method.
 
 Interface: `Containsable`_
 
@@ -463,17 +462,13 @@ Signature: ``Collection::contains(...$values);``
 .. code-block:: php
 
     $collection = Collection::fromIterable(range('a', 'c'))
-        ->contains('d'); // [false]
+        ->contains('d'); // false
 
     $collection = Collection::fromIterable(range('a', 'c'))
-        ->contains('a', 'z'); // [true]
+        ->contains('a', 'z'); // true
 
     $collection = Collection::fromIterable(['a' => 'b', 'c' => 'd'])
-        ->contains('d'); // ['c' => true]
-
-    if ($collection->contains('d')->current()) {
-        // do something
-    }
+        ->contains('d'); // true
 
 count
 ~~~~~

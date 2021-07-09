@@ -9,8 +9,6 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
-use loophp\collection\Contract\Collection;
-
 /**
  * @template TKey
  * @template T
@@ -19,8 +17,6 @@ interface Containsable
 {
     /**
      * @param T ...$values
-     *
-     * @return Collection<TKey, bool>
      */
-    public function contains(...$values): Collection;
+    public function contains(...$values): bool;
 }

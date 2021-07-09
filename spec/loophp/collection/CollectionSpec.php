@@ -652,23 +652,23 @@ class CollectionSpec extends ObjectBehavior
     {
         $this::fromIterable(range('A', 'C'))
             ->contains('A')
-            ->shouldIterateAs([true]);
+            ->shouldBe(true);
 
         $this::fromIterable(range('A', 'C'))
             ->contains('unknown')
-            ->shouldIterateAs([false]);
+            ->shouldBe(false);
 
         $this::fromIterable(range('A', 'C'))
             ->contains('C', 'A')
-            ->shouldIterateAs([true]);
+            ->shouldBe(true);
 
         $this::fromIterable(range('A', 'C'))
             ->contains('C', 'unknown', 'A')
-            ->shouldIterateAs([true]);
+            ->shouldBe(true);
 
         $this::fromIterable(['a' => 'b', 'c' => 'd'])
             ->contains('d')
-            ->shouldIterateAs(['c' => true]);
+            ->shouldBe(true);
     }
 
     public function it_can_convert_use_a_string_as_parameter(): void

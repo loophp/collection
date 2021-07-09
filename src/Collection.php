@@ -242,9 +242,9 @@ final class Collection implements CollectionInterface
         return new self(Compact::of()(...$values), $this->getIterator());
     }
 
-    public function contains(...$values): CollectionInterface
+    public function contains(...$values): bool
     {
-        return new self(Contains::of()(...$values), $this->getIterator());
+        return (new self(Contains::of()(...$values), $this->getIterator()))->getIterator()->current();
     }
 
     public function count(): int
