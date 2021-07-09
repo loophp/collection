@@ -822,9 +822,9 @@ final class Collection implements CollectionInterface
         return new self(Transpose::of(), $this->getIterator());
     }
 
-    public function truthy(): CollectionInterface
+    public function truthy(): bool
     {
-        return new self(Truthy::of(), $this->getIterator());
+        return (new self(Truthy::of(), $this->getIterator()))->getIterator()->current();
     }
 
     public static function unfold(callable $callback, ...$parameters): CollectionInterface

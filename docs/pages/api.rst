@@ -2072,14 +2072,10 @@ Signature: ``Collection::truthy();``
 .. code-block:: php
 
     $truthyCollection = Collection::fromIterable([2, 3, 4])
-        ->truthy(); // [true]
+        ->truthy(); // true
 
     $falsyCollection = Collection::fromIterable(['a', '', 'c', 'd'])
-        ->truthy(); // [false]
-
-    if ($falsyCollection->truthy()->current()) {
-        // do something
-    }
+        ->truthy(); // false
 
 unlines
 ~~~~~~~

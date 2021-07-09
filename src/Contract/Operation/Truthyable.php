@@ -9,16 +9,11 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
-use loophp\collection\Contract\Collection;
-
 /**
  * @template TKey
  * @template T
  */
 interface Truthyable
 {
-    /**
-     * @return Collection<int, bool>
-     */
-    public function truthy(): Collection;
+    public function truthy(): bool;
 }

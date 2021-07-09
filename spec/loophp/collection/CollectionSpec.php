@@ -3123,19 +3123,19 @@ class CollectionSpec extends ObjectBehavior
     {
         $this::fromIterable([true, true, true])
             ->truthy()
-            ->shouldIterateAs([true]);
+            ->shouldBe(true);
 
         $this::fromIterable([true, false, true])
             ->truthy()
-            ->shouldIterateAs([1 => false]);
+            ->shouldBe(false);
 
         $this::fromIterable([1, 2, 3])
             ->truthy()
-            ->shouldIterateAs([true]);
+            ->shouldBe(true);
 
         $this::fromIterable([1, 2, 3, 0])
             ->truthy()
-            ->shouldIterateAs([3 => false]);
+            ->shouldBe(false);
     }
 
     public function it_can_unfold(): void
