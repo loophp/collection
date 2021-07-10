@@ -460,13 +460,13 @@ Signature: ``Collection::contains(...$values);``
 
 .. code-block:: php
 
-    $collection = Collection::fromIterable(range('a', 'c'))
+    $result = Collection::fromIterable(range('a', 'c'))
         ->contains('d'); // false
 
-    $collection = Collection::fromIterable(range('a', 'c'))
+    $result = Collection::fromIterable(range('a', 'c'))
         ->contains('a', 'z'); // true
 
-    $collection = Collection::fromIterable(['a' => 'b', 'c' => 'd'])
+    $result = Collection::fromIterable(['a' => 'b', 'c' => 'd'])
         ->contains('d'); // true
 
 count
@@ -656,14 +656,14 @@ Signature: ``Collection::every(callable ...$callbacks);``
 
     $callback = static function (int $value): bool => $value < 20;
 
-    Collection::fromIterable(range(0, 10))
+    $result = Collection::fromIterable(range(0, 10))
         ->every($callback); // true
 
-    Collection::fromIterable(range(0, 10))
+    $result = Collection::fromIterable(range(0, 10))
         ->append(21)
         ->every($callback); // false
 
-    Collection::fromIterable([])
+    $result = Collection::fromIterable([])
         ->every($callback); // true
 
 explode
@@ -694,13 +694,13 @@ Signature: ``Collection::falsy();``
 
 .. code-block:: php
 
-    $truthyCollection = Collection::fromIterable([2, 3, 4])
+    $result = Collection::fromIterable([2, 3, 4])
         ->falsy(); // false
 
-    $truthyCollection = Collection::fromIterable([2, null, 4])
+    $result = Collection::fromIterable([2, null, 4])
         ->falsy(); // false
 
-    $falsyCollection = Collection::fromIterable(['', null, 0])
+    $result = Collection::fromIterable(['', null, 0])
         ->falsy(); // true
 
 filter
@@ -1004,13 +1004,13 @@ Signature: ``Collection::has(callable ...$callbacks);``
 
 .. code-block:: php
 
-    Collection::fromIterable(range('A', 'C'))
+    $result = Collection::fromIterable(range('A', 'C'))
         ->has(static fn (): string => 'B'); // true
 
-    Collection::fromIterable(range('A', 'C'))
+    $result = Collection::fromIterable(range('A', 'C'))
         ->has(static fn (): string => 'D'); // false
 
-    Collection::fromIterable(range('A', 'C'))
+    $result = Collection::fromIterable(range('A', 'C'))
         ->has(
             static fn ($value, $key): string => $key > 4 ? 'D' : 'A',
             static fn ($value, $key): string => 'Z'
@@ -1411,10 +1411,10 @@ Signature: ``Collection::nullsy();``
 
 .. code-block:: php
 
-    $nullsy = Collection::fromIterable([null, false])
+    $result = Collection::fromIterable([null, false])
         ->nullsy(); // true
 
-    $nonNullsy = Collection::fromIterable(['a', null, 'c'])
+    $result = Collection::fromIterable(['a', null, 'c'])
         ->nullsy(); // false
 
 pack
@@ -2061,10 +2061,10 @@ Signature: ``Collection::truthy();``
 
 .. code-block:: php
 
-    $truthyCollection = Collection::fromIterable([2, 3, 4])
+    $result = Collection::fromIterable([2, 3, 4])
         ->truthy(); // true
 
-    $falsyCollection = Collection::fromIterable(['a', '', 'c', 'd'])
+    $result = Collection::fromIterable(['a', '', 'c', 'd'])
         ->truthy(); // false
 
 unlines
