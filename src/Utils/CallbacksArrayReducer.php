@@ -27,7 +27,7 @@ final class CallbacksArrayReducer
      *
      * @return Closure(list<callable(T, TKey, Iterator<TKey, T>): bool>, T, TKey, Iterator<TKey, T>): bool
      */
-    public static function or()
+    public static function or(): Closure
     {
         return
             /**

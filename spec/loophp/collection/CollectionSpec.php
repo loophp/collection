@@ -1989,27 +1989,16 @@ class CollectionSpec extends ObjectBehavior
         $input = range(1, 10);
 
         $this::fromIterable($input)
-            ->match(
-                static function (int $value): bool {
-                    return 7 === $value;
-                }
-            )
-            ->shouldIterateAs([6 => true]);
+            ->match(static fn (int $value): bool => 7 === $value)
+            ->shouldBe(true);
 
         $this::fromIterable($input)
-            ->match(
-                static function (int $value): bool {
-                    return 17 === $value;
-                }
-            )
-            ->shouldIterateAs([0 => false]);
+            ->match(static fn (int $value): bool => 17 === $value)
+            ->shouldBe(false);
 
         $this::fromIterable($input)
-            ->match(
-                static fn (int $value): bool => 5 !== $value,
-                static fn (): bool => false
-            )
-            ->shouldIterateAs([4 => true]);
+            ->match(static fn (int $value): bool => 5 !== $value, static fn (): bool => false)
+            ->shouldBe(true);
     }
 
     public function it_can_matching(): void

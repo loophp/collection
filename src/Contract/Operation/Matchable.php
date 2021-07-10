@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace loophp\collection\Contract\Operation;
 
 use Iterator;
-use loophp\collection\Contract\Collection;
 
 /**
  * @template TKey
@@ -20,9 +19,7 @@ interface Matchable
 {
     /**
      * @param callable(T, TKey, Iterator<TKey, T>): bool $callback
-     * @param null|callable(T, TKey, Iterator<TKey, T>): T $matcher
-     *
-     * @return Collection<int, bool>
+     * @param null|callable(T, TKey, Iterator<TKey, T>): bool $matcher
      */
-    public function match(callable $callback, ?callable $matcher = null): Collection;
+    public function match(callable $callback, ?callable $matcher = null): bool;
 }

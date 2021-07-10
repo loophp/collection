@@ -610,9 +610,11 @@ final class Collection implements CollectionInterface
         return new self(MapN::of()(...$callbacks), $this->getIterator());
     }
 
-    public function match(callable $callback, ?callable $matcher = null): CollectionInterface
+    public function match(callable $callback, ?callable $matcher = null): bool
     {
-        return new self(MatchOne::of()($matcher ?? static fn (): bool => true)($callback), $this->getIterator());
+        return (new self(MatchOne::of()($matcher ?? static fn (): bool => true)($callback), $this->getIterator()))
+            ->getIterator()
+            ->current();
     }
 
     public function matching(Criteria $criteria): CollectionInterface
