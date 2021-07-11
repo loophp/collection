@@ -185,17 +185,8 @@ Interface: `Allable`_
 
 Signature: ``Collection::all();``
 
-.. code-block:: php
-
-        $generator = static function (): Generator {
-            yield 0 => 'a';
-            yield 1 => 'b';
-            yield 0 => 'c';
-            yield 2 => 'd';
-        };
-
-        Collection::fromIterable($generator())
-            ->all(); // [0 => 'c', 1 => 'b', 2 => 'd']
+.. literalinclude:: code/operations/all.php
+  :language: php
 
 append
 ~~~~~~

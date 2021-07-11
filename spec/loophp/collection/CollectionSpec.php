@@ -34,6 +34,32 @@ use const PHP_EOL;
 
 class CollectionSpec extends ObjectBehavior
 {
+    public function it_can_all(): void
+    {
+        $this::fromIterable([1, 2, 3])
+            ->all()
+            ->shouldIterateAs([1, 2, 3]);
+
+        $this::fromIterable(['foo' => 'f', 'bar' => 'b'])
+            ->all()
+            ->shouldIterateAs(['foo' => 'f', 'bar' => 'b']);
+
+        $duplicateKeyGen = static function (): Generator {
+            yield 'a' => 1;
+
+            yield 'b' => 2;
+
+            yield 'a' => 3;
+        };
+
+        $this::fromIterable($duplicateKeyGen())
+            ->shouldIterateAs($duplicateKeyGen());
+
+        $this::fromIterable($duplicateKeyGen())
+            ->all()
+            ->shouldIterateAs(['a' => 3, 'b' => 2]);
+    }
+
     public function it_can_append(): void
     {
         $generator = static function (): Generator {
