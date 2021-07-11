@@ -14,6 +14,7 @@ use Closure;
 use Exception;
 use Generator;
 use Iterator;
+use loophp\fpt\FPT;
 
 use function Amp\Iterator\fromIterable;
 use function Amp\ParallelFunctions\parallel;
@@ -80,7 +81,7 @@ final class AsyncMap extends AbstractOperation
                         static function (array $value) use ($callbacks, $callbackFactory): array {
                             [$key, $value] = $value;
 
-                            return [$key, array_reduce($callbacks, $callbackFactory($key), $value)];
+                            return [$key, FPT::reduce()($callbackFactory($key))($value)($callbacks)];
                         };
 
                     $iter = map(fromIterable(Pack::of()($iterator)), new LocalSemaphore(32), parallel($callback));

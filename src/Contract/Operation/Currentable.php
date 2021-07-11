@@ -16,7 +16,9 @@ namespace loophp\collection\Contract\Operation;
 interface Currentable
 {
     /**
+     * @param mixed|null $default
+     *
      * @return T|null
      */
-    public function current(int $index = 0);
+    public function current(int $index = 0, $default = null);
 }

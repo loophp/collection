@@ -126,6 +126,7 @@ use loophp\collection\Operation\Window;
 use loophp\collection\Operation\Words;
 use loophp\collection\Operation\Wrap;
 use loophp\collection\Operation\Zip;
+use loophp\fpt\FPT;
 use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
 
@@ -186,13 +187,7 @@ final class Collection implements CollectionInterface
         ?callable $callbackForKeys = null,
         ?callable $callbackForValues = null
     ): CollectionInterface {
-        $defaultCallback =
-            /**
-             * @param T|TKey $carry
-             *
-             * @return T|TKey
-             */
-            static fn ($carry) => $carry;
+        $defaultCallback = FPT::identity();
 
         return new self(Associate::of()($callbackForKeys ?? $defaultCallback)($callbackForValues ?? $defaultCallback), $this->getIterator());
     }
@@ -252,9 +247,9 @@ final class Collection implements CollectionInterface
         return iterator_count($this->getIterator());
     }
 
-    public function current(int $index = 0)
+    public function current(int $index = 0, $default = null)
     {
-        return (new self(Current::of()($index), $this->getIterator()))->getIterator()->current();
+        return FPT::current()($default)(new self(Current::of()($index), $this->getIterator()));
     }
 
     public function cycle(): CollectionInterface
@@ -336,7 +331,7 @@ final class Collection implements CollectionInterface
 
     public function every(callable ...$callbacks): CollectionInterface
     {
-        return new self(Every::of()(static fn (): bool => false)(...$callbacks), $this->getIterator());
+        return new self(Every::of()(FPT::thunk()(false))(...$callbacks), $this->getIterator());
     }
 
     public function explode(...$explodes): CollectionInterface
@@ -521,15 +516,10 @@ final class Collection implements CollectionInterface
 
     public function ifThenElse(callable $condition, callable $then, ?callable $else = null): CollectionInterface
     {
-        $identity =
-            /**
-             * @param T $value
-             *
-             * @return T
-             */
-            static fn ($value) => $value;
-
-        return new self(IfThenElse::of()($condition)($then)($else ?? $identity), $this->getIterator());
+        return new self(
+            IfThenElse::of()($condition)($then)($else ?? FPT::identity()),
+            $this->getIterator()
+        );
     }
 
     public function implode(string $glue = ''): CollectionInterface
@@ -575,9 +565,9 @@ final class Collection implements CollectionInterface
         return $this->all();
     }
 
-    public function key(int $index = 0)
+    public function key(int $index = 0, $default = null)
     {
-        return (new self(Key::of()($index), $this->getIterator()))->getIterator()->current();
+        return FPT::current()($default)(new self(Key::of()($index), $this->getIterator()));
     }
 
     public function keys(): CollectionInterface
@@ -612,7 +602,10 @@ final class Collection implements CollectionInterface
 
     public function match(callable $callback, ?callable $matcher = null): CollectionInterface
     {
-        return new self(MatchOne::of()($matcher ?? static fn (): bool => true)($callback), $this->getIterator());
+        return new self(
+            MatchOne::of()($matcher ?? FPT::thunk()(true))($callback),
+            $this->getIterator()
+        );
     }
 
     public function matching(Criteria $criteria): CollectionInterface
@@ -693,7 +686,10 @@ final class Collection implements CollectionInterface
 
     public function random(int $size = 1, ?int $seed = null): CollectionInterface
     {
-        return new self(Random::of()($seed ?? random_int(PHP_INT_MIN, PHP_INT_MAX))($size), $this->getIterator());
+        return new self(
+            Random::of()($seed ?? random_int(PHP_INT_MIN, PHP_INT_MAX))($size),
+            $this->getIterator()
+        );
     }
 
     public static function range(float $start = 0.0, float $end = INF, float $step = 1.0): CollectionInterface
@@ -753,7 +749,10 @@ final class Collection implements CollectionInterface
 
     public function shuffle(?int $seed = null): CollectionInterface
     {
-        return new self(Shuffle::of()($seed ?? random_int(PHP_INT_MIN, PHP_INT_MAX)), $this->getIterator());
+        return new self(
+            Shuffle::of()($seed ?? random_int(PHP_INT_MIN, PHP_INT_MAX)),
+            $this->getIterator()
+        );
     }
 
     public function since(callable ...$callbacks): CollectionInterface

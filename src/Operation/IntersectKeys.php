@@ -12,8 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-
-use function in_array;
+use loophp\fpt\FPT;
 
 /**
  * @immutable
@@ -37,15 +36,15 @@ final class IntersectKeys extends AbstractOperation
              * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static function (...$keys): Closure {
-                $filterCallbackFactory = static fn (array $keys): Closure =>
-                    /**
-                     * @param T $value
-                     * @param TKey $key
-                     */
-                    static fn ($value, $key): bool => in_array($key, $keys, true);
-
-                /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $filter */
-                $filter = Filter::of()($filterCallbackFactory($keys));
+                /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $filter */
+                $filter = Filter::of()(
+                    FPT::compose()(
+                        FPT::partialLeft()(
+                            'in_array'
+                        )($keys, true),
+                        FPT::arg()(1)
+                    )
+                );
 
                 // Point free style.
                 return $filter;

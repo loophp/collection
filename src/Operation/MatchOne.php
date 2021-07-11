@@ -13,6 +13,8 @@ use Closure;
 use Generator;
 use Iterator;
 use loophp\collection\Utils\CallbacksArrayReducer;
+use loophp\fpt\FPT;
+use loophp\fpt\Operator;
 
 /**
  * @immutable
@@ -77,12 +79,17 @@ final class MatchOne extends AbstractOperation
                                      * @param TKey $key
                                      * @param Iterator<TKey, T> $iterator
                                      */
-                                    static fn ($value, $key, Iterator $iterator): bool => $reducer1($value, $key, $iterator) === $reducer2($value, $key, $iterator);
+                                    static fn ($value, $key, Iterator $iterator): bool => FPT::operator()(Operator::OP_EQUAL)($reducer1($value, $key, $iterator))($reducer2($value, $key, $iterator));
 
                         /** @var Closure(Iterator<TKey, T>): Generator<TKey|int, bool> $pipe */
                         $pipe = Pipe::of()(
                             Map::of()($mapCallback($callbackReducer($callbacks))($callbackReducer($matchers))),
-                            DropWhile::of()(static fn (bool $value): bool => false === $value),
+                            DropWhile::of()(
+                                FPT::compose()(
+                                    FPT::operator()(Operator::OP_EQUAL)(false),
+                                    FPT::arg()(0)
+                                )
+                            ),
                             Append::of()(false),
                             Head::of()
                         );
