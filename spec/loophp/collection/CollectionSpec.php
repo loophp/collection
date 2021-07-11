@@ -27,7 +27,6 @@ use PhpSpec\Exception\Example\FailureException;
 use PhpSpec\Exception\Example\MatcherException;
 use PhpSpec\ObjectBehavior;
 use stdClass;
-use TypeError;
 use function gettype;
 use const E_USER_DEPRECATED;
 use const INF;
