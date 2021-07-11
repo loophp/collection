@@ -12,7 +12,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\fpt\Reduce;
 
 /**
  * @immutable
