@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace loophp\collection\Contract\Operation;
 
 use Iterator;
-use loophp\collection\Contract\Collection;
 
 /**
  * @template TKey
@@ -20,8 +19,6 @@ interface Hasable
 {
     /**
      * @param callable(T, TKey, Iterator<TKey, T>): T ...$callbacks
-     *
-     * @return Collection<TKey, bool>
      */
-    public function has(callable ...$callbacks): Collection;
+    public function has(callable ...$callbacks): bool;
 }

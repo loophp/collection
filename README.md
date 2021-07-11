@@ -76,7 +76,7 @@ This library has been inspired by:
     needed are standard PHP variables like `int`, `string`, `callable` or
     `iterator`.
     It allows users to use those operations individually, at their own will, to
-    build up something custom. Currently, more than [**80 operations**][28] are
+    build up something custom. Currently, more than [**100 operations**][28] are
     available in this library. This library is an example of what you can do
     with all those small bricks, but nothing prevents users from using an operation
     on its own as well.

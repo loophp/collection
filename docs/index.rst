@@ -58,7 +58,7 @@ Features
    the arguments needed are standard PHP variables like ``int``,
    ``string``, ``callable`` or ``iterator``. It allows users to use
    those operations individually, at their own will, to build up
-   something custom. Currently, more than :ref:`80 operations <api>`
+   something custom. Currently, more than :ref:`100 operations <api>`
    are available in this library. This library is an example of what
    you can do with all those small bricks, but nothing prevents users
    from using an operation on its own as well.

@@ -21,6 +21,7 @@ use JsonSerializable;
 use loophp\collection\Collection;
 use loophp\collection\Contract\Collection as CollectionInterface;
 use loophp\collection\Contract\Operation;
+use loophp\collection\Iterator\ClosureIterator;
 use loophp\collection\Operation\AbstractOperation;
 use OutOfBoundsException;
 use PhpSpec\Exception\Example\FailureException;
@@ -651,23 +652,23 @@ class CollectionSpec extends ObjectBehavior
     {
         $this::fromIterable(range('A', 'C'))
             ->contains('A')
-            ->shouldIterateAs([true]);
+            ->shouldBe(true);
 
         $this::fromIterable(range('A', 'C'))
             ->contains('unknown')
-            ->shouldIterateAs([false]);
+            ->shouldBe(false);
 
         $this::fromIterable(range('A', 'C'))
             ->contains('C', 'A')
-            ->shouldIterateAs([true]);
+            ->shouldBe(true);
 
         $this::fromIterable(range('A', 'C'))
             ->contains('C', 'unknown', 'A')
-            ->shouldIterateAs([true]);
+            ->shouldBe(true);
 
         $this::fromIterable(['a' => 'b', 'c' => 'd'])
             ->contains('d')
-            ->shouldIterateAs(['c' => true]);
+            ->shouldBe(true);
     }
 
     public function it_can_convert_use_a_string_as_parameter(): void
@@ -983,57 +984,42 @@ class CollectionSpec extends ObjectBehavior
     public function it_can_every(): void
     {
         $input = range(0, 10);
-
-        $callback = static function ($value): bool {
-            return 20 > $value;
-        };
+        $callback = static fn ($value): bool => 20 > $value;
 
         $this::fromIterable($input)
             ->every($callback)
-            ->shouldIterateAs([0 => true]);
+            ->shouldBe(true);
 
         $this::empty()
             ->every($callback)
-            ->shouldIterateAs([0 => true]);
+            ->shouldBe(true);
 
         $this::fromIterable($input)
-            ->every(
-                static function ($value, $key, Iterator $iterator): bool {
-                    return is_numeric($key);
-                }
-            )
-            ->shouldIterateAs([0 => true]);
+            ->every(static fn ($value, $key): bool => is_numeric($key))
+            ->shouldBe(true);
 
         $this::fromIterable($input)
-            ->every(
-                static function ($value, $key, Iterator $iterator): bool {
-                    return $iterator instanceof Iterator;
-                }
-            )
-            ->shouldIterateAs([0 => true]);
+            ->every(static fn ($value, $key, Iterator $iterator): bool => $iterator instanceof ClosureIterator)
+            ->shouldBe(true);
 
         $callback1 = static fn ($value, $key): bool => 20 > $value;
         $this::fromIterable($input)
             ->every($callback1)
-            ->shouldIterateAs([0 => true]);
+            ->shouldBe(true);
 
         $callback2 = static fn ($value, $key): bool => 50 < $value;
         $this::fromIterable($input)
             ->every($callback2)
-            ->shouldIterateAs([0 => false]);
+            ->shouldBe(false);
 
         $this::fromIterable($input)
             ->every($callback2, $callback1)
-            ->shouldIterateAs([0 => true]);
+            ->shouldBe(true);
 
         // Validate a date
-        $date = '2021-04-09xxx';
-
-        $this::fromString($date, '-')
+        $this::fromString('2021-04-09xxx', '-')
             ->every(static fn (string $value): bool => is_numeric($value))
-            ->shouldIterateAs([
-                2 => false,
-            ]);
+            ->shouldBe(false);
     }
 
     public function it_can_explode(): void
@@ -1089,15 +1075,19 @@ class CollectionSpec extends ObjectBehavior
     {
         $this::fromIterable([false, false, false])
             ->falsy()
-            ->shouldIterateAs([true]);
+            ->shouldBe(true);
 
         $this::fromIterable([false, true, false])
             ->falsy()
-            ->shouldIterateAs([1 => false]);
+            ->shouldBe(false);
+
+        $this::fromIterable([1, 2, null])
+            ->falsy()
+            ->shouldBe(false);
 
         $this::fromIterable([0, [], ''])
             ->falsy()
-            ->shouldIterateAs([true]);
+            ->shouldBe(true);
     }
 
     public function it_can_filter(): void
@@ -1579,60 +1569,38 @@ class CollectionSpec extends ObjectBehavior
         $input = range('A', 'C');
 
         $this::fromIterable($input)
-            ->has(
-                static function ($value, $key) {
-                    return 'A';
-                }
-            )
-            ->shouldIterateAs([true]);
+            ->has(static fn () => 'A')
+            ->shouldBe(true);
 
         $this::fromIterable($input)
-            ->has(
-                static function ($value, $key) {
-                    return 'Z';
-                }
-            )
-            ->shouldIterateAs([false]);
+            ->has(static fn () => 'Z')
+            ->shouldBe(false);
 
         $input = ['b', 1, 'foo', 'bar'];
 
         $this::fromIterable($input)
-            ->has(
-                static function ($value, $key) {
-                    return 'foo';
-                }
-            )
-            ->shouldIterateAs([2 => true]);
+            ->has(static fn () => 'foo')
+            ->shouldBe(true);
 
         $this::fromIterable($input)
-            ->has(
-                static function ($value, $key) {
-                    return 'unknown';
-                }
-            )
-            ->shouldIterateAs([false]);
+            ->has(static fn () => 'unknown')
+            ->shouldBe(false);
 
         $this::empty()
-            ->has(
-                static function ($value, $key) {
-                    return $value;
-                }
-            )
-            ->shouldIterateAs([false]);
+            ->has(static fn ($value) => $value)
+            ->shouldBe(false);
 
         $this::fromIterable($input)
-            ->has(
-                static fn () => 1,
-                static fn () => 'bar'
-            )
-            ->shouldIterateAs([1 => true]);
+            ->has(static fn () => 1, static fn () => 'bar')
+            ->shouldBe(true);
 
         $this::fromIterable($input)
-            ->has(
-                static fn () => 'coin',
-                static fn () => 'bar'
-            )
-            ->shouldIterateAs([3 => true]);
+            ->has(static fn () => 'coin', static fn () => 'bar')
+            ->shouldBe(true);
+
+        $this::fromIterable($input)
+            ->has(static fn ($value, $key) => 5 < $key ? 'bar' : 'coin')
+            ->shouldBe(false);
     }
 
     public function it_can_head(): void
@@ -2036,27 +2004,16 @@ class CollectionSpec extends ObjectBehavior
         $input = range(1, 10);
 
         $this::fromIterable($input)
-            ->match(
-                static function (int $value): bool {
-                    return 7 === $value;
-                }
-            )
-            ->shouldIterateAs([6 => true]);
+            ->match(static fn (int $value): bool => 7 === $value)
+            ->shouldBe(true);
 
         $this::fromIterable($input)
-            ->match(
-                static function (int $value): bool {
-                    return 17 === $value;
-                }
-            )
-            ->shouldIterateAs([0 => false]);
+            ->match(static fn (int $value): bool => 17 === $value)
+            ->shouldBe(false);
 
         $this::fromIterable($input)
-            ->match(
-                static fn (int $value): bool => 5 !== $value,
-                static fn (): bool => false
-            )
-            ->shouldIterateAs([4 => true]);
+            ->match(static fn (int $value): bool => 5 !== $value, static fn (): bool => false)
+            ->shouldBe(true);
     }
 
     public function it_can_matching(): void
@@ -2180,19 +2137,19 @@ class CollectionSpec extends ObjectBehavior
     {
         $this::fromIterable([null, null, null])
             ->nullsy()
-            ->shouldIterateAs([true]);
+            ->shouldBe(true);
 
         $this::fromIterable([null, 0, null])
             ->nullsy()
-            ->shouldIterateAs([true]);
+            ->shouldBe(true);
 
         $this::fromIterable([null, [], 0, false, ''])
             ->nullsy()
-            ->shouldIterateAs([true]);
+            ->shouldBe(true);
 
         $this::fromIterable([null, [], 0, false, '', 'foo'])
             ->nullsy()
-            ->shouldIterateAs([5 => false]);
+            ->shouldBe(false);
     }
 
     public function it_can_pack(): void
@@ -3134,19 +3091,19 @@ class CollectionSpec extends ObjectBehavior
     {
         $this::fromIterable([true, true, true])
             ->truthy()
-            ->shouldIterateAs([true]);
+            ->shouldBe(true);
 
         $this::fromIterable([true, false, true])
             ->truthy()
-            ->shouldIterateAs([1 => false]);
+            ->shouldBe(false);
 
         $this::fromIterable([1, 2, 3])
             ->truthy()
-            ->shouldIterateAs([true]);
+            ->shouldBe(true);
 
         $this::fromIterable([1, 2, 3, 0])
             ->truthy()
-            ->shouldIterateAs([3 => false]);
+            ->shouldBe(false);
     }
 
     public function it_can_unfold(): void

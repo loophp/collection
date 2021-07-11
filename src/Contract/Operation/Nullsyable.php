@@ -9,16 +9,11 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
-use loophp\collection\Contract\Collection;
-
 /**
  * @template TKey
  * @template T
  */
 interface Nullsyable
 {
-    /**
-     * @return Collection<int, bool>
-     */
-    public function nullsy(): Collection;
+    public function nullsy(): bool;
 }

@@ -156,7 +156,7 @@ use loophp\collection\Contract\Operation\Zipable;
  * @template-extends Duplicateable<TKey, T>
  * @template-extends Everyable<TKey, T>
  * @template-extends Explodeable<TKey, T>
- * @template-extends Falsyable<int, bool>
+ * @template-extends Falsyable<TKey, T>
  * @template-extends Filterable<TKey, T>
  * @template-extends Firstable<TKey, T>
  * @template-extends FlatMapable<TKey, T>
@@ -193,7 +193,7 @@ use loophp\collection\Contract\Operation\Zipable;
  * @template-extends Mergeable<TKey, T>
  * @template-extends Normalizeable<TKey, T>
  * @template-extends Nthable<TKey, T>
- * @template-extends Nullsyable<int, bool>
+ * @template-extends Nullsyable<TKey, T>
  * @template-extends Packable<TKey, T>
  * @template-extends Padable<TKey, T>
  * @template-extends Pairable<TKey, T>
@@ -225,7 +225,7 @@ use loophp\collection\Contract\Operation\Zipable;
  * @template-extends Tailsable<TKey, T>
  * @template-extends TakeWhileable<TKey, T>
  * @template-extends Transposeable<TKey, T>
- * @template-extends Truthyable<int, bool>
+ * @template-extends Truthyable<TKey, T>
  * @template-extends Unlinesable<TKey, T>
  * @template-extends Unpackable<TKey, T>
  * @template-extends Unpairable<TKey, T>

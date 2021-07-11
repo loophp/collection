@@ -28,16 +28,10 @@ final class Truthy extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        $callback =
-            /**
-             * @param T $value
-             */
-            static fn ($value): bool => !(bool) $value;
-
         /** @var Closure(Iterator<TKey, T>): Generator<int, bool> $pipe */
         $pipe = Pipe::of()(
-            MatchOne::of()(static fn (): bool => true)($callback),
-            Map::of()($callback),
+            MatchOne::of()(static fn (): bool => true)(static fn ($value): bool => !(bool) $value),
+            Map::of()(static fn ($value): bool => !(bool) $value),
         );
 
         // Point free style.

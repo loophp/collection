@@ -242,9 +242,9 @@ final class Collection implements CollectionInterface
         return new self(Compact::of()(...$values), $this->getIterator());
     }
 
-    public function contains(...$values): CollectionInterface
+    public function contains(...$values): bool
     {
-        return new self(Contains::of()(...$values), $this->getIterator());
+        return (new self(Contains::of()(...$values), $this->getIterator()))->getIterator()->current();
     }
 
     public function count(): int
@@ -334,9 +334,9 @@ final class Collection implements CollectionInterface
         return self::fromIterable($emptyArray);
     }
 
-    public function every(callable ...$callbacks): CollectionInterface
+    public function every(callable ...$callbacks): bool
     {
-        return new self(Every::of()(static fn (): bool => false)(...$callbacks), $this->getIterator());
+        return (new self(Every::of()(static fn (): bool => false)(...$callbacks), $this->getIterator()))->getIterator()->current();
     }
 
     public function explode(...$explodes): CollectionInterface
@@ -344,9 +344,9 @@ final class Collection implements CollectionInterface
         return new self(Explode::of()(...$explodes), $this->getIterator());
     }
 
-    public function falsy(): CollectionInterface
+    public function falsy(): bool
     {
-        return new self(Falsy::of(), $this->getIterator());
+        return (new self(Falsy::of(), $this->getIterator()))->getIterator()->current();
     }
 
     public function filter(callable ...$callbacks): CollectionInterface
@@ -509,9 +509,9 @@ final class Collection implements CollectionInterface
         return new self(GroupBy::of()($callable), $this->getIterator());
     }
 
-    public function has(callable ...$callbacks): CollectionInterface
+    public function has(callable ...$callbacks): bool
     {
-        return new self(Has::of()(...$callbacks), $this->getIterator());
+        return (new self(Has::of()(...$callbacks), $this->getIterator()))->getIterator()->current();
     }
 
     public function head(): CollectionInterface
@@ -610,9 +610,11 @@ final class Collection implements CollectionInterface
         return new self(MapN::of()(...$callbacks), $this->getIterator());
     }
 
-    public function match(callable $callback, ?callable $matcher = null): CollectionInterface
+    public function match(callable $callback, ?callable $matcher = null): bool
     {
-        return new self(MatchOne::of()($matcher ?? static fn (): bool => true)($callback), $this->getIterator());
+        return (new self(MatchOne::of()($matcher ?? static fn (): bool => true)($callback), $this->getIterator()))
+            ->getIterator()
+            ->current();
     }
 
     public function matching(Criteria $criteria): CollectionInterface
@@ -635,9 +637,9 @@ final class Collection implements CollectionInterface
         return new self(Nth::of()($step)($offset), $this->getIterator());
     }
 
-    public function nullsy(): CollectionInterface
+    public function nullsy(): bool
     {
-        return new self(Nullsy::of(), $this->getIterator());
+        return (new self(Nullsy::of(), $this->getIterator()))->getIterator()->current();
     }
 
     public function pack(): CollectionInterface
@@ -822,9 +824,9 @@ final class Collection implements CollectionInterface
         return new self(Transpose::of(), $this->getIterator());
     }
 
-    public function truthy(): CollectionInterface
+    public function truthy(): bool
     {
-        return new self(Truthy::of(), $this->getIterator());
+        return (new self(Truthy::of(), $this->getIterator()))->getIterator()->current();
     }
 
     public static function unfold(callable $callback, ...$parameters): CollectionInterface

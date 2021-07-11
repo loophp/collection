@@ -31,7 +31,7 @@ Create a collection from a callable.
     $collection = Collection::fromCallable($callback);
 
 fromFile
-~~~~~~~~~~~~
+~~~~~~~~
 
 Create a collection from a file.
 
@@ -145,7 +145,33 @@ Another example
 Methods (operations)
 --------------------
 
-.. note:: Operations always returns a new collection object, with the exception of ``all``, ``count``, ``current``, ``key``.
+Background
+~~~~~~~~~~
+
+Operations are pure functions which can be used to manipulate an iterator, either directly
+or through the ``Collection`` object.
+
+.. literalinclude:: code/operations/background.php
+  :language: php
+
+When used separately, operations typically return a PHP `Generator`_ or an `Iterator`_.
+When used as a ``Collection`` method, operations fall into a few main categories based on the return type:
+
+1. Operations that return a ``boolean`` or ``scalar`` value: ``Contains``, ``Count``, ``Every``, ``Falsy``, ``Has``, ``IsEmpty``, ``Match`` (or ``MatchOne``), ``Nullsy``, ``Truthy``.
+
+2. Operations that return a ``Collection`` of ``Collection`` objects: ``Partition``, ``Span``.
+
+3. Operations that return keys/values from the collection: ``All``, ``Current``, ``Get``, ``Key``.
+
+4. Operations that return a new ``Collection`` object: all other operations.
+
+.. note:: The ``Key`` operation can return any value because ``Collection`` leverages PHP Generators, 
+        which allow using any type as a key as opposed to ``array``, which only allows ``int|string`` keys.
+
+.. note:: Earlier versions of the package had most operations returning a new ``Collection`` object.
+        This was changed based on convenience and ease of use; typical usage of operations which return ``boolean`` values
+        would involve immediately retrieving the value inside, whereas for most other operations further transformations
+        are likely to be applied.
 
 all
 ~~~
@@ -452,9 +478,7 @@ contains
 
 Check if the collection contains one or more values.
 
-.. warning:: The `values` parameter is variadic and will be evaluated as a logical ``OR``.
-             If you're looking for a logical ``AND``, you have to make separate calls to this method;
-             note the calls cannot be in succession because the collection will contain a boolean after the first call.
+.. warning:: The ``values`` parameter is variadic and will be evaluated as a logical ``OR``.
 
 Interface: `Containsable`_
 
@@ -462,18 +486,14 @@ Signature: ``Collection::contains(...$values);``
 
 .. code-block:: php
 
-    $collection = Collection::fromIterable(range('a', 'c'))
-        ->contains('d'); // [false]
+    $result = Collection::fromIterable(range('a', 'c'))
+        ->contains('d'); // false
 
-    $collection = Collection::fromIterable(range('a', 'c'))
-        ->contains('a', 'z'); // [true]
+    $result = Collection::fromIterable(range('a', 'c'))
+        ->contains('a', 'z'); // true
 
-    $collection = Collection::fromIterable(['a' => 'b', 'c' => 'd'])
-        ->contains('d'); // ['c' => true]
-
-    if ($collection->contains('d')->current()) {
-        // do something
-    }
+    $result = Collection::fromIterable(['a' => 'b', 'c' => 'd'])
+        ->contains('d'); // true
 
 count
 ~~~~~
@@ -652,9 +672,7 @@ every
 
 This operation tests whether all elements in the collection pass the test implemented by the provided callback(s).
 
-.. warning:: The `callbacks` parameter is variadic and will be evaluated as a logical ``OR``.
-             If you're looking for a logical ``AND``, you have to make multiple calls to the
-             same operation.
+.. warning:: The ``callbacks`` parameter is variadic and will be evaluated as a logical ``OR``.
 
 Interface: `Everyable`_
 
@@ -662,22 +680,17 @@ Signature: ``Collection::every(callable ...$callbacks);``
 
 .. code-block:: php
 
-    $callback = static function ($value): bool {
-        return $value < 20;
-    };
+    $callback = static function (int $value): bool => $value < 20;
 
-    Collection::fromIterable(range(0, 10))
-        ->every($callback)
-        ->current(); // true
+    $result = Collection::fromIterable(range(0, 10))
+        ->every($callback); // true
 
-    Collection::fromIterable(range(0, 10))
+    $result = Collection::fromIterable(range(0, 10))
         ->append(21)
-        ->every($callback)
-        ->current(); // false
+        ->every($callback); // false
 
-    Collection::fromIterable([])
-        ->every($callback)
-        ->current(); // true
+    $result = Collection::fromIterable([])
+        ->every($callback); // true
 
 explode
 ~~~~~~~
@@ -707,15 +720,14 @@ Signature: ``Collection::falsy();``
 
 .. code-block:: php
 
-    $truthyCollection = Collection::fromIterable([2, 3, 4])
-        ->falsy(); // [false]
+    $result = Collection::fromIterable([2, 3, 4])
+        ->falsy(); // false
 
-    $falsyCollection = Collection::fromIterable(['', null, 0])
-        ->falsy(); // [true]
+    $result = Collection::fromIterable([2, null, 4])
+        ->falsy(); // false
 
-    if ($falsyCollection->falsy()->current()) {
-        // do something
-    }
+    $result = Collection::fromIterable(['', null, 0])
+        ->falsy(); // true
 
 filter
 ~~~~~~
@@ -1008,11 +1020,9 @@ Signature: ``Collection::groupBy(?callable $callback = null);``
 has
 ~~~
 
-Check if the collection has values.
+Check if the collection has values with the help of one or more callables.
 
-.. warning:: The `callbacks` parameter is variadic and will be evaluated as a logical ``OR``.
-             If you're looking for a logical ``AND``, you have to make multiple calls to the
-             same operation.
+.. warning:: The ``callbacks`` parameter is variadic and will be evaluated as a logical ``OR``.
 
 Interface: `Hasable`_
 
@@ -1020,17 +1030,17 @@ Signature: ``Collection::has(callable ...$callbacks);``
 
 .. code-block:: php
 
-    Collection::fromIterable(range('A', 'C'))
-        ->has(static fn (): string => 'B'); // [1 => true]
+    $result = Collection::fromIterable(range('A', 'C'))
+        ->has(static fn (): string => 'B'); // true
 
-    Collection::fromIterable(range('A', 'C'))
-        ->has(static fn (): string => 'D'); // [0 => false]
+    $result = Collection::fromIterable(range('A', 'C'))
+        ->has(static fn (): string => 'D'); // false
 
-    Collection::fromIterable(range('A', 'C'))
+    $result = Collection::fromIterable(range('A', 'C'))
         ->has(
-            static fn ($value, $key, Iterator $iterator): string => 'A',
-            static fn ($value, $key, Iterator $iterator): string => 'Z'
-        ); // [true]
+            static fn ($value, $key): string => $key > 4 ? 'D' : 'A',
+            static fn ($value, $key): string => 'Z'
+        ); // true
 
 head
 ~~~~
@@ -1325,15 +1335,15 @@ Signature: ``Collection::mapN(callable ...$callbacks);``
 match
 ~~~~~
 
-Check if the collection match a ``user callback``.
+Check if the collection matches a given ``user callback``.
 
-You must provide a callback that will get the ``key``, the ``current value``, and the ``iterator`` as parameters.
+You must provide a callback that can get the ``key``, the ``current value``, and the ``iterator`` as parameters.
 
 When no matcher callback is provided, the user callback must return ``true`` (the
 default value of the ``matcher callback``) in order to stop.
 
-The returned value of the operation is ``true`` when the callback match at least one element
-of the collection. ``false`` otherwise.
+The returned value of the operation is ``true`` when the callback matches at least one element
+of the collection, ``false`` otherwise.
 
 If you want to match the ``user callback`` against another value (other than ``true``), you must
 provide your own ``matcher callback`` as a second argument, and it must return a ``boolean``.
@@ -1427,15 +1437,11 @@ Signature: ``Collection::nullsy();``
 
 .. code-block:: php
 
-    $nullsy = Collection::fromIterable([null, null])
-        ->nullsy(); // [true]
+    $result = Collection::fromIterable([null, false])
+        ->nullsy(); // true
 
-    $nonNullsy = Collection::fromIterable(['a', null, 'c'])
-        ->nullsy(); // [false]
-
-    if ($falsyCollection->nullsy()->current()) {
-        // do something
-    }
+    $result = Collection::fromIterable(['a', null, 'c'])
+        ->nullsy(); // false
 
 pack
 ~~~~
@@ -2081,15 +2087,11 @@ Signature: ``Collection::truthy();``
 
 .. code-block:: php
 
-    $truthyCollection = Collection::fromIterable([2, 3, 4])
-        ->truthy(); // [true]
+    $result = Collection::fromIterable([2, 3, 4])
+        ->truthy(); // true
 
-    $falsyCollection = Collection::fromIterable(['a', '', 'c', 'd'])
-        ->truthy(); // [false]
-
-    if ($falsyCollection->truthy()->current()) {
-        // do something
-    }
+    $result = Collection::fromIterable(['a', '', 'c', 'd'])
+        ->truthy(); // false
 
 unlines
 ~~~~~~~
@@ -2366,7 +2368,6 @@ Signature: ``Collection::zip(iterable ...$iterables);``
         ->limit(100)
         ->unwrap(); // [0, 1, 2, 3 ... 196, 197, 198, 199]
 
-.. _Doctrine Collections: https://github.com/doctrine/collections
 .. _Allable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Allable.php
 .. _Appendable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Appendable.php
 .. _Applyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Applyable.php
@@ -2381,9 +2382,7 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Compactable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Compactable.php
 .. _Coalesceable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Coalesceable.php
 .. _Containsable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Containsable.php
-.. _Countable: https://www.php.net/manual/en/class.countable.php
 .. _Currentable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Currentable.php
-.. _Criteria: https://www.doctrine-project.org/projects/doctrine-collections/en/1.6/index.html#matching
 .. _Cycleable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Cycleable.php
 .. _Diffable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Diffable.php
 .. _Diffkeysable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Diffkeysable.php
@@ -2477,7 +2476,13 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Wordsable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Wordsable.php
 .. _Wrapable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Wrapable.php
 .. _Zipable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Zipable.php
+
 .. _array_flip(): https://php.net/array_flip
+.. _Countable: https://www.php.net/manual/en/class.countable.php
+.. _Criteria: https://www.doctrine-project.org/projects/doctrine-collections/en/1.6/index.html#matching
+.. _Doctrine Collections: https://github.com/doctrine/collections
+.. _Generator: https://www.php.net/manual/en/language.generators.overview.php
+.. _Iterator: https://www.php.net/manual/en/class.iterator.php
 .. _symfony/var-dumper: https://packagist.org/packages/symfony/var-dumper
 .. _Traversable: https://www.php.net/manual/en/class.traversable.php
 .. _TypedIterator: https://github.com/loophp/collection/blob/master/src/Iterator/TypedIterator.php
