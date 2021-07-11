@@ -31,7 +31,7 @@ Create a collection from a callable.
     $collection = Collection::fromCallable($callback);
 
 fromFile
-~~~~~~~~~~~~
+~~~~~~~~
 
 Create a collection from a file.
 
@@ -145,7 +145,32 @@ Another example
 Methods (operations)
 --------------------
 
-.. note:: Operations always returns a new collection object, with the exception of ``all``, ``count``, ``current``, ``key``.
+Background
+~~~~~~~~~~
+
+Operations are pure functions which can be used to manipulate an iterator, either directly
+or through the ``Collection`` object.
+
+.. literalinclude:: code/operations/background.php
+  :language: php
+
+When used separately, operations typically return a PHP `Generator`_ or an `Iterator`_.
+When used as a ``Collection`` method, operations fall into three main categories based on the return type:
+
+1. Operations that return a ``scalar`` value. Currently, this includes:
+   ``Contains``, ``Every``, ``Falsy``, ``Has``, ``Key``, ``Match`` (or ``MatchOne``), ``Nullsy``, ``Truthy``.
+
+2. Operations that return a new ``Collection`` object - this includes the majority of operations
+
+3. Operations that return a ``Collection`` of ``Collection`` objects. Currently, this includes: ``Partition``, ``Span``.
+
+A couple other operations do not fall neatly in any of the above categories: ``all``, ``current``, ``get``.
+These methods will retrieve items of the collection/iterable directly.
+
+.. note:: Earlier versions of the package had most operations returning a new ``Collection`` object.
+        This was changed based on convenience and ease of use; typical usage of operations which return `scalar` values
+        would involve immediately retrieving the value inside, whereas for most other operations further transformations
+        are likely to be applied.
 
 all
 ~~~
@@ -2342,7 +2367,6 @@ Signature: ``Collection::zip(iterable ...$iterables);``
         ->limit(100)
         ->unwrap(); // [0, 1, 2, 3 ... 196, 197, 198, 199]
 
-.. _Doctrine Collections: https://github.com/doctrine/collections
 .. _Allable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Allable.php
 .. _Appendable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Appendable.php
 .. _Applyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Applyable.php
@@ -2357,9 +2381,7 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Compactable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Compactable.php
 .. _Coalesceable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Coalesceable.php
 .. _Containsable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Containsable.php
-.. _Countable: https://www.php.net/manual/en/class.countable.php
 .. _Currentable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Currentable.php
-.. _Criteria: https://www.doctrine-project.org/projects/doctrine-collections/en/1.6/index.html#matching
 .. _Cycleable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Cycleable.php
 .. _Diffable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Diffable.php
 .. _Diffkeysable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Diffkeysable.php
@@ -2453,7 +2475,13 @@ Signature: ``Collection::zip(iterable ...$iterables);``
 .. _Wordsable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Wordsable.php
 .. _Wrapable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Wrapable.php
 .. _Zipable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Zipable.php
+
 .. _array_flip(): https://php.net/array_flip
+.. _Countable: https://www.php.net/manual/en/class.countable.php
+.. _Criteria: https://www.doctrine-project.org/projects/doctrine-collections/en/1.6/index.html#matching
+.. _Doctrine Collections: https://github.com/doctrine/collections
+.. _Generator: https://www.php.net/manual/en/language.generators.overview.php
+.. _Iterator: https://www.php.net/manual/en/class.iterator.php
 .. _symfony/var-dumper: https://packagist.org/packages/symfony/var-dumper
 .. _Traversable: https://www.php.net/manual/en/class.traversable.php
 .. _TypedIterator: https://github.com/loophp/collection/blob/master/src/Iterator/TypedIterator.php
