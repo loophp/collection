@@ -600,9 +600,9 @@ final class Collection implements CollectionInterface
         return new self(Lines::of(), $this->getIterator());
     }
 
-    public function map(callable ...$callbacks): CollectionInterface
+    public function map(callable $callback): CollectionInterface
     {
-        return new self(Map::of()(...$callbacks), $this->getIterator());
+        return new self(Map::of()($callback), $this->getIterator());
     }
 
     public function mapN(callable ...$callbacks): CollectionInterface

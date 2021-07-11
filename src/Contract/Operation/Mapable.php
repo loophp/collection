@@ -19,15 +19,13 @@ use loophp\collection\Contract\Collection;
 interface Mapable
 {
     /**
-     * Apply one or more callbacks to a collection and use the return value.
-     * Usage with multiple callbacks is deprecated and will be removed in a future major version.
-     * Use mapN instead for multiple callbacks.
+     * Apply a single callback to every item of a collection and use the return value.
      *
      * @template V
      *
-     * @param callable(T, TKey, Iterator<TKey, T>): V ...$callbacks
+     * @param callable(T, TKey, Iterator<TKey, T>): V $callback
      *
      * @return Collection<TKey, V>
      */
-    public function map(callable ...$callbacks): Collection;
+    public function map(callable $callback): Collection;
 }
