@@ -28,7 +28,6 @@ use PhpSpec\Exception\Example\MatcherException;
 use PhpSpec\ObjectBehavior;
 use stdClass;
 use function gettype;
-use const E_USER_DEPRECATED;
 use const INF;
 use const PHP_EOL;
 
@@ -1989,9 +1988,25 @@ class CollectionSpec extends ObjectBehavior
             ->map($appendBar)
             ->shouldIterateAs(['1bar', '4bar', '9bar']);
 
-        $this::fromIterable(range(1, 3))
-            ->map($square, $toString)
-            ->shouldIterateAs(['1', '4', '9']);
+        $nonStandardInput = static function (): Generator {
+            yield ['a'] => 1;
+
+            yield ['b'] => 2;
+
+            yield ['a'] => 3;
+        };
+
+        $expected = static function (): Generator {
+            yield ['a'] => 1;
+
+            yield ['b'] => 4;
+
+            yield ['a'] => 9;
+        };
+
+        $this::fromIterable($nonStandardInput())
+            ->map(static fn (int $value): int => $value ** 2)
+            ->shouldIterateAs($expected());
     }
 
     public function it_can_mapN(): void
@@ -3851,16 +3866,6 @@ class CollectionSpec extends ObjectBehavior
     public function it_is_initializable(): void
     {
         $this->shouldHaveType(Collection::class);
-    }
-
-    public function it_shows_deprecation_for_map_multiple_callbacks(): void
-    {
-        $square = static fn (int $a): int => $a ** 2;
-        $toString = static fn (int $a): string => (string) $a;
-
-        $this::fromIterable(range(1, 3))
-            ->map($square, $toString)
-            ->shouldTrigger(E_USER_DEPRECATED)->during('all');
     }
 
     public function let(): void

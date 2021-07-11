@@ -68,17 +68,4 @@ map_checkListString(Collection::fromIterable([1, 2, 3])->map($square)->map($toSt
 /** @psalm-suppress InvalidScalarArgument @phpstan-ignore-next-line */
 map_checkListInt(Collection::fromIterable(['foo' => 'bar'])->map($square));
 /** @psalm-suppress InvalidScalarArgument @phpstan-ignore-next-line */
-map_checkListString(Collection::fromIterable(['foo' => 'bar'])->map($square, $toString));
-/** @psalm-suppress InvalidScalarArgument @phpstan-ignore-next-line */
 map_checkMapString(Collection::fromIterable([1, 2, 3])->map($appendBar));
-/** @psalm-suppress InvalidArgument, InvalidScalarArgument @phpstan-ignore-next-line */
-map_checkMapClass(Collection::fromIterable([1, 2, 3])->map($appendBar, $toClass));
-
-// VALID failures due to usage with multiple callbacks, which cannot be properly typed
-// `mapN` should be used instead for these use cases, which is more lenient due to `mixed` type hints
-
-/** @psalm-suppress InvalidScalarArgument @phpstan-ignore-next-line */
-map_checkListString(Collection::fromIterable([1, 2, 3])->map($square, $toString));
-
-/** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
-map_checkMapClass(Collection::fromIterable(['foo' => 'bar', 'baz' => 'bar'])->map($appendBar, $toClass));

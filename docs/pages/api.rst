@@ -1279,14 +1279,14 @@ map
 Apply a single callback to every item of a collection and use the return value.
 
 .. warning:: An earlier version of this operation allowed usage with multiple callbacks. This behaviour
-        is deprecated and will be removed in a future major version; ``mapN`` should be used instead, or,
+        was removed in version ``5.0``; ``mapN`` should be used instead, or,
         alternatively, multiple successive ``map`` calls can achieve the same result.
 
 .. warning:: Keys are preserved, use the ``Collection::normalize`` operation if you want to re-index the keys.
 
 Interface: `Mapable`_
 
-Signature: ``Collection::map(callable ...$callbacks);``
+Signature: ``Collection::map(callable $callbacks);``
 
 .. code-block:: php
 
