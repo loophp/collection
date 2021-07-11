@@ -11,6 +11,8 @@ empty
 
 Create an empty Collection.
 
+Signature: ``Collection::empty(): Collection;``
+
 .. code-block:: php
 
     $collection = Collection::empty();
@@ -19,6 +21,8 @@ fromCallable
 ~~~~~~~~~~~~
 
 Create a collection from a callable.
+
+Signature: ``Collection::fromCallable(callable $callable, ...$parameters): Collection;``
 
 .. code-block:: php
 
@@ -35,6 +39,8 @@ fromFile
 
 Create a collection from a file.
 
+Signature: ``Collection::fromIterable(string $filepath): Collection;``
+
 .. code-block:: php
 
     Collection::fromFile('http://loripsum.net/api');
@@ -44,6 +50,8 @@ fromIterable
 
 Create a collection from an iterable.
 
+Signature: ``Collection::fromIterable(iterable $iterable): Collection;``
+
 .. code-block:: php
 
     $collection = Collection::fromIterable(['a', 'b', 'c']);
@@ -52,6 +60,8 @@ fromResource
 ~~~~~~~~~~~~
 
 Create a collection from a resource.
+
+Signature: ``Collection::fromResource($resource): Collection;``
 
 .. code-block:: php
 
@@ -64,6 +74,8 @@ fromString
 
 Create a collection from a string.
 
+Signature: ``Collection::fromString(string $string, string $delimiter = ''): Collection;``
+
 .. code-block:: php
 
     $data = file_get_contents('http://loripsum.net/api');
@@ -75,7 +87,7 @@ range
 
 Build a collection from a range of values.
 
-Signature: ``Collection::range(int $start = 0, $end = INF, $step = 1);``
+Signature: ``Collection::range(float $start = 0.0, float $end = INF, float $step = 1.0): Collection;``
 
 .. code-block:: php
 
@@ -102,11 +114,11 @@ Create a collection by invoking a callback a given amount of times.
 
 If no callback is provided, then it will create a simple list of incremented integers.
 
-Signature: ``Collection::times($number = INF, ?callable $callback = null);``
+Signature: ``Collection::times(int $number = 0, ?callable $callback = null): Collection;``
 
 .. code-block:: php
 
-    $collection = Collection::times(10);
+    $collection = Collection::times(5); // [1, 2, 3, 4, 5]
 
 unfold
 ~~~~~~
@@ -115,7 +127,7 @@ Create a collection by yielding from a callback with an initial value.
 
 .. warning:: The callback return values are reused as callback arguments at the next callback call.
 
-Signature: ``Collection::unfold(callable $callback, ...$parameters);``
+Signature: ``Collection::unfold(callable $callback, ...$parameters): Collection;``
 
 .. code-block:: php
 
@@ -161,7 +173,7 @@ When used as a ``Collection`` method, operations fall into a few main categories
 
 2. Operations that return a ``Collection`` of ``Collection`` objects: ``Partition``, ``Span``.
 
-3. Operations that return keys/values from the collection: ``All``, ``Current``, ``Get``, ``Key``.
+3. Operations that return keys/values from the collection: ``All``, ``Current``, ``Key``.
 
 4. Operations that return a new ``Collection`` object: all other operations.
 
@@ -183,7 +195,7 @@ Convert the collection into an array.
 
 Interface: `Allable`_
 
-Signature: ``Collection::all();``
+Signature: ``Collection::all(): array;``
 
 .. literalinclude:: code/operations/all.php
   :language: php
@@ -201,7 +213,7 @@ Add one or more items to a collection.
 
 Interface: `Appendable`_
 
-Signature: ``Collection::append(...$items);``
+Signature: ``Collection::append(...$items): Collection;``
 
 .. code-block:: php
 
@@ -228,7 +240,7 @@ If the callback does not return ``true`` then it stops applying callbacks on sub
 
 Interface: `Applyable`_
 
-Signature: ``Collection::apply(...$callbacks);``
+Signature: ``Collection::apply(callable ...$callbacks): Collection;``
 
 .. code-block:: php
 
@@ -251,7 +263,7 @@ Transform keys and values of the collection independently and combine them.
 
 Interface: `Associateable`_
 
-Signature: ``Collection::associate(?callable $callbackForKeys = null, ?callable $callbackForValues = null);``
+Signature: ``Collection::associate(?callable $callbackForKeys = null, ?callable $callbackForValues = null): Collection;``
 
 .. code-block:: php
 
@@ -293,7 +305,7 @@ Asynchronously apply one or more supplied callbacks to every item of a collectio
 
 Interface: `AsyncMapable`_
 
-Signature: ``Collection::asyncMap(callable ...$callbacks);``
+Signature: ``Collection::asyncMap(callable ...$callbacks): Collection;``
 
 .. code-block:: php
 
@@ -317,7 +329,7 @@ Useful when using a resource as input and you need to run through the collection
 
 Interface: `Cacheable`_
 
-Signature: ``Collection::cache(CacheItemPoolInterface $cache = null);``
+Signature: ``Collection::cache(?CacheItemPoolInterface $cache = null): Collection;``
 
 .. code-block:: php
 
@@ -333,7 +345,7 @@ Chunk a collection of items into chunks of items of a given size.
 
 Interface: `Chunkable`_
 
-Signature: ``Collection::chunk(int ...$sizes);``
+Signature: ``Collection::chunk(int ...$sizes): Collection;``
 
 .. code-block:: php
 
@@ -358,7 +370,7 @@ Return the first *non-nullsy* value in a collection.
 
 Interface: `Coalesceable`_
 
-Signature: ``Collection::coalesce();``
+Signature: ``Collection::coalesce(): Collection;``
 
 .. literalinclude:: code/operations/coalesce.php
   :language: php
@@ -372,7 +384,7 @@ Collapse a collection of items into a simple flat collection.
 
 Interface: `Collapseable`_
 
-Signature: ``Collection::collapse();``
+Signature: ``Collection::collapse(): Collection;``
 
 .. code-block:: php
 
@@ -389,7 +401,7 @@ Return the values from a single column in the input iterables.
 
 Interface: `Columnable`_
 
-Signature: ``Collection::column($index);``
+Signature: ``Collection::column($column): Collection;``
 
 .. code-block:: php
 
@@ -426,7 +438,7 @@ Get all the `combinations <https://en.wikipedia.org/wiki/Combination>`_ of a giv
 
 Interface: `Combinateable`_
 
-Signature: ``Collection::combinate(?int $length);``
+Signature: ``Collection::combinate(?int $length = null): Collection;``
 
 .. code-block:: php
 
@@ -440,7 +452,7 @@ Combine a collection of items with some other keys.
 
 Interface: `Combineable`_
 
-Signature: ``Collection::combine(...$keys);``
+Signature: ``Collection::combine(...$keys): Collection;``
 
 .. code-block:: php
 
@@ -454,7 +466,7 @@ Remove given values from the collection, if no values are provided, it removes o
 
 Interface: `Compactable`_
 
-Signature: ``Collection::compact(...$values);``
+Signature: ``Collection::compact(...$values): Collection;``
 
 .. code-block:: php
 
@@ -473,7 +485,7 @@ Check if the collection contains one or more values.
 
 Interface: `Containsable`_
 
-Signature: ``Collection::contains(...$values);``
+Signature: ``Collection::contains(...$values): bool;``
 
 .. code-block:: php
 
@@ -496,7 +508,7 @@ Returns the number of elements in a collection.
 
 Interface: `Countable`_
 
-Signature: ``Collection::count();``
+Signature: ``Collection::count(): int;``
 
 .. code-block:: php
 
@@ -526,7 +538,7 @@ Cycle indefinitely around a collection of items.
 
 Interface: `Cycleable`_
 
-Signature: ``Collection::cycle();``
+Signature: ``Collection::cycle(): Collection;``
 
 .. code-block:: php
 
@@ -541,7 +553,7 @@ This method will return the values in the original collection that are not prese
 
 Interface: `Diffable`_
 
-Signature: ``Collection::diff(...$values);``
+Signature: ``Collection::diff(...$values): Collection;``
 
 .. code-block:: php
 
@@ -556,7 +568,7 @@ This method will return the key / value pairs in the original collection that ar
 
 Interface: `Diffkeysable`_
 
-Signature: ``Collection::diffKeys(...$values);``
+Signature: ``Collection::diffKeys(...$values): Collection;``
 
 .. code-block:: php
 
@@ -580,7 +592,7 @@ This is useful when you want to compare objects.
 
 Interface: `Distinctable`_
 
-Signature: ``Collection::distinct(?callable $comparatorCallback = null, ?callable $accessorCallback = null);``
+Signature: ``Collection::distinct(?callable $comparatorCallback = null, ?callable $accessorCallback = null): Collection;``
 
 .. literalinclude:: code/operations/distinct.php
   :language: php
@@ -592,7 +604,7 @@ Drop the n first items of the collection.
 
 Interface: `Dropable`_
 
-Signature: ``Collection::drop(int ...$counts);``
+Signature: ``Collection::drop(int ...$counts): Collection;``
 
 .. code-block:: php
 
@@ -611,7 +623,7 @@ first time till the end of the list.
 
 Interface: `DropWhileable`_
 
-Signature: ``Collection::dropWhile(callable ...$callbacks);``
+Signature: ``Collection::dropWhile(callable ...$callbacks): Collection;``
 
 .. code-block:: php
 
@@ -630,7 +642,7 @@ Dump one or multiple items. It uses `symfony/var-dumper`_ if it is available,
 
 Interface: `Dumpable`_
 
-Signature: ``Collection::dump(string $name = '', int $size = 1, ?Closure $closure = null);``
+Signature: ``Collection::dump(string $name = '', int $size = 1, ?Closure $closure = null): Collection;``
 
 .. code-block:: php
 
@@ -644,7 +656,7 @@ Find duplicated values from the collection.
 
 Interface: `Duplicateable`_
 
-Signature: ``Collection::duplicate();``
+Signature: ``Collection::duplicate(): Collection;``
 
 .. code-block:: php
 
@@ -667,7 +679,7 @@ This operation tests whether all elements in the collection pass the test implem
 
 Interface: `Everyable`_
 
-Signature: ``Collection::every(callable ...$callbacks);``
+Signature: ``Collection::every(callable ...$callbacks): bool;``
 
 .. code-block:: php
 
@@ -693,7 +705,7 @@ collection are removed from the chunks.
 
 Interface: `Explodeable`_
 
-Signature: ``Collection::explode(...$items);``
+Signature: ``Collection::explode(...$explodes): Collection;``
 
 .. code-block:: php
 
@@ -707,7 +719,7 @@ Check if the collection contains *only falsy* values. A value is determined to b
 
 Interface: `Falsyable`_
 
-Signature: ``Collection::falsy();``
+Signature: ``Collection::falsy(): bool;``
 
 .. code-block:: php
 
@@ -735,7 +747,7 @@ Filter collection items based on one or more callbacks.
 
 Interface: `Filterable`_
 
-Signature: ``Collection::filter(callable ...$callbacks);``
+Signature: ``Collection::filter(callable ...$callbacks): Collection;``
 
 .. literalinclude:: code/operations/filter.php
   :language: php
@@ -747,7 +759,7 @@ Get the first items from the collection.
 
 Interface: `Firstable`_
 
-Signature: ``Collection::first();``
+Signature: ``Collection::first(): Collection;``
 
 .. code-block:: php
 
@@ -775,7 +787,7 @@ The supplied callback needs to return an interable: either an ``array`` or a cla
 
 Interface: `FlatMapable`_
 
-Signature: ``Collection::flatMap(callable $callback);``
+Signature: ``Collection::flatMap(callable $callback): Collection;``
 
 .. code-block:: php
 
@@ -804,7 +816,7 @@ Flatten a collection of items into a simple flat collection.
 
 Interface: `Flattenable`_
 
-Signature: ``Collection::flatten(int $depth = PHP_INT_MAX);``
+Signature: ``Collection::flatten(int $depth = PHP_INT_MAX): Collection;``
 
 .. code-block:: php
 
@@ -821,14 +833,14 @@ Flip keys and items in a collection.
 
 Interface: `Flipable`_
 
-Signature: ``Collection::flip(int $depth = PHP_INT_MAX);``
+Signature: ``Collection::flip(): Collection;``
 
 .. code-block:: php
 
     $collection = Collection::fromIterable(['a', 'b', 'c', 'a'])
         ->flip();
 
-.. tip:: array_flip() and Collection::flip() can behave different, check the following examples.
+.. tip:: array_flip() and Collection::flip() can behave differently, check the following examples.
 
 When using regular arrays, `array_flip()`_ can be used to remove duplicates (deduplicate an array).
 
@@ -857,7 +869,7 @@ this result and the second argument and so on. See ``scanLeft`` for intermediate
 
 Interface: `FoldLeftable`_
 
-Signature: ``Collection::foldLeft(callable $callback, $initial = null);``
+Signature: ``Collection::foldLeft(callable $callback, $initial = null): Collection;``
 
 .. code-block:: php
 
@@ -879,7 +891,7 @@ third argument and so on. See ``scanLeft1`` for intermediate results.
 
 Interface: `FoldLeft1able`_
 
-Signature: ``Collection::foldLeft1(callable $callback);``
+Signature: ``Collection::foldLeft1(callable $callback): Collection;``
 
 .. code-block:: php
 
@@ -894,7 +906,7 @@ the end and the result, and so on. See ``scanRight`` for intermediate results.
 
 Interface: `FoldRightable`_
 
-Signature: ``Collection::foldRight(callable $callback, $initial = null);``
+Signature: ``Collection::foldRight(callable $callback, $initial = null): Collection;``
 
 .. code-block:: php
 
@@ -916,7 +928,7 @@ and so on. See ``scanRight1`` for intermediate results.
 
 Interface: `FoldRight1able`_
 
-Signature: ``Collection::foldRight1(callable $callback);``
+Signature: ``Collection::foldRight1(callable $callback): Collection;``
 
 .. code-block:: php
 
@@ -930,7 +942,7 @@ Remove items having specific keys.
 
 Interface: `Forgetable`_
 
-Signature: ``Collection::forget(...$keys);``
+Signature: ``Collection::forget(...$keys): Collection;``
 
 .. code-block:: php
 
@@ -946,7 +958,7 @@ Values can be anything (object, scalar, ... ).
 
 Interface: `Frequencyable`_
 
-Signature: ``Collection::frequency();``
+Signature: ``Collection::frequency(): Collection;``
 
 .. code-block:: php
 
@@ -961,7 +973,7 @@ Get a specific element of the collection from a key; if the key doesn't exist, r
 
 Interface: `Getable`_
 
-Signature: ``Collection::get($key, $default = null);``
+Signature: ``Collection::get($key, $default = null): Collection;``
 
 .. code-block:: php
 
@@ -977,7 +989,7 @@ Moreover, each sublist in the result contains only equal elements.
 
 Interface: `Groupable`_
 
-Signature: ``Collection::group();``
+Signature: ``Collection::group(): Collection;``
 
 .. code-block:: php
 
@@ -992,7 +1004,7 @@ By default it's the key is the item's key.
 
 Interface: `GroupByable`_
 
-Signature: ``Collection::groupBy(?callable $callback = null);``
+Signature: ``Collection::groupBy(?callable $callback = null): Collection;``
 
 .. code-block:: php
 
@@ -1017,7 +1029,7 @@ Check if the collection has values with the help of one or more callables.
 
 Interface: `Hasable`_
 
-Signature: ``Collection::has(callable ...$callbacks);``
+Signature: ``Collection::has(callable ...$callbacks): bool;``
 
 .. code-block:: php
 
@@ -1038,7 +1050,7 @@ head
 
 Interface: `Headable`_
 
-Signature: ``Collection::head();``
+Signature: ``Collection::head(): Collection;``
 
 .. code-block:: php
 
@@ -1061,7 +1073,7 @@ Execute a callback when a condition is met. If no ``else`` callback is provided,
 
 Interface: `IfThenElseable`_
 
-Signature: ``Collection::ifThenElse(callable $condition, callable $then, ?callable $else = null);``
+Signature: ``Collection::ifThenElse(callable $condition, callable $then, ?callable $else = null): Collection;``
 
 .. code-block:: php
 
@@ -1094,7 +1106,7 @@ Join all the elements of the collection into a single string using a glue provid
 
 Interface: `Implodeable`_
 
-Signature: ``Collection::implode(string $glue = '');``
+Signature: ``Collection::implode(string $glue = ''): Collection;``
 
 .. code-block:: php
 
@@ -1108,7 +1120,7 @@ Returns the collection without its last item.
 
 Interface: `Initable`_
 
-Signature: ``Collection::init();``
+Signature: ``Collection::init(): Collection;``
 
 .. code-block:: php
 
@@ -1122,7 +1134,7 @@ Returns all initial segments of the collection, shortest first.
 
 Interface: `Initsable`_
 
-Signature: ``Collection::inits();``
+Signature: ``Collection::inits(): Collection;``
 
 .. code-block:: php
 
@@ -1136,7 +1148,7 @@ Removes any values from the original collection that are not present in the give
 
 Interface: `Intersectable`_
 
-Signature: ``Collection::intersect(...$values);``
+Signature: ``Collection::intersect(...$values): Collection;``
 
 .. code-block:: php
 
@@ -1150,7 +1162,7 @@ Removes any keys from the original collection that are not present in the given 
 
 Interface: `Intersectkeysable`_
 
-Signature: ``Collection::intersectKeys(...$values);``
+Signature: ``Collection::intersectKeys(...$keys): Collection;``
 
 .. code-block:: php
 
@@ -1164,7 +1176,7 @@ Insert a given value at every n element of a collection and indices are not pres
 
 Interface: `Intersperseable`_
 
-Signature: ``Collection::intersperse($element, int $every = 1, int $startAt = 0);``
+Signature: ``Collection::intersperse($element, int $every = 1, int $startAt = 0): Collection;``
 
 .. code-block:: php
 
@@ -1182,7 +1194,7 @@ Check if a collection has any elements inside.
 
 Interface: `IsEmptyable`_
 
-Signature: ``Collection::isEmpty();``
+Signature: ``Collection::isEmpty(): bool;``
 
 .. literalinclude:: code/operations/isEmpty.php
   :language: php
@@ -1210,7 +1222,7 @@ Get the keys of the items.
 
 Interface: `Keysable`_
 
-Signature: ``Collection::keys();``
+Signature: ``Collection::keys(): Collection;``
 
 .. code-block:: php
 
@@ -1224,7 +1236,7 @@ Extract the last element of a collection, which must be finite and non-empty.
 
 Interface: `Lastable`_
 
-Signature: ``Collection::last();``
+Signature: ``Collection::last(): Collection;``
 
 .. code-block:: php
 
@@ -1247,7 +1259,7 @@ Limit the number of values in the collection.
 
 Interface: `Limitable`_
 
-Signature: ``Collection::limit(int $limit);``
+Signature: ``Collection::limit(int count = -1, int $offset = 0): Collection;``
 
 .. code-block:: php
 
@@ -1261,7 +1273,7 @@ Split a string into lines.
 
 Interface: `Linesable`_
 
-Signature: ``Collection::lines();``
+Signature: ``Collection::lines(): Collection;``
 
 .. code-block:: php
 
@@ -1287,7 +1299,7 @@ Apply a single callback to every item of a collection and use the return value.
 
 Interface: `Mapable`_
 
-Signature: ``Collection::map(callable $callbacks);``
+Signature: ``Collection::map(callable $callback): Collection;``
 
 .. code-block:: php
 
@@ -1312,7 +1324,7 @@ Apply one or more callbacks to every item of a collection and use the return val
 
 Interface: `MapNable`_
 
-Signature: ``Collection::mapN(callable ...$callbacks);``
+Signature: ``Collection::mapN(callable ...$callbacks): Collection;``
 
 .. code-block:: php
 
@@ -1341,7 +1353,7 @@ provide your own ``matcher callback`` as a second argument, and it must return a
 
 Interface: `Matchable`_
 
-Signature: ``Collection::match(callable $callback, ?callable $matcher = null);``
+Signature: ``Collection::match(callable $callback, ?callable $matcher = null): bool;``
 
 .. literalinclude:: code/operations/match.php
   :language: php
@@ -1354,7 +1366,7 @@ but in a lazy way.
 
 Interface: `Matchingable`_
 
-Signature: ``Collection::matching(Criteria $criteria);``
+Signature: ``Collection::matching(Criteria $criteria): Collection;``
 
 .. literalinclude:: code/operations/matching.php
   :language: php
@@ -1366,7 +1378,7 @@ Merge one or more iterables onto a collection.
 
 Interface: `Mergeable`_
 
-Signature: ``Collection::merge(iterable ...$sources);``
+Signature: ``Collection::merge(iterable ...$sources): Collection;``
 
 .. code-block:: php
 
@@ -1390,7 +1402,7 @@ Replace, reorder and use numeric keys on a collection.
 
 Interface: `Normalizeable`_
 
-Signature: ``Collection::normalize();``
+Signature: ``Collection::normalize(): Collection;``
 
 .. literalinclude:: code/operations/normalize.php
   :language: php
@@ -1402,7 +1414,7 @@ Get every n-th element of a collection.
 
 Interface: `Nthable`_
 
-Signature: ``Collection::nth(int $step, int $offset = 0);``
+Signature: ``Collection::nth(int $step, int $offset = 0): Collection;``
 
 .. code-block:: php
 
@@ -1424,7 +1436,7 @@ Check if the collection contains *only nullsy* values.
 
 Interface: `Nullsyable`_
 
-Signature: ``Collection::nullsy();``
+Signature: ``Collection::nullsy(): bool;``
 
 .. code-block:: php
 
@@ -1441,7 +1453,7 @@ Wrap each item into an array containing 2 items: the key and the value.
 
 Interface: `Packable`_
 
-Signature: ``Collection::pack();``
+Signature: ``Collection::pack(): Collection;``
 
 .. code-block:: php
 
@@ -1463,7 +1475,7 @@ Pad a collection to the given length with a given value.
 
 Interface: `Padable`_
 
-Signature: ``Collection::pad(int $size, $value);``
+Signature: ``Collection::pad(int $size, $value): Collection;``
 
 .. code-block:: php
 
@@ -1477,7 +1489,7 @@ Make an associative collection from pairs of values.
 
 Interface: `Pairable`_
 
-Signature: ``Collection::pair();``
+Signature: ``Collection::pair(): Collection;``
 
 .. code-block:: php
 
@@ -1542,7 +1554,7 @@ The second (and last) collection contains items that have not met the provided c
 
 Interface: `Partitionable`_
 
-Signature: ``Collection::partition(callable ...$callbacks);``
+Signature: ``Collection::partition(callable ...$callbacks): Collection;``
 
 .. literalinclude:: code/operations/partition.php
   :language: php
@@ -1554,7 +1566,7 @@ Find all the `permutations <https://en.wikipedia.org/wiki/Permutation>`_ of a co
 
 Interface: `Permutateable`_
 
-Signature: ``Collection::permutate(int $size, $value);``
+Signature: ``Collection::permutate(): Collection;``
 
 .. code-block:: php
 
@@ -1570,7 +1582,7 @@ Custom operations and operations provided in the API can be combined together.
 
 Interface: `Pipeable`_
 
-Signature: ``Collection::pipe(callable ...$callbacks);``
+Signature: ``Collection::pipe(callable ...$callbacks): Collection;``
 
 .. code-block:: php
 
@@ -1609,7 +1621,7 @@ Nested values can be retrieved using "dot notation" and the wildcard character `
 
 Interface: `Pluckable`_
 
-Signature: ``Collection::pluck($pluck, $default = null);``
+Signature: ``Collection::pluck($pluck, $default = null): Collection;``
 
 .. literalinclude:: code/operations/pluck.php
   :language: php
@@ -1627,7 +1639,7 @@ Push an item onto the beginning of the collection.
 
 Interface: `Prependable`_
 
-Signature: ``Collection::prepend(...$items);``
+Signature: ``Collection::prepend(...$items): Collection;``
 
 .. code-block:: php
 
@@ -1652,7 +1664,7 @@ Get the `cartesian product <https://en.wikipedia.org/wiki/Cartesian_product>`_ o
 
 Interface: `Productable`_
 
-Signature: ``Collection::product(iterable ...$iterables);``
+Signature: ``Collection::product(iterable ...$iterables): Collection;``
 
 .. code-block:: php
 
@@ -1669,7 +1681,7 @@ An optional seed can be passed as well.
 
 Interface: `Randomable`_
 
-Signature: ``Collection::random(int $size = 1, ?int $seed = null);``
+Signature: ``Collection::random(int $size = 1, ?int $seed = null): Collection;``
 
 .. code-block:: php
 
@@ -1683,7 +1695,7 @@ Reduce a collection of items through a given callback.
 
 Interface: `Reductionable`_
 
-Signature: ``Collection::reduction(callable $callback, $initial = null);``
+Signature: ``Collection::reduction(callable $callback, $initial = null): Collection;``
 
 .. code-block:: php
 
@@ -1707,7 +1719,7 @@ Filter collection items based on one or more callbacks.
 
 Interface: `Rejectable`_
 
-Signature: ``Collection::reject(callable ...$callbacks);``
+Signature: ``Collection::reject(callable ...$callbacks): Collection;``
 
 .. literalinclude:: code/operations/reject.php
   :language: php
@@ -1719,7 +1731,7 @@ Reverse order items of a collection.
 
 Interface: `Reverseable`_
 
-Signature: ``Collection::reverse();``
+Signature: ``Collection::reverse(): Collection;``
 
 .. code-block:: php
 
@@ -1735,7 +1747,7 @@ sampling close to the entire collection.
 
 Interface: `RSampleable`_
 
-Signature: ``Collection::rsample(float $probability);``
+Signature: ``Collection::rsample(float $probability): Collection;``
 
 .. code-block:: php
 
@@ -1751,7 +1763,7 @@ Values will be scaled between ``0`` and ``1`` by default, if no desired bounds a
 
 Interface: `Scaleable`_
 
-Signature: ``Collection::scale(float $lowerBound, float $upperBound, float $wantedLowerBound = 0.0, float $wantedUpperBound = 1.0, float $base = 0.0);``
+Signature: ``Collection::scale(float $lowerBound, float $upperBound, float $wantedLowerBound = 0.0, float $wantedUpperBound = 1.0, float $base = 0.0): Collection;``
 
 .. code-block:: php
 
@@ -1772,7 +1784,7 @@ this result and the second argument and so on. It returns the list of intermedia
 
 Interface: `ScanLeftable`_
 
-Signature: ``Collection::scanLeft(callable $callback, $initial = null);``
+Signature: ``Collection::scanLeft(callable $callback, $initial = null): Collection;``
 
 .. code-block:: php
 
@@ -1798,7 +1810,7 @@ third argument and so on. It returns the list of intermediate and final results.
 
 Interface: `ScanLeft1able`_
 
-Signature: ``Collection::scanLeft1(callable $callback);``
+Signature: ``Collection::scanLeft1(callable $callback): Collection;``
 
 .. code-block:: php
 
@@ -1820,7 +1832,7 @@ the end and the result, and so on. It returns the list of intermediate and final
 
 Interface: `ScanRightable`_
 
-Signature: ``Collection::scanRight(callable $callback, $initial = null);``
+Signature: ``Collection::scanRight(callable $callback, $initial = null): Collection;``
 
 .. code-block:: php
 
@@ -1844,7 +1856,7 @@ and so on. It returns the list of intermediate and final results.
 
 Interface: `ScanRight1able`_
 
-Signature: ``Collection::scanRight1(callable $callback);``
+Signature: ``Collection::scanRight1(callable $callback): Collection;``
 
 .. code-block:: php
 
@@ -1865,7 +1877,7 @@ Shuffle a collection, randomly changing the order of items.
 
 Interface: `Shuffleable`_
 
-Signature: ``Collection::shuffle(?int $seed = null);``
+Signature: ``Collection::shuffle(?int $seed = null): Collection;``
 
 .. code-block:: php
 
@@ -1886,7 +1898,7 @@ Skip items until the callback is met.
 
 Interface: `Sinceable`_
 
-Signature: ``Collection::since(callable ...$callbacks);``
+Signature: ``Collection::since(callable ...$callbacks): Collection;``
 
 .. literalinclude:: code/operations/since.php
   :language: php
@@ -1898,7 +1910,7 @@ Get a slice of a collection.
 
 Interface: `Sliceable`_
 
-Signature: ``Collection::slice(int $offset, ?int $length = null);``
+Signature: ``Collection::slice(int $offset, ?int $length = -1): Collection;``
 
 .. code-block:: php
 
@@ -1915,7 +1927,7 @@ the behavior or use twice the flip operation. See the example below.
 
 Interface: `Sortable`_
 
-Signature: ``Collection::sort(?callable $callback = null);``
+Signature: ``Collection::sort(int $type = Sortable::BY_VALUES, ?callable $callback = null): Collection;``
 
 .. literalinclude:: code/operations/sort.php
   :language: php
@@ -1937,7 +1949,7 @@ resulting iterators will be converted and mapped into ``Collection`` objects.
 
 Interface: `Spanable`_
 
-Signature: ``Collection::span(callable $callback);``
+Signature: ``Collection::span(callable $callback): Collection;``
 
 .. literalinclude:: code/operations/span.php
   :language: php
@@ -1952,7 +1964,7 @@ of a chunk, at the beginning of a chunk, or completely removed.
 
 Interface: `Splitable`_
 
-Signature: ``Collection::split(int $type = Splitable::BEFORE, callable ...$callbacks);``
+Signature: ``Collection::split(int $type = Splitable::BEFORE, callable ...$callbacks): Collection;``
 
 .. code-block:: php
 
@@ -1966,6 +1978,18 @@ Signature: ``Collection::split(int $type = Splitable::BEFORE, callable ...$callb
 
     $collection = Collection::fromIterable(range(0, 10))
         ->split(Splitable::REMOVE, $splitter); [[], [1, 2], [4, 5], [7, 8], [10]]
+
+squash
+~~~~~~
+
+Eagerly apply operations in a collection rather than lazily.
+
+Interface: `Squashable`_
+
+Signature: ``Collection::squash(): Collection;``
+
+.. literalinclude:: code/operations/squash.php
+  :language: php
 
 strict
 ~~~~~
@@ -1982,22 +2006,10 @@ Note that the current logic allows *arrays* of any type in the collection, as we
 
 Interface: `Strictable`_
 
-Signature: ``Collection::strict(?callable $callback = null);``
+Signature: ``Collection::strict(?callable $callback = null): Collection;``
 
 .. literalinclude:: code/operations/strict.php
-  :language: php
-
-squash
-~~~~~~
-
-Eagerly apply operations in a collection rather than lazily.
-
-Interface: `Squashable`_
-
-Signature: ``Collection::squash();``
-
-.. literalinclude:: code/operations/squash.php
-  :language: php
+:language: php
 
 tail
 ~~~~
@@ -2006,7 +2018,7 @@ Get the collection items except the first.
 
 Interface: `Tailable`_
 
-Signature: ``Collection::tail();``
+Signature: ``Collection::tail(): Collection;``
 
 .. code-block:: php
 
@@ -2021,7 +2033,7 @@ Similar to applying ``tail`` successively and collecting all results in one list
 
 Interface: `Tailsable`_
 
-Signature: ``Collection::tails();``
+Signature: ``Collection::tails(): Collection;``
 
 .. code-block:: php
 
@@ -2043,7 +2055,7 @@ Be careful, this operation is not the same as the ``filter`` operation.
 
 Interface: `TakeWhileable`_
 
-Signature: ``Collection::takeWhile(callable ...$callbacks);``
+Signature: ``Collection::takeWhile(callable ...$callbacks): Collection;``
 
 .. code-block:: php
 
@@ -2061,7 +2073,7 @@ Computes the `transpose <https://en.wikipedia.org/wiki/Transpose>`_ of a matrix.
 
 Interface: `Transposeable`_
 
-Signature: ``Collection::transpose();``
+Signature: ``Collection::transpose(): Collection;``
 
 .. literalinclude:: code/operations/transpose.php
   :language: php
@@ -2074,7 +2086,7 @@ A value is determined to be *truthy* by applying a ``bool`` cast.
 
 Interface: `Truthyable`_
 
-Signature: ``Collection::truthy();``
+Signature: ``Collection::truthy(): bool;``
 
 .. code-block:: php
 
@@ -2091,7 +2103,7 @@ Opposite of ``Collection::lines()``, creates a single string from multiple lines
 
 Interface: `Unlinesable`_
 
-Signature: ``Collection::unlines();``
+Signature: ``Collection::unlines(): Collection;``
 
 .. code-block:: php
 
@@ -2116,7 +2128,7 @@ Opposite of ``Collection::pack()`, transforms groupings of items representing a 
 
 Interface: `Unpackable`_
 
-Signature: ``Collection::unpack();``
+Signature: ``Collection::unpack(): Collection;``
 
 .. code-block:: php
 
@@ -2138,7 +2150,7 @@ Opposite of ``Collection::pair()``, creates a flat list of values from a collect
 
 Interface: `Unpairable`_
 
-Signature: ``Collection::unpair();``
+Signature: ``Collection::unpair(): Collection;``
 
 .. code-block:: php
 
@@ -2163,7 +2175,7 @@ Iterate over the collection items until the provided callback(s) are satisfied.
 
 Interface: `Untilable`_
 
-Signature: ``Collection::until(callable ...$callbacks);``
+Signature: ``Collection::until(callable ...$callbacks): Collection;``
 
 .. code-block:: php
 
@@ -2188,7 +2200,7 @@ Turns already-created windows back into a flat list.
 
 Interface: `Unwindowable`_
 
-Signature: ``Collection::unwindow();``
+Signature: ``Collection::unwindow(): Collection;``
 
 .. code-block:: php
 
@@ -2210,7 +2222,7 @@ creates a single string from multiple strings using one space as the glue.
 
 Interface: `Unwordsable`_
 
-Signature: ``Collection::unwords();``
+Signature: ``Collection::unwords(): Collection;``
 
 .. code-block:: php
 
@@ -2237,7 +2249,7 @@ Equivalent to ``Collection::flatten(1)``.
 
 Interface: `Unwrapable`_
 
-Signature: ``Collection::unwrap();``
+Signature: ``Collection::unwrap(): Collection;``
 
 .. code-block:: php
 
@@ -2254,7 +2266,7 @@ Opposite of ``Collection::zip()``, splits zipped items in a collection.
 
 Interface: `Unzipable`_
 
-Signature: ``Collection::unzip();``
+Signature: ``Collection::unzip(): Collection;``
 
 .. code-block:: php
 
@@ -2275,7 +2287,7 @@ this operation operates on the collection directly.
 
 Interface: `Whenable`_
 
-Signature: ``Collection::when(callable $predicate, callable $whenTrue, callable $whenFalse);``
+Signature: ``Collection::when(callable $predicate, callable $whenTrue, ?callable $whenFalse = null): Collection;``
 
 .. code-block:: php
 
@@ -2293,7 +2305,7 @@ Initially the windows yielded will be smaller, until size ``1 + $size`` is reach
 
 Interface: `Windowable`_
 
-Signature: ``Collection::window(int $size);``
+Signature: ``Collection::window(int $size): Collection;``
 
 .. code-block:: php
 
@@ -2309,7 +2321,7 @@ Get a list of words from a string, splitting based on the character set: ``\t, \
 
 Interface: `Wordsable`_
 
-Signature: ``Collection::words();``
+Signature: ``Collection::words(): Collection;``
 
 .. code-block:: php
 
@@ -2330,7 +2342,7 @@ Wrap every element into an array.
 
 Interface: `Wrapable`_
 
-Signature: ``Collection::wrap();``
+Signature: ``Collection::wrap(): Collection;``
 
 .. code-block:: php
 
@@ -2347,7 +2359,7 @@ Zip a collection together with one or more iterables.
 
 Interface: `Zipable`_
 
-Signature: ``Collection::zip(iterable ...$iterables);``
+Signature: ``Collection::zip(iterable ...$iterables): Collection;``
 
 .. code-block:: php
 
