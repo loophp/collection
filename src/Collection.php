@@ -67,6 +67,7 @@ use loophp\collection\Operation\Inits;
 use loophp\collection\Operation\Intersect;
 use loophp\collection\Operation\IntersectKeys;
 use loophp\collection\Operation\Intersperse;
+use loophp\collection\Operation\IsEmpty;
 use loophp\collection\Operation\Key;
 use loophp\collection\Operation\Keys;
 use loophp\collection\Operation\Last;
@@ -565,7 +566,7 @@ final class Collection implements CollectionInterface
 
     public function isEmpty(): bool
     {
-        return !$this->getIterator()->valid();
+        return IsEmpty::of()($this->getIterator());
     }
 
     /**
