@@ -12,13 +12,10 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\fpt\Reduce;
 
 /**
  * @immutable
- *
- * @todo Remove the Wrap and Unwrap operations
- * @todo They are only needed when: Collection::empty()->reverse()
- * @todo Most probably that the FoldLeft operation needs an update.
  *
  * @template TKey
  * @template T
@@ -44,9 +41,8 @@ final class Reverse extends AbstractOperation
         /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
         $pipe = Pipe::of()(
             Pack::of(),
-            Wrap::of(),
-            FoldLeft::of()($callback)([]),
-            Flatten::of()(1),
+            Reduction::of()($callback)([]),
+            Last::of(),
             Unpack::of(),
         );
 
