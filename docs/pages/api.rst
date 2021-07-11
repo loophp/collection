@@ -155,17 +155,18 @@ or through the ``Collection`` object.
   :language: php
 
 When used separately, operations typically return a PHP `Generator`_ or an `Iterator`_.
-When used as a ``Collection`` method, operations fall into three main categories based on the return type:
+When used as a ``Collection`` method, operations fall into a few main categories based on the return type:
 
-1. Operations that return a ``scalar`` value. Currently, this includes:
-   ``Contains``, ``Every``, ``Falsy``, ``Has``, ``Key``, ``Match`` (or ``MatchOne``), ``Nullsy``, ``Truthy``.
+1. Operations that return a ``boolean`` value: ``Contains``, ``Every``, ``Falsy``, ``Has``, ``Match`` (or ``MatchOne``), ``Nullsy``, ``Truthy``.
 
-2. Operations that return a new ``Collection`` object - this includes the majority of operations.
+2. Operations that return a ``Collection`` of ``Collection`` objects: ``Partition``, ``Span``.
 
-3. Operations that return a ``Collection`` of ``Collection`` objects. Currently, this includes: ``Partition``, ``Span``.
+3. Operations that return keys/values from the collection: ``All``, ``Current``, ``Get``, ``Key``.
 
-A couple other operations do not fall neatly in any of the above categories: ``all``, ``current``, ``get``.
-These methods will retrieve items of the collection/iterable directly.
+4. Operations that return a new ``Collection`` object: all other operations.
+
+.. note:: The ``Key`` operation can return any value because ``Collection`` leverages PHP Generators, 
+        which allow using any type as a key as opposed to ``array``, which only allows ``int|string`` keys.
 
 .. note:: Earlier versions of the package had most operations returning a new ``Collection`` object.
         This was changed based on convenience and ease of use; typical usage of operations which return `scalar` values
