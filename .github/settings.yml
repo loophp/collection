@@ -26,6 +26,9 @@ branches:
           required_linear_history: true
 
 labels:
+    - name: backward breaking change
+      color: ff0000
+
     - name: bug
       color: ee0701
 
@@ -35,8 +38,14 @@ labels:
     - name: enhancement
       color: 0e8a16
 
+    - name: experimentation
+      color: eeeeee
+
     - name: question
       color: cc317c
+
+    - name: new feature
+      color: 0e8a16
 
     - name: security
       color: ee0701
