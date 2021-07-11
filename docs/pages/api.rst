@@ -157,7 +157,7 @@ or through the ``Collection`` object.
 When used separately, operations typically return a PHP `Generator`_ or an `Iterator`_.
 When used as a ``Collection`` method, operations fall into a few main categories based on the return type:
 
-1. Operations that return a ``boolean`` value: ``Contains``, ``Every``, ``Falsy``, ``Has``, ``Match`` (or ``MatchOne``), ``Nullsy``, ``Truthy``.
+1. Operations that return a ``boolean`` or ``scalar`` value: ``Contains``, ``Count``, ``Every``, ``Falsy``, ``Has``, ``IsEmpty``, ``Match`` (or ``MatchOne``), ``Nullsy``, ``Truthy``.
 
 2. Operations that return a ``Collection`` of ``Collection`` objects: ``Partition``, ``Span``.
 
@@ -169,7 +169,7 @@ When used as a ``Collection`` method, operations fall into a few main categories
         which allow using any type as a key as opposed to ``array``, which only allows ``int|string`` keys.
 
 .. note:: Earlier versions of the package had most operations returning a new ``Collection`` object.
-        This was changed based on convenience and ease of use; typical usage of operations which return `scalar` values
+        This was changed based on convenience and ease of use; typical usage of operations which return ``boolean`` values
         would involve immediately retrieving the value inside, whereas for most other operations further transformations
         are likely to be applied.
 
