@@ -18,9 +18,9 @@ use loophp\collection\Contract\Collection;
 interface Intersectkeysable
 {
     /**
-     * @param mixed ...$values
+     * @param mixed ...$keys
      *
      * @return Collection<TKey, T>
      */
-    public function intersectKeys(...$values): Collection;
+    public function intersectKeys(...$keys): Collection;
 }
