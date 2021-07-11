@@ -59,19 +59,6 @@ class CollectionSpec extends ObjectBehavior
         $this::fromIterable($duplicateKeyGen())
             ->all()
             ->shouldIterateAs(['a' => 3, 'b' => 2]);
-
-        $nonArrayKeyGen = static function (): Generator {
-            yield ['a'] => 1;
-
-            yield ['b'] => 2;
-        };
-
-        $this::fromIterable($nonArrayKeyGen())
-            ->shouldIterateAs($nonArrayKeyGen());
-
-        $this::fromIterable($nonArrayKeyGen())
-            ->shouldThrow(TypeError::class)
-            ->during('all');
     }
 
     public function it_can_append(): void
