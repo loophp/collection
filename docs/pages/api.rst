@@ -160,7 +160,7 @@ When used as a ``Collection`` method, operations fall into three main categories
 1. Operations that return a ``scalar`` value. Currently, this includes:
    ``Contains``, ``Every``, ``Falsy``, ``Has``, ``Key``, ``Match`` (or ``MatchOne``), ``Nullsy``, ``Truthy``.
 
-2. Operations that return a new ``Collection`` object - this includes the majority of operations
+2. Operations that return a new ``Collection`` object - this includes the majority of operations.
 
 3. Operations that return a ``Collection`` of ``Collection`` objects. Currently, this includes: ``Partition``, ``Span``.
 
