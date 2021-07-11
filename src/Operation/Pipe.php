@@ -10,8 +10,6 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
-use Generator;
-use Iterator;
 
 /**
  * @immutable
@@ -26,31 +24,31 @@ final class Pipe extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(...callable(Iterator<TKey, T>):Generator<TKey, T, mixed, mixed>):Closure(Iterator<TKey, T>):Iterator<TKey, T>
+     * @return Closure(callable(iterable<TKey, T>): iterable<TKey, T> ...): Closure(iterable<TKey, T>): iterable<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable(Iterator<TKey, T>): Generator<TKey, T> ...$operations
+             * @param callable(iterable<TKey, T>): iterable<TKey, T> ...$operations
              *
-             * @return Closure(Iterator<TKey, T>): Iterator<TKey, T>
+             * @return Closure(iterable<TKey, T>): iterable<TKey, T>
              */
             static fn (callable ...$operations): Closure =>
                 /**
-                 * @param Iterator<TKey, T> $iterator
+                 * @param iterable<TKey, T> $iterator
                  *
-                 * @return Iterator<TKey, T>
+                 * @return iterable<TKey, T>
                  */
-                static function (Iterator $iterator) use ($operations): Iterator {
+                static function (iterable $iterator) use ($operations): iterable {
                     $callback =
                         /**
-                         * @param Iterator<TKey, T> $iterator
-                         * @param callable(Iterator<TKey, T>): Iterator<TKey, T> $callable
+                         * @param iterable<TKey, T> $iterator
+                         * @param callable(iterable<TKey, T>): iterable<TKey, T> $callable
                          *
-                         * @return Iterator<TKey, T>
+                         * @return iterable<TKey, T>
                          */
-                        static fn (Iterator $iterator, callable $callable): Iterator => $callable($iterator);
+                        static fn (iterable $iterator, callable $callable): iterable => $callable($iterator);
 
                     return array_reduce($operations, $callback, $iterator);
                 };

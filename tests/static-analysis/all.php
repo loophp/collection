@@ -10,6 +10,9 @@ declare(strict_types=1);
 include __DIR__ . '/../../vendor/autoload.php';
 
 use loophp\collection\Collection;
+use loophp\collection\Operation\All;
+use loophp\collection\Operation\Filter;
+use loophp\collection\Operation\Pipe;
 
 /**
  * @param array<int, int> $array
@@ -29,6 +32,14 @@ function all_checkMap(array $array): void
 function all_checkMixed(array $array): void
 {
 }
+
+$input = [1, 2, 3, 4];
+$even = static fn (int $value): bool => $value % 2 === 0;
+
+// Standalone usage
+$piped = Pipe::of()(Filter::of()($even), All::of())((new ArrayIterator($input)));
+
+print_r($piped);
 
 all_checkList(Collection::empty()->all());
 all_checkMap(Collection::empty()->all());

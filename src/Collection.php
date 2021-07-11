@@ -18,6 +18,7 @@ use loophp\collection\Iterator\ClosureIterator;
 use loophp\collection\Iterator\IterableIterator;
 use loophp\collection\Iterator\ResourceIterator;
 use loophp\collection\Iterator\StringIterator;
+use loophp\collection\Operation\All;
 use loophp\collection\Operation\Append;
 use loophp\collection\Operation\Apply;
 use loophp\collection\Operation\Associate;
@@ -169,7 +170,7 @@ final class Collection implements CollectionInterface
 
     public function all(): array
     {
-        return iterator_to_array($this->getIterator());
+        return All::of()($this->getIterator());
     }
 
     public function append(...$items): CollectionInterface
