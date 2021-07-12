@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
+use Iterator;
 
 /**
  * @immutable
@@ -24,33 +25,35 @@ final class Pipe extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(callable(iterable<TKey, T>): iterable<TKey, T> ...): Closure(iterable<TKey, T>): iterable<TKey, T>
+     * @return Closure(callable(Iterator<TKey, T>): Iterator<TKey, T> ...): Closure(Iterator<TKey, T>): Iterator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable(iterable<TKey, T>): iterable<TKey, T> ...$operations
+             * @param callable(Iterator<TKey, T>): Iterator<TKey, T> ...$operations
              *
-             * @return Closure(iterable<TKey, T>): iterable<TKey, T>
+             * @return Closure(Iterator<TKey, T>): Iterator<TKey, T>
              */
             static fn (callable ...$operations): Closure =>
                 /**
-                 * @param iterable<TKey, T> $iterator
+                 * @param Iterator<TKey, T> $iterator
                  *
-                 * @return iterable<TKey, T>
+                 * @return Iterator<TKey, T>
                  */
-                static function (iterable $iterator) use ($operations): iterable {
-                    $callback =
-                        /**
-                         * @param iterable<TKey, T> $iterator
-                         * @param callable(iterable<TKey, T>): iterable<TKey, T> $callable
-                         *
-                         * @return iterable<TKey, T>
-                         */
-                        static fn (iterable $iterator, callable $callable): iterable => $callable($iterator);
-
-                    return array_reduce($operations, $callback, $iterator);
-                };
+                static fn (Iterator $iterator): Iterator => array_reduce(
+                    $operations,
+                    /**
+                     * TODO: Should we return a new ClosureIterator here ?
+                     * Something like: "new ClosureIterator($callable, $iterator)".
+                     *
+                     * @param Iterator<TKey, T> $iterator
+                     * @param callable(Iterator<TKey, T>): Iterator<TKey, T> $callable
+                     *
+                     * @return Iterator<TKey, T>
+                     */
+                    static fn (Iterator $iterator, callable $callable): Iterator => $callable($iterator),
+                    $iterator
+                );
     }
 }
