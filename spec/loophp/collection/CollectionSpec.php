@@ -2069,7 +2069,8 @@ class CollectionSpec extends ObjectBehavior
 
         $criteria = Criteria::create()
             ->andWhere(Criteria::expr()->eq('is_admin', true))
-            ->orderBy(['age' => 'ASC']);
+            ->orderBy(['age' => 'ASC'])
+            ->setMaxResults(1);
 
         $this::fromIterable($users)
             ->matching($criteria)
@@ -2078,11 +2079,6 @@ class CollectionSpec extends ObjectBehavior
                     2 => [
                         'name' => 'Izumi',
                         'age' => 7,
-                        'is_admin' => true,
-                    ],
-                    0 => [
-                        'name' => 'Pol',
-                        'age' => 39,
                         'is_admin' => true,
                     ],
                 ]

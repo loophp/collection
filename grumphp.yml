@@ -55,7 +55,7 @@ parameters:
       verbose: true
     clover_coverage:
       clover_file: build/logs/clover.xml
-      level: 90
+      level: 99
     infection:
       threads: 10
       test_framework: phpspec

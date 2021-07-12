@@ -23,14 +23,14 @@ use NoRewindIterator;
 final class MultipleIterableIterator extends ProxyIterator
 {
     /**
-     * @param iterable<TKey, T> $iterators
+     * @param iterable<TKey, T> $iterables
      */
-    public function __construct(iterable ...$iterators)
+    public function __construct(iterable ...$iterables)
     {
         $appendIterator = new AppendIterator();
 
-        foreach ($iterators as $iterator) {
-            $appendIterator->append(new NoRewindIterator(new IterableIterator($iterator)));
+        foreach ($iterables as $iterable) {
+            $appendIterator->append(new NoRewindIterator(new IterableIterator($iterable)));
         }
 
         $this->iterator = $appendIterator;
