@@ -9,21 +9,20 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
-use Iterator;
 use loophp\collection\Contract\Collection;
 
 /**
  * @template TKey
  * @template T
  */
-interface MapNable
+interface AsyncMapNable
 {
     /**
-     * Apply one or more callbacks to every item of a collection and use the return value.
+     * Asynchronously apply callbacks to every item of a collection and use the return value.
      *
-     * @param callable(mixed, mixed, Iterator<TKey, T>): mixed ...$callbacks
+     * @param callable(mixed, mixed): mixed ...$callbacks
      *
-     * @return Collection<mixed, mixed>
+     * @return Collection<TKey, T>
      */
-    public function mapN(callable ...$callbacks): Collection;
+    public function asyncMapN(callable ...$callbacks): Collection;
 }

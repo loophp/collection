@@ -18,9 +18,13 @@ use loophp\collection\Contract\Collection;
 interface AsyncMapable
 {
     /**
-     * Asynchronously apply callbacks to a collection.
+     * Asynchronously apply a single callback to every item of a collection and use the return value.
      *
-     * @return Collection<TKey, T>
+     * @template V
+     *
+     * @param callable(T, TKey): V $callback
+     *
+     * @return Collection<TKey, V>
      */
-    public function asyncMap(callable ...$callbacks): Collection;
+    public function asyncMap(callable $callback): Collection;
 }

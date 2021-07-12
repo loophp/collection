@@ -246,6 +246,21 @@ class CollectionSpec extends ObjectBehavior
 
     public function it_can_asyncMap(): void
     {
+        $callback = static function (int $v): int {
+            sleep($v);
+
+            return $v * 2;
+        };
+
+        $this->beConstructedThrough('fromIterable', [['c' => 2, 'b' => 1, 'a' => 0]]);
+
+        $this
+            ->asyncMap($callback)
+            ->shouldIterateAs(['a' => 0, 'b' => 2, 'c' => 4]);
+    }
+
+    public function it_can_asyncMapN(): void
+    {
         $callback1 = static function (int $v): int {
             sleep($v);
 
@@ -256,11 +271,11 @@ class CollectionSpec extends ObjectBehavior
             return $v * 2;
         };
 
-        $this->beConstructedThrough('fromIterable', [['c' => 3, 'b' => 2, 'a' => 1]]);
+        $this->beConstructedThrough('fromIterable', [['c' => 2, 'b' => 1, 'a' => 0]]);
 
         $this
-            ->asyncMap($callback1, $callback2)
-            ->shouldIterateAs(['a' => 2, 'b' => 4, 'c' => 6]);
+            ->asyncMapN($callback1, $callback2)
+            ->shouldIterateAs(['a' => 0, 'b' => 2, 'c' => 4]);
     }
 
     public function it_can_be_constructed_from_a_file(): void

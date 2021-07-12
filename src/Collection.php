@@ -23,6 +23,7 @@ use loophp\collection\Operation\Append;
 use loophp\collection\Operation\Apply;
 use loophp\collection\Operation\Associate;
 use loophp\collection\Operation\AsyncMap;
+use loophp\collection\Operation\AsyncMapN;
 use loophp\collection\Operation\Cache;
 use loophp\collection\Operation\Chunk;
 use loophp\collection\Operation\Coalesce;
@@ -199,9 +200,14 @@ final class Collection implements CollectionInterface
         return new self(Associate::of()($callbackForKeys ?? $defaultCallback)($callbackForValues ?? $defaultCallback), $this->getIterator());
     }
 
-    public function asyncMap(callable ...$callbacks): CollectionInterface
+    public function asyncMap(callable $callback): CollectionInterface
     {
-        return new self(AsyncMap::of()(...$callbacks), $this->getIterator());
+        return new self(AsyncMap::of()($callback), $this->getIterator());
+    }
+
+    public function asyncMapN(callable ...$callbacks): CollectionInterface
+    {
+        return new self(AsyncMapN::of()(...$callbacks), $this->getIterator());
     }
 
     public function cache(?CacheItemPoolInterface $cache = null): CollectionInterface
