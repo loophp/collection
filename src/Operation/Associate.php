@@ -74,10 +74,10 @@ final class Associate extends AbstractOperation
 
                         foreach ($iterator as $key => $value) {
                             /** @var Generator<int, T|TKey> $k */
-                            $k = FoldLeft::of()($callbackFactory($key)($value))($key)(new ArrayIterator($callbackForKeys));
+                            $k = Reduce::of()($callbackFactory($key)($value))($key)(new ArrayIterator($callbackForKeys));
 
                             /** @var Generator<int, T|TKey> $c */
-                            $c = FoldLeft::of()($callbackFactory($key)($value))($value)(new ArrayIterator($callbackForValues));
+                            $c = Reduce::of()($callbackFactory($key)($value))($value)(new ArrayIterator($callbackForValues));
 
                             yield $k->current() => $c->current();
                         }

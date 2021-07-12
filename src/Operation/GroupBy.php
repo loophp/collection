@@ -73,7 +73,7 @@ final class GroupBy extends AbstractOperation
 
                 /** @var Closure(Iterator<TKey, T>): Generator<int, list<T>> $pipe */
                 $pipe = Pipe::of()(
-                    FoldLeft::of()($reducerFactory($callable))([]),
+                    Reduce::of()($reducerFactory($callable))([]),
                     Flatten::of()(1)
                 );
 
