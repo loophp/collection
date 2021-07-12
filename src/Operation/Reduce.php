@@ -28,21 +28,21 @@ final class Reduce extends AbstractOperation
      *
      * @template V
      *
-     * @return Closure(callable(V, T, TKey, Iterator<TKey, T>): V): Closure (V): Closure(Iterator<TKey, T>): Generator<TKey, V>
+     * @return Closure(callable((V|null), T, TKey, Iterator<TKey, T>): (V|null)): Closure (V|null): Closure(Iterator<TKey, T>): Generator<TKey, (V|null)>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable(V, T, TKey, Iterator<TKey, T>): V $callback
+             * @param callable((V|null), T, TKey, Iterator<TKey, T>): (V|null) $callback
              *
-             * @return Closure(V): Closure(Iterator<TKey, T>): Generator<TKey, V>
+             * @return Closure(V|null): Closure(Iterator<TKey, T>): Generator<TKey, (V|null)>
              */
             static fn (callable $callback): Closure =>
                 /**
-                 * @param V $initial
+                 * @param V|null $initial
                  *
-                 * @return Closure(Iterator<TKey, T>): Generator<TKey, V>
+                 * @return Closure(Iterator<TKey, T>): Generator<TKey, (V|null)>
                  */
                 static function ($initial) use ($callback): Closure {
                     /** @var Closure(Iterator<TKey, T>): Generator<TKey, V> $pipe */
