@@ -1936,7 +1936,7 @@ span
 ~~~~
 
 Partition the collection into two subgroups where the first element is the longest
-prefix (*possibly empty*) of elements that satisfy the callback and the second element
+prefix (*possibly empty*) of elements that satisfy the callback(s) and the second element
 is the remainder.
 
 The raw ``Span`` operation returns a generator yielding two iterators.
@@ -1949,7 +1949,7 @@ resulting iterators will be converted and mapped into ``Collection`` objects.
 
 Interface: `Spanable`_
 
-Signature: ``Collection::span(callable $callback): Collection;``
+Signature: ``Collection::span(callable ...$callbacks): Collection;``
 
 .. literalinclude:: code/operations/span.php
   :language: php
