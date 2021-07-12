@@ -45,7 +45,7 @@ final class Implode extends AbstractOperation
                 $pipe = Pipe::of()(
                     Intersperse::of()($glue)(1)(0),
                     Drop::of()(1),
-                    FoldLeft::of()($reducer)('')
+                    Reduce::of()($reducer)('')
                 );
 
                 // Point free style.

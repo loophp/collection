@@ -16,11 +16,10 @@ use loophp\collection\Contract\Collection;
  * @template TKey
  * @template T
  */
-interface Reductionable
+interface Reduceable
 {
     /**
-     * Reduce a collection of items through a given callback
-     * and yield each intermediary results.
+     * Reduce a collection of items through a given callback.
      *
      * @template V
      *
@@ -29,5 +28,5 @@ interface Reductionable
      *
      * @return Collection<TKey, (V|null)>
      */
-    public function reduction(callable $callback, $initial = null): Collection;
+    public function reduce(callable $callback, $initial = null): Collection;
 }

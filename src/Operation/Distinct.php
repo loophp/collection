@@ -84,7 +84,7 @@ final class Distinct extends AbstractOperation
                     /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
                     $pipe = Pipe::of()(
                         Pack::of(),
-                        FoldLeft::of()($foldLeftCallbackBuilder($accessorCallback)($comparatorCallback))([]),
+                        Reduce::of()($foldLeftCallbackBuilder($accessorCallback)($comparatorCallback))([]),
                         Flatten::of()(1),
                         Unpack::of()
                     );
