@@ -40,17 +40,16 @@ final class Pipe extends AbstractOperation
                  *
                  * @return iterable<TKey, T>
                  */
-                static function (iterable $iterator) use ($operations): iterable {
-                    $callback =
-                        /**
-                         * @param iterable<TKey, T> $iterator
-                         * @param callable(iterable<TKey, T>): iterable<TKey, T> $callable
-                         *
-                         * @return iterable<TKey, T>
-                         */
-                        static fn (iterable $iterator, callable $callable): iterable => $callable($iterator);
-
-                    return array_reduce($operations, $callback, $iterator);
-                };
+                static fn (iterable $iterable): iterable => array_reduce(
+                    $operations,
+                    /**
+                     * @param iterable<TKey, T> $iterable
+                     * @param callable(iterable<TKey, T>): iterable<TKey, T> $callable
+                     *
+                     * @return iterable<TKey, T>
+                     */
+                    static fn (iterable $iterable, callable $callable): iterable => $callable($iterable),
+                    $iterable
+                );
     }
 }
