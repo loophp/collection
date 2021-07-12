@@ -67,6 +67,7 @@ use loophp\collection\Operation\Inits;
 use loophp\collection\Operation\Intersect;
 use loophp\collection\Operation\IntersectKeys;
 use loophp\collection\Operation\Intersperse;
+use loophp\collection\Operation\IsEmpty;
 use loophp\collection\Operation\Key;
 use loophp\collection\Operation\Keys;
 use loophp\collection\Operation\Last;
@@ -553,9 +554,9 @@ final class Collection implements CollectionInterface
         return new self(Intersect::of()(...$values), $this->getIterator());
     }
 
-    public function intersectKeys(...$values): CollectionInterface
+    public function intersectKeys(...$keys): CollectionInterface
     {
-        return new self(IntersectKeys::of()(...$values), $this->getIterator());
+        return new self(IntersectKeys::of()(...$keys), $this->getIterator());
     }
 
     public function intersperse($element, int $every = 1, int $startAt = 0): CollectionInterface
@@ -565,7 +566,7 @@ final class Collection implements CollectionInterface
 
     public function isEmpty(): bool
     {
-        return !$this->getIterator()->valid();
+        return IsEmpty::of()($this->getIterator());
     }
 
     /**
