@@ -2526,6 +2526,15 @@ class CollectionSpec extends ObjectBehavior
                 0
             )
             ->shouldIterateAs([4 => 15]);
+
+        $this::fromIterable(array_combine(range('x', 'z'), range('a', 'c')))
+            ->reduce(
+                static fn (string $carry, string $letter, string $index): string => sprintf('%s[%s:%s]', $carry, $index, $letter),
+                '=> '
+            )
+            ->shouldIterateAs([
+                'z' => '=> [x:a][y:b][z:c]',
+            ]);
     }
 
     public function it_can_reduction(): void
