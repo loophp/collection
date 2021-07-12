@@ -775,11 +775,11 @@ final class Collection implements CollectionInterface
         return new self(Sort::of()($type)($callback), $this->getIterator());
     }
 
-    public function span(callable $callback): CollectionInterface
+    public function span(callable ...$callbacks): CollectionInterface
     {
         return new self(
             Pipe::of()(
-                Span::of()($callback),
+                Span::of()(...$callbacks),
                 Map::of()(static fn (Iterator $iterator): CollectionInterface => self::fromIterable($iterator))
             ),
             $this->getIterator()

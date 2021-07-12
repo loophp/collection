@@ -32,21 +32,21 @@ final class Span extends AbstractOperation
     {
         return
             /**
-             * @param callable(T, TKey, Iterator<TKey, T>): bool $callback
+             * @param callable(T, TKey, Iterator<TKey, T>): bool ...$callbacks
              *
              * @return Closure(Iterator<TKey, T>): Generator<int, Iterator<TKey, T>>
              */
-            static fn (callable $callback): Closure =>
+            static fn (callable ...$callbacks): Closure =>
                 /**
                  * @param Iterator<TKey, T> $iterator
                  *
                  * @return Generator<int, Iterator<TKey, T>>
                  */
-                static function (Iterator $iterator) use ($callback): Generator {
+                static function (Iterator $iterator) use ($callbacks): Generator {
                     /** @var Iterator<TKey, T> $takeWhile */
-                    $takeWhile = TakeWhile::of()($callback)($iterator);
+                    $takeWhile = TakeWhile::of()(...$callbacks)($iterator);
                     /** @var Iterator<TKey, T> $dropWhile */
-                    $dropWhile = DropWhile::of()($callback)($iterator);
+                    $dropWhile = DropWhile::of()(...$callbacks)($iterator);
 
                     return yield from [$takeWhile, $dropWhile];
                 };

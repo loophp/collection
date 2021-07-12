@@ -38,10 +38,14 @@ function span_checkMapString(CollectionInterface $collection): void
 }
 
 $intValueCallback = static fn (int $value): bool => $value % 2 === 0;
+$intSecondCallback = static fn (int $value): bool => 3 > $value;
 $stringValueCallback = static fn (string $value): bool => 'bar' === $value;
+$stringSecondCallback = static fn (string $value): bool => 'foo' === $value;
 
 span_checkListCollectionInt(Collection::fromIterable([2, 3, 4])->span($intValueCallback));
+span_checkListCollectionInt(Collection::fromIterable([2, 3, 4])->span($intValueCallback, $intSecondCallback));
 span_checkMapCollectionString(Collection::fromIterable(['foo' => 'bar', 'bar' => 'foo'])->span($stringValueCallback));
+span_checkMapCollectionString(Collection::fromIterable(['foo' => 'bar', 'bar' => 'foo'])->span($stringValueCallback, $stringSecondCallback));
 
 [$left, $right] = Collection::fromIterable([2, 3, 4])->span($intValueCallback)->all();
 span_checkListInt($left);

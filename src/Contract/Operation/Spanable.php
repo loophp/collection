@@ -19,9 +19,9 @@ use loophp\collection\Contract\Collection;
 interface Spanable
 {
     /**
-     * @param callable(T, TKey, Iterator<TKey, T>): bool $callback
+     * @param callable(T, TKey, Iterator<TKey, T>): bool ...$callbacks
      *
      * @return Collection<int, Collection<TKey, T>>
      */
-    public function span(callable $callback): Collection;
+    public function span(callable ...$callbacks): Collection;
 }

@@ -2910,9 +2910,15 @@ class CollectionSpec extends ObjectBehavior
         $subject->shouldHaveCount(2);
         $subject->first()->shouldBeAnInstanceOf(CollectionInterface::class);
         $subject->last()->shouldBeAnInstanceOf(CollectionInterface::class);
-
         $subject->first()->current()->shouldIterateAs([1, 2, 3]);
         $subject->last()->current()->shouldIterateAs([3 => 4, 4 => 5, 5 => 6, 6 => 7, 7 => 8, 8 => 9, 9 => 10]);
+
+        $subject = $this::fromIterable($input)->span(static fn (int $x): bool => 4 > $x, static fn (int $x): bool => $x % 2 === 0);
+        $subject->shouldHaveCount(2);
+        $subject->first()->shouldBeAnInstanceOf(CollectionInterface::class);
+        $subject->last()->shouldBeAnInstanceOf(CollectionInterface::class);
+        $subject->first()->current()->shouldIterateAs([1, 2, 3, 4]);
+        $subject->last()->current()->shouldIterateAs([4 => 5, 5 => 6, 6 => 7, 7 => 8, 8 => 9, 9 => 10]);
     }
 
     public function it_can_split(): void

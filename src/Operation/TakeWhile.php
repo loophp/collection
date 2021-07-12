@@ -33,7 +33,7 @@ final class TakeWhile extends AbstractOperation
     {
         return
             /**
-             * @param callable(T, TKey, Iterator<TKey, T>):bool $callback
+             * @param callable(T, TKey, Iterator<TKey, T>): bool ...$callbacks
              *
              * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
