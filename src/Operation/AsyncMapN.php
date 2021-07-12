@@ -75,11 +75,7 @@ final class AsyncMapN extends AbstractOperation
                          *
                          * @return array{0: mixed, 1: mixed}
                          */
-                        static function (array $value) use ($callbacks, $callbackFactory): array {
-                            [$key, $value] = $value;
-
-                            return [$key, array_reduce($callbacks, $callbackFactory($key), $value)];
-                        };
+                        static fn (array $value): array => [$value[0], array_reduce($callbacks, $callbackFactory($value[0]), $value[1])];
 
                     $iter = map(fromIterable(Pack::of()($iterator)), new LocalSemaphore(32), parallel($callback));
 

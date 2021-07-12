@@ -22,7 +22,7 @@ interface AsyncMapNable
      *
      * @param callable(mixed, mixed): mixed ...$callbacks
      *
-     * @return Collection<TKey, T>
+     * @return Collection<mixed, mixed>
      */
     public function asyncMapN(callable ...$callbacks): Collection;
 }

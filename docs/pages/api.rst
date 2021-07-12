@@ -351,7 +351,7 @@ Signature: ``Collection::asyncMapN(callable ...$callbacks): Collection;``
     };
 
     $collection = Collection::fromIterable(['c' => 3, 'b' => 2, 'a' => 1])
-        ->asyncMap($mapper1, $mapper2); // ['a' => 2, 'b' => 4, 'c' => 6]
+        ->asyncMapN($mapper1, $mapper2); // ['a' => 2, 'b' => 4, 'c' => 6]
 
 cache
 ~~~~~
