@@ -19,7 +19,7 @@ use loophp\collection\Contract\Collection;
 interface Reductionable
 {
     /**
-     * Reduce a collection of items through a given callback and
+     * Reduce a collection of items through a given callback
      * and yield each intermediary results.
      *
      * @template V
