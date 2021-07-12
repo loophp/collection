@@ -299,13 +299,44 @@ Asynchronously apply one or more supplied callbacks to every item of a collectio
 
 .. warning:: This method requires `amphp/parallel-functions <https://github.com/amphp/parallel-functions>`_ to be installed.
 
-.. warning::
-        This operation is non-deterministic, we cannot ensure the order of the elements at the end. Additionally,
+.. warning:: This operation is non-deterministic, we cannot ensure the order of the elements at the end. Additionally,
         keys are preserved - use the ``Collection::normalize`` operation if you want to re-index the keys.
+
+.. warning:: An earlier version of this operation allowed usage with multiple callbacks. This behaviour
+        was removed in version ``5.0``; ``asyncMapN`` should be used instead, or,
+        alternatively, multiple successive ``asyncMap`` calls can achieve the same result.
 
 Interface: `AsyncMapable`_
 
-Signature: ``Collection::asyncMap(callable ...$callbacks): Collection;``
+Signature: ``Collection::asyncMap(callable callback): Collection;``
+
+.. code-block:: php
+
+    $mapper = static function(int $value): int {
+        sleep($value);
+
+        return $value * 2;
+    };
+
+    $collection = Collection::fromIterable(['c' => 3, 'b' => 2, 'a' => 1])
+        ->asyncMap($mapper); // ['a' => 2, 'b' => 4, 'c' => 6]
+
+asyncMapN
+~~~~~~~~~
+
+Asynchronously apply one or more supplied callbacks to every item of a collection and use the return value.
+
+.. tip:: This operation is best used when multiple callbacks need to be applied. If you only want to apply
+        a single callback, ``asyncMap`` should be prefered as it benefits from more specific type hints.
+
+.. warning:: This method requires `amphp/parallel-functions <https://github.com/amphp/parallel-functions>`_ to be installed.
+
+.. warning:: This operation is non-deterministic, we cannot ensure the order of the elements at the end. Additionally,
+        keys are preserved - use the ``Collection::normalize`` operation if you want to re-index the keys.
+
+Interface: `AsyncMapNable`_
+
+Signature: ``Collection::asyncMapN(callable ...$callbacks): Collection;``
 
 .. code-block:: php
 
@@ -320,7 +351,7 @@ Signature: ``Collection::asyncMap(callable ...$callbacks): Collection;``
     };
 
     $collection = Collection::fromIterable(['c' => 3, 'b' => 2, 'a' => 1])
-        ->asyncMap($mapper1, $mapper2); // ['a' => 2, 'b' => 4, 'c' => 6]
+        ->asyncMapN($mapper1, $mapper2); // ['a' => 2, 'b' => 4, 'c' => 6]
 
 cache
 ~~~~~
@@ -2376,6 +2407,7 @@ Signature: ``Collection::zip(iterable ...$iterables): Collection;``
 .. _Applyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Applyable.php
 .. _Associateable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Associateable.php
 .. _AsyncMapable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/AsyncMapable.php
+.. _AsyncMapNable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/AsyncMapNable.php
 .. _Cacheable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Cacheable.php
 .. _Chunkable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Chunkable.php
 .. _Collapseable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Collapseable.php

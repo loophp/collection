@@ -39,54 +39,35 @@ final class AsyncMap extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(callable(T, TKey): T ...): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @template V
+     *
+     * @return Closure(callable(T, TKey): V): Closure(Iterator<TKey, T>): Generator<TKey, V>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable(T, TKey): T ...$callbacks
-             *
-             * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @param callable(T, TKey): V $callback
              */
-            static fn (callable ...$callbacks): Closure =>
+            static fn (callable $callback): Closure =>
                 /**
                  * @param Iterator<TKey, T> $iterator
                  *
-                 * @return Generator<TKey, T>
+                 * @return Generator<TKey, V>
                  */
-                static function (Iterator $iterator) use ($callbacks): Generator {
-                    $callbackFactory =
+                static function (Iterator $iterator) use ($callback): Generator {
+                    $parallelCallBack =
                         /**
-                         * @param TKey $key
+                         * @param array{0: TKey, 1: T} $value
                          *
-                         * @return Closure(T, callable(T, TKey): T): T
+                         * @return array{0: TKey, 1: V}
                          */
-                        static fn ($key): Closure =>
-                            /**
-                             * @param T $carry
-                             * @param callable(T, TKey): T $callback
-                             *
-                             * @return T
-                             */
-                            static fn ($carry, callable $callback) => $callback($carry, $key);
+                        static fn (array $value): array => [$value[0], $callback($value[1], $value[0])];
 
-                    $callback =
-                        /**
-                         * @param array{0: TKey, 1:T} $value
-                         *
-                         * @return array{0: TKey, 1: T}
-                         */
-                        static function (array $value) use ($callbacks, $callbackFactory): array {
-                            [$key, $value] = $value;
-
-                            return [$key, array_reduce($callbacks, $callbackFactory($key), $value)];
-                        };
-
-                    $iter = map(fromIterable(Pack::of()($iterator)), new LocalSemaphore(32), parallel($callback));
+                    $iter = map(fromIterable(Pack::of()($iterator)), new LocalSemaphore(32), parallel($parallelCallBack));
 
                     while (wait($iter->advance())) {
-                        /** @var array{0: TKey, 1: T} $item */
+                        /** @var array{0: TKey, 1: V} $item */
                         $item = $iter->getCurrent();
 
                         yield $item[0] => $item[1];
