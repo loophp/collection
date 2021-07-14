@@ -42,7 +42,7 @@ final class Partition extends AbstractOperation
                  *
                  * @return Generator<int, Iterator<TKey, T>>
                  */
-                static function (Iterator $iterator) use ($callbacks): Iterator {
+                static function (Iterator $iterator) use ($callbacks): Generator {
                     /** @var Iterator<TKey, T> $filter */
                     $filter = Filter::of()(...$callbacks)($iterator);
                     /** @var Iterator<TKey, T> $reject */

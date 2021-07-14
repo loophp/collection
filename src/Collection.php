@@ -11,6 +11,7 @@ namespace loophp\collection;
 
 use Closure;
 use Doctrine\Common\Collections\Criteria;
+use Generator;
 use Iterator;
 use loophp\collection\Contract\Collection as CollectionInterface;
 use loophp\collection\Contract\Operation;
@@ -670,7 +671,7 @@ final class Collection implements CollectionInterface
         return new self(
             Pipe::of()(
                 Partition::of()(...$callbacks),
-                Map::of()(static fn (Iterator $iterator): CollectionInterface => self::fromIterable($iterator))
+                Map::of()(static fn (Generator $generator): CollectionInterface => self::fromIterable(iterator_to_array($generator)))
             ),
             $this->getIterator()
         );

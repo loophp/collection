@@ -23,6 +23,7 @@ use loophp\collection\Contract\Collection as CollectionInterface;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Iterator\ClosureIterator;
 use loophp\collection\Operation\AbstractOperation;
+use loophp\collection\Operation\Pipe;
 use OutOfBoundsException;
 use PhpSpec\Exception\Example\FailureException;
 use PhpSpec\Exception\Example\MatcherException;
@@ -58,6 +59,22 @@ class CollectionSpec extends ObjectBehavior
         $this::fromIterable($duplicateKeyGen())
             ->all()
             ->shouldIterateAs(['a' => 3, 'b' => 2]);
+    }
+
+    public function it_fails_to_work_with_generator(): void
+    {
+        $gen = static fn (): Generator => yield from [1, 2, 3];
+
+        $this->beConstructedThrough('fromIterable', [$gen()]);
+        $this->shouldHaveCount(3);
+        $this->shouldIterateAs([1, 2, 3]);
+    }
+
+    public function it_works_with_iterator(): void
+    {
+        $this->beConstructedThrough('fromIterable', [new ArrayIterator([1, 2, 3])]);
+        $this->shouldHaveCount(3);
+        $this->shouldIterateAs([1, 2, 3]);
     }
 
     public function it_can_append(): void
@@ -2264,7 +2281,7 @@ class CollectionSpec extends ObjectBehavior
 
         $subject = $this::fromIterable($input)->partition($isGreaterThan(5));
         $subject->shouldHaveCount(2);
-        $subject->first()->shouldBeAnInstanceOf(CollectionInterface::class);
+        $subject->first()->current()->shouldBeAnInstanceOf(CollectionInterface::class);
         $subject->last()->shouldBeAnInstanceOf(CollectionInterface::class);
 
         $this::fromIterable($input)
