@@ -11,6 +11,7 @@ namespace loophp\collection\Iterator;
 
 use Generator;
 use InvalidArgumentException;
+use Iterator;
 
 use function get_class;
 use function gettype;
@@ -26,10 +27,10 @@ use function gettype;
 final class TypedIterator extends ProxyIterator
 {
     /**
-     * @param iterable<TKey, T> $iterator
+     * @param Iterator<TKey, T> $iterator
      * @param null|callable(mixed): string $getType
      */
-    public function __construct(iterable $iterator, ?callable $getType = null)
+    public function __construct(Iterator $iterator, ?callable $getType = null)
     {
         $getType ??=
             /**
@@ -54,7 +55,7 @@ final class TypedIterator extends ProxyIterator
             };
 
         $this->iterator = new ClosureIterator(
-            static function (iterable $iterator) use ($getType): Generator {
+            static function (Iterator $iterator) use ($getType): Generator {
                 $previousType = null;
 
                 foreach ($iterator as $key => $value) {

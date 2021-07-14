@@ -22,23 +22,23 @@ use Generator;
 final class ClosureIterator extends ProxyIterator
 {
     /**
-     * @var list<mixed>
-     */
-    private array $arguments;
-
-    /**
-     * @var callable(mixed ...$arguments): iterable<TKey, T>
+     * @var callable(mixed ...$parameters): iterable<TKey, T>
      */
     private $callable;
 
     /**
-     * @param callable(mixed ...$arguments): iterable<TKey, T> $callable
-     * @param mixed ...$arguments
+     * @var list<mixed>
      */
-    public function __construct(callable $callable, ...$arguments)
+    private $parameters;
+
+    /**
+     * @param callable(mixed ...$parameters): iterable<TKey, T> $callable
+     * @param mixed ...$parameters
+     */
+    public function __construct(callable $callable, ...$parameters)
     {
         $this->callable = $callable;
-        $this->arguments = $arguments;
+        $this->parameters = $parameters;
         $this->iterator = $this->getGenerator();
     }
 
@@ -52,6 +52,6 @@ final class ClosureIterator extends ProxyIterator
      */
     private function getGenerator(): Generator
     {
-        return yield from ($this->callable)(...$this->arguments);
+        return yield from ($this->callable)(...$this->parameters);
     }
 }
