@@ -29,7 +29,7 @@ class TypedIteratorSpec extends ObjectBehavior
     {
         $data = [self::MAP_DATA, self::LIST_DATA];
 
-        $this->beConstructedWith($data);
+        $this->beConstructedWith(new ArrayIterator($data));
 
         $this->shouldIterateAs($data);
     }
@@ -48,7 +48,7 @@ class TypedIteratorSpec extends ObjectBehavior
 
         $data = [new $obj1(), new $obj2()];
 
-        $this->beConstructedWith($data, $callback);
+        $this->beConstructedWith(new ArrayIterator($data), $callback);
 
         $this->shouldIterateAs($data);
     }
@@ -81,7 +81,7 @@ class TypedIteratorSpec extends ObjectBehavior
 
         $data = [new $obj1(), new $obj2()];
 
-        $this->beConstructedWith($data);
+        $this->beConstructedWith(new ArrayIterator($data));
 
         $this->shouldIterateAs($data);
     }
@@ -104,7 +104,7 @@ class TypedIteratorSpec extends ObjectBehavior
 
         $data = [new $obj1(), new $obj2()];
 
-        $this->beConstructedWith($data);
+        $this->beConstructedWith(new ArrayIterator($data));
 
         $this->shouldIterateAs($data);
     }
@@ -113,7 +113,7 @@ class TypedIteratorSpec extends ObjectBehavior
     {
         $data = [1, null, 3];
 
-        $this->beConstructedWith($data);
+        $this->beConstructedWith(new ArrayIterator($data));
 
         $this->shouldIterateAs($data);
     }
@@ -129,7 +129,7 @@ class TypedIteratorSpec extends ObjectBehavior
 
         $data = [new $obj(), new $obj()];
 
-        $this->beConstructedWith($data);
+        $this->beConstructedWith(new ArrayIterator($data));
 
         $this->shouldIterateAs($data);
     }
@@ -150,7 +150,7 @@ class TypedIteratorSpec extends ObjectBehavior
 
         $data = [new $obj(), new $obj()];
 
-        $this->beConstructedWith($data);
+        $this->beConstructedWith(new ArrayIterator($data));
 
         $this->shouldIterateAs($data);
     }
@@ -165,14 +165,14 @@ class TypedIteratorSpec extends ObjectBehavior
 
         $data = [$obj1, $obj2];
 
-        $this->beConstructedWith($data);
+        $this->beConstructedWith(new ArrayIterator($data));
 
         $this->shouldIterateAs($data);
     }
 
     public function it_can_return_a_string_key(): void
     {
-        $this->beConstructedWith(self::MAP_DATA);
+        $this->beConstructedWith(new ArrayIterator(self::MAP_DATA));
 
         $this->key()->shouldBe('foo');
         $this->next();
@@ -181,7 +181,7 @@ class TypedIteratorSpec extends ObjectBehavior
 
     public function it_can_return_an_int_key(): void
     {
-        $this->beConstructedWith(self::LIST_DATA);
+        $this->beConstructedWith(new ArrayIterator(self::LIST_DATA));
 
         $this->key()->shouldBe(0);
         $this->next();
@@ -190,7 +190,7 @@ class TypedIteratorSpec extends ObjectBehavior
 
     public function it_can_rewind(): void
     {
-        $this->beConstructedWith(['foo']);
+        $this->beConstructedWith(new ArrayIterator(['foo']));
 
         $this->current()->shouldBe('foo');
 
@@ -205,7 +205,7 @@ class TypedIteratorSpec extends ObjectBehavior
 
     public function it_disallows_bool_mixed(): void
     {
-        $this->beConstructedWith([true, false, 'bar']);
+        $this->beConstructedWith(new ArrayIterator([true, false, 'bar']));
 
         $this->next();
 
@@ -223,7 +223,7 @@ class TypedIteratorSpec extends ObjectBehavior
 
         $obj2 = new stdClass();
 
-        $data = [new $obj1(), new $obj2()];
+        $data = new ArrayIterator([new $obj1(), new $obj2()]);
 
         $this->beConstructedWith($data);
 
@@ -232,7 +232,7 @@ class TypedIteratorSpec extends ObjectBehavior
 
     public function it_disallows_float_mixed(): void
     {
-        $this->beConstructedWith([2.3, 5.6, 1]);
+        $this->beConstructedWith(new ArrayIterator([2.3, 5.6, 1]));
 
         $this->next();
 
@@ -241,7 +241,7 @@ class TypedIteratorSpec extends ObjectBehavior
 
     public function it_disallows_int_mixed(): void
     {
-        $this->beConstructedWith([1, 2, 'foo']);
+        $this->beConstructedWith(new ArrayIterator([1, 2, 'foo']));
 
         $this->next();
 
@@ -264,7 +264,7 @@ class TypedIteratorSpec extends ObjectBehavior
             }
         };
 
-        $data = [new $obj1(), new $obj2()];
+        $data = new ArrayIterator([new $obj1(), new $obj2()]);
 
         $this->beConstructedWith($data);
 
@@ -287,7 +287,7 @@ class TypedIteratorSpec extends ObjectBehavior
             }
         };
 
-        $data = [new $obj1(), new $obj2()];
+        $data = new ArrayIterator([new $obj1(), new $obj2()]);
 
         $this->beConstructedWith($data);
 
@@ -296,14 +296,14 @@ class TypedIteratorSpec extends ObjectBehavior
 
     public function it_disallows_mixed_at_beginning(): void
     {
-        $this->beConstructedWith([1, 'bar', 'foo']);
+        $this->beConstructedWith(new ArrayIterator([1, 'bar', 'foo']));
 
         $this->shouldThrow(InvalidArgumentException::class)->during('next');
     }
 
     public function it_disallows_mixed_in_middle(): void
     {
-        $this->beConstructedWith([1, 'bar', 2]);
+        $this->beConstructedWith(new ArrayIterator([1, 'bar', 2]));
 
         $this->shouldThrow(InvalidArgumentException::class)->during('next');
     }
@@ -314,14 +314,14 @@ class TypedIteratorSpec extends ObjectBehavior
         $closedResource = fopen('data://text/plain,XYZ', 'rb');
         fclose($closedResource);
 
-        $this->beConstructedWith([$openResource, $closedResource]);
+        $this->beConstructedWith(new ArrayIterator([$openResource, $closedResource]));
 
         $this->shouldThrow(InvalidArgumentException::class)->during('next');
     }
 
     public function it_disallows_string_mixed(): void
     {
-        $this->beConstructedWith(['foo', 'bar', 3]);
+        $this->beConstructedWith(new ArrayIterator(['foo', 'bar', 3]));
 
         $this->next();
 
@@ -330,7 +330,7 @@ class TypedIteratorSpec extends ObjectBehavior
 
     public function it_is_initializable_from_array(): void
     {
-        $this->beConstructedWith(self::LIST_DATA);
+        $this->beConstructedWith(new ArrayIterator(self::LIST_DATA));
 
         $this->shouldHaveType(TypedIterator::class);
 
