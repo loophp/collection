@@ -43,12 +43,7 @@ final class Nth extends AbstractOperation
                     $pipe = Filter::of()(
                         FPT::compose()(
                             FPT::operator()(Operator::OP_EQUAL)($offset),
-                            FPT::partialLeft()( // Could be simpler? Use a flip only?
-                                FPT::uncurry()(
-                                    FPT::operator()(Operator::OP_MODULO)
-                                )
-                            )($step),
-                            FPT::arg()(1)
+                            static fn ($value, $key): int => $key % $step
                         )
                     );
 

@@ -15,6 +15,8 @@ use Iterator;
 use loophp\fpt\FPT;
 use loophp\fpt\Identity;
 
+use function in_array;
+
 /**
  * @immutable
  *
@@ -38,10 +40,7 @@ final class Nullsy extends AbstractOperation
     public function __invoke(): Closure
     {
         /** @var callable(T, TKey, Iterator<TKey, T>): bool $mapCallback */
-        $mapCallback = FPT::compose()(
-            FPT::partialLeft()('in_array')(self::VALUES, true),
-            FPT::arg()(0)
-        );
+        $mapCallback = static fn ($value): bool => in_array($value, self::VALUES, true);
 
         /** @var Closure(Iterator<TKey, T>): Generator<int, bool> $pipe */
         $pipe = Pipe::of()(

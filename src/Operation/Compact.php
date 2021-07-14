@@ -12,7 +12,8 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\fpt\FPT;
+
+use function in_array;
 
 /**
  * @immutable
@@ -40,12 +41,7 @@ final class Compact extends AbstractOperation
             static function (...$values): Closure {
                 /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $filter */
                 $filter = Filter::of()(
-                    FPT::compose()(
-                        FPT::partialLeft()(
-                            FPT::not()('in_array')
-                        )([] === $values ? Nullsy::VALUES : $values, true),
-                        FPT::arg()(0)
-                    )
+                    static fn ($value): bool => !in_array($value, [] === $values ? Nullsy::VALUES : $values, true)
                 );
 
                 // Point free style.

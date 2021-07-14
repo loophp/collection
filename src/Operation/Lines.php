@@ -35,10 +35,7 @@ final class Lines extends AbstractOperation
         $pipe = Pipe::of()(
             Explode::of()(PHP_EOL, "\n", "\r\n"),
             Map::of()(
-                FPT::compose()(
-                    FPT::partialRight()('implode')(''),
-                    FPT::arg()(0),
-                )
+                FPT::curry()('implode', 2)('')
             )
         );
 

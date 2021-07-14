@@ -85,10 +85,7 @@ final class MatchOne extends AbstractOperation
                         $pipe = Pipe::of()(
                             Map::of()($mapCallback($callbackReducer($callbacks))($callbackReducer($matchers))),
                             DropWhile::of()(
-                                FPT::compose()(
-                                    FPT::operator()(Operator::OP_EQUAL)(false),
-                                    FPT::arg()(0)
-                                )
+                                FPT::operator()(Operator::OP_EQUAL)(false)
                             ),
                             Append::of()(false),
                             Head::of()

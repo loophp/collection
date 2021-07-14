@@ -29,25 +29,11 @@ final class Collapse extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        return
-            /**
-             * @param Iterator<TKey, iterable<TKey, T>|T> $iterator
-             *
-             * @return Generator<TKey, T>
-             */
-            static function (Iterator $iterator): Generator {
-                // TODO: Should we keep this?
-                /** @var Closure(Iterator<TKey, T|iterable<TKey, T>>): Generator<TKey, iterable<TKey, T>> $filter */
-                $filter = Filter::of()(
-                    FPT::compose()(
-                        'is_iterable',
-                        FPT::arg()(0)
-                    )
-                );
+        $pipe = Pipe::of()(
+            Filter::of()(FPT::curry()('is_iterable')),
+            Flatten::of()(1),
+        );
 
-                foreach ($filter($iterator) as $value) {
-                    yield from $value;
-                }
-            };
+        return $pipe;
     }
 }

@@ -40,7 +40,7 @@ final class Implode extends AbstractOperation
                 $pipe = Pipe::of()(
                     Intersperse::of()($glue)(1)(0),
                     Drop::of()(1),
-                    FoldLeft::of()(FPT::partialRight()('sprintf')('%s%s'))('')
+                    FoldLeft::of()(FPT::curry()('sprintf', 3)('%s%s'))('')
                 );
 
                 // Point free style.

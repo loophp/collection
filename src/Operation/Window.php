@@ -49,10 +49,10 @@ final class Window extends AbstractOperation
                     /**
                      * @psalm-var Closure(list<T>): list<T> $slice
                      */
-                    $slice = FPT::partialLeft()('array_slice')(-1 * ++$size);
+                    $slice = FPT::curry()('array_slice', 2)(offset: -1 * ++$size);
 
                     foreach ($iterator as $key => $current) {
-                        yield $key => $stack = $slice([...$stack, $current]);
+                        yield $key => $stack = $slice(array: [...$stack, $current]);
                     }
                 };
     }

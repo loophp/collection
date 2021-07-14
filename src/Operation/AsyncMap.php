@@ -14,7 +14,6 @@ use Closure;
 use Exception;
 use Generator;
 use Iterator;
-use loophp\fpt\FPT;
 
 use function Amp\Iterator\fromIterable;
 use function Amp\ParallelFunctions\parallel;

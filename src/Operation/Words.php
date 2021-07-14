@@ -33,10 +33,8 @@ final class Words extends AbstractOperation
         $pipe = Pipe::of()(
             Explode::of()("\t", "\n", ' '),
             Map::of()(
-                FPT::compose()(
-                    FPT::partialRight()('implode')(''),
-                    FPT::arg()(0),
-                )
+                // TODO: See if we can get rid of the parameter 2.
+                FPT::curry()('implode', 2)('')
             ),
             Compact::of()()
         );

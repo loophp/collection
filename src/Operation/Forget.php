@@ -12,7 +12,8 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\fpt\FPT;
+
+use function in_array;
 
 /**
  * @immutable
@@ -38,12 +39,7 @@ final class Forget extends AbstractOperation
             static function (...$keys): Closure {
                 /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $filter */
                 $filter = Filter::of()(
-                    FPT::compose()(
-                        FPT::partialLeft()(
-                            FPT::not()('in_array')
-                        )($keys, true),
-                        FPT::arg()(1),
-                    )
+                    static fn ($value, $key): bool => !in_array($key, $keys, true)
                 );
 
                 // Point free style.

@@ -30,10 +30,7 @@ final class Falsy extends AbstractOperation
     public function __invoke(): Closure
     {
         /** @var callable(T, TKey, Iterator<TKey, T>): bool $boolVal */
-        $boolVal = FPT::compose()(
-            'boolval',
-            FPT::arg()(0)
-        );
+        $boolVal = FPT::curry()('boolval');
 
         /** @var callable(T, TKey, Iterator<TKey, T>): bool $notBoolVal */
         $notBoolVal = FPT::not()($boolVal);

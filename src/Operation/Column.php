@@ -12,8 +12,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\fpt\FPT;
-use loophp\fpt\Operator;
 
 /**
  * @immutable
@@ -41,10 +39,7 @@ final class Column extends AbstractOperation
                 $pipe = Pipe::of()(
                     Transpose::of(),
                     Filter::of()(
-                        FPT::compose()(
-                            FPT::operator()(Operator::OP_EQUAL)($column),
-                            FPT::arg()(1)
-                        )
+                        static fn ($value, $key): bool => $key === $column
                     ),
                     Head::of(),
                     Flatten::of()(1)

@@ -12,7 +12,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\fpt\FPT;
 
 /**
  * @immutable
@@ -33,21 +32,12 @@ final class Pair extends AbstractOperation
         $pipe = Pipe::of()(
             Chunk::of()(2),
             Map::of()(
-                FPT::compose()(
-                    'array_values',
-                    FPT::arg()(0)
-                )
+                static fn (array $values): array => array_values($values)
             ),
             Associate::of()(
-                FPT::compose()(
-                    'current',
-                    FPT::arg()(2)
-                )
+                static fn ($accumulator, $key, array $value): mixed => current($value)
             )(
-                FPT::compose()(
-                    'end',
-                    FPT::arg()(2)
-                )
+                static fn ($accumulator, $key, array $value): mixed => end($value)
             )
         );
 

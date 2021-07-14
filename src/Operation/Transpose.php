@@ -46,10 +46,7 @@ final class Transpose extends AbstractOperation
 
                 /** @var Generator<TKey, list<T>> $associate */
                 $associate = Associate::of()(
-                    FPT::compose()(
-                        'current',
-                        FPT::arg()(1)
-                    )
+                    static fn ($value, $key): mixed => current($key)
                 )(
                     FPT::arg()(2)
                 )($mit);
