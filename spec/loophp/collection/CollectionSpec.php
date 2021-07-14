@@ -2133,6 +2133,16 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs($generator());
     }
 
+    public function it_reproduces_partition_issue(): void
+    {
+        $collection = $this::fromIterable([1, 2, 3, 4, 5]);
+
+        [$even, $odd] = $collection->partition(static fn (int $value): bool => $value % 2 === 0)->all();
+
+        $even->shouldHaveCount(2);
+        $even->shouldIterateAs([1 => 2, 3 => 4]);
+    }
+
     public function it_can_normalize(): void
     {
         $this::fromIterable(['a' => 10, 'b' => 100, 'c' => 1000])
