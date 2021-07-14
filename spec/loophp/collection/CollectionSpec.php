@@ -2133,16 +2133,6 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs($generator());
     }
 
-    public function it_reproduces_partition_issue(): void
-    {
-        $collection = $this::fromIterable([1, 2, 3, 4, 5]);
-
-        [$even, $odd] = $collection->partition(static fn (int $value): bool => $value % 2 === 0)->all();
-
-        $even->shouldHaveCount(2);
-        $even->shouldIterateAs([1 => 2, 3 => 4]);
-    }
-
     public function it_can_normalize(): void
     {
         $this::fromIterable(['a' => 10, 'b' => 100, 'c' => 1000])
@@ -3876,6 +3866,31 @@ class CollectionSpec extends ObjectBehavior
     public function it_is_initializable(): void
     {
         $this->shouldHaveType(Collection::class);
+    }
+
+    public function it_reproduces_partition_issue(): void
+    {
+        $collection = $this::fromIterable([1, 2, 3, 4, 5]);
+
+        [$even, $odd] = $collection->partition(static fn (int $value): bool => $value % 2 === 0)->all();
+
+        $even->shouldHaveCount(2);
+        $even->shouldIterateAs([1 => 2, 3 => 4]);
+    }
+
+    public function it_reproduces_partition_issue_using_first_last(): void
+    {
+        $collection = $this::fromIterable([1, 2, 3, 4, 5]);
+
+        $partitioned = $collection->partition(static fn (int $value): bool => $value % 2 === 0);
+        $even = $partitioned->first()->current();
+
+        $even->shouldHaveCount(2);
+        $even->shouldIterateAs([1 => 2, 3 => 4]);
+
+        $odd = $partitioned->last()->current();
+        $odd->shouldHaveCount(3);
+        $odd->shouldIterateAs([0 => 1, 2 => 3, 4 => 5]);
     }
 
     public function let(): void
