@@ -41,11 +41,11 @@ final class Map extends AbstractOperation
              */
             static fn (callable ...$callbacks): Closure =>
                 /**
-                 * @param Iterator<TKey, T> $iterator
+                 * @param Iterator<TKey, T> $iterable
                  *
                  * @return Generator<TKey, T>
                  */
-                static function (Iterator $iterator) use ($callbacks): Generator {
+                static function (Iterator $iterable) use ($callbacks): Generator {
                     if (count($callbacks) > 1) {
                         @trigger_error(
                             'Using `Map` with multiple callbacks is deprecated, and will be removed in a future major version; use `MapN` instead.',
@@ -53,7 +53,7 @@ final class Map extends AbstractOperation
                         );
                     }
 
-                    return yield from FPT::reduce()(static fn (Iterator $iterator, callable $callback): Iterator => FPT::map()($callback)($iterator))($iterator)($callbacks);
+                    return yield from FPT::reduce()(static fn (Iterator $iterable, callable $callback): Iterator => FPT::map()($callback)($iterable))($iterable)($callbacks);
                 };
     }
 }

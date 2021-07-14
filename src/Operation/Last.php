@@ -30,14 +30,14 @@ final class Last extends AbstractOperation
     {
         return
             /**
-             * @param Iterator<TKey, T> $iterator
+             * @param Iterator<TKey, T> $iterable
              *
              * @return Generator<TKey, T>
              */
-            static function (Iterator $iterator): Generator {
+            static function (Iterator $iterable): Generator {
                 $isEmpty = true;
 
-                foreach ($iterator as $key => $current) {
+                foreach ($iterable as $key => $current) {
                     $isEmpty = false;
                 }
 

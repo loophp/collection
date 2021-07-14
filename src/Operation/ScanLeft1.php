@@ -39,12 +39,12 @@ final class ScanLeft1 extends AbstractOperation
              */
             static fn (callable $callback): Closure =>
                 /**
-                 * @param Iterator<TKey, T> $iterator
+                 * @param Iterator<TKey, T> $iterable
                  *
                  * @return Generator<int|TKey, T|null>
                  */
-                static function (Iterator $iterator) use ($callback): Iterator {
-                    $initial = $iterator->current();
+                static function (Iterator $iterable) use ($callback): Iterator {
+                    $initial = $iterable->current();
 
                     /** @var Closure(Iterator<TKey, T>):(Generator<int|TKey, T|null>) $pipe */
                     $pipe = Pipe::of()(
@@ -53,7 +53,7 @@ final class ScanLeft1 extends AbstractOperation
                         Prepend::of()($initial)
                     );
 
-                    return $pipe($iterator);
+                    return $pipe($iterable);
                 };
     }
 }

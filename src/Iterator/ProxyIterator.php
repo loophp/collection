@@ -25,7 +25,7 @@ abstract class ProxyIterator implements OuterIterator
     /**
      * @var Iterator<TKey, T>
      */
-    protected Iterator $iterator;
+    protected Iterator $iterable;
 
     /**
      * @return T

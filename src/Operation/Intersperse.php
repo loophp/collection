@@ -45,11 +45,11 @@ final class Intersperse extends AbstractOperation
                      */
                     static fn (int $startAt): Closure =>
                         /**
-                         * @param Iterator<TKey, T> $iterator
+                         * @param Iterator<TKey, T> $iterable
                          *
                          * @return Generator<int|TKey, T>
                          */
-                        static function (Iterator $iterator) use ($element, $atEvery, $startAt): Generator {
+                        static function (Iterator $iterable) use ($element, $atEvery, $startAt): Generator {
                             if (0 > $atEvery) {
                                 throw new InvalidArgumentException(
                                     'The second parameter must be a positive integer.'
@@ -62,7 +62,7 @@ final class Intersperse extends AbstractOperation
                                 );
                             }
 
-                            foreach ($iterator as $key => $value) {
+                            foreach ($iterable as $key => $value) {
                                 if (0 === $startAt++ % $atEvery) {
                                     yield $element;
                                 }

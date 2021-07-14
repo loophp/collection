@@ -46,11 +46,11 @@ final class Range extends AbstractOperation
                      */
                     static fn (float $step = 1.0): Closure =>
                         /**
-                         * @param Iterator<TKey, T>|null $iterator
+                         * @param Iterator<TKey, T>|null $iterable
                          *
                          * @return Generator<int, float>
                          */
-                        static function (?Iterator $iterator = null) use ($start, $end, $step): Generator {
+                        static function (?Iterator $iterable = null) use ($start, $end, $step): Generator {
                             for ($current = $start; $current < $end; $current += $step) {
                                 yield $current;
                             }

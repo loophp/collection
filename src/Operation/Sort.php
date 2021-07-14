@@ -44,11 +44,11 @@ final class Sort extends AbstractOperation
                 static fn (?callable $callback = null): Closure =>
 
                         /**
-                         * @param Iterator<TKey, T> $iterator
+                         * @param Iterator<TKey, T> $iterable
                          *
                          * @return Generator<TKey, T>
                          */
-                        static function (Iterator $iterator) use ($type, $callback): Iterator {
+                        static function (Iterator $iterable) use ($type, $callback): Iterator {
                             if (Operation\Sortable::BY_VALUES !== $type && Operation\Sortable::BY_KEYS !== $type) {
                                 throw new Exception('Invalid sort type.');
                             }
@@ -79,7 +79,7 @@ final class Sort extends AbstractOperation
                             /** @var callable(Iterator<TKey, T>): Generator<int, array{0:TKey, 1:T}> | callable(Iterator<TKey, T>): Generator<int, array{0:T, 1:TKey}> $before */
                             $before = Pipe::of()(...$operations['before']);
 
-                            $arrayIterator = new ArrayIterator([...$before($iterator)]);
+                            $arrayIterator = new ArrayIterator([...$before($iterable)]);
                             $arrayIterator->uasort(
                                 $sortCallback(
                                     $callback ??

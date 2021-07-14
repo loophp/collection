@@ -35,10 +35,10 @@ final class Flatten extends AbstractOperation
              */
             static fn (int $depth): Closure =>
                 /**
-                 * @param Iterator<TKey, T> $iterator
+                 * @param Iterator<TKey, T> $iterable
                  */
-                static function (Iterator $iterator) use ($depth): Generator {
-                    foreach ($iterator as $key => $value) {
+                static function (Iterator $iterable) use ($depth): Generator {
+                    foreach ($iterable as $key => $value) {
                         if (false === is_iterable($value)) {
                             yield $key => $value;
 

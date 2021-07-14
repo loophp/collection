@@ -39,13 +39,13 @@ final class TakeWhile extends AbstractOperation
              */
             static fn (callable ...$callbacks): Closure =>
             /**
-             * @param Iterator<TKey, T> $iterator
+             * @param Iterator<TKey, T> $iterable
              *
              * @return Generator<TKey, T>
              */
-            static function (Iterator $iterator) use ($callbacks): Generator {
-                foreach ($iterator as $key => $current) {
-                    $result = CallbacksArrayReducer::or()($callbacks, $current, $key, $iterator);
+            static function (Iterator $iterable) use ($callbacks): Generator {
+                foreach ($iterable as $key => $current) {
+                    $result = CallbacksArrayReducer::or()($callbacks, $current, $key, $iterable);
 
                     if (false === $result) {
                         break;

@@ -30,12 +30,12 @@ final class Unpair extends AbstractOperation
     {
         return
             /**
-             * @param Iterator<TKey, T> $iterator
+             * @param Iterator<TKey, T> $iterable
              *
              * @return Generator<int, array{TKey, T}>
              */
-            static function (Iterator $iterator): Generator {
-                foreach ($iterator as $key => $value) {
+            static function (Iterator $iterable): Generator {
+                foreach ($iterable as $key => $value) {
                     yield $key;
 
                     yield $value;

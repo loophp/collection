@@ -40,10 +40,10 @@ final class Limit extends AbstractOperation
                  */
                 static fn (int $offset = 0): Closure =>
                     /**
-                     * @param Iterator<TKey, T> $iterator
+                     * @param Iterator<TKey, T> $iterable
                      *
                      * @return Iterator<TKey, T>
                      */
-                    static fn (Iterator $iterator): Iterator => new LimitIterator($iterator, $offset, $count);
+                    static fn (Iterator $iterable): Iterator => new LimitIterator($iterable, $offset, $count);
     }
 }

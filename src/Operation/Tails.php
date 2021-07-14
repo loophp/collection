@@ -31,14 +31,14 @@ final class Tails extends AbstractOperation
     {
         return
             /**
-             * @param Iterator<TKey, T> $iterator
+             * @param Iterator<TKey, T> $iterable
              *
              * @return Generator<int, list<T>, mixed, void>
              */
-            static function (Iterator $iterator): Generator {
-                /** @var Iterator<int, array{0: TKey, 1: T}> $iterator */
-                $iterator = Pack::of()($iterator);
-                $data = [...$iterator];
+            static function (Iterator $iterable): Generator {
+                /** @var Iterator<int, array{0: TKey, 1: T}> $iterable */
+                $iterable = Pack::of()($iterable);
+                $data = [...$iterable];
 
                 while ([] !== $data) {
                     /** @var Iterator<TKey, T> $unpack */

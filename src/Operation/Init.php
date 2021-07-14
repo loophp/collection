@@ -31,15 +31,15 @@ final class Init extends AbstractOperation
     {
         return
             /**
-             * @param Iterator<TKey, T> $iterator
+             * @param Iterator<TKey, T> $iterable
              *
              * @return Generator<TKey, T>
              */
-            static function (Iterator $iterator): Generator {
-                $cacheIterator = new CachingIterator($iterator, CachingIterator::FULL_CACHE);
+            static function (Iterator $iterable): Generator {
+                $cacheIterator = new CachingIterator($iterable, CachingIterator::FULL_CACHE);
 
                 foreach ($cacheIterator as $key => $current) {
-                    if (false === $iterator->valid()) {
+                    if (false === $iterable->valid()) {
                         break;
                     }
 

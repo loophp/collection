@@ -33,14 +33,14 @@ final class Transpose extends AbstractOperation
     {
         return
             /**
-             * @param Iterator<TKey, T> $iterator
+             * @param Iterator<TKey, T> $iterable
              *
              * @return Generator<TKey, list<T>>
              */
-            static function (Iterator $iterator): Generator {
+            static function (Iterator $iterable): Generator {
                 $mit = new MultipleIterator(MultipleIterator::MIT_NEED_ANY);
 
-                foreach ($iterator as $iterableIterator) {
+                foreach ($iterable as $iterableIterator) {
                     $mit->attachIterator(new IterableIterator($iterableIterator));
                 }
 

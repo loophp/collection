@@ -37,18 +37,18 @@ final class Chunk extends AbstractOperation
              */
             static fn (int ...$sizes): Closure =>
                 /**
-                 * @param Iterator<TKey, T> $iterator
+                 * @param Iterator<TKey, T> $iterable
                  *
                  * @return Generator<int, list<T>>
                  */
-                static function (Iterator $iterator) use ($sizes): Generator {
+                static function (Iterator $iterable) use ($sizes): Generator {
                     /** @var Iterator<int, int> $sizesIterator */
                     $sizesIterator = Cycle::of()(new ArrayIterator($sizes));
                     $sizesIterator->rewind();
 
                     $values = [];
 
-                    foreach ($iterator as $value) {
+                    foreach ($iterable as $value) {
                         $size = $sizesIterator->current();
 
                         if (0 >= $size) {

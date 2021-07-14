@@ -52,11 +52,11 @@ final class AsyncMap extends AbstractOperation
              */
             static fn (callable ...$callbacks): Closure =>
                 /**
-                 * @param Iterator<TKey, T> $iterator
+                 * @param Iterator<TKey, T> $iterable
                  *
                  * @return Generator<TKey, T>
                  */
-                static function (Iterator $iterator) use ($callbacks): Generator {
+                static function (Iterator $iterable) use ($callbacks): Generator {
                     $callbackFactory =
                         /**
                          * @param TKey $key
@@ -84,7 +84,7 @@ final class AsyncMap extends AbstractOperation
                             return [$key, FPT::reduce()($callbackFactory($key))($value)($callbacks)];
                         };
 
-                    $iter = map(fromIterable(Pack::of()($iterator)), new LocalSemaphore(32), parallel($callback));
+                    $iter = map(fromIterable(Pack::of()($iterable)), new LocalSemaphore(32), parallel($callback));
 
                     while (wait($iter->advance())) {
                         /** @var array{0: TKey, 1: T} $item */

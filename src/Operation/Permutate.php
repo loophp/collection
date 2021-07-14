@@ -36,11 +36,11 @@ final class Permutate extends AbstractOperation
 
         return
             /**
-             * @param Iterator<TKey, T> $iterator
+             * @param Iterator<TKey, T> $iterable
              *
              * @return Generator<int, list<T>>
              */
-            static fn (Iterator $iterator): Iterator => $getPermutations([...$iterator]);
+            static fn (Iterator $iterable): Iterator => $getPermutations([...$iterable]);
     }
 
     /**

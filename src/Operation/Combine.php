@@ -39,19 +39,19 @@ final class Combine extends AbstractOperation
              */
             static fn (...$keys): Closure =>
                 /**
-                 * @param Iterator<TKey, T> $iterator
+                 * @param Iterator<TKey, T> $iterable
                  */
-                static function (Iterator $iterator) use ($keys): Generator {
+                static function (Iterator $iterable) use ($keys): Generator {
                     $keys = new ArrayIterator($keys);
 
-                    while ($iterator->valid() && $keys->valid()) {
-                        yield $keys->current() => $iterator->current();
+                    while ($iterable->valid() && $keys->valid()) {
+                        yield $keys->current() => $iterable->current();
 
-                        $iterator->next();
+                        $iterable->next();
                         $keys->next();
                     }
 
-                    if ($iterator->valid() !== $keys->valid()) {
+                    if ($iterable->valid() !== $keys->valid()) {
                         trigger_error('Both keys and values must have the same amount of items.', E_USER_WARNING);
                     }
                 };

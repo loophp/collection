@@ -40,14 +40,14 @@ final class Pad extends AbstractOperation
                  */
                 static fn ($padValue): Closure =>
                     /**
-                     * @param Iterator<TKey, T> $iterator
+                     * @param Iterator<TKey, T> $iterable
                      *
                      * @return Generator<int|TKey, T>
                      */
-                    static function (Iterator $iterator) use ($size, $padValue): Generator {
+                    static function (Iterator $iterable) use ($size, $padValue): Generator {
                         $y = 0;
 
-                        foreach ($iterator as $key => $value) {
+                        foreach ($iterable as $key => $value) {
                             ++$y;
 
                             yield $key => $value;

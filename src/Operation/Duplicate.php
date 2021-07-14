@@ -32,14 +32,14 @@ final class Duplicate extends AbstractOperation
     {
         return
             /**
-             * @param Iterator<TKey, T> $iterator
+             * @param Iterator<TKey, T> $iterable
              *
              * @return Generator<TKey, T>
              */
-            static function (Iterator $iterator): Generator {
+            static function (Iterator $iterable): Generator {
                 $stack = [];
 
-                foreach ($iterator as $key => $value) {
+                foreach ($iterable as $key => $value) {
                     if (true === in_array($value, $stack, true)) {
                         yield $key => $value;
                     }

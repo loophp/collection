@@ -38,15 +38,15 @@ final class Partition extends AbstractOperation
              */
             static fn (callable ...$callbacks): Closure =>
                 /**
-                 * @param Iterator<TKey, T> $iterator
+                 * @param Iterator<TKey, T> $iterable
                  *
                  * @return Generator<int, Iterator<TKey, T>>
                  */
-                static function (Iterator $iterator) use ($callbacks): Iterator {
+                static function (Iterator $iterable) use ($callbacks): Iterator {
                     /** @var Iterator<TKey, T> $filter */
-                    $filter = Filter::of()(...$callbacks)($iterator);
+                    $filter = Filter::of()(...$callbacks)($iterable);
                     /** @var Iterator<TKey, T> $reject */
-                    $reject = Reject::of()(...$callbacks)($iterator);
+                    $reject = Reject::of()(...$callbacks)($iterable);
 
                     return yield from [$filter, $reject];
                 };

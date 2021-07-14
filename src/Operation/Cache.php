@@ -37,10 +37,10 @@ final class Cache extends AbstractOperation
              */
             static fn (CacheItemPoolInterface $cache): Closure =>
                 /**
-                 * @param Iterator<TKey, T> $iterator
+                 * @param Iterator<TKey, T> $iterable
                  *
                  * @return Iterator<TKey, T>
                  */
-                static fn (Iterator $iterator): Iterator => new PsrCacheIterator($iterator, $cache);
+                static fn (Iterator $iterable): Iterator => new PsrCacheIterator($iterable, $cache);
     }
 }

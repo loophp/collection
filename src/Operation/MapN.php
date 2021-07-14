@@ -36,11 +36,11 @@ final class MapN extends AbstractOperation
              */
             static fn (callable ...$callbacks): Closure =>
                 /**
-                 * @param Iterator<TKey, T> $iterator
+                 * @param Iterator<TKey, T> $iterable
                  *
                  * @return Generator<mixed, mixed>
                  */
-                static function (Iterator $iterator) use ($callbacks): Generator {
+                static function (Iterator $iterable) use ($callbacks): Generator {
                     $callbackFactory =
                         /**
                          * @param mixed $key
@@ -54,9 +54,9 @@ final class MapN extends AbstractOperation
                              *
                              * @return mixed
                              */
-                            static fn ($carry, callable $callback) => $callback($carry, $key, $iterator);
+                            static fn ($carry, callable $callback) => $callback($carry, $key, $iterable);
 
-                    foreach ($iterator as $key => $value) {
+                    foreach ($iterable as $key => $value) {
                         yield $key => array_reduce($callbacks, $callbackFactory($key), $value);
                     }
                 };

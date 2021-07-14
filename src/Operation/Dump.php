@@ -47,7 +47,7 @@ final class Dump extends AbstractOperation
                         /**
                          * @return Generator<TKey, T>
                          */
-                        static function (Iterator $iterator) use ($name, $size, $callback): Generator {
+                        static function (Iterator $iterable) use ($name, $size, $callback): Generator {
                             $j = 0;
 
                             /** @var callable $debugFunction */
@@ -62,7 +62,7 @@ final class Dump extends AbstractOperation
                                  */
                                 static fn (string $name, $key, $value) => $debugFunction(['name' => $name, 'key' => $key, 'value' => $value]);
 
-                            foreach ($iterator as $key => $value) {
+                            foreach ($iterable as $key => $value) {
                                 yield $key => $value;
 
                                 if (-1 === $size) {

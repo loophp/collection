@@ -42,13 +42,13 @@ final class RandomIterator extends ProxyIterator
     private Iterator $wrappedIterator;
 
     /**
-     * @param Iterator<TKey, T> $iterator
+     * @param Iterator<TKey, T> $iterable
      */
-    public function __construct(Iterator $iterator, ?int $seed = null)
+    public function __construct(Iterator $iterable, ?int $seed = null)
     {
-        $this->iterator = $iterator;
+        $this->iterator = $iterable;
         $this->seed = $seed ?? random_int(PHP_INT_MIN, PHP_INT_MAX);
-        $this->wrappedIterator = new ArrayCacheIterator($iterator);
+        $this->wrappedIterator = new ArrayCacheIterator($iterable);
     }
 
     public function current()

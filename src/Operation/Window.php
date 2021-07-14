@@ -35,13 +35,13 @@ final class Window extends AbstractOperation
              */
             static fn (int $size): Closure =>
                 /**
-                 * @param Iterator<TKey, T> $iterator
+                 * @param Iterator<TKey, T> $iterable
                  *
                  * @return Generator<TKey, list<T>|T>
                  */
-                static function (Iterator $iterator) use ($size): Generator {
+                static function (Iterator $iterable) use ($size): Generator {
                     if (0 === $size) {
-                        return yield from $iterator;
+                        return yield from $iterable;
                     }
 
                     $stack = [];
@@ -51,7 +51,7 @@ final class Window extends AbstractOperation
                      */
                     $slice = FPT::partialLeft()('array_slice')(-1 * ++$size);
 
-                    foreach ($iterator as $key => $current) {
+                    foreach ($iterable as $key => $current) {
                         yield $key => $stack = $slice([...$stack, $current]);
                     }
                 };

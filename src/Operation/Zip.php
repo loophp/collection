@@ -39,13 +39,13 @@ final class Zip extends AbstractOperation
              */
             static fn (iterable ...$iterables): Closure =>
                 /**
-                 * @param Iterator<TKey, T> $iterator
+                 * @param Iterator<TKey, T> $iterable
                  *
                  * @return Iterator<list<TKey>, list<T>>
                  */
-                static function (Iterator $iterator) use ($iterables): Iterator {
+                static function (Iterator $iterable) use ($iterables): Iterator {
                     $mit = new MultipleIterator(MultipleIterator::MIT_NEED_ANY);
-                    $mit->attachIterator($iterator);
+                    $mit->attachIterator($iterable);
 
                     foreach ($iterables as $iterableIterator) {
                         $mit->attachIterator(new IterableIterator($iterableIterator));

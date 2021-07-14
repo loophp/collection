@@ -31,11 +31,11 @@ final class Collapse extends AbstractOperation
     {
         return
             /**
-             * @param Iterator<TKey, iterable<TKey, T>|T> $iterator
+             * @param Iterator<TKey, iterable<TKey, T>|T> $iterable
              *
              * @return Generator<TKey, T>
              */
-            static function (Iterator $iterator): Generator {
+            static function (Iterator $iterable): Generator {
                 // TODO: Should we keep this?
                 /** @var Closure(Iterator<TKey, T|iterable<TKey, T>>): Generator<TKey, iterable<TKey, T>> $filter */
                 $filter = Filter::of()(
@@ -45,7 +45,7 @@ final class Collapse extends AbstractOperation
                     )
                 );
 
-                foreach ($filter($iterator) as $value) {
+                foreach ($filter($iterable) as $value) {
                     yield from $value;
                 }
             };

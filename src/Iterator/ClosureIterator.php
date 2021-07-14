@@ -24,7 +24,7 @@ final class ClosureIterator extends ProxyIterator
     /**
      * @var list<mixed>
      */
-    private array $arguments;
+    private iterable $arguments;
 
     /**
      * @var callable(mixed ...$arguments): iterable<TKey, T>
@@ -35,7 +35,7 @@ final class ClosureIterator extends ProxyIterator
      * @param callable(mixed ...$arguments): iterable<TKey, T> $callable
      * @param mixed ...$arguments
      */
-    public function __construct(callable $callable, ...$arguments)
+    public function __construct(callable $callable, iterable $arguments)
     {
         $this->callable = $callable;
         $this->arguments = $arguments;
@@ -52,6 +52,9 @@ final class ClosureIterator extends ProxyIterator
      */
     private function getGenerator(): Generator
     {
+        print_r($this->callable);
+        var_dump($this->arguments);
+
         return yield from ($this->callable)(...$this->arguments);
     }
 }

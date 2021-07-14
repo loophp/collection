@@ -34,10 +34,10 @@ final class Shuffle extends AbstractOperation
              */
             static fn (int $seed): Closure =>
                 /**
-                 * @param Iterator<TKey, T> $iterator
+                 * @param Iterator<TKey, T> $iterable
                  *
                  * @return Iterator<TKey, T>
                  */
-                static fn (Iterator $iterator): Iterator => new RandomIterator($iterator, $seed);
+                static fn (Iterator $iterable): Iterator => new RandomIterator($iterable, $seed);
     }
 }

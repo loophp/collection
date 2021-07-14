@@ -53,21 +53,21 @@ final class Pluck extends AbstractOperation
                  */
                 static fn ($default): Closure =>
                     /**
-                     * @param Iterator<TKey, T> $iterator
+                     * @param Iterator<TKey, T> $iterable
                      *
                      * @return Generator<int, T|iterable<int, T>, mixed, void>
                      */
-                    static function (Iterator $iterator) use ($key, $default): Generator {
+                    static function (Iterator $iterable) use ($key, $default): Generator {
                         $pick =
                             /**
-                             * @param Iterator<TKey, T> $iterator
+                             * @param Iterator<TKey, T> $iterable
                              * @param iterable<TKey, T>|T $target
                              * @param array<int, string> $key
                              * @param T $default
                              *
                              * @return iterable<int, T>|T
                              */
-                            static function (Iterator $iterator, $target, array $key, $default = null) use (&$pick) {
+                            static function (Iterator $iterable, $target, array $key, $default = null) use (&$pick) {
                                 while (null !== $segment = array_shift($key)) {
                                     if ('*' === $segment) {
                                         if (false === is_iterable($target)) {
@@ -78,7 +78,7 @@ final class Pluck extends AbstractOperation
                                         $result = [];
 
                                         foreach ($target as $item) {
-                                            $result[] = $pick($iterator, $item, $key);
+                                            $result[] = $pick($iterable, $item, $key);
                                         }
 
                                         /** @var Generator<TKey, T> $collapse */
@@ -109,8 +109,8 @@ final class Pluck extends AbstractOperation
 
                         $key = true === is_scalar($key) ? explode('.', trim((string) $key, '.')) : $key;
 
-                        foreach ($iterator as $value) {
-                            yield $pick($iterator, $value, $key, $default);
+                        foreach ($iterable as $value) {
+                            yield $pick($iterable, $value, $key, $default);
                         }
                     };
     }

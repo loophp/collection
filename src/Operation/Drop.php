@@ -34,10 +34,10 @@ final class Drop extends AbstractOperation
              */
             static fn (int ...$offsets): Closure =>
                 /**
-                 * @param Iterator<TKey, T> $iterator
+                 * @param Iterator<TKey, T> $iterable
                  *
                  * @return Iterator<TKey, T>
                  */
-                static fn (Iterator $iterator): Iterator => new LimitIterator($iterator, array_sum($offsets));
+                static fn (Iterator $iterable): Iterator => new LimitIterator($iterable, array_sum($offsets));
     }
 }

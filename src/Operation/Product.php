@@ -36,11 +36,11 @@ final class Product extends AbstractOperation
              */
             static fn (iterable ...$iterables): Closure =>
                 /**
-                 * @param Iterator<TKey, T> $iterator
+                 * @param Iterator<TKey, T> $iterable
                  *
                  * @return Generator<int, array<int, T>>
                  */
-                static function (Iterator $iterator) use ($iterables): Iterator {
+                static function (Iterator $iterable) use ($iterables): Iterator {
                     /** @var Closure(iterable<TKey, T>...): Generator<int, array<int, T>> $cartesian */
                     $cartesian =
                         /**
@@ -64,7 +64,7 @@ final class Product extends AbstractOperation
                             }
                         };
 
-                    return $cartesian($iterator, ...$iterables);
+                    return $cartesian($iterable, ...$iterables);
                 };
     }
 }

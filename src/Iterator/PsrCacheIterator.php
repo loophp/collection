@@ -28,11 +28,11 @@ final class PsrCacheIterator extends ProxyIterator
     private int $key = 0;
 
     /**
-     * @param Iterator<TKey, T> $iterator
+     * @param Iterator<TKey, T> $iterable
      */
-    public function __construct(Iterator $iterator, CacheItemPoolInterface $cache)
+    public function __construct(Iterator $iterable, CacheItemPoolInterface $cache)
     {
-        $this->iterator = $iterator;
+        $this->iterator = $iterable;
         $this->cache = $cache;
     }
 

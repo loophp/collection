@@ -36,10 +36,10 @@ final class Strict extends AbstractOperation
              */
             static fn (?callable $callback = null): Closure =>
                 /**
-                 * @param Iterator<TKey, T> $iterator
+                 * @param Iterator<TKey, T> $iterable
                  *
                  * @return Iterator<TKey, T>
                  */
-                static fn (Iterator $iterator): Iterator => new TypedIterator($iterator, $callback);
+                static fn (Iterator $iterable): Iterator => new TypedIterator($iterable, $callback);
     }
 }

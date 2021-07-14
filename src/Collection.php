@@ -149,7 +149,7 @@ final class Collection implements CollectionInterface
     /**
      * @var list<mixed>
      */
-    private array $parameters;
+    private $parameters;
 
     /**
      * @var callable(mixed ...$parameters): iterable<TKey, T>
@@ -162,7 +162,7 @@ final class Collection implements CollectionInterface
      * @param callable(mixed ...$parameters): iterable<TKey, T> $callable
      * @param mixed ...$parameters
      */
-    public function __construct(callable $callable, ...$parameters)
+    public function __construct(callable $callable, $parameters)
     {
         $this->source = $callable;
         $this->parameters = $parameters;
@@ -422,7 +422,7 @@ final class Collection implements CollectionInterface
     public static function fromFile(string $filepath): self
     {
         return new self(
-            static fn (string $filepath): Iterator => new ResourceIterator(fopen($filepath, 'rb'), true),
+            static fn (string $iterable): Iterator => new ResourceIterator(fopen($iterable, 'rb'), true),
             $filepath
         );
     }
@@ -458,7 +458,7 @@ final class Collection implements CollectionInterface
             /**
              * @param resource $resource
              */
-            static fn ($resource): Iterator => new ResourceIterator($resource),
+            static fn ($iterable): Iterator => new ResourceIterator($iterable),
             $resource
         );
     }
@@ -491,7 +491,7 @@ final class Collection implements CollectionInterface
      */
     public function getIterator(): Iterator
     {
-        return new ClosureIterator($this->source, ...$this->parameters);
+        return new ClosureIterator($this->source, ['iterable' => $this->parameters]);
     }
 
     public function group(): CollectionInterface
@@ -653,7 +653,7 @@ final class Collection implements CollectionInterface
         return new self(
             Pipe::of()(
                 Partition::of()(...$callbacks),
-                Map::of()(static fn (Iterator $iterator): CollectionInterface => self::fromIterable($iterator))
+                Map::of()(static fn (Iterator $iterable): CollectionInterface => self::fromIterable($iterable))
             ),
             $this->getIterator()
         );
@@ -775,7 +775,7 @@ final class Collection implements CollectionInterface
         return new self(
             Pipe::of()(
                 Span::of()($callback),
-                Map::of()(static fn (Iterator $iterator): CollectionInterface => self::fromIterable($iterator))
+                Map::of()(static fn (Iterator $iterable): CollectionInterface => self::fromIterable($iterable))
             ),
             $this->getIterator()
         );

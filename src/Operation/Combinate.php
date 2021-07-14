@@ -55,12 +55,12 @@ final class Combinate extends AbstractOperation
 
             return
                 /**
-                 * @param Iterator<TKey, T> $iterator
+                 * @param Iterator<TKey, T> $iterable
                  *
                  * @return Generator<int, array<int, T>>
                  */
-                static function (Iterator $iterator) use ($length, $getCombinations): Generator {
-                    $dataset = [...$iterator];
+                static function (Iterator $iterable) use ($length, $getCombinations): Generator {
+                    $dataset = [...$iterable];
 
                     if (0 < $length) {
                         return yield from $getCombinations($dataset, $length);

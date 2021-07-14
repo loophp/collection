@@ -34,15 +34,15 @@ final class CallbacksArrayReducer
              * @param list<callable(T, TKey, Iterator<TKey, T>): bool> $callbacks
              * @param T $current
              * @param TKey $key
-             * @param Iterator<TKey, T> $iterator
+             * @param Iterator<TKey, T> $iterable
              */
-            static fn (array $callbacks, $current, $key, Iterator $iterator): bool => array_reduce(
+            static fn (array $callbacks, $current, $key, Iterator $iterable): bool => array_reduce(
                 $callbacks,
                 /**
                  * @param bool $carry
                  * @param callable(T, TKey, Iterator<TKey, T>): bool $callable
                  */
-                static fn (bool $carry, callable $callable): bool => $carry || $callable($current, $key, $iterator),
+                static fn (bool $carry, callable $callable): bool => $carry || $callable($current, $key, $iterable),
                 false
             );
     }

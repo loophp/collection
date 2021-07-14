@@ -30,12 +30,12 @@ final class Normalize extends AbstractOperation
     {
         return
             /**
-             * @param Iterator<TKey, T> $iterator
+             * @param Iterator<TKey, T> $iterable
              *
              * @return Generator<int, T>
              */
-            static function (Iterator $iterator): Generator {
-                foreach ($iterator as $value) {
+            static function (Iterator $iterable): Generator {
+                foreach ($iterable as $value) {
                     yield $value;
                 }
             };

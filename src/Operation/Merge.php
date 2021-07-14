@@ -34,10 +34,10 @@ final class Merge extends AbstractOperation
              */
             static fn (iterable ...$sources): Closure =>
                 /**
-                 * @param Iterator<TKey, T> $iterator
+                 * @param Iterator<TKey, T> $iterable
                  *
                  * @return Iterator<TKey, T>
                  */
-                static fn (Iterator $iterator): Iterator => new MultipleIterableIterator($iterator, ...$sources);
+                static fn (Iterator $iterable): Iterator => new MultipleIterableIterator($iterable, ...$sources);
     }
 }

@@ -39,15 +39,15 @@ final class Until extends AbstractOperation
              */
             static fn (callable ...$callbacks): Closure =>
                 /**
-                 * @param Iterator<TKey, T> $iterator
+                 * @param Iterator<TKey, T> $iterable
                  *
                  * @return Generator<TKey, T>
                  */
-                static function (Iterator $iterator) use ($callbacks): Generator {
-                    foreach ($iterator as $key => $current) {
+                static function (Iterator $iterable) use ($callbacks): Generator {
+                    foreach ($iterable as $key => $current) {
                         yield $key => $current;
 
-                        $result = CallbacksArrayReducer::or()($callbacks, $current, $key, $iterator);
+                        $result = CallbacksArrayReducer::or()($callbacks, $current, $key, $iterable);
 
                         if (true === $result) {
                             break;

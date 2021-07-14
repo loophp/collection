@@ -39,11 +39,11 @@ final class Reject extends AbstractOperation
              */
             static fn (callable ...$callbacks): Closure =>
                 /**
-                 * @param Iterator<TKey, T> $iterator
+                 * @param Iterator<TKey, T> $iterable
                  *
                  * @return Generator<TKey, T>
                  */
-                static function (Iterator $iterator) use ($callbacks): Generator {
+                static function (Iterator $iterable) use ($callbacks): Generator {
                     $defaultCallback =
                         /**
                          * @param T $value
@@ -54,8 +54,8 @@ final class Reject extends AbstractOperation
                         [$defaultCallback] :
                         $callbacks;
 
-                    foreach ($iterator as $key => $current) {
-                        $result = CallbacksArrayReducer::or()($callbacks, $current, $key, $iterator);
+                    foreach ($iterable as $key => $current) {
+                        $result = CallbacksArrayReducer::or()($callbacks, $current, $key, $iterable);
 
                         if (false === $result) {
                             yield $key => $current;

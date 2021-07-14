@@ -36,10 +36,10 @@ final class Prepend extends AbstractOperation
              */
             static fn (...$items): Closure =>
                 /**
-                 * @param Iterator<TKey, T> $iterator
+                 * @param Iterator<TKey, T> $iterable
                  *
                  * @return Iterator<int|TKey, T>
                  */
-                static fn (Iterator $iterator): Iterator => new MultipleIterableIterator($items, $iterator);
+                static fn (Iterator $iterable): Iterator => new MultipleIterableIterator($items, $iterable);
     }
 }

@@ -44,15 +44,15 @@ final class Split extends AbstractOperation
                  */
                 static fn (callable ...$callbacks): Closure =>
                     /**
-                     * @param Iterator<TKey, T> $iterator
+                     * @param Iterator<TKey, T> $iterable
                      *
                      * @return Generator<int, list<T>>
                      */
-                    static function (Iterator $iterator) use ($type, $callbacks): Generator {
+                    static function (Iterator $iterable) use ($type, $callbacks): Generator {
                         $carry = [];
 
-                        foreach ($iterator as $key => $current) {
-                            $callbackReturn = CallbacksArrayReducer::or()($callbacks, $current, $key, $iterator);
+                        foreach ($iterable as $key => $current) {
+                            $callbackReturn = CallbacksArrayReducer::or()($callbacks, $current, $key, $iterable);
 
                             if (Splitable::AFTER === $type) {
                                 $carry[] = $current;

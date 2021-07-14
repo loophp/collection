@@ -50,10 +50,10 @@ final class When extends AbstractOperation
                      */
                     static fn (callable $whenFalse): Closure =>
                             /**
-                             * @param Iterator<TKey, T> $iterator
+                             * @param Iterator<TKey, T> $iterable
                              *
                              * @return Generator<TKey, T>
                              */
-                            static fn (Iterator $iterator): Generator => yield from (true === $predicate($iterator)) ? $whenTrue($iterator) : $whenFalse($iterator);
+                            static fn (Iterator $iterable): Generator => yield from (true === $predicate($iterable)) ? $whenTrue($iterable) : $whenFalse($iterable);
     }
 }

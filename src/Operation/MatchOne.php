@@ -57,9 +57,9 @@ final class MatchOne extends AbstractOperation
                                 /**
                                  * @param T $current
                                  * @param TKey $key
-                                 * @param Iterator<TKey, T> $iterator
+                                 * @param Iterator<TKey, T> $iterable
                                  */
-                                static fn ($current, $key, Iterator $iterator): bool => CallbacksArrayReducer::or()($callbacks, $current, $key, $iterator);
+                                static fn ($current, $key, Iterator $iterable): bool => CallbacksArrayReducer::or()($callbacks, $current, $key, $iterable);
 
                         $mapCallback =
                             /**
@@ -77,9 +77,9 @@ final class MatchOne extends AbstractOperation
                                     /**
                                      * @param T $value
                                      * @param TKey $key
-                                     * @param Iterator<TKey, T> $iterator
+                                     * @param Iterator<TKey, T> $iterable
                                      */
-                                    static fn ($value, $key, Iterator $iterator): bool => FPT::operator()(Operator::OP_EQUAL)($reducer1($value, $key, $iterator))($reducer2($value, $key, $iterator));
+                                    static fn ($value, $key, Iterator $iterable): bool => FPT::operator()(Operator::OP_EQUAL)($reducer1($value, $key, $iterable))($reducer2($value, $key, $iterable));
 
                         /** @var Closure(Iterator<TKey, T>): Generator<TKey|int, bool> $pipe */
                         $pipe = Pipe::of()(

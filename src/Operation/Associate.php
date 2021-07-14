@@ -45,11 +45,11 @@ final class Associate extends AbstractOperation
                  */
                 static fn (callable ...$callbackForValues): Closure =>
                     /**
-                     * @param Iterator<TKey, T> $iterator
+                     * @param Iterator<TKey, T> $iterable
                      *
                      * @return Generator<T|TKey, T|TKey>
                      */
-                    static function (Iterator $iterator) use ($callbackForKeys, $callbackForValues): Generator {
+                    static function (Iterator $iterable) use ($callbackForKeys, $callbackForValues): Generator {
                         $callbackFactory =
                             /**
                              * @param TKey $key
@@ -66,13 +66,13 @@ final class Associate extends AbstractOperation
                                     /**
                                      * @param T|TKey $accumulator
                                      * @param callable(T|TKey, TKey, T, Iterator<TKey, T>): (T|TKey) $callback
-                                     * @param Iterator<TKey, T> $iterator
+                                     * @param Iterator<TKey, T> $iterable
                                      *
                                      * @return T|TKey
                                      */
-                                    static fn ($accumulator, callable $callback, int $callbackId, iterable $iterator) => $callback($accumulator, $key, $value, $iterator);
+                                    static fn ($accumulator, callable $callback, int $callbackId, iterable $iterable) => $callback($accumulator, $key, $value, $iterable);
 
-                        foreach ($iterator as $key => $value) {
+                        foreach ($iterable as $key => $value) {
                             /** @var Generator<int, T|TKey> $k */
                             $k = FoldLeft::of()($callbackFactory($key)($value))($key)(new ArrayIterator($callbackForKeys));
 

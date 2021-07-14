@@ -31,11 +31,11 @@ final class ArrayCacheIterator extends ProxyIterator
     private int $key = 0;
 
     /**
-     * @param Iterator<TKey, T> $iterator
+     * @param Iterator<TKey, T> $iterable
      */
-    public function __construct(Iterator $iterator)
+    public function __construct(Iterator $iterable)
     {
-        $this->iterator = $iterator;
+        $this->iterator = $iterable;
     }
 
     /**

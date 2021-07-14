@@ -38,14 +38,14 @@ final class Apply extends AbstractOperation
              */
             static fn (callable ...$callbacks): Closure =>
                 /**
-                 * @param Iterator<TKey, T> $iterator
+                 * @param Iterator<TKey, T> $iterable
                  *
                  * @return Generator<TKey, T>
                  */
-                static function (Iterator $iterator) use ($callbacks): Generator {
-                    foreach ($iterator as $key => $value) {
+                static function (Iterator $iterable) use ($callbacks): Generator {
+                    foreach ($iterable as $key => $value) {
                         foreach ($callbacks as $cKey => $callback) {
-                            $result = $callback($value, $key, $iterator);
+                            $result = $callback($value, $key, $iterable);
 
                             if (false === $result) {
                                 unset($callbacks[$cKey]);

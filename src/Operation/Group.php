@@ -30,14 +30,14 @@ final class Group extends AbstractOperation
     {
         return
             /**
-             * @param Iterator<TKey, T> $iterator
+             * @param Iterator<TKey, T> $iterable
              *
              * @return Generator<int, list<T>>
              */
-            static function (Iterator $iterator): Generator {
+            static function (Iterator $iterable): Generator {
                 $last = [];
 
-                foreach ($iterator as $current) {
+                foreach ($iterable as $current) {
                     if ([] === $last) {
                         $last = [$current];
 
