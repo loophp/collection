@@ -27,15 +27,15 @@ final class ClosureIterator extends ProxyIterator
     private $callable;
 
     /**
-     * @var list<mixed>
+     * @var iterable<int, mixed>
      */
-    private $parameters;
+    private iterable $parameters;
 
     /**
      * @param callable(mixed ...$parameters): iterable<TKey, T> $callable
-     * @param mixed ...$parameters
+     * @param iterable<mixed> $parameters
      */
-    public function __construct(callable $callable, ...$parameters)
+    public function __construct(callable $callable, iterable $parameters)
     {
         $this->callable = $callable;
         $this->parameters = $parameters;

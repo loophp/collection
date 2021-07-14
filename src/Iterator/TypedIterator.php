@@ -81,7 +81,7 @@ final class TypedIterator extends ProxyIterator
                     yield $key => $value;
                 }
             },
-            $iterator
+            [$iterator]
         );
     }
 }
