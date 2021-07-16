@@ -384,15 +384,15 @@ class CollectionSpec extends ObjectBehavior
 
     public function it_can_be_constructed_with_a_callable(): void
     {
-        $test1 = $this::fromCallable(static fn (int $a, int $b): Generator => yield from range($a, $b), ...[1, 5]);
+        $test1 = $this::fromCallable(static fn (int $a, int $b): Generator => yield from range($a, $b), [1, 5]);
         $test1->shouldImplement(Collection::class);
         $test1->getIterator()->shouldIterateAs([1, 2, 3, 4, 5]);
 
-        $test2 = $this::fromCallable(static fn (int $a, int $b): array => range($a, $b), 1, 5);
+        $test2 = $this::fromCallable(static fn (int $a, int $b): array => range($a, $b), [1, 5]);
         $test2->shouldImplement(Collection::class);
         $test2->getIterator()->shouldIterateAs([1, 2, 3, 4, 5]);
 
-        $test3 = $this::fromCallable(static fn (int $a, int $b): ArrayIterator => new ArrayIterator(range($a, $b)), 1, 5);
+        $test3 = $this::fromCallable(static fn (int $a, int $b): ArrayIterator => new ArrayIterator(range($a, $b)), [1, 5]);
         $test3->shouldImplement(Collection::class);
         $test3->getIterator()->shouldIterateAs([1, 2, 3, 4, 5]);
 
@@ -448,7 +448,7 @@ class CollectionSpec extends ObjectBehavior
             }
         };
 
-        $this::fromCallable($fibonacci, 0, 1)
+        $this::fromCallable($fibonacci, [0, 1])
             ->limit(10)
             ->shouldIterateAs([0, 1, 1, 2, 3, 5, 8, 13, 21, 34]);
     }

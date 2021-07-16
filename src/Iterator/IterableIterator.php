@@ -28,7 +28,7 @@ final class IterableIterator extends ProxyIterator
     {
         $this->iterator = new ClosureIterator(
             static fn (iterable $iterable): Generator => yield from $iterable,
-            $iterable
+            [$iterable]
         );
     }
 }
