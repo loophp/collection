@@ -70,7 +70,7 @@ final class Associate extends AbstractOperation
                                      *
                                      * @return T|TKey
                                      */
-                                    static fn ($accumulator, callable $callback, int $callbackId, iterable $iterator) => $callback($accumulator, $key, $value, $iterator);
+                                    static fn ($accumulator, callable $callback, int $callbackId, Iterator $iterator) => $callback($accumulator, $key, $value, $iterator);
 
                         foreach ($iterator as $key => $value) {
                             /** @var Generator<int, T|TKey> $k */

@@ -39,8 +39,8 @@ final class Transpose extends AbstractOperation
             static function (Iterator $iterator): Generator {
                 $mit = new MultipleIterator(MultipleIterator::MIT_NEED_ANY);
 
-                foreach ($iterator as $iterableIterator) {
-                    $mit->attachIterator(new IterableIterator($iterableIterator));
+                foreach ($iterator as $iteratorIterator) {
+                    $mit->attachIterator(new IterableIterator($iteratorIterator));
                 }
 
                 $callbackForKeys =
