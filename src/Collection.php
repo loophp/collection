@@ -669,7 +669,7 @@ final class Collection implements CollectionInterface
         return new self(
             Pipe::of()(
                 Partition::of()(...$callbacks),
-                Map::of()(static fn (Iterator $iterator): CollectionInterface => self::fromIterable($iterator))
+                Map::of()(static fn (array $callUserFuncParameters): CollectionInterface => self::fromCallable(...$callUserFuncParameters)),
             ),
             [$this->getIterator()]
         );
