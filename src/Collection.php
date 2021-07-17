@@ -667,6 +667,7 @@ final class Collection implements CollectionInterface
 
     public function partition(callable ...$callbacks): CollectionInterface
     {
+        // TODO: Move this docblock above closure when https://github.com/phpstan/phpstan/issues/3770 lands.
         $mapCallback = static function (array $partitionResult): CollectionInterface {
             /**
              * @var Closure(Iterator<TKey, T>): Generator<TKey, T> $callback
@@ -787,6 +788,7 @@ final class Collection implements CollectionInterface
 
     public function span(callable ...$callbacks): CollectionInterface
     {
+        // TODO: Move this docblock above closure when https://github.com/phpstan/phpstan/issues/3770 lands.
         $mapCallback = static function (array $spanResult): CollectionInterface {
             /**
              * @var Closure(Iterator<TKey, T>): Generator<TKey, T> $callback
