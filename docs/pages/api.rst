@@ -48,6 +48,29 @@ Signature: ``Collection::fromIterable(string $filepath): Collection;``
 
     Collection::fromFile('http://loripsum.net/api');
 
+fromGenerator
+~~~~~~~~~~~~~
+
+Create a collection from a `Generator`_.
+
+.. warning:: The difference between this constructor and ``fromIterable`` is that
+    the generator is decorated with a caching Iterator. ``Generators`` are not
+    **rewindable** by design and using ``fromIterable`` automatically adds the
+    caching layer for you.
+
+.. tip:: You can reproduce the same behavior by using ``fromIterable`` directly
+    followed by the ``cache`` operation.
+
+Signature: ``Collection::fromGenerator(Generator $generator): Collection;``
+
+.. code-block:: php
+
+    $generator = (static fn () => yield from range(1, 10))();
+    $generator->next();
+    $generator->next();
+
+    $collection = Collection::fromGenerator($generator);
+
 fromIterable
 ~~~~~~~~~~~~
 
@@ -55,7 +78,8 @@ Create a collection from an iterable.
 
 .. warning:: When instantiating from a PHP `Generator`_, the collection object will inherit its behaviour:
     it will only be iterable a single time, and an exception will be thrown if multiple operations which attempt
-    to re-iterate are applied, for example ``count()``.
+    to re-iterate are applied, for example ``count()``. Use `Collection::fromGenerator()` to
+    circumvent this limitation.
 
 Signature: ``Collection::fromIterable(iterable $iterable): Collection;``
 
