@@ -22,11 +22,14 @@ fromCallable
 
 Create a collection from a callable.
 
-Signature: ``Collection::fromCallable(callable $callable, ...$parameters): Collection;``
+.. tip:: This can be very useful when working with a PHP `Generator`_, since it will allow the collection
+    object to behave as if the Generator was rewindable.
+
+Signature: ``Collection::fromCallable(callable $callable, iterable $parameters = []): Collection;``
 
 .. code-block:: php
 
-    $callback = static function () {
+    $callback = static function (): Generator {
         yield 'a';
         yield 'b';
         yield 'c';
@@ -49,6 +52,10 @@ fromIterable
 ~~~~~~~~~~~~
 
 Create a collection from an iterable.
+
+.. warning:: When instantiating from a PHP `Generator`_, the collection object will inherit its behaviour:
+    it will only be iterable a single time, and an exception will be thrown if multiple operations which attempt
+    to re-iterate are applied, for example ``count()``.
 
 Signature: ``Collection::fromIterable(iterable $iterable): Collection;``
 
