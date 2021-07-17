@@ -305,9 +305,39 @@ class CollectionSpec extends ObjectBehavior
             yield 'e';
         };
 
-        $this::fromIterable($generator())
-            ->getIterator()
+        $subject = $this::fromGenerator($generator());
+
+        $subject
             ->shouldIterateAs(range('a', 'e'));
+
+        $subject
+            ->count()
+            ->shouldBeEqualTo($subject->count());
+
+        $generator = static function () {
+            yield 'a';
+
+            yield 'b';
+
+            yield 'c';
+
+            yield 'd';
+
+            yield 'e';
+        };
+
+        $generator = $generator();
+        $generator->next();
+        $generator->next();
+
+        $subject = $this::fromGenerator($generator);
+
+        $subject
+            ->shouldIterateAs([2 => 'c', 3 => 'd', 4 => 'e']);
+
+        $subject
+            ->count()
+            ->shouldBeEqualTo($subject->count());
     }
 
     public function it_can_be_constructed_from_a_stream(): void
