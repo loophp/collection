@@ -18,7 +18,7 @@ use loophp\collection\Contract\Collection;
 interface Diffable
 {
     /**
-     * @param mixed ...$values
+     * @param T ...$values
      *
      * @return Collection<TKey, T>
      */

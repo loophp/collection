@@ -31,6 +31,7 @@ use stdClass;
 use function gettype;
 use const INF;
 use const PHP_EOL;
+use const PHP_VERSION_ID;
 
 class CollectionSpec extends ObjectBehavior
 {
@@ -785,6 +786,28 @@ class CollectionSpec extends ObjectBehavior
         $this::fromIterable(range(1, 5))
             ->diff()
             ->shouldIterateAs(range(1, 5));
+
+        $this::fromIterable(range(1, 5))
+            ->diff(...Collection::fromIterable(range(2, 5)))
+            ->shouldIterateAs([0 => 1]);
+
+        $this::fromIterable(['foo' => 'f', 'bar' => 'b'])
+            ->diff(...Collection::fromIterable(['f']))
+            ->shouldIterateAs(['bar' => 'b']);
+
+        $this::fromIterable(['foo' => 'f', 'bar' => 'b'])
+            ->diff('F', 'b')
+            ->shouldIterateAs(['foo' => 'f']);
+
+        if (PHP_VERSION_ID >= 80000) {
+            $this::fromIterable(['foo' => 'f', 'bar' => 'b'])
+                ->diff(...Collection::fromIterable(['foo' => 'f']))
+                ->shouldIterateAs(['bar' => 'b']);
+
+            $this::fromIterable(['foo' => 'f', 'bar' => 'b'])
+                ->diff(...['foo' => 'F', 'bar' => 'b'])
+                ->shouldIterateAs(['foo' => 'f']);
+        }
     }
 
     public function it_can_diffKeys(): void
