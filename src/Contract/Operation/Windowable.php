@@ -23,7 +23,7 @@ interface Windowable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#window
      *
-     * @return Collection<TKey, list<T>|T>
+     * @return Collection<TKey, list<T>>
      */
     public function window(int $size): Collection;
 }
