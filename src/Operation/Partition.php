@@ -26,7 +26,7 @@ final class Partition extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(callable(T, TKey, Iterator<TKey, T>): bool...): Closure(Iterator<TKey, T>): Generator<int, Iterator<TKey, T>>
+     * @return Closure(callable(T, TKey, Iterator<TKey, T>): bool ...): Closure(Iterator<TKey, T>): Generator<int, array{0: Closure(Iterator<TKey, T>): Generator<TKey, T>, 1: array{0: Iterator<TKey, T>}}>
      */
     public function __invoke(): Closure
     {
@@ -34,21 +34,22 @@ final class Partition extends AbstractOperation
             /**
              * @param callable(T, TKey, Iterator<TKey, T>): bool ...$callbacks
              *
-             * @return Closure(Iterator<TKey, T>): Generator<int, Iterator<TKey, T>>
+             * @return Closure(Iterator<TKey, T>): Generator<int, array{0: Closure(Iterator<TKey, T>): Generator<TKey, T>, 1: array{0: Iterator<TKey, T>}}>
              */
             static fn (callable ...$callbacks): Closure =>
                 /**
                  * @param Iterator<TKey, T> $iterator
                  *
-                 * @return Generator<int, Iterator<TKey, T>>
+                 * @return Generator<int, array{0: Closure(Iterator<TKey, T>): Generator<TKey, T>, 1: array{0: Iterator<TKey, T>}}>
                  */
-                static function (Iterator $iterator) use ($callbacks): Iterator {
-                    /** @var Iterator<TKey, T> $filter */
-                    $filter = Filter::of()(...$callbacks)($iterator);
-                    /** @var Iterator<TKey, T> $reject */
-                    $reject = Reject::of()(...$callbacks)($iterator);
+                static function (Iterator $iterator) use ($callbacks): Generator {
+                    /** @var array{0: Closure(Iterator<TKey, T>): Generator<TKey, T>, 1: array{0: Iterator<TKey, T>}} $filter */
+                    $filter = [Filter::of()(...$callbacks), [$iterator]];
 
-                    return yield from [$filter, $reject];
+                    /** @var array{0: Closure(Iterator<TKey, T>): Generator<TKey, T>, 1: array{0: Iterator<TKey, T>}} $reject */
+                    $reject = [Reject::of()(...$callbacks), [$iterator]];
+
+                    yield from [$filter, $reject];
                 };
     }
 }

@@ -11,6 +11,7 @@ namespace loophp\collection;
 
 use Closure;
 use Doctrine\Common\Collections\Criteria;
+use Generator;
 use Iterator;
 use loophp\collection\Contract\Collection as CollectionInterface;
 use loophp\collection\Contract\Operation;
@@ -666,13 +667,18 @@ final class Collection implements CollectionInterface
 
     public function partition(callable ...$callbacks): CollectionInterface
     {
-        return new self(
-            Pipe::of()(
-                Partition::of()(...$callbacks),
-                Map::of()(static fn (Iterator $iterator): CollectionInterface => self::fromIterable($iterator))
-            ),
-            [$this->getIterator()]
-        );
+        // TODO: Move this docblock above closure when https://github.com/phpstan/phpstan/issues/3770 lands.
+        $mapCallback = static function (array $partitionResult): CollectionInterface {
+            /**
+             * @var Closure(Iterator<TKey, T>): Generator<TKey, T> $callback
+             * @var array{0: Iterator<TKey, T>} $parameters
+             */
+            [$callback, $parameters] = $partitionResult;
+
+            return self::fromCallable($callback, $parameters);
+        };
+
+        return new self(Pipe::of()(Partition::of()(...$callbacks), Map::of()($mapCallback)), [$this->getIterator()]);
     }
 
     public function permutate(): CollectionInterface
@@ -782,13 +788,18 @@ final class Collection implements CollectionInterface
 
     public function span(callable ...$callbacks): CollectionInterface
     {
-        return new self(
-            Pipe::of()(
-                Span::of()(...$callbacks),
-                Map::of()(static fn (Iterator $iterator): CollectionInterface => self::fromIterable($iterator))
-            ),
-            [$this->getIterator()]
-        );
+        // TODO: Move this docblock above closure when https://github.com/phpstan/phpstan/issues/3770 lands.
+        $mapCallback = static function (array $spanResult): CollectionInterface {
+            /**
+             * @var Closure(Iterator<TKey, T>): Generator<TKey, T> $callback
+             * @var array{0: Iterator<TKey, T>} $parameters
+             */
+            [$callback, $parameters] = $spanResult;
+
+            return self::fromCallable($callback, $parameters);
+        };
+
+        return new self(Pipe::of()(Span::of()(...$callbacks), Map::of()($mapCallback)), [$this->getIterator()]);
     }
 
     public function split(int $type = Operation\Splitable::BEFORE, callable ...$callbacks): CollectionInterface
