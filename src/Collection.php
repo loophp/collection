@@ -451,16 +451,19 @@ final class Collection implements CollectionInterface
     }
 
     /**
-     * @pure
+     * @template NewTKey
+     * @template NewT
      *
-     * @return self<int, string>
+     * @param Generator<NewTKey, NewT> $generator
+     *
+     * @return self<NewTKey, NewT>
      */
     public static function fromGenerator(Generator $generator): self
     {
         return self::fromIterable(
             new ArrayCacheIterator(
                 new ClosureIterator(
-                    static function (Generator $generator): Iterator {
+                    static function (Generator $generator): Generator {
                         while ($generator->valid()) {
                             yield $generator->key() => $generator->current();
                             $generator->next();
