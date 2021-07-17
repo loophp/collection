@@ -26,17 +26,17 @@ final class Lines extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(Iterator<TKey, (T|string)>): Generator<int, string>
+     * @return Closure(Iterator<TKey, T>): Generator<int, string>
      */
     public function __invoke(): Closure
     {
         $mapCallback =
             /**
-             * @param T $value
+             * @param list<T> $value
              */
             static fn (array $value): string => implode('', $value);
 
-        /** @var Closure(Iterator<TKey, (T|string)>): Generator<int, string> $pipe */
+        /** @var Closure(Iterator<TKey, T>): Generator<int, string> $pipe */
         $pipe = Pipe::of()(
             Explode::of()(PHP_EOL, "\n", "\r\n"),
             Map::of()($mapCallback)
