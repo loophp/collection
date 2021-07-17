@@ -26,24 +26,27 @@ final class ScanLeft extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(callable((T|null), T, TKey, Iterator<TKey, T>): (T|null)):Closure (T|null): Closure(Iterator<TKey, T>): Generator<int|TKey, T|null>
+     * @template V
+     * @template W
+     *
+     * @return Closure(callable(V|W, T, TKey, Iterator<TKey, T>): W): Closure(V): Closure(Iterator<TKey, T>): Generator<int|TKey, V|W>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable(T|null, T, TKey, Iterator<TKey, T>):(T|null) $callback
+             * @param callable(V|W, T, TKey, Iterator<TKey, T>): W $callback
              *
-             * @return Closure(T|null): Closure(Iterator<TKey, T>): Generator<int|TKey, T|null>
+             * @return Closure(V): Closure(Iterator<TKey, T>): Generator<int|TKey, V|W>
              */
             static fn (callable $callback): Closure =>
                 /**
-                 * @param T|null $initial
+                 * @param V $initial
                  *
-                 * @return Closure(Iterator<TKey, T>): Generator<int|TKey, T|null>
+                 * @return Closure(Iterator<TKey, T>): Generator<int|TKey, V|W>
                  */
-                static function ($initial = null) use ($callback): Closure {
-                    /** @var Closure(Iterator<TKey, T>): Generator<int|TKey, T|null> $pipe */
+                static function ($initial) use ($callback): Closure {
+                    /** @var Closure(Iterator<TKey, T>): Generator<int|TKey, V|W> $pipe */
                     $pipe = Pipe::of()(
                         Reduction::of()($callback)($initial),
                         Prepend::of()($initial)
