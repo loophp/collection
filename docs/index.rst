@@ -36,7 +36,7 @@ This library could be a valid replacement for `\SplObjectStorage`_ but with much
 This way of working opens up new perspectives and another way of handling data, in a more functional way.
 
 And last but not least, collection keys are preserved throughout most operations; while it might lead to some confusion at first,
-please carefully read `this example`_ for the full explanation and benefits.
+please carefully read :ref:`this example <Working with keys and values>` for the full explanation and benefits.
 
 This library has been inspired by:
 
@@ -151,7 +151,6 @@ For more detailed changelogs, please check `the release changelogs`_.
 .. _Haskell: https://www.haskell.org/
 .. _new Collection object: https://github.com/loophp/collection/blob/master/src/Collection.php
 .. _SplObjectStorage: https://www.php.net/manual/en/class.splobjectstorage.php
-.. _this example: https://loophp-collection.readthedocs.io/en/stable/pages/usage.html#working-with-keys-and-values
 .. _Lazy.js: http://danieltao.com/lazy.js/
 .. _Laravel Support Package: https://github.com/illuminate/support
 .. _pure: https://en.wikipedia.org/wiki/Pure_function
