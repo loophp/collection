@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
+use Generator;
 use Iterator;
 
 /**
@@ -23,10 +24,10 @@ final class IsEmpty extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(Iterator<TKey, T>): bool
+     * @return Closure(Iterator<TKey, T>): Generator<int, bool>
      */
     public function __invoke(): Closure
     {
-        return static fn (Iterator $iterator): bool => !$iterator->valid();
+        return static fn (Iterator $iterator): Generator => yield !$iterator->valid();
     }
 }

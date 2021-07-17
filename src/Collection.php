@@ -43,6 +43,7 @@ use loophp\collection\Operation\Drop;
 use loophp\collection\Operation\DropWhile;
 use loophp\collection\Operation\Dump;
 use loophp\collection\Operation\Duplicate;
+use loophp\collection\Operation\Equals;
 use loophp\collection\Operation\Every;
 use loophp\collection\Operation\Explode;
 use loophp\collection\Operation\Falsy;
@@ -343,6 +344,11 @@ final class Collection implements CollectionInterface
         return self::fromIterable($emptyArray);
     }
 
+    public function equals(CollectionInterface $other): bool
+    {
+        return (new self(Equals::of()($other), [$this->getIterator()]))->getIterator()->current();
+    }
+
     public function every(callable ...$callbacks): bool
     {
         return (new self(Every::of()(static fn (): bool => false)(...$callbacks), [$this->getIterator()]))->getIterator()->current();
@@ -572,7 +578,7 @@ final class Collection implements CollectionInterface
 
     public function isEmpty(): bool
     {
-        return IsEmpty::of()($this->getIterator());
+        return (new self(IsEmpty::of(), [$this->getIterator()]))->getIterator()->current();
     }
 
     /**
