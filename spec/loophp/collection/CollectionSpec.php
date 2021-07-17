@@ -2262,36 +2262,48 @@ class CollectionSpec extends ObjectBehavior
 
         $input = array_combine(range('a', 'l'), [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3]);
 
+        // Using `first` and `last`, single callback
+
         $subject = $this::fromIterable($input)->partition($isGreaterThan(5));
         $subject->shouldHaveCount(2);
-        $subject->first()->shouldBeAnInstanceOf(CollectionInterface::class);
-        $subject->last()->shouldBeAnInstanceOf(CollectionInterface::class);
+
+        $first = $subject->first()->current();
+        $last = $subject->last()->current();
+
+        $first->shouldBeAnInstanceOf(CollectionInterface::class);
+        $last->shouldBeAnInstanceOf(CollectionInterface::class);
+
+        $first->shouldHaveCount(4);
+        $last->shouldHaveCount(8);
+
+        $first->shouldIterateAs(['f' => 6, 'g' => 7, 'h' => 8, 'i' => 9]);
+        $last->shouldIterateAs(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4, 'e' => 5, 'j' => 1, 'k' => 2, 'l' => 3]);
+
+        // Using `all` and array destructuring, single callback
+
+        [$passed, $rejected] = $this::fromIterable($input)->partition($isGreaterThan(5))->all();
+        $passed->shouldBeAnInstanceOf(CollectionInterface::class);
+        $rejected->shouldBeAnInstanceOf(CollectionInterface::class);
+
+        $passed->shouldHaveCount(4);
+        $rejected->shouldHaveCount(8);
+
+        $passed->shouldIterateAs(['f' => 6, 'g' => 7, 'h' => 8, 'i' => 9]);
+        $rejected->shouldIterateAs(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4, 'e' => 5, 'j' => 1, 'k' => 2, 'l' => 3]);
+
+        // Using multiple callbacks
 
         $this::fromIterable($input)
             ->partition($isGreaterThan(5), $isGreaterThan(3))
             ->first()
             ->current()
-            ->shouldIterateAs([
-                'd' => 4,
-                'e' => 5,
-                'f' => 6,
-                'g' => 7,
-                'h' => 8,
-                'i' => 9,
-            ]);
+            ->shouldIterateAs(['d' => 4, 'e' => 5, 'f' => 6, 'g' => 7, 'h' => 8, 'i' => 9]);
 
         $this::fromIterable($input)
             ->partition($isGreaterThan(5), $isGreaterThan(3))
             ->last()
             ->current()
-            ->shouldIterateAs([
-                'a' => 1,
-                'b' => 2,
-                'c' => 3,
-                'j' => 1,
-                'k' => 2,
-                'l' => 3,
-            ]);
+            ->shouldIterateAs(['a' => 1, 'b' => 2, 'c' => 3, 'j' => 1, 'k' => 2, 'l' => 3]);
     }
 
     public function it_can_permutate(): void
@@ -3866,31 +3878,6 @@ class CollectionSpec extends ObjectBehavior
     public function it_is_initializable(): void
     {
         $this->shouldHaveType(Collection::class);
-    }
-
-    public function it_reproduces_partition_issue(): void
-    {
-        $collection = $this::fromIterable([1, 2, 3, 4, 5]);
-
-        [$even, $odd] = $collection->partition(static fn (int $value): bool => $value % 2 === 0)->all();
-
-        $even->shouldHaveCount(2);
-        $even->shouldIterateAs([1 => 2, 3 => 4]);
-    }
-
-    public function it_reproduces_partition_issue_using_first_last(): void
-    {
-        $collection = $this::fromIterable([1, 2, 3, 4, 5]);
-
-        $partitioned = $collection->partition(static fn (int $value): bool => $value % 2 === 0);
-        $even = $partitioned->first()->current();
-
-        $even->shouldHaveCount(2);
-        $even->shouldIterateAs([1 => 2, 3 => 4]);
-
-        $odd = $partitioned->last()->current();
-        $odd->shouldHaveCount(3);
-        $odd->shouldIterateAs([0 => 1, 2 => 3, 4 => 5]);
     }
 
     public function let(): void
