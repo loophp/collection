@@ -797,7 +797,7 @@ final class Collection implements CollectionInterface
             return self::fromCallable($callback, $parameters);
         };
 
-        return new self(Span::of()(Partition::of()(...$callbacks), Map::of()($mapCallback)), [$this->getIterator()]);
+        return new self(Pipe::of()(Span::of()(...$callbacks), Map::of()($mapCallback)), [$this->getIterator()]);
     }
 
     public function split(int $type = Operation\Splitable::BEFORE, callable ...$callbacks): CollectionInterface
