@@ -225,7 +225,7 @@ For more detailed changelogs, please check [the release changelogs][45].
 [9]: https://www.php.net/array-filter
 [10]: https://www.php.net/array-reduce
 [17]: https://www.php.net/manual/en/class.splobjectstorage.php
-[18]: https://loophp-collection.readthedocs.io/en/latest/pages/usage.html#working-with-keys-and-values
+[18]: https://loophp-collection.readthedocs.io/en/stable/pages/usage.html#working-with-keys-and-values
 [19]: https://github.com/illuminate/support
 [20]: https://github.com/DusanKasan/Knapsack
 [21]: https://github.com/mtdowling/transducers.php
@@ -234,8 +234,8 @@ For more detailed changelogs, please check [the release changelogs][45].
 [24]: https://github.com/nikic/iter
 [27]: http://danieltao.com/lazy.js/
 [33]: https://loophp-collection.rtfd.io
-[28]: https://loophp-collection.readthedocs.io/en/latest/pages/api.html
-[32]: https://loophp-collection.readthedocs.io/en/latest/pages/usage.html
+[28]: https://loophp-collection.readthedocs.io/en/stable/pages/api.html
+[32]: https://loophp-collection.readthedocs.io/en/stable/pages/usage.html
 [34]: https://github.com/loophp/collection/issues
 [2]: https://github.com/loophp/collection/actions
 [35]: http://www.phpspec.net/

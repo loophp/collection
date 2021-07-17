@@ -151,7 +151,7 @@ For more detailed changelogs, please check `the release changelogs`_.
 .. _Haskell: https://www.haskell.org/
 .. _new Collection object: https://github.com/loophp/collection/blob/master/src/Collection.php
 .. _SplObjectStorage: https://www.php.net/manual/en/class.splobjectstorage.php
-.. _this example: https://loophp-collection.readthedocs.io/en/latest/pages/usage.html#working-with-keys-and-values
+.. _this example: https://loophp-collection.readthedocs.io/en/stable/pages/usage.html#working-with-keys-and-values
 .. _Lazy.js: http://danieltao.com/lazy.js/
 .. _Laravel Support Package: https://github.com/illuminate/support
 .. _pure: https://en.wikipedia.org/wiki/Pure_function
