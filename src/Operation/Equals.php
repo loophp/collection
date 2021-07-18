@@ -41,16 +41,18 @@ final class Equals extends AbstractOperation
                  * @return Generator<int, bool>
                  */
                 return static function (Iterator $iterator) use ($other): Generator {
+                    $sameCount = true;
+
                     while ($other->valid() && $iterator->valid()) {
                         $iterator->next();
                         $other->next();
                     }
 
                     if ($other->valid() !== $iterator->valid()) {
-                        yield false;
+                        $sameCount = false;
                     }
 
-                    yield from Pipe::of()(Diff::of()(...$other), IsEmpty::of())($iterator);
+                    return yield $sameCount && yield from Pipe::of()(Diff::of()(...$other), IsEmpty::of())($iterator);
                 };
             };
     }
