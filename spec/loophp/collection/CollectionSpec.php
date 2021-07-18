@@ -1103,39 +1103,39 @@ class CollectionSpec extends ObjectBehavior
         $this::fromIterable([1, 2, 3])
             ->equals(Collection::fromIterable([1, 2, 3, 4]))
             ->shouldBe(false);
-//
-//        // objects, different instances and contents
-//        $this::fromIterable([$a])
-//            ->equals(Collection::fromIterable([$b]))
-//            ->shouldBe(false);
-//
-//        // objects, different instances but same contents
-//        $this::fromIterable([$a])
-//            ->equals(Collection::fromIterable([$a2]))
-//            ->shouldBe(false);
 
-//        // only in PHP 8 due to unpacking iterable with string keys
-//        if (PHP_VERSION_ID >= 80000) {
-//            $this::fromIterable(['foo' => 'f', 'bar' => 'b'])
-//                ->equals(Collection::fromIterable(['foo' => 'f', 'bar' => 'b']))
-//                ->shouldBe(true);
-//
-//            $this::fromIterable(['foo' => 'f', 'bar' => 'b'])
-//                ->equals(Collection::fromIterable(['bar' => 'b', 'foo' => 'f']))
-//                ->shouldBe(true);
-//
-//            $this::fromIterable(['foo' => 'f', 'bar' => 'b'])
-//                ->equals(Collection::fromIterable(['bar' => 'b']))
-//                ->shouldBe(false);
-//
-//            $this::fromIterable(['foo' => 'f'])
-//                ->equals(Collection::fromIterable(['bar' => 'b']))
-//                ->shouldBe(false);
-//
-//            $this::fromIterable(['foo' => 'f'])
-//                ->equals(Collection::fromIterable(['foo' => 'f', 'bar' => 'b']))
-//                ->shouldBe(false);
-//        }
+        // objects, different instances and contents
+        $this::fromIterable([$a])
+            ->equals(Collection::fromIterable([$b]))
+            ->shouldBe(false);
+
+        // objects, different instances but same contents
+        $this::fromIterable([$a])
+            ->equals(Collection::fromIterable([$a2]))
+            ->shouldBe(false);
+
+        // only in PHP 8 due to unpacking iterable with string keys
+        if (PHP_VERSION_ID >= 80000) {
+            $this::fromIterable(['foo' => 'f', 'bar' => 'b'])
+                ->equals(Collection::fromIterable(['foo' => 'f', 'bar' => 'b']))
+                ->shouldBe(true);
+
+            $this::fromIterable(['foo' => 'f', 'bar' => 'b'])
+                ->equals(Collection::fromIterable(['bar' => 'b', 'foo' => 'f']))
+                ->shouldBe(true);
+
+            $this::fromIterable(['foo' => 'f', 'bar' => 'b'])
+                ->equals(Collection::fromIterable(['bar' => 'b']))
+                ->shouldBe(false);
+
+            $this::fromIterable(['foo' => 'f'])
+                ->equals(Collection::fromIterable(['bar' => 'b']))
+                ->shouldBe(false);
+
+            $this::fromIterable(['foo' => 'f'])
+                ->equals(Collection::fromIterable(['foo' => 'f', 'bar' => 'b']))
+                ->shouldBe(false);
+        }
     }
 
     public function it_can_every(): void
