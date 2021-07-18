@@ -346,7 +346,7 @@ final class Collection implements CollectionInterface
 
     public function equals(CollectionInterface $other): bool
     {
-        return (new self(Equals::of()($other), [$this->getIterator()]))->getIterator()->current();
+        return (new self(Equals::of()($other->getIterator()), [$this->getIterator()]))->getIterator()->current();
     }
 
     public function every(callable ...$callbacks): bool

@@ -1045,6 +1045,82 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs($result());
     }
 
+    public function it_can_equals(): void
+    {
+        $a = (object) ['id' => 'a'];
+        $a2 = (object) ['id' => 'a'];
+        $b = (object) ['id' => 'b'];
+
+        // empty variations
+        $this::empty()
+            ->equals(Collection::empty())
+            ->shouldBe(true);
+
+        $this::empty()
+            ->equals(Collection::fromIterable([1]))
+            ->shouldBe(false);
+
+        $this::fromIterable([1])
+            ->equals(Collection::empty())
+            ->shouldBe(false);
+
+        // same elements, same order
+        $this::fromIterable([1, 2, 3])
+            ->equals(Collection::fromIterable([1, 2, 3]))
+            ->shouldBe(true);
+
+        $this::fromIterable(['foo' => 'f', 'bar' => 'b'])
+            ->equals(Collection::fromIterable(['foo' => 'f', 'bar' => 'b']))
+            ->shouldBe(true);
+
+        $this::fromIterable([$a, $b])
+            ->equals(Collection::fromIterable([$a, $b]))
+            ->shouldBe(true);
+
+        // same elements, different order
+        $this::fromIterable([1, 2, 3])
+            ->equals(Collection::fromIterable([3, 1, 2]))
+            ->shouldBe(true);
+
+        $this::fromIterable(['foo' => 'f', 'bar' => 'b'])
+            ->equals(Collection::fromIterable(['bar' => 'b', 'foo' => 'f']))
+            ->shouldBe(true);
+
+        $this::fromIterable([$a, $b])
+            ->equals(Collection::fromIterable([$b, $a]))
+            ->shouldBe(true);
+
+        // same lengths, with one element different
+        $this::fromIterable([1, 2, 3])
+            ->equals(Collection::fromIterable([1, 2, 4]))
+            ->shouldBe(false);
+
+        // different lengths, missing elements
+        $this::fromIterable([1, 2, 3])
+            ->equals(Collection::fromIterable([1, 2]))
+            ->shouldBe(false);
+
+        // different lengths, extra elements in first
+        $this::fromIterable([1, 2, 3, 4])
+            ->equals(Collection::fromIterable([1, 2, 3]))
+            ->shouldBe(false);
+
+        // different lengths, extra elements in second
+        $this::fromIterable([1, 2, 3])
+            ->equals(Collection::fromIterable([1, 2, 3, 4]))
+            ->shouldBe(false);
+
+        // objects, different instances and contents
+        $this::fromIterable([$a])
+            ->equals(Collection::fromIterable([$b]))
+            ->shouldBe(false);
+
+        // objects, different instances but same contents
+        $this::fromIterable([$a])
+            ->equals(Collection::fromIterable([$a2]))
+            ->shouldBe(false);
+    }
+
     public function it_can_every(): void
     {
         $input = range(0, 10);

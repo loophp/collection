@@ -35,14 +35,13 @@ final class Equals extends AbstractOperation
              * @return Closure(Iterator<TKey, T>): Generator<int, bool>
              */
             static function (Iterator $other): Closure {
-                /** @var Closure(Iterator<TKey, T>): Generator<int, bool> $pipe */
-                $pipe = Pipe::of()(
-                    Diff::of()(...$other),
-                    IsEmpty::of(),
-                );
-
-                // Point free style.
-                return $pipe;
+                /**
+                 * @param Iterator<TKey, T> $self
+                 *
+                 * @return Generator<int, bool>
+                 */
+                return static fn (Iterator $self): Generator => yield (iterator_count($other) === iterator_count($self))
+                        && yield from Pipe::of()(Diff::of()(...$other), IsEmpty::of())($self);
             };
     }
 }
