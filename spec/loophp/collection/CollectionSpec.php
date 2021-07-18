@@ -2370,6 +2370,18 @@ class CollectionSpec extends ObjectBehavior
             ->unwrap()
             ->pair()
             ->shouldIterateAs($gen());
+
+        $input = ['a', 'b', 'c'];
+
+        $gen = static function () {
+            yield 'a' => 'b';
+
+            yield 'c' => null;
+        };
+
+        $this::fromIterable($input)
+            ->pair()
+            ->shouldIterateAs($gen());
     }
 
     public function it_can_partition(): void
