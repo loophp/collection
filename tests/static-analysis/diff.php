@@ -48,7 +48,7 @@ diff_checkMap(Collection::fromIterable(['foo' => 'f', 'bar' => 'b'])->diff(...$s
 diff_checkMap(Collection::fromIterable(['foo' => 'f', 'bar' => 'b'])->diff(...Collection::fromIterable(['foo' => 'f'])));
 /** @psalm-suppress InvalidArgument */
 diff_checkMap(Collection::fromIterable(['foo' => 'f', 'bar' => 'b'])->diff(...(static fn (): Generator => yield 'bar' => 'b')()));
-/** @psalm-suppress InvalidArgument */
+/** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
 diff_checkMap(Collection::fromIterable(['foo' => 'f', 'bar' => 'b'])->diff(...['foo' => 'f']));
 
 // VALID failures -> usage with wrong types
