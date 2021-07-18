@@ -176,7 +176,7 @@ or through the ``Collection`` object.
 When used separately, operations typically return a PHP `Generator`_ or an `Iterator`_.
 When used as a ``Collection`` method, operations fall into a few main categories based on the return type:
 
-1. Operations that return a ``boolean`` or ``scalar`` value: ``Contains``, ``Count``, ``Every``, ``Falsy``, ``Has``, ``IsEmpty``, ``Match`` (or ``MatchOne``), ``Nullsy``, ``Truthy``.
+1. Operations that return a ``boolean`` or ``scalar`` value: ``Contains``, ``Count``, ``Equals``, ``Every``, ``Falsy``, ``Has``, ``IsEmpty``, ``Match`` (or ``MatchOne``), ``Nullsy``, ``Truthy``.
 
 2. Operations that return a ``Collection`` of ``Collection`` objects: ``Partition``, ``Span``.
 
@@ -334,7 +334,7 @@ asyncMapN
 Asynchronously apply one or more supplied callbacks to every item of a collection and use the return value.
 
 .. tip:: This operation is best used when multiple callbacks need to be applied. If you only want to apply
-        a single callback, ``asyncMap`` should be prefered as it benefits from more specific type hints.
+        a single callback, ``asyncMap`` should be preferred as it benefits from more specific type hints.
 
 .. warning:: This method requires `amphp/parallel-functions <https://github.com/amphp/parallel-functions>`_ to be installed.
 
@@ -722,8 +722,9 @@ Elements will be compared using strict equality (``===``).
     the dedicated `assertObjectEquals`_ assertion. 
 
 .. warning:: Because this operation *needs to traverse both collections* to determine if
-    the same elements are contained within them, a performance cost is incurred. It is not
-    recommended to use this for potentially large collections.
+    the same elements are contained within them, a performance cost is incurred. Even though
+    the operation will stop as soon as it encounters an element of one collection that cannot
+    be found in the other, it is not recommended to use this for potentially large collections.
 
 Interface: `Equalsable`_
 

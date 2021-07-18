@@ -50,7 +50,13 @@ final class Equals extends AbstractOperation
                         return yield false;
                     }
 
-                    return yield from Pipe::of()(Diff::of()(...$other), IsEmpty::of())($iterator);
+                    $containsCallback =
+                        /**
+                         * @param T $current
+                         */
+                        static fn ($current): bool => Contains::of()($current)($other)->current();
+
+                    return yield from Every::of()(static fn (): bool => false)($containsCallback)($iterator);
                 };
             };
     }
