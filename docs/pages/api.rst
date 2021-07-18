@@ -721,6 +721,10 @@ Elements will be compared using strict equality (``===``).
 .. tip:: This operation enables comparing ``Collection`` objects in PHPUnit tests using
     the dedicated `assertObjectEquals`_ assertion. 
 
+.. warning:: Because this operation *needs to traverse both collections* to determine if
+    the same elements are contained within them, a performance cost is incurred. It is not
+    recommended to use this for potentially large collections.
+
 Interface: `Equalsable`_
 
 Signature: ``Collection::equals(Collection $other): bool;``
