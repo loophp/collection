@@ -36,25 +36,21 @@ final class Equals extends AbstractOperation
              */
             static function (Iterator $other): Closure {
                 /**
-                 * @param Iterator<TKey, T> $self
+                 * @param Iterator<TKey, T> $iterator
                  *
                  * @return Generator<int, bool>
                  */
-                return static function (Iterator $self) use ($other): Generator {
-                    $sameCount = true;
-
-                    do {
-                        if ($self->valid() !== $other->valid()) {
-                            $sameCount = false;
-
-                            break;
-                        }
-
-                        $self->next();
+                return static function (Iterator $iterator) use ($other): Generator {
+                    while ($other->valid() && $iterator->valid()) {
+                        $iterator->next();
                         $other->next();
-                    } while ($self->valid() || $other->valid());
+                    }
 
-                    yield $sameCount && yield from Pipe::of()(Diff::of()(...$other), IsEmpty::of())($self);
+                    if ($other->valid() !== $iterator->valid()) {
+                        yield false;
+                    }
+
+                    yield from Pipe::of()(Diff::of()(...$other), IsEmpty::of())($iterator);
                 };
             };
     }
