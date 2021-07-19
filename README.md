@@ -194,6 +194,7 @@ If you can't contribute to the code, you can also sponsor me on [Github][5] or
 * [Reddit announcement thread][40]
 * [Reddit release 2.0.0 thread][41]
 * [Featured in PHPStorm Annotated August 2020][42]
+* [Youtube presentation for AFUP Days 2021][46]
 
 ## Changelog
 
@@ -256,3 +257,4 @@ For more detailed changelogs, please check [the release changelogs][45].
 [30]: http://hughfdjackson.com/javascript/why-curry-helps/
 [26]: https://ramdajs.com/
 [31]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flatMap
+[46]: https://www.youtube.com/watch?v=Kp47f8dtqoo
