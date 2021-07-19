@@ -1425,6 +1425,10 @@ class CollectionSpec extends ObjectBehavior
 
     public function it_can_fold_from_the_left(): void
     {
+        $this::empty()
+            ->foldLeft(static fn (string $carry, string $string): string => sprintf('%s%s', $carry, $string), 'foo')
+            ->shouldIterateAs(['foo']);
+
         $this::fromIterable(range('A', 'C'))
             ->foldLeft(
                 static function (string $carry, string $item): string {
@@ -2648,6 +2652,29 @@ class CollectionSpec extends ObjectBehavior
             ->random(0)
             ->shouldThrow(OutOfBoundsException::class)
             ->during('all');
+    }
+
+    public function it_can_reduce(): void
+    {
+        $this::empty()
+            ->reduce(static fn (string $carry, string $string): string => sprintf('%s%s', $carry, $string), 'foo')
+            ->shouldIterateAs([]);
+
+        $this::fromIterable(range(1, 5))
+            ->reduce(
+                static fn (int $carry, int $item): int => $carry + $item,
+                0
+            )
+            ->shouldIterateAs([4 => 15]);
+
+        $this::fromIterable(array_combine(range('x', 'z'), range('a', 'c')))
+            ->reduce(
+                static fn (string $carry, string $letter, string $index): string => sprintf('%s[%s:%s]', $carry, $index, $letter),
+                '=> '
+            )
+            ->shouldIterateAs([
+                'z' => '=> [x:a][y:b][z:c]',
+            ]);
     }
 
     public function it_can_reduction(): void

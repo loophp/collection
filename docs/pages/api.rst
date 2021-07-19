@@ -184,7 +184,7 @@ When used as a ``Collection`` method, operations fall into a few main categories
 
 4. Operations that return a new ``Collection`` object: all other operations.
 
-.. note:: The ``Key`` operation can return any value because ``Collection`` leverages PHP Generators, 
+.. note:: The ``Key`` operation can return any value because ``Collection`` leverages PHP Generators,
         which allow using any type as a key as opposed to ``array``, which only allows ``int|string`` keys.
 
 .. note:: Earlier versions of the package had most operations returning a new ``Collection`` object.
@@ -1604,7 +1604,7 @@ Partition the collection into two subgroups of items using one or more callables
 
 The raw ``Partition`` operation returns a generator yielding two iterators.
 
-The first inner iterator is the result of a ``filter`` operation, it contains items 
+The first inner iterator is the result of a ``filter`` operation, it contains items
 that have met the provided callback(s).
 The second (and last) inner iterator is the result of a ``reject`` operation, it contains items
 that have not met the provided callback(s).
@@ -1751,10 +1751,23 @@ Signature: ``Collection::random(int $size = 1, ?int $seed = null): Collection;``
     $collection = Collection::fromIterable(['4', '5', '6'])
         ->random(); // ['6']
 
+reduce
+~~~~~~
+
+Reduce a collection of items through a given callback.
+
+Interface: `Reduceable`_
+
+Signature: ``Collection::reduce(callable $callback, $initial = null): Collection;``
+
+.. literalinclude:: code/operations/reduce.php
+  :language: php
+
 reduction
 ~~~~~~~~~
 
-Reduce a collection of items through a given callback.
+Reduce a collection of items through a given callback and yield
+each intermediary results.
 
 Interface: `Reductionable`_
 
@@ -2509,6 +2522,7 @@ Signature: ``Collection::zip(iterable ...$iterables): Collection;``
 .. _Prependable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Prependable.php
 .. _Productable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Productable.php
 .. _Randomable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Randomable.php
+.. _Reduceable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Reduceable.php
 .. _Reductionable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Reductionable.php
 .. _Rejectable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Rejectable.php
 .. _Reverseable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Reverseable.php

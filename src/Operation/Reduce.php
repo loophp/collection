@@ -21,7 +21,7 @@ use Iterator;
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
-final class Reduction extends AbstractOperation
+final class Reduce extends AbstractOperation
 {
     /**
      * @pure
@@ -44,16 +44,15 @@ final class Reduction extends AbstractOperation
                  *
                  * @return Closure(Iterator<TKey, T>): Generator<TKey, V>
                  */
-                static fn ($initial): Closure =>
-                    /**
-                     * @param Iterator<TKey, T> $iterator
-                     *
-                     * @return Generator<TKey, V>
-                     */
-                    static function (Iterator $iterator) use ($callback, $initial): Generator {
-                        foreach ($iterator as $key => $value) {
-                            yield $key => ($initial = $callback($initial, $value, $key, $iterator));
-                        }
-                    };
+                static function ($initial) use ($callback): Closure {
+                    /** @var Closure(Iterator<TKey, T>): Generator<TKey, V> $pipe */
+                    $pipe = Pipe::of()(
+                        Reduction::of()($callback)($initial),
+                        Last::of(),
+                    );
+
+                    // Point free style.
+                    return $pipe;
+                };
     }
 }

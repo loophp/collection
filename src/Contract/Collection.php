@@ -89,6 +89,7 @@ use loophp\collection\Contract\Operation\Prependable;
 use loophp\collection\Contract\Operation\Productable;
 use loophp\collection\Contract\Operation\Randomable;
 use loophp\collection\Contract\Operation\Rangeable;
+use loophp\collection\Contract\Operation\Reduceable;
 use loophp\collection\Contract\Operation\Reductionable;
 use loophp\collection\Contract\Operation\Rejectable;
 use loophp\collection\Contract\Operation\Reverseable;
@@ -208,6 +209,7 @@ use loophp\collection\Contract\Operation\Zipable;
  * @template-extends Prependable<TKey, T>
  * @template-extends Productable<TKey, T>
  * @template-extends Randomable<TKey, T>
+ * @template-extends Reduceable<TKey, T>
  * @template-extends Reductionable<TKey, T>
  * @template-extends Rejectable<TKey, T>
  * @template-extends Reverseable<TKey, T>
@@ -325,6 +327,7 @@ interface Collection extends
     Productable,
     Randomable,
     Rangeable,
+    Reduceable,
     Reductionable,
     Rejectable,
     Reverseable,

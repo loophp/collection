@@ -40,8 +40,7 @@ final class Reverse extends AbstractOperation
         /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
         $pipe = Pipe::of()(
             Pack::of(),
-            Reduction::of()($callback)([]),
-            Last::of(),
+            Reduce::of()($callback)([]),
             Unpack::of(),
         );
 
