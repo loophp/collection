@@ -15,12 +15,12 @@ use loophp\collection\Contract\Collection;
  * @template TKey
  * @template T
  */
-interface Diffable
+interface Equalsable
 {
     /**
-     * @param T ...$values
+     * Check if the collection equals another iterable.
      *
-     * @return Collection<TKey, T>
+     * @param Collection<TKey, T> $other
      */
-    public function diff(...$values): Collection;
+    public function equals(Collection $other): bool;
 }

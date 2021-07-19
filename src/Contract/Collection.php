@@ -37,6 +37,7 @@ use loophp\collection\Contract\Operation\Dropable;
 use loophp\collection\Contract\Operation\DropWhileable;
 use loophp\collection\Contract\Operation\Dumpable;
 use loophp\collection\Contract\Operation\Duplicateable;
+use loophp\collection\Contract\Operation\Equalsable;
 use loophp\collection\Contract\Operation\Everyable;
 use loophp\collection\Contract\Operation\Explodeable;
 use loophp\collection\Contract\Operation\Falsyable;
@@ -156,6 +157,7 @@ use loophp\collection\Contract\Operation\Zipable;
  * @template-extends DropWhileable<TKey, T>
  * @template-extends Dumpable<TKey, T>
  * @template-extends Duplicateable<TKey, T>
+ * @template-extends Equalsable<TKey, T>
  * @template-extends Everyable<TKey, T>
  * @template-extends Explodeable<TKey, T>
  * @template-extends Falsyable<TKey, T>
@@ -269,6 +271,7 @@ interface Collection extends
     DropWhileable,
     Dumpable,
     Duplicateable,
+    Equalsable,
     Everyable,
     Explodeable,
     Falsyable,

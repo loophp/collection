@@ -176,7 +176,7 @@ or through the ``Collection`` object.
 When used separately, operations typically return a PHP `Generator`_ or an `Iterator`_.
 When used as a ``Collection`` method, operations fall into a few main categories based on the return type:
 
-1. Operations that return a ``boolean`` or ``scalar`` value: ``Contains``, ``Count``, ``Every``, ``Falsy``, ``Has``, ``IsEmpty``, ``Match`` (or ``MatchOne``), ``Nullsy``, ``Truthy``.
+1. Operations that return a ``boolean`` or ``scalar`` value: ``Contains``, ``Count``, ``Equals``, ``Every``, ``Falsy``, ``Has``, ``IsEmpty``, ``Match`` (or ``MatchOne``), ``Nullsy``, ``Truthy``.
 
 2. Operations that return a ``Collection`` of ``Collection`` objects: ``Partition``, ``Span``.
 
@@ -334,7 +334,7 @@ asyncMapN
 Asynchronously apply one or more supplied callbacks to every item of a collection and use the return value.
 
 .. tip:: This operation is best used when multiple callbacks need to be applied. If you only want to apply
-        a single callback, ``asyncMap`` should be prefered as it benefits from more specific type hints.
+        a single callback, ``asyncMap`` should be preferred as it benefits from more specific type hints.
 
 .. warning:: This method requires `amphp/parallel-functions <https://github.com/amphp/parallel-functions>`_ to be installed.
 
@@ -707,6 +707,31 @@ Signature: ``Collection::duplicate(): Collection;``
             ->duplicate()
             ->distinct()
             ->normalize() // [0 => 'a', 1 => 'c']
+
+equals
+~~~~~~
+
+Compare two collections for equality. Collections are considered *equal* if:
+
+* they have the same number of elements;
+* they contain the same elements, regardless of the order they appear in or their keys.
+
+Elements will be compared using strict equality (``===``).
+
+.. tip:: This operation enables comparing ``Collection`` objects in PHPUnit tests using
+    the dedicated `assertObjectEquals`_ assertion. 
+
+.. warning:: Because this operation *needs to traverse both collections* to determine if
+    the same elements are contained within them, a performance cost is incurred. Even though
+    the operation will stop as soon as it encounters an element of one collection that cannot
+    be found in the other, it is not recommended to use this for potentially large collections.
+
+Interface: `Equalsable`_
+
+Signature: ``Collection::equals(Collection $other): bool;``
+
+.. literalinclude:: code/operations/equals.php
+  :language: php
 
 every
 ~~~~~
@@ -2433,6 +2458,7 @@ Signature: ``Collection::zip(iterable ...$iterables): Collection;``
 .. _DropWhileable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/DropWhileable.php
 .. _Dumpable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Dumpable.php
 .. _Duplicateable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Duplicateable.php
+.. _Equalsable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Equalsable.php
 .. _Everyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Everyable.php
 .. _Explodeable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Explodeable.php
 .. _Falsyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Falsyable.php
@@ -2520,6 +2546,7 @@ Signature: ``Collection::zip(iterable ...$iterables): Collection;``
 .. _Zipable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Zipable.php
 
 .. _array_flip(): https://php.net/array_flip
+.. _assertObjectEquals: https://phpunit.readthedocs.io/en/9.5/assertions.html#assertobjectequals
 .. _Countable: https://www.php.net/manual/en/class.countable.php
 .. _Criteria: https://www.doctrine-project.org/projects/doctrine-collections/en/1.6/index.html#matching
 .. _Doctrine Collections: https://github.com/doctrine/collections
