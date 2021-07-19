@@ -28,6 +28,9 @@ Collection::fromIterable([1, 2, 3])
 Collection::fromIterable(['foo' => 'f'])
     ->equals(Collection::fromIterable(['foo' => 'f'])); // true
 
+Collection::fromIterable(['foo' => 'f'])
+    ->same(Collection::fromIterable(['bar' => 'f'])); // true
+
 Collection::fromIterable(['foo' => 'f', 'bar' => 'b'])
     ->equals(Collection::fromIterable(['foo' => 'f', 'baz' => 'b'])); // true
 

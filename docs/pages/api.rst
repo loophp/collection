@@ -1831,6 +1831,25 @@ Signature: ``Collection::rsample(float $probability): Collection;``
     $collection->rsample(1.0); // [1, 2, 3, 4, 5]
     $collection->rsample(0.5); // will get about half of the elements at random
 
+same
+~~~~
+
+Compare two collections for sameness. Collections are considered *same* if:
+
+* they have the same number of elements;
+* they have the same keys and elements, in the same order.
+
+By default elements and keys will be compared using strict equality (``===``). However,
+this behaviour can be customized with a comparator callback. This should be a curried function
+which takes first the left value and key, then the right value and key, and returns a boolean.
+
+Interface: `Sameable`_
+
+Signature: ``Collection::same(Collection $other, ?callable $comparatorCallback = null): bool;``
+
+.. literalinclude:: code/operations/same.php
+    :language: php
+
 scale
 ~~~~~
 
@@ -2527,6 +2546,7 @@ Signature: ``Collection::zip(iterable ...$iterables): Collection;``
 .. _Rejectable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Rejectable.php
 .. _Reverseable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Reverseable.php
 .. _RSampleable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/RSampleable.php
+.. _Sameable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Sameable.php
 .. _Scaleable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Scaleable.php
 .. _ScanLeftable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/ScanLeftable.php
 .. _ScanLeft1able: https://github.com/loophp/collection/blob/master/src/Contract/Operation/ScanLeft1able.php
