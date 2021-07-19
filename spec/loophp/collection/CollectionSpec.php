@@ -1089,11 +1089,6 @@ class CollectionSpec extends ObjectBehavior
             ->equals(Collection::fromIterable([1, 2, 4]))
             ->shouldBe(false);
 
-        // different lengths, missing elements
-        $this::fromIterable([1, 2, 3])
-            ->equals(Collection::fromIterable([1, 2]))
-            ->shouldBe(false);
-
         // different lengths, extra elements in first
         $this::fromIterable([1, 2, 3, 4])
             ->equals(Collection::fromIterable([1, 2, 3]))
@@ -1114,28 +1109,30 @@ class CollectionSpec extends ObjectBehavior
             ->equals(Collection::fromIterable([$a2]))
             ->shouldBe(false);
 
-        // only in PHP 8 due to unpacking iterable with string keys
-        if (PHP_VERSION_ID >= 80000) {
-            $this::fromIterable(['foo' => 'f', 'bar' => 'b'])
-                ->equals(Collection::fromIterable(['foo' => 'f', 'bar' => 'b']))
-                ->shouldBe(true);
+        // "maps" with string keys and values
+        $this::fromIterable(['foo' => 'f', 'bar' => 'b'])
+            ->equals(Collection::fromIterable(['foo' => 'f', 'bar' => 'b']))
+            ->shouldBe(true);
 
-            $this::fromIterable(['foo' => 'f', 'bar' => 'b'])
-                ->equals(Collection::fromIterable(['bar' => 'b', 'foo' => 'f']))
-                ->shouldBe(true);
+        $this::fromIterable(['foo' => 'f', 'bar' => 'b'])
+            ->equals(Collection::fromIterable(['bar' => 'b', 'foo' => 'f']))
+            ->shouldBe(true);
 
-            $this::fromIterable(['foo' => 'f', 'bar' => 'b'])
-                ->equals(Collection::fromIterable(['bar' => 'b']))
-                ->shouldBe(false);
+        $this::fromIterable(['foo' => 'f'])
+            ->equals(Collection::fromIterable(['bar' => 'f']))
+            ->shouldBe(true);
 
-            $this::fromIterable(['foo' => 'f'])
-                ->equals(Collection::fromIterable(['bar' => 'b']))
-                ->shouldBe(false);
+        $this::fromIterable(['foo' => 'f', 'bar' => 'b'])
+            ->equals(Collection::fromIterable(['bar' => 'b']))
+            ->shouldBe(false);
 
-            $this::fromIterable(['foo' => 'f'])
-                ->equals(Collection::fromIterable(['foo' => 'f', 'bar' => 'b']))
-                ->shouldBe(false);
-        }
+        $this::fromIterable(['foo' => 'f'])
+            ->equals(Collection::fromIterable(['bar' => 'b']))
+            ->shouldBe(false);
+
+        $this::fromIterable(['foo' => 'f'])
+            ->equals(Collection::fromIterable(['foo' => 'f', 'bar' => 'b']))
+            ->shouldBe(false);
     }
 
     public function it_can_every(): void
@@ -2754,6 +2751,120 @@ class CollectionSpec extends ObjectBehavior
         $this::fromIterable(range(1, 10))
             ->rsample(.5)
             ->shouldNotHaveCount(10);
+    }
+
+    public function it_can_same(): void
+    {
+        $a = (object) ['id' => 'a'];
+        $a2 = (object) ['id' => 'a'];
+        $b = (object) ['id' => 'b'];
+
+        // empty variations
+        $this::empty()
+            ->same(Collection::empty())
+            ->shouldBe(true);
+
+        $this::empty()
+            ->same(Collection::fromIterable([1]))
+            ->shouldBe(false);
+
+        $this::fromIterable([1])
+            ->same(Collection::empty())
+            ->shouldBe(false);
+
+        // same elements, same order (same keys)
+        $this::fromIterable([1, 2, 3])
+            ->same(Collection::fromIterable([1, 2, 3]))
+            ->shouldBe(true);
+
+        $this::fromIterable([$a, $b])
+            ->same(Collection::fromIterable([$a, $b]))
+            ->shouldBe(true);
+
+        // same elements, different order (different keys)
+        $this::fromIterable([1, 2, 3])
+            ->same(Collection::fromIterable([3, 1, 2]))
+            ->shouldBe(false);
+
+        $this::fromIterable([$a, $b])
+            ->same(Collection::fromIterable([$b, $a]))
+            ->shouldBe(false);
+
+        // same lengths, with one element different
+        $this::fromIterable([1, 2, 3])
+            ->same(Collection::fromIterable([1, 2, 4]))
+            ->shouldBe(false);
+
+        // different lengths, extra elements in first
+        $this::fromIterable([1, 2, 3, 4])
+            ->same(Collection::fromIterable([1, 2, 3]))
+            ->shouldBe(false);
+
+        // different lengths, extra elements in second
+        $this::fromIterable([1, 2, 3])
+            ->same(Collection::fromIterable([1, 2, 3, 4]))
+            ->shouldBe(false);
+
+        // objects, different instances and contents
+        $this::fromIterable([$a])
+            ->same(Collection::fromIterable([$b]))
+            ->shouldBe(false);
+
+        // objects, different instances but same contents
+        $this::fromIterable([$a])
+            ->same(Collection::fromIterable([$a2]))
+            ->shouldBe(false);
+
+        // "maps" with string keys and values
+        $this::fromIterable(['foo' => 'f', 'bar' => 'b'])
+            ->same(Collection::fromIterable(['foo' => 'f', 'bar' => 'b']))
+            ->shouldBe(true);
+
+        $this::fromIterable(['foo' => 'f'])
+            ->same(Collection::fromIterable(['bar' => 'f']))
+            ->shouldBe(false);
+
+        $this::fromIterable(['foo' => 'f', 'bar' => 'b'])
+            ->same(Collection::fromIterable(['bar' => 'b', 'foo' => 'f']))
+            ->shouldBe(false);
+
+        $this::fromIterable(['foo' => 'f', 'bar' => 'b'])
+            ->same(Collection::fromIterable(['bar' => 'b']))
+            ->shouldBe(false);
+
+        $this::fromIterable(['foo' => 'f'])
+            ->same(Collection::fromIterable(['bar' => 'b']))
+            ->shouldBe(false);
+
+        $this::fromIterable(['FOO' => 'f'])
+            ->same(Collection::fromIterable(['foo' => 'f']))
+            ->shouldBe(false);
+
+        $this::fromIterable(['foo' => 'f'])
+            ->same(Collection::fromIterable(['foo' => 'f', 'bar' => 'b']))
+            ->shouldBe(false);
+
+        // custom comparators
+        $comparator = static fn ($left) => static fn ($right): bool => (int) $left === (int) $right;
+        $this::fromIterable([1, 2, 3])
+            ->same(Collection::fromIterable(['1', '2', '3']), $comparator)
+            ->shouldBe(true);
+
+        $comparator = static fn ($left) => static fn ($right): bool => $left === $right;
+        $this::fromIterable(['foo' => 'f'])
+            ->same(Collection::fromIterable(['bar' => 'f']), $comparator)
+            ->shouldBe(true);
+
+        $comparator = static fn ($left, $leftKey) => static fn ($right, $rightKey): bool => $left === $right
+            && mb_strtolower($leftKey) === mb_strtolower($rightKey);
+        $this::fromIterable(['foo' => 'f'])
+            ->same(Collection::fromIterable(['FOO' => 'f']), $comparator)
+            ->shouldBe(true);
+
+        $comparator = static fn (stdClass $left) => static fn (stdClass $right): bool => $left->id === $right->id;
+        $this::fromIterable([$a])
+            ->same(Collection::fromIterable([$a2]), $comparator)
+            ->shouldBe(true);
     }
 
     public function it_can_scale(): void

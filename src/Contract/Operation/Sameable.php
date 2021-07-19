@@ -15,12 +15,13 @@ use loophp\collection\Contract\Collection;
  * @template TKey
  * @template T
  */
-interface Equalsable
+interface Sameable
 {
     /**
-     * Check if the collection equals another collection..
+     * Check if the collection is the same as another collection.
      *
      * @param Collection<TKey, T> $other
+     * @param null|callable(T, TKey): (Closure(T, TKey): bool) $comparatorCallback
      */
-    public function equals(Collection $other): bool;
+    public function same(Collection $other, ?callable $comparatorCallback = null): bool;
 }

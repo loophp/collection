@@ -100,6 +100,7 @@ use loophp\collection\Operation\Reduction;
 use loophp\collection\Operation\Reject;
 use loophp\collection\Operation\Reverse;
 use loophp\collection\Operation\RSample;
+use loophp\collection\Operation\Same;
 use loophp\collection\Operation\Scale;
 use loophp\collection\Operation\ScanLeft;
 use loophp\collection\Operation\ScanLeft1;
@@ -746,6 +747,25 @@ final class Collection implements CollectionInterface
     public function rsample(float $probability): CollectionInterface
     {
         return new self(RSample::of()($probability), [$this->getIterator()]);
+    }
+
+    public function same(CollectionInterface $other, ?callable $comparatorCallback = null): bool
+    {
+        $comparatorCallback ??=
+            /**
+             * @param T $leftValue
+             * @param TKey $leftKey
+             *
+             * @return Closure(T, TKey): bool
+             */
+            static fn ($leftValue, $leftKey): Closure =>
+                /**
+                 * @param T $rightValue
+                 * @param TKey $rightKey
+                 */
+                static fn ($rightValue, $rightKey): bool => $leftValue === $rightValue && $leftKey === $rightKey;
+
+        return (new self(Same::of()($other->getIterator())($comparatorCallback), [$this->getIterator()]))->getIterator()->current();
     }
 
     public function scale(
