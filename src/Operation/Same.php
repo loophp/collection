@@ -18,6 +18,8 @@ use Iterator;
  *
  * @template TKey
  * @template T
+ *
+ * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Same extends AbstractOperation
 {
@@ -47,11 +49,9 @@ final class Same extends AbstractOperation
                      * @return Generator<int, bool>
                      */
                     static function (Iterator $iterator) use ($other, $comparatorCallback): Generator {
-                        $isSame = true;
-
                         while ($iterator->valid() && $other->valid()) {
                             if (!$comparatorCallback($iterator->current(), $iterator->key())($other->current(), $other->key())) {
-                                $isSame = false;
+                                return yield false;
                             }
 
                             $iterator->next();
@@ -59,10 +59,10 @@ final class Same extends AbstractOperation
                         }
 
                         if ($iterator->valid() !== $other->valid()) {
-                            $isSame = false;
+                            return yield false;
                         }
 
-                        yield $isSame;
+                        return yield true;
                     };
     }
 }
