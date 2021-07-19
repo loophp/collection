@@ -716,15 +716,16 @@ Compare two collections for equality. Collections are considered *equal* if:
 * they have the same number of elements;
 * they contain the same elements, regardless of the order they appear in or their keys.
 
-Elements will be compared using strict equality (``===``).
+Elements will be compared using strict equality (``===``). If you want to customize how elements
+are compared or the order in which the keys/values appear is important, use the ``same`` operation.
 
 .. tip:: This operation enables comparing ``Collection`` objects in PHPUnit tests using
     the dedicated `assertObjectEquals`_ assertion. 
 
 .. warning:: Because this operation *needs to traverse both collections* to determine if
-    the same elements are contained within them, a performance cost is incurred. Even though
-    the operation will stop as soon as it encounters an element of one collection that cannot
-    be found in the other, it is not recommended to use this for potentially large collections.
+    the same elements are contained within them, a performance cost is incurred. The operation will stop
+    as soon as it encounters an element of one collection that cannot be found in the other. However, 
+    it is not recommended to use it for potentially large collections, where ``same`` can be used instead.
 
 Interface: `Equalsable`_
 
@@ -1842,6 +1843,9 @@ Compare two collections for sameness. Collections are considered *same* if:
 By default elements and keys will be compared using strict equality (``===``). However,
 this behaviour can be customized with a comparator callback. This should be a curried function
 which takes first the left value and key, then the right value and key, and returns a boolean.
+
+This operation will stop and return a value as soon as one of the collections has been seen fully
+or as soon as the comparison yields *false* for any key-value pair.
 
 Interface: `Sameable`_
 
