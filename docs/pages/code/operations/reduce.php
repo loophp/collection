@@ -19,4 +19,4 @@ $collection = Collection::empty()
     ->reduce($callback); // []
 
 $collection = Collection::fromIterable(range(1, 5))
-    ->reduce($callback); // [15]
+    ->reduce($callback, 0); // [4 => 15]
