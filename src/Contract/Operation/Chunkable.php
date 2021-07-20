@@ -18,7 +18,9 @@ use loophp\collection\Contract\Collection;
 interface Chunkable
 {
     /**
-     * Chunk the collection into chunks of the given size.
+     * Chunk a collection of items into chunks of items of a given size.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#chunk
      *
      * @return Collection<int, list<T>>
      */

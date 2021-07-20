@@ -302,7 +302,7 @@ Signature: ``Collection::associate(?callable $callbackForKeys = null, ?callable 
 asyncMap
 ~~~~~~~~
 
-Asynchronously apply one or more supplied callbacks to every item of a collection and use the return value.
+Asynchronously apply a single callback to every item of a collection and use the return value.
 
 .. warning:: This method requires `amphp/parallel-functions <https://github.com/amphp/parallel-functions>`_ to be installed.
 
@@ -500,7 +500,15 @@ Signature: ``Collection::combine(...$keys): Collection;``
 compact
 ~~~~~~~
 
-Remove given values from the collection, if no values are provided, it removes only the null value.
+Remove given values from the collection; if no values are provided, it removes *nullsy* values.
+
+*Nullsy* values are:
+
+* The null value: ``null``
+* Empty array: ``[]``
+* The integer zero: ``0``
+* The boolean: ``false``
+* The empty string: ``''``
 
 Interface: `Compactable`_
 
@@ -509,10 +517,10 @@ Signature: ``Collection::compact(...$values): Collection;``
 .. code-block:: php
 
     $collection = Collection::fromIterable(['a', 1 => 'b', null, false, 0, 'c'])
-        ->compact(); // ['a', 1 => 'b', 3 => false, 4 => 0, 5 => 'c']
+        ->compact(); // [0 => 'a', 1 => 'b', 5 => 'c']
 
     $collection = Collection::fromIterable(['a', 1 => 'b', null, false, 0, 'c'])
-        ->compact(null, 0); // ['a', 1 => 'b', 3 => false, 5 => 'c']
+        ->compact(null, 0); // [0 => 'a', 1 => 'b', 3 => false, 5 => 'c']
 
 contains
 ~~~~~~~~
@@ -586,8 +594,8 @@ Signature: ``Collection::cycle(): Collection;``
 diff
 ~~~~
 
-It compares the collection against another collection or a plain array based on its values.
-This method will return the values in the original collection that are not present in the given collection.
+Compares the collection against another collection, iterable, or set of multiple values.
+This method will return the values in the original collection that are not present in the given argument set.
 
 Interface: `Diffable`_
 
@@ -601,12 +609,12 @@ Signature: ``Collection::diff(...$values): Collection;``
 diffKeys
 ~~~~~~~~
 
-It compares the collection against another collection or a plain object based on its keys.
-This method will return the key / value pairs in the original collection that are not present in the given collection.
+Compares the collection against another collection, iterable, or set of multiple keys.
+This method will return the key / value pairs in the original collection that are not present in the given argument set.
 
-Interface: `Diffkeysable`_
+Interface: `DiffKeysable`_
 
-Signature: ``Collection::diffKeys(...$values): Collection;``
+Signature: ``Collection::diffKeys(...$keys): Collection;``
 
 .. code-block:: php
 
@@ -676,7 +684,7 @@ dump
 ~~~~
 
 Dump one or multiple items. It uses `symfony/var-dumper`_ if it is available,
-`var_dump()`_ otherwise. A custom ``callback`` might be also used.
+`var_dump()`_ otherwise. A custom ``callback`` can be also used.
 
 Interface: `Dumpable`_
 
@@ -2488,7 +2496,7 @@ Signature: ``Collection::zip(iterable ...$iterables): Collection;``
 .. _Currentable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Currentable.php
 .. _Cycleable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Cycleable.php
 .. _Diffable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Diffable.php
-.. _Diffkeysable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Diffkeysable.php
+.. _DiffKeysable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/DiffKeysable.php
 .. _Distinctable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Distinctable.php
 .. _Dropable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Dropable.php
 .. _DropWhileable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/DropWhileable.php

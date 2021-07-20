@@ -20,6 +20,8 @@ interface Combineable
     /**
      * Combine a collection of items with some other keys.
      *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#combine
+     *
      * @param mixed ...$keys
      *
      * @return Collection<TKey, T>

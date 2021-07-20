@@ -31,7 +31,7 @@ use loophp\collection\Contract\Operation\Containsable;
 use loophp\collection\Contract\Operation\Currentable;
 use loophp\collection\Contract\Operation\Cycleable;
 use loophp\collection\Contract\Operation\Diffable;
-use loophp\collection\Contract\Operation\Diffkeysable;
+use loophp\collection\Contract\Operation\DiffKeysable;
 use loophp\collection\Contract\Operation\Distinctable;
 use loophp\collection\Contract\Operation\Dropable;
 use loophp\collection\Contract\Operation\DropWhileable;
@@ -153,7 +153,7 @@ use loophp\collection\Contract\Operation\Zipable;
  * @template-extends Currentable<TKey, T>
  * @template-extends Cycleable<TKey, T>
  * @template-extends Diffable<TKey, T>
- * @template-extends Diffkeysable<TKey, T>
+ * @template-extends DiffKeysable<TKey, T>
  * @template-extends Distinctable<TKey, T>
  * @template-extends Dropable<TKey, T>
  * @template-extends DropWhileable<TKey, T>
@@ -269,7 +269,7 @@ interface Collection extends
     Currentable,
     Cycleable,
     Diffable,
-    Diffkeysable,
+    DiffKeysable,
     Distinctable,
     Dropable,
     DropWhileable,

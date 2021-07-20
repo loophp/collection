@@ -18,6 +18,10 @@ use loophp\collection\Contract\Collection;
 interface Cycleable
 {
     /**
+     * Cycle indefinitely around a collection of items.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#cycle
+     *
      * @return Collection<TKey, T>
      */
     public function cycle(): Collection;
