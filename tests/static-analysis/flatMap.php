@@ -58,9 +58,9 @@ flatMap_checkMapString(Collection::fromIterable(['foo', 'bar'])->flatMap(static 
 // E.g: `numeric&string` or `non-empty-string`
 /** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
 flatMap_checkListString(Collection::fromIterable([1, 2, 3])->flatMap($toString));
-/** @psalm-suppress InvalidArgument */
+/** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
 flatMap_checkListString(Collection::fromIterable(['foo', 'bar'])->flatMap($appendBar));
-/** @psalm-suppress InvalidArgument */
+/** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
 flatMap_checkListString(Collection::fromIterable([1, 2, 3])->flatMap($square)->flatMap($toString)->flatMap($appendBar));
 
 // VALID failures due to usage with wrong types
