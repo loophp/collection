@@ -15,7 +15,7 @@ use loophp\collection\Contract\Collection;
  * @template TKey
  * @template T
  */
-interface DiffKeysable
+interface Diffkeysable
 {
     /**
      * Compares the collection against another collection, iterable, or set of multiple keys.
