@@ -94,6 +94,7 @@ use loophp\collection\Contract\Operation\Reductionable;
 use loophp\collection\Contract\Operation\Rejectable;
 use loophp\collection\Contract\Operation\Reverseable;
 use loophp\collection\Contract\Operation\RSampleable;
+use loophp\collection\Contract\Operation\Sameable;
 use loophp\collection\Contract\Operation\Scaleable;
 use loophp\collection\Contract\Operation\ScanLeft1able;
 use loophp\collection\Contract\Operation\ScanLeftable;
@@ -214,6 +215,7 @@ use loophp\collection\Contract\Operation\Zipable;
  * @template-extends Rejectable<TKey, T>
  * @template-extends Reverseable<TKey, T>
  * @template-extends RSampleable<TKey, T>
+ * @template-extends Sameable<TKey, T>
  * @template-extends Scaleable<TKey, T>
  * @template-extends ScanLeft1able<TKey, T>
  * @template-extends ScanLeftable<TKey, T>
@@ -332,6 +334,7 @@ interface Collection extends
     Rejectable,
     Reverseable,
     RSampleable,
+    Sameable,
     Scaleable,
     ScanLeft1able,
     ScanLeftable,

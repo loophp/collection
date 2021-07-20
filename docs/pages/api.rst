@@ -716,15 +716,16 @@ Compare two collections for equality. Collections are considered *equal* if:
 * they have the same number of elements;
 * they contain the same elements, regardless of the order they appear in or their keys.
 
-Elements will be compared using strict equality (``===``).
+Elements will be compared using strict equality (``===``). If you want to customize how elements
+are compared or the order in which the keys/values appear is important, use the ``same`` operation.
 
 .. tip:: This operation enables comparing ``Collection`` objects in PHPUnit tests using
     the dedicated `assertObjectEquals`_ assertion. 
 
 .. warning:: Because this operation *needs to traverse both collections* to determine if
-    the same elements are contained within them, a performance cost is incurred. Even though
-    the operation will stop as soon as it encounters an element of one collection that cannot
-    be found in the other, it is not recommended to use this for potentially large collections.
+    the same elements are contained within them, a performance cost is incurred. The operation will stop
+    as soon as it encounters an element of one collection that cannot be found in the other. However, 
+    it is not recommended to use it for potentially large collections, where ``same`` can be used instead.
 
 Interface: `Equalsable`_
 
@@ -1831,6 +1832,28 @@ Signature: ``Collection::rsample(float $probability): Collection;``
     $collection->rsample(1.0); // [1, 2, 3, 4, 5]
     $collection->rsample(0.5); // will get about half of the elements at random
 
+same
+~~~~
+
+Compare two collections for sameness. Collections are considered *same* if:
+
+* they have the same number of elements;
+* they have the same keys and elements, in the same order.
+
+By default elements and keys will be compared using strict equality (``===``). However,
+this behaviour can be customized with a comparator callback. This should be a curried function
+which takes first the left value and key, then the right value and key, and returns a boolean.
+
+This operation will stop and return a value as soon as one of the collections has been seen fully
+or as soon as the comparison yields *false* for any key-value pair.
+
+Interface: `Sameable`_
+
+Signature: ``Collection::same(Collection $other, ?callable $comparatorCallback = null): bool;``
+
+.. literalinclude:: code/operations/same.php
+    :language: php
+
 scale
 ~~~~~
 
@@ -2527,6 +2550,7 @@ Signature: ``Collection::zip(iterable ...$iterables): Collection;``
 .. _Rejectable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Rejectable.php
 .. _Reverseable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Reverseable.php
 .. _RSampleable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/RSampleable.php
+.. _Sameable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Sameable.php
 .. _Scaleable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Scaleable.php
 .. _ScanLeftable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/ScanLeftable.php
 .. _ScanLeft1able: https://github.com/loophp/collection/blob/master/src/Contract/Operation/ScanLeft1able.php
