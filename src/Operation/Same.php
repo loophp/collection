@@ -58,6 +58,7 @@ final class Same extends AbstractOperation
                             $other->next();
                         }
 
+                        // TODO: Use single return line when FriendsOfPHP/PHP-CS-Fixer#5810 is fixed.
                         if ($iterator->valid() !== $other->valid()) {
                             return yield false;
                         }
