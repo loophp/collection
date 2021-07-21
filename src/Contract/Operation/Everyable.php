@@ -18,6 +18,10 @@ use Iterator;
 interface Everyable
 {
     /**
+     * Check whether all elements in the collection pass the test implemented by the provided callback(s).
+     *
+     * @see https://loophp-collection.readthedocs.io/en/latest/pages/api.html#every
+     *
      * @param callable(T, TKey, Iterator<TKey, T>): bool ...$callbacks
      */
     public function every(callable ...$callbacks): bool;

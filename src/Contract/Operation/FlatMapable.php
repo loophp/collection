@@ -19,7 +19,10 @@ use loophp\collection\Contract\Collection;
 interface FlatMapable
 {
     /**
-     * Transform the collection through a callback and flatten one level.
+     * Transform the collection using a callback and keep the return value, then flatten it one level.
+     * The supplied callback needs to return an `iterable`: either an `array`or a class that implements Traversable.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/latest/pages/api.html#flatmap
      *
      * @template IKey
      * @template IValue

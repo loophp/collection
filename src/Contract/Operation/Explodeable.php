@@ -19,6 +19,10 @@ interface Explodeable
 {
     /**
      * Explode a collection into subsets based on a given value.
+     * This operation uses the `split` operation with the flag `Splitable::REMOVE` and thus,
+     * values used to explode the collection are removed from the chunks.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/latest/pages/api.html#explode
      *
      * @param mixed ...$explodes
      *

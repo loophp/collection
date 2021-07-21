@@ -745,7 +745,7 @@ Signature: ``Collection::equals(Collection $other): bool;``
 every
 ~~~~~
 
-This operation tests whether all elements in the collection pass the test implemented by the provided callback(s).
+Check whether all elements in the collection pass the test implemented by the provided callback(s).
 
 .. warning:: The ``callbacks`` parameter is variadic and will be evaluated as a logical ``OR``.
 
@@ -772,7 +772,7 @@ explode
 
 Explode a collection into subsets based on a given value.
 
-This operation uses the ``Collection::split`` operation with the flag ``Splitable::REMOVE`` and thus, values used to explode the
+This operation uses the ``split`` operation with the flag ``Splitable::REMOVE`` and thus, values used to explode the
 collection are removed from the chunks.
 
 Interface: `Explodeable`_
@@ -827,7 +827,9 @@ Signature: ``Collection::filter(callable ...$callbacks): Collection;``
 first
 ~~~~~
 
-Get the first items from the collection.
+Get the first item from the collection in a separate collection. Alias for ``head``.
+
+The ``current`` operation can then be used to extract the item out of the collection.
 
 Interface: `Firstable`_
 
@@ -845,13 +847,14 @@ Signature: ``Collection::first(): Collection;``
         };
 
         Collection::fromIterable($generator())
-            ->first(); // ['a' => 'a']
+            ->first()
+            ->current(); // ['a' => 'a']
 
 flatMap
 ~~~~~~~
 
-Transform the collection using a callback and keep the return valie, then flatten it one level.
-The supplied callback needs to return an interable: either an ``array`` or a class that implements `Traversable`_.
+Transform the collection using a callback and keep the return value, then flatten it one level.
+The supplied callback needs to return an ``iterable``: either an ``array`` or a class that implements `Traversable`_.
 
 .. tip:: This operation is nothing more than a shortcut for ``map`` + ``flatten(1)``, or ``map`` + ``unwrap``.
 
@@ -958,7 +961,7 @@ Signature: ``Collection::foldLeft(callable $callback, $initial = null): Collecti
 foldLeft1
 ~~~~~~~~~
 
-Takes the first 2 items of the list and applies the function to them, then feeds the function with this result and the
+Takes the first two items of the list and applies the function to them, then feeds the function with this result and the
 third argument and so on. See ``scanLeft1`` for intermediate results.
 
 Interface: `FoldLeft1able`_
@@ -1024,9 +1027,9 @@ Signature: ``Collection::forget(...$keys): Collection;``
 frequency
 ~~~~~~~~~
 
-Calculate the frequency of the values, frequencies are stored in keys.
+Calculate the frequency of the items in the collection
 
-Values can be anything (object, scalar, ... ).
+Returns a new key-value collection with frequencies as keys.
 
 Interface: `Frequencyable`_
 
@@ -1071,8 +1074,9 @@ Signature: ``Collection::group(): Collection;``
 groupBy
 ~~~~~~~
 
-Group items, the key used to group items can be customized in a callback.
-By default it's the key is the item's key.
+Group items based on their keys.
+
+The default behaviour can be customized with a callback.
 
 Interface: `GroupByable`_
 
@@ -1120,13 +1124,17 @@ Signature: ``Collection::has(callable ...$callbacks): bool;``
 head
 ~~~~
 
+Get the first item from the collection in a separate collection. Same as ``first``.
+
+The ``current`` operation can then be used to extract the item out of the collection.
+
 Interface: `Headable`_
 
 Signature: ``Collection::head(): Collection;``
 
 .. code-block:: php
 
-    $generator = static function (): \Generator {
+    $generator = static function (): Generator {
             yield 1 => 'a';
             yield 1 => 'b';
             yield 1 => 'c';
@@ -1136,7 +1144,8 @@ Signature: ``Collection::head(): Collection;``
     };
 
     Collection::fromIterable($generator())
-        ->head(); // [1 => 'a']
+        ->head()
+        ->current(); // [1 => 'a']
 
 ifThenElse
 ~~~~~~~~~~

@@ -18,6 +18,11 @@ use loophp\collection\Contract\Collection;
 interface Frequencyable
 {
     /**
+     * Calculate the frequency of the items in the collection
+     * Returns a new key-value collection with frequencies as keys.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/latest/pages/api.html#frequency
+     *
      * @return Collection<TKey, T>
      */
     public function frequency(): Collection;
