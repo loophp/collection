@@ -29,7 +29,7 @@ interface Reductionable
      * @param callable(V|W, T, TKey, Iterator<TKey, T>): W $callback
      * @param V $initial
      *
-     * @return Collection<TKey, V|W>
+     * @return Collection<TKey, W>
      */
     public function reduction(callable $callback, $initial = null): Collection;
 }
