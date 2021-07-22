@@ -1317,6 +1317,8 @@ last
 
 Extract the last element of a collection, which must be finite and non-empty.
 
+The ``current`` operation can then be used to extract the item out of the collection.
+
 Interface: `Lastable`_
 
 Signature: ``Collection::last(): Collection;``
@@ -1333,7 +1335,8 @@ Signature: ``Collection::last(): Collection;``
         };
 
         Collection::fromIterable($generator())
-            ->last(); // ['c' => 'f']
+            ->last()
+            ->current(); // ['c' => 'f']
 
 limit
 ~~~~~
@@ -2508,7 +2511,7 @@ Signature: ``Collection::zip(iterable ...$iterables): Collection;``
 .. _Currentable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Currentable.php
 .. _Cycleable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Cycleable.php
 .. _Diffable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Diffable.php
-.. _DiffKeysable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Diffkeysable.php
+.. _Diffkeysable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Diffkeysable.php
 .. _Distinctable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Distinctable.php
 .. _Dropable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Dropable.php
 .. _DropWhileable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/DropWhileable.php
