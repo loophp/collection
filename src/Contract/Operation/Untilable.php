@@ -18,6 +18,10 @@ use loophp\collection\Contract\Collection;
 interface Untilable
 {
     /**
+     * Iterate over the collection items until the provided callback(s) are satisfied.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#until
+     *
      * @param callable(T, TKey):bool ...$callbacks
      *
      * @return Collection<TKey, T>

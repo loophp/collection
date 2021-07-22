@@ -18,7 +18,9 @@ use loophp\collection\Contract\Collection;
 interface Mergeable
 {
     /**
-     * Merge one or more collection of items onto a collection.
+     * Merge one or more iterables onto a collection.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#merge
      *
      * @param iterable<mixed> ...$sources
      *

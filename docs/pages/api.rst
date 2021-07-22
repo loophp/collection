@@ -1150,7 +1150,9 @@ Signature: ``Collection::head(): Collection;``
 ifThenElse
 ~~~~~~~~~~
 
-Execute a callback when a condition is met. If no ``else`` callback is provided, the identity function is applied (elements are not modified).
+Execute a mapping callback on each item of the collection when a condition is met. 
+
+If no ``else`` callback is provided, the identity function is applied (elements are not modified).
 
 Interface: `IfThenElseable`_
 
@@ -1225,7 +1227,7 @@ Signature: ``Collection::inits(): Collection;``
 intersect
 ~~~~~~~~~
 
-Removes any values from the original collection that are not present in the given collection.
+Removes any values from the original collection that are not present in the given values set.
 
 Interface: `Intersectable`_
 
@@ -1239,7 +1241,7 @@ Signature: ``Collection::intersect(...$values): Collection;``
 intersectKeys
 ~~~~~~~~~~~~~
 
-Removes any keys from the original collection that are not present in the given collection.
+Removes any keys from the original collection that are not present in the given keys set.
 
 Interface: `Intersectkeysable`_
 
@@ -1253,7 +1255,7 @@ Signature: ``Collection::intersectKeys(...$keys): Collection;``
 intersperse
 ~~~~~~~~~~~
 
-Insert a given value at every n element of a collection and indices are not preserved.
+Insert a given value at every n element of a collection; indices are not preserved.
 
 Interface: `Intersperseable`_
 
@@ -1755,7 +1757,7 @@ Signature: ``Collection::product(iterable ...$iterables): Collection;``
 random
 ~~~~~~
 
-It returns a random item from the collection.
+Returns a random item from the collection.
 
 An optional integer can be passed to random to specify how many items you would like to randomly retrieve.
 An optional seed can be passed as well.
@@ -1801,7 +1803,7 @@ Signature: ``Collection::reduction(callable $callback, $initial = null): Collect
 reject
 ~~~~~~
 
-Filter collection items based on one or more callbacks.
+Reject collection items based on one or more callbacks.
 
 .. warning:: The `callbacks` parameter is variadic and will be evaluated as a logical ``OR``.
              If you're looking for a logical ``AND``, you have to make multiple calls to the
@@ -1821,7 +1823,7 @@ Signature: ``Collection::reject(callable ...$callbacks): Collection;``
 reverse
 ~~~~~~~
 
-Reverse order items of a collection.
+Reverse the order of items in a collection.
 
 Interface: `Reverseable`_
 
@@ -1919,7 +1921,7 @@ Signature: ``Collection::scanLeft(callable $callback, $initial = null): Collecti
 scanLeft1
 ~~~~~~~~~
 
-Takes the first 2 items of the list and applies the function to them, then feeds the function with this result and the
+Takes the first two items of the list and applies the function to them, then feeds the function with this result and the
 third argument and so on. It returns the list of intermediate and final results.
 
 .. warning:: You might need to use the ``normalize`` operation after this.
@@ -2125,7 +2127,7 @@ Interface: `Strictable`_
 Signature: ``Collection::strict(?callable $callback = null): Collection;``
 
 .. literalinclude:: code/operations/strict.php
-:language: php
+    :language: php
 
 tail
 ~~~~
@@ -2198,6 +2200,7 @@ truthy
 ~~~~~~
 
 Check if the collection contains *only truthy* values. Opposite of ``falsy``.
+
 A value is determined to be *truthy* by applying a ``bool`` cast.
 
 Interface: `Truthyable`_
@@ -2215,7 +2218,7 @@ Signature: ``Collection::truthy(): bool;``
 unlines
 ~~~~~~~
 
-Opposite of ``Collection::lines()``, creates a single string from multiple lines using ``PHP_EOL`` as the glue.
+Opposite of ``lines``, creates a single string from multiple lines using ``PHP_EOL`` as the glue.
 
 Interface: `Unlinesable`_
 
@@ -2240,7 +2243,7 @@ Signature: ``Collection::unlines(): Collection;``
 unpack
 ~~~~~~
 
-Opposite of ``Collection::pack()`, transforms groupings of items representing a key and a value into actual keys and values.
+Opposite of ``pack``, transforms groupings of items representing a key and a value into actual keys and values.
 
 Interface: `Unpackable`_
 
@@ -2262,7 +2265,7 @@ Signature: ``Collection::unpack(): Collection;``
 unpair
 ~~~~~~
 
-Opposite of ``Collection::pair()``, creates a flat list of values from a collection of key-value pairs.
+Opposite of ``pair``, creates a flat list of values from a collection of key-value pairs.
 
 Interface: `Unpairable`_
 
@@ -2311,7 +2314,7 @@ Signature: ``Collection::until(callable ...$callbacks): Collection;``
 unwindow
 ~~~~~~~~
 
-Opposite of ``Collection::window()``, usually needed after a call to that operation.
+Opposite of ``window``, usually needed after a call to that operation.
 Turns already-created windows back into a flat list.
 
 Interface: `Unwindowable`_
@@ -2333,7 +2336,7 @@ Signature: ``Collection::unwindow(): Collection;``
 unwords
 ~~~~~~~
 
-Opposite of ``Collection::words()`` and similar to ``Collection::unlines()``,
+Opposite of ``words`` and similar to ``lines``,
 creates a single string from multiple strings using one space as the glue.
 
 Interface: `Unwordsable`_
@@ -2360,7 +2363,7 @@ Signature: ``Collection::unwords(): Collection;``
 unwrap
 ~~~~~~
 
-Opposite of ``Collection::wrap()``, turn a collection of arrays into a flat list.
+Opposite of ``wrap``, turn a collection of arrays into a flat list.
 Equivalent to ``Collection::flatten(1)``.
 
 Interface: `Unwrapable`_
@@ -2378,7 +2381,7 @@ Signature: ``Collection::unwrap(): Collection;``
 unzip
 ~~~~~
 
-Opposite of ``Collection::zip()``, splits zipped items in a collection.
+Opposite of ``zip``, splits zipped items in a collection.
 
 Interface: `Unzipable`_
 

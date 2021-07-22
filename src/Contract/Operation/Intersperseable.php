@@ -18,8 +18,9 @@ use loophp\collection\Contract\Collection;
 interface Intersperseable
 {
     /**
-     * Insert a given value between each element of a collection.
-     * Indices are not preserved.
+     * Insert a given value at every n element of a collection; indices are not preserved.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#intersperse
      *
      * @param mixed $element
      *

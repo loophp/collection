@@ -18,6 +18,12 @@ use loophp\collection\Contract\Collection;
 interface ScanRight1able
 {
     /**
+     * Takes the last two items of the list and applies the function,
+     * then it takes the third item from the end and the result, and so on.
+     * It returns the list of intermediate and final results.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#scanright1
+     *
      * @return Collection<TKey, T>
      */
     public function scanRight1(callable $callback): Collection;

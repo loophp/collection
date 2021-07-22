@@ -20,6 +20,8 @@ interface Prependable
     /**
      * Push an item onto the beginning of the collection.
      *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#prepend
+     *
      * @param mixed ...$items
      *
      * @return Collection<int|TKey, T>
