@@ -20,9 +20,7 @@ interface Dropable
     /**
      * Skip the n items of a collection.
      *
-     * @param int ...$counts
-     *
      * @return Collection<TKey, T>
      */
-    public function drop(int ...$counts): Collection;
+    public function drop(int $count): Collection;
 }
