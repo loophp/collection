@@ -20,7 +20,7 @@ interface Getable
     /**
      * Get a specific element of the collection from a key; if the key doesn't exist, returns the default value.
      *
-     * @see https://loophp-collection.readthedocs.io/en/latest/pages/api.html#get
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#get
      *
      * @param TKey $key
      * @param T|null $default

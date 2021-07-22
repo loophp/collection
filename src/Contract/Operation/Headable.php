@@ -22,7 +22,7 @@ interface Headable
      *
      * The `current` operation can then be used to extract the item out of the collection.
      *
-     * @see https://loophp-collection.readthedocs.io/en/latest/pages/api.html#head
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#head
      *
      * @return Collection<TKey, T>
      */

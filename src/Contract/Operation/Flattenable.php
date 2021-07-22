@@ -22,7 +22,7 @@ interface Flattenable
     /**
      * Flatten a collection of items into a simple flat collection.
      *
-     * @see https://loophp-collection.readthedocs.io/en/latest/pages/api.html#flatten
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#flatten
      *
      * @return Collection<mixed, mixed>
      */

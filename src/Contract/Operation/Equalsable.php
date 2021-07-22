@@ -24,7 +24,7 @@ interface Equalsable
      * Elements will be compared using strict equality (`===`). If you want to customize how
      * elements are compared or the order in which the keys/values appear is important, use the `same` operation.
      *
-     * @see https://loophp-collection.readthedocs.io/en/latest/pages/api.html#equals
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#equals
      *
      * @param Collection<TKey, T> $other
      */

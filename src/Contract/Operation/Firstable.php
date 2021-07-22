@@ -22,7 +22,7 @@ interface Firstable
      *
      * The `current` operation can then be used to extract the item out of the collection.
      *
-     * @see https://loophp-collection.readthedocs.io/en/latest/pages/api.html#first
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#first
      *
      * @return Collection<TKey, T>
      */

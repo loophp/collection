@@ -21,7 +21,7 @@ interface Groupable
      * Takes a list and returns a list of lists such that the concatenation of the result is equal to the argument.
      * Moreover, each sublist in the result contains only equal elements.
      *
-     * @see https://loophp-collection.readthedocs.io/en/latest/pages/api.html#group
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#group
      *
      * @return Collection<TKey, T>
      */

@@ -21,7 +21,7 @@ interface Filterable
     /**
      * Filter collection items based on one or more callbacks.
      *
-     * @see https://loophp-collection.readthedocs.io/en/latest/pages/api.html#filter
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#filter
      *
      * @param callable(T, TKey, Iterator<TKey, T>): bool ...$callbacks
      *

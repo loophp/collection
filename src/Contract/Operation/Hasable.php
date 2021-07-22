@@ -20,7 +20,7 @@ interface Hasable
     /**
      * Check if the collection has values with the help of one or more callables.
      *
-     * @see https://loophp-collection.readthedocs.io/en/latest/pages/api.html#has
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#has
      *
      * @param callable(T, TKey, Iterator<TKey, T>): T ...$callbacks
      */

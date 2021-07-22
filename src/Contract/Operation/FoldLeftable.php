@@ -22,7 +22,7 @@ interface FoldLeftable
      * Takes the initial value and the first item of the list and applies the function to them, then feeds
      * the function with this result and the second argument and so on. See `scanLeft` for intermediate results.
      *
-     * @see https://loophp-collection.readthedocs.io/en/latest/pages/api.html#foldleft
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#foldleft
      *
      * @param callable(T, T, TKey, Iterator<TKey, T>): T $callback
      * @param T|null $initial
