@@ -21,6 +21,10 @@ use loophp\collection\Contract\Collection;
 interface Unpackable
 {
     /**
+     * Opposite of `pack`, transforms groupings of items representing a key and a value into actual keys and values.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#unpack
+     *
      * @return Collection<NewTKey, NewT>
      */
     public function unpack(): Collection;

@@ -20,6 +20,8 @@ interface Productable
     /**
      * Get the the cartesian product of items of a collection.
      *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#product
+     *
      * @param iterable<mixed> ...$iterables
      *
      * @return Collection<TKey, T>

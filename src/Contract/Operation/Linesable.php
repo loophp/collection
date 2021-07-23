@@ -18,6 +18,10 @@ use loophp\collection\Contract\Collection;
 interface Linesable
 {
     /**
+     * Split a string into lines.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#lines
+     *
      * @return Collection<TKey, T>
      */
     public function lines(): Collection;

@@ -20,6 +20,8 @@ interface Padable
     /**
      * Pad a collection to the given length with a given value.
      *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#pad
+     *
      * @param mixed $value
      *
      * @return Collection<int|TKey, T>

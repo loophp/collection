@@ -18,6 +18,10 @@ use loophp\collection\Contract\Collection;
 interface Unpairable
 {
     /**
+     * Opposite of `pair`, creates a flat list of values from a collection of key-value pairs.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#unpair
+     *
      * @return Collection<int, array{0: TKey, 1: T}>
      */
     public function unpair(): Collection;

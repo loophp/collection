@@ -18,6 +18,10 @@ use loophp\collection\Contract\Collection;
 interface Wrapable
 {
     /**
+     * Wrap every element into an array.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#wrap
+     *
      * @return Collection<int, array<TKey, T>>
      */
     public function wrap(): Collection;

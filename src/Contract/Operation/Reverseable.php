@@ -18,7 +18,9 @@ use loophp\collection\Contract\Collection;
 interface Reverseable
 {
     /**
-     * Reverse order items of a collection.
+     * Reverse the order of items in a collection.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#reverse
      *
      * @return Collection<TKey, T>
      */

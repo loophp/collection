@@ -20,6 +20,8 @@ interface Permutateable
     /**
      * Find all the permutations of a collection.
      *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#permutate
+     *
      * @return Collection<TKey, T>
      */
     public function permutate(): Collection;

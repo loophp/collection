@@ -18,7 +18,10 @@ use loophp\collection\Contract\Collection;
 interface Scaleable
 {
     /**
-     * Scale/normalize values.
+     * Scale/normalize values.Scale/normalize values.
+     * Values will be scaled between  `0` and `1` by default, if no desired bounds are provided.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#scale
      *
      * @return Collection<TKey, T>
      */

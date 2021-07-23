@@ -18,7 +18,9 @@ use loophp\collection\Contract\Collection;
 interface Getable
 {
     /**
-     * Get an item by key.
+     * Get a specific element of the collection from a key; if the key doesn't exist, returns the default value.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#get
      *
      * @param TKey $key
      * @param T|null $default

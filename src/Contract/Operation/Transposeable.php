@@ -18,7 +18,9 @@ use loophp\collection\Contract\Collection;
 interface Transposeable
 {
     /**
-     * Matrix transposition.
+     * Computes the transpose of a matrix.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#transpose
      *
      * @return Collection<TKey, list<T>>
      */

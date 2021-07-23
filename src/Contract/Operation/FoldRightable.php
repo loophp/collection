@@ -19,7 +19,10 @@ use loophp\collection\Contract\Collection;
 interface FoldRightable
 {
     /**
-     * Fold the collection from the right to the left.
+     * Takes the initial value and the last item of the list and applies the function, then it takes
+     * the penultimate item from the end and the result, and so on. See scanRight for intermediate results.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#foldright
      *
      * @param callable(T, T, TKey, Iterator<TKey, T>): T $callback
      * @param T|null $initial

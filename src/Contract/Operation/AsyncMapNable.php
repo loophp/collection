@@ -18,7 +18,9 @@ use loophp\collection\Contract\Collection;
 interface AsyncMapNable
 {
     /**
-     * Asynchronously apply callbacks to every item of a collection and use the return value.
+     * Asynchronously apply one or more supplied callbacks to every item of a collection and use the return value.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#asyncmapn
      *
      * @param callable(mixed, mixed): mixed ...$callbacks
      *

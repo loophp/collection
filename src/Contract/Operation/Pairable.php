@@ -18,6 +18,10 @@ use loophp\collection\Contract\Collection;
 interface Pairable
 {
     /**
+     * Make an associative collection from pairs of values.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#pair
+     *
      * @return Collection<T|TKey, T>
      */
     public function pair(): Collection;

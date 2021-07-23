@@ -18,6 +18,10 @@ use loophp\collection\Contract\Collection;
 interface Tailable
 {
     /**
+     * Get the collection items except the first.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#tail
+     *
      * @return Collection<TKey, T>
      */
     public function tail(): Collection;

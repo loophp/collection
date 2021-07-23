@@ -18,6 +18,11 @@ use loophp\collection\Contract\Collection;
 interface GroupByable
 {
     /**
+     * Group items based on their keys.
+     * The default behaviour can be customized with a callback.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#groupby
+     *
      * @return Collection<TKey, T>
      */
     public function groupBy(?callable $callable = null): Collection;

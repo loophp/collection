@@ -18,6 +18,12 @@ use loophp\collection\Contract\Collection;
 interface ScanRightable
 {
     /**
+     * Takes the initial value and the last item of the list and applies the function,
+     * then it takes the penultimate item from the end and the result, and so on.
+     * It returns the list of intermediate and final results.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#scanright
+     *
      * @param T|null $initial
      *
      * @return Collection<TKey, T>

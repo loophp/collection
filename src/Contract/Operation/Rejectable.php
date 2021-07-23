@@ -21,6 +21,8 @@ interface Rejectable
     /**
      * Reject collection items based on one or more callbacks.
      *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#reject
+     *
      * @param callable(T, TKey, Iterator<TKey, T>): bool ...$callbacks
      *
      * @return Collection<TKey, T>

@@ -302,7 +302,7 @@ Signature: ``Collection::associate(?callable $callbackForKeys = null, ?callable 
 asyncMap
 ~~~~~~~~
 
-Asynchronously apply one or more supplied callbacks to every item of a collection and use the return value.
+Asynchronously apply a single callback to every item of a collection and use the return value.
 
 .. warning:: This method requires `amphp/parallel-functions <https://github.com/amphp/parallel-functions>`_ to be installed.
 
@@ -500,7 +500,15 @@ Signature: ``Collection::combine(...$keys): Collection;``
 compact
 ~~~~~~~
 
-Remove given values from the collection, if no values are provided, it removes only the null value.
+Remove given values from the collection; if no values are provided, it removes *nullsy* values.
+
+*Nullsy* values are:
+
+* The null value: ``null``
+* Empty array: ``[]``
+* The integer zero: ``0``
+* The boolean: ``false``
+* The empty string: ``''``
 
 Interface: `Compactable`_
 
@@ -509,10 +517,10 @@ Signature: ``Collection::compact(...$values): Collection;``
 .. code-block:: php
 
     $collection = Collection::fromIterable(['a', 1 => 'b', null, false, 0, 'c'])
-        ->compact(); // ['a', 1 => 'b', 3 => false, 4 => 0, 5 => 'c']
+        ->compact(); // [0 => 'a', 1 => 'b', 5 => 'c']
 
     $collection = Collection::fromIterable(['a', 1 => 'b', null, false, 0, 'c'])
-        ->compact(null, 0); // ['a', 1 => 'b', 3 => false, 5 => 'c']
+        ->compact(null, 0); // [0 => 'a', 1 => 'b', 3 => false, 5 => 'c']
 
 contains
 ~~~~~~~~
@@ -586,8 +594,8 @@ Signature: ``Collection::cycle(): Collection;``
 diff
 ~~~~
 
-It compares the collection against another collection or a plain array based on its values.
-This method will return the values in the original collection that are not present in the given collection.
+Compares the collection against another collection, iterable, or set of multiple values.
+This method will return the values in the original collection that are not present in the given argument set.
 
 Interface: `Diffable`_
 
@@ -601,12 +609,12 @@ Signature: ``Collection::diff(...$values): Collection;``
 diffKeys
 ~~~~~~~~
 
-It compares the collection against another collection or a plain object based on its keys.
-This method will return the key / value pairs in the original collection that are not present in the given collection.
+Compares the collection against another collection, iterable, or set of multiple keys.
+This method will return the key / value pairs in the original collection that are not present in the given argument set.
 
 Interface: `Diffkeysable`_
 
-Signature: ``Collection::diffKeys(...$values): Collection;``
+Signature: ``Collection::diffKeys(...$keys): Collection;``
 
 .. code-block:: php
 
@@ -676,7 +684,7 @@ dump
 ~~~~
 
 Dump one or multiple items. It uses `symfony/var-dumper`_ if it is available,
-`var_dump()`_ otherwise. A custom ``callback`` might be also used.
+`var_dump()`_ otherwise. A custom ``callback`` can be also used.
 
 Interface: `Dumpable`_
 
@@ -737,7 +745,7 @@ Signature: ``Collection::equals(Collection $other): bool;``
 every
 ~~~~~
 
-This operation tests whether all elements in the collection pass the test implemented by the provided callback(s).
+Check whether all elements in the collection pass the test implemented by the provided callback(s).
 
 .. warning:: The ``callbacks`` parameter is variadic and will be evaluated as a logical ``OR``.
 
@@ -764,7 +772,7 @@ explode
 
 Explode a collection into subsets based on a given value.
 
-This operation uses the ``Collection::split`` operation with the flag ``Splitable::REMOVE`` and thus, values used to explode the
+This operation uses the ``split`` operation with the flag ``Splitable::REMOVE`` and thus, values used to explode the
 collection are removed from the chunks.
 
 Interface: `Explodeable`_
@@ -819,7 +827,9 @@ Signature: ``Collection::filter(callable ...$callbacks): Collection;``
 first
 ~~~~~
 
-Get the first items from the collection.
+Get the first item from the collection in a separate collection. Alias for ``head``.
+
+The ``current`` operation can then be used to extract the item out of the collection.
 
 Interface: `Firstable`_
 
@@ -837,13 +847,14 @@ Signature: ``Collection::first(): Collection;``
         };
 
         Collection::fromIterable($generator())
-            ->first(); // ['a' => 'a']
+            ->first()
+            ->current(); // ['a' => 'a']
 
 flatMap
 ~~~~~~~
 
-Transform the collection using a callback and keep the return valie, then flatten it one level.
-The supplied callback needs to return an interable: either an ``array`` or a class that implements `Traversable`_.
+Transform the collection using a callback and keep the return value, then flatten it one level.
+The supplied callback needs to return an ``iterable``: either an ``array`` or a class that implements `Traversable`_.
 
 .. tip:: This operation is nothing more than a shortcut for ``map`` + ``flatten(1)``, or ``map`` + ``unwrap``.
 
@@ -950,7 +961,7 @@ Signature: ``Collection::foldLeft(callable $callback, $initial = null): Collecti
 foldLeft1
 ~~~~~~~~~
 
-Takes the first 2 items of the list and applies the function to them, then feeds the function with this result and the
+Takes the first two items of the list and applies the function to them, then feeds the function with this result and the
 third argument and so on. See ``scanLeft1`` for intermediate results.
 
 Interface: `FoldLeft1able`_
@@ -1016,9 +1027,9 @@ Signature: ``Collection::forget(...$keys): Collection;``
 frequency
 ~~~~~~~~~
 
-Calculate the frequency of the values, frequencies are stored in keys.
+Calculate the frequency of the items in the collection
 
-Values can be anything (object, scalar, ... ).
+Returns a new key-value collection with frequencies as keys.
 
 Interface: `Frequencyable`_
 
@@ -1063,8 +1074,9 @@ Signature: ``Collection::group(): Collection;``
 groupBy
 ~~~~~~~
 
-Group items, the key used to group items can be customized in a callback.
-By default it's the key is the item's key.
+Group items based on their keys.
+
+The default behaviour can be customized with a callback.
 
 Interface: `GroupByable`_
 
@@ -1112,13 +1124,17 @@ Signature: ``Collection::has(callable ...$callbacks): bool;``
 head
 ~~~~
 
+Get the first item from the collection in a separate collection. Same as ``first``.
+
+The ``current`` operation can then be used to extract the item out of the collection.
+
 Interface: `Headable`_
 
 Signature: ``Collection::head(): Collection;``
 
 .. code-block:: php
 
-    $generator = static function (): \Generator {
+    $generator = static function (): Generator {
             yield 1 => 'a';
             yield 1 => 'b';
             yield 1 => 'c';
@@ -1128,12 +1144,15 @@ Signature: ``Collection::head(): Collection;``
     };
 
     Collection::fromIterable($generator())
-        ->head(); // [1 => 'a']
+        ->head()
+        ->current(); // [1 => 'a']
 
 ifThenElse
 ~~~~~~~~~~
 
-Execute a callback when a condition is met. If no ``else`` callback is provided, the identity function is applied (elements are not modified).
+Execute a mapping callback on each item of the collection when a condition is met. 
+
+If no ``else`` callback is provided, the identity function is applied (elements are not modified).
 
 Interface: `IfThenElseable`_
 
@@ -1208,7 +1227,7 @@ Signature: ``Collection::inits(): Collection;``
 intersect
 ~~~~~~~~~
 
-Removes any values from the original collection that are not present in the given collection.
+Removes any values from the original collection that are not present in the given values set.
 
 Interface: `Intersectable`_
 
@@ -1222,7 +1241,7 @@ Signature: ``Collection::intersect(...$values): Collection;``
 intersectKeys
 ~~~~~~~~~~~~~
 
-Removes any keys from the original collection that are not present in the given collection.
+Removes any keys from the original collection that are not present in the given keys set.
 
 Interface: `Intersectkeysable`_
 
@@ -1236,7 +1255,7 @@ Signature: ``Collection::intersectKeys(...$keys): Collection;``
 intersperse
 ~~~~~~~~~~~
 
-Insert a given value at every n element of a collection and indices are not preserved.
+Insert a given value at every n element of a collection; indices are not preserved.
 
 Interface: `Intersperseable`_
 
@@ -1298,6 +1317,8 @@ last
 
 Extract the last element of a collection, which must be finite and non-empty.
 
+The ``current`` operation can then be used to extract the item out of the collection.
+
 Interface: `Lastable`_
 
 Signature: ``Collection::last(): Collection;``
@@ -1314,7 +1335,8 @@ Signature: ``Collection::last(): Collection;``
         };
 
         Collection::fromIterable($generator())
-            ->last(); // ['c' => 'f']
+            ->last()
+            ->current(); // ['c' => 'f']
 
 limit
 ~~~~~
@@ -1738,7 +1760,7 @@ Signature: ``Collection::product(iterable ...$iterables): Collection;``
 random
 ~~~~~~
 
-It returns a random item from the collection.
+Returns a random item from the collection.
 
 An optional integer can be passed to random to specify how many items you would like to randomly retrieve.
 An optional seed can be passed as well.
@@ -1784,7 +1806,7 @@ Signature: ``Collection::reduction(callable $callback, $initial = null): Collect
 reject
 ~~~~~~
 
-Filter collection items based on one or more callbacks.
+Reject collection items based on one or more callbacks.
 
 .. warning:: The `callbacks` parameter is variadic and will be evaluated as a logical ``OR``.
              If you're looking for a logical ``AND``, you have to make multiple calls to the
@@ -1804,7 +1826,7 @@ Signature: ``Collection::reject(callable ...$callbacks): Collection;``
 reverse
 ~~~~~~~
 
-Reverse order items of a collection.
+Reverse the order of items in a collection.
 
 Interface: `Reverseable`_
 
@@ -1902,7 +1924,7 @@ Signature: ``Collection::scanLeft(callable $callback, $initial = null): Collecti
 scanLeft1
 ~~~~~~~~~
 
-Takes the first 2 items of the list and applies the function to them, then feeds the function with this result and the
+Takes the first two items of the list and applies the function to them, then feeds the function with this result and the
 third argument and so on. It returns the list of intermediate and final results.
 
 .. warning:: You might need to use the ``normalize`` operation after this.
@@ -2108,7 +2130,7 @@ Interface: `Strictable`_
 Signature: ``Collection::strict(?callable $callback = null): Collection;``
 
 .. literalinclude:: code/operations/strict.php
-:language: php
+    :language: php
 
 tail
 ~~~~
@@ -2181,6 +2203,7 @@ truthy
 ~~~~~~
 
 Check if the collection contains *only truthy* values. Opposite of ``falsy``.
+
 A value is determined to be *truthy* by applying a ``bool`` cast.
 
 Interface: `Truthyable`_
@@ -2198,7 +2221,7 @@ Signature: ``Collection::truthy(): bool;``
 unlines
 ~~~~~~~
 
-Opposite of ``Collection::lines()``, creates a single string from multiple lines using ``PHP_EOL`` as the glue.
+Opposite of ``lines``, creates a single string from multiple lines using ``PHP_EOL`` as the glue.
 
 Interface: `Unlinesable`_
 
@@ -2223,7 +2246,7 @@ Signature: ``Collection::unlines(): Collection;``
 unpack
 ~~~~~~
 
-Opposite of ``Collection::pack()`, transforms groupings of items representing a key and a value into actual keys and values.
+Opposite of ``pack``, transforms groupings of items representing a key and a value into actual keys and values.
 
 Interface: `Unpackable`_
 
@@ -2245,7 +2268,7 @@ Signature: ``Collection::unpack(): Collection;``
 unpair
 ~~~~~~
 
-Opposite of ``Collection::pair()``, creates a flat list of values from a collection of key-value pairs.
+Opposite of ``pair``, creates a flat list of values from a collection of key-value pairs.
 
 Interface: `Unpairable`_
 
@@ -2294,7 +2317,7 @@ Signature: ``Collection::until(callable ...$callbacks): Collection;``
 unwindow
 ~~~~~~~~
 
-Opposite of ``Collection::window()``, usually needed after a call to that operation.
+Opposite of ``window``, usually needed after a call to that operation.
 Turns already-created windows back into a flat list.
 
 Interface: `Unwindowable`_
@@ -2316,7 +2339,7 @@ Signature: ``Collection::unwindow(): Collection;``
 unwords
 ~~~~~~~
 
-Opposite of ``Collection::words()`` and similar to ``Collection::unlines()``,
+Opposite of ``words`` and similar to ``lines``,
 creates a single string from multiple strings using one space as the glue.
 
 Interface: `Unwordsable`_
@@ -2343,7 +2366,7 @@ Signature: ``Collection::unwords(): Collection;``
 unwrap
 ~~~~~~
 
-Opposite of ``Collection::wrap()``, turn a collection of arrays into a flat list.
+Opposite of ``wrap``, turn a collection of arrays into a flat list.
 Equivalent to ``Collection::flatten(1)``.
 
 Interface: `Unwrapable`_
@@ -2361,7 +2384,7 @@ Signature: ``Collection::unwrap(): Collection;``
 unzip
 ~~~~~
 
-Opposite of ``Collection::zip()``, splits zipped items in a collection.
+Opposite of ``zip``, splits zipped items in a collection.
 
 Interface: `Unzipable`_
 

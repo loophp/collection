@@ -18,7 +18,9 @@ use loophp\collection\Contract\Collection;
 interface Compactable
 {
     /**
-     * Combine a collection of items with some other keys.
+     * Remove given values from the collection; if no values are provided, it removes *nullsy* values.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#compact
      *
      * @param T ...$values
      *

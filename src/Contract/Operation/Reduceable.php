@@ -21,6 +21,8 @@ interface Reduceable
     /**
      * Reduce a collection of items through a given callback.
      *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#reduce
+     *
      * @template V
      *
      * @param callable(V, T, TKey, Iterator<TKey, T>): V $callback
