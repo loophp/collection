@@ -41,7 +41,9 @@
         "psr-4": {
             "loophp\\collection\\": "./src/"
         },
-        "files": ["src/Utils/helpers.php"]
+        "files": [
+            "src/Utils/helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

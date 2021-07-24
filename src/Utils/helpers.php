@@ -11,6 +11,7 @@ namespace loophp\collection\Utils;
 
 use loophp\collection\Collection;
 use loophp\collection\Contract\Collection as CollectionInterface;
+
 use function function_exists;
 
 if (!function_exists('collectIterable')) {
