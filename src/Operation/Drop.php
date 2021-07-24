@@ -24,7 +24,7 @@ final class Drop extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(int...): Closure(Iterator<TKey, T>): Iterator<TKey, T>
+     * @return Closure(int): Closure(Iterator<TKey, T>): Iterator<TKey, T>
      */
     public function __invoke(): Closure
     {
@@ -32,12 +32,12 @@ final class Drop extends AbstractOperation
             /**
              * @return Closure(Iterator<TKey, T>): Iterator<TKey, T>
              */
-            static fn (int ...$offsets): Closure =>
+            static fn (int $count): Closure =>
                 /**
                  * @param Iterator<TKey, T> $iterator
                  *
                  * @return Iterator<TKey, T>
                  */
-                static fn (Iterator $iterator): Iterator => new LimitIterator($iterator, array_sum($offsets));
+                static fn (Iterator $iterator): Iterator => new LimitIterator($iterator, $count);
     }
 }

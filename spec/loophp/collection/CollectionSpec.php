@@ -909,7 +909,7 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs([3 => 'D', 4 => 'E', 5 => 'F']);
 
         $this::fromIterable(range('A', 'F'))
-            ->drop(3, 3)
+            ->drop(6)
             ->shouldIterateAs([]);
     }
 
@@ -2736,10 +2736,6 @@ class CollectionSpec extends ObjectBehavior
         $this::fromIterable(range('A', 'F'))
             ->reverse()
             ->shouldIterateAs([5 => 'F', 4 => 'E', 3 => 'D', 2 => 'C', 1 => 'B', 0 => 'A']);
-
-        $this::fromIterable(range('A', 'F'))
-            ->drop(3, 3)
-            ->shouldIterateAs([]);
     }
 
     public function it_can_rsample(): void
