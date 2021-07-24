@@ -18,6 +18,10 @@ use loophp\collection\Contract\Collection;
 interface Squashable
 {
     /**
+     * Eagerly apply operations in a collection rather than lazily.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#squash
+     *
      * @return Collection<TKey, T>
      */
     public function squash(): Collection;

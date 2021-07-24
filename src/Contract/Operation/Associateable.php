@@ -19,6 +19,10 @@ use loophp\collection\Contract\Collection;
 interface Associateable
 {
     /**
+     * Transform keys and values of the collection independently and combine them.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#associate
+     *
      * @param null|callable(TKey, TKey, T, Iterator<TKey, T>):(T|TKey) $callbackForKeys
      * @param null|callable(T, TKey, T, Iterator<TKey, T>):(T|TKey) $callbackForValues
      *

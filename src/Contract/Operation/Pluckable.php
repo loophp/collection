@@ -19,6 +19,9 @@ interface Pluckable
 {
     /**
      * Retrieves all of the values of a collection for a given key.
+     * Nested values can be retrieved using “dot notation” and the wildcard character `*`.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#pluck
      *
      * @param array<int, string>|array-key $pluck
      * @param mixed|null $default

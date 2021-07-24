@@ -24,7 +24,12 @@ interface Splitable
     public const REMOVE = 0;
 
     /**
-     * Split a collection using a callback.
+     * Split a collection using one or more callbacks.
+     *
+     * A flag must be provided in order to specify whether the value used to split the collection
+     * should be added at the end of a chunk, at the beginning of a chunk, or completely removed.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#split
      *
      * @param callable ...$callbacks
      *

@@ -279,9 +279,9 @@ final class Collection implements CollectionInterface
         return new self(Diff::of()(...$values), [$this->getIterator()]);
     }
 
-    public function diffKeys(...$values): CollectionInterface
+    public function diffKeys(...$keys): CollectionInterface
     {
-        return new self(DiffKeys::of()(...$values), [$this->getIterator()]);
+        return new self(DiffKeys::of()(...$keys), [$this->getIterator()]);
     }
 
     public function distinct(?callable $comparatorCallback = null, ?callable $accessorCallback = null): CollectionInterface

@@ -18,7 +18,9 @@ use loophp\collection\Contract\Collection;
 interface Reductionable
 {
     /**
-     * Reduce a collection of items through a given callback.
+     * Reduce a collection of items through a given callback and yield each intermediary results.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#reduction
      *
      * @param mixed $initial
      *

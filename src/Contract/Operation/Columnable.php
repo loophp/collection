@@ -20,6 +20,8 @@ interface Columnable
     /**
      * Return the values from a single column in the input iterables.
      *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#column
+     *
      * @param int|string $column
      *
      * @return Collection<TKey, T>

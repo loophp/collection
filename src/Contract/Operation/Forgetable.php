@@ -20,6 +20,8 @@ interface Forgetable
     /**
      * Remove items having specific keys.
      *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#forget
+     *
      * @param mixed ...$keys
      *
      * @return Collection<TKey, T>

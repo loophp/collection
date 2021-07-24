@@ -16,6 +16,10 @@ namespace loophp\collection\Contract\Operation;
 interface Currentable
 {
     /**
+     * Get the value of an item in the collection given a numeric index or the default `0`.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#current
+     *
      * @return T|null
      */
     public function current(int $index = 0);

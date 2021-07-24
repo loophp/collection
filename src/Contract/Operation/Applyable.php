@@ -19,7 +19,11 @@ use loophp\collection\Contract\Collection;
 interface Applyable
 {
     /**
-     * Execute a callback for each element of the collection.
+     * Execute callback(s) on each element of the collection.
+     * Iterates on the collection items regardless of the return value of the callback.
+     * If the callback does not return `true` then it stops applying callbacks on subsequent items.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#apply
      *
      * @param callable(T, TKey, Iterator<TKey, T>): bool ...$callbacks
      *

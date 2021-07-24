@@ -16,7 +16,9 @@ namespace loophp\collection\Contract\Operation;
 interface IsEmptyable
 {
     /**
-     * Check if the collection contains any elements.
+     * Check if a collection has any elements inside.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#isempty
      */
     public function isEmpty(): bool;
 }

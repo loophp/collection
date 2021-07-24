@@ -18,6 +18,10 @@ use loophp\collection\Contract\Collection;
 interface Unlinesable
 {
     /**
+     * Opposite of `lines`, creates a single string from multiple lines using `PHP_EOL` as the glue.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#unlines
+     *
      * @return Collection<TKey, string>
      */
     public function unlines(): Collection;

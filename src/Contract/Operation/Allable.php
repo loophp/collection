@@ -16,7 +16,9 @@ namespace loophp\collection\Contract\Operation;
 interface Allable
 {
     /**
-     * Get all items from the collection in the form of an array.
+     * Convert the collection into an array.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#all
      *
      * @return array<TKey, T>
      */
