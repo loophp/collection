@@ -29,6 +29,7 @@ use PhpSpec\Exception\Example\MatcherException;
 use PhpSpec\ObjectBehavior;
 use stdClass;
 use function gettype;
+use function loophp\collection\Utils\collectIterable;
 use const INF;
 use const PHP_EOL;
 use const PHP_VERSION_ID;
@@ -36,6 +37,13 @@ use const PHP_VERSION_ID;
 class CollectionSpec extends ObjectBehavior
 {
     private const PHP_8 = 80_000;
+
+    public function getMatchers(): array
+    {
+        return [
+            'beSameAs' => static fn (CollectionInterface $subject, CollectionInterface $expected): bool => $subject->same($expected),
+        ];
+    }
 
     public function it_can_all(): void
     {
@@ -436,6 +444,13 @@ class CollectionSpec extends ObjectBehavior
             ->beConstructedThrough('fromIterable', [new ArrayObject([1, 2, 3])]);
 
         $this->shouldImplement(Collection::class);
+    }
+
+    public function it_can_be_constructed_with_collectIterable(): void
+    {
+        $input = [1, 2, 3];
+
+        $this::fromIterable($input)->shouldBeSameAs(collectIterable($input));
     }
 
     public function it_can_be_instantiated_with_withClosure(): void
