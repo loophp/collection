@@ -55,7 +55,7 @@ Create a collection from a `Generator`_.
 
 .. warning:: The difference between this constructor and ``fromIterable`` is that
     the generator is decorated with a caching Iterator. ``Generators`` are not
-    **rewindable** by design and using ``fromIterable`` automatically adds the
+    **rewindable** by design and using ``fromGenerator`` automatically adds the
     caching layer for you.
 
 .. tip:: You can reproduce the same behavior by using ``fromIterable`` directly
