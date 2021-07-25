@@ -78,7 +78,7 @@ Create a collection from an iterable.
 
 .. warning:: When instantiating from a PHP `Generator`_, the collection object will inherit its behaviour:
     it will only be iterable a single time, and an exception will be thrown if multiple operations which attempt
-    to re-iterate are applied, for example ``count()``. Use `Collection::fromGenerator()` to
+    to re-iterate are applied, for example ``count()``. Use ``Collection::fromGenerator()`` to
     circumvent this limitation.
 
 Signature: ``Collection::fromIterable(iterable $iterable): Collection;``
