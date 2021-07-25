@@ -14,12 +14,16 @@ use Iterator;
 use loophp\collection\Iterator\MultipleIterableIterator;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  */
 final class Merge extends AbstractOperation
 {
     /**
+     * @pure
+     *
      * @return Closure(iterable<TKey, T>...): Closure(Iterator<TKey, T>): Iterator<TKey, T>
      */
     public function __invoke(): Closure

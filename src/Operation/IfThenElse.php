@@ -14,6 +14,8 @@ use Generator;
 use Iterator;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  *
@@ -22,25 +24,27 @@ use Iterator;
 final class IfThenElse extends AbstractOperation
 {
     /**
-     * @return Closure(callable(T, TKey): bool): Closure(callable(T, TKey): (T)): Closure(callable(T, TKey): (T)): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @pure
+     *
+     * @return Closure(callable(T, TKey, Iterator<TKey, T>): bool): Closure(callable(T, TKey, Iterator<TKey, T>): T): Closure(callable(T, TKey, Iterator<TKey, T>): T): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable(T, TKey):bool $condition
+             * @param callable(T, TKey, Iterator<TKey, T>): bool $condition
              *
-             * @return Closure(callable(T, TKey): (T)): Closure(callable(T, TKey): (T)): Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @return Closure(callable(T, TKey, Iterator<TKey, T>): T): Closure(callable(T, TKey, Iterator<TKey, T>): T): Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static fn (callable $condition): Closure =>
                 /**
-                 * @param callable(T, TKey):T $then
+                 * @param callable(T, TKey, Iterator<TKey, T>): T $then
                  *
-                 * @return Closure(callable(T, TKey): (T)): Closure(Iterator<TKey, T>): Generator<TKey, T>
+                 * @return Closure(callable(T, TKey, Iterator<TKey, T>): T): Closure(Iterator<TKey, T>): Generator<TKey, T>
                  */
                 static fn (callable $then): Closure =>
                     /**
-                     * @param callable(T, TKey):T $else
+                     * @param callable(T, TKey, Iterator<TKey, T>):T $else
                      *
                      * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
                      */
@@ -50,6 +54,7 @@ final class IfThenElse extends AbstractOperation
                             /**
                              * @param T $value
                              * @param TKey $key
+                             * @param Iterator<TKey, T> $iterator
                              *
                              * @return T
                              */

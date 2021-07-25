@@ -15,6 +15,8 @@ use Generator;
 use Iterator;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  *
@@ -23,6 +25,8 @@ use Iterator;
 final class Associate extends AbstractOperation
 {
     /**
+     * @pure
+     *
      * @return Closure(callable(TKey, TKey, T, Iterator<TKey, T>): (T|TKey) ...): Closure((callable(T, TKey, T, Iterator<TKey, T>): (T|TKey))...): Closure(Iterator<TKey, T>): Generator<TKey|T, T|TKey>
      */
     public function __invoke(): Closure
@@ -66,14 +70,14 @@ final class Associate extends AbstractOperation
                                      *
                                      * @return T|TKey
                                      */
-                                    static fn ($accumulator, callable $callback, int $callbackId, iterable $iterator) => $callback($accumulator, $key, $value, $iterator);
+                                    static fn ($accumulator, callable $callback, int $callbackId, Iterator $iterator) => $callback($accumulator, $key, $value, $iterator);
 
                         foreach ($iterator as $key => $value) {
                             /** @var Generator<int, T|TKey> $k */
-                            $k = FoldLeft::of()($callbackFactory($key)($value))($key)(new ArrayIterator($callbackForKeys));
+                            $k = Reduce::of()($callbackFactory($key)($value))($key)(new ArrayIterator($callbackForKeys));
 
                             /** @var Generator<int, T|TKey> $c */
-                            $c = FoldLeft::of()($callbackFactory($key)($value))($value)(new ArrayIterator($callbackForValues));
+                            $c = Reduce::of()($callbackFactory($key)($value))($value)(new ArrayIterator($callbackForValues));
 
                             yield $k->current() => $c->current();
                         }

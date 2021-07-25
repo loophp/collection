@@ -19,7 +19,9 @@ use loophp\collection\Contract\Collection;
 interface MapNable
 {
     /**
-     * Apply one or more callbacks to a collection and use the return value.
+     * Apply one or more callbacks to every item of a collection and use the return value.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#mapn
      *
      * @param callable(mixed, mixed, Iterator<TKey, T>): mixed ...$callbacks
      *

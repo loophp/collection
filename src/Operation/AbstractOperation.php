@@ -12,12 +12,21 @@ namespace loophp\collection\Operation;
 use Closure;
 use loophp\collection\Contract\Operation;
 
+/**
+ * @immutable
+ */
 abstract class AbstractOperation implements Operation
 {
+    /**
+     * @pure
+     */
     final public function __construct()
     {
     }
 
+    /**
+     * @pure
+     */
     public static function of(): Closure
     {
         return (new static())->__invoke();

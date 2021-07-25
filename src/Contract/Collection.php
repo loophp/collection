@@ -18,6 +18,7 @@ use loophp\collection\Contract\Operation\Appendable;
 use loophp\collection\Contract\Operation\Applyable;
 use loophp\collection\Contract\Operation\Associateable;
 use loophp\collection\Contract\Operation\AsyncMapable;
+use loophp\collection\Contract\Operation\AsyncMapNable;
 use loophp\collection\Contract\Operation\Cacheable;
 use loophp\collection\Contract\Operation\Chunkable;
 use loophp\collection\Contract\Operation\Coalesceable;
@@ -36,11 +37,13 @@ use loophp\collection\Contract\Operation\Dropable;
 use loophp\collection\Contract\Operation\DropWhileable;
 use loophp\collection\Contract\Operation\Dumpable;
 use loophp\collection\Contract\Operation\Duplicateable;
+use loophp\collection\Contract\Operation\Equalsable;
 use loophp\collection\Contract\Operation\Everyable;
 use loophp\collection\Contract\Operation\Explodeable;
 use loophp\collection\Contract\Operation\Falsyable;
 use loophp\collection\Contract\Operation\Filterable;
 use loophp\collection\Contract\Operation\Firstable;
+use loophp\collection\Contract\Operation\FlatMapable;
 use loophp\collection\Contract\Operation\Flattenable;
 use loophp\collection\Contract\Operation\Flipable;
 use loophp\collection\Contract\Operation\FoldLeft1able;
@@ -61,6 +64,7 @@ use loophp\collection\Contract\Operation\Initsable;
 use loophp\collection\Contract\Operation\Intersectable;
 use loophp\collection\Contract\Operation\Intersectkeysable;
 use loophp\collection\Contract\Operation\Intersperseable;
+use loophp\collection\Contract\Operation\IsEmptyable;
 use loophp\collection\Contract\Operation\Keyable;
 use loophp\collection\Contract\Operation\Keysable;
 use loophp\collection\Contract\Operation\Lastable;
@@ -69,6 +73,7 @@ use loophp\collection\Contract\Operation\Linesable;
 use loophp\collection\Contract\Operation\Mapable;
 use loophp\collection\Contract\Operation\MapNable;
 use loophp\collection\Contract\Operation\Matchable;
+use loophp\collection\Contract\Operation\Matchingable;
 use loophp\collection\Contract\Operation\Mergeable;
 use loophp\collection\Contract\Operation\Normalizeable;
 use loophp\collection\Contract\Operation\Nthable;
@@ -84,9 +89,12 @@ use loophp\collection\Contract\Operation\Prependable;
 use loophp\collection\Contract\Operation\Productable;
 use loophp\collection\Contract\Operation\Randomable;
 use loophp\collection\Contract\Operation\Rangeable;
+use loophp\collection\Contract\Operation\Reduceable;
 use loophp\collection\Contract\Operation\Reductionable;
+use loophp\collection\Contract\Operation\Rejectable;
 use loophp\collection\Contract\Operation\Reverseable;
 use loophp\collection\Contract\Operation\RSampleable;
+use loophp\collection\Contract\Operation\Sameable;
 use loophp\collection\Contract\Operation\Scaleable;
 use loophp\collection\Contract\Operation\ScanLeft1able;
 use loophp\collection\Contract\Operation\ScanLeftable;
@@ -122,6 +130,8 @@ use loophp\collection\Contract\Operation\Wrapable;
 use loophp\collection\Contract\Operation\Zipable;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  *
@@ -130,6 +140,7 @@ use loophp\collection\Contract\Operation\Zipable;
  * @template-extends Applyable<TKey, T>
  * @template-extends Associateable<TKey, T>
  * @template-extends AsyncMapable<TKey, T>
+ * @template-extends AsyncMapNable<TKey, T>
  * @template-extends Cacheable<TKey, T>
  * @template-extends Chunkable<TKey, T>
  * @template-extends Coalesceable<TKey, T>
@@ -148,11 +159,13 @@ use loophp\collection\Contract\Operation\Zipable;
  * @template-extends DropWhileable<TKey, T>
  * @template-extends Dumpable<TKey, T>
  * @template-extends Duplicateable<TKey, T>
+ * @template-extends Equalsable<TKey, T>
  * @template-extends Everyable<TKey, T>
  * @template-extends Explodeable<TKey, T>
- * @template-extends Falsyable<int, bool>
+ * @template-extends Falsyable<TKey, T>
  * @template-extends Filterable<TKey, T>
  * @template-extends Firstable<TKey, T>
+ * @template-extends FlatMapable<TKey, T>
  * @template-extends Flattenable<TKey, T>
  * @template-extends Flipable<TKey, T>
  * @template-extends FoldLeftable<TKey, T>
@@ -173,6 +186,7 @@ use loophp\collection\Contract\Operation\Zipable;
  * @template-extends Intersectable<TKey, T>
  * @template-extends Intersectkeysable<TKey, T>
  * @template-extends Intersperseable<TKey, T>
+ * @template-extends IsEmptyable<TKey, T>
  * @template-extends Keyable<TKey, T>
  * @template-extends Keysable<TKey, T>
  * @template-extends Lastable<TKey, T>
@@ -181,10 +195,11 @@ use loophp\collection\Contract\Operation\Zipable;
  * @template-extends Mapable<TKey, T>
  * @template-extends MapNable<TKey, T>
  * @template-extends Matchable<TKey, T>
+ * @template-extends Matchingable<TKey, T>
  * @template-extends Mergeable<TKey, T>
  * @template-extends Normalizeable<TKey, T>
  * @template-extends Nthable<TKey, T>
- * @template-extends Nullsyable<int, bool>
+ * @template-extends Nullsyable<TKey, T>
  * @template-extends Packable<TKey, T>
  * @template-extends Padable<TKey, T>
  * @template-extends Pairable<TKey, T>
@@ -195,9 +210,12 @@ use loophp\collection\Contract\Operation\Zipable;
  * @template-extends Prependable<TKey, T>
  * @template-extends Productable<TKey, T>
  * @template-extends Randomable<TKey, T>
+ * @template-extends Reduceable<TKey, T>
  * @template-extends Reductionable<TKey, T>
+ * @template-extends Rejectable<TKey, T>
  * @template-extends Reverseable<TKey, T>
  * @template-extends RSampleable<TKey, T>
+ * @template-extends Sameable<TKey, T>
  * @template-extends Scaleable<TKey, T>
  * @template-extends ScanLeft1able<TKey, T>
  * @template-extends ScanLeftable<TKey, T>
@@ -215,7 +233,7 @@ use loophp\collection\Contract\Operation\Zipable;
  * @template-extends Tailsable<TKey, T>
  * @template-extends TakeWhileable<TKey, T>
  * @template-extends Transposeable<TKey, T>
- * @template-extends Truthyable<int, bool>
+ * @template-extends Truthyable<TKey, T>
  * @template-extends Unlinesable<TKey, T>
  * @template-extends Unpackable<TKey, T>
  * @template-extends Unpairable<TKey, T>
@@ -237,6 +255,7 @@ interface Collection extends
     Applyable,
     Associateable,
     AsyncMapable,
+    AsyncMapNable,
     Cacheable,
     Chunkable,
     Coalesceable,
@@ -256,11 +275,13 @@ interface Collection extends
     DropWhileable,
     Dumpable,
     Duplicateable,
+    Equalsable,
     Everyable,
     Explodeable,
     Falsyable,
     Filterable,
     Firstable,
+    FlatMapable,
     Flattenable,
     Flipable,
     FoldLeft1able,
@@ -281,6 +302,7 @@ interface Collection extends
     Intersectable,
     Intersectkeysable,
     Intersperseable,
+    IsEmptyable,
     IteratorAggregate,
     JsonSerializable,
     Keyable,
@@ -291,6 +313,7 @@ interface Collection extends
     Mapable,
     MapNable,
     Matchable,
+    Matchingable,
     Mergeable,
     Normalizeable,
     Nthable,
@@ -306,9 +329,12 @@ interface Collection extends
     Productable,
     Randomable,
     Rangeable,
+    Reduceable,
     Reductionable,
+    Rejectable,
     Reverseable,
     RSampleable,
+    Sameable,
     Scaleable,
     ScanLeft1able,
     ScanLeftable,

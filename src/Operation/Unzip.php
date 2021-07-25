@@ -14,12 +14,16 @@ use Generator;
 use Iterator;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  */
 final class Unzip extends AbstractOperation
 {
     /**
+     * @pure
+     *
      * @return Closure(Iterator<TKey, list<T>>): Generator<int, list<T>>
      */
     public function __invoke(): Closure
@@ -43,8 +47,8 @@ final class Unzip extends AbstractOperation
 
         /** @var Closure(Iterator<TKey, list<T>>): Generator<int, list<T>> $pipe */
         $pipe = Pipe::of()(
-            FoldLeft::of()($reduceCallback)([]),
-            Unwrap::of()
+            Reduce::of()($reduceCallback)([]),
+            Flatten::of()(1)
         );
 
         // Point free style.

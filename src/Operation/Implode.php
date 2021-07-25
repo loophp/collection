@@ -14,6 +14,8 @@ use Generator;
 use Iterator;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  *
@@ -22,6 +24,8 @@ use Iterator;
 final class Implode extends AbstractOperation
 {
     /**
+     * @pure
+     *
      * @return Closure(string): Closure(Iterator<TKey, T>): Generator<int, string>
      */
     public function __invoke(): Closure
@@ -41,7 +45,7 @@ final class Implode extends AbstractOperation
                 $pipe = Pipe::of()(
                     Intersperse::of()($glue)(1)(0),
                     Drop::of()(1),
-                    FoldLeft::of()($reducer)('')
+                    Reduce::of()($reducer)('')
                 );
 
                 // Point free style.

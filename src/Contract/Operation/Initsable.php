@@ -18,6 +18,10 @@ use loophp\collection\Contract\Collection;
 interface Initsable
 {
     /**
+     * Returns all initial segments of the collection, shortest first.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#inits
+     *
      * @return Collection<TKey, T>
      */
     public function inits(): Collection;

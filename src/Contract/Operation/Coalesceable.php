@@ -18,7 +18,9 @@ use loophp\collection\Contract\Collection;
 interface Coalesceable
 {
     /**
-     * Return the first non-nullsy value of the collection.
+     * Return the first non-nullsy value in a collection.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#coalesce
      *
      * @return Collection<TKey, T>
      */

@@ -14,12 +14,16 @@ use Generator;
 use Iterator;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  */
 final class Coalesce extends AbstractOperation
 {
     /**
+     * @pure
+     *
      * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure

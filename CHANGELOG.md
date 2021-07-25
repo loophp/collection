@@ -5,7 +5,49 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [4.0.7](https://github.com/loophp/collection/compare/4.0.6...4.0.7)
+## [4.1.0](https://github.com/loophp/collection/compare/4.0.7...4.1.0)
+
+### Merged
+
+- Show Collection is Immutable & Operations Pure [`#122`](https://github.com/loophp/collection/pull/122)
+- Trim Static Analysis Baselines [`#121`](https://github.com/loophp/collection/pull/121)
+- Adding More Static Analysis Checks [`#120`](https://github.com/loophp/collection/pull/120)
+- feat: Add Matching operation and implements Selectable from Doctrine. [`#115`](https://github.com/loophp/collection/pull/115)
+- Add FlatMap Operation [`#117`](https://github.com/loophp/collection/pull/117)
+- Update Distinct operation [`#111`](https://github.com/loophp/collection/pull/111)
+- Static Analysis Checks: Common Operations (III) [`#114`](https://github.com/loophp/collection/pull/114)
+- Introduce MapN | Deprecate Map With Multiple Callbacks | Static Analysis Checks [`#112`](https://github.com/loophp/collection/pull/112)
+- Bump minimum version of phpspec to ^7.1. [`#113`](https://github.com/loophp/collection/pull/113)
+- Static Analysis Checks: Common Operations (II) [`#109`](https://github.com/loophp/collection/pull/109)
+- Operation Interfaces return Collection Interface [`#108`](https://github.com/loophp/collection/pull/108)
+- Static Analysis Checks: Common Operations (I) [`#106`](https://github.com/loophp/collection/pull/106)
+- feat: Add When operation. [`#105`](https://github.com/loophp/collection/pull/105)
+- Improve Collection Typings + Add `strict` Operation [`#102`](https://github.com/loophp/collection/pull/102)
+- PHP 8 Compatibility [`#104`](https://github.com/loophp/collection/pull/104)
+- Update Psalm Annotations [`#101`](https://github.com/loophp/collection/pull/101)
+- chore(deps): Bump actions/cache from 2.1.5 to 2.1.6 [`#100`](https://github.com/loophp/collection/pull/100)
+- SA Checks: Methods Starting with "a" [`#97`](https://github.com/loophp/collection/pull/97)
+
+### Commits
+
+- chore: Update .gitattributes for saving space (and trees). [`c7ba932`](https://github.com/loophp/collection/commit/c7ba9324f4d27cf79d184fb3497b20a1c51b6e5f)
+- docs: Minor update in code typing. [`c8ad466`](https://github.com/loophp/collection/commit/c8ad466eb5551e1cd1e082e69cf502d0a54d1bc8)
+- Update PSalm and PHPStan baselines. [`58d8035`](https://github.com/loophp/collection/commit/58d803596d7a1de840550f06c491b88c9e944754)
+- Add missing Partitionable. [`defb903`](https://github.com/loophp/collection/commit/defb9036bb5fcfdc9ae9889909df464b65dba8c8)
+- Fixes & improvements [`77201ba`](https://github.com/loophp/collection/commit/77201baf45cd837f084d74392b456b1c815d6ece)
+- test: Add missing test. [`997efd9`](https://github.com/loophp/collection/commit/997efd974d016ca3f762f5068460bc4b880d20ec)
+- refactor: Update distinct operation. [`023d399`](https://github.com/loophp/collection/commit/023d399c5fb4767c1585b01775c412686bc1436f)
+- tests: Autofix code style. [`366c79b`](https://github.com/loophp/collection/commit/366c79b14e0896a76ab457b9178fc51876b0b5ea)
+- tests: Add missing static analysis tests. [`fb641e8`](https://github.com/loophp/collection/commit/fb641e810e69d570f24bbbb4a51da9a482519a10)
+- ci: Remove obsolete required status checks. [`6a7f8c5`](https://github.com/loophp/collection/commit/6a7f8c5781f9a21af694e7d9d74f33998a845ff8)
+- docs: Add a note on how to extend a Collection. [`9d21114`](https://github.com/loophp/collection/commit/9d21114ef8ab19c514ca3d4c4b842babdb55a312)
+- ci: Run static-analysis tools only on Linux platform. [`fb9fcd7`](https://github.com/loophp/collection/commit/fb9fcd735fe36d48693b17545c9c3a0c575df056)
+- ci: Do not do unit testing on Darwin platforms. [`8921563`](https://github.com/loophp/collection/commit/8921563a97e9acda6240282712a2e70860f3051b)
+- refactor: Fix PHPStan. [`717b364`](https://github.com/loophp/collection/commit/717b364beb4adb49b52128c6d8cad8b4bd7796a7)
+- refactor: Fix Applyable type hints. [`cd8ef32`](https://github.com/loophp/collection/commit/cd8ef325ad14c06f28e66247621055d092dfc765)
+- docs: Update example. [`3f18553`](https://github.com/loophp/collection/commit/3f1855395c40675e8f9cf3eac070a2a82c867ab4)
+
+## [4.0.7](https://github.com/loophp/collection/compare/4.0.6...4.0.7) - 2021-05-25
 
 ### Merged
 
@@ -27,6 +69,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Commits
 
+- docs: Update changelog. [`9b986aa`](https://github.com/loophp/collection/commit/9b986aac21c1b7e18fec96075fe1a2ee227d6a0f)
 - chore: Add composer commands and necessary files to generate the changelog. [`645930e`](https://github.com/loophp/collection/commit/645930e3b7327862933451ba2af7678b0c16f0c1)
 - ci: Update CI configuration. [`3813450`](https://github.com/loophp/collection/commit/38134506c743161385ced57646514ae30a77458b)
 - refactor: Autofix code. [`540006b`](https://github.com/loophp/collection/commit/540006bb908ab57a7b43c532958ed857325890fa)
@@ -375,7 +418,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - feat: Add asyncMap operation. [`6139ba6`](https://github.com/loophp/collection/commit/6139ba6223770d44176cea33024f11ac6cc6ea4a)
 - chore: Add amphp/parallel dependency. [`3ca953b`](https://github.com/loophp/collection/commit/3ca953bdd3a10d3dc928f5acd853983badcffbf5)
 
-## [3.0.0](https://github.com/loophp/collection/compare/2.7.3...3.0.0) - 2020-10-27
+## [3.0.0](https://github.com/loophp/collection/compare/2.7.4...3.0.0) - 2020-10-27
 
 ### Merged
 
@@ -397,6 +440,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - refactor: Update CacheIterator [`02dc0a4`](https://github.com/loophp/collection/commit/02dc0a4875c5f31b2963e5b156f879253b06ae2f)
 - docs: Update annotations. [`7386746`](https://github.com/loophp/collection/commit/73867463d9b4229ea5548c7da667781002741e46)
 - refactor: Update Iterator annotations. [`dc9a311`](https://github.com/loophp/collection/commit/dc9a3119611cd9a84453a6e2ec14435713807f19)
+
+## [2.7.4](https://github.com/loophp/collection/compare/2.7.3...2.7.4) - 2021-06-11
+
+### Commits
+
+- refactor: Deprecate Collection::with() static constructor. [`8060689`](https://github.com/loophp/collection/commit/8060689da7fc248b9ce5a95939536d5e8dd9059e)
 
 ## [2.7.3](https://github.com/loophp/collection/compare/2.7.2...2.7.3) - 2020-10-17
 

@@ -1,8 +1,10 @@
 # https://help.github.com/en/categories/automating-your-workflow-with-github-actions
 
 on:
-    - pull_request
-    - push
+    push:
+        branches:
+            - master
+    pull_request:
 
 name: "Unit tests"
 
@@ -14,7 +16,7 @@ jobs:
             fail-fast: false
             matrix:
                 operating-system: [ubuntu-latest, windows-latest]
-                php-versions: ['7.4', '8.0']
+                php-versions: ["7.4", "8.0"]
 
         steps:
             - name: Set git to use LF
@@ -28,7 +30,7 @@ jobs:
                   fetch-depth: 1
 
             - name: Install PHP
-              uses: shivammathur/setup-php@2.11.0
+              uses: shivammathur/setup-php@2.12.0
               with:
                   php-version: ${{ matrix.php-versions }}
                   extensions: gd,mbstring,pcov,xdebug
@@ -48,7 +50,7 @@ jobs:
               run: composer install --no-progress --prefer-dist --optimize-autoloader
 
             - name: Run Grumphp
-              run: vendor/bin/grumphp run --tasks=phpspec
+              run: vendor/bin/grumphp run --tasks=phpspec,coverage_clover
 
             - name: Send Scrutinizer data
               run: |

@@ -18,9 +18,15 @@ use loophp\collection\Contract\Collection;
 interface Diffkeysable
 {
     /**
-     * @param mixed ...$values
+     * Compares the collection against another collection, iterable, or set of multiple keys.
+     * This method will return the key / value pairs in the original collection that are not
+     * present in the given argument set.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#diffkeys
+     *
+     * @param TKey ...$keys
      *
      * @return Collection<TKey, T>
      */
-    public function diffKeys(...$values): Collection;
+    public function diffKeys(...$keys): Collection;
 }

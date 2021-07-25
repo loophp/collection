@@ -14,6 +14,8 @@ use Generator;
 use Iterator;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  *
@@ -22,6 +24,8 @@ use Iterator;
 final class GroupBy extends AbstractOperation
 {
     /**
+     * @pure
+     *
      * @return Closure((null | callable(TKey, T ): (TKey | null))):Closure (Iterator<TKey, T>): Generator<int, T|list<T>>
      */
     public function __invoke(): Closure
@@ -69,8 +73,8 @@ final class GroupBy extends AbstractOperation
 
                 /** @var Closure(Iterator<TKey, T>): Generator<int, list<T>> $pipe */
                 $pipe = Pipe::of()(
-                    FoldLeft::of()($reducerFactory($callable))([]),
-                    Unwrap::of()
+                    Reduce::of()($reducerFactory($callable))([]),
+                    Flatten::of()(1)
                 );
 
                 // Point free style.

@@ -14,32 +14,24 @@ use Generator;
 use Iterator;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  */
 final class Falsy extends AbstractOperation
 {
     /**
+     * @pure
+     *
      * @return Closure(Iterator<TKey, T>): Generator<int, bool>
      */
     public function __invoke(): Closure
     {
-        $matchCallback =
-            /**
-             * @param T $value
-             */
-            static fn ($value): bool => (bool) $value;
-
-        $mapCallback =
-            /**
-             * @param T $value
-             */
-            static fn ($value): bool => !(bool) $value;
-
         /** @var Closure(Iterator<TKey, T>): Generator<int, bool> $pipe */
         $pipe = Pipe::of()(
-            MatchOne::of()(static fn (): bool => true)($matchCallback),
-            Map::of()($mapCallback),
+            MatchOne::of()(static fn (): bool => true)(static fn ($value): bool => (bool) $value),
+            Map::of()(static fn ($value): bool => !(bool) $value),
         );
 
         // Point free style.

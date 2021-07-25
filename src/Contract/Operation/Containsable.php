@@ -9,8 +9,6 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
-use loophp\collection\Contract\Collection;
-
 /**
  * @template TKey
  * @template T
@@ -18,9 +16,11 @@ use loophp\collection\Contract\Collection;
 interface Containsable
 {
     /**
-     * @param T ...$values
+     * Check if the collection contains one or more values.
      *
-     * @return Collection<TKey, bool>
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#contains
+     *
+     * @param T ...$values
      */
-    public function contains(...$values): Collection;
+    public function contains(...$values): bool;
 }

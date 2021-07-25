@@ -14,11 +14,16 @@ use Generator;
 use Iterator;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  */
 final class Permutate extends AbstractOperation
 {
+    /**
+     * @pure
+     */
     public function __invoke(): Closure
     {
         $getPermutations =

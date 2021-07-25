@@ -18,6 +18,11 @@ use loophp\collection\Contract\Collection;
 interface TakeWhileable
 {
     /**
+     * Iterate over the collection items while the provided callback(s) are satisfied.
+     * It stops iterating when the callback(s) are not met.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#takewhile
+     *
      * @return Collection<TKey, T>
      */
     public function takeWhile(callable ...$callbacks): Collection;

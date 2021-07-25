@@ -18,7 +18,12 @@ use loophp\collection\Contract\Collection;
 interface Unwrapable
 {
     /**
-     * @return Collection<TKey, T>
+     * Opposite of `wrap`, turn a collection of arrays into a flat list.
+     * Equivalent to `flatten(1)`.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#unwrap
+     *
+     * @return Collection<mixed, mixed>
      */
     public function unwrap(): Collection;
 }

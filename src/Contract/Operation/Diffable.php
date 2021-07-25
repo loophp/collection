@@ -18,7 +18,12 @@ use loophp\collection\Contract\Collection;
 interface Diffable
 {
     /**
-     * @param mixed ...$values
+     * Compares the collection against another collection, iterable, or set of multiple values.
+     * This method will return the values in the original collection that are not present in the given argument set.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#diff
+     *
+     * @param T ...$values
      *
      * @return Collection<TKey, T>
      */

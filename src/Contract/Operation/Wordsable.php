@@ -18,6 +18,10 @@ use loophp\collection\Contract\Collection;
 interface Wordsable
 {
     /**
+     * Get a list of words from a string, splitting based on the character set: \t, \n, ' '.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#words
+     *
      * @return Collection<TKey, string>
      */
     public function words(): Collection;

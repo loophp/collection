@@ -76,7 +76,7 @@ This library has been inspired by:
     needed are standard PHP variables like `int`, `string`, `callable` or
     `iterator`.
     It allows users to use those operations individually, at their own will, to
-    build up something custom. Currently, more than [**80 operations**][28] are
+    build up something custom. Currently, more than [**100 operations**][28] are
     available in this library. This library is an example of what you can do
     with all those small bricks, but nothing prevents users from using an operation
     on its own as well.
@@ -194,6 +194,7 @@ If you can't contribute to the code, you can also sponsor me on [Github][5] or
 * [Reddit announcement thread][40]
 * [Reddit release 2.0.0 thread][41]
 * [Featured in PHPStorm Annotated August 2020][42]
+* [Youtube presentation for AFUP Days 2021][46]
 
 ## Changelog
 
@@ -225,7 +226,7 @@ For more detailed changelogs, please check [the release changelogs][45].
 [9]: https://www.php.net/array-filter
 [10]: https://www.php.net/array-reduce
 [17]: https://www.php.net/manual/en/class.splobjectstorage.php
-[18]: https://loophp-collection.readthedocs.io/en/latest/pages/usage.html#working-with-keys-and-values
+[18]: https://loophp-collection.readthedocs.io/en/stable/pages/usage.html#working-with-keys-and-values
 [19]: https://github.com/illuminate/support
 [20]: https://github.com/DusanKasan/Knapsack
 [21]: https://github.com/mtdowling/transducers.php
@@ -234,8 +235,8 @@ For more detailed changelogs, please check [the release changelogs][45].
 [24]: https://github.com/nikic/iter
 [27]: http://danieltao.com/lazy.js/
 [33]: https://loophp-collection.rtfd.io
-[28]: https://loophp-collection.readthedocs.io/en/latest/pages/api.html
-[32]: https://loophp-collection.readthedocs.io/en/latest/pages/usage.html
+[28]: https://loophp-collection.readthedocs.io/en/stable/pages/api.html
+[32]: https://loophp-collection.readthedocs.io/en/stable/pages/usage.html
 [34]: https://github.com/loophp/collection/issues
 [2]: https://github.com/loophp/collection/actions
 [35]: http://www.phpspec.net/
@@ -256,3 +257,4 @@ For more detailed changelogs, please check [the release changelogs][45].
 [30]: http://hughfdjackson.com/javascript/why-curry-helps/
 [26]: https://ramdajs.com/
 [31]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flatMap
+[46]: https://www.youtube.com/watch?v=Kp47f8dtqoo

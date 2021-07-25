@@ -79,9 +79,10 @@ final class RandomIterator extends ProxyIterator
 
     public function next(): void
     {
-        unset($this->indexes[$this->key]);
-
-        $this->key = key($this->indexes);
+        if (null !== $this->key) {
+            unset($this->indexes[$this->key]);
+            $this->key = key($this->indexes);
+        }
     }
 
     public function rewind(): void

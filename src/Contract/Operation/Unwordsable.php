@@ -18,6 +18,11 @@ use loophp\collection\Contract\Collection;
 interface Unwordsable
 {
     /**
+     * Opposite of `words` and similar to `unlines`, creates a single string
+     * from multiple strings using one space as the glue.
+     *
+     * @sse https://loophp-collection.readthedocs.io/en/stable/pages/api.html#unwords
+     *
      * @return Collection<TKey, string>
      */
     public function unwords(): Collection;

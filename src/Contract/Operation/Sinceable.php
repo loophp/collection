@@ -18,6 +18,10 @@ use loophp\collection\Contract\Collection;
 interface Sinceable
 {
     /**
+     * Skip items until the callback is met.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#since
+     *
      * @param callable(T, TKey):bool ...$callbacks
      *
      * @return Collection<TKey, T>

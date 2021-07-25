@@ -138,8 +138,8 @@ fromCallable_checkList(Collection::fromCallable($arrayList));
 fromCallable_checkMap(Collection::fromCallable($arrayMap));
 fromCallable_checkMixed(Collection::fromCallable($arrayMixed));
 
-fromCallable_checkList(Collection::fromCallable($arrayIteratorList, 1, 3));
-fromCallable_checkMap(Collection::fromCallable($arrayIteratorMap, 1));
+fromCallable_checkList(Collection::fromCallable($arrayIteratorList, [1, 3]));
+fromCallable_checkMap(Collection::fromCallable($arrayIteratorMap, [1]));
 fromCallable_checkMixed(Collection::fromCallable($arrayIteratorMixed));
 
 fromCallable_checkList(Collection::fromCallable([$classWithMethod, 'getValues']));

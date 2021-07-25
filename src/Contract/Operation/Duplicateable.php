@@ -18,6 +18,10 @@ use loophp\collection\Contract\Collection;
 interface Duplicateable
 {
     /**
+     * Find duplicated values from the collection.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#duplicate
+     *
      * @return Collection<TKey, T>
      */
     public function duplicate(): Collection;

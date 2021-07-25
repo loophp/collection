@@ -13,11 +13,9 @@ use Closure;
 use Generator;
 use Iterator;
 
-use function count;
-
-use const E_USER_DEPRECATED;
-
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  *
@@ -26,45 +24,27 @@ use const E_USER_DEPRECATED;
 final class Map extends AbstractOperation
 {
     /**
-     * @return Closure(callable(T, TKey, Iterator<TKey, T>): T ...): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @pure
+     *
+     * @template V
+     *
+     * @return Closure(callable(T, TKey, Iterator<TKey, T>): V): Closure(Iterator<TKey, T>): Generator<TKey, V>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable(T, TKey, Iterator<TKey, T>): T ...$callbacks
+             * @param callable(T, TKey, Iterator<TKey, T>): V $callback
              */
-            static fn (callable ...$callbacks): Closure =>
+            static fn (callable $callback): Closure =>
                 /**
                  * @param Iterator<TKey, T> $iterator
                  *
-                 * @return Generator<TKey, T>
+                 * @return Generator<TKey, V>
                  */
-                static function (Iterator $iterator) use ($callbacks): Generator {
-                    if (count($callbacks) > 1) {
-                        @trigger_error(
-                            'Using `Map` with multiple callbacks is deprecated, and will be removed in a future major version; use `MapN` instead.',
-                            E_USER_DEPRECATED
-                        );
-                    }
-
-                    $callbackFactory =
-                        /**
-                         * @param TKey $key
-                         *
-                         * @return Closure(T, callable(T, TKey, Iterator<TKey, T>): T): T
-                         */
-                        static fn ($key): Closure =>
-                            /**
-                             * @param T $carry
-                             * @param callable(T, TKey, Iterator<TKey, T>): T $callback
-                             *
-                             * @return T
-                             */
-                            static fn ($carry, callable $callback) => $callback($carry, $key, $iterator);
-
+                static function (Iterator $iterator) use ($callback): Generator {
                     foreach ($iterator as $key => $value) {
-                        yield $key => array_reduce($callbacks, $callbackFactory($key), $value);
+                        yield $key => $callback($value, $key, $iterator);
                     }
                 };
     }

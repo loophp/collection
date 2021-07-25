@@ -14,12 +14,16 @@ use Generator;
 use Iterator;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  */
 final class Tail extends AbstractOperation
 {
     /**
+     * @pure
+     *
      * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure

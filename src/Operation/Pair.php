@@ -14,12 +14,16 @@ use Generator;
 use Iterator;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  */
 final class Pair extends AbstractOperation
 {
     /**
+     * @pure
+     *
      * @return Closure(Iterator<TKey, T>): Generator<T|TKey, T>
      */
     public function __invoke(): Closure
@@ -30,9 +34,9 @@ final class Pair extends AbstractOperation
              * @param TKey $key
              * @param array{0: TKey, 1: T} $value
              *
-             * @return T|TKey
+             * @return T|TKey|null
              */
-            static fn ($initial, $key, array $value) => $value[0];
+            static fn ($initial, $key, array $value) => $value[0] ?? null;
 
         $callbackForValues =
             /**
@@ -40,9 +44,9 @@ final class Pair extends AbstractOperation
              * @param TKey $key
              * @param array{0: TKey, 1: T} $value
              *
-             * @return T|TKey
+             * @return T|TKey|null
              */
-            static fn ($initial, $key, array $value) => $value[1];
+            static fn ($initial, $key, array $value) => $value[1] ?? null;
 
         /** @var Closure(Iterator<TKey, T>): Generator<T|TKey, T> $pipe */
         $pipe = Pipe::of()(

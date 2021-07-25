@@ -20,6 +20,8 @@ interface Zipable
     /**
      * Zip a collection together with one or more iterables.
      *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#zip
+     *
      * @param iterable<mixed> ...$iterables
      *
      * @return Collection<TKey,T>

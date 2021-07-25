@@ -16,32 +16,36 @@ use Iterator;
 use function in_array;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  */
 final class DiffKeys extends AbstractOperation
 {
     /**
+     * @pure
+     *
      * @return Closure(TKey...): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param TKey ...$values
+             * @param TKey ...$keys
              *
              * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
-            static function (...$values): Closure {
-                $filterCallbackFactory = static fn (array $values): Closure =>
+            static function (...$keys): Closure {
+                $filterCallbackFactory = static fn (array $keys): Closure =>
                     /**
                      * @param T $value
                      * @param TKey $key
                      */
-                    static fn ($value, $key): bool => false === in_array($key, $values, true);
+                    static fn ($value, $key): bool => false === in_array($key, $keys, true);
 
                 /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $filter */
-                $filter = Filter::of()($filterCallbackFactory($values));
+                $filter = Filter::of()($filterCallbackFactory($keys));
 
                 // Point free style.
                 return $filter;

@@ -14,12 +14,16 @@ use Generator;
 use Iterator;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  */
 final class Column extends AbstractOperation
 {
     /**
+     * @pure
+     *
      * @return Closure(T): Closure(Iterator<TKey, T>): Generator<int, iterable<TKey, T>>
      */
     public function __invoke(): Closure
@@ -48,7 +52,7 @@ final class Column extends AbstractOperation
                     Transpose::of(),
                     Filter::of()($filterCallbackBuilder($column)),
                     Head::of(),
-                    Unwrap::of()
+                    Flatten::of()(1)
                 );
 
                 // Point free style.

@@ -12,13 +12,16 @@ namespace spec\loophp\collection;
 use ArrayIterator;
 use ArrayObject;
 use Closure;
+use Doctrine\Common\Collections\Criteria;
 use Exception;
 use Generator;
 use InvalidArgumentException;
 use Iterator;
 use JsonSerializable;
 use loophp\collection\Collection;
+use loophp\collection\Contract\Collection as CollectionInterface;
 use loophp\collection\Contract\Operation;
+use loophp\collection\Iterator\ClosureIterator;
 use loophp\collection\Operation\AbstractOperation;
 use OutOfBoundsException;
 use PhpSpec\Exception\Example\FailureException;
@@ -26,12 +29,40 @@ use PhpSpec\Exception\Example\MatcherException;
 use PhpSpec\ObjectBehavior;
 use stdClass;
 use function gettype;
-use const E_USER_DEPRECATED;
 use const INF;
 use const PHP_EOL;
+use const PHP_VERSION_ID;
 
 class CollectionSpec extends ObjectBehavior
 {
+    private const PHP_8 = 80_000;
+
+    public function it_can_all(): void
+    {
+        $this::fromIterable([1, 2, 3])
+            ->all()
+            ->shouldIterateAs([1, 2, 3]);
+
+        $this::fromIterable(['foo' => 'f', 'bar' => 'b'])
+            ->all()
+            ->shouldIterateAs(['foo' => 'f', 'bar' => 'b']);
+
+        $duplicateKeyGen = static function (): Generator {
+            yield 'a' => 1;
+
+            yield 'b' => 2;
+
+            yield 'a' => 3;
+        };
+
+        $this::fromIterable($duplicateKeyGen())
+            ->shouldIterateAs($duplicateKeyGen());
+
+        $this::fromIterable($duplicateKeyGen())
+            ->all()
+            ->shouldIterateAs(['a' => 3, 'b' => 2]);
+    }
+
     public function it_can_append(): void
     {
         $generator = static function (): Generator {
@@ -218,6 +249,21 @@ class CollectionSpec extends ObjectBehavior
 
     public function it_can_asyncMap(): void
     {
+        $callback = static function (int $v): int {
+            sleep($v);
+
+            return $v * 2;
+        };
+
+        $this->beConstructedThrough('fromIterable', [['c' => 2, 'b' => 1, 'a' => 0]]);
+
+        $this
+            ->asyncMap($callback)
+            ->shouldIterateAs(['a' => 0, 'b' => 2, 'c' => 4]);
+    }
+
+    public function it_can_asyncMapN(): void
+    {
         $callback1 = static function (int $v): int {
             sleep($v);
 
@@ -228,11 +274,11 @@ class CollectionSpec extends ObjectBehavior
             return $v * 2;
         };
 
-        $this->beConstructedThrough('fromIterable', [['c' => 3, 'b' => 2, 'a' => 1]]);
+        $this->beConstructedThrough('fromIterable', [['c' => 2, 'b' => 1, 'a' => 0]]);
 
         $this
-            ->asyncMap($callback1, $callback2)
-            ->shouldIterateAs(['a' => 2, 'b' => 4, 'c' => 6]);
+            ->asyncMapN($callback1, $callback2)
+            ->shouldIterateAs(['a' => 0, 'b' => 2, 'c' => 4]);
     }
 
     public function it_can_be_constructed_from_a_file(): void
@@ -341,15 +387,15 @@ class CollectionSpec extends ObjectBehavior
 
     public function it_can_be_constructed_with_a_callable(): void
     {
-        $test1 = $this::fromCallable(static fn (int $a, int $b): Generator => yield from range($a, $b), ...[1, 5]);
+        $test1 = $this::fromCallable(static fn (int $a, int $b): Generator => yield from range($a, $b), [1, 5]);
         $test1->shouldImplement(Collection::class);
         $test1->getIterator()->shouldIterateAs([1, 2, 3, 4, 5]);
 
-        $test2 = $this::fromCallable(static fn (int $a, int $b): array => range($a, $b), 1, 5);
+        $test2 = $this::fromCallable(static fn (int $a, int $b): array => range($a, $b), [1, 5]);
         $test2->shouldImplement(Collection::class);
         $test2->getIterator()->shouldIterateAs([1, 2, 3, 4, 5]);
 
-        $test3 = $this::fromCallable(static fn (int $a, int $b): ArrayIterator => new ArrayIterator(range($a, $b)), 1, 5);
+        $test3 = $this::fromCallable(static fn (int $a, int $b): ArrayIterator => new ArrayIterator(range($a, $b)), [1, 5]);
         $test3->shouldImplement(Collection::class);
         $test3->getIterator()->shouldIterateAs([1, 2, 3, 4, 5]);
 
@@ -405,7 +451,7 @@ class CollectionSpec extends ObjectBehavior
             }
         };
 
-        $this::fromCallable($fibonacci, 0, 1)
+        $this::fromCallable($fibonacci, [0, 1])
             ->limit(10)
             ->shouldIterateAs([0, 1, 1, 2, 3, 5, 8, 13, 21, 34]);
     }
@@ -650,23 +696,23 @@ class CollectionSpec extends ObjectBehavior
     {
         $this::fromIterable(range('A', 'C'))
             ->contains('A')
-            ->shouldIterateAs([true]);
+            ->shouldBe(true);
 
         $this::fromIterable(range('A', 'C'))
             ->contains('unknown')
-            ->shouldIterateAs([false]);
+            ->shouldBe(false);
 
         $this::fromIterable(range('A', 'C'))
             ->contains('C', 'A')
-            ->shouldIterateAs([true]);
+            ->shouldBe(true);
 
         $this::fromIterable(range('A', 'C'))
             ->contains('C', 'unknown', 'A')
-            ->shouldIterateAs([true]);
+            ->shouldBe(true);
 
         $this::fromIterable(['a' => 'b', 'c' => 'd'])
             ->contains('d')
-            ->shouldIterateAs(['c' => true]);
+            ->shouldBe(true);
     }
 
     public function it_can_convert_use_a_string_as_parameter(): void
@@ -742,6 +788,28 @@ class CollectionSpec extends ObjectBehavior
         $this::fromIterable(range(1, 5))
             ->diff()
             ->shouldIterateAs(range(1, 5));
+
+        $this::fromIterable(range(1, 5))
+            ->diff(...Collection::fromIterable(range(2, 5)))
+            ->shouldIterateAs([0 => 1]);
+
+        $this::fromIterable(['foo' => 'f', 'bar' => 'b'])
+            ->diff(...Collection::fromIterable(['f']))
+            ->shouldIterateAs(['bar' => 'b']);
+
+        $this::fromIterable(['foo' => 'f', 'bar' => 'b'])
+            ->diff('F', 'b')
+            ->shouldIterateAs(['foo' => 'f']);
+
+        if (PHP_VERSION_ID >= self::PHP_8) {
+            $this::fromIterable(['foo' => 'f', 'bar' => 'b'])
+                ->diff(...Collection::fromIterable(['foo' => 'f']))
+                ->shouldIterateAs(['bar' => 'b']);
+
+            $this::fromIterable(['foo' => 'f', 'bar' => 'b'])
+                ->diff(...['foo' => 'F', 'bar' => 'b'])
+                ->shouldIterateAs(['foo' => 'f']);
+        }
     }
 
     public function it_can_diffKeys(): void
@@ -841,7 +909,7 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs([3 => 'D', 4 => 'E', 5 => 'F']);
 
         $this::fromIterable(range('A', 'F'))
-            ->drop(3, 3)
+            ->drop(6)
             ->shouldIterateAs([]);
     }
 
@@ -979,60 +1047,133 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs($result());
     }
 
+    public function it_can_equals(): void
+    {
+        $a = (object) ['id' => 'a'];
+        $a2 = (object) ['id' => 'a'];
+        $b = (object) ['id' => 'b'];
+
+        // empty variations
+        $this::empty()
+            ->equals(Collection::empty())
+            ->shouldBe(true);
+
+        $this::empty()
+            ->equals(Collection::fromIterable([1]))
+            ->shouldBe(false);
+
+        $this::fromIterable([1])
+            ->equals(Collection::empty())
+            ->shouldBe(false);
+
+        // same elements, same order
+        $this::fromIterable([1, 2, 3])
+            ->equals(Collection::fromIterable([1, 2, 3]))
+            ->shouldBe(true);
+
+        $this::fromIterable([$a, $b])
+            ->equals(Collection::fromIterable([$a, $b]))
+            ->shouldBe(true);
+
+        // same elements, different order
+        $this::fromIterable([1, 2, 3])
+            ->equals(Collection::fromIterable([3, 1, 2]))
+            ->shouldBe(true);
+
+        $this::fromIterable([$a, $b])
+            ->equals(Collection::fromIterable([$b, $a]))
+            ->shouldBe(true);
+
+        // same lengths, with one element different
+        $this::fromIterable([1, 2, 3])
+            ->equals(Collection::fromIterable([1, 2, 4]))
+            ->shouldBe(false);
+
+        // different lengths, extra elements in first
+        $this::fromIterable([1, 2, 3, 4])
+            ->equals(Collection::fromIterable([1, 2, 3]))
+            ->shouldBe(false);
+
+        // different lengths, extra elements in second
+        $this::fromIterable([1, 2, 3])
+            ->equals(Collection::fromIterable([1, 2, 3, 4]))
+            ->shouldBe(false);
+
+        // objects, different instances and contents
+        $this::fromIterable([$a])
+            ->equals(Collection::fromIterable([$b]))
+            ->shouldBe(false);
+
+        // objects, different instances but same contents
+        $this::fromIterable([$a])
+            ->equals(Collection::fromIterable([$a2]))
+            ->shouldBe(false);
+
+        // "maps" with string keys and values
+        $this::fromIterable(['foo' => 'f', 'bar' => 'b'])
+            ->equals(Collection::fromIterable(['foo' => 'f', 'bar' => 'b']))
+            ->shouldBe(true);
+
+        $this::fromIterable(['foo' => 'f', 'bar' => 'b'])
+            ->equals(Collection::fromIterable(['bar' => 'b', 'foo' => 'f']))
+            ->shouldBe(true);
+
+        $this::fromIterable(['foo' => 'f'])
+            ->equals(Collection::fromIterable(['bar' => 'f']))
+            ->shouldBe(true);
+
+        $this::fromIterable(['foo' => 'f', 'bar' => 'b'])
+            ->equals(Collection::fromIterable(['bar' => 'b']))
+            ->shouldBe(false);
+
+        $this::fromIterable(['foo' => 'f'])
+            ->equals(Collection::fromIterable(['bar' => 'b']))
+            ->shouldBe(false);
+
+        $this::fromIterable(['foo' => 'f'])
+            ->equals(Collection::fromIterable(['foo' => 'f', 'bar' => 'b']))
+            ->shouldBe(false);
+    }
+
     public function it_can_every(): void
     {
         $input = range(0, 10);
-
-        $callback = static function ($value): bool {
-            return 20 > $value;
-        };
+        $callback = static fn ($value): bool => 20 > $value;
 
         $this::fromIterable($input)
             ->every($callback)
-            ->shouldIterateAs([0 => true]);
+            ->shouldBe(true);
 
         $this::empty()
             ->every($callback)
-            ->shouldIterateAs([0 => true]);
+            ->shouldBe(true);
 
         $this::fromIterable($input)
-            ->every(
-                static function ($value, $key, Iterator $iterator): bool {
-                    return is_numeric($key);
-                }
-            )
-            ->shouldIterateAs([0 => true]);
+            ->every(static fn ($value, $key): bool => is_numeric($key))
+            ->shouldBe(true);
 
         $this::fromIterable($input)
-            ->every(
-                static function ($value, $key, Iterator $iterator): bool {
-                    return $iterator instanceof Iterator;
-                }
-            )
-            ->shouldIterateAs([0 => true]);
+            ->every(static fn ($value, $key, Iterator $iterator): bool => $iterator instanceof ClosureIterator)
+            ->shouldBe(true);
 
         $callback1 = static fn ($value, $key): bool => 20 > $value;
         $this::fromIterable($input)
             ->every($callback1)
-            ->shouldIterateAs([0 => true]);
+            ->shouldBe(true);
 
         $callback2 = static fn ($value, $key): bool => 50 < $value;
         $this::fromIterable($input)
             ->every($callback2)
-            ->shouldIterateAs([0 => false]);
+            ->shouldBe(false);
 
         $this::fromIterable($input)
             ->every($callback2, $callback1)
-            ->shouldIterateAs([0 => true]);
+            ->shouldBe(true);
 
         // Validate a date
-        $date = '2021-04-09xxx';
-
-        $this::fromString($date, '-')
+        $this::fromString('2021-04-09xxx', '-')
             ->every(static fn (string $value): bool => is_numeric($value))
-            ->shouldIterateAs([
-                2 => false,
-            ]);
+            ->shouldBe(false);
     }
 
     public function it_can_explode(): void
@@ -1088,15 +1229,19 @@ class CollectionSpec extends ObjectBehavior
     {
         $this::fromIterable([false, false, false])
             ->falsy()
-            ->shouldIterateAs([true]);
+            ->shouldBe(true);
 
         $this::fromIterable([false, true, false])
             ->falsy()
-            ->shouldIterateAs([1 => false]);
+            ->shouldBe(false);
+
+        $this::fromIterable([1, 2, null])
+            ->falsy()
+            ->shouldBe(false);
 
         $this::fromIterable([0, [], ''])
             ->falsy()
-            ->shouldIterateAs([true]);
+            ->shouldBe(true);
     }
 
     public function it_can_filter(): void
@@ -1123,20 +1268,82 @@ class CollectionSpec extends ObjectBehavior
             ->filter($callableWithKey)
             ->shouldIterateAs([6 => 6, 8 => 8, 10 => 10]);
 
-        $this::fromIterable(['afooe', 'fooe', 'allo', 'llo'])
+        $this::fromIterable(['a', 'b', 'c', 'd'])
             ->filter(
-                static function ($value) {
-                    return 0 === mb_strpos($value, 'a');
-                },
-                static function ($value) {
-                    return mb_strlen($value) - 1 === mb_strpos($value, 'o');
-                }
+                static fn (string $value): bool => 'a' === $value,
+                static fn (string $value): bool => 'd' === $value
             )
-            ->shouldIterateAs([2 => 'allo']);
+            ->shouldIterateAs([0 => 'a', 3 => 'd']);
+
+        $this::fromIterable(range(0, 10))
+            ->filter(static fn (int $value): bool => $value % 2 === 0)
+            ->filter(static fn (int $value): bool => $value % 3 === 0)
+            ->shouldIterateAs([0 => 0, 6 => 6]);
 
         $this::fromIterable([true, false, 0, '', null])
             ->filter()
             ->shouldIterateAs([true]);
+    }
+
+    public function it_can_flatMap(): void
+    {
+        $this::fromIterable([1, 2, 3])
+            ->flatMap(static fn (int $item, int $key): array => [$key => $item * $item])
+            ->shouldIterateAs([1, 4, 9]);
+
+        $gen = static function (): Generator {
+            yield 0 => 1;
+
+            yield 0 => 4;
+
+            yield 0 => 9;
+        };
+
+        $this::fromIterable([1, 2, 3])
+            ->flatMap(static fn (int $item): array => [$item * $item])
+            ->shouldIterateAs($gen());
+
+        $this::fromIterable([1, 2, 3])
+            ->flatMap(static fn (int $item): iterable => new ArrayIterator([$item * $item]))
+            ->shouldIterateAs($gen());
+
+        $this::fromIterable([1, 2, 3])
+            ->flatMap(static fn (int $item): Collection => Collection::fromIterable([$item + $item, $item * $item]))
+            ->normalize()
+            ->shouldIterateAs([2, 1, 4, 4, 6, 9]);
+
+        $this::fromIterable([1, 2, 3])
+            ->flatMap(static fn (int $item): array => [[$item + $item], [$item * $item]])
+            ->normalize()
+            ->shouldIterateAs([[2], [1], [4], [4], [6], [9]]);
+
+        $this::fromIterable(['foo' => 'f', 'bar' => 'b'])
+            ->flatMap(static fn (string $item, string $key): array => [$item => $key])
+            ->shouldIterateAs(['f' => 'foo', 'b' => 'bar']);
+
+        $barGen = static function (): Generator {
+            yield 0 => 'fbar';
+
+            yield 0 => 'bbar';
+        };
+
+        $this::fromIterable(['foo' => 'f', 'bar' => 'b'])
+            ->flatMap(static fn (string $item): array => [$item . 'bar'])
+            ->shouldIterateAs($barGen());
+
+        $gen = static function (): Generator {
+            yield 0 => ['f' => 'foo'];
+
+            yield 1 => ['FOO' => 'F'];
+
+            yield 0 => ['b' => 'bar'];
+
+            yield 1 => ['BAR' => 'B'];
+        };
+
+        $this::fromIterable(['foo' => 'f', 'bar' => 'b'])
+            ->flatMap(static fn (string $item, string $key): array => [[$item => $key], [mb_strtoupper($key) => mb_strtoupper($item)]])
+            ->shouldIterateAs($gen());
     }
 
     public function it_can_flatten(): void
@@ -1184,6 +1391,20 @@ class CollectionSpec extends ObjectBehavior
         $this::fromIterable($input)
             ->flatten(1)
             ->shouldIterateAs($output());
+
+        $output = static function (): Generator {
+            yield 0 => 1;
+
+            yield 0 => 2;
+
+            yield 1 => 3;
+
+            yield 2 => 4;
+        };
+
+        $this::fromIterable([1, new ArrayIterator([2, 3]), 4])
+            ->flatten()
+            ->shouldIterateAs($output());
     }
 
     public function it_can_flip(): void
@@ -1201,6 +1422,10 @@ class CollectionSpec extends ObjectBehavior
 
     public function it_can_fold_from_the_left(): void
     {
+        $this::empty()
+            ->foldLeft(static fn (string $carry, string $string): string => sprintf('%s%s', $carry, $string), 'foo')
+            ->shouldIterateAs(['foo']);
+
         $this::fromIterable(range('A', 'C'))
             ->foldLeft(
                 static function (string $carry, string $item): string {
@@ -1502,60 +1727,38 @@ class CollectionSpec extends ObjectBehavior
         $input = range('A', 'C');
 
         $this::fromIterable($input)
-            ->has(
-                static function ($value, $key) {
-                    return 'A';
-                }
-            )
-            ->shouldIterateAs([true]);
+            ->has(static fn () => 'A')
+            ->shouldBe(true);
 
         $this::fromIterable($input)
-            ->has(
-                static function ($value, $key) {
-                    return 'Z';
-                }
-            )
-            ->shouldIterateAs([false]);
+            ->has(static fn () => 'Z')
+            ->shouldBe(false);
 
         $input = ['b', 1, 'foo', 'bar'];
 
         $this::fromIterable($input)
-            ->has(
-                static function ($value, $key) {
-                    return 'foo';
-                }
-            )
-            ->shouldIterateAs([2 => true]);
+            ->has(static fn () => 'foo')
+            ->shouldBe(true);
 
         $this::fromIterable($input)
-            ->has(
-                static function ($value, $key) {
-                    return 'unknown';
-                }
-            )
-            ->shouldIterateAs([false]);
+            ->has(static fn () => 'unknown')
+            ->shouldBe(false);
 
         $this::empty()
-            ->has(
-                static function ($value, $key) {
-                    return $value;
-                }
-            )
-            ->shouldIterateAs([false]);
+            ->has(static fn ($value) => $value)
+            ->shouldBe(false);
 
         $this::fromIterable($input)
-            ->has(
-                static fn () => 1,
-                static fn () => 'bar'
-            )
-            ->shouldIterateAs([1 => true]);
+            ->has(static fn () => 1, static fn () => 'bar')
+            ->shouldBe(true);
 
         $this::fromIterable($input)
-            ->has(
-                static fn () => 'coin',
-                static fn () => 'bar'
-            )
-            ->shouldIterateAs([3 => true]);
+            ->has(static fn () => 'coin', static fn () => 'bar')
+            ->shouldBe(true);
+
+        $this::fromIterable($input)
+            ->has(static fn ($value, $key) => 5 < $key ? 'bar' : 'coin')
+            ->shouldBe(false);
     }
 
     public function it_can_head(): void
@@ -1799,6 +2002,33 @@ class CollectionSpec extends ObjectBehavior
             ->during('all');
     }
 
+    public function it_can_isEmpty(): void
+    {
+        $gen = static fn (): Generator => yield from [];
+
+        $this::fromIterable([])->isEmpty()->shouldBe(true);
+        $this::fromIterable($gen())->isEmpty()->shouldBe(true);
+        $this::empty()->isEmpty()->shouldBe(true);
+
+        $this::fromIterable([null])->isEmpty()->shouldBe(false);
+        $this::fromIterable([[]])->isEmpty()->shouldBe(false);
+        $this::fromIterable([1, 2, 3])->isEmpty()->shouldBe(false);
+
+        $withValues = $this::fromIterable([1, 2, 3]);
+
+        foreach ($withValues as $value) {
+            // iterating once through it
+        }
+        $withValues->isEmpty()->shouldBe(false);
+
+        $withoutValues = $this::fromIterable([]);
+
+        foreach ($withoutValues as $value) {
+            // iterating once through it
+        }
+        $withoutValues->isEmpty()->shouldBe(true);
+    }
+
     public function it_can_key(): void
     {
         $input = array_combine(
@@ -1884,9 +2114,25 @@ class CollectionSpec extends ObjectBehavior
             ->map($appendBar)
             ->shouldIterateAs(['1bar', '4bar', '9bar']);
 
-        $this::fromIterable(range(1, 3))
-            ->map($square, $toString)
-            ->shouldIterateAs(['1', '4', '9']);
+        $nonStandardInput = static function (): Generator {
+            yield ['a'] => 1;
+
+            yield ['b'] => 2;
+
+            yield ['a'] => 3;
+        };
+
+        $expected = static function (): Generator {
+            yield ['a'] => 1;
+
+            yield ['b'] => 4;
+
+            yield ['a'] => 9;
+        };
+
+        $this::fromIterable($nonStandardInput())
+            ->map(static fn (int $value): int => $value ** 2)
+            ->shouldIterateAs($expected());
     }
 
     public function it_can_mapN(): void
@@ -1916,27 +2162,59 @@ class CollectionSpec extends ObjectBehavior
         $input = range(1, 10);
 
         $this::fromIterable($input)
-            ->match(
-                static function (int $value): bool {
-                    return 7 === $value;
-                }
-            )
-            ->shouldIterateAs([6 => true]);
+            ->match(static fn (int $value): bool => 7 === $value)
+            ->shouldBe(true);
 
         $this::fromIterable($input)
-            ->match(
-                static function (int $value): bool {
-                    return 17 === $value;
-                }
-            )
-            ->shouldIterateAs([0 => false]);
+            ->match(static fn (int $value): bool => 17 === $value)
+            ->shouldBe(false);
 
         $this::fromIterable($input)
-            ->match(
-                static fn (int $value): bool => 5 !== $value,
-                static fn (): bool => false
-            )
-            ->shouldIterateAs([4 => true]);
+            ->match(static fn (int $value): bool => 5 !== $value, static fn (): bool => false)
+            ->shouldBe(true);
+    }
+
+    public function it_can_matching(): void
+    {
+        $users = [
+            [
+                'name' => 'Pol',
+                'age' => 39,
+                'is_admin' => true,
+            ],
+            [
+                'name' => 'Sandra',
+                'age' => 38,
+                'is_admin' => false,
+            ],
+            [
+                'name' => 'Izumi',
+                'age' => 7,
+                'is_admin' => true,
+            ],
+            [
+                'name' => 'Nakano',
+                'age' => 4,
+                'is_admin' => false,
+            ],
+        ];
+
+        $criteria = Criteria::create()
+            ->andWhere(Criteria::expr()->eq('is_admin', true))
+            ->orderBy(['age' => 'ASC'])
+            ->setMaxResults(1);
+
+        $this::fromIterable($users)
+            ->matching($criteria)
+            ->shouldIterateAs(
+                [
+                    2 => [
+                        'name' => 'Izumi',
+                        'age' => 7,
+                        'is_admin' => true,
+                    ],
+                ]
+            );
     }
 
     public function it_can_merge(): void
@@ -2013,19 +2291,19 @@ class CollectionSpec extends ObjectBehavior
     {
         $this::fromIterable([null, null, null])
             ->nullsy()
-            ->shouldIterateAs([true]);
+            ->shouldBe(true);
 
         $this::fromIterable([null, 0, null])
             ->nullsy()
-            ->shouldIterateAs([true]);
+            ->shouldBe(true);
 
         $this::fromIterable([null, [], 0, false, ''])
             ->nullsy()
-            ->shouldIterateAs([true]);
+            ->shouldBe(true);
 
         $this::fromIterable([null, [], 0, false, '', 'foo'])
             ->nullsy()
-            ->shouldIterateAs([5 => false]);
+            ->shouldBe(false);
     }
 
     public function it_can_pack(): void
@@ -2093,6 +2371,18 @@ class CollectionSpec extends ObjectBehavior
             ->unwrap()
             ->pair()
             ->shouldIterateAs($gen());
+
+        $input = ['a', 'b', 'c'];
+
+        $gen = static function () {
+            yield 'a' => 'b';
+
+            yield 'c' => null;
+        };
+
+        $this::fromIterable($input)
+            ->pair()
+            ->shouldIterateAs($gen());
     }
 
     public function it_can_partition(): void
@@ -2101,29 +2391,48 @@ class CollectionSpec extends ObjectBehavior
 
         $input = array_combine(range('a', 'l'), [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3]);
 
+        // Using `first` and `last`, single callback
+
+        $subject = $this::fromIterable($input)->partition($isGreaterThan(5));
+        $subject->shouldHaveCount(2);
+
+        $first = $subject->first()->current();
+        $last = $subject->last()->current();
+
+        $first->shouldBeAnInstanceOf(CollectionInterface::class);
+        $last->shouldBeAnInstanceOf(CollectionInterface::class);
+
+        $first->shouldHaveCount(4);
+        $last->shouldHaveCount(8);
+
+        $first->shouldIterateAs(['f' => 6, 'g' => 7, 'h' => 8, 'i' => 9]);
+        $last->shouldIterateAs(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4, 'e' => 5, 'j' => 1, 'k' => 2, 'l' => 3]);
+
+        // Using `all` and array destructuring, single callback
+
+        [$passed, $rejected] = $this::fromIterable($input)->partition($isGreaterThan(5))->all();
+        $passed->shouldBeAnInstanceOf(CollectionInterface::class);
+        $rejected->shouldBeAnInstanceOf(CollectionInterface::class);
+
+        $passed->shouldHaveCount(4);
+        $rejected->shouldHaveCount(8);
+
+        $passed->shouldIterateAs(['f' => 6, 'g' => 7, 'h' => 8, 'i' => 9]);
+        $rejected->shouldIterateAs(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4, 'e' => 5, 'j' => 1, 'k' => 2, 'l' => 3]);
+
+        // Using multiple callbacks
+
         $this::fromIterable($input)
-            ->partition(
-                $isGreaterThan(5),
-                $isGreaterThan(3)
-            )
-            ->shouldIterateAs([
-                [
-                    ['d', 4],
-                    ['e', 5],
-                    ['f', 6],
-                    ['g', 7],
-                    ['h', 8],
-                    ['i', 9],
-                ],
-                [
-                    ['a', 1],
-                    ['b', 2],
-                    ['c', 3],
-                    ['j', 1],
-                    ['k', 2],
-                    ['l', 3],
-                ],
-            ]);
+            ->partition($isGreaterThan(5), $isGreaterThan(3))
+            ->first()
+            ->current()
+            ->shouldIterateAs(['d' => 4, 'e' => 5, 'f' => 6, 'g' => 7, 'h' => 8, 'i' => 9]);
+
+        $this::fromIterable($input)
+            ->partition($isGreaterThan(5), $isGreaterThan(3))
+            ->last()
+            ->current()
+            ->shouldIterateAs(['a' => 1, 'b' => 2, 'c' => 3, 'j' => 1, 'k' => 2, 'l' => 3]);
     }
 
     public function it_can_permutate(): void
@@ -2342,6 +2651,29 @@ class CollectionSpec extends ObjectBehavior
             ->during('all');
     }
 
+    public function it_can_reduce(): void
+    {
+        $this::empty()
+            ->reduce(static fn (string $carry, string $string): string => sprintf('%s%s', $carry, $string), 'foo')
+            ->shouldIterateAs([]);
+
+        $this::fromIterable(range(1, 5))
+            ->reduce(
+                static fn (int $carry, int $item): int => $carry + $item,
+                0
+            )
+            ->shouldIterateAs([4 => 15]);
+
+        $this::fromIterable(array_combine(range('x', 'z'), range('a', 'c')))
+            ->reduce(
+                static fn (string $carry, string $letter, string $index): string => sprintf('%s[%s:%s]', $carry, $index, $letter),
+                '=> '
+            )
+            ->shouldIterateAs([
+                'z' => '=> [x:a][y:b][z:c]',
+            ]);
+    }
+
     public function it_can_reduction(): void
     {
         $this::fromIterable(range(1, 5))
@@ -2354,6 +2686,47 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs([1, 3, 6, 10, 15]);
     }
 
+    public function it_can_reject(): void
+    {
+        $input = array_merge([0, false], range(1, 10));
+
+        $callable = static function ($value) {
+            return $value % 2;
+        };
+
+        $callableWithKey = static fn (int $value, int $key): bool => $value % 2 === 0 && 4 < $key;
+
+        $this::fromIterable($input)
+            ->reject($callable)
+            ->count()
+            ->shouldReturn(7);
+
+        $this::fromIterable($input)
+            ->reject($callable)
+            ->normalize()
+            ->shouldIterateAs([0, false, 2, 4, 6, 8, 10]);
+
+        $this::fromIterable(range(0, 10))
+            ->reject($callableWithKey)
+            ->shouldIterateAs([0, 1, 2, 3, 4, 5, 7 => 7, 9 => 9]);
+
+        $this::fromIterable(['a', 'b', 'c', 'd'])
+            ->reject(
+                static fn (string $value): bool => 'a' === $value,
+                static fn (string $value): bool => 'd' === $value
+            )
+            ->shouldIterateAs([1 => 'b', 2 => 'c']);
+
+        $this::fromIterable(range(0, 10))
+            ->reject(static fn (int $value): bool => $value % 2 === 0)
+            ->reject(static fn (int $value): bool => $value % 3 === 0)
+            ->shouldIterateAs([1 => 1, 5 => 5, 7 => 7]);
+
+        $this::fromIterable([true, false, 0, '', null])
+            ->reject()
+            ->shouldIterateAs([1 => false, 2 => 0, 3 => '', 4 => null]);
+    }
+
     public function it_can_reverse(): void
     {
         $this::empty()
@@ -2363,10 +2736,6 @@ class CollectionSpec extends ObjectBehavior
         $this::fromIterable(range('A', 'F'))
             ->reverse()
             ->shouldIterateAs([5 => 'F', 4 => 'E', 3 => 'D', 2 => 'C', 1 => 'B', 0 => 'A']);
-
-        $this::fromIterable(range('A', 'F'))
-            ->drop(3, 3)
-            ->shouldIterateAs([]);
     }
 
     public function it_can_rsample(): void
@@ -2378,6 +2747,120 @@ class CollectionSpec extends ObjectBehavior
         $this::fromIterable(range(1, 10))
             ->rsample(.5)
             ->shouldNotHaveCount(10);
+    }
+
+    public function it_can_same(): void
+    {
+        $a = (object) ['id' => 'a'];
+        $a2 = (object) ['id' => 'a'];
+        $b = (object) ['id' => 'b'];
+
+        // empty variations
+        $this::empty()
+            ->same(Collection::empty())
+            ->shouldBe(true);
+
+        $this::empty()
+            ->same(Collection::fromIterable([1]))
+            ->shouldBe(false);
+
+        $this::fromIterable([1])
+            ->same(Collection::empty())
+            ->shouldBe(false);
+
+        // same elements, same order (same keys)
+        $this::fromIterable([1, 2, 3])
+            ->same(Collection::fromIterable([1, 2, 3]))
+            ->shouldBe(true);
+
+        $this::fromIterable([$a, $b])
+            ->same(Collection::fromIterable([$a, $b]))
+            ->shouldBe(true);
+
+        // same elements, different order (different keys)
+        $this::fromIterable([1, 2, 3])
+            ->same(Collection::fromIterable([3, 1, 2]))
+            ->shouldBe(false);
+
+        $this::fromIterable([$a, $b])
+            ->same(Collection::fromIterable([$b, $a]))
+            ->shouldBe(false);
+
+        // same lengths, with one element different
+        $this::fromIterable([1, 2, 3])
+            ->same(Collection::fromIterable([1, 2, 4]))
+            ->shouldBe(false);
+
+        // different lengths, extra elements in first
+        $this::fromIterable([1, 2, 3, 4])
+            ->same(Collection::fromIterable([1, 2, 3]))
+            ->shouldBe(false);
+
+        // different lengths, extra elements in second
+        $this::fromIterable([1, 2, 3])
+            ->same(Collection::fromIterable([1, 2, 3, 4]))
+            ->shouldBe(false);
+
+        // objects, different instances and contents
+        $this::fromIterable([$a])
+            ->same(Collection::fromIterable([$b]))
+            ->shouldBe(false);
+
+        // objects, different instances but same contents
+        $this::fromIterable([$a])
+            ->same(Collection::fromIterable([$a2]))
+            ->shouldBe(false);
+
+        // "maps" with string keys and values
+        $this::fromIterable(['foo' => 'f', 'bar' => 'b'])
+            ->same(Collection::fromIterable(['foo' => 'f', 'bar' => 'b']))
+            ->shouldBe(true);
+
+        $this::fromIterable(['foo' => 'f'])
+            ->same(Collection::fromIterable(['bar' => 'f']))
+            ->shouldBe(false);
+
+        $this::fromIterable(['foo' => 'f', 'bar' => 'b'])
+            ->same(Collection::fromIterable(['bar' => 'b', 'foo' => 'f']))
+            ->shouldBe(false);
+
+        $this::fromIterable(['foo' => 'f', 'bar' => 'b'])
+            ->same(Collection::fromIterable(['bar' => 'b']))
+            ->shouldBe(false);
+
+        $this::fromIterable(['foo' => 'f'])
+            ->same(Collection::fromIterable(['bar' => 'b']))
+            ->shouldBe(false);
+
+        $this::fromIterable(['FOO' => 'f'])
+            ->same(Collection::fromIterable(['foo' => 'f']))
+            ->shouldBe(false);
+
+        $this::fromIterable(['foo' => 'f'])
+            ->same(Collection::fromIterable(['foo' => 'f', 'bar' => 'b']))
+            ->shouldBe(false);
+
+        // custom comparators
+        $comparator = static fn ($left) => static fn ($right): bool => (int) $left === (int) $right;
+        $this::fromIterable([1, 2, 3])
+            ->same(Collection::fromIterable(['1', '2', '3']), $comparator)
+            ->shouldBe(true);
+
+        $comparator = static fn ($left) => static fn ($right): bool => $left === $right;
+        $this::fromIterable(['foo' => 'f'])
+            ->same(Collection::fromIterable(['bar' => 'f']), $comparator)
+            ->shouldBe(true);
+
+        $comparator = static fn ($left, $leftKey) => static fn ($right, $rightKey): bool => $left === $right
+            && mb_strtolower($leftKey) === mb_strtolower($rightKey);
+        $this::fromIterable(['foo' => 'f'])
+            ->same(Collection::fromIterable(['FOO' => 'f']), $comparator)
+            ->shouldBe(true);
+
+        $comparator = static fn (stdClass $left) => static fn (stdClass $right): bool => $left->id === $right->id;
+        $this::fromIterable([$a])
+            ->same(Collection::fromIterable([$a2]), $comparator)
+            ->shouldBe(true);
     }
 
     public function it_can_scale(): void
@@ -2396,7 +2879,7 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs([5.0, 8.01, 11.02, 12.78, 14.03, 15.0]);
     }
 
-    public function it_can_scanleft(): void
+    public function it_can_scanLeft(): void
     {
         $callback = static function ($carry, $value) {
             return $carry / $value;
@@ -2421,7 +2904,7 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs([0 => 3]);
     }
 
-    public function it_can_scanleft1(): void
+    public function it_can_scanLeft1(): void
     {
         $callback = static function ($carry, $value) {
             return $carry / $value;
@@ -2436,7 +2919,7 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs([12]);
     }
 
-    public function it_can_scanright(): void
+    public function it_can_scanRight(): void
     {
         $callback = static function ($carry, $value) {
             return $value / $carry;
@@ -2708,22 +3191,19 @@ class CollectionSpec extends ObjectBehavior
     {
         $input = range(1, 10);
 
-        $test = $this::fromIterable($input)
-            ->span(static function (int $x): bool {return 4 > $x; });
+        $subject = $this::fromIterable($input)->span(static fn (int $x): bool => 4 > $x);
+        $subject->shouldHaveCount(2);
+        $subject->first()->shouldBeAnInstanceOf(CollectionInterface::class);
+        $subject->last()->shouldBeAnInstanceOf(CollectionInterface::class);
+        $subject->first()->current()->shouldIterateAs([1, 2, 3]);
+        $subject->last()->current()->shouldIterateAs([3 => 4, 4 => 5, 5 => 6, 6 => 7, 7 => 8, 8 => 9, 9 => 10]);
 
-        $test
-            ->first()
-            ->current()
-            ->shouldIterateAs(
-                [1, 2, 3]
-            );
-
-        $test
-            ->last()
-            ->current()
-            ->shouldIterateAs(
-                [3 => 4, 4 => 5, 5 => 6, 6 => 7, 7 => 8, 8 => 9, 9 => 10]
-            );
+        $subject = $this::fromIterable($input)->span(static fn (int $x): bool => 4 > $x, static fn (int $x): bool => $x % 2 === 0);
+        $subject->shouldHaveCount(2);
+        $subject->first()->shouldBeAnInstanceOf(CollectionInterface::class);
+        $subject->last()->shouldBeAnInstanceOf(CollectionInterface::class);
+        $subject->first()->current()->shouldIterateAs([1, 2, 3, 4]);
+        $subject->last()->current()->shouldIterateAs([4 => 5, 5 => 6, 6 => 7, 7 => 8, 8 => 9, 9 => 10]);
     }
 
     public function it_can_split(): void
@@ -2928,19 +3408,19 @@ class CollectionSpec extends ObjectBehavior
     {
         $this::fromIterable([true, true, true])
             ->truthy()
-            ->shouldIterateAs([true]);
+            ->shouldBe(true);
 
         $this::fromIterable([true, false, true])
             ->truthy()
-            ->shouldIterateAs([1 => false]);
+            ->shouldBe(false);
 
         $this::fromIterable([1, 2, 3])
             ->truthy()
-            ->shouldIterateAs([true]);
+            ->shouldBe(true);
 
         $this::fromIterable([1, 2, 3, 0])
             ->truthy()
-            ->shouldIterateAs([3 => false]);
+            ->shouldBe(false);
     }
 
     public function it_can_unfold(): void
@@ -3283,6 +3763,13 @@ class CollectionSpec extends ObjectBehavior
                 'c' => 'C',
                 'd' => 'D',
             ]);
+
+        $inner = static fn (): Generator => yield from [2, 3];
+
+        $this::fromIterable([1, $inner(), 4, 5])
+            ->unwrap()
+            ->normalize()
+            ->shouldIterateAs([1, 2, 3, 4, 5]);
     }
 
     public function it_can_unzip(): void
@@ -3653,16 +4140,6 @@ class CollectionSpec extends ObjectBehavior
     public function it_is_initializable(): void
     {
         $this->shouldHaveType(Collection::class);
-    }
-
-    public function it_shows_deprecation_for_map_multiple_callbacks(): void
-    {
-        $square = static fn (int $a): int => $a ** 2;
-        $toString = static fn (int $a): string => (string) $a;
-
-        $this::fromIterable(range(1, 3))
-            ->map($square, $toString)
-            ->shouldTrigger(E_USER_DEPRECATED)->during('all');
     }
 
     public function let(): void

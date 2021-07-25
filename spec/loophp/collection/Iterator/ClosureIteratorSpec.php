@@ -23,7 +23,7 @@ class ClosureIteratorSpec extends ObjectBehavior
 
     public function it_can_return_a_string_key(): void
     {
-        $this->beConstructedWith(static fn (array $iterable): Generator => yield from $iterable, self::MAP_DATA);
+        $this->beConstructedWith(static fn (array $iterable): Generator => yield from $iterable, [self::MAP_DATA]);
 
         $this->key()->shouldBe('foo');
         $this->next();
@@ -32,7 +32,7 @@ class ClosureIteratorSpec extends ObjectBehavior
 
     public function it_can_return_an_int_key(): void
     {
-        $this->beConstructedWith(static fn (array $iterable): Generator => yield from $iterable, self::LIST_DATA);
+        $this->beConstructedWith(static fn (array $iterable): Generator => yield from $iterable, [self::LIST_DATA]);
 
         $this->key()->shouldBe(0);
         $this->next();
@@ -41,14 +41,14 @@ class ClosureIteratorSpec extends ObjectBehavior
 
     public function it_can_return_inner_iterator(): void
     {
-        $this->beConstructedWith(static fn (array $iterable): Generator => yield from $iterable, self::LIST_DATA);
+        $this->beConstructedWith(static fn (array $iterable): Generator => yield from $iterable, [self::LIST_DATA]);
 
         $this->getInnerIterator()->shouldIterateAs(self::LIST_DATA);
     }
 
     public function it_can_rewind(): void
     {
-        $this->beConstructedWith(static fn (array $iterable): Generator => yield from $iterable, ['foo']);
+        $this->beConstructedWith(static fn (array $iterable): Generator => yield from $iterable, [['foo']]);
 
         $this->current()->shouldBe('foo');
 
@@ -63,7 +63,7 @@ class ClosureIteratorSpec extends ObjectBehavior
 
     public function it_is_initializable_from_callable_with_array(): void
     {
-        $this->beConstructedWith(static fn (array $iterable): array => $iterable, self::LIST_DATA);
+        $this->beConstructedWith(static fn (array $iterable): array => $iterable, [self::LIST_DATA]);
 
         $this->shouldHaveType(ClosureIterator::class);
 
@@ -75,7 +75,7 @@ class ClosureIteratorSpec extends ObjectBehavior
     {
         $data = ['foo' => 1, 2];
 
-        $this->beConstructedWith(static fn (array $iterable): Generator => yield from $iterable, $data);
+        $this->beConstructedWith(static fn (array $iterable): Generator => yield from $iterable, [$data]);
 
         $this->shouldHaveType(ClosureIterator::class);
 
@@ -85,7 +85,7 @@ class ClosureIteratorSpec extends ObjectBehavior
 
     public function it_is_initializable_from_callable_with_iterator(): void
     {
-        $this->beConstructedWith(static fn (array $iterable): Iterator => new ArrayIterator($iterable), self::MAP_DATA);
+        $this->beConstructedWith(static fn (array $iterable): Iterator => new ArrayIterator($iterable), [self::MAP_DATA]);
 
         $this->shouldHaveType(ClosureIterator::class);
 

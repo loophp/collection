@@ -9,8 +9,6 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
-use loophp\collection\Contract\Collection;
-
 /**
  * @template TKey
  * @template T
@@ -18,7 +16,9 @@ use loophp\collection\Contract\Collection;
 interface Nullsyable
 {
     /**
-     * @return Collection<int, bool>
+     * Check if the collection contains only *nullsy* values.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#nullsy
      */
-    public function nullsy(): Collection;
+    public function nullsy(): bool;
 }

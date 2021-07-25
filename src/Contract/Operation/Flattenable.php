@@ -22,7 +22,9 @@ interface Flattenable
     /**
      * Flatten a collection of items into a simple flat collection.
      *
-     * @return Collection<TKey, T>
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#flatten
+     *
+     * @return Collection<mixed, mixed>
      */
     public function flatten(int $depth = PHP_INT_MAX): Collection;
 }

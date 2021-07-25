@@ -14,9 +14,7 @@ use Generator;
 use Iterator;
 
 /**
- * @todo Remove the Wrap and Unwrap operations
- * @todo They are only needed when: Collection::empty()->reverse()
- * @todo Most probably that the FoldLeft operation needs an update.
+ * @immutable
  *
  * @template TKey
  * @template T
@@ -24,6 +22,8 @@ use Iterator;
 final class Reverse extends AbstractOperation
 {
     /**
+     * @pure
+     *
      * @return Closure(Iterator<TKey, T>): Generator<TKey, T, mixed, void>
      */
     public function __invoke(): Closure
@@ -40,9 +40,7 @@ final class Reverse extends AbstractOperation
         /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
         $pipe = Pipe::of()(
             Pack::of(),
-            Wrap::of(),
-            FoldLeft::of()($callback)([]),
-            Unwrap::of(),
+            Reduce::of()($callback)([]),
             Unpack::of(),
         );
 

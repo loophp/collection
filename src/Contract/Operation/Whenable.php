@@ -19,6 +19,14 @@ use loophp\collection\Contract\Collection;
 interface Whenable
 {
     /**
+     * This operation will execute the given `$whenTrue` callback when the given `$predicate` callback
+     * evaluates to `true`. Otherwise it will execute the `$whenFalse` callback if any.
+     *
+     * Unlike the `ifThenElse` operation where the operation is applied to each element of the collection,
+     * this operation operates on the collection directly.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#when
+     *
      * @param callable(Iterator<TKey, T>): bool $predicate
      * @param callable(Iterator<TKey, T>): iterable<TKey, T> $whenTrue
      * @param callable(Iterator<TKey, T>): iterable<TKey, T> $whenFalse

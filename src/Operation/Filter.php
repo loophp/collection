@@ -9,11 +9,14 @@ declare(strict_types=1);
 
 namespace loophp\collection\Operation;
 
-use CallbackFilterIterator;
 use Closure;
+use Generator;
 use Iterator;
+use loophp\collection\Utils\CallbacksArrayReducer;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  *
@@ -22,7 +25,9 @@ use Iterator;
 final class Filter extends AbstractOperation
 {
     /**
-     * @return Closure(callable(T , TKey, Iterator<TKey, T>): bool ...): Closure (Iterator<TKey, T>): Iterator<TKey, T>
+     * @pure
+     *
+     * @return Closure(callable(T, TKey, Iterator<TKey, T>): bool ...): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
@@ -30,15 +35,15 @@ final class Filter extends AbstractOperation
             /**
              * @param callable(T, TKey, Iterator<TKey, T>): bool ...$callbacks
              *
-             * @return Closure(Iterator<TKey, T>): Iterator<TKey, T>
+             * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static fn (callable ...$callbacks): Closure =>
                 /**
                  * @param Iterator<TKey, T> $iterator
                  *
-                 * @return Iterator<TKey, T>
+                 * @return Generator<TKey, T>
                  */
-                static function (Iterator $iterator) use ($callbacks): Iterator {
+                static function (Iterator $iterator) use ($callbacks): Generator {
                     $defaultCallback =
                         /**
                          * @param T $value
@@ -49,11 +54,13 @@ final class Filter extends AbstractOperation
                         [$defaultCallback] :
                         $callbacks;
 
-                    return array_reduce(
-                        $callbacks,
-                        static fn (Iterator $carry, callable $callback): CallbackFilterIterator => new CallbackFilterIterator($carry, $callback),
-                        $iterator
-                    );
+                    foreach ($iterator as $key => $current) {
+                        $result = CallbacksArrayReducer::or()($callbacks, $current, $key, $iterator);
+
+                        if (true === $result) {
+                            yield $key => $current;
+                        }
+                    }
                 };
     }
 }

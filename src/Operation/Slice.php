@@ -14,12 +14,16 @@ use Generator;
 use Iterator;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  */
 final class Slice extends AbstractOperation
 {
     /**
+     * @pure
+     *
      * @return Closure(int): Closure(int=): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure

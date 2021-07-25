@@ -18,7 +18,9 @@ use loophp\collection\Contract\Collection;
 interface Limitable
 {
     /**
-     * Limit the amount of items in the collection to...
+     * Limit the number of values in the collection.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#limit
      *
      * @return Collection<TKey, T>
      */

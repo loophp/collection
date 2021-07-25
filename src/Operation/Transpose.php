@@ -16,12 +16,16 @@ use loophp\collection\Iterator\IterableIterator;
 use MultipleIterator;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  */
 final class Transpose extends AbstractOperation
 {
     /**
+     * @pure
+     *
      * @return Closure(Iterator<TKey, T>): Generator<TKey, list<T>>
      */
     public function __invoke(): Closure
@@ -35,8 +39,8 @@ final class Transpose extends AbstractOperation
             static function (Iterator $iterator): Generator {
                 $mit = new MultipleIterator(MultipleIterator::MIT_NEED_ANY);
 
-                foreach ($iterator as $iterableIterator) {
-                    $mit->attachIterator(new IterableIterator($iterableIterator));
+                foreach ($iterator as $iteratorIterator) {
+                    $mit->attachIterator(new IterableIterator($iteratorIterator));
                 }
 
                 $callbackForKeys =

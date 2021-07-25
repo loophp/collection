@@ -14,6 +14,8 @@ use Generator;
 use Iterator;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  *
@@ -22,6 +24,8 @@ use Iterator;
 final class Distinct extends AbstractOperation
 {
     /**
+     * @pure
+     *
      * @template U
      *
      * @return Closure(callable(U): Closure(U): bool): Closure(callable(T, TKey): U): Closure(Iterator<TKey, T>): Generator<TKey, T>
@@ -80,8 +84,8 @@ final class Distinct extends AbstractOperation
                     /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
                     $pipe = Pipe::of()(
                         Pack::of(),
-                        FoldLeft::of()($foldLeftCallbackBuilder($accessorCallback)($comparatorCallback))([]),
-                        Unwrap::of(),
+                        Reduce::of()($foldLeftCallbackBuilder($accessorCallback)($comparatorCallback))([]),
+                        Flatten::of()(1),
                         Unpack::of()
                     );
 

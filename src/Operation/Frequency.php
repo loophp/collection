@@ -14,12 +14,16 @@ use Generator;
 use Iterator;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  */
 final class Frequency extends AbstractOperation
 {
     /**
+     * @pure
+     *
      * @return Closure(Iterator<TKey, T>): Generator<int, T>
      */
     public function __invoke(): Closure
@@ -56,7 +60,7 @@ final class Frequency extends AbstractOperation
 
         /** @var Closure(Iterator<TKey, T>): Generator<int, T> $pipe */
         $pipe = Pipe::of()(
-            FoldLeft::of()($reduceCallback)([]),
+            Reduce::of()($reduceCallback)([]),
             Flatten::of()(1),
             Unpack::of()
         );

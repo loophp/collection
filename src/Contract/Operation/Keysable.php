@@ -20,6 +20,8 @@ interface Keysable
     /**
      * Get the keys of the items.
      *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#keys
+     *
      * @return Collection<int, TKey>
      */
     public function keys(): Collection;

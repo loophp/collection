@@ -20,6 +20,8 @@ interface Appendable
     /**
      * Add one or more items to a collection.
      *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#append
+     *
      * @template U of T
      *
      * @param U ...$items

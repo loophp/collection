@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace loophp\collection\Contract\Operation;
 
 use Iterator;
-use loophp\collection\Contract\Collection;
 
 /**
  * @template TKey
@@ -19,9 +18,11 @@ use loophp\collection\Contract\Collection;
 interface Everyable
 {
     /**
-     * @param callable(T, TKey, Iterator<TKey, T>): bool ...$callbacks
+     * Check whether all elements in the collection pass the test implemented by the provided callback(s).
      *
-     * @return Collection<TKey, bool>
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#every
+     *
+     * @param callable(T, TKey, Iterator<TKey, T>): bool ...$callbacks
      */
-    public function every(callable ...$callbacks): Collection;
+    public function every(callable ...$callbacks): bool;
 }

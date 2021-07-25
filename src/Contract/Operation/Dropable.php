@@ -18,11 +18,11 @@ use loophp\collection\Contract\Collection;
 interface Dropable
 {
     /**
-     * Skip the n items of a collection.
+     * Drop the `n` first items of the collection.
      *
-     * @param int ...$counts
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#drop
      *
      * @return Collection<TKey, T>
      */
-    public function drop(int ...$counts): Collection;
+    public function drop(int $count): Collection;
 }

@@ -14,12 +14,16 @@ use Iterator;
 use loophp\collection\Iterator\MultipleIterableIterator;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  */
 final class Prepend extends AbstractOperation
 {
     /**
+     * @pure
+     *
      * @return Closure(T...): Closure(Iterator<TKey, T>): Iterator<int|TKey, T>
      */
     public function __invoke(): Closure

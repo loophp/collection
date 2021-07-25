@@ -9,8 +9,6 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
-use Generator;
-use Iterator;
 use loophp\collection\Contract\Collection;
 
 /**
@@ -20,7 +18,13 @@ use loophp\collection\Contract\Collection;
 interface Pipeable
 {
     /**
-     * @param callable(Iterator<TKey, T>): Generator<TKey, T> ...$callbacks
+     * Pipe together multiple operations and apply them in succession to the collection items.
+     * To maintain a lazy nature, each operation needs to return a `Generator`.
+     * Custom operations and operations provided in the API can be combined together.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#pipe
+     *
+     * @param callable(iterable<TKey, T>): iterable<TKey, T> ...$callbacks
      *
      * @return Collection<TKey, T>
      */

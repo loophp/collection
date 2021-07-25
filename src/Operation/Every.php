@@ -12,8 +12,11 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Utils\CallbacksArrayReducer;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  *
@@ -22,6 +25,8 @@ use Iterator;
 final class Every extends AbstractOperation
 {
     /**
+     * @pure
+     *
      * @return Closure(callable(T, TKey, Iterator<TKey, T>...): bool): Closure(callable(T, TKey, Iterator<TKey, T>...): bool): Closure(Iterator<TKey, T>): Generator<TKey, bool>
      */
     public function __invoke(): Closure
@@ -48,15 +53,11 @@ final class Every extends AbstractOperation
                              */
                             static fn (array $callbacks): Closure =>
                                 /**
-                                 * @param T $value
+                                 * @param T $current
                                  * @param TKey $key
                                  * @param Iterator<TKey, T> $iterator
                                  */
-                                static fn ($value, $key, Iterator $iterator): bool => array_reduce(
-                                    $callbacks,
-                                    static fn (bool $carry, callable $callback): bool => $carry || $callback($value, $key, $iterator),
-                                    false
-                                );
+                                static fn ($current, $key, Iterator $iterator): bool => CallbacksArrayReducer::or()($callbacks, $current, $key, $iterator);
 
                         $mapCallback =
                             /**

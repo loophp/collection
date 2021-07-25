@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace loophp\collection\Contract\Operation;
 
 use Iterator;
-use loophp\collection\Contract\Collection;
 
 /**
  * @template TKey
@@ -19,9 +18,11 @@ use loophp\collection\Contract\Collection;
 interface Hasable
 {
     /**
-     * @param callable(T, TKey, Iterator<TKey, T>): bool ...$callbacks
+     * Check if the collection has values with the help of one or more callables.
      *
-     * @return Collection<int, bool>
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#has
+     *
+     * @param callable(T, TKey, Iterator<TKey, T>): T ...$callbacks
      */
-    public function has(callable ...$callbacks): Collection;
+    public function has(callable ...$callbacks): bool;
 }

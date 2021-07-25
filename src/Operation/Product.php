@@ -16,11 +16,16 @@ use Iterator;
 use function count;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  */
 final class Product extends AbstractOperation
 {
+    /**
+     * @pure
+     */
     public function __invoke(): Closure
     {
         return

@@ -9,8 +9,6 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
-use loophp\collection\Contract\Collection;
-
 /**
  * @template TKey
  * @template T
@@ -18,7 +16,10 @@ use loophp\collection\Contract\Collection;
 interface Truthyable
 {
     /**
-     * @return Collection<int, bool>
+     * Check if the collection contains only truthy values. Opposite of `falsy`.
+     * A value is determined to be truthy by applying a `bool` cast.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#truthy
      */
-    public function truthy(): Collection;
+    public function truthy(): bool;
 }

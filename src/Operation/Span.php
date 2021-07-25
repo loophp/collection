@@ -14,6 +14,8 @@ use Generator;
 use Iterator;
 
 /**
+ * @immutable
+ *
  * @template TKey
  * @template T
  *
@@ -22,29 +24,32 @@ use Iterator;
 final class Span extends AbstractOperation
 {
     /**
-     * @return Closure(callable(T, TKey, Iterator<TKey, T>): bool):Closure (Iterator<TKey, T>): Generator<int, Iterator<TKey, T>>
+     * @pure
+     *
+     * @return Closure(callable(T, TKey, Iterator<TKey, T>): bool ...): Closure(Iterator<TKey, T>): Generator<int, array{0: Closure(Iterator<TKey, T>): Generator<TKey, T>, 1: array{0: Iterator<TKey, T>}}>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable(T, TKey, Iterator<TKey, T>):bool $callback
+             * @param callable(T, TKey, Iterator<TKey, T>): bool ...$callbacks
              *
-             * @return Closure(Iterator<TKey, T>): Generator<int, Iterator<TKey, T>>
+             * @return Closure(Iterator<TKey, T>): Generator<int, array{0: Closure(Iterator<TKey, T>): Generator<TKey, T>, 1: array{0: Iterator<TKey, T>}}>
              */
-            static fn (callable $callback): Closure =>
+            static fn (callable ...$callbacks): Closure =>
                 /**
                  * @param Iterator<TKey, T> $iterator
                  *
-                 * @return Generator<int, Iterator<TKey, T>>
+                 * @return Generator<int, array{0: Closure(Iterator<TKey, T>): Generator<TKey, T>, 1: array{0: Iterator<TKey, T>}}>
                  */
-                static function (Iterator $iterator) use ($callback): Generator {
-                    /** @var Iterator<TKey, T> $takeWhile */
-                    $takeWhile = TakeWhile::of()($callback)($iterator);
-                    /** @var Iterator<TKey, T> $dropWhile */
-                    $dropWhile = DropWhile::of()($callback)($iterator);
+                static function (Iterator $iterator) use ($callbacks): Generator {
+                    /** @var array{0: Closure(Iterator<TKey, T>): Generator<TKey, T>, 1: array{0: Iterator<TKey, T>}} $takeWhile */
+                    $takeWhile = [TakeWhile::of()(...$callbacks), [$iterator]];
 
-                    return yield from [$takeWhile, $dropWhile];
+                    /** @var array{0: Closure(Iterator<TKey, T>): Generator<TKey, T>, 1: array{0: Iterator<TKey, T>}} $dropWhile */
+                    $dropWhile = [DropWhile::of()(...$callbacks), [$iterator]];
+
+                    yield from [$takeWhile, $dropWhile];
                 };
     }
 }
