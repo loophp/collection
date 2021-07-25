@@ -65,11 +65,12 @@ Signature: ``Collection::fromGenerator(Generator $generator): Collection;``
 
 .. code-block:: php
 
-    $generator = (static fn () => yield from range(1, 10))();
+    $generator = (static fn () => yield from range(1, 5))();
     $generator->next();
     $generator->next();
 
-    $collection = Collection::fromGenerator($generator);
+    $collection = Collection::fromGenerator($generator)
+        ->all(); // [2 => 3, 3 => 4, 4 => 5]
 
 fromIterable
 ~~~~~~~~~~~~
@@ -78,8 +79,9 @@ Create a collection from an iterable.
 
 .. warning:: When instantiating from a PHP `Generator`_, the collection object will inherit its behaviour:
     it will only be iterable a single time, and an exception will be thrown if multiple operations which attempt
-    to re-iterate are applied, for example ``count()``. Use ``Collection::fromGenerator()`` to
-    circumvent this limitation.
+    to re-iterate are applied, for example ``count()``. To circumvent this internal PHP limitation, use
+    ``Collection::fromGenerator()`` or better ``Collection::fromCallable()`` which requires the generating
+    callable not yet initialized.
 
 Signature: ``Collection::fromIterable(iterable $iterable): Collection;``
 
@@ -752,11 +754,11 @@ Elements will be compared using strict equality (``===``). If you want to custom
 are compared or the order in which the keys/values appear is important, use the ``same`` operation.
 
 .. tip:: This operation enables comparing ``Collection`` objects in PHPUnit tests using
-    the dedicated `assertObjectEquals`_ assertion. 
+    the dedicated `assertObjectEquals`_ assertion.
 
 .. warning:: Because this operation *needs to traverse both collections* to determine if
     the same elements are contained within them, a performance cost is incurred. The operation will stop
-    as soon as it encounters an element of one collection that cannot be found in the other. However, 
+    as soon as it encounters an element of one collection that cannot be found in the other. However,
     it is not recommended to use it for potentially large collections, where ``same`` can be used instead.
 
 Interface: `Equalsable`_
@@ -1174,7 +1176,7 @@ Signature: ``Collection::head(): Collection;``
 ifThenElse
 ~~~~~~~~~~
 
-Execute a mapping callback on each item of the collection when a condition is met. 
+Execute a mapping callback on each item of the collection when a condition is met.
 
 If no ``else`` callback is provided, the identity function is applied (elements are not modified).
 

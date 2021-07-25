@@ -13,6 +13,7 @@ use ArrayIterator;
 use ArrayObject;
 use Closure;
 use Doctrine\Common\Collections\Criteria;
+use Error;
 use Exception;
 use Generator;
 use InvalidArgumentException;
@@ -391,12 +392,36 @@ class CollectionSpec extends ObjectBehavior
         ];
 
         $this::fromIterable($iterable)
-            ->getIterator()
             ->shouldIterateAs([
                 'a',
                 'b',
                 'c',
             ]);
+
+        $generator = static function () {
+            yield 'a';
+
+            yield 'b';
+
+            yield 'c';
+
+            yield 'd';
+
+            yield 'e';
+        };
+
+        $generator = $generator();
+        $generator->next();
+        $generator->next();
+
+        $subject = $this::fromIterable($generator);
+
+        $subject
+            ->shouldIterateAs([2 => 'c', 3 => 'd', 4 => 'e']);
+
+        $subject
+            ->shouldThrow(Error::class)
+            ->during('count');
     }
 
     public function it_can_be_constructed_from_an_iterator(): void
