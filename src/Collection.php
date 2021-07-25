@@ -311,9 +311,9 @@ final class Collection implements CollectionInterface
         return new self(Distinct::of()($comparatorCallback)($accessorCallback), [$this->getIterator()]);
     }
 
-    public function drop(int ...$counts): CollectionInterface
+    public function drop(int $count): CollectionInterface
     {
-        return new self(Drop::of()(...$counts), [$this->getIterator()]);
+        return new self(Drop::of()($count), [$this->getIterator()]);
     }
 
     public function dropWhile(callable ...$callbacks): CollectionInterface

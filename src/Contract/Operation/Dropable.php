@@ -22,9 +22,7 @@ interface Dropable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#drop
      *
-     * @param int ...$counts
-     *
      * @return Collection<TKey, T>
      */
-    public function drop(int ...$counts): Collection;
+    public function drop(int $count): Collection;
 }

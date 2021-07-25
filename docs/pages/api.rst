@@ -672,11 +672,11 @@ Signature: ``Collection::distinct(?callable $comparatorCallback = null, ?callabl
 drop
 ~~~~
 
-Drop the n first items of the collection.
+Drop the first ``n`` items of the collection.
 
 Interface: `Dropable`_
 
-Signature: ``Collection::drop(int ...$counts): Collection;``
+Signature: ``Collection::drop(int $count): Collection;``
 
 .. code-block:: php
 
@@ -1281,7 +1281,7 @@ Signature: ``Collection::intersectKeys(...$keys): Collection;``
 intersperse
 ~~~~~~~~~~~
 
-Insert a given value at every n element of a collection; indices are not preserved.
+Insert a given value at every ``n`` element of a collection; indices are not preserved.
 
 Interface: `Intersperseable`_
 
