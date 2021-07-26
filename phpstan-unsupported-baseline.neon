@@ -26,31 +26,6 @@ parameters:
 			path: src/Operation/Unpack.php
 
 		-
-			message: "#^Parameter \\#1 \\$collection of function asyncMap_checkListString expects loophp\\\\collection\\\\Contract\\\\Collection\\<int, string\\>, loophp\\\\collection\\\\Contract\\\\Collection\\<int, non\\-empty\\-string\\> given\\.$#"
-			count: 2
-			path: tests/static-analysis/asyncMap.php
-
-		-
-			message: "#^Parameter \\#1 \\$collection of function asyncMap_checkMapString expects loophp\\\\collection\\\\Contract\\\\Collection\\<string, string\\>, loophp\\\\collection\\\\Contract\\\\Collection\\<string, non\\-empty\\-string\\> given\\.$#"
-			count: 1
-			path: tests/static-analysis/asyncMap.php
-
-		-
-			message: "#^Parameter \\#1 \\$collection of function flatMap_checkListString expects loophp\\\\collection\\\\Contract\\\\Collection\\<int, string\\>, loophp\\\\collection\\\\Contract\\\\Collection\\<int, non\\-empty\\-string\\> given\\.$#"
-			count: 2
-			path: tests/static-analysis/flatMap.php
-
-		-
-			message: "#^Parameter \\#1 \\$collection of function map_checkListString expects loophp\\\\collection\\\\Contract\\\\Collection\\<int, string\\>, loophp\\\\collection\\\\Contract\\\\Collection\\<int, non\\-empty\\-string\\> given\\.$#"
-			count: 2
-			path: tests/static-analysis/map.php
-
-		-
-			message: "#^Parameter \\#1 \\$collection of function map_checkMapString expects loophp\\\\collection\\\\Contract\\\\Collection\\<string, string\\>, loophp\\\\collection\\\\Contract\\\\Collection\\<string, non\\-empty\\-string\\> given\\.$#"
-			count: 1
-			path: tests/static-analysis/map.php
-
-		-
 			message: "#^Parameter \\#1 \\$collection of function reduction_checkListString expects loophp\\\\collection\\\\Contract\\\\Collection\\<int, string\\>, loophp\\\\collection\\\\Contract\\\\Collection\\<int, non\\-empty\\-string\\> given\\.$#"
 			count: 1
 			path: tests/static-analysis/reduction.php
