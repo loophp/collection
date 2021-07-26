@@ -31,7 +31,7 @@ parameters:
 			path: tests/static-analysis/asyncMap.php
 
 		-
-			message: "#^Parameter \\#1 \\$collection of function asyncMap_checkasyncMapString expects loophp\\\\collection\\\\Contract\\\\Collection\\<string, string\\>, loophp\\\\collection\\\\Contract\\\\Collection\\<string, non\\-empty\\-string\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$collection of function asyncMap_checkMapString expects loophp\\\\collection\\\\Contract\\\\Collection\\<string, string\\>, loophp\\\\collection\\\\Contract\\\\Collection\\<string, non\\-empty\\-string\\> given\\.$#"
 			count: 1
 			path: tests/static-analysis/asyncMap.php
 
@@ -49,4 +49,24 @@ parameters:
 			message: "#^Parameter \\#1 \\$collection of function map_checkMapString expects loophp\\\\collection\\\\Contract\\\\Collection\\<string, string\\>, loophp\\\\collection\\\\Contract\\\\Collection\\<string, non\\-empty\\-string\\> given\\.$#"
 			count: 1
 			path: tests/static-analysis/map.php
+
+		-
+			message: "#^Parameter \\#1 \\$collection of function reduction_checkListString expects loophp\\\\collection\\\\Contract\\\\Collection\\<int, string\\>, loophp\\\\collection\\\\Contract\\\\Collection\\<int, non\\-empty\\-string\\> given\\.$#"
+			count: 1
+			path: tests/static-analysis/reduction.php
+
+		-
+			message: "#^Parameter \\#1 \\$collection of function reduction_checkListStringWithNull expects loophp\\\\collection\\\\Contract\\\\Collection\\<int, string\\>, loophp\\\\collection\\\\Contract\\\\Collection\\<int, non\\-empty\\-string\\> given\\.$#"
+			count: 1
+			path: tests/static-analysis/reduction.php
+
+		-
+			message: "#^Parameter \\#1 \\$collection of function scanLeft_checkListStringWithNull expects loophp\\\\collection\\\\Contract\\\\Collection\\<int, string\\|null\\>, loophp\\\\collection\\\\Contract\\\\Collection\\<int, non\\-empty\\-string\\|null\\> given\\.$#"
+			count: 1
+			path: tests/static-analysis/scanLeft.php
+
+		-
+			message: "#^Parameter \\#1 \\$collection of function scanRight_checkListStringWithNull expects loophp\\\\collection\\\\Contract\\\\Collection\\<int, string\\|null\\>, loophp\\\\collection\\\\Contract\\\\Collection\\<int, non\\-empty\\-string\\|null\\> given\\.$#"
+			count: 1
+			path: tests/static-analysis/scanRight.php
 
