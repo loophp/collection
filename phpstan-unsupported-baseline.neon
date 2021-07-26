@@ -1,6 +1,11 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Parameter \\#1 \\$callable of class loophp\\\\collection\\\\Collection constructor expects callable\\(\\.\\.\\.mixed\\)\\: iterable\\<int, string\\>, Closure\\(string, string\\)\\: loophp\\\\collection\\\\Iterator\\\\StringIterator\\<mixed, string\\> given\\.$#"
+			count: 1
+			path: src/Collection.php
+
+		-
 			message: "#^Generic type loophp\\\\collection\\\\Contract\\\\Operation\\\\Unpackable\\<mixed, mixed\\> in PHPDoc tag @extends does not specify all template types of interface loophp\\\\collection\\\\Contract\\\\Operation\\\\Unpackable\\: TKey, T, NewTKey, NewT$#"
 			count: 1
 			path: src/Contract/Collection.php
@@ -21,6 +26,27 @@ parameters:
 			path: src/Operation/Unpack.php
 
 		-
-			message: "#^Parameter \\#1 \\$callable of class loophp\\\\collection\\\\Collection constructor expects callable\\(\\.\\.\\.mixed\\)\\: iterable\\<int, string\\>, Closure\\(string, string\\)\\: loophp\\\\collection\\\\Iterator\\\\StringIterator\\<mixed, string\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$collection of function asyncMap_checkListString expects loophp\\\\collection\\\\Contract\\\\Collection\\<int, string\\>, loophp\\\\collection\\\\Contract\\\\Collection\\<int, non\\-empty\\-string\\> given\\.$#"
+			count: 2
+			path: tests/static-analysis/asyncMap.php
+
+		-
+			message: "#^Parameter \\#1 \\$collection of function asyncMap_checkasyncMapString expects loophp\\\\collection\\\\Contract\\\\Collection\\<string, string\\>, loophp\\\\collection\\\\Contract\\\\Collection\\<string, non\\-empty\\-string\\> given\\.$#"
 			count: 1
-			path: src/Collection.php
+			path: tests/static-analysis/asyncMap.php
+
+		-
+			message: "#^Parameter \\#1 \\$collection of function flatMap_checkListString expects loophp\\\\collection\\\\Contract\\\\Collection\\<int, string\\>, loophp\\\\collection\\\\Contract\\\\Collection\\<int, non\\-empty\\-string\\> given\\.$#"
+			count: 2
+			path: tests/static-analysis/flatMap.php
+
+		-
+			message: "#^Parameter \\#1 \\$collection of function map_checkListString expects loophp\\\\collection\\\\Contract\\\\Collection\\<int, string\\>, loophp\\\\collection\\\\Contract\\\\Collection\\<int, non\\-empty\\-string\\> given\\.$#"
+			count: 2
+			path: tests/static-analysis/map.php
+
+		-
+			message: "#^Parameter \\#1 \\$collection of function map_checkMapString expects loophp\\\\collection\\\\Contract\\\\Collection\\<string, string\\>, loophp\\\\collection\\\\Contract\\\\Collection\\<string, non\\-empty\\-string\\> given\\.$#"
+			count: 1
+			path: tests/static-analysis/map.php
+
