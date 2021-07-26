@@ -15,6 +15,7 @@ use Generator;
 use Iterator;
 use loophp\collection\Contract\Collection as CollectionInterface;
 use loophp\collection\Contract\Operation;
+use loophp\collection\Iterator\ArrayCacheIterator;
 use loophp\collection\Iterator\ClosureIterator;
 use loophp\collection\Iterator\IterableIterator;
 use loophp\collection\Iterator\ResourceIterator;
@@ -446,6 +447,31 @@ final class Collection implements CollectionInterface
         return new self(
             static fn (string $filepath): Iterator => new ResourceIterator(fopen($filepath, 'rb'), true),
             [$filepath]
+        );
+    }
+
+    /**
+     * @template NewTKey
+     * @template NewT
+     *
+     * @param Generator<NewTKey, NewT> $generator
+     *
+     * @return self<NewTKey, NewT>
+     */
+    public static function fromGenerator(Generator $generator): self
+    {
+        return self::fromIterable(
+            new ArrayCacheIterator(
+                new ClosureIterator(
+                    static function (Generator $generator): Generator {
+                        while ($generator->valid()) {
+                            yield $generator->key() => $generator->current();
+                            $generator->next();
+                        }
+                    },
+                    [$generator]
+                )
+            )
         );
     }
 
