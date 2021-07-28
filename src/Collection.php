@@ -169,7 +169,7 @@ final class Collection implements CollectionInterface
      * @param callable(mixed ...$parameters): iterable<TKey, T> $callable
      * @param iterable<array-key, mixed> $parameters
      */
-    public function __construct(callable $callable, iterable $parameters = [])
+    final private function __construct(callable $callable, iterable $parameters = [])
     {
         $this->source = $callable;
         $this->parameters = $parameters;
