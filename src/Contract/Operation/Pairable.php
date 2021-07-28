@@ -22,7 +22,7 @@ interface Pairable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#pair
      *
-     * @return Collection<T|TKey, T>
+     * @return Collection<T, T|null>
      */
     public function pair(): Collection;
 }

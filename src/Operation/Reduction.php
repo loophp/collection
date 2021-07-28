@@ -27,28 +27,29 @@ final class Reduction extends AbstractOperation
      * @pure
      *
      * @template V
+     * @template W
      *
-     * @return Closure(callable(V, T, TKey, Iterator<TKey, T>): V): Closure (V): Closure(Iterator<TKey, T>): Generator<TKey, V>
+     * @return Closure(callable(V|W, T, TKey, Iterator<TKey, T>): W): Closure(V): Closure(Iterator<TKey, T>): Generator<TKey, W>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable(V, T, TKey, Iterator<TKey, T>): V $callback
+             * @param callable(V|W, T, TKey, Iterator<TKey, T>): W $callback
              *
-             * @return Closure(V): Closure(Iterator<TKey, T>): Generator<TKey, V>
+             * @return Closure(V): Closure(Iterator<TKey, T>): Generator<TKey, W>
              */
             static fn (callable $callback): Closure =>
                 /**
                  * @param V $initial
                  *
-                 * @return Closure(Iterator<TKey, T>): Generator<TKey, V>
+                 * @return Closure(Iterator<TKey, T>): Generator<TKey, W>
                  */
                 static fn ($initial): Closure =>
                     /**
                      * @param Iterator<TKey, T> $iterator
                      *
-                     * @return Generator<TKey, V>
+                     * @return Generator<TKey, W>
                      */
                     static function (Iterator $iterator) use ($callback, $initial): Generator {
                         foreach ($iterator as $key => $value) {

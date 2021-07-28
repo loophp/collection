@@ -19,13 +19,13 @@ function asyncMapN_checkListInt(CollectionInterface $collection): void
 {
 }
 /**
- * @param CollectionInterface<int, string> $collection
+ * @param CollectionInterface<int, non-empty-string> $collection
  */
 function asyncMapN_checkListString(CollectionInterface $collection): void
 {
 }
 /**
- * @param CollectionInterface<string, string> $collection
+ * @param CollectionInterface<string, non-empty-string> $collection
  */
 function asyncMapN_checkMapString(CollectionInterface $collection): void
 {

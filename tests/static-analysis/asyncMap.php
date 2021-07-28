@@ -19,21 +19,21 @@ function asyncMap_checkListInt(CollectionInterface $collection): void
 {
 }
 /**
- * @param CollectionInterface<int, string> $collection
+ * @param CollectionInterface<int, non-empty-string> $collection
  */
 function asyncMap_checkListString(CollectionInterface $collection): void
 {
 }
 /**
- * @param CollectionInterface<string, string> $collection
+ * @param CollectionInterface<string, non-empty-string> $collection
  */
-function asyncMap_checkasyncMapString(CollectionInterface $collection): void
+function asyncMap_checkMapString(CollectionInterface $collection): void
 {
 }
 /**
  * @param CollectionInterface<string, stdClass> $collection
  */
-function asyncMap_checkasyncMapClass(CollectionInterface $collection): void
+function asyncMap_checkMapClass(CollectionInterface $collection): void
 {
 }
 
@@ -50,14 +50,14 @@ $toClass = static function (string $val): stdClass {
 asyncMap_checkListInt(Collection::fromIterable([1, 2, 3])->asyncMap($square));
 asyncMap_checkListInt(Collection::fromIterable([1, 2, 3])->asyncMap($square)->asyncMap($square));
 
-asyncMap_checkasyncMapClass(Collection::fromIterable(['foo' => 'bar', 'bar' => 'baz'])->asyncMap($toClass));
+asyncMap_checkMapClass(Collection::fromIterable(['foo' => 'bar', 'bar' => 'baz'])->asyncMap($toClass));
 
 // This should work but static analysers restrict the return type
 // E.g: `numeric&string` or `non-empty-string`
 /** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
 asyncMap_checkListString(Collection::fromIterable([1, 2, 3])->asyncMap($toString));
 /** @psalm-suppress InvalidArgument */
-asyncMap_checkasyncMapString(Collection::fromIterable(['foo' => 'bar', 'baz' => 'bar'])->asyncMap($appendBar));
+asyncMap_checkMapString(Collection::fromIterable(['foo' => 'bar', 'baz' => 'bar'])->asyncMap($appendBar));
 /** @psalm-suppress InvalidArgument */
 asyncMap_checkListString(Collection::fromIterable(['foo', 'bar'])->asyncMap($appendBar));
 /** @psalm-suppress InvalidArgument */
@@ -68,4 +68,4 @@ asyncMap_checkListString(Collection::fromIterable([1, 2, 3])->asyncMap($square)-
 /** @psalm-suppress InvalidScalarArgument @phpstan-ignore-next-line */
 asyncMap_checkListInt(Collection::fromIterable(['foo' => 'bar'])->asyncMap($square));
 /** @psalm-suppress InvalidScalarArgument @phpstan-ignore-next-line */
-asyncMap_checkasyncMapString(Collection::fromIterable([1, 2, 3])->asyncMap($appendBar));
+asyncMap_checkMapString(Collection::fromIterable([1, 2, 3])->asyncMap($appendBar));

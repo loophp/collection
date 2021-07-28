@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
+use Iterator;
 use loophp\collection\Contract\Collection;
 
 /**
@@ -24,9 +25,13 @@ interface ScanRightable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#scanright
      *
-     * @param T|null $initial
+     * @template V
+     * @template W
      *
-     * @return Collection<TKey, T>
+     * @param callable(V|W, T, TKey, Iterator<TKey, T>): W $callback
+     * @param V $initial
+     *
+     * @return Collection<int|TKey, V|W>
      */
     public function scanRight(callable $callback, $initial = null): Collection;
 }

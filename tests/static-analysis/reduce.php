@@ -13,7 +13,7 @@ use loophp\collection\Collection;
 use loophp\collection\Contract\Collection as CollectionInterface;
 
 /**
- * @param CollectionInterface<int, int|null> $collection
+ * @param CollectionInterface<int, int> $collection
  */
 function reduce_checkListNullableInt(CollectionInterface $collection): void
 {
@@ -25,7 +25,7 @@ function reduce_checkListInt(CollectionInterface $collection): void
 {
 }
 /**
- * @param CollectionInterface<string, string|null> $collection
+ * @param CollectionInterface<string, string> $collection
  */
 function reduce_checkMapNullableString(CollectionInterface $collection): void
 {
@@ -56,9 +56,3 @@ reduce_checkMapString(Collection::fromIterable(['z' => 'a', 'y' => 'b', 'x' => '
 reduce_checkListNullableInt(Collection::fromIterable([1, 2, 3])->reduce($sum));
 /** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
 reduce_checkMapNullableString(Collection::fromIterable(['z' => 'a', 'y' => 'b', 'x' => 'c'])->reduce($concat));
-
-// not accounting for possible NULL type in final collection when initial value is NULL
-/** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
-reduce_checkListInt(Collection::fromIterable([1, 2, 3])->reduce($sumNullable));
-/** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
-reduce_checkMapString(Collection::fromIterable(['z' => 'a', 'y' => 'b', 'x' => 'c'])->reduce($concatNullable));
