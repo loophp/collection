@@ -54,7 +54,8 @@ final class Unpack extends AbstractOperation
 
         /** @var Closure(Iterator<TKey, T>): Generator<NewTKey, NewT> $pipe */
         $pipe = Pipe::of()(
-            MapN::of()($toIterableIterator, Chunk::of()(2)),
+            Map::of()($toIterableIterator),
+            Map::of()(Chunk::of()(2)),
             Flatten::of()(1),
             Associate::of()($callbackForKeys)($callbackForValues)
         );
