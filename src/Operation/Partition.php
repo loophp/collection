@@ -49,7 +49,7 @@ final class Partition extends AbstractOperation
                     /** @var array{0: Closure(Iterator<TKey, T>): Generator<TKey, T>, 1: array{0: Iterator<TKey, T>}} $reject */
                     $reject = [Reject::of()(...$callbacks), [$iterator]];
 
-                    yield from [$filter, $reject];
+                    return yield from [$filter, $reject];
                 };
     }
 }

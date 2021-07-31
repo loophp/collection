@@ -49,7 +49,7 @@ final class Span extends AbstractOperation
                     /** @var array{0: Closure(Iterator<TKey, T>): Generator<TKey, T>, 1: array{0: Iterator<TKey, T>}} $dropWhile */
                     $dropWhile = [DropWhile::of()(...$callbacks), [$iterator]];
 
-                    yield from [$takeWhile, $dropWhile];
+                    return yield from [$takeWhile, $dropWhile];
                 };
     }
 }
