@@ -463,6 +463,9 @@ column
 
 Return the values from a single column in the input iterables.
 
+.. tip:: If the iterables you are selecting from are ``Generators``, the operation will allow
+         accessing keys of any type, not just ``int|string``.
+
 Interface: `Columnable`_
 
 Signature: ``Collection::column($column): Collection;``
@@ -494,6 +497,9 @@ Signature: ``Collection::column($column): Collection;``
 
     $result = Collection::fromIterable($records)
         ->column('first_name'); // ['John', 'Sally', 'Jane', 'Peter']
+    
+    $result = Collection::fromIterable($records)
+        ->column('non_existent_key'); // []
 
 combinate
 ~~~~~~~~~

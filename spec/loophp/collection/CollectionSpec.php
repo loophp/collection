@@ -660,14 +660,20 @@ class CollectionSpec extends ObjectBehavior
 
         $this::fromIterable($records)
             ->column('first_name')
-            ->shouldIterateAs(
-                [
-                    0 => 'John',
-                    1 => 'Sally',
-                    2 => 'Jane',
-                    3 => 'Peter',
-                ]
-            );
+            ->shouldIterateAs([0 => 'John', 1 => 'Sally', 2 => 'Jane', 3 => 'Peter']);
+
+        $this::fromIterable($records)
+            ->column('middle_name')
+            ->shouldIterateAs([]);
+
+        $nonArrayKeyRecords = [
+            (static fn () => yield ['id'] => 1234)(),
+            (static fn () => yield ['id'] => 4567)(),
+        ];
+
+        $this::fromIterable($nonArrayKeyRecords)
+            ->column(['id'])
+            ->shouldIterateAs([0 => 1234, 1 => 4567]);
     }
 
     public function it_can_combinate(): void
