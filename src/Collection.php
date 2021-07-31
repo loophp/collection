@@ -702,15 +702,19 @@ final class Collection implements CollectionInterface
     public function partition(callable ...$callbacks): CollectionInterface
     {
         // TODO: Move this docblock above closure when https://github.com/phpstan/phpstan/issues/3770 lands.
-        $mapCallback = static function (array $partitionResult): CollectionInterface {
+        $mapCallback =
             /**
-             * @var Closure(Iterator<TKey, T>): Generator<TKey, T> $callback
-             * @var array{0: Iterator<TKey, T>} $parameters
+             * @param array{0: (Closure(Iterator<TKey, T>): Generator<TKey, T>), 1: (array{0: Iterator<TKey, T>})} $partitionResult
              */
-            [$callback, $parameters] = $partitionResult;
+            static function (array $partitionResult): CollectionInterface {
+                /**
+                 * @var Closure(Iterator<TKey, T>): Generator<TKey, T> $callback
+                 * @var array{0: Iterator<TKey, T>} $parameters
+                 */
+                [$callback, $parameters] = $partitionResult;
 
-            return self::fromCallable($callback, $parameters);
-        };
+                return self::fromCallable($callback, $parameters);
+            };
 
         return new self(Pipe::of()(Partition::of()(...$callbacks), Map::of()($mapCallback)), [$this->getIterator()]);
     }
