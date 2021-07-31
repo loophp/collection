@@ -101,5 +101,5 @@ $users = [
 $collection = Collection::fromIterable($users)
     ->distinct(
         static fn (string $left): Closure => static fn (string $right): bool => $left === $right,
-        static fn (Cat $cat) => $cat->name()
+        static fn (Cat $cat): string => $cat->name()
     ); // [0 => Cat<izumi>, 1 => Cat<nakano>, 2 => Cat<booba>]
