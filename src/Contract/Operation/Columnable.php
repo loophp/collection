@@ -22,9 +22,9 @@ interface Columnable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#column
      *
-     * @param int|string $column
+     * @param mixed $column
      *
-     * @return Collection<TKey, T>
+     * @return Collection<int, mixed>
      */
     public function column($column): Collection;
 }
