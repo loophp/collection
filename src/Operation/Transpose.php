@@ -46,7 +46,7 @@ final class Transpose extends AbstractOperation
                 $callbackForKeys =
                     /**
                      * @param array $carry
-                     * @param array<int, TKey> $key
+                     * @param non-empty-array<int, TKey> $key
                      *
                      * @return TKey
                      */

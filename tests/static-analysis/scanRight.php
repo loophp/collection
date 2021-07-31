@@ -13,7 +13,8 @@ use loophp\collection\Collection;
 use loophp\collection\Contract\Collection as CollectionInterface;
 
 $sum = static fn (int $carry, int $value): int => $carry + $value;
-$concat = static fn (?string $carry, string $string): string => sprintf('%s%s', (string) $carry, $string);
+$concat = static fn (string $carry, string $string): string => sprintf('%s%s', $carry, $string);
+$concatWithNull = static fn (?string $carry, string $string): string => sprintf('%s%s', (string) $carry, $string);
 $toString =
     /**
      * @param bool|string $carry
@@ -50,5 +51,5 @@ function scanRight_checkListOfSize1String(CollectionInterface $collection): void
 
 scanRight_checkListInt(Collection::fromIterable([1, 2, 3])->scanRight($sum, 5));
 scanRight_checkListString(Collection::fromIterable(range('a', 'c'))->scanRight($concat, ''));
-scanRight_checkListStringWithNull(Collection::fromIterable(range('a', 'c'))->scanRight($concat));
+scanRight_checkListStringWithNull(Collection::fromIterable(range('a', 'c'))->scanRight($concatWithNull));
 scanRight_checkListOfSize1String(Collection::fromIterable([10])->scanRight($toString, true));
