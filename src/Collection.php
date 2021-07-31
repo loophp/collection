@@ -851,15 +851,19 @@ final class Collection implements CollectionInterface
     public function span(callable ...$callbacks): CollectionInterface
     {
         // TODO: Move this docblock above closure when https://github.com/phpstan/phpstan/issues/3770 lands.
-        $mapCallback = static function (array $spanResult): CollectionInterface {
+        $mapCallback =
             /**
-             * @var Closure(Iterator<TKey, T>): Generator<TKey, T> $callback
-             * @var array{0: Iterator<TKey, T>} $parameters
+             * @param array{0: (Closure(Iterator<TKey, T>): Generator<TKey, T>), 1: (array{0: Iterator<TKey, T>})} $spanResult
              */
-            [$callback, $parameters] = $spanResult;
+            static function (array $spanResult): CollectionInterface {
+                /**
+                 * @var Closure(Iterator<TKey, T>): Generator<TKey, T> $callback
+                 * @var array{0: Iterator<TKey, T>} $parameters
+                 */
+                [$callback, $parameters] = $spanResult;
 
-            return self::fromCallable($callback, $parameters);
-        };
+                return self::fromCallable($callback, $parameters);
+            };
 
         return new self(Pipe::of()(Span::of()(...$callbacks), Map::of()($mapCallback)), [$this->getIterator()]);
     }
