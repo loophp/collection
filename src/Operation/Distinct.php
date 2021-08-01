@@ -44,53 +44,29 @@ final class Distinct extends AbstractOperation
                  *
                  * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
                  */
-                static function (callable $accessorCallback) use ($comparatorCallback): Closure {
+                static fn (callable $accessorCallback): Closure =>
                     /**
-                     * @param callable(T, TKey): U $accessorCallback
+                     * @param Iterator<TKey, T> $iterator
                      *
-                     * @return Closure(callable(U): Closure(U): bool): Closure(list<array{0: TKey, 1: T}>, array{0: TKey, 1: T}): list<array{0: TKey, 1: T}>
+                     * @return Generator<TKey, T>
                      */
-                    $foldLeftCallbackBuilder =
-                        static fn (callable $accessorCallback): Closure =>
-                            /**
-                             * @param callable(U): (Closure(U): bool) $comparatorCallback
-                             *
-                             * @return Closure(list<array{0: TKey, 1: T}>, array{0: TKey, 1: T}): list<array{0: TKey, 1: T}>
-                             */
-                            static fn (callable $comparatorCallback): Closure =>
-                                /**
-                                 * @param list<array{0: TKey, 1: T}> $seen
-                                 * @param array{0: TKey, 1: T} $value
-                                 */
-                                static function (array $seen, array $value) use ($accessorCallback, $comparatorCallback): array {
-                                    $isSeen = false;
-                                    $comparator = $comparatorCallback($accessorCallback($value[1], $value[0]));
+                    static function (Iterator $iterator) use ($comparatorCallback, $accessorCallback): Generator {
+                        // Todo: Find a way to rewrite this using composition of operations, without side effect.
+                        $stack = [];
 
-                                    foreach ($seen as $item) {
-                                        if (true === $comparator($accessorCallback($item[1], $item[0]))) {
-                                            $isSeen = true;
+                        foreach ($iterator as $key => $value) {
+                            $comparator = $comparatorCallback($accessorCallback($value, $key));
 
-                                            break;
-                                        }
-                                    }
+                            foreach ($stack as $item) {
+                                if (true === $comparator($accessorCallback($item[1], $item[0]))) {
+                                    continue 2;
+                                }
+                            }
 
-                                    if (false === $isSeen) {
-                                        $seen[] = $value;
-                                    }
+                            $stack[] = [$key, $value];
 
-                                    return $seen;
-                                };
-
-                    /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
-                    $pipe = Pipe::of()(
-                        Pack::of(),
-                        Reduce::of()($foldLeftCallbackBuilder($accessorCallback)($comparatorCallback))([]),
-                        Flatten::of()(1),
-                        Unpack::of()
-                    );
-
-                    // Point free style.
-                    return $pipe;
-                };
+                            yield $key => $value;
+                        }
+                    };
     }
 }

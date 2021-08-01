@@ -15,8 +15,8 @@ use loophp\collection\Collection;
 include __DIR__ . '/../../../../vendor/autoload.php';
 
 // Example 1 -> Using the default callbacks, with scalar values
-$collection = Collection::fromIterable(['a', 'b', 'a', 'c'])
-    ->distinct(); // [0 => 'a', 1 => 'b', 3 => 'c']
+$collection = Collection::fromIterable(['a', 'b', 'a', 'c', 'a', 'c'])
+    ->duplicate(); // [2 => 'a', 4 => 'a', 5 => 'c']
 
 // Example 2 -> Using a custom comparator callback, with object values
 final class User
@@ -44,7 +44,7 @@ $users = [
 $collection = Collection::fromIterable($users)
     ->distinct(
         static fn (User $left): Closure => static fn (User $right): bool => $left->name() === $right->name()
-    ); // [0 => User<foo>, 1 => User<bar>, 3 => User<a>]
+    ); // [2 => User<foo>]
 
 // Example 3 -> Using a custom accessor callback, with object values
 final class Person
@@ -73,7 +73,7 @@ $collection = Collection::fromIterable($users)
     ->distinct(
         null,
         static fn (Person $person): string => $person->name()
-    ); // [0 => Person<foo>, 1 => Person<bar>, 3 => Person<a>]
+    ); // [2 => Person<foo>]
 
 // Example 4 -> Using both accessor and comparator callbacks, with object values
 final class Cat
@@ -102,4 +102,4 @@ $collection = Collection::fromIterable($users)
     ->distinct(
         static fn (string $left): Closure => static fn (string $right): bool => $left === $right,
         static fn (Cat $cat): string => $cat->name()
-    ); // [0 => Cat<izumi>, 1 => Cat<nakano>, 2 => Cat<booba>]
+    ); // [3 => Cat<booba>]
