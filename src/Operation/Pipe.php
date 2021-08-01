@@ -35,25 +35,22 @@ final class Pipe extends AbstractOperation
              *
              * @return Closure(Iterator<TKey, T>): Iterator<TKey, T>
              */
-            static fn (callable ...$operations): Closure =>
+            static fn (callable ...$operations): Closure => array_reduce(
+                $operations,
                 /**
-                 * @param Iterator<TKey, T> $iterator
+                 * @param callable(Iterator<TKey, T>): Iterator<TKey, T> $f
+                 * @param callable(Iterator<TKey, T>): Iterator<TKey, T> $g
                  *
-                 * @return Iterator<TKey, T>
+                 * @return Closure(Iterator<TKey, T>): Iterator<TKey, T>
                  */
-                static fn (Iterator $iterator): Iterator => array_reduce(
-                    $operations,
+                static fn (callable $f, callable $g): Closure =>
                     /**
-                     * TODO: Should we return a new ClosureIterator here ?
-                     * Something like: "new ClosureIterator($callable, $iterator)".
-                     *
                      * @param Iterator<TKey, T> $iterator
-                     * @param callable(Iterator<TKey, T>): Iterator<TKey, T> $callable
                      *
                      * @return Iterator<TKey, T>
                      */
-                    static fn (Iterator $iterator, callable $callable): Iterator => $callable($iterator),
-                    $iterator
-                );
+                    static fn (Iterator $iterator): Iterator => $g($f($iterator)),
+                static fn (Iterator $iterator): Iterator => $iterator
+            );
     }
 }
