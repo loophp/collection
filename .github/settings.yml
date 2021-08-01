@@ -15,6 +15,8 @@ branches:
                   - "Static Analysis (ubuntu-latest, 8.0)"
                   - "Unit Tests (ubuntu-latest, 7.4)"
                   - "Unit Tests (ubuntu-latest, 8.0)"
+                  - "Unit Tests (macOS-latest, 7.4)"
+                  - "Unit Tests (macOS-latest, 8.0)"
                   - "Unit Tests (windows-latest, 7.4)"
                   - "Unit Tests (windows-latest, 8.0)"
                   - "Mutation Testing (ubuntu-latest, 7.4)"

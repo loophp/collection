@@ -37,30 +37,29 @@ final class Reject extends AbstractOperation
              *
              * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
-            static fn (callable ...$callbacks): Closure =>
-                /**
-                 * @param Iterator<TKey, T> $iterator
-                 *
-                 * @return Generator<TKey, T>
-                 */
-                static function (Iterator $iterator) use ($callbacks): Generator {
-                    $defaultCallback =
-                        /**
-                         * @param T $value
-                         */
-                        static fn ($value): bool => (bool) $value;
+            static function (callable ...$callbacks): Closure {
+                $defaultCallback =
+                    /**
+                     * @param T $value
+                     */
+                    static fn ($value): bool => (bool) $value;
 
-                    $callbacks = [] === $callbacks ?
-                        [$defaultCallback] :
-                        $callbacks;
+                $callbacks = [] === $callbacks ?
+                    [$defaultCallback] :
+                    $callbacks;
 
-                    foreach ($iterator as $key => $current) {
-                        $result = CallbacksArrayReducer::or()($callbacks, $current, $key, $iterator);
+                /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $reject */
+                $reject = Filter::of()(
+                    /**
+                     * @param T $current
+                     * @param TKey $key
+                     * @param Iterator<TKey, T> $iterator
+                     */
+                    static fn ($current, $key, Iterator $iterator): bool => !CallbacksArrayReducer::or()($callbacks, $current, $key, $iterator)
+                );
 
-                        if (false === $result) {
-                            yield $key => $current;
-                        }
-                    }
-                };
+                // Point free style.
+                return $reject;
+            };
     }
 }
