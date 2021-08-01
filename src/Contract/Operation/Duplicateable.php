@@ -24,5 +24,5 @@ interface Duplicateable
      *
      * @return Collection<TKey, T>
      */
-    public function duplicate(): Collection;
+    public function duplicate(?callable $comparatorCallback = null, ?callable $accessorCallback = null): Collection;
 }

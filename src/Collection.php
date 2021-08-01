@@ -326,9 +326,30 @@ final class Collection implements CollectionInterface
         return new self(Dump::of()($name)($size)($closure), [$this->getIterator()]);
     }
 
-    public function duplicate(): CollectionInterface
+    public function duplicate(?callable $comparatorCallback = null, ?callable $accessorCallback = null): CollectionInterface
     {
-        return new self(Duplicate::of(), [$this->getIterator()]);
+        $accessorCallback ??=
+            /**
+             * @param T $value
+             * @param TKey $key
+             *
+             * @return T
+             */
+            static fn ($value, $key) => $value;
+
+        $comparatorCallback ??=
+            /**
+             * @param T $left
+             *
+             * @return Closure(T): bool
+             */
+            static fn ($left): Closure =>
+                /**
+                 * @param T $right
+                 */
+                static fn ($right): bool => $left === $right;
+
+        return new self(Duplicate::of()($comparatorCallback)($accessorCallback), [$this->getIterator()]);
     }
 
     /**

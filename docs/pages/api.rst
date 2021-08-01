@@ -497,7 +497,7 @@ Signature: ``Collection::column($column): Collection;``
 
     $result = Collection::fromIterable($records)
         ->column('first_name'); // ['John', 'Sally', 'Jane', 'Peter']
-    
+
     $result = Collection::fromIterable($records)
         ->column('non_existent_key'); // []
 
@@ -732,21 +732,22 @@ duplicate
 
 Find duplicated values from the collection.
 
+The operation has 2 optional parameters that allow you to customize precisely
+how values are accessed and compared to each other.
+
+The first parameter is the comparator. This is a curried function which takes
+first the left part, then the right part and then returns a boolean.
+
+The second parameter is the accessor. This binary function takes the value and
+the key of the current iterated value and then return the value to compare.
+This is useful when you want to compare objects.
+
 Interface: `Duplicateable`_
 
-Signature: ``Collection::duplicate(): Collection;``
+Signature: ``Collection::duplicate(?callable $comparatorCallback = null, ?callable $accessorCallback = null): Collection;``
 
-.. code-block:: php
-
-    // It might return duplicated values!
-    Collection::fromIterable(['a', 'b', 'c', 'a', 'c', 'a'])
-            ->duplicate(); // [3 => 'a', 4 => 'c', 5 => 'a']
-
-    // Use ::distinct() and ::normalize() to get what you want.
-    Collection::fromIterable(['a', 'b', 'c', 'a', 'c', 'a'])
-            ->duplicate()
-            ->distinct()
-            ->normalize() // [0 => 'a', 1 => 'c']
+.. literalinclude:: code/operations/duplicate.php
+  :language: php
 
 equals
 ~~~~~~

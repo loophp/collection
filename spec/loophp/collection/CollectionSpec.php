@@ -1097,15 +1097,54 @@ class CollectionSpec extends ObjectBehavior
 
     public function it_can_duplicate(): void
     {
-        $result = static function () {
-            yield 3 => 'a';
-
-            yield 4 => 'c';
-        };
-
         $this::fromIterable(['a', 'b', 'c', 'a', 'c'])
             ->duplicate()
-            ->shouldIterateAs($result());
+            ->shouldIterateAs([3 => 'a', 4 => 'c']);
+
+        $cat = static fn (string $name) => new class($name) {
+            private string $name;
+
+            public function __construct(string $name)
+            {
+                $this->name = $name;
+            }
+
+            public function name(): string
+            {
+                return $this->name;
+            }
+        };
+
+        $cats = [
+            $cat1 = $cat('booba'),
+            $cat2 = $cat('lola'),
+            $cat3 = $cat('lalee'),
+            $cat3,
+        ];
+
+        $this::fromIterable($cats)
+            ->duplicate()
+            ->shouldIterateAs([3 => $cat3]);
+
+        $this::fromIterable($cats)
+            ->duplicate(
+                static fn (object $left) => static fn (object $right) => $left->name() === $right->name()
+            )
+            ->shouldIterateAs([3 => $cat3]);
+
+        $this::fromIterable($cats)
+            ->duplicate(
+                static fn (string $left) => static fn (string $right) => $left === $right,
+                static fn (object $cat): string => $cat->name()
+            )
+            ->shouldIterateAs([3 => $cat3]);
+
+        $this::fromIterable($cats)
+            ->duplicate(
+                null,
+                static fn (object $cat): string => $cat->name()
+            )
+            ->shouldIterateAs([3 => $cat3]);
     }
 
     public function it_can_equals(): void
