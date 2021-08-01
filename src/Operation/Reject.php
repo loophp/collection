@@ -50,7 +50,12 @@ final class Reject extends AbstractOperation
 
                 /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $reject */
                 $reject = Filter::of()(
-                    static fn ($current, $key, $iterator): bool => !CallbacksArrayReducer::or()($callbacks, $current, $key, $iterator)
+                    /**
+                     * @param T $current
+                     * @param TKey $key
+                     * @param Iterator<TKey, T> $iterator
+                     */
+                    static fn ($current, $key, Iterator $iterator): bool => !CallbacksArrayReducer::or()($callbacks, $current, $key, $iterator)
                 );
 
                 // Point free style.
