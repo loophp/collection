@@ -275,19 +275,8 @@ Interface: `Applyable`_
 
 Signature: ``Collection::apply(callable ...$callbacks): Collection;``
 
-.. code-block:: php
-
-    $callback = static function ($value, $key): bool
-        {
-            var_dump('Value is: ' . $value . ', key is: ' . $key);
-
-            return true;
-        };
-
-    $collection = Collection::fromIterable(['1', '2', '3']);
-
-    $collection
-        ->apply($callback);
+.. literalinclude:: code/operations/apply.php
+  :language: php
 
 associate
 ~~~~~~~~~

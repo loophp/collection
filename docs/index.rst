@@ -180,6 +180,7 @@ For more detailed changelogs, please check `the release changelogs`_.
 
    Requirements <pages/requirements>
    Installation <pages/installation>
+   Principles <pages/principles>
    Usage <pages/usage>
    API <pages/api>
    Tests <pages/tests>
