@@ -39,7 +39,7 @@ final class Contains extends AbstractOperation
              * @return Closure(Iterator<TKey, T>): Generator<TKey, bool>
              */
             static function (...$values): Closure {
-                /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, bool> $matchOne */
+                /** @var Closure(Iterator<TKey, T>): Generator<int, bool> $matchOne */
                 $matchOne = MatchOne::of()(FPT::thunk()(true))(...FPT::map()(FPT::operator()(Operator::OP_EQUAL))($values));
 
                 // Point free style.

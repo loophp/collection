@@ -38,7 +38,7 @@ final class Explode extends AbstractOperation
              * @return Closure(Iterator<TKey, T>): Generator<int, list<T>>
              */
             static function (...$explodes): Closure {
-                /** @psalm-var Closure(Iterator<TKey, T>): Generator<int, list<T>> $split */
+                /** @var Closure(Iterator<TKey, T>): Generator<int, list<T>> $split */
                 $split = Split::of()(Splitable::REMOVE)(...FPT::map()(FPT::operator()(Operator::OP_EQUAL))($explodes));
 
                 // Point free style.

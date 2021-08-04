@@ -43,7 +43,7 @@ final class Get extends AbstractOperation
                  * @return Closure(Iterator<TKey, T>): Generator<TKey, T|null>
                  */
                 static function ($default) use ($keyToGet): Closure {
-                    /** @psalm-var Closure(Iterator<TKey, T>):(Generator<int|TKey, T>) $pipe */
+                    /** @var Closure(Iterator<TKey, T>):(Generator<int|TKey, T>) $pipe */
                     $pipe = Pipe::of()(
                         Filter::of()(
                             FPT::compose()(

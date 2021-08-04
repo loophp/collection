@@ -39,10 +39,11 @@ final class Nth extends AbstractOperation
                  * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
                  */
                 static function (int $offset) use ($step): Closure {
-                    /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
+                    /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
                     $pipe = Filter::of()(
                         FPT::compose()(
                             FPT::operator()(Operator::OP_EQUAL)($offset),
+                            // TODO: Unable to use FPT for this yet(to make it point free)
                             static fn ($value, $key): int => $key % $step
                         )
                     );

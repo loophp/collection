@@ -29,7 +29,7 @@ final class Words extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, string> $pipe */
+        /** @var Closure(Iterator<TKey, T>): Generator<TKey, string> $pipe */
         $pipe = Pipe::of()(
             Explode::of()("\t", "\n", ' '),
             Map::of()(

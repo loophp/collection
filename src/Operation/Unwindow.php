@@ -29,7 +29,7 @@ final class Unwindow extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        /** @psalm-var Closure(Iterator<TKey, list<T>>): Generator<TKey, T> $unwindow */
+        /** @var Closure(Iterator<TKey, list<T>>): Generator<TKey, T> $unwindow */
         $unwindow = Map::of()(FPT::end()(null));
 
         // Point free style.

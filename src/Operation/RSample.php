@@ -35,7 +35,7 @@ final class RSample extends AbstractOperation
              * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static function (float $probability): Closure {
-                /** @psalm-var Closure(Iterator<TKey, T>): Generator<TKey, T> $filter */
+                /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $filter */
                 $filter = Filter::of()(
                     static fn (): bool => (mt_rand() / mt_getrandmax()) < $probability
                 );

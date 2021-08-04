@@ -29,7 +29,7 @@ final class Flip extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        /** @psalm-var Closure(Iterator<TKey, T>): Generator<T, TKey> $associate */
+        /** @var Closure(Iterator<TKey, T>): Generator<T, TKey> $associate */
         $associate = Associate::of()(FPT::arg()(2))(FPT::arg()(1));
 
         // Point free style.

@@ -47,7 +47,7 @@ final class Window extends AbstractOperation
                     $stack = [];
 
                     /**
-                     * @psalm-var Closure(list<T>): list<T> $slice
+                     * @var Closure(list<T>): list<T> $slice
                      */
                     $slice = FPT::curry()('array_slice', 2)(offset: -1 * ++$size);
 

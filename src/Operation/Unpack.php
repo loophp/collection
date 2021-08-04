@@ -13,6 +13,7 @@ use Closure;
 use Generator;
 use Iterator;
 use loophp\collection\Iterator\IterableIterator;
+use loophp\fpt\FPT;
 
 /**
  * @immutable
