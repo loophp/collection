@@ -39,7 +39,7 @@ final class Partition extends AbstractOperation
                 /**
                  * @param callable(T, TKey, Iterator<TKey, T>): bool ...$callbacks
                  */
-                static fn (callable ...$callbacks) =>
+                static fn (callable ...$callbacks): Closure =>
                 /**
                  * @param Iterator<TKey, T> $iterator
                  *
