@@ -34,10 +34,14 @@ final class Partition extends AbstractOperation
             (
                 /**
                  * @param array{0:(Closure(callable(T, TKey, Iterator<TKey, T>): bool ...): (Closure(Iterator<TKey, T>): Generator<TKey, T>)), 1:(Closure(callable(T, TKey, Iterator<TKey, T>): bool ...): (Closure(Iterator<TKey, T>): Generator<TKey, T>))} $operations
+                 *
+                 * @return Closure(callable(T, TKey, Iterator<TKey, T>): bool ...): Closure(Iterator<TKey, T>): Generator<int, array{0: Closure(Iterator<TKey, T>): Generator<TKey, T>, 1: array{0: Iterator<TKey, T>}}>
                  */
                 static fn (array $operations): Closure =>
                 /**
                  * @param callable(T, TKey, Iterator<TKey, T>): bool ...$callbacks
+                 *
+                 * @return Closure(Iterator<TKey, T>): Generator<int, array{0: Closure(Iterator<TKey, T>): Generator<TKey, T>, 1: array{0: Iterator<TKey, T>}}>
                  */
                 static fn (callable ...$callbacks): Closure =>
                 /**
