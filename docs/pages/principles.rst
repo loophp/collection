@@ -8,8 +8,13 @@ Immutability
 ------------
 
 Most :ref:`operations <Methods (operations)>` return a new collection object
-rather than modifying the original one. This makes your code easier to reason
-about and more testable.
+rather than modifying the original one. 
+
+Immutability usually makes your code:
+
+* simpler to use, reason about, and test
+* easier to debug
+* more robust and consistent
 
 A few notable exceptions to this are methods which return scalar values like ``count``;
 you can read more about them in the :ref:`operations background <Background>` section. 
@@ -17,16 +22,19 @@ you can read more about them in the :ref:`operations background <Background>` se
 Laziness
 --------
 
+``Collection`` is "lazy" by default. `Lazy evaluation`_, or call-by-need, is an evaluation
+strategy which delays the evaluation of an expression until its value is really needed.
+
+In Collection, the operations are executed on the input stream only when iterating over it
+or when using very specific operation like ``all`` or ``squash``.
+
 Behaviour
 ~~~~~~~~~
 
 ``Collection`` leverages PHP ``Generators`` and ``Closures`` to allow working with
-large data sets while using as little memory as possible. Operations benefit from
-`lazy evaluation`_, which means that even using multiple methods in succession
-will not have much impact on the program's runtime until the collection is iterated on, or
-a dedicated operation such as ``all`` or ``squash`` is used.
-
-This feature allows us to work even with potentially infinite data sets or streams of data.
+large data sets while using as little memory as possible. Thanks to lazy evaluation,
+we can even deal with potentially infinite data sets or streams of data - see the
+:ref:`advanced usage <Advanced>` section for more examples.
 
 .. code-block:: php
 
@@ -62,19 +70,15 @@ create new generators when needed.
 Side-Effects
 ~~~~~~~~~~~~
 
-Sometimes you might want your ``Collection`` object to behave eagerly.
-This is a legitimate need when you want to trigger side-effects, like persisting
-entities to a database or sending a batch of emails.
+``Collection`` is a helper for making transformations to input data sets.
+Despite the fact that you can technically trigger side-effects in some operations
+through a custom ``Closure``, it's better to avoid this type of usage and instead 
+use the operations for their transformative effects (use the return values).
 
-Aside from iterating over the collection object or a subset of it,
-the :ref:`squash operation <Squash>` can be used to eagerly evaluate any
-operations already applied. This can be used in conjunction with the :ref:`apply operation <Apply>`
-to trigger side-effects using each item in the collection.
-
-Another example showcased in the ``squash`` documentation is that of an exception
-being thrown during an operation - if you want to trigger the exception in the method where
-it's defined, you will find this operation useful.
-
+Exception handling is one scenario where you might find yourself wanting ``Collection``
+to behave eagerly. If you want an exception to be thrown and handled in a specific function,
+during an operation, rather than when the collection is later iterated on, you might find the 
+:ref:`squash operation <Squash>` helpful.
 
 TODO
 
@@ -85,5 +89,5 @@ TODO
 .. _AbstractOperation: https://github.com/loophp/collection/blob/master/src/Operation/AbstractOperation.php
 .. _ClosureIterator: https://github.com/loophp/collection/blob/master/src/Iterator/ClosureIterator.php
 .. _invoke: https://www.php.net/manual/en/language.oop5.magic.php#object.invoke
-.. _lazy evaluation: https://en.wikipedia.org/wiki/Lazy_evaluation
+.. _Lazy evaluation: https://en.wikipedia.org/wiki/Lazy_evaluation
 .. _Operation Interface: https://github.com/loophp/collection/blob/master/src/Contract/Operation.php
