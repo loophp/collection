@@ -554,16 +554,8 @@ Interface: `Containsable`_
 
 Signature: ``Collection::contains(...$values): bool;``
 
-.. code-block:: php
-
-    $result = Collection::fromIterable(range('a', 'c'))
-        ->contains('d'); // false
-
-    $result = Collection::fromIterable(range('a', 'c'))
-        ->contains('a', 'z'); // true
-
-    $result = Collection::fromIterable(['a' => 'b', 'c' => 'd'])
-        ->contains('d'); // true
+.. literalinclude:: code/operations/contains.php
+  :language: php
 
 count
 ~~~~~

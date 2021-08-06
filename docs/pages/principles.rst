@@ -121,13 +121,14 @@ multiple transformations or predicates. They will *always* be evaluated by the o
 For example, the :ref:`contains <Contains>` operation allows us to easily check whether one or more
 values are contained in the collection:
 
-.. code-block:: php
+.. literalinclude:: code/operations/contains.php
+  :language: php
 
-    $result = Collection::fromIterable(range('a', 'c'))
-        ->contains('d'); // false
+If we want to instead achieve a *logical AND* behaviour, we can make multiple calls to the same operation.
+The following example using the :ref:`filter <Filter>` operation illustrates this:
 
-    $result = Collection::fromIterable(range('a', 'c'))
-        ->contains('a', 'z'); // true
+.. literalinclude:: code/operations/filter.php
+  :language: php
 
 Custom Callbacks
 ~~~~~~~~~~~~~~~~
@@ -157,13 +158,8 @@ For example, the :ref:`filter <Filter>` operation can be used on another iterato
 independently of the ``Collection`` object. Because all operations return an iterator at the end,
 we can use `iterator_to_array`_ to convert this back to a normal array when needed.
 
-.. code-block:: php
-
-    $even = static fn (int $value): bool => $value % 2 === 0;
-
-    $filtered = Filter::of()($even)(new ArrayIterator([1, 2, 3, 4]));
-
-    print_r(iterator_to_array($filtered)); // [2, 4]
+.. literalinclude:: code/operations/background.php
+  :language: php
 
 .. _AbstractOperation: https://github.com/loophp/collection/blob/master/src/Operation/AbstractOperation.php
 .. _assertObjectEquals: https://phpunit.readthedocs.io/en/9.5/assertions.html#assertobjectequals
