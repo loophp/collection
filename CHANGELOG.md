@@ -5,7 +5,63 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [4.1.0](https://github.com/loophp/collection/compare/4.0.7...4.1.0)
+## [5.0.0](https://github.com/loophp/collection/compare/4.1.0...5.0.0)
+
+### Merged
+
+- Documentation: Collection Principles [`#174`](https://github.com/loophp/collection/pull/174)
+- Refactor/update `Span` and `Partition` in point-free [`#175`](https://github.com/loophp/collection/pull/175)
+- refactor: Update`Distinct` and `Duplicate` operations. [`#168`](https://github.com/loophp/collection/pull/168)
+- refactor: Update Unpack operation - do not use MapN. [`#169`](https://github.com/loophp/collection/pull/169)
+- refactor: Use ETA Reduction for the Pipe operation. [`#164`](https://github.com/loophp/collection/pull/164)
+- refactor: Add missing type hints. [`#171`](https://github.com/loophp/collection/pull/171)
+- ci: Enable tests on macOS. [`#170`](https://github.com/loophp/collection/pull/170)
+- Update Reject operation - Use Filter based algorithm and point free style. [`#167`](https://github.com/loophp/collection/pull/167)
+- Fix Column Typing + SA Check [`#166`](https://github.com/loophp/collection/pull/166)
+- SA: Update operations. [`#165`](https://github.com/loophp/collection/pull/165)
+- **Breaking change:** refactor: Make constructor private. [`#163`](https://github.com/loophp/collection/pull/163)
+- Improve static analysis tests [`#153`](https://github.com/loophp/collection/pull/153)
+- chore(deps-dev): Update infection/infection requirement || ^0.24.0 [`#162`](https://github.com/loophp/collection/pull/162)
+- feat: Add `::fromGenerator` constructor. [`#150`](https://github.com/loophp/collection/pull/150)
+- Temporary workaround until phpstan/phpstan#5372 is fixed. [`#161`](https://github.com/loophp/collection/pull/161)
+- Drop accepts non-variadic count [`#157`](https://github.com/loophp/collection/pull/157)
+- Add API Docs Description to Interface Methods [`#156`](https://github.com/loophp/collection/pull/156)
+- Add Operation: `Same` [`#155`](https://github.com/loophp/collection/pull/155)
+- Add `Reduce` operation [`#139`](https://github.com/loophp/collection/pull/139)
+- Add `Equals` Operation [`#152`](https://github.com/loophp/collection/pull/152)
+- Fix: Prevent warning when using odd amount of items. [`#154`](https://github.com/loophp/collection/pull/154)
+- Link to `stable` docs instead of `latest` [`#151`](https://github.com/loophp/collection/pull/151)
+- Update Span and Partition operations. [`#148`](https://github.com/loophp/collection/pull/148)
+- **Breaking change:** refactor: Reduce the use of the spread operators and variadic parameters. [`#146`](https://github.com/loophp/collection/pull/146)
+- refactor: Rename variables and properties. [`#145`](https://github.com/loophp/collection/pull/145)
+- chore(deps): Bump actions/stale from 3.0.19 to 4 [`#143`](https://github.com/loophp/collection/pull/143)
+- chore(deps): Bump shivammathur/setup-php from 2.11.0 to 2.12.0 [`#144`](https://github.com/loophp/collection/pull/144)
+- Add AsyncMapN Operation | Remove AsyncMap Variadic Callbacks Usage [`#141`](https://github.com/loophp/collection/pull/141)
+- Add coverage check [`#142`](https://github.com/loophp/collection/pull/142)
+- Span: Add Variadic Callback Support [`#140`](https://github.com/loophp/collection/pull/140)
+- Update `Reverse` operation - optimize and remove todos. [`#138`](https://github.com/loophp/collection/pull/138)
+- Add IsEmpty Operation [`#137`](https://github.com/loophp/collection/pull/137)
+- Update Operations Signatures in API Docs [`#136`](https://github.com/loophp/collection/pull/136)
+- Add All Operation [`#133`](https://github.com/loophp/collection/pull/133)
+- Refactor Scalar Operations [`#132`](https://github.com/loophp/collection/pull/132)
+- Update `Map` to only take a single callback [`#134`](https://github.com/loophp/collection/pull/134)
+- Provide util class for reducer callback [`#131`](https://github.com/loophp/collection/pull/131)
+- Refactor `::partition()` and `::span()` [`#124`](https://github.com/loophp/collection/pull/124)
+- Add Collection::isEmpty Method [`#130`](https://github.com/loophp/collection/pull/130)
+- Change GitHub Actions Workflow Triggers [`#127`](https://github.com/loophp/collection/pull/127)
+- Add `Reject` operation. [`#125`](https://github.com/loophp/collection/pull/125)
+- **Breaking change:** Update `Filter` operation. [`#126`](https://github.com/loophp/collection/pull/126)
+
+### Commits
+
+- chore: Add AFUP presentation link. [`404d0b7`](https://github.com/loophp/collection/commit/404d0b72e49b0388a89636c82ec04c0d0ff815d9)
+- chore: Update Github configuration files. [`c6488a4`](https://github.com/loophp/collection/commit/c6488a475df5fa113e3274d09994f0f22aa6a532)
+- Update IfThenElse operation, add missing typing information. [`5f4ef9e`](https://github.com/loophp/collection/commit/5f4ef9e16cc2d82a3ccd3248ac58c63eec9c9856)
+- Update IfThenElse operation, add missing typing information. [`ed3c095`](https://github.com/loophp/collection/commit/ed3c095ec607030dfee9987bf1011fbdac5d558c)
+- ci: Fix code-style workflow. [`40cc177`](https://github.com/loophp/collection/commit/40cc17728f14ee923d91bcdc50961a21a64f38e1)
+- chore: Update composer.json, remove obsolete dependencies. [`d8a8d50`](https://github.com/loophp/collection/commit/d8a8d50ad4d335306212a13c0549c7be3cebb4e1)
+
+## [4.1.0](https://github.com/loophp/collection/compare/4.0.7...4.1.0) - 2021-07-05
 
 ### Merged
 
@@ -30,6 +86,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Commits
 
+- docs: Add/update CHANGELOG. [`5edb9e7`](https://github.com/loophp/collection/commit/5edb9e793544e71e2ba7d58b9c6c37c9a68cbb5f)
 - chore: Update .gitattributes for saving space (and trees). [`c7ba932`](https://github.com/loophp/collection/commit/c7ba9324f4d27cf79d184fb3497b20a1c51b6e5f)
 - docs: Minor update in code typing. [`c8ad466`](https://github.com/loophp/collection/commit/c8ad466eb5551e1cd1e082e69cf502d0a54d1bc8)
 - Update PSalm and PHPStan baselines. [`58d8035`](https://github.com/loophp/collection/commit/58d803596d7a1de840550f06c491b88c9e944754)
