@@ -275,19 +275,8 @@ Interface: `Applyable`_
 
 Signature: ``Collection::apply(callable ...$callbacks): Collection;``
 
-.. code-block:: php
-
-    $callback = static function ($value, $key): bool
-        {
-            var_dump('Value is: ' . $value . ', key is: ' . $key);
-
-            return true;
-        };
-
-    $collection = Collection::fromIterable(['1', '2', '3']);
-
-    $collection
-        ->apply($callback);
+.. literalinclude:: code/operations/apply.php
+  :language: php
 
 associate
 ~~~~~~~~~
@@ -565,16 +554,8 @@ Interface: `Containsable`_
 
 Signature: ``Collection::contains(...$values): bool;``
 
-.. code-block:: php
-
-    $result = Collection::fromIterable(range('a', 'c'))
-        ->contains('d'); // false
-
-    $result = Collection::fromIterable(range('a', 'c'))
-        ->contains('a', 'z'); // true
-
-    $result = Collection::fromIterable(['a' => 'b', 'c' => 'd'])
-        ->contains('d'); // true
+.. literalinclude:: code/operations/contains.php
+  :language: php
 
 count
 ~~~~~

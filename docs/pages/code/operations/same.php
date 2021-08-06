@@ -48,14 +48,14 @@ Collection::fromIterable([$a])
     ->equals(Collection::fromIterable([$a2])); // false
 
 $comparator = static fn (string $left) => static fn (string $right): bool => $left === $right;
-$this::fromIterable(['foo' => 'f'])
+Collection::fromIterable(['foo' => 'f'])
     ->same(Collection::fromIterable(['bar' => 'f']), $comparator); // true
 
 $comparator = static fn ($left, $leftKey) => static fn ($right, $rightKey): bool => $left === $right
     && mb_strtolower($leftKey) === mb_strtolower($rightKey);
-$this::fromIterable(['foo' => 'f'])
+Collection::fromIterable(['foo' => 'f'])
     ->same(Collection::fromIterable(['FOO' => 'f']), $comparator); // true
 
 $comparator = static fn (stdClass $left) => static fn (stdClass $right): bool => $left->id === $right->id;
-$this::fromIterable([$a])
+Collection::fromIterable([$a])
     ->same(Collection::fromIterable([$a2]), $comparator); // true

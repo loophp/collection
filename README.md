@@ -158,10 +158,13 @@ On top of well-documented code, the package includes a complete documentation
 that gets automatically compiled and published upon each commit at
 [https://loophp-collection.rtfd.io][33].
 
-[The API][28] will give you a pretty good idea of the existing methods and what
-you can do with it.
+[The Collection Principles][47] will get you started with understanding the elements
+that are at the core of this package, so you can get the most out of its usage.
 
-I'm doing my best to keep the documentation up to date, if you found something
+[The API][28] will give you a pretty good idea of the existing methods and what
+you can do with them.
+
+I'm doing my best to keep the documentation up to date; if you found something
 odd, please let me know in the [issue queue][34].
 
 ## Code quality, tests, benchmarks
@@ -177,7 +180,7 @@ Before each commit, some inspections are executed with [GrumPHP][36]; run
 `composer grumphp` to check manually.
 
 The quality of the tests is tested with [Infection][37] a PHP Mutation testing
-framework, run `composer infection` to try it.
+framework - run `composer infection` to try it.
 
 Static analyzers are also controlling the code. [PHPStan][38] and
 [PSalm][39] are enabled to their maximum level.
@@ -258,3 +261,4 @@ For more detailed changelogs, please check [the release changelogs][45].
 [26]: https://ramdajs.com/
 [31]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flatMap
 [46]: https://www.youtube.com/watch?v=Kp47f8dtqoo
+[47]: https://loophp-collection.readthedocs.io/en/stable/pages/principles.html
