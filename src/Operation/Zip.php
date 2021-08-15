@@ -9,7 +9,9 @@ declare(strict_types=1);
 
 namespace loophp\collection\Operation;
 
+use ArrayIterator;
 use Closure;
+use Generator;
 use Iterator;
 use loophp\collection\Iterator\IterableIterator;
 use MultipleIterator;
@@ -37,21 +39,31 @@ final class Zip extends AbstractOperation
              *
              * @return Closure(Iterator<TKey, T>): Iterator<list<TKey>, list<T>>
              */
-            static fn (iterable ...$iterables): Closure =>
-                /**
-                 * @param Iterator<TKey, T> $iterator
-                 *
-                 * @return Iterator<list<TKey>, list<T>>
-                 */
-                static function (Iterator $iterator) use ($iterables): Iterator {
-                    $mit = new MultipleIterator(MultipleIterator::MIT_NEED_ANY);
-                    $mit->attachIterator($iterator);
+            static function (iterable ...$iterables): Closure {
+                /** @var Closure(Iterator<TKey, T>): Generator<list<TKey>, list<T>> $pipe */
+                $pipe = Pipe::of()(
+                    (
+                    /**
+                     * @param list<iterable<TKey, T>> $iterables
+                     */
+                    static fn (array $iterables): Closure =>
+                    /**
+                     * @param Iterator<TKey, T> $iterator
+                     */
+                    static fn (Iterator $iterator): Iterator => new ArrayIterator([$iterator, ...$iterables])
+                    )($iterables),
+                    Reduce::of()(
+                        static function (MultipleIterator $acc, iterable $iterable): MultipleIterator {
+                            $acc->attachIterator(new IterableIterator($iterable));
 
-                    foreach ($iterables as $iterableIterator) {
-                        $mit->attachIterator(new IterableIterator($iterableIterator));
-                    }
+                            return $acc;
+                        }
+                    )(new MultipleIterator(MultipleIterator::MIT_NEED_ANY)),
+                    ((new Flatten())()(1))
+                );
 
-                    return $mit;
-                };
+                // Point free style.
+                return $pipe;
+            };
     }
 }
