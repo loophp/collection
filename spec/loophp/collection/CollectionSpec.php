@@ -3999,9 +3999,13 @@ class CollectionSpec extends ObjectBehavior
 
     public function it_can_window(): void
     {
-        $this::fromIterable(range('a', 'z'))
+        $this::fromIterable(range('a', 'c'))
             ->window(0)
-            ->shouldIterateAs(range('a', 'z'));
+            ->shouldIterateAs([
+                ['a'],
+                ['b'],
+                ['c'],
+            ]);
 
         $this::fromIterable(range('a', 'z'))
             ->window(2)

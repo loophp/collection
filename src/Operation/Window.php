@@ -32,27 +32,22 @@ final class Window extends AbstractOperation
     {
         return
             /**
-             * @return Closure(Iterator<TKey, T>): Generator<TKey, T|list<T>>
+             * @return Closure(Iterator<TKey, T>): Generator<TKey, list<T>>
              */
-            static fn (int $size): Closure =>
-                /**
-                 * @param Iterator<TKey, T> $iterator
-                 *
-                 * @return Generator<TKey, list<T>|T>
-                 */
-                static function (Iterator $iterator) use ($size): Generator {
-                    if (0 === $size) {
-                        return yield from $iterator;
-                    }
+            static function (int $size): Closure {
+                /** @var Closure(Iterator<TKey, T>): Generator<TKey, list<T>> $reduction */
+                $reduction = Reduction::of()(
+                    /**
+                     * @param list<T> $stack
+                     * @param T $current
+                     *
+                     * @return list<T>
+                     */
+                    static fn (array $stack, $current): array => array_slice([...$stack, $current], ++$size * -1)
+                )([]);
 
-                    ++$size;
-                    $size *= -1;
-
-                    $stack = [];
-
-                    foreach ($iterator as $key => $current) {
-                        yield $key => $stack = array_slice([...$stack, $current], $size);
-                    }
-                };
+                // Point free style.
+                return $reduction;
+            };
     }
 }
