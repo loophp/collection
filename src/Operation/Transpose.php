@@ -30,42 +30,39 @@ final class Transpose extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        return
+        $callbackForKeys =
             /**
-             * @param Iterator<TKey, T> $iterator
+             * @param array $carry
+             * @param non-empty-array<int, TKey> $key
              *
-             * @return Generator<TKey, list<T>>
+             * @return TKey
              */
-            static function (Iterator $iterator): Generator {
-                $mit = new MultipleIterator(MultipleIterator::MIT_NEED_ANY);
+            static fn (array $carry, array $key) => reset($key);
 
-                foreach ($iterator as $iteratorIterator) {
-                    $mit->attachIterator(new IterableIterator($iteratorIterator));
+        $callbackForValues =
+            /**
+             * @param array $carry
+             * @param array<int, TKey> $key
+             * @param array<int, T> $value
+             *
+             * @return array<int, T>
+             */
+            static fn (array $carry, array $key, array $value): array => $value;
+
+        /** @var Closure(Iterator<TKey, T>): Generator<TKey, list<T>> $pipe */
+        $pipe = Pipe::of()(
+            Reduce::of()(
+                static function (MultipleIterator $acc, iterable $iterable): MultipleIterator {
+                    $acc->attachIterator(new IterableIterator($iterable));
+
+                    return $acc;
                 }
+            )(new MultipleIterator(MultipleIterator::MIT_NEED_ANY)),
+            Flatten::of()(1),
+            Associate::of()($callbackForKeys)($callbackForValues)
+        );
 
-                $callbackForKeys =
-                    /**
-                     * @param array $carry
-                     * @param non-empty-array<int, TKey> $key
-                     *
-                     * @return TKey
-                     */
-                    static fn (array $carry, array $key) => current($key);
-
-                $callbackForValues =
-                    /**
-                     * @param array $carry
-                     * @param array<int, TKey> $key
-                     * @param array<int, T> $value
-                     *
-                     * @return array<int, T>
-                     */
-                    static fn (array $carry, array $key, array $value): array => $value;
-
-                /** @var Generator<TKey, list<T>> $associate */
-                $associate = Associate::of()($callbackForKeys)($callbackForValues)($mit);
-
-                return $associate;
-            };
+        // Point free style.
+        return $pipe;
     }
 }
