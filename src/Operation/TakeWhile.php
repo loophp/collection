@@ -45,9 +45,7 @@ final class TakeWhile extends AbstractOperation
              */
             static function (Iterator $iterator) use ($callbacks): Generator {
                 foreach ($iterator as $key => $current) {
-                    $result = CallbacksArrayReducer::or()($callbacks, $current, $key, $iterator);
-
-                    if (false === $result) {
+                    if (!CallbacksArrayReducer::or()($callbacks, $current, $key, $iterator)) {
                         break;
                     }
 
