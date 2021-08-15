@@ -9,11 +9,11 @@ declare(strict_types=1);
 
 namespace loophp\collection\Operation;
 
+use ArrayIterator;
 use Closure;
 use Generator;
 use Iterator;
-
-use function count;
+use loophp\collection\Iterator\IterableIterator;
 
 /**
  * @immutable
@@ -25,46 +25,79 @@ final class Product extends AbstractOperation
 {
     /**
      * @pure
+     *
+     * @template UKey
+     * @template U
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param iterable<TKey, T> ...$iterables
+             * @param iterable<UKey, U> ...$iterables
              *
-             * @return Closure(Iterator<TKey, T>): Generator<int, array<int, T>>
+             * @return Closure(Iterator<TKey, T>): Generator<int, list<T|U>>
              */
-            static fn (iterable ...$iterables): Closure =>
-                /**
-                 * @param Iterator<TKey, T> $iterator
-                 *
-                 * @return Generator<int, array<int, T>>
-                 */
-                static function (Iterator $iterator) use ($iterables): Iterator {
-                    /** @var Closure(iterable<TKey, T>...): Generator<int, array<int, T>> $cartesian */
-                    $cartesian =
+            static function (iterable ...$iterables): Closure {
+                /** @var Closure(Iterator<TKey, T>): Generator<int, list<T|U>> $pipe */
+                $pipe = Pipe::of()(
+                    (
                         /**
-                         * @param iterable<TKey, T> ...$iterables
-                         *
-                         * @return Generator<int, array<int, T>>
+                         * @param list<Iterator<UKey, U>> $iterables
                          */
-                        static function (iterable ...$iterables) use (&$cartesian): Generator {
-                            $iterable = array_pop($iterables);
+                        static fn (array $iterables): Closure =>
+                        /**
+                         * @param Iterator<TKey, T> $iterator
+                         */
+                        static fn (Iterator $iterator): Generator => (
+                            /**
+                             * @param Closure(Iterator<TKey, T>): (Closure(Iterator<UKey, U>): Generator<list<T|U>>) $f
+                             */
+                            static fn (Closure $f): Closure => (new FoldLeft())()(
+                                /**
+                                 * @param Iterator<UKey, U> $a
+                                 * @param Iterator<TKey, T> $x
+                                 */
+                                static fn (Iterator $a, Iterator $x): Generator => $f($x)($a)
+                            )
+                        )(
+                            /**
+                             * @param (Iterator<TKey, T>|Iterator<UKey, U>) $xs
+                             */
+                            static fn (Iterator $xs): Closure =>
+                            /**
+                             * @param Iterator<int, list<T>> $as
+                             */
+                            static fn (Iterator $as): Generator => FlatMap::of()(
+                                /**
+                                 * @param list<T> $a
+                                 */
+                                static fn (array $a): Generator => FlatMap::of()(
+                                    /**
+                                     * @param T|U $x
+                                     *
+                                     * @return Generator<int, list<T|U>>
+                                     */
+                                    static fn ($x): Generator => yield [...$a, $x]
+                                )($xs)
+                            )($as)
+                        )(new ArrayIterator([[]]))(new ArrayIterator([$iterator, ...$iterables]))
+                    )(
+                        array_map(
+                            /**
+                             * @param iterable<UKey, U> $iterable
+                             *
+                             * @return Iterator<UKey, U>
+                             */
+                            static fn (iterable $iterable): Iterator => new IterableIterator($iterable),
+                            $iterables
+                        )
+                    ),
+                    ((new Unwrap())()),
+                    ((new Normalize())())
+                );
 
-                            if (null === $iterable) {
-                                return yield [];
-                            }
-
-                            // @todo Find better algo, without recursion.
-                            /** @var array<int, T> $item */
-                            foreach ($cartesian(...$iterables) as $item) {
-                                foreach ($iterable as $value) {
-                                    yield $item + [count($item) => $value];
-                                }
-                            }
-                        };
-
-                    return $cartesian($iterator, ...$iterables);
-                };
+                // Point free style.
+                return $pipe;
+            };
     }
 }
