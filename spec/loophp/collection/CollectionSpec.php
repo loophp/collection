@@ -360,6 +360,14 @@ class CollectionSpec extends ObjectBehavior
         $this::fromResource($stream)
             ->shouldThrow(InvalidArgumentException::class)
             ->during('all');
+
+        $string = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
+        $stream = fopen('data://text/plain,' . $string, 'rb');
+
+        $this::fromResource($stream)
+            ->drop(1)
+            ->count()
+            ->shouldReturn(55);
     }
 
     public function it_can_be_constructed_from_a_string(): void
@@ -942,25 +950,6 @@ class CollectionSpec extends ObjectBehavior
                 static fn (object $cat): string => $cat->name()
             )
             ->shouldIterateAs([$cat1, $cat2, $cat3]);
-    }
-
-    public function it_can_do_the_cartesian_product(): void
-    {
-        $this::fromIterable(range('A', 'C'))
-            ->product()
-            ->shouldIterateAs([0 => ['A'], 1 => ['B'], 2 => ['C']]);
-
-        $this::fromIterable(range('A', 'C'))
-            ->product([1, 2])
-            ->shouldIterateAs([0 => ['A', 1], 1 => ['A', 2], 2 => ['B', 1], 3 => ['B', 2], 4 => ['C', 1], 5 => ['C', 2]]);
-
-        $string = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
-        $stream = fopen('data://text/plain,' . $string, 'rb');
-
-        $this::fromResource($stream)
-            ->drop(1)
-            ->count()
-            ->shouldReturn(55);
     }
 
     public function it_can_drop(): void
@@ -2711,6 +2700,30 @@ class CollectionSpec extends ObjectBehavior
         $this::fromIterable(range('D', 'F'))
             ->prepend('A', 'B', 'C')
             ->shouldIterateAs($generator());
+    }
+
+    public function it_can_product(): void
+    {
+        $this::fromIterable(range('A', 'C'))
+            ->product()
+            ->shouldIterateAs([0 => ['A'], 1 => ['B'], 2 => ['C']]);
+
+        $this::fromIterable(range('A', 'C'))
+            ->product([1, 2], [3, 4])
+            ->shouldIterateAs([
+                ['A', 1, 3],
+                ['A', 1, 4],
+                ['A', 2, 3],
+                ['A', 2, 4],
+                ['B', 1, 3],
+                ['B', 1, 4],
+                ['B', 2, 3],
+                ['B', 2, 4],
+                ['C', 1, 3],
+                ['C', 1, 4],
+                ['C', 2, 3],
+                ['C', 2, 4],
+            ]);
     }
 
     public function it_can_random(): void
