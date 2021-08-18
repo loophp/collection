@@ -22,9 +22,12 @@ interface Productable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#product
      *
-     * @param iterable<mixed> ...$iterables
+     * @template UKey
+     * @template U
      *
-     * @return Collection<TKey, T>
+     * @param iterable<UKey, U> ...$iterables
+     *
+     * @return Collection<TKey, list<T|U>>
      */
     public function product(iterable ...$iterables): Collection;
 }

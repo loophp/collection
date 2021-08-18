@@ -44,18 +44,16 @@ final class Since extends AbstractOperation
                  * @return Generator<TKey, T>
                  */
                 static function (Iterator $iterator) use ($callbacks): Generator {
-                    $result = false;
-
                     foreach ($iterator as $key => $current) {
-                        if (false === $result) {
-                            $result = CallbacksArrayReducer::or()($callbacks, $current, $key, $iterator);
-                        }
-
-                        if (false === $result) {
+                        if (!CallbacksArrayReducer::or()($callbacks, $current, $key, $iterator)) {
                             continue;
                         }
 
-                        yield $key => $current;
+                        break;
+                    }
+
+                    for (; $iterator->valid(); $iterator->next()) {
+                        yield $iterator->key() => $iterator->current();
                     }
                 };
     }
