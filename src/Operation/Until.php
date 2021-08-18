@@ -47,9 +47,7 @@ final class Until extends AbstractOperation
                     foreach ($iterator as $key => $current) {
                         yield $key => $current;
 
-                        $result = CallbacksArrayReducer::or()($callbacks, $current, $key, $iterator);
-
-                        if (true === $result) {
+                        if (CallbacksArrayReducer::or()($callbacks, $current, $key, $iterator)) {
                             break;
                         }
                     }

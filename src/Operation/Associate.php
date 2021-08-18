@@ -73,11 +73,13 @@ final class Associate extends AbstractOperation
                                     static fn ($accumulator, callable $callback, int $callbackId, Iterator $iterator) => $callback($accumulator, $key, $value, $iterator);
 
                         foreach ($iterator as $key => $value) {
+                            $reduceCallback = $callbackFactory($key)($value);
+
                             /** @var Generator<int, T|TKey> $k */
-                            $k = Reduce::of()($callbackFactory($key)($value))($key)(new ArrayIterator($callbackForKeys));
+                            $k = Reduce::of()($reduceCallback)($key)(new ArrayIterator($callbackForKeys));
 
                             /** @var Generator<int, T|TKey> $c */
-                            $c = Reduce::of()($callbackFactory($key)($value))($value)(new ArrayIterator($callbackForValues));
+                            $c = Reduce::of()($reduceCallback)($value)(new ArrayIterator($callbackForValues));
 
                             yield $k->current() => $c->current();
                         }
