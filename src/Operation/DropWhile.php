@@ -48,14 +48,16 @@ final class DropWhile extends AbstractOperation
 
                 foreach ($iterator as $key => $current) {
                     if (true === $result) {
-                        $result = CallbacksArrayReducer::or()($callbacks, $current, $key, $iterator);
+                        if (true === $result = CallbacksArrayReducer::or()($callbacks, $current, $key, $iterator)) {
+                            continue;
+                        }
                     }
 
-                    if (true === $result) {
-                        continue;
-                    }
+                    break;
+                }
 
-                    yield $key => $current;
+                for (; $iterator->valid(); $iterator->next()) {
+                    yield $iterator->key() => $iterator->current();
                 }
             };
     }
