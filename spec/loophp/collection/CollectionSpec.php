@@ -4012,15 +4012,15 @@ class CollectionSpec extends ObjectBehavior
 
     public function it_can_window(): void
     {
-        $this::fromIterable(range('a', 'c'))
+        $this::fromIterable(['a' => 'A', 'b' => 'B', 'c' => 'C'])
             ->window(0)
             ->shouldIterateAs([
-                ['a'],
-                ['b'],
-                ['c'],
+                'a' => ['A'],
+                'b' => ['B'],
+                'c' => ['C'],
             ]);
 
-        $this::fromIterable(range('a', 'z'))
+        $this::fromIterable(range('a', 'e'))
             ->window(2)
             ->shouldIterateAs([
                 0 => [
@@ -4045,111 +4045,13 @@ class CollectionSpec extends ObjectBehavior
                     1 => 'd',
                     2 => 'e',
                 ],
-                5 => [
-                    0 => 'd',
-                    1 => 'e',
-                    2 => 'f',
-                ],
-                6 => [
-                    0 => 'e',
-                    1 => 'f',
-                    2 => 'g',
-                ],
-                7 => [
-                    0 => 'f',
-                    1 => 'g',
-                    2 => 'h',
-                ],
-                8 => [
-                    0 => 'g',
-                    1 => 'h',
-                    2 => 'i',
-                ],
-                9 => [
-                    0 => 'h',
-                    1 => 'i',
-                    2 => 'j',
-                ],
-                10 => [
-                    0 => 'i',
-                    1 => 'j',
-                    2 => 'k',
-                ],
-                11 => [
-                    0 => 'j',
-                    1 => 'k',
-                    2 => 'l',
-                ],
-                12 => [
-                    0 => 'k',
-                    1 => 'l',
-                    2 => 'm',
-                ],
-                13 => [
-                    0 => 'l',
-                    1 => 'm',
-                    2 => 'n',
-                ],
-                14 => [
-                    0 => 'm',
-                    1 => 'n',
-                    2 => 'o',
-                ],
-                15 => [
-                    0 => 'n',
-                    1 => 'o',
-                    2 => 'p',
-                ],
-                16 => [
-                    0 => 'o',
-                    1 => 'p',
-                    2 => 'q',
-                ],
-                17 => [
-                    0 => 'p',
-                    1 => 'q',
-                    2 => 'r',
-                ],
-                18 => [
-                    0 => 'q',
-                    1 => 'r',
-                    2 => 's',
-                ],
-                19 => [
-                    0 => 'r',
-                    1 => 's',
-                    2 => 't',
-                ],
-                20 => [
-                    0 => 's',
-                    1 => 't',
-                    2 => 'u',
-                ],
-                21 => [
-                    0 => 't',
-                    1 => 'u',
-                    2 => 'v',
-                ],
-                22 => [
-                    0 => 'u',
-                    1 => 'v',
-                    2 => 'w',
-                ],
-                23 => [
-                    0 => 'v',
-                    1 => 'w',
-                    2 => 'x',
-                ],
-                24 => [
-                    0 => 'w',
-                    1 => 'x',
-                    2 => 'y',
-                ],
-                25 => [
-                    0 => 'x',
-                    1 => 'y',
-                    2 => 'z',
-                ],
+            ]);
+
+        // Unsupported - but tested.
+        $this::fromIterable(range('a', 'e'))
+            ->window(-2)
+            ->shouldIterateAs([
+                [],[],[],[],[]
             ]);
     }
 
