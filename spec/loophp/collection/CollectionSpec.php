@@ -4051,7 +4051,7 @@ class CollectionSpec extends ObjectBehavior
         $this::fromIterable(range('a', 'e'))
             ->window(-2)
             ->shouldIterateAs([
-                [],[],[],[],[]
+                [], [], [], [], [],
             ]);
     }
 

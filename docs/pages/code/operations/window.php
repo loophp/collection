@@ -16,13 +16,13 @@ include __DIR__ . '/../../../../vendor/autoload.php';
 $data = range('a', 'e');
 
 Collection::fromIterable($data)
-   ->window(0); // [['a'], ['b'], ['c'], ['d'], ['e']]
+    ->window(0); // [['a'], ['b'], ['c'], ['d'], ['e']]
 
 Collection::fromIterable($data)
-   ->window(1); // [['a'], ['a', 'b'], ['b', 'c'], ['c', 'd'], ['d', 'e']]
+    ->window(1); // [['a'], ['a', 'b'], ['b', 'c'], ['c', 'd'], ['d', 'e']]
 
 Collection::fromIterable($data)
-   ->window(2); // [['a'], ['a', 'b'], ['a', 'b', 'c'], ['b', 'c', 'd'], ['c', 'd', 'e']]
+    ->window(2); // [['a'], ['a', 'b'], ['a', 'b', 'c'], ['b', 'c', 'd'], ['c', 'd', 'e']]
 
 Collection::fromIterable($data)
-   ->window(-1); // [['a'], ['a', 'b'], ['a', 'b', 'c'], ['a', 'b', 'c', 'd'], ['a', 'b', 'c', 'd', 'e']]
+    ->window(-1); // [['a'], ['a', 'b'], ['a', 'b', 'c'], ['a', 'b', 'c', 'd'], ['a', 'b', 'c', 'd', 'e']]
