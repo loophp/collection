@@ -26,6 +26,8 @@ final class Transpose extends AbstractOperation
     /**
      * @pure
      *
+     * @psalm-suppress ImpureMethodCall
+     *
      * @return Closure(Iterator<TKey, T>): Generator<TKey, list<T>>
      */
     public function __invoke(): Closure
