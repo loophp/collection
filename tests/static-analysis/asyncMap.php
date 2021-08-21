@@ -19,13 +19,13 @@ function asyncMap_checkListInt(CollectionInterface $collection): void
 {
 }
 /**
- * @param CollectionInterface<int, non-empty-string> $collection
+ * @param CollectionInterface<int, string> $collection
  */
 function asyncMap_checkListString(CollectionInterface $collection): void
 {
 }
 /**
- * @param CollectionInterface<string, non-empty-string> $collection
+ * @param CollectionInterface<string, string> $collection
  */
 function asyncMap_checkMapString(CollectionInterface $collection): void
 {
@@ -54,7 +54,7 @@ asyncMap_checkMapClass(Collection::fromIterable(['foo' => 'bar', 'bar' => 'baz']
 
 // This should work but static analysers restrict the return type
 // E.g: `numeric&string` or `non-empty-string`
-/** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
+/** @psalm-suppress InvalidArgument */
 asyncMap_checkListString(Collection::fromIterable([1, 2, 3])->asyncMap($toString));
 /** @psalm-suppress InvalidArgument */
 asyncMap_checkMapString(Collection::fromIterable(['foo' => 'bar', 'baz' => 'bar'])->asyncMap($appendBar));
