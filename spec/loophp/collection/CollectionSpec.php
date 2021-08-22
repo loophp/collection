@@ -4047,6 +4047,12 @@ class CollectionSpec extends ObjectBehavior
                 ],
             ]);
 
+        $this::fromIterable(range('a', 'e'))
+            ->window(-1)
+            ->shouldIterateAs([
+                ['a'], ['a', 'b'], ['a', 'b', 'c'], ['a', 'b', 'c', 'd'], ['a', 'b', 'c', 'd', 'e'],
+            ]);
+
         // Unsupported - but tested.
         $this::fromIterable(range('a', 'e'))
             ->window(-2)
