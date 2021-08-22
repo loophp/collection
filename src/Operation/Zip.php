@@ -9,7 +9,9 @@ declare(strict_types=1);
 
 namespace loophp\collection\Operation;
 
+use ArrayIterator;
 use Closure;
+use Generator;
 use Iterator;
 use loophp\collection\Iterator\IterableIterator;
 use MultipleIterator;
@@ -27,31 +29,64 @@ final class Zip extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(iterable<TKey, T>...): Closure(Iterator<TKey, T>): Iterator<list<TKey>, list<T>>
+     * @return Closure(iterable<mixed, mixed>...): Closure(Iterator<TKey, T>): Iterator<list<TKey|mixed>, list<T|mixed>>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param iterable<TKey, T> ...$iterables
+             * @param iterable<mixed, mixed> ...$iterables
              *
-             * @return Closure(Iterator<TKey, T>): Iterator<list<TKey>, list<T>>
+             * @return Closure(Iterator<TKey, T>): Iterator<list<TKey|mixed>, list<T|mixed>>
              */
-            static fn (iterable ...$iterables): Closure =>
-                /**
-                 * @param Iterator<TKey, T> $iterator
-                 *
-                 * @return Iterator<list<TKey>, list<T>>
-                 */
-                static function (Iterator $iterator) use ($iterables): Iterator {
-                    $mit = new MultipleIterator(MultipleIterator::MIT_NEED_ANY);
-                    $mit->attachIterator($iterator);
+            static function (iterable ...$iterables): Closure {
+                $buildArrayIterator =
+                    /**
+                     * @param list<iterable<mixed, mixed>> $iterables
+                     */
+                    static fn (array $iterables): Closure =>
+                    /**
+                     * @param Iterator<TKey, T> $iterator
+                     *
+                     * @return ArrayIterator<int, (Iterator<TKey, T>|IterableIterator<mixed, mixed>)>
+                     */
+                    static fn (Iterator $iterator): Iterator => new ArrayIterator([
+                        $iterator,
+                        ...array_map(
+                            /**
+                             * @param iterable<mixed, mixed> $iterable
+                             *
+                             * @return IterableIterator<mixed, mixed>
+                             */
+                            static fn (iterable $iterable): IterableIterator => new IterableIterator($iterable),
+                            $iterables
+                        ),
+                    ]);
 
-                    foreach ($iterables as $iterableIterator) {
-                        $mit->attachIterator(new IterableIterator($iterableIterator));
-                    }
+                $buildMultipleIterator =
+                    /**
+                     * @return Closure(ArrayIterator<int, (Iterator<TKey, T>|IterableIterator<mixed, mixed>)>): MultipleIterator
+                     */
+                    Reduce::of()(
+                        /**
+                         * @param Iterator<TKey, T> $iterator
+                         */
+                        static function (MultipleIterator $acc, Iterator $iterator): MultipleIterator {
+                            $acc->attachIterator($iterator);
 
-                    return $mit;
-                };
+                            return $acc;
+                        }
+                    )(new MultipleIterator(MultipleIterator::MIT_NEED_ANY));
+
+                /** @var Closure(Iterator<TKey, T>): Generator<list<TKey|mixed>, list<T|mixed>> $pipe */
+                $pipe = Pipe::of()(
+                    $buildArrayIterator($iterables),
+                    $buildMultipleIterator,
+                    ((new Flatten())()(1))
+                );
+
+                // Point free style.
+                return $pipe;
+            };
     }
 }
