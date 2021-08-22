@@ -26,7 +26,7 @@ use function in_array;
 final class Nullsy extends AbstractOperation
 {
     /**
-     * @param list<null, array, int, bool, string>
+     * @var list<null, array, int, bool, string>
      */
     public const VALUES = [null, [], 0, false, ''];
 

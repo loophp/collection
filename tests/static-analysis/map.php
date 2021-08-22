@@ -54,13 +54,13 @@ map_checkMapClass(Collection::fromIterable(['foo' => 'bar', 'bar' => 'baz'])->ma
 
 // This should work but static analysers restrict the return type
 // E.g: `numeric&string` or `non-empty-string`
-/** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
+/** @psalm-suppress InvalidArgument */
 map_checkListString(Collection::fromIterable([1, 2, 3])->map($toString));
-/** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
+/** @psalm-suppress InvalidArgument */
 map_checkMapString(Collection::fromIterable(['foo' => 'bar', 'baz' => 'bar'])->map($appendBar));
-/** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
+/** @psalm-suppress InvalidArgument */
 map_checkListString(Collection::fromIterable(['foo', 'bar'])->map($appendBar));
-/** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
+/** @psalm-suppress InvalidArgument */
 map_checkListString(Collection::fromIterable([1, 2, 3])->map($square)->map($toString)->map($appendBar));
 
 // VALID failures due to usage with wrong types
