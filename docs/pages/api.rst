@@ -2439,16 +2439,16 @@ window
 Loop the collection yielding windows of data by adding a given number of items to the current item.
 Initially the windows yielded will be smaller, until size ``1 + $size`` is reached.
 
+.. tip:: To remove the window size constraint and have a dynamic window size, set the ``$size`` to ``-1``.
+
+.. note:: When ``$size`` is equal to ``0``, the window will only contain the current element, wrapped in an array.
+
 Interface: `Windowable`_
 
 Signature: ``Collection::window(int $size): Collection;``
 
-.. code-block:: php
-
-     $data = range('a', 'd');
-
-     Collection::fromIterable($data)
-        ->window(2); // [['a'], ['a', 'b'], ['a', 'b', 'c'], ['b', 'c', 'd']]
+.. literalinclude:: code/operations/window.php
+  :language: php
 
 words
 ~~~~~
