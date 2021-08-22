@@ -24,7 +24,7 @@ interface Zipable
      *
      * @param iterable<mixed, mixed> ...$iterables
      *
-     * @return Collection<list<mixed|TKey>, list<mixed|T>>
+     * @return Collection<list<mixed>, list<mixed>>
      */
     public function zip(iterable ...$iterables): Collection;
 }
