@@ -26,7 +26,7 @@ final class Transpose extends AbstractOperation
     /**
      * @pure
      *
-     * @psalm-suppress ImpureMethodCall
+     * @psalm-suppress ImpureMethodCall - using MultipleIterator as an internal tool which is not returned
      *
      * @return Closure(Iterator<TKey, T>): Generator<TKey, list<T>>
      */
