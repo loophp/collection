@@ -30,8 +30,8 @@ final class Reverse extends AbstractOperation
     {
         $callback =
             /**
-             * @param list<array{0: TKey, 1: T}> $carry
-             * @param list<array{0: TKey, 1: T}> $value
+             * @param list<T|TKey> $carry
+             * @param array{0: TKey, 1: T} $value
              *
              * @return list<array{0: TKey, 1: T}>
              */
@@ -39,9 +39,9 @@ final class Reverse extends AbstractOperation
 
         /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
         $pipe = Pipe::of()(
-            Pack::of(),
+            (new Pack())(),
             Reduce::of()($callback)([]),
-            Unpack::of(),
+            (new Unpack())(),
         );
 
         // Point free style.

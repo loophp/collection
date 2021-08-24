@@ -13,8 +13,7 @@ use ArrayIterator;
 use Closure;
 use Generator;
 use Iterator;
-
-use const E_USER_WARNING;
+use MultipleIterator;
 
 /**
  * @immutable
@@ -27,33 +26,49 @@ final class Combine extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(T...): Closure(Iterator<TKey, T>): Generator<T, T>
+     * @template U
+     *
+     * @return Closure(U...): Closure(Iterator<TKey, T>): Generator<null|U, null|T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param T ...$keys
+             * @param U ...$keys
              *
-             * @return Closure(Iterator<TKey, T>): Generator<T, T>
+             * @return Closure(Iterator<TKey, T>): Generator<null|U, null|T>
              */
-            static fn (...$keys): Closure =>
-                /**
-                 * @param Iterator<TKey, T> $iterator
-                 */
-                static function (Iterator $iterator) use ($keys): Generator {
-                    $keys = new ArrayIterator($keys);
+            static function (...$keys): Closure {
+                $buildMultipleIterator =
+                    /**
+                     * @param Iterator<int, U> $keyIterator
+                     */
+                    static function (Iterator $keyIterator): Closure {
+                        return
+                            /**
+                             * @param Iterator<TKey, T> $iterator
+                             *
+                             * @return MultipleIterator
+                             */
+                            static function (Iterator $iterator) use ($keyIterator): MultipleIterator {
+                                $mit = new MultipleIterator(MultipleIterator::MIT_NEED_ANY);
 
-                    while ($iterator->valid() && $keys->valid()) {
-                        yield $keys->current() => $iterator->current();
+                                $mit->attachIterator($keyIterator);
+                                $mit->attachIterator($iterator);
 
-                        $iterator->next();
-                        $keys->next();
-                    }
+                                return $mit;
+                            };
+                    };
 
-                    if ($iterator->valid() !== $keys->valid()) {
-                        trigger_error('Both keys and values must have the same amount of items.', E_USER_WARNING);
-                    }
-                };
+                /** @var Closure(Iterator<TKey, T>): Generator<null|U, null|T> $pipe */
+                $pipe = Pipe::of()(
+                    $buildMultipleIterator(new ArrayIterator($keys)),
+                    Flatten::of()(1),
+                    Pair::of(),
+                );
+
+                // Point free style.
+                return $pipe;
+            };
     }
 }

@@ -742,10 +742,37 @@ class CollectionSpec extends ObjectBehavior
             ->combine(...range('e', 'a'))
             ->shouldIterateAs(['e' => 'A', 'd' => 'B', 'c' => 'C', 'b' => 'D', 'a' => 'E']);
 
-        $this::fromIterable(range('A', 'E'))
-            ->combine(...range(1, 100))
-            ->shouldThrow(Exception::class)
-            ->during('all');
+        $output = static function () {
+            yield 'a' => 'a';
+
+            yield 'b' => 'b';
+
+            yield 'c' => 'c';
+
+            yield null => 'd';
+
+            yield null => 'e';
+        };
+
+        $this::fromIterable(range('a', 'e'))
+            ->combine(...range('a', 'c'))
+            ->shouldIterateAs($output());
+
+        $output = static function () {
+            yield 'a' => 'a';
+
+            yield 'b' => 'b';
+
+            yield 'c' => 'c';
+
+            yield 'd' => null;
+
+            yield 'e' => null;
+        };
+
+        $this::fromIterable(range('a', 'c'))
+            ->combine(...range('a', 'e'))
+            ->shouldIterateAs($output());
     }
 
     public function it_can_compact(): void

@@ -22,9 +22,11 @@ interface Combineable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#combine
      *
-     * @param mixed ...$keys
+     * @template U
      *
-     * @return Collection<TKey, T>
+     * @param U ...$keys
+     *
+     * @return Collection<U|null, T|null>
      */
     public function combine(...$keys): Collection;
 }
