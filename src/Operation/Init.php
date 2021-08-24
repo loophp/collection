@@ -19,6 +19,8 @@ use Iterator;
  *
  * @template TKey
  * @template T
+ *
+ * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Init extends AbstractOperation
 {
@@ -29,22 +31,29 @@ final class Init extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        return
+        $callback =
+            /**
+             * @param T $value
+             * @param TKey $key
+             * @param CachingIterator<TKey, T> $iterator
+             */
+            static fn ($value, $key, CachingIterator $iterator): bool => $iterator->hasNext();
+
+        $buildCachingIterator =
             /**
              * @param Iterator<TKey, T> $iterator
              *
-             * @return Generator<TKey, T>
+             * @return CachingIterator<TKey, T>
              */
-            static function (Iterator $iterator): Generator {
-                $cacheIterator = new CachingIterator($iterator, CachingIterator::FULL_CACHE);
+            static fn (Iterator $iterator): CachingIterator => new CachingIterator($iterator, CachingIterator::FULL_CACHE);
 
-                foreach ($cacheIterator as $key => $current) {
-                    if (false === $iterator->valid()) {
-                        break;
-                    }
+        /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $takeWhile */
+        $takeWhile = Pipe::of()(
+            $buildCachingIterator,
+            TakeWhile::of()($callback)
+        );
 
-                    yield $key => $current;
-                }
-            };
+        // Point free style.
+        return $takeWhile;
     }
 }
