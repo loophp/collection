@@ -509,14 +509,14 @@ combine
 
 Combine a collection of items with some other keys.
 
+.. note:: When the two sets to combine are not equal in size, *null* is used as filling value.
+
 Interface: `Combineable`_
 
 Signature: ``Collection::combine(...$keys): Collection;``
 
-.. code-block:: php
-
-    $collection = Collection::fromIterable(['a', 'b', 'c', 'd'])
-        ->combine('w', 'x', 'y', 'z'); // ['w' => 'a', 'x' => 'b', 'y' => 'c', 'z' => 'd']
+.. literalinclude:: code/operations/combine.php
+  :language: php
 
 compact
 ~~~~~~~
