@@ -37,7 +37,7 @@ final class Init extends AbstractOperation
              * @param TKey $key
              * @param CachingIterator<TKey, T> $iterator
              */
-            static fn ($value, $key, CachingIterator $iterator): bool => $iterator->getInnerIterator()->valid();
+            static fn ($value, $key, CachingIterator $iterator): bool => $iterator->hasNext();
 
         $buildCachingIterator =
             /**
