@@ -12,6 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -19,7 +20,7 @@ use Iterator;
  * @template TKey
  * @template T
  */
-final class Frequency extends AbstractOperation
+final class Frequency implements Operation
 {
     /**
      * @pure
@@ -56,14 +57,11 @@ final class Frequency extends AbstractOperation
                 return $storage;
             };
 
-        /** @var Closure(Iterator<TKey, T>): Generator<int, T> $pipe */
-        $pipe = Pipe::of()(
-            Reduce::of()($reduceCallback)([]),
-            Flatten::of()(1),
-            Unpack::of()
-        );
-
         // Point free style.
-        return $pipe;
+        return (new Pipe())(
+            (new Reduce())($reduceCallback)([]),
+            (new Flatten())(1),
+            (new Unpack())()
+        );
     }
 }

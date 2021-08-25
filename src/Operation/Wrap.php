@@ -12,6 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -19,7 +20,7 @@ use Iterator;
  * @template TKey
  * @template T
  */
-final class Wrap extends AbstractOperation
+final class Wrap implements Operation
 {
     /**
      * @pure
@@ -37,10 +38,9 @@ final class Wrap extends AbstractOperation
              */
             static fn ($value, $key): array => [$key => $value];
 
-        /** @var Closure(Iterator<TKey, T>): Generator<int, array<TKey, T>> $pipe */
-        $pipe = Pipe::of()(
-            Map::of()($mapCallback),
-            Normalize::of()
+        $pipe = (new Pipe())(
+            (new Map())($mapCallback),
+            (new Normalize())
         );
 
         // Point free style.

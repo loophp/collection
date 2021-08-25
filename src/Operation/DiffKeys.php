@@ -12,6 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\Operation;
 
 use function in_array;
 
@@ -21,7 +22,7 @@ use function in_array;
  * @template TKey
  * @template T
  */
-final class DiffKeys extends AbstractOperation
+final class DiffKeys implements Operation
 {
     /**
      * @pure
@@ -48,7 +49,7 @@ final class DiffKeys extends AbstractOperation
                          */
                         static fn ($value, $key): bool => false === in_array($key, $keys, true);
 
-                $filter = (new Filter())()($filterCallbackFactory($keys));
+                $filter = (new Filter())($filterCallbackFactory($keys));
 
                 // Point free style.
                 return $filter;

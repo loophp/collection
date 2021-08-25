@@ -14,6 +14,7 @@ use Closure;
 use Exception;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\Operation;
 
 use function Amp\Iterator\fromIterable;
 use function Amp\ParallelFunctions\parallel;
@@ -34,44 +35,42 @@ if (false === function_exists('Amp\ParallelFunctions\parallel')) {
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
-final class AsyncMap extends AbstractOperation
+final class AsyncMap implements Operation
 {
     /**
      * @pure
      *
      * @template V
      *
-     * @return Closure(callable(T, TKey): V): Closure(Iterator<TKey, T>): Generator<TKey, V>
+     * @param callable(T, TKey): V $callback
+     *
+     * @return Closure(Iterator<TKey, T>): Generator<TKey, V>
      */
-    public function __invoke(): Closure
+    public function __invoke(callable $callback): Closure
     {
         return
             /**
-             * @param callable(T, TKey): V $callback
+             * @param Iterator<TKey, T> $iterator
+             *
+             * @return Generator<TKey, V>
              */
-            static fn (callable $callback): Closure =>
-                /**
-                 * @param Iterator<TKey, T> $iterator
-                 *
-                 * @return Generator<TKey, V>
-                 */
-                static function (Iterator $iterator) use ($callback): Generator {
-                    $parallelCallBack =
-                        /**
-                         * @param array{0: TKey, 1: T} $value
-                         *
-                         * @return array{0: TKey, 1: V}
-                         */
-                        static fn (array $value): array => [$value[0], $callback($value[1], $value[0])];
+            static function (Iterator $iterator) use ($callback): Generator {
+                $parallelCallBack =
+                    /**
+                     * @param array{0: TKey, 1: T} $value
+                     *
+                     * @return array{0: TKey, 1: V}
+                     */
+                    static fn (array $value): array => [$value[0], $callback($value[1], $value[0])];
 
-                    $iter = map(fromIterable(Pack::of()($iterator)), new LocalSemaphore(32), parallel($parallelCallBack));
+                $iter = map(fromIterable((new Pack())()($iterator)), new LocalSemaphore(32), parallel($parallelCallBack));
 
-                    while (wait($iter->advance())) {
-                        /** @var array{0: TKey, 1: V} $item */
-                        $item = $iter->getCurrent();
+                while (wait($iter->advance())) {
+                    /** @var array{0: TKey, 1: V} $item */
+                    $item = $iter->getCurrent();
 
-                        yield $item[0] => $item[1];
-                    }
-                };
+                    yield $item[0] => $item[1];
+                }
+            };
     }
 }

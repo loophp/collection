@@ -9,9 +9,9 @@ declare(strict_types=1);
 
 namespace loophp\collection\Operation;
 
-use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -19,15 +19,17 @@ use Iterator;
  * @template TKey
  * @template T
  */
-final class IsEmpty extends AbstractOperation
+final class IsEmpty implements Operation
 {
     /**
      * @pure
      *
-     * @return Closure(Iterator<TKey, T>): Generator<int, bool>
+     * @param Iterator<TKey, T> $iterator
+     *
+     * @return Generator<int, bool>
      */
-    public function __invoke(): Closure
+    public function __invoke(Iterator $iterator): Generator
     {
-        return static fn (Iterator $iterator): Generator => yield !$iterator->valid();
+        return yield !$iterator->valid();
     }
 }

@@ -12,6 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -21,7 +22,7 @@ use Iterator;
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
-final class Partition extends AbstractOperation
+final class Partition implements Operation
 {
     /**
      * @pure
@@ -58,6 +59,6 @@ final class Partition extends AbstractOperation
                     static fn (callable $callable): array => [$callable(...$callbacks), [$iterator]],
                     $operations
                 )
-            )([(new Filter())(), (new Reject())()]);
+            )([(new Filter()), (new Reject())]);
     }
 }

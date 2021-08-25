@@ -12,6 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\Operation;
 
 use const INF;
 
@@ -23,7 +24,7 @@ use const INF;
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
-final class Range extends AbstractOperation
+final class Range implements Operation
 {
     /**
      * @pure

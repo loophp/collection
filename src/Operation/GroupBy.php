@@ -12,6 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -21,7 +22,7 @@ use Iterator;
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
-final class GroupBy extends AbstractOperation
+final class GroupBy implements Operation
 {
     /**
      * @pure
@@ -71,10 +72,9 @@ final class GroupBy extends AbstractOperation
                             return $collect;
                         };
 
-                /** @var Closure(Iterator<TKey, T>): Generator<int, list<T>> $pipe */
-                $pipe = Pipe::of()(
-                    Reduce::of()($reducerFactory($callable))([]),
-                    Flatten::of()(1)
+                $pipe = (new Pipe())(
+                    (new Reduce())($reducerFactory($callable))([]),
+                    (new Flatten())(1)
                 );
 
                 // Point free style.

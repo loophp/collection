@@ -12,6 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -21,7 +22,7 @@ use Iterator;
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
-final class Span extends AbstractOperation
+final class Span implements Operation
 {
     /**
      * @pure
@@ -58,6 +59,6 @@ final class Span extends AbstractOperation
                     static fn (callable $callable): array => [$callable(...$callbacks), [$iterator]],
                     $operations
                 )
-            )([(new TakeWhile())(), (new DropWhile())()]);
+            )([(new TakeWhile()), (new DropWhile())]);
     }
 }

@@ -12,6 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -21,31 +22,29 @@ use Iterator;
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
-final class Map extends AbstractOperation
+final class Map implements Operation
 {
     /**
      * @pure
      *
      * @template V
      *
-     * @return Closure(callable(T=, TKey=, Iterator<TKey, T>=): V): Closure(Iterator<TKey, T>): Generator<TKey, V>
+     * @param callable(T=, TKey=, Iterator<TKey, T>=): V $callback
+     *
+     * @return Closure(Iterator<TKey, T>): Generator<TKey, V>
      */
-    public function __invoke(): Closure
+    public function __invoke(callable $callback): Closure
     {
         return
             /**
-             * @param callable(T=, TKey=, Iterator<TKey, T>=): V $callback
+             * @param Iterator<TKey, T> $iterator
+             *
+             * @return Generator<TKey, V>
              */
-            static fn (callable $callback): Closure =>
-                /**
-                 * @param Iterator<TKey, T> $iterator
-                 *
-                 * @return Generator<TKey, V>
-                 */
-                static function (Iterator $iterator) use ($callback): Generator {
-                    foreach ($iterator as $key => $value) {
-                        yield $key => $callback($value, $key, $iterator);
-                    }
-                };
+            static function (Iterator $iterator) use ($callback): Generator {
+                foreach ($iterator as $key => $value) {
+                    yield $key => $callback($value, $key, $iterator);
+                }
+            };
     }
 }

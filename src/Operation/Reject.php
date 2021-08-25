@@ -12,6 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\Operation;
 use loophp\collection\Utils\CallbacksArrayReducer;
 
 /**
@@ -22,43 +23,35 @@ use loophp\collection\Utils\CallbacksArrayReducer;
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
-final class Reject extends AbstractOperation
+final class Reject implements Operation
 {
     /**
      * @pure
      *
+     * @param callable(T=, TKey=, Iterator<TKey, T>=): bool ...$callbacks
+     *
      * @return Closure(callable(T=, TKey=, Iterator<TKey, T>=): bool ...): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
-    public function __invoke(): Closure
+    public function __invoke(callable ...$callbacks): Closure
     {
-        return
+        $defaultCallback =
             /**
-             * @param callable(T=, TKey=, Iterator<TKey, T>=): bool ...$callbacks
-             *
-             * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @param T $value
              */
-            static function (callable ...$callbacks): Closure {
-                $defaultCallback =
-                    /**
-                     * @param T $value
-                     */
-                    static fn ($value): bool => (bool) $value;
+            static fn ($value): bool => (bool) $value;
 
-                $callbacks = [] === $callbacks ?
-                    [$defaultCallback] :
-                    $callbacks;
+        $callbacks = [] === $callbacks ?
+            [$defaultCallback] :
+            $callbacks;
 
-                $reject = (new Filter())()(
-                    /**
-                     * @param T $current
-                     * @param TKey $key
-                     * @param Iterator<TKey, T> $iterator
-                     */
-                    static fn ($current, $key, Iterator $iterator): bool => !CallbacksArrayReducer::or()($callbacks, $current, $key, $iterator)
-                );
-
-                // Point free style.
-                return $reject;
-            };
+        // Point free style.
+        return (new Filter())(
+            /**
+             * @param T $current
+             * @param TKey $key
+             * @param Iterator<TKey, T> $iterator
+             */
+            static fn ($current, $key, Iterator $iterator): bool => !CallbacksArrayReducer::or()($callbacks, $current, $key, $iterator)
+        );
     }
 }

@@ -12,6 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -19,39 +20,33 @@ use Iterator;
  * @template TKey
  * @template T
  */
-final class Slice extends AbstractOperation
+final class Slice implements Operation
 {
     /**
      * @pure
      *
-     * @return Closure(int): Closure(int=): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(int=): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
-    public function __invoke(): Closure
+    public function __invoke(int $offset): Closure
     {
         return
             /**
-             * @return Closure(int=): Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
-            static fn (int $offset): Closure =>
-                /**
-                 * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
-                 */
-                static function (int $length = -1) use ($offset): Closure {
-                    /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $skip */
-                    $skip = Drop::of()($offset);
+            static function (int $length = -1) use ($offset): Closure {
+                $skip = (new Drop())($offset);
 
-                    if (-1 === $length) {
-                        return $skip;
-                    }
+                if (-1 === $length) {
+                    return $skip;
+                }
 
-                    /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
-                    $pipe = Pipe::of()(
-                        $skip,
-                        Limit::of()($length)(0)
-                    );
+                $pipe = (new Pipe())(
+                    $skip,
+                    (new Limit())($length)(0)
+                );
 
-                    // Point free style.
-                    return $pipe;
-                };
+                // Point free style.
+                return $pipe;
+            };
     }
 }

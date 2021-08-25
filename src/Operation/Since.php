@@ -12,6 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\Operation;
 use loophp\collection\Utils\CallbacksArrayReducer;
 
 /**
@@ -22,39 +23,35 @@ use loophp\collection\Utils\CallbacksArrayReducer;
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
-final class Since extends AbstractOperation
+final class Since implements Operation
 {
     /**
      * @pure
      *
-     * @return Closure(callable(T=, TKey=, Iterator<TKey, T>=):bool ...): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @param callable(T=, TKey=, Iterator<TKey, T>=):bool ...$callbacks
+     *
+     * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
-    public function __invoke(): Closure
+    public function __invoke(callable ...$callbacks): Closure
     {
         return
             /**
-             * @param callable(T=, TKey=, Iterator<TKey, T>=):bool ...$callbacks
+             * @param Iterator<TKey, T> $iterator
              *
-             * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @return Generator<TKey, T>
              */
-            static fn (callable ...$callbacks): Closure =>
-                /**
-                 * @param Iterator<TKey, T> $iterator
-                 *
-                 * @return Generator<TKey, T>
-                 */
-                static function (Iterator $iterator) use ($callbacks): Generator {
-                    foreach ($iterator as $key => $current) {
-                        if (!CallbacksArrayReducer::or()($callbacks, $current, $key, $iterator)) {
-                            continue;
-                        }
-
-                        break;
+            static function (Iterator $iterator) use ($callbacks): Generator {
+                foreach ($iterator as $key => $current) {
+                    if (!CallbacksArrayReducer::or()($callbacks, $current, $key, $iterator)) {
+                        continue;
                     }
 
-                    for (; $iterator->valid(); $iterator->next()) {
-                        yield $iterator->key() => $iterator->current();
-                    }
-                };
+                    break;
+                }
+
+                for (; $iterator->valid(); $iterator->next()) {
+                    yield $iterator->key() => $iterator->current();
+                }
+            };
     }
 }

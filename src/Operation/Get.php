@@ -12,6 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -19,7 +20,7 @@ use Iterator;
  * @template TKey
  * @template T
  */
-final class Get extends AbstractOperation
+final class Get implements Operation
 {
     /**
      * @pure
@@ -48,11 +49,10 @@ final class Get extends AbstractOperation
                          */
                         static fn ($value, $key): bool => $key === $keyToGet;
 
-                    /** @var Closure(Iterator<TKey, T>): (Generator<TKey, T|null>) $pipe */
-                    $pipe = Pipe::of()(
-                        (new Filter())()($filterCallback),
-                        Append::of()($default),
-                        Head::of()
+                    $pipe = (new Pipe())(
+                        (new Filter())($filterCallback),
+                        (new Append())($default),
+                        (new Head())
                     );
 
                     // Point free style.

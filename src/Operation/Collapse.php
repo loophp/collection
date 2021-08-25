@@ -12,6 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -19,7 +20,7 @@ use Iterator;
  * @template TKey
  * @template T
  */
-final class Collapse extends AbstractOperation
+final class Collapse implements Operation
 {
     /**
      * @pure
@@ -36,10 +37,9 @@ final class Collapse extends AbstractOperation
              */
             static fn ($value): bool => is_iterable($value);
 
-        /** @var Closure(Iterator<TKey, (T|iterable<TKey, T>)>): Generator<TKey, T> $pipe */
-        $pipe = Pipe::of()(
-            (new Filter())()($filterCallback),
-            (new Flatten())()(1),
+        $pipe = (new Pipe())(
+            (new Filter())($filterCallback),
+            (new Flatten())(1),
         );
 
         // Point free style.

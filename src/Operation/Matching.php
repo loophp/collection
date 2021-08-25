@@ -14,6 +14,7 @@ use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Collections\Expr\ClosureExpressionVisitor;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\Operation;
 use loophp\collection\Contract\Operation\Sortable;
 
 /**
@@ -24,7 +25,7 @@ use loophp\collection\Contract\Operation\Sortable;
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
-final class Matching extends AbstractOperation
+final class Matching implements Operation
 {
     /**
      * @pure
@@ -42,7 +43,7 @@ final class Matching extends AbstractOperation
                 $pipes = [];
 
                 if (null !== $expr) {
-                    $pipes[] = (new Filter())()((new ClosureExpressionVisitor())->dispatch($expr));
+                    $pipes[] = (new Filter())((new ClosureExpressionVisitor())->dispatch($expr));
                 }
 
                 $orderings = $criteria->getOrderings();
@@ -54,18 +55,18 @@ final class Matching extends AbstractOperation
                         $next = ClosureExpressionVisitor::sortByField($field, Criteria::DESC === $ordering ? -1 : 1, $next);
                     }
 
-                    $pipes[] = Sort::of()(Sortable::BY_VALUES)($next);
+                    $pipes[] = (new Sort())(Sortable::BY_VALUES)($next);
                 }
 
                 $offset = $criteria->getFirstResult();
                 $length = $criteria->getMaxResults();
 
                 if (null !== $offset || null !== $length) {
-                    $pipes[] = Limit::of()($length)((int) $offset);
+                    $pipes[] = (new Limit())((int) $length)((int) $offset);
                 }
 
                 /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
-                $pipe = Pipe::of()(...$pipes);
+                $pipe = (new Pipe())(...$pipes);
 
                 // Point free style.
                 return $pipe;

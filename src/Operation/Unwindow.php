@@ -12,6 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -19,7 +20,7 @@ use Iterator;
  * @template TKey
  * @template T
  */
-final class Unwindow extends AbstractOperation
+final class Unwindow implements Operation
 {
     /**
      * @pure
@@ -28,10 +29,9 @@ final class Unwindow extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        /** @var Closure(Iterator<TKey, list<T>>): Generator<TKey, T|null> $unwindow */
-        $unwindow = Map::of()(
+        $unwindow = (new Map())(
             /**
-             * @param iterable<TKey, list<T>> $iterable
+             * @param iterable<TKey, T> $iterable
              *
              * @return T|null
              */

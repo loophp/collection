@@ -12,6 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -21,7 +22,7 @@ use Iterator;
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
-final class ScanLeft extends AbstractOperation
+final class ScanLeft implements Operation
 {
     /**
      * @pure
@@ -29,30 +30,25 @@ final class ScanLeft extends AbstractOperation
      * @template V
      * @template W
      *
-     * @return Closure(callable((V|W)=, T=, TKey=, Iterator<TKey, T>=): W): Closure(V): Closure(Iterator<TKey, T>): Generator<int|TKey, V|W>
+     * @param callable((V|W)=, T=, TKey=, Iterator<TKey, T>=): W $callback
+     *
+     * @return Closure(V): Closure(Iterator<TKey, T>): Generator<int|TKey, V|W>
      */
-    public function __invoke(): Closure
+    public function __invoke(callable $callback): Closure
     {
         return
             /**
-             * @param callable((V|W)=, T=, TKey=, Iterator<TKey, T>=): W $callback
+             * @param V $initial
              *
-             * @return Closure(V): Closure(Iterator<TKey, T>): Generator<int|TKey, V|W>
+             * @return Closure(Iterator<TKey, T>): Generator<int|TKey, V|W>
              */
-            static fn (callable $callback): Closure =>
-                /**
-                 * @param V $initial
-                 *
-                 * @return Closure(Iterator<TKey, T>): Generator<int|TKey, V|W>
-                 */
-                static function ($initial) use ($callback): Closure {
-                    /** @var Closure(Iterator<TKey, T>): Generator<int|TKey, V|W> $pipe */
-                    $pipe = Pipe::of()(
-                        Reduction::of()($callback)($initial),
-                        Prepend::of()($initial)
-                    );
+            static function ($initial) use ($callback): Closure {
+                $pipe = (new Pipe())(
+                    (new Reduction())($callback)($initial),
+                    (new Prepend())($initial)
+                );
 
-                    return $pipe;
-                };
+                return $pipe;
+            };
     }
 }

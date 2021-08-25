@@ -12,6 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -19,7 +20,7 @@ use Iterator;
  * @template TKey
  * @template T
  */
-final class Falsy extends AbstractOperation
+final class Falsy implements Operation
 {
     /**
      * @pure
@@ -35,18 +36,15 @@ final class Falsy extends AbstractOperation
              */
             static fn ($value): bool => (bool) $value;
 
-        /** @var Closure(Iterator<TKey, T>): Generator<int, bool> $pipe */
-        $pipe = Pipe::of()(
-            MatchOne::of()($matchWhenNot)($matcher),
-            Map::of()(
+        // Point free style.
+        return (new Pipe())(
+            (new MatchOne())($matchWhenNot)($matcher),
+            (new Map())(
                 /**
                  * @param T $value
                  */
                 static fn ($value): bool => !(bool) $value
             ),
         );
-
-        // Point free style.
-        return $pipe;
     }
 }

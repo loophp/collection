@@ -11,6 +11,7 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Iterator;
+use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -20,37 +21,33 @@ use Iterator;
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
-final class Pipe extends AbstractOperation
+final class Pipe implements Operation
 {
     /**
      * @pure
      *
+     * @param callable(Iterator<TKey, T>): Iterator<TKey, T> ...$operations
+     *
      * @return Closure(callable(Iterator<TKey, T>): Iterator<TKey, T> ...): Closure(Iterator<TKey, T>): Iterator<TKey, T>
      */
-    public function __invoke(): Closure
+    public function __invoke(callable ...$operations): Closure
     {
-        return
+        return array_reduce(
+            $operations,
             /**
-             * @param callable(Iterator<TKey, T>): Iterator<TKey, T> ...$operations
+             * @param callable(Iterator<TKey, T>): Iterator<TKey, T> $f
+             * @param callable(Iterator<TKey, T>): Iterator<TKey, T> $g
              *
              * @return Closure(Iterator<TKey, T>): Iterator<TKey, T>
              */
-            static fn (callable ...$operations): Closure => array_reduce(
-                $operations,
+            static fn (callable $f, callable $g): Closure =>
                 /**
-                 * @param callable(Iterator<TKey, T>): Iterator<TKey, T> $f
-                 * @param callable(Iterator<TKey, T>): Iterator<TKey, T> $g
+                 * @param Iterator<TKey, T> $iterator
                  *
-                 * @return Closure(Iterator<TKey, T>): Iterator<TKey, T>
+                 * @return Iterator<TKey, T>
                  */
-                static fn (callable $f, callable $g): Closure =>
-                    /**
-                     * @param Iterator<TKey, T> $iterator
-                     *
-                     * @return Iterator<TKey, T>
-                     */
-                    static fn (Iterator $iterator): Iterator => $g($f($iterator)),
-                static fn (Iterator $iterator): Iterator => $iterator
-            );
+                static fn (Iterator $iterator): Iterator => $g($f($iterator)),
+            static fn (Iterator $iterator): Iterator => $iterator
+        );
     }
 }

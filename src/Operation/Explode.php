@@ -12,6 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\Operation;
 use loophp\collection\Contract\Operation\Splitable;
 
 /**
@@ -20,39 +21,30 @@ use loophp\collection\Contract\Operation\Splitable;
  * @template TKey
  * @template T
  */
-final class Explode extends AbstractOperation
+final class Explode implements Operation
 {
     /**
      * @pure
      *
-     * @return Closure(T...): Closure(Iterator<TKey, T>): Generator<int, list<T>>
+     * @param T ...$explodes
+     *
+     * @return Closure(Iterator<TKey, T>): Generator<int, list<T>>
      */
-    public function __invoke(): Closure
+    public function __invoke(...$explodes): Closure
     {
-        return
-            /**
-             * @param T ...$explodes
-             *
-             * @return Closure(Iterator<TKey, T>): Generator<int, list<T>>
-             */
-            static function (...$explodes): Closure {
-                /** @var Closure(Iterator<TKey, T>): Generator<int, list<T>> $split */
-                $split = Split::of()(Splitable::REMOVE)(
-                    ...array_map(
-                        /**
-                         * @param T $explode
-                         */
-                        static fn ($explode): Closure =>
-                            /**
-                             * @param T $value
-                             */
-                            static fn ($value): bool => $value === $explode,
-                        $explodes
-                    )
-                );
-
-                // Point free style.
-                return $split;
-            };
+        // Point free style.
+        return (new Split())(Splitable::REMOVE)(
+            ...array_map(
+                /**
+                 * @param T $explode
+                 */
+                static fn ($explode): Closure =>
+                    /**
+                     * @param T $value
+                     */
+                    static fn ($value): bool => $value === $explode,
+                $explodes
+            )
+        );
     }
 }
