@@ -48,8 +48,7 @@ final class IntersectKeys extends AbstractOperation
                          */
                         static fn ($value, $key): bool => in_array($key, $keys, true);
 
-                /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $filter */
-                $filter = Filter::of()($filterCallbackFactory($keys));
+                $filter = (new Filter())()($filterCallbackFactory($keys));
 
                 // Point free style.
                 return $filter;

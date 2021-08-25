@@ -24,6 +24,8 @@ final class Collapse extends AbstractOperation
     /**
      * @pure
      *
+     * @psalm-suppress ImpureFunctionCall - using Filter and Flatten as an internal tools, not returned.
+     *
      * @return Closure(Iterator<TKey, (T|iterable<TKey, T>)>): Generator<TKey, T>
      */
     public function __invoke(): Closure
@@ -36,8 +38,8 @@ final class Collapse extends AbstractOperation
 
         /** @var Closure(Iterator<TKey, (T|iterable<TKey, T>)>): Generator<TKey, T> $pipe */
         $pipe = Pipe::of()(
-            Filter::of()($filterCallback),
-            Flatten::of()(1),
+            (new Filter())()($filterCallback),
+            (new Flatten())()(1),
         );
 
         // Point free style.

@@ -48,8 +48,7 @@ final class Reject extends AbstractOperation
                     [$defaultCallback] :
                     $callbacks;
 
-                /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $reject */
-                $reject = Filter::of()(
+                $reject = (new Filter())()(
                     /**
                      * @param T $current
                      * @param TKey $key

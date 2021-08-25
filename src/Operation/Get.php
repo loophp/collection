@@ -50,7 +50,7 @@ final class Get extends AbstractOperation
 
                     /** @var Closure(Iterator<TKey, T>): (Generator<TKey, T|null>) $pipe */
                     $pipe = Pipe::of()(
-                        Filter::of()($filterCallback),
+                        (new Filter())()($filterCallback),
                         Append::of()($default),
                         Head::of()
                     );
