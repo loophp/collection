@@ -27,6 +27,12 @@ final class All extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        return static fn (Iterator $iterator): array => iterator_to_array($iterator);
+        return
+            /**
+             * @param Iterator<TKey, T> $iterator
+             *
+             * @return array<TKey, T>
+             */
+            static fn (Iterator $iterator): array => iterator_to_array($iterator);
     }
 }
