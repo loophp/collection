@@ -25,7 +25,7 @@ interface Mapable
      *
      * @template V
      *
-     * @param callable(T, TKey, Iterator<TKey, T>): V $callback
+     * @param callable(T=, TKey=, Iterator<TKey, T>=): V $callback
      *
      * @return Collection<TKey, V>
      */

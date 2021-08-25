@@ -22,7 +22,7 @@ interface Hasable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#has
      *
-     * @param callable(T, TKey, Iterator<TKey, T>): T ...$callbacks
+     * @param callable(T=, TKey=, Iterator<TKey, T>=): T ...$callbacks
      */
     public function has(callable ...$callbacks): bool;
 }

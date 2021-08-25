@@ -26,7 +26,7 @@ interface Reductionable
      * @template V
      * @template W
      *
-     * @param callable(V|W, T, TKey, Iterator<TKey, T>): W $callback
+     * @param callable((V|W)=, T=, TKey=, Iterator<TKey, T>=): W $callback
      * @param V $initial
      *
      * @return Collection<TKey, W>

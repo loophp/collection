@@ -27,7 +27,7 @@ interface Spanable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#span
      *
-     * @param callable(T, TKey, Iterator<TKey, T>): bool ...$callbacks
+     * @param callable(T=, TKey=, Iterator<TKey, T>=): bool ...$callbacks
      *
      * @return Collection<int, Collection<TKey, T>>
      */

@@ -29,13 +29,13 @@ final class ScanLeft extends AbstractOperation
      * @template V
      * @template W
      *
-     * @return Closure(callable(V|W, T, TKey, Iterator<TKey, T>): W): Closure(V): Closure(Iterator<TKey, T>): Generator<int|TKey, V|W>
+     * @return Closure(callable((V|W)=, T=, TKey=, Iterator<TKey, T>=): W): Closure(V): Closure(Iterator<TKey, T>): Generator<int|TKey, V|W>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable(V|W, T, TKey, Iterator<TKey, T>): W $callback
+             * @param callable((V|W)=, T=, TKey=, Iterator<TKey, T>=): W $callback
              *
              * @return Closure(V): Closure(Iterator<TKey, T>): Generator<int|TKey, V|W>
              */

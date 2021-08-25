@@ -26,13 +26,13 @@ final class Apply extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(callable(T, TKey, Iterator<TKey, T>):bool ...): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(callable(T=, TKey=, Iterator<TKey, T>=):bool ...): Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable(T, TKey, Iterator<TKey, T>): bool ...$callbacks
+             * @param callable(T=, TKey=, Iterator<TKey, T>=): bool ...$callbacks
              *
              * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
