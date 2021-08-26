@@ -27,27 +27,27 @@ final class MatchOne extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(callable(T, TKey, Iterator<TKey, T>): bool ...): Closure(callable(T, TKey, Iterator<TKey, T>): bool ...): Closure(Iterator<TKey, T>): Generator<TKey, bool>
+     * @return Closure(callable(T=, TKey=, Iterator<TKey, T>=): bool ...): Closure(callable(T=, TKey=, Iterator<TKey, T>=): bool ...): Closure(Iterator<TKey, T>): Generator<TKey, bool>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable(T, TKey, Iterator<TKey, T>): bool ...$matchers
+             * @param callable(T=, TKey=, Iterator<TKey, T>=): bool ...$matchers
              *
-             * @return Closure(callable(T, TKey, Iterator<TKey, T>): bool ...): Closure(Iterator<TKey, T>): Generator<TKey, bool>
+             * @return Closure(callable(T=, TKey=, Iterator<TKey, T>=): bool ...): Closure(Iterator<TKey, T>): Generator<TKey, bool>
              */
             static function (callable ...$matchers): Closure {
                 return
                     /**
-                     * @param callable(T, TKey, Iterator<TKey, T>): bool ...$callbacks
+                     * @param callable(T=, TKey=, Iterator<TKey, T>=): bool ...$callbacks
                      *
                      * @return Closure(Iterator<TKey, T>): Generator<TKey, bool>
                      */
                     static function (callable ...$callbacks) use ($matchers): Closure {
                         $callbackReducer =
                             /**
-                             * @param list<callable(T, TKey, Iterator<TKey, T>): bool> $callbacks
+                             * @param list<callable(T=, TKey=, Iterator<TKey, T>=): bool> $callbacks
                              *
                              * @return Closure(T, TKey, Iterator<TKey, T>): bool
                              */
@@ -61,13 +61,13 @@ final class MatchOne extends AbstractOperation
 
                         $mapCallback =
                             /**
-                             * @param callable(T, TKey, Iterator<TKey, T>): mixed $reducer1
+                             * @param callable(T=, TKey=, Iterator<TKey, T>=): mixed $reducer1
                              *
-                             * @return Closure(callable(T, TKey, Iterator<TKey, T>): mixed): Closure(T, TKey, Iterator<TKey, T>): bool
+                             * @return Closure(callable(T=, TKey=, Iterator<TKey, T>=): mixed): Closure(T, TKey, Iterator<TKey, T>): bool
                              */
                             static fn (callable $reducer1): Closure =>
                                 /**
-                                 * @param callable(T, TKey, Iterator<TKey, T>): mixed $reducer2
+                                 * @param callable(T=, TKey=, Iterator<TKey, T>=): mixed $reducer2
                                  *
                                  * @return Closure(T, TKey, Iterator<TKey, T>): bool
                                  */

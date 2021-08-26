@@ -26,13 +26,13 @@ final class Has extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(callable(T, TKey, Iterator<TKey, T>): T ...): Closure(Iterator<TKey, T>): Generator<TKey, bool>
+     * @return Closure(callable(T=, TKey=, Iterator<TKey, T>=): T ...): Closure(Iterator<TKey, T>): Generator<TKey, bool>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable(T, TKey, Iterator<TKey, T>): T ...$callbacks
+             * @param callable(T=, TKey=, Iterator<TKey, T>=): T ...$callbacks
              *
              * @return Closure(Iterator<TKey, T>): Generator<TKey, bool>
              */

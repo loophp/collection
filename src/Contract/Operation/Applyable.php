@@ -25,7 +25,7 @@ interface Applyable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#apply
      *
-     * @param callable(T, TKey, Iterator<TKey, T>): bool ...$callbacks
+     * @param callable(T=, TKey=, Iterator<TKey, T>=): bool ...$callbacks
      *
      * @return Collection<TKey, T>
      */
