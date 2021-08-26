@@ -46,7 +46,7 @@ final class Nth extends AbstractOperation
                     /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
                     $pipe = Pipe::of()(
                         Pack::of(),
-                        Filter::of()($filterCallback),
+                        (new Filter())()($filterCallback),
                         Unpack::of()
                     );
 

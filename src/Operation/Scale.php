@@ -71,8 +71,7 @@ final class Scale extends AbstractOperation
                                     }
                                 );
 
-                                /** @var callable(Iterator<TKey, (float | int)>):(Generator<TKey, float|int>) $filter */
-                                $filter = Filter::of()(
+                                $filter = (new Filter())()(
                                     /**
                                      * @param float|int $item
                                      */

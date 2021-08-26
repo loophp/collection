@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace loophp\collection\Operation;
 
+use ArrayIterator;
 use Closure;
 use Generator;
 use Iterator;
@@ -44,29 +45,37 @@ final class Distinct extends AbstractOperation
                  *
                  * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
                  */
-                static fn (callable $accessorCallback): Closure =>
-                    /**
-                     * @param Iterator<TKey, T> $iterator
-                     *
-                     * @return Generator<TKey, T>
-                     */
-                    static function (Iterator $iterator) use ($comparatorCallback, $accessorCallback): Generator {
-                        // Todo: Find a way to rewrite this using composition of operations, without side effect.
-                        $stack = [];
+                static function (callable $accessorCallback) use ($comparatorCallback): Closure {
+                    /** @var ArrayIterator<int, array{0: TKey, 1: T}> $stack */
+                    $stack = new ArrayIterator();
 
-                        foreach ($iterator as $key => $value) {
-                            $comparator = $comparatorCallback($accessorCallback($value, $key));
+                    $filter = (new Filter())()(
+                        /**
+                         * @param T $value
+                         * @param TKey $key
+                         */
+                        static function ($value, $key) use ($comparatorCallback, $accessorCallback, $stack): bool {
+                            $matchWhenNot = static fn (): bool => true;
+                            $matcher =
+                                /**
+                                 * @param array{0: TKey, 1: T} $item
+                                 */
+                                static fn (array $item): bool => $comparatorCallback($accessorCallback($value, $key))($accessorCallback($item[1], $item[0]));
 
-                            foreach ($stack as $item) {
-                                if (true === $comparator($accessorCallback($item[1], $item[0]))) {
-                                    continue 2;
-                                }
+                            $matchFalse = (new MatchOne())()($matchWhenNot)($matcher)($stack);
+
+                            if (true === $matchFalse->current()) {
+                                return false;
                             }
 
-                            $stack[] = [$key, $value];
+                            $stack->append([$key, $value]);
 
-                            yield $key => $value;
+                            return true;
                         }
-                    };
+                    );
+
+                    // Point free style.
+                    return $filter;
+                };
     }
 }

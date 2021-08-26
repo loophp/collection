@@ -42,7 +42,7 @@ final class Matching extends AbstractOperation
                 $pipes = [];
 
                 if (null !== $expr) {
-                    $pipes[] = Filter::of()((new ClosureExpressionVisitor())->dispatch($expr));
+                    $pipes[] = (new Filter())()((new ClosureExpressionVisitor())->dispatch($expr));
                 }
 
                 $orderings = $criteria->getOrderings();

@@ -50,7 +50,7 @@ final class Column extends AbstractOperation
                 /** @var Closure(Iterator<TKey, T>): Generator<int, mixed> $pipe */
                 $pipe = Pipe::of()(
                     Transpose::of(),
-                    Filter::of()($filterCallbackBuilder($column)),
+                    (new Filter())()($filterCallbackBuilder($column)),
                     Head::of(),
                     Flatten::of()(1)
                 );
