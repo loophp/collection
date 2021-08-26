@@ -22,7 +22,7 @@ interface Linesable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#lines
      *
-     * @return Collection<TKey, string>
+     * @return Collection<int, string>
      */
     public function lines(): Collection;
 }
