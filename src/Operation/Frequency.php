@@ -49,11 +49,9 @@ final class Frequency extends AbstractOperation
                     break;
                 }
 
-                if (false !== $added) {
-                    return $storage;
+                if (true !== $added) {
+                    $storage[] = [1, $value];
                 }
-
-                $storage[] = [1, $value];
 
                 return $storage;
             };

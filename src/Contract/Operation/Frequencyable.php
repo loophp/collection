@@ -23,7 +23,7 @@ interface Frequencyable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#frequency
      *
-     * @return Collection<TKey, T>
+     * @return Collection<int, T>
      */
     public function frequency(): Collection;
 }

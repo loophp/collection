@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
-use EmptyIterator;
 use Generator;
 use Iterator;
 
@@ -44,15 +43,13 @@ final class Head extends AbstractOperation
                     break;
                 }
 
-                if (true === $isEmpty) {
-                    return new EmptyIterator();
+                if (false === $isEmpty) {
+                    /**
+                     * @var TKey $key
+                     * @var T $current
+                     */
+                    return yield $key => $current;
                 }
-
-                /**
-                 * @var TKey $key
-                 * @var T $current
-                 */
-                return yield $key => $current;
             };
     }
 }
