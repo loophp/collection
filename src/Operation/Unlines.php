@@ -26,7 +26,7 @@ final class Unlines extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(Iterator<TKey, (T|string)>): Generator<TKey, string, mixed, void>
+     * @return Closure(Iterator<TKey, (T|string)>): Generator<TKey, string>
      */
     public function __invoke(): Closure
     {
