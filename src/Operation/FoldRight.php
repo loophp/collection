@@ -38,7 +38,7 @@ final class FoldRight implements Operation
              * @return Closure(T): Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
             static fn (callable $callback): Closure => static function ($initial = null) use ($callback): Closure {
-                $pipe = (new Pipe())(
+                return Pipe::ofTyped2(
                     (new ScanRight())($callback)($initial),
                     (new Head())
                 );

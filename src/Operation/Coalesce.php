@@ -10,8 +10,6 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
-use Generator;
-use Iterator;
 use loophp\collection\Contract\Operation;
 
 /**
@@ -28,7 +26,7 @@ final class Coalesce implements Operation
     public function __invoke(): Closure
     {
         // Point free style.
-        return (new Pipe())(
+        return Pipe::ofTyped2(
             (new Compact())(),
             (new Head()),
         );

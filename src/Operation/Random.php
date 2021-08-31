@@ -39,7 +39,7 @@ final class Random implements Operation
                      * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
                      */
                     static function (int $size) use ($seed): Closure {
-                        $pipe = (new Pipe())(
+                        return Pipe::ofTyped2(
                             (new Shuffle())($seed),
                             (new Limit())($size)(0)
                         );

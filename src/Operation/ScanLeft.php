@@ -43,12 +43,10 @@ final class ScanLeft implements Operation
              * @return Closure(Iterator<TKey, T>): Generator<int|TKey, V|W>
              */
             static function ($initial) use ($callback): Closure {
-                $pipe = (new Pipe())(
+                return Pipe::ofTyped2(
                     (new Reduction())($callback)($initial),
                     (new Prepend())($initial)
                 );
-
-                return $pipe;
             };
     }
 }

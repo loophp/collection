@@ -73,13 +73,10 @@ final class Zip implements Operation
                 }
             )(new MultipleIterator(MultipleIterator::MIT_NEED_ANY));
 
-        $pipe = (new Pipe())(
+        return Pipe::ofTyped3(
             $buildArrayIterator($iterables),
             $buildMultipleIterator,
             ((new Flatten())(1))
         );
-
-        // Point free style.
-        return $pipe;
     }
 }

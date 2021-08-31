@@ -57,7 +57,7 @@ final class Combine implements Operation
             };
 
         // Point free style.
-        return (new Pipe())(
+        return Pipe::ofTyped3(
             $buildMultipleIterator(new ArrayIterator($keys)),
             (new Flatten())(1),
             (new Pair())(),

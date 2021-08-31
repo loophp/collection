@@ -45,8 +45,7 @@ final class Nullsy implements Operation
              */
             static fn ($value): bool => in_array($value, self::VALUES, true);
 
-        // Point free style.
-        return (new Pipe())(
+        return Pipe::ofTyped2(
             (new MatchOne())($matchWhenNot)($matcher),
             (new Map())(
                 /**

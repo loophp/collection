@@ -49,7 +49,7 @@ final class Get implements Operation
                          */
                         static fn ($value, $key): bool => $key === $keyToGet;
 
-                    $pipe = (new Pipe())(
+                    return Pipe::ofTyped3(
                         (new Filter())($filterCallback),
                         (new Append())($default),
                         (new Head())

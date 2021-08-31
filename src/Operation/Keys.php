@@ -29,7 +29,7 @@ final class Keys implements Operation
      */
     public function __invoke(): Closure
     {
-        $pipe = (new Pipe())(
+        return Pipe::ofTyped2(
             (new Flip())(),
             (new Normalize())
         );

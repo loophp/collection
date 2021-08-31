@@ -38,7 +38,7 @@ final class FoldLeft1 implements Operation
              * @return Closure(Iterator<TKey, T>): Generator<int|TKey, null|T>
              */
             static function (callable $callback): Closure {
-                $pipe = (new Pipe())(
+                return Pipe::ofTyped2(
                     (new ScanLeft1())($callback),
                     (new Last())
                 );

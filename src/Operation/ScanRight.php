@@ -44,7 +44,7 @@ final class ScanRight implements Operation
              */
             static function ($initial) use ($callback): Closure {
                 // Point free style.
-                return (new Pipe())(
+                return Pipe::ofTyped4(
                     (new Reverse())(),
                     (new Reduction())($callback)($initial),
                     (new Reverse())(),

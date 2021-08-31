@@ -36,7 +36,7 @@ final class Product implements Operation
      */
     public function __invoke(iterable ...$iterables): Closure
     {
-        $pipe = (new Pipe())(
+        return Pipe::ofTyped3(
             (
                 /**
                  * @param list<Iterator<UKey, U>> $iterables
@@ -92,8 +92,5 @@ final class Product implements Operation
             ((new Unwrap())()),
             ((new Normalize()))
         );
-
-        // Point free style.
-        return $pipe;
     }
 }

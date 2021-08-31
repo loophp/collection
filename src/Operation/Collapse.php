@@ -37,7 +37,7 @@ final class Collapse implements Operation
              */
             static fn ($value): bool => is_iterable($value);
 
-        $pipe = (new Pipe())(
+        $pipe = Pipe::ofTyped2(
             (new Filter())($filterCallback),
             (new Flatten())(1),
         );

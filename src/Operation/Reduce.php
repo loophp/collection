@@ -43,13 +43,10 @@ final class Reduce implements Operation
              * @return Closure(Iterator<TKey, T>): Generator<TKey, W>
              */
             static function ($initial) use ($callback): Closure {
-                $pipe = (new Pipe())(
+                return Pipe::ofTyped2(
                     (new Reduction())($callback)($initial),
                     (new Last()),
                 );
-
-                // Point free style.
-                return $pipe;
             };
     }
 }

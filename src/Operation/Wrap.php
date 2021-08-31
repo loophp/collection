@@ -38,7 +38,7 @@ final class Wrap implements Operation
              */
             static fn ($value, $key): array => [$key => $value];
 
-        $pipe = (new Pipe())(
+        return Pipe::ofTyped2(
             (new Map())($mapCallback),
             (new Normalize())
         );

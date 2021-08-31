@@ -48,7 +48,7 @@ final class Init implements Operation
              */
             static fn (Iterator $iterator): CachingIterator => new CachingIterator($iterator, CachingIterator::FULL_CACHE);
 
-        $takeWhile = (new Pipe())(
+        return Pipe::ofTyped2(
             $buildCachingIterator,
             (new TakeWhile())($callback)
         );

@@ -36,7 +36,7 @@ final class Truthy implements Operation
              */
             static fn ($value): bool => !(bool) $value;
 
-        $pipe = (new Pipe())(
+        return Pipe::ofTyped2(
             (new MatchOne())($matchWhenNot)($matcher),
             (new Map())($matcher),
         );

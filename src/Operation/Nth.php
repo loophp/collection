@@ -40,14 +40,11 @@ final class Nth implements Operation
                      */
                     static fn (array $value, int $key): bool => (($key % $step) === $offset);
 
-                $pipe = (new Pipe())(
+                return Pipe::ofTyped3(
                     (new Pack())(),
                     (new Filter())($filterCallback),
                     (new Unpack())()
                 );
-
-                // Point free style.
-                return $pipe;
             };
     }
 }

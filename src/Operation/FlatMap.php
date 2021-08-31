@@ -37,7 +37,7 @@ final class FlatMap implements Operation
     public function __invoke(callable $callback): Closure
     {
         // Point free style
-        return (new Pipe())(
+        return Pipe::ofTyped2(
             (new Map())($callback),
             (new Flatten())(1)
         );

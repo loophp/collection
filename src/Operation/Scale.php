@@ -79,10 +79,7 @@ final class Scale implements Operation
                                 static fn ($item): bool => $item <= $upperBound
                             );
 
-                            $pipe = (new Pipe())($filter, $mapper);
-
-                            // Point free style.
-                            return $pipe;
+                            return Pipe::ofTyped2($filter, $mapper);
                         };
     }
 }

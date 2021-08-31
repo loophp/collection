@@ -44,7 +44,7 @@ final class Inits implements Operation
                 return $carry;
             };
 
-        $inits = (new Pipe())(
+        return Pipe::ofTyped2(
             (new ScanLeft())($scanLeftCallback)([]),
             (new Normalize())
         );

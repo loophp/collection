@@ -37,7 +37,7 @@ final class Falsy implements Operation
             static fn ($value): bool => (bool) $value;
 
         // Point free style.
-        return (new Pipe())(
+        return Pipe::ofTyped2(
             (new MatchOne())($matchWhenNot)($matcher),
             (new Map())(
                 /**

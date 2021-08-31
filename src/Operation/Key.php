@@ -30,7 +30,7 @@ final class Key implements Operation
     public function __invoke(int $index): Closure
     {
         // Point free style.
-        return (new Pipe())(
+        return Pipe::ofTyped2(
             (new Limit())(1)($index),
             (new Flip())()
         );

@@ -40,13 +40,10 @@ final class Slice implements Operation
                     return $skip;
                 }
 
-                $pipe = (new Pipe())(
+                return Pipe::ofTyped2(
                     $skip,
                     (new Limit())($length)(0)
                 );
-
-                // Point free style.
-                return $pipe;
             };
     }
 }

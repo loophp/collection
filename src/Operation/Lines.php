@@ -38,7 +38,7 @@ final class Lines implements Operation
             static fn (array $value): string => implode('', $value);
 
         // Point free style.
-        return (new Pipe())(
+        return Pipe::ofTyped2(
             (new Explode())(PHP_EOL, "\n", "\r\n"),
             (new Map())($mapCallback)
         );

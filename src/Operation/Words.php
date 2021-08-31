@@ -35,7 +35,7 @@ final class Words implements Operation
              */
             static fn (array $value): string => implode('', $value);
 
-        $pipe = (new Pipe())(
+        return Pipe::ofTyped3(
             (new Explode())("\t", "\n", ' '),
             (new Map())($mapCallback),
             (new Compact())()

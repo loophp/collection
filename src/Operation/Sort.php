@@ -16,8 +16,6 @@ use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 
-use function count;
-
 /**
  * @immutable
  *
@@ -81,12 +79,12 @@ final class Sort implements Operation
                              */
                             static fn (array $left, array $right): int => $callback($left[1], $right[1]);
 
-                    $before = (new Pipe())(...$operations['before']);
+                    $before = Pipe::ofVariadic(...$operations['before']);
 
                     $arrayIterator = new ArrayIterator([...$before($iterator)]);
                     $arrayIterator->uasort($sortCallback($callback));
 
-                    return (new Pipe())(...$operations['after'])($arrayIterator);
+                    return Pipe::ofVariadic(...$operations['after'])($arrayIterator);
                 };
             };
     }

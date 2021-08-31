@@ -36,7 +36,7 @@ final class ScanRight1 implements Operation
     public function __invoke(callable $callback): Closure
     {
         // Point free style.
-        return (new Pipe())(
+        return Pipe::ofTyped3(
             (new Reverse())(),
             (new ScanLeft1())($callback),
             (new Reverse())()

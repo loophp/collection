@@ -53,7 +53,7 @@ final class Unpack implements Operation
              */
             static fn ($initial, int $key, array $value) => $value[1];
 
-        $pipe = (new Pipe())(
+        return Pipe::ofTyped4(
             (new Map())($toIterableIterator),
             (new Map())((new Chunk())(2)),
             (new Flatten())(1),

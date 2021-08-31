@@ -38,8 +38,7 @@ final class Pack implements Operation
              */
             static fn ($value, $key): array => [$key, $value];
 
-        // Point free style.
-        return (new Pipe())(
+        return Pipe::ofTyped2(
             (new Map())($mapCallback),
             (new Normalize())
         );

@@ -75,7 +75,7 @@ final class Every implements Operation
                              */
                             static fn ($value, $key, Iterator $iterator): bool => $reducer1($value, $key, $iterator) !== $reducer2($value, $key, $iterator);
 
-                $pipe = (new Pipe())(
+                $pipe = Pipe::ofTyped4(
                     (new Map())($mapCallback($callbackReducer($callbacks))($callbackReducer($matchers))),
                     (new DropWhile())(static fn (bool $value): bool => true === $value),
                     (new Append())(true),

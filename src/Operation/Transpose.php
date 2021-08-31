@@ -52,7 +52,7 @@ final class Transpose implements Operation
              */
             static fn (array $carry, array $key, array $value): array => $value;
 
-        $pipe = (new Pipe())(
+        return Pipe::ofTyped3(
             (new Reduce())(
                 static function (MultipleIterator $acc, iterable $iterable): MultipleIterator {
                     $acc->attachIterator(new IterableIterator($iterable));

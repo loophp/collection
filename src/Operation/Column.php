@@ -42,7 +42,7 @@ final class Column implements Operation
                  */
                 static fn ($value, $key): bool => $key === $column;
 
-        $pipe = (new Pipe())(
+        $pipe = Pipe::ofTyped4(
             (new Transpose())(),
             (new Filter())($filterCallbackBuilder($column)),
             (new Head()),

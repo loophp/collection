@@ -75,15 +75,12 @@ final class MatchOne implements Operation
                              */
                             static fn ($value, $key, Iterator $iterator): bool => $reducer1($value, $key, $iterator) === $reducer2($value, $key, $iterator);
 
-                $pipe = (new Pipe())(
+                return Pipe::ofTyped4(
                     (new Map())($mapCallback($callbackReducer($callbacks))($callbackReducer($matchers))),
                     (new DropWhile())(static fn (bool $value): bool => false === $value),
                     (new Append())(false),
                     (new Head())
                 );
-
-                // Point free style.
-                return $pipe;
             };
     }
 }

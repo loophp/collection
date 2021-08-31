@@ -37,13 +37,10 @@ final class Implode implements Operation
              */
             static fn (string $carry, $item): string => $carry .= $item;
 
-        $pipe = (new Pipe())(
+        return Pipe::ofTyped3(
             (new Intersperse())($glue)(1)(0),
             (new Drop())(1),
             (new Reduce())($reducer)('')
         );
-
-        // Point free style.
-        return $pipe;
     }
 }

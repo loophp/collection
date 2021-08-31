@@ -44,7 +44,7 @@ final class ScanLeft1 implements Operation
             static function (Iterator $iterator) use ($callback): Iterator {
                 $initial = $iterator->current();
 
-                return (new Pipe())(
+                return Pipe::ofTyped3(
                     (new Tail())(),
                     (new Reduction())($callback)($initial),
                     (new Prepend())($initial)

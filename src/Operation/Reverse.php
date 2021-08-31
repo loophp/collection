@@ -38,7 +38,7 @@ final class Reverse implements Operation
              */
             static fn (array $carry, array $value): array => [...$value, ...$carry];
 
-        $pipe = (new Pipe())(
+        return Pipe::ofTyped3(
             (new Pack())(),
             (new Reduce())($callback)([]),
             (new Unpack())(),

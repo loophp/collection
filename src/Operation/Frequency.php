@@ -58,7 +58,7 @@ final class Frequency implements Operation
             };
 
         // Point free style.
-        return (new Pipe())(
+        return Pipe::ofTyped3(
             (new Reduce())($reduceCallback)([]),
             (new Flatten())(1),
             (new Unpack())()

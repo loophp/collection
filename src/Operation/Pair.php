@@ -49,17 +49,11 @@ final class Pair implements Operation
              */
             static fn ($initial, $key, array $value) => $value[1] ?? null;
 
-        $pipe = (new Pipe())(
+        // Point free style.
+        return Pipe::ofTyped3(
             (new Chunk())(2),
             (new Map())(static fn (array $value): array => array_values($value)),
             (new Associate())($callbackForKeys)($callbackForValues)
-        );
-
-        // Point free style.
-        return Pipe::ofTyped3(
-            (new Chunk())()(2),
-            (new Map())()(static fn (array $value): array => array_values($value)),
-            (new Associate())()($callbackForKeys)($callbackForValues)
         );
     }
 }

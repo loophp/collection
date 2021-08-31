@@ -17,8 +17,6 @@ use Iterator;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Contract\Operation\Sortable;
 
-use function count;
-
 /**
  * @immutable
  *
@@ -67,11 +65,7 @@ final class Matching implements Operation
                     $pipes[] = (new Limit())((int) $length)((int) $offset);
                 }
 
-                /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
-                $pipe = (new Pipe())(...$pipes);
-
-                // Point free style.
-                return $pipe;
+                return Pipe::ofVariadic(...$pipes);
             };
     }
 }

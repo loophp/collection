@@ -42,13 +42,10 @@ final class FoldLeft implements Operation
              * @return Closure(Iterator<TKey, T>): Generator<int|TKey, T|V>
              */
             static function ($initial = null) use ($callback): Closure {
-                $pipe = (new Pipe())(
+                return Pipe::ofTyped2(
                     (new ScanLeft())($callback)($initial),
                     (new Last())
                 );
-
-                // Point free style.
-                return $pipe;
             };
     }
 }

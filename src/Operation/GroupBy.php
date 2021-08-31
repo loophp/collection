@@ -72,7 +72,7 @@ final class GroupBy implements Operation
                             return $collect;
                         };
 
-                $pipe = (new Pipe())(
+                return Pipe::ofTyped2(
                     (new Reduce())($reducerFactory($callable))([]),
                     (new Flatten())(1)
                 );

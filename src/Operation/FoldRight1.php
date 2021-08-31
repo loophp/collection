@@ -38,7 +38,7 @@ final class FoldRight1 implements Operation
              * @return Closure(Iterator<TKey, T>): Generator<int|TKey, T|null>
              */
             static function (callable $callback): Closure {
-                $pipe = (new Pipe())(
+                return Pipe::ofTyped2(
                     (new ScanRight1())($callback),
                     (new Head())
                 );
