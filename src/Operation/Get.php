@@ -54,9 +54,6 @@ final class Get implements Operation
                         (new Append())($default),
                         (new Head())
                     );
-
-                    // Point free style.
-                    return $pipe;
                 };
     }
 }

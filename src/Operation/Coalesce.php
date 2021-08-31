@@ -24,8 +24,6 @@ final class Coalesce implements Operation
 {
     /**
      * @pure
-     *
-     * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {

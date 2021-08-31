@@ -52,8 +52,5 @@ final class Init implements Operation
             $buildCachingIterator,
             (new TakeWhile())($callback)
         );
-
-        // Point free style.
-        return $takeWhile;
     }
 }

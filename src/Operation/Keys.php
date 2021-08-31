@@ -33,8 +33,5 @@ final class Keys implements Operation
             (new Flip())(),
             (new Normalize())
         );
-
-        // Point free style.
-        return $pipe;
     }
 }

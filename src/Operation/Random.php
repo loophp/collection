@@ -43,9 +43,6 @@ final class Random implements Operation
                             (new Shuffle())($seed),
                             (new Limit())($size)(0)
                         );
-
-                        // Point free style.
-                        return $pipe;
                     };
             };
     }

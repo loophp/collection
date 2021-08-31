@@ -76,9 +76,6 @@ final class GroupBy implements Operation
                     (new Reduce())($reducerFactory($callable))([]),
                     (new Flatten())(1)
                 );
-
-                // Point free style.
-                return $pipe;
             };
     }
 }

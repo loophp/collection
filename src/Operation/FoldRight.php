@@ -42,9 +42,6 @@ final class FoldRight implements Operation
                     (new ScanRight())($callback)($initial),
                     (new Head())
                 );
-
-                // Point free style.
-                return $pipe;
             };
     }
 }

@@ -63,8 +63,5 @@ final class Transpose implements Operation
             (new Flatten())(1),
             (new Associate())($callbackForKeys)($callbackForValues)
         );
-
-        // Point free style.
-        return $pipe;
     }
 }

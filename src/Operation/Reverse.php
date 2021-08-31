@@ -43,8 +43,5 @@ final class Reverse implements Operation
             (new Reduce())($callback)([]),
             (new Unpack())(),
         );
-
-        // Point free style.
-        return $pipe;
     }
 }

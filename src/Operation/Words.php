@@ -40,8 +40,5 @@ final class Words implements Operation
             (new Map())($mapCallback),
             (new Compact())()
         );
-
-        // Point free style.
-        return $pipe;
     }
 }

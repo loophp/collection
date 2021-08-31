@@ -17,6 +17,8 @@ use Iterator;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Contract\Operation\Sortable;
 
+use function count;
+
 /**
  * @immutable
  *

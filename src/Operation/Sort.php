@@ -16,6 +16,8 @@ use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 
+use function count;
+
 /**
  * @immutable
  *

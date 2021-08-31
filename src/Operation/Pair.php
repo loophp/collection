@@ -56,6 +56,10 @@ final class Pair implements Operation
         );
 
         // Point free style.
-        return $pipe;
+        return Pipe::ofTyped3(
+            (new Chunk())()(2),
+            (new Map())()(static fn (array $value): array => array_values($value)),
+            (new Associate())()($callbackForKeys)($callbackForValues)
+        );
     }
 }

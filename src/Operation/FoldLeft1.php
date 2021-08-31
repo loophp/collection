@@ -42,9 +42,6 @@ final class FoldLeft1 implements Operation
                     (new ScanLeft1())($callback),
                     (new Last())
                 );
-
-                // Point free style.
-                return $pipe;
             };
     }
 }

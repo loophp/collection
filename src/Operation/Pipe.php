@@ -50,4 +50,99 @@ final class Pipe implements Operation
             static fn (Iterator $iterator): Iterator => $iterator
         );
     }
+
+    /**
+     * @pure
+     *
+     * @template A
+     * @template B
+     *
+     * @param callable(A): B $op1
+     *
+     * @return Closure(A): B
+     */
+    public static function ofTyped1(callable $op1): Closure
+    {
+        return (new Pipe())()($op1);
+    }
+
+    /**
+     * @pure
+     *
+     * @template A
+     * @template B
+     * @template C
+     *
+     * @param callable(A): B $op1
+     * @param callable(B): C $op2
+     *
+     * @return Closure(A): C
+     */
+    public static function ofTyped2(callable $op1, callable $op2): Closure
+    {
+        return (new Pipe())()($op1, $op2);
+    }
+
+    /**
+     * @pure
+     *
+     * @template A
+     * @template B
+     * @template C
+     * @template D
+     *
+     * @param callable(A): B $op1
+     * @param callable(B): C $op2
+     * @param callable(C): D $op3
+     *
+     * @return Closure(A): D
+     */
+    public static function ofTyped3(callable $op1, callable $op2, callable $op3): Closure
+    {
+        return (new Pipe())()($op1, $op2, $op3);
+    }
+
+    /**
+     * @pure
+     *
+     * @template A
+     * @template B
+     * @template C
+     * @template D
+     * @template E
+     *
+     * @param callable(A): B $op1
+     * @param callable(B): C $op2
+     * @param callable(C): D $op3
+     * @param callable(D): E $op4
+     *
+     * @return Closure(A): E
+     */
+    public static function ofTyped4(callable $op1, callable $op2, callable $op3, callable $op4): Closure
+    {
+        return (new Pipe())()($op1, $op2, $op3, $op4);
+    }
+
+    /**
+     * @pure
+     *
+     * @template A
+     * @template B
+     * @template C
+     * @template D
+     * @template E
+     * @template F
+     *
+     * @param callable(A): B $op1
+     * @param callable(B): C $op2
+     * @param callable(C): D $op3
+     * @param callable(D): E $op4
+     * @param callable(E): F $op5
+     *
+     * @return Closure(A): F
+     */
+    public static function ofTyped5(callable $op1, callable $op2, callable $op3, callable $op4, callable $op5): Closure
+    {
+        return (new Pipe())()($op1, $op2, $op3, $op4, $op5);
+    }
 }

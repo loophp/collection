@@ -40,8 +40,5 @@ final class Truthy implements Operation
             (new MatchOne())($matchWhenNot)($matcher),
             (new Map())($matcher),
         );
-
-        // Point free style.
-        return $pipe;
     }
 }

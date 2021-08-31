@@ -42,8 +42,5 @@ final class Wrap implements Operation
             (new Map())($mapCallback),
             (new Normalize())
         );
-
-        // Point free style.
-        return $pipe;
     }
 }

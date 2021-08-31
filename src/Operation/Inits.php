@@ -48,8 +48,5 @@ final class Inits implements Operation
             (new ScanLeft())($scanLeftCallback)([]),
             (new Normalize())
         );
-
-        // Point free style.
-        return $inits;
     }
 }
