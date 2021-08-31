@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
-use Generator;
 use Iterator;
 
 /**
@@ -24,7 +23,7 @@ final class Pack extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(Iterator<TKey, T>): Generator<int, array{0: TKey, 1: T}>
+     * @return Closure(Iterator<TKey, T>): Iterator<int, array{0: TKey, 1: T}>
      */
     public function __invoke(): Closure
     {

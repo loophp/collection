@@ -68,7 +68,13 @@ final class Pipe extends AbstractOperation
      */
     public static function ofTyped1(callable $op1): Closure
     {
-        return (new Pipe())()($op1);
+        return
+            /**
+             * @param Iterator<Ik, Iv> $iterator
+             *
+             * @return Iterator<Jk, Jv>
+             */
+            static fn (Iterator $iterator): Iterator => $op1($iterator);
     }
 
     /**
@@ -88,7 +94,13 @@ final class Pipe extends AbstractOperation
      */
     public static function ofTyped2(callable $op1, callable $op2): Closure
     {
-        return (new Pipe())()($op1, $op2);
+        return
+            /**
+             * @param Iterator<Ik, Iv> $iterator
+             *
+             * @return Iterator<Kk, Kv>
+             */
+            static fn (Iterator $iterator): Iterator => $op2($op1($iterator));
     }
 
     /**
@@ -111,7 +123,13 @@ final class Pipe extends AbstractOperation
      */
     public static function ofTyped3(callable $op1, callable $op2, callable $op3): Closure
     {
-        return (new Pipe())()($op1, $op2, $op3);
+        return
+            /**
+             * @param Iterator<Ik, Iv> $iterator
+             *
+             * @return Iterator<Lk, Lv>
+             */
+            static fn (Iterator $iterator): Iterator => $op3($op2($op1($iterator)));
     }
 
     /**
@@ -131,13 +149,19 @@ final class Pipe extends AbstractOperation
      * @param callable(Iterator<Ik, Iv>): Iterator<Jk, Jv> $op1
      * @param callable(Iterator<Jk, Jv>): Iterator<Kk, Kv> $op2
      * @param callable(Iterator<Kk, Kv>): Iterator<Lk, Lv> $op3
-     * @param callable(Iterator<Lk, Lv>): Iterator<Mk, Mv> $op3
+     * @param callable(Iterator<Lk, Lv>): Iterator<Mk, Mv> $op4
      *
      * @return Closure(Iterator<Ik, Iv>): Iterator<Mk, Mv>
      */
     public static function ofTyped4(callable $op1, callable $op2, callable $op3, callable $op4): Closure
     {
-        return (new Pipe())()($op1, $op2, $op3, $op4);
+        return
+            /**
+             * @param Iterator<Ik, Iv> $iterator
+             *
+             * @return Iterator<Mk, Mv>
+             */
+            static fn (Iterator $iterator): Iterator => $op4($op3($op2($op1($iterator))));
     }
 
     /**
@@ -159,13 +183,19 @@ final class Pipe extends AbstractOperation
      * @param callable(Iterator<Ik, Iv>): Iterator<Jk, Jv> $op1
      * @param callable(Iterator<Jk, Jv>): Iterator<Kk, Kv> $op2
      * @param callable(Iterator<Kk, Kv>): Iterator<Lk, Lv> $op3
-     * @param callable(Iterator<Lk, Lv>): Iterator<Mk, Mv> $op3
-     * @param callable(Iterator<Mk, Mv>): Iterator<Nk, Nv> $op3
+     * @param callable(Iterator<Lk, Lv>): Iterator<Mk, Mv> $op4
+     * @param callable(Iterator<Mk, Mv>): Iterator<Nk, Nv> $op5
      *
      * @return Closure(Iterator<Ik, Iv>): Iterator<Nk, Nv>
      */
     public static function ofTyped5(callable $op1, callable $op2, callable $op3, callable $op4, callable $op5): Closure
     {
-        return (new Pipe())()($op1, $op2, $op3, $op4, $op5);
+        return
+            /**
+             * @param Iterator<Ik, Iv> $iterator
+             *
+             * @return Iterator<Nk, Nv>
+             */
+            static fn (Iterator $iterator): Iterator => $op5($op4($op3($op2($op1($iterator)))));
     }
 }

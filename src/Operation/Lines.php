@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
-use Generator;
 use Iterator;
 
 use const PHP_EOL;
@@ -26,7 +25,7 @@ final class Lines extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(Iterator<TKey, T>): Generator<int, string>
+     * @return Closure(Iterator<TKey, T>): Iterator<int, string>
      */
     public function __invoke(): Closure
     {

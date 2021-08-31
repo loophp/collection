@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
-use Generator;
 use Iterator;
 
 /**
@@ -24,11 +23,11 @@ final class Tail extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(Iterator<TKey, T>): Iterator<TKey, T>
      */
     public function __invoke(): Closure
     {
-        /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $drop */
+        /** @var Closure(Iterator<TKey, T>): Iterator<TKey, T> $drop */
         $drop = (new Drop())()(1);
 
         // Point free style.

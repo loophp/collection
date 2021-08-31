@@ -12,7 +12,6 @@ namespace loophp\collection\Operation;
 use ArrayIterator;
 use Closure;
 use Exception;
-use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 
@@ -31,17 +30,17 @@ final class Sort extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(int): Closure(callable(T|TKey, T|TKey): int): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(int): Closure(callable(T|TKey, T|TKey): int): Closure(Iterator<TKey, T>): Iterator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @return Closure(callable(T|TKey, T|TKey): int): Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @return Closure(callable(T|TKey, T|TKey): int): Closure(Iterator<TKey, T>): Iterator<TKey, T>
              */
             static fn (int $type = Operation\Sortable::BY_VALUES): Closure =>
                 /**
-                 * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
+                 * @return Closure(Iterator<TKey, T>): Iterator<TKey, T>
                  */
                 static function (?callable $callback = null) use ($type): Closure {
                     $callback ??=
@@ -55,7 +54,7 @@ final class Sort extends AbstractOperation
                     /**
                      * @param Iterator<TKey, T> $iterator
                      *
-                     * @return Generator<TKey, T>
+                     * @return Iterator<TKey, T>
                      */
                     static function (Iterator $iterator) use ($type, $callback): Iterator {
                         if (Operation\Sortable::BY_VALUES !== $type && Operation\Sortable::BY_KEYS !== $type) {

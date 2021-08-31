@@ -11,7 +11,6 @@ namespace loophp\collection\Operation;
 
 use ArrayIterator;
 use Closure;
-use Generator;
 use Iterator;
 use loophp\collection\Iterator\IterableIterator;
 
@@ -35,7 +34,7 @@ final class Product extends AbstractOperation
             /**
              * @param iterable<UKey, U> ...$iterables
              *
-             * @return Closure(Iterator<TKey, T>): Generator<int, list<T|U>>
+             * @return Closure(Iterator<TKey, T>): Iterator<int, list<T|U>>
              */
             static function (iterable ...$iterables): Closure {
                 // Point free style.
@@ -48,16 +47,16 @@ final class Product extends AbstractOperation
                         /**
                          * @param Iterator<TKey, T> $iterator
                          */
-                        static fn (Iterator $iterator): Generator => (
+                        static fn (Iterator $iterator): Iterator => (
                             /**
-                             * @param Closure(Iterator<TKey, T>): (Closure(Iterator<UKey, U>): Generator<list<T|U>>) $f
+                             * @param Closure(Iterator<TKey, T>): (Closure(Iterator<UKey, U>): Iterator<list<T|U>>) $f
                              */
                             static fn (Closure $f): Closure => (new FoldLeft())()(
                                 /**
                                  * @param Iterator<UKey, U> $a
                                  * @param Iterator<TKey, T> $x
                                  */
-                                static fn (Iterator $a, Iterator $x): Generator => $f($x)($a)
+                                static fn (Iterator $a, Iterator $x): Iterator => $f($x)($a)
                             )
                         )(
                             /**
@@ -67,17 +66,17 @@ final class Product extends AbstractOperation
                             /**
                              * @param Iterator<int, list<T>> $as
                              */
-                            static fn (Iterator $as): Generator => (new FlatMap())()(
+                            static fn (Iterator $as): Iterator => (new FlatMap())()(
                                 /**
                                  * @param list<T> $a
                                  */
-                                static fn (array $a): Generator => (new FlatMap())()(
+                                static fn (array $a): Iterator => (new FlatMap())()(
                                     /**
                                      * @param T|U $x
                                      *
-                                     * @return Generator<int, list<T|U>>
+                                     * @return Iterator<int, list<T|U>>
                                      */
-                                    static fn ($x): Generator => yield [...$a, $x]
+                                    static fn ($x): Iterator => yield [...$a, $x]
                                 )($xs)
                             )($as)
                         )(new ArrayIterator([[]]))(new ArrayIterator([$iterator, ...$iterables]))

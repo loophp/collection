@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
-use Generator;
 use Iterator;
 
 /**
@@ -24,7 +23,7 @@ final class Pair extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(Iterator<TKey, T>): Generator<T, T|null>
+     * @return Closure(Iterator<TKey, T>): Iterator<T, T|null>
      */
     public function __invoke(): Closure
     {

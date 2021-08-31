@@ -11,7 +11,6 @@ namespace loophp\collection\Operation;
 
 use CachingIterator;
 use Closure;
-use Generator;
 use Iterator;
 
 /**
@@ -27,7 +26,7 @@ final class Init extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(Iterator<TKey, T>): Iterator<TKey, T>
      */
     public function __invoke(): Closure
     {

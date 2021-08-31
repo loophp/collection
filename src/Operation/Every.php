@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
-use Generator;
 use Iterator;
 use loophp\collection\Utils\CallbacksArrayReducer;
 
@@ -27,7 +26,7 @@ final class Every extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(callable(T, TKey, Iterator<TKey, T>...): bool): Closure(callable(T, TKey, Iterator<TKey, T>...): bool): Closure(Iterator<TKey, T>): Generator<TKey, bool>
+     * @return Closure(callable(T, TKey, Iterator<TKey, T>...): bool): Closure(callable(T, TKey, Iterator<TKey, T>...): bool): Closure(Iterator<TKey, T>): Iterator<TKey, bool>
      */
     public function __invoke(): Closure
     {
@@ -35,14 +34,14 @@ final class Every extends AbstractOperation
             /**
              * @param callable(T=, TKey=, Iterator<TKey, T>=): bool ...$matchers
              *
-             * @return Closure(...callable(T=, TKey=, Iterator<TKey, T>=): bool): Closure(Iterator<TKey, T>): Generator<TKey, bool>
+             * @return Closure(...callable(T=, TKey=, Iterator<TKey, T>=): bool): Closure(Iterator<TKey, T>): Iterator<TKey, bool>
              */
             static function (callable ...$matchers): Closure {
                 return
                     /**
                      * @param callable(T=, TKey=, Iterator<TKey, T>=): bool ...$callbacks
                      *
-                     * @return Closure(Iterator<TKey, T>): Generator<TKey, bool>
+                     * @return Closure(Iterator<TKey, T>): Iterator<TKey, bool>
                      */
                     static function (callable ...$callbacks) use ($matchers): Closure {
                         $callbackReducer =

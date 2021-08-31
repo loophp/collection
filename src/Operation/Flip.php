@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
-use Generator;
 use Iterator;
 
 /**
@@ -24,7 +23,7 @@ final class Flip extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(Iterator<TKey, T>): Generator<T, TKey>
+     * @return Closure(Iterator<TKey, T>): Iterator<T, TKey>
      */
     public function __invoke(): Closure
     {
@@ -47,7 +46,7 @@ final class Flip extends AbstractOperation
              */
             static fn ($carry, $key) => $key;
 
-        /** @var Closure(Iterator<TKey, T>): Generator<T, TKey> $associate */
+        /** @var Closure(Iterator<TKey, T>): Iterator<T, TKey> $associate */
         $associate = (new Associate())()($callbackForKeys)($callbackForValues);
 
         // Point free style.

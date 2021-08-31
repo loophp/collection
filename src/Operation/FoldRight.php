@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
-use Generator;
 use Iterator;
 
 /**
@@ -26,7 +25,7 @@ final class FoldRight extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(callable((T|null), T, TKey, Iterator<TKey, T>):(T|null)): Closure(T): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(callable((T|null), T, TKey, Iterator<TKey, T>):(T|null)): Closure(T): Closure(Iterator<TKey, T>): Iterator<TKey, T>
      */
     public function __invoke(): Closure
     {
@@ -34,7 +33,7 @@ final class FoldRight extends AbstractOperation
             /**
              * @param callable(T|null, T, TKey, Iterator<TKey, T>):(T|null) $callback
              *
-             * @return Closure(T): Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @return Closure(T): Closure(Iterator<TKey, T>): Iterator<TKey, T>
              */
             static fn (callable $callback): Closure => static function ($initial = null) use ($callback): Closure {
                 // Point free style.

@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
-use Generator;
 use Iterator;
 
 /**
@@ -26,7 +25,7 @@ final class GroupBy extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure((null | callable(TKey, T ): (TKey | null))):Closure (Iterator<TKey, T>): Generator<int, T|list<T>>
+     * @return Closure((null | callable(TKey, T ): (TKey | null))):Closure (Iterator<TKey, T>): Iterator<int, T|list<T>>
      */
     public function __invoke(): Closure
     {
@@ -34,7 +33,7 @@ final class GroupBy extends AbstractOperation
             /**
              * @param null|callable(TKey, T):(TKey|null) $callable
              *
-             * @return Closure(Iterator<TKey, T>): Generator<int, T|list<T>>
+             * @return Closure(Iterator<TKey, T>): Iterator<int, T|list<T>>
              */
             static function (?callable $callable = null): Closure {
                 /** @var callable(T, TKey): (TKey|null) $callable */

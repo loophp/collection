@@ -12,7 +12,6 @@ namespace loophp\collection\Operation;
 use Amp\Sync\LocalSemaphore;
 use Closure;
 use Exception;
-use Generator;
 use Iterator;
 
 use function Amp\Iterator\fromIterable;
@@ -41,7 +40,7 @@ final class AsyncMap extends AbstractOperation
      *
      * @template V
      *
-     * @return Closure(callable(T, TKey): V): Closure(Iterator<TKey, T>): Generator<TKey, V>
+     * @return Closure(callable(T, TKey): V): Closure(Iterator<TKey, T>): Iterator<TKey, V>
      */
     public function __invoke(): Closure
     {
@@ -53,9 +52,9 @@ final class AsyncMap extends AbstractOperation
                 /**
                  * @param Iterator<TKey, T> $iterator
                  *
-                 * @return Generator<TKey, V>
+                 * @return Iterator<TKey, V>
                  */
-                static function (Iterator $iterator) use ($callback): Generator {
+                static function (Iterator $iterator) use ($callback): Iterator {
                     $parallelCallBack =
                         /**
                          * @param array{0: TKey, 1: T} $value

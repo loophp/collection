@@ -12,7 +12,6 @@ namespace loophp\collection\Operation;
 use ArrayAccess;
 use ArrayIterator;
 use Closure;
-use Generator;
 use Iterator;
 use loophp\collection\Contract\Collection;
 use ReflectionClass;
@@ -35,7 +34,7 @@ final class Pluck extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(T):Closure(T):Closure(Iterator<TKey, T>):Generator<int, T|iterable<int, T>, mixed, void>
+     * @return Closure(T):Closure(T):Closure(Iterator<TKey, T>):Iterator<int, T|iterable<int, T>>
      */
     public function __invoke(): Closure
     {
@@ -43,21 +42,21 @@ final class Pluck extends AbstractOperation
             /**
              * @param T $key
              *
-             * @return Closure(T): Closure(Iterator<TKey, T>): Generator<int, T|iterable<int, T>, mixed, void>
+             * @return Closure(T): Closure(Iterator<TKey, T>): Iterator<int, T|iterable<int, T>>
              */
             static fn ($key): Closure =>
                 /**
                  * @param T $default
                  *
-                 * @return Closure(Iterator<TKey, T>): Generator<int, T|iterable<int, T>, mixed, void>
+                 * @return Closure(Iterator<TKey, T>): Iterator<int, T|iterable<int, T>>
                  */
                 static fn ($default): Closure =>
                     /**
                      * @param Iterator<TKey, T> $iterator
                      *
-                     * @return Generator<int, T|iterable<int, T>, mixed, void>
+                     * @return Iterator<int, iterable<int, T>|T>
                      */
-                    static function (Iterator $iterator) use ($key, $default): Generator {
+                    static function (Iterator $iterator) use ($key, $default): Iterator {
                         $pick =
                             /**
                              * @param Iterator<TKey, T> $iterator
@@ -81,7 +80,7 @@ final class Pluck extends AbstractOperation
                                             $result[] = $pick($iterator, $item, $key);
                                         }
 
-                                        /** @var Generator<TKey, T> $collapse */
+                                        /** @var Iterator<TKey, T> $collapse */
                                         $collapse = (new Collapse())()(new ArrayIterator($result));
 
                                         return in_array('*', $key, true) ? $collapse : $result;
