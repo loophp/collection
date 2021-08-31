@@ -23,7 +23,7 @@ interface Groupable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#group
      *
-     * @return Collection<TKey, T>
+     * @return Collection<int, list<T>>
      */
     public function group(): Collection;
 }
