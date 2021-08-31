@@ -445,6 +445,7 @@ final class Collection implements CollectionInterface
 
     /**
      * @pure
+     *
      * @template NewTKey
      * @template NewT
      *
@@ -472,6 +473,8 @@ final class Collection implements CollectionInterface
     }
 
     /**
+     * @pure
+     *
      * @template NewTKey
      * @template NewT
      *
@@ -745,9 +748,9 @@ final class Collection implements CollectionInterface
         return new self((new Permutate())(), [$this->getIterator()]);
     }
 
-    public function pipe(callable ...$callbacks): CollectionInterface
+    public function pipe(callable $callback): CollectionInterface
     {
-        return new self((new Pipe)()(...$callbacks), [$this->getIterator()]);
+        return new self(Pipe::ofTyped1($callback), [$this->getIterator()]);
     }
 
     public function pluck($pluck, $default = null): CollectionInterface
