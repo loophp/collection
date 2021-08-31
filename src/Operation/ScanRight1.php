@@ -41,9 +41,9 @@ final class ScanRight1 extends AbstractOperation
             static function (callable $callback): Closure {
                 // Point free style.
                 return Pipe::ofTyped3(
-                    Reverse::of(),
-                    ScanLeft1::of()($callback),
-                    Reverse::of()
+                    (new Reverse())(),
+                    (new ScanLeft1())()($callback),
+                    (new Reverse())()
                 );
             };
     }

@@ -77,7 +77,7 @@ final class AsyncMapN extends AbstractOperation
                          */
                         static fn (array $value): array => [$value[0], array_reduce($callbacks, $callbackFactory($value[0]), $value[1])];
 
-                    $iter = map(fromIterable(Pack::of()($iterator)), new LocalSemaphore(32), parallel($callback));
+                    $iter = map(fromIterable((new Pack())()($iterator)), new LocalSemaphore(32), parallel($callback));
 
                     while (wait($iter->advance())) {
                         /** @var array{0: mixed, 1: mixed} $item */

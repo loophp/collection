@@ -35,8 +35,8 @@ final class Key extends AbstractOperation
             static function (int $index): Closure {
                 // Point free style.
                 return Pipe::ofTyped2(
-                    Limit::of()(1)($index),
-                    Flip::of()
+                    (new Limit())()(1)($index),
+                    (new Flip())()
                 );
             };
     }

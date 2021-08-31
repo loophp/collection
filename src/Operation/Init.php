@@ -50,7 +50,7 @@ final class Init extends AbstractOperation
         // Point free style.
         return Pipe::ofTyped2(
             $buildCachingIterator,
-            TakeWhile::of()($callback)
+            (new TakeWhile())()($callback)
         );
     }
 }

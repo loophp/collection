@@ -64,12 +64,12 @@ final class Sort extends AbstractOperation
 
                         $operations = Operation\Sortable::BY_VALUES === $type ?
                             [
-                                'before' => [Pack::of()],
-                                'after' => [Unpack::of()],
+                                'before' => [(new Pack())()],
+                                'after' => [(new Unpack())()],
                             ] :
                             [
-                                'before' => [Flip::of(), Pack::of()],
-                                'after' => [Unpack::of(), Flip::of()],
+                                'before' => [(new Flip())(), (new Pack())()],
+                                'after' => [(new Unpack())(), (new Flip())()],
                             ];
 
                         $sortCallback =

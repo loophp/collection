@@ -40,8 +40,8 @@ final class FlatMap extends AbstractOperation
             static function (callable $callback): Closure {
                 // Point free style
                 return Pipe::ofTyped2(
-                    Map::of()($callback),
-                    Flatten::of()(1)
+                    (new Map())()($callback),
+                    (new Flatten())()(1)
                 );
             };
     }

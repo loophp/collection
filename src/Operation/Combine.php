@@ -63,8 +63,8 @@ final class Combine extends AbstractOperation
                 // Point free style.
                 return Pipe::ofTyped3(
                     $buildMultipleIterator(new ArrayIterator($keys)),
-                    Flatten::of()(1),
-                    Pair::of(),
+                    (new Flatten())()(1),
+                    (new Pair())(),
                 );
             };
     }

@@ -43,9 +43,9 @@ final class Implode extends AbstractOperation
 
                 // Point free style.
                 return Pipe::ofTyped3(
-                    Intersperse::of()($glue)(1)(0),
-                    Drop::of()(1),
-                    Reduce::of()($reducer)('')
+                    (new Intersperse())()($glue)(1)(0),
+                    (new Drop())()(1),
+                    (new Reduce())()($reducer)('')
                 );
             };
     }

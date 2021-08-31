@@ -37,8 +37,8 @@ final class Truthy extends AbstractOperation
 
         // Point free style.
         return Pipe::ofTyped2(
-            MatchOne::of()($matchWhenNot)($matcher),
-            Map::of()($matcher),
+            (new MatchOne())()($matchWhenNot)($matcher),
+            (new Map())()($matcher),
         );
     }
 }

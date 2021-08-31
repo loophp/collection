@@ -29,7 +29,7 @@ final class Unwindow extends AbstractOperation
     public function __invoke(): Closure
     {
         /** @var Closure(Iterator<TKey, list<T>>): Generator<TKey, T|null> $unwindow */
-        $unwindow = Map::of()(
+        $unwindow = (new Map())()(
             /**
              * @param iterable<TKey, list<T>> $iterable
              *

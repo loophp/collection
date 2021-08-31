@@ -56,18 +56,18 @@ final class Matching extends AbstractOperation
                         $next = ClosureExpressionVisitor::sortByField($field, Criteria::DESC === $ordering ? -1 : 1, $next);
                     }
 
-                    $pipes[] = Sort::of()(Sortable::BY_VALUES)($next);
+                    $pipes[] = (new Sort())()(Sortable::BY_VALUES)($next);
                 }
 
                 $offset = $criteria->getFirstResult();
                 $length = $criteria->getMaxResults();
 
                 if (null !== $offset || null !== $length) {
-                    $pipes[] = Limit::of()($length)((int) $offset);
+                    $pipes[] = (new Limit())()($length)((int) $offset);
                 }
 
                 return match (count($pipes)) {
-                    0 => Pipe::of(),
+                    0 => (new Pipe())(),
                     1 => Pipe::ofTyped1(...$pipes),
                     2 => Pipe::ofTyped2(...$pipes),
                     3 => Pipe::ofTyped3(...$pipes),

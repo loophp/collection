@@ -39,8 +39,8 @@ final class FoldRight1 extends AbstractOperation
             static function (callable $callback): Closure {
                 // Point free style.
                 return Pipe::ofTyped2(
-                    ScanRight1::of()($callback),
-                    Head::of()
+                    (new ScanRight1())()($callback),
+                    (new Head())()
                 );
             };
     }

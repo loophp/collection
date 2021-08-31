@@ -38,7 +38,7 @@ final class Slice extends AbstractOperation
                  */
                 static function (int $length = -1) use ($offset): Closure {
                     /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $skip */
-                    $skip = Drop::of()($offset);
+                    $skip = (new Drop())()($offset);
 
                     if (-1 === $length) {
                         return $skip;
@@ -47,7 +47,7 @@ final class Slice extends AbstractOperation
                     // Point free style.
                     return Pipe::ofTyped2(
                         $skip,
-                        Limit::of()($length)(0)
+                        (new Limit())()($length)(0)
                     );
                 };
     }

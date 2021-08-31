@@ -81,10 +81,10 @@ final class MatchOne extends AbstractOperation
 
                         // Point free style.
                         return Pipe::ofTyped4(
-                            Map::of()($mapCallback($callbackReducer($callbacks))($callbackReducer($matchers))),
-                            DropWhile::of()(static fn (bool $value): bool => false === $value),
-                            Append::of()(false),
-                            Head::of()
+                            (new Map())()($mapCallback($callbackReducer($callbacks))($callbackReducer($matchers))),
+                            (new DropWhile())()(static fn (bool $value): bool => false === $value),
+                            (new Append())()(false),
+                            (new Head())()
                         );
                     };
             };

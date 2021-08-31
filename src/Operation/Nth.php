@@ -45,9 +45,9 @@ final class Nth extends AbstractOperation
 
                     // Point free style.
                     return Pipe::ofTyped3(
-                        Pack::of(),
+                        (new Pack())(),
                         (new Filter())()($filterCallback),
-                        Unpack::of()
+                        (new Unpack())()
                     );
                 };
     }

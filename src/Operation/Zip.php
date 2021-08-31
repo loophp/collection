@@ -66,7 +66,7 @@ final class Zip extends AbstractOperation
                     /**
                      * @return Closure(ArrayIterator<int, (Iterator<TKey, T>|IterableIterator<mixed, mixed>)>): MultipleIterator
                      */
-                    Reduce::of()(
+                    (new Reduce())()(
                         /**
                          * @param Iterator<TKey, T> $iterator
                          */

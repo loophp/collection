@@ -38,8 +38,8 @@ final class Lines extends AbstractOperation
 
         // Point free style.
         return Pipe::ofTyped2(
-            Explode::of()(PHP_EOL, "\n", "\r\n"),
-            Map::of()($mapCallback)
+            (new Explode())()(PHP_EOL, "\n", "\r\n"),
+            (new Map())()($mapCallback)
         );
     }
 }

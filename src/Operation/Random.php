@@ -40,8 +40,8 @@ final class Random extends AbstractOperation
                     static function (int $size) use ($seed): Closure {
                         // Point free style.
                         return Pipe::ofTyped2(
-                            Shuffle::of()($seed),
-                            Limit::of()($size)(0)
+                            (new Shuffle())()($seed),
+                            (new Limit())()($size)(0)
                         );
                     };
             };

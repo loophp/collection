@@ -29,7 +29,7 @@ final class Unwrap extends AbstractOperation
     public function __invoke(): Closure
     {
         /** @var Closure(Iterator<TKey, T>): Generator<mixed, mixed> $flatten */
-        $flatten = Flatten::of()(1);
+        $flatten = (new Flatten())()(1);
 
         // Point free style.
         return $flatten;

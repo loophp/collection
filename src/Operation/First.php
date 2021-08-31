@@ -29,7 +29,7 @@ final class First extends AbstractOperation
     public function __invoke(): Closure
     {
         /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $head */
-        $head = Head::of();
+        $head = (new Head())();
 
         // Point free style.
         return $head;

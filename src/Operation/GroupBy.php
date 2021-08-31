@@ -73,8 +73,8 @@ final class GroupBy extends AbstractOperation
 
                 // Point free style.
                 return Pipe::ofTyped2(
-                    Reduce::of()($reducerFactory($callable))([]),
-                    Flatten::of()(1)
+                    (new Reduce())()($reducerFactory($callable))([]),
+                    (new Flatten())()(1)
                 );
             };
     }

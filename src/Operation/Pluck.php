@@ -82,7 +82,7 @@ final class Pluck extends AbstractOperation
                                         }
 
                                         /** @var Generator<TKey, T> $collapse */
-                                        $collapse = Collapse::of()(new ArrayIterator($result));
+                                        $collapse = (new Collapse())()(new ArrayIterator($result));
 
                                         return in_array('*', $key, true) ? $collapse : $result;
                                     }
@@ -95,7 +95,7 @@ final class Pluck extends AbstractOperation
                                         $target = $target[$segment];
                                     } elseif ($target instanceof Collection) {
                                         /** @var T $target */
-                                        $target = (Get::of()($segment)($default)($target->getIterator()))->current();
+                                        $target = ((new Get())()($segment)($default)($target->getIterator()))->current();
                                     } elseif ((true === is_object($target)) && (true === property_exists($target, $segment))) {
                                         /** @var T $target */
                                         $target = (new ReflectionClass($target))->getProperty($segment)->getValue($target);

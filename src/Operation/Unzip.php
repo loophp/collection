@@ -47,8 +47,8 @@ final class Unzip extends AbstractOperation
 
         // Point free style.
         return Pipe::ofTyped2(
-            Reduce::of()($reduceCallback)([]),
-            Flatten::of()(1)
+            (new Reduce())()($reduceCallback)([]),
+            (new Flatten())()(1)
         );
     }
 }

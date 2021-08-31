@@ -45,8 +45,8 @@ final class FoldLeft extends AbstractOperation
                 static function ($initial = null) use ($callback): Closure {
                     // Point free style.
                     return Pipe::ofTyped2(
-                        ScanLeft::of()($callback)($initial),
-                        Last::of()
+                        (new ScanLeft())()($callback)($initial),
+                        (new Last())()
                     );
                 };
     }

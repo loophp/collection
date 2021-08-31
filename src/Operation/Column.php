@@ -49,10 +49,10 @@ final class Column extends AbstractOperation
 
                 // Point free style.
                 return Pipe::ofTyped4(
-                    Transpose::of(),
+                    (new Transpose())(),
                     (new Filter())()($filterCallbackBuilder($column)),
-                    Head::of(),
-                    Flatten::of()(1)
+                    (new Head())(),
+                    (new Flatten())()(1)
                 );
             };
     }

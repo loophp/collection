@@ -29,7 +29,7 @@ final class Tail extends AbstractOperation
     public function __invoke(): Closure
     {
         /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $drop */
-        $drop = Drop::of()(1);
+        $drop = (new Drop())()(1);
 
         // Point free style.
         return $drop;

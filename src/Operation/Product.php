@@ -67,11 +67,11 @@ final class Product extends AbstractOperation
                             /**
                              * @param Iterator<int, list<T>> $as
                              */
-                            static fn (Iterator $as): Generator => FlatMap::of()(
+                            static fn (Iterator $as): Generator => (new FlatMap())()(
                                 /**
                                  * @param list<T> $a
                                  */
-                                static fn (array $a): Generator => FlatMap::of()(
+                                static fn (array $a): Generator => (new FlatMap())()(
                                     /**
                                      * @param T|U $x
                                      *

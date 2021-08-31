@@ -37,12 +37,12 @@ final class Tails extends AbstractOperation
              */
             static function (Iterator $iterator): Generator {
                 /** @var Iterator<int, array{0: TKey, 1: T}> $iterator */
-                $iterator = Pack::of()($iterator);
+                $iterator = (new Pack())()($iterator);
                 $data = [...$iterator];
 
                 while ([] !== $data) {
                     /** @var Iterator<TKey, T> $unpack */
-                    $unpack = Unpack::of()(new ArrayIterator($data));
+                    $unpack = (new Unpack())()(new ArrayIterator($data));
 
                     yield [...$unpack];
 

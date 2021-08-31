@@ -44,8 +44,8 @@ final class Inits extends AbstractOperation
 
         // Point free style.
         return Pipe::ofTyped2(
-            ScanLeft::of()($scanLeftCallback)([]),
-            Normalize::of()
+            (new ScanLeft())()($scanLeftCallback)([]),
+            (new Normalize())()
         );
     }
 }

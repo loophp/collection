@@ -39,8 +39,8 @@ final class Wrap extends AbstractOperation
 
         // Point free style.
         return Pipe::ofTyped2(
-            Map::of()($mapCallback),
-            Normalize::of()
+            (new Map())()($mapCallback),
+            (new Normalize())()
         );
     }
 }

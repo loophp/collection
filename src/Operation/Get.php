@@ -51,8 +51,8 @@ final class Get extends AbstractOperation
                     // Point free style.
                     return Pipe::ofTyped3(
                         (new Filter())()($filterCallback),
-                        Append::of()($default),
-                        Head::of()
+                        (new Append())()($default),
+                        (new Head())()
                     );
                 };
     }

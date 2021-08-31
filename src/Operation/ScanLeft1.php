@@ -48,9 +48,9 @@ final class ScanLeft1 extends AbstractOperation
                     $initial = $iterator->current();
 
                     return Pipe::ofTyped3(
-                        Tail::of(),
-                        Reduction::of()($callback)($initial),
-                        Prepend::of()($initial)
+                        (new Tail())(),
+                        (new Reduction())()($callback)($initial),
+                        (new Prepend())()($initial)
                     )($iterator);
                 };
     }

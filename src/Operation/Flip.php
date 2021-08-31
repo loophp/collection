@@ -48,7 +48,7 @@ final class Flip extends AbstractOperation
             static fn ($carry, $key) => $key;
 
         /** @var Closure(Iterator<TKey, T>): Generator<T, TKey> $associate */
-        $associate = Associate::of()($callbackForKeys)($callbackForValues);
+        $associate = (new Associate())()($callbackForKeys)($callbackForValues);
 
         // Point free style.
         return $associate;

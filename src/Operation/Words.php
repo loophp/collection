@@ -36,9 +36,9 @@ final class Words extends AbstractOperation
 
         // Point free style.
         return Pipe::ofTyped3(
-            Explode::of()("\t", "\n", ' '),
-            Map::of()($mapCallback),
-            Compact::of()()
+            (new Explode())()("\t", "\n", ' '),
+            (new Map())()($mapCallback),
+            (new Compact())()()
         );
     }
 }

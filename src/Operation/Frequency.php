@@ -58,9 +58,9 @@ final class Frequency extends AbstractOperation
 
         // Point free style.
         return Pipe::ofTyped3(
-            Reduce::of()($reduceCallback)([]),
-            Flatten::of()(1),
-            Unpack::of()
+            (new Reduce())()($reduceCallback)([]),
+            (new Flatten())()(1),
+            (new Unpack())()
         );
     }
 }

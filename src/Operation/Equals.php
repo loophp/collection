@@ -54,9 +54,9 @@ final class Equals extends AbstractOperation
                         /**
                          * @param T $current
                          */
-                        static fn ($current): bool => Contains::of()($current)($other)->current();
+                        static fn ($current): bool => (new Contains())()($current)($other)->current();
 
-                    return yield from Every::of()(static fn (): bool => false)($containsCallback)($iterator);
+                    return yield from (new Every())()(static fn (): bool => false)($containsCallback)($iterator);
                 };
             };
     }

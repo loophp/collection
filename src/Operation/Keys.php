@@ -30,8 +30,8 @@ final class Keys extends AbstractOperation
     {
         // Point free style.
         return Pipe::ofTyped2(
-            Flip::of(),
-            Normalize::of()
+            (new Flip())(),
+            (new Normalize())()
         );
     }
 }

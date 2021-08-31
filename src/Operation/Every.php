@@ -81,10 +81,10 @@ final class Every extends AbstractOperation
 
                         // Point free style.
                         return Pipe::ofTyped4(
-                            Map::of()($mapCallback($callbackReducer($callbacks))($callbackReducer($matchers))),
-                            DropWhile::of()(static fn (bool $value): bool => true === $value),
-                            Append::of()(true),
-                            Head::of(),
+                            (new Map())()($mapCallback($callbackReducer($callbacks))($callbackReducer($matchers))),
+                            (new DropWhile())()(static fn (bool $value): bool => true === $value),
+                            (new Append())()(true),
+                            (new Head())(),
                         );
                     };
             };

@@ -54,10 +54,10 @@ final class Unpack extends AbstractOperation
 
         // Point free style.
         return Pipe::ofTyped4(
-            Map::of()($toIterableIterator),
-            Map::of()(Chunk::of()(2)),
-            Flatten::of()(1),
-            Associate::of()($callbackForKeys)($callbackForValues)
+            (new Map())()($toIterableIterator),
+            (new Map())()((new Chunk())()(2)),
+            (new Flatten())()(1),
+            (new Associate())()($callbackForKeys)($callbackForValues)
         );
     }
 }

@@ -48,8 +48,8 @@ final class Reduce extends AbstractOperation
                 static function ($initial) use ($callback): Closure {
                     // Point free style.
                     return Pipe::ofTyped2(
-                        Reduction::of()($callback)($initial),
-                        Last::of(),
+                        (new Reduction())()($callback)($initial),
+                        (new Last())(),
                     );
                 };
     }

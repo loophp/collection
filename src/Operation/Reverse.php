@@ -40,7 +40,7 @@ final class Reverse extends AbstractOperation
         // Point free style.
         return Pipe::ofTyped3(
             (new Pack())(),
-            Reduce::of()($callback)([]),
+            (new Reduce())()($callback)([]),
             (new Unpack())(),
         );
     }

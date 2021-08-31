@@ -46,8 +46,8 @@ final class Nullsy extends AbstractOperation
 
         // Point free style.
         return Pipe::ofTyped2(
-            MatchOne::of()($matchWhenNot)($matcher),
-            Map::of()(
+            (new MatchOne())()($matchWhenNot)($matcher),
+            (new Map())()(
                 /**
                  * @param T $value
                  */

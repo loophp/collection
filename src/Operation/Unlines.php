@@ -31,7 +31,7 @@ final class Unlines extends AbstractOperation
     public function __invoke(): Closure
     {
         /** @var Closure(Iterator<TKey, (T|string)>):Generator<TKey, string> $implode */
-        $implode = Implode::of()(PHP_EOL);
+        $implode = (new Implode())()(PHP_EOL);
 
         // Point free style.
         return $implode;

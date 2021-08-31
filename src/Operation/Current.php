@@ -34,7 +34,7 @@ final class Current extends AbstractOperation
              */
             static function (int $index): Closure {
                 /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $limit */
-                $limit = Limit::of()(1)($index);
+                $limit = (new Limit())()(1)($index);
 
                 // Point free style.
                 return $limit;

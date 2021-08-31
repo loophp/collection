@@ -53,15 +53,15 @@ final class Transpose extends AbstractOperation
 
         // Point free style.
         return Pipe::ofTyped3(
-            Reduce::of()(
+            (new Reduce())()(
                 static function (MultipleIterator $acc, iterable $iterable): MultipleIterator {
                     $acc->attachIterator(new IterableIterator($iterable));
 
                     return $acc;
                 }
             )(new MultipleIterator(MultipleIterator::MIT_NEED_ANY)),
-            Flatten::of()(1),
-            Associate::of()($callbackForKeys)($callbackForValues)
+            (new Flatten())()(1),
+            (new Associate())()($callbackForKeys)($callbackForValues)
         );
     }
 }
