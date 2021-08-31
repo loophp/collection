@@ -19,7 +19,6 @@ interface Rangeable
      * Create a new Collection with a range of number.
      *
      * @template TKey
-     * @template TKey
      * @template T
      *
      * @return Collection<int, float>
