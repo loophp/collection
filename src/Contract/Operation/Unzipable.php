@@ -22,7 +22,7 @@ interface Unzipable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#unzip
      *
-     * @return Collection<TKey,T>
+     * @return Collection<int, list<T>>
      */
     public function unzip(): Collection;
 }
