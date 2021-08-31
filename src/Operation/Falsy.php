@@ -35,8 +35,8 @@ final class Falsy extends AbstractOperation
              */
             static fn ($value): bool => (bool) $value;
 
-        /** @var Closure(Iterator<TKey, T>): Generator<int, bool> $pipe */
-        $pipe = Pipe::of()(
+        // Point free style.
+        return Pipe::ofTyped2(
             MatchOne::of()($matchWhenNot)($matcher),
             Map::of()(
                 /**
@@ -45,8 +45,5 @@ final class Falsy extends AbstractOperation
                 static fn ($value): bool => !(bool) $value
             ),
         );
-
-        // Point free style.
-        return $pipe;
     }
 }

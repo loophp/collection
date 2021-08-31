@@ -47,14 +47,11 @@ final class ScanLeft1 extends AbstractOperation
                 static function (Iterator $iterator) use ($callback): Iterator {
                     $initial = $iterator->current();
 
-                    /** @var Closure(Iterator<TKey, T>): Generator<int|TKey, T|V> $pipe */
-                    $pipe = Pipe::of()(
+                    return Pipe::ofTyped3(
                         Tail::of(),
                         Reduction::of()($callback)($initial),
                         Prepend::of()($initial)
-                    );
-
-                    return $pipe($iterator);
+                    )($iterator);
                 };
     }
 }

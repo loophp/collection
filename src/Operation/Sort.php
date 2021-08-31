@@ -16,6 +16,8 @@ use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 
+use function count;
+
 /**
  * @immutable
  *
@@ -83,13 +85,20 @@ final class Sort extends AbstractOperation
                                  */
                                 static fn (array $left, array $right): int => $callback($left[1], $right[1]);
 
-                        /** @var callable(Iterator<TKey, T>): Generator<int, array{0:TKey, 1:T}> | callable(Iterator<TKey, T>): Generator<int, array{0:T, 1:TKey}> $before */
-                        $before = Pipe::of()(...$operations['before']);
+                        $before = match (count($operations['before'])) {
+                            1 => Pipe::ofTyped1(...$operations['before']),
+                            2 => Pipe::ofTyped2(...$operations['before']),
+                        };
 
                         $arrayIterator = new ArrayIterator([...$before($iterator)]);
                         $arrayIterator->uasort($sortCallback($callback));
 
-                        return Pipe::of()(...$operations['after'])($arrayIterator);
+                        $pipe = match (count($operations['after'])) {
+                            1 => Pipe::ofTyped1(...$operations['after']),
+                            2 => Pipe::ofTyped2(...$operations['after']),
+                        };
+
+                        return $pipe($arrayIterator);
                     };
                 };
     }

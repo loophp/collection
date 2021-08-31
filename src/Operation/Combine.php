@@ -60,15 +60,12 @@ final class Combine extends AbstractOperation
                             };
                     };
 
-                /** @var Closure(Iterator<TKey, T>): Generator<null|U, null|T> $pipe */
-                $pipe = Pipe::of()(
+                // Point free style.
+                return Pipe::ofTyped3(
                     $buildMultipleIterator(new ArrayIterator($keys)),
                     Flatten::of()(1),
                     Pair::of(),
                 );
-
-                // Point free style.
-                return $pipe;
             };
     }
 }

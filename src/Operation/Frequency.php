@@ -56,14 +56,11 @@ final class Frequency extends AbstractOperation
                 return $storage;
             };
 
-        /** @var Closure(Iterator<TKey, T>): Generator<int, T> $pipe */
-        $pipe = Pipe::of()(
+        // Point free style.
+        return Pipe::ofTyped3(
             Reduce::of()($reduceCallback)([]),
             Flatten::of()(1),
             Unpack::of()
         );
-
-        // Point free style.
-        return $pipe;
     }
 }

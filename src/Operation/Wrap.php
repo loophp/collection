@@ -37,13 +37,10 @@ final class Wrap extends AbstractOperation
              */
             static fn ($value, $key): array => [$key => $value];
 
-        /** @var Closure(Iterator<TKey, T>): Generator<int, array<TKey, T>> $pipe */
-        $pipe = Pipe::of()(
+        // Point free style.
+        return Pipe::ofTyped2(
             Map::of()($mapCallback),
             Normalize::of()
         );
-
-        // Point free style.
-        return $pipe;
     }
 }

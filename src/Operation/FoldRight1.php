@@ -37,14 +37,11 @@ final class FoldRight1 extends AbstractOperation
              * @return Closure(Iterator<TKey, T>): Generator<int|TKey, T|null>
              */
             static function (callable $callback): Closure {
-                /** @var Closure(Iterator<TKey, T>):(Generator<int|TKey, T|null>) $pipe */
-                $pipe = Pipe::of()(
+                // Point free style.
+                return Pipe::ofTyped2(
                     ScanRight1::of()($callback),
                     Head::of()
                 );
-
-                // Point free style.
-                return $pipe;
             };
     }
 }

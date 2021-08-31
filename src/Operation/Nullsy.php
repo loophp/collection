@@ -44,8 +44,8 @@ final class Nullsy extends AbstractOperation
              */
             static fn ($value): bool => in_array($value, self::VALUES, true);
 
-        /** @var Closure(Iterator<TKey, T>): Generator<int, bool> $pipe */
-        $pipe = Pipe::of()(
+        // Point free style.
+        return Pipe::ofTyped2(
             MatchOne::of()($matchWhenNot)($matcher),
             Map::of()(
                 /**
@@ -54,8 +54,5 @@ final class Nullsy extends AbstractOperation
                 static fn ($value): bool => !$value
             ),
         );
-
-        // Point free style.
-        return $pipe;
     }
 }

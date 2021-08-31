@@ -47,13 +47,10 @@ final class Init extends AbstractOperation
              */
             static fn (Iterator $iterator): CachingIterator => new CachingIterator($iterator, CachingIterator::FULL_CACHE);
 
-        /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $takeWhile */
-        $takeWhile = Pipe::of()(
+        // Point free style.
+        return Pipe::ofTyped2(
             $buildCachingIterator,
             TakeWhile::of()($callback)
         );
-
-        // Point free style.
-        return $takeWhile;
     }
 }

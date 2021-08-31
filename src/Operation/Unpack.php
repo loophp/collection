@@ -52,15 +52,12 @@ final class Unpack extends AbstractOperation
              */
             static fn ($initial, int $key, array $value) => $value[1];
 
-        /** @var Closure(Iterator<TKey, T>): Generator<NewTKey, NewT> $pipe */
-        $pipe = Pipe::of()(
+        // Point free style.
+        return Pipe::ofTyped4(
             Map::of()($toIterableIterator),
             Map::of()(Chunk::of()(2)),
             Flatten::of()(1),
             Associate::of()($callbackForKeys)($callbackForValues)
         );
-
-        // Point free style.
-        return $pipe;
     }
 }

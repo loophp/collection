@@ -45,13 +45,10 @@ final class Unzip extends AbstractOperation
                 return $carry;
             };
 
-        /** @var Closure(Iterator<TKey, list<T>>): Generator<int, list<T>> $pipe */
-        $pipe = Pipe::of()(
+        // Point free style.
+        return Pipe::ofTyped2(
             Reduce::of()($reduceCallback)([]),
             Flatten::of()(1)
         );
-
-        // Point free style.
-        return $pipe;
     }
 }

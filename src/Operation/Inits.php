@@ -42,13 +42,10 @@ final class Inits extends AbstractOperation
                 return $carry;
             };
 
-        /** @var Closure(Iterator<TKey, T>): Generator<int, list<T>> $inits */
-        $inits = Pipe::of()(
+        // Point free style.
+        return Pipe::ofTyped2(
             ScanLeft::of()($scanLeftCallback)([]),
             Normalize::of()
         );
-
-        // Point free style.
-        return $inits;
     }
 }

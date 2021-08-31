@@ -44,14 +44,11 @@ final class Slice extends AbstractOperation
                         return $skip;
                     }
 
-                    /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
-                    $pipe = Pipe::of()(
+                    // Point free style.
+                    return Pipe::ofTyped2(
                         $skip,
                         Limit::of()($length)(0)
                     );
-
-                    // Point free style.
-                    return $pipe;
                 };
     }
 }

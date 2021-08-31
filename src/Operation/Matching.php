@@ -16,6 +16,8 @@ use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation\Sortable;
 
+use function count;
+
 /**
  * @immutable
  *
@@ -64,11 +66,12 @@ final class Matching extends AbstractOperation
                     $pipes[] = Limit::of()($length)((int) $offset);
                 }
 
-                /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
-                $pipe = Pipe::of()(...$pipes);
-
-                // Point free style.
-                return $pipe;
+                return match (count($pipes)) {
+                    0 => Pipe::of(),
+                    1 => Pipe::ofTyped1(...$pipes),
+                    2 => Pipe::ofTyped2(...$pipes),
+                    3 => Pipe::ofTyped3(...$pipes),
+                };
             };
     }
 }

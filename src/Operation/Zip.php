@@ -11,7 +11,6 @@ namespace loophp\collection\Operation;
 
 use ArrayIterator;
 use Closure;
-use Generator;
 use Iterator;
 use loophp\collection\Iterator\IterableIterator;
 use MultipleIterator;
@@ -78,15 +77,12 @@ final class Zip extends AbstractOperation
                         }
                     )(new MultipleIterator(MultipleIterator::MIT_NEED_ANY));
 
-                /** @var Closure(Iterator<TKey, T>): Generator<list<TKey|mixed>, list<T|mixed>> $pipe */
-                $pipe = Pipe::of()(
+                // Point free style.
+                return Pipe::ofTyped3(
                     $buildArrayIterator($iterables),
                     $buildMultipleIterator,
                     ((new Flatten())()(1))
                 );
-
-                // Point free style.
-                return $pipe;
             };
     }
 }

@@ -71,14 +71,11 @@ final class GroupBy extends AbstractOperation
                             return $collect;
                         };
 
-                /** @var Closure(Iterator<TKey, T>): Generator<int, list<T>> $pipe */
-                $pipe = Pipe::of()(
+                // Point free style.
+                return Pipe::ofTyped2(
                     Reduce::of()($reducerFactory($callable))([]),
                     Flatten::of()(1)
                 );
-
-                // Point free style.
-                return $pipe;
             };
     }
 }

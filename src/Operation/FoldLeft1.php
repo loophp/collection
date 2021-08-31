@@ -37,14 +37,11 @@ final class FoldLeft1 extends AbstractOperation
              * @return Closure(Iterator<TKey, T>): Generator<int|TKey, null|T>
              */
             static function (callable $callback): Closure {
-                /** @var Closure(Iterator<TKey, T>):(Generator<int|TKey, T|null>) $pipe */
-                $pipe = Pipe::of()(
+                // Point free style.
+                return Pipe::ofTyped2(
                     ScanLeft1::of()($callback),
                     Last::of()
                 );
-
-                // Point free style.
-                return $pipe;
             };
     }
 }

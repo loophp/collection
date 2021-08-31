@@ -38,8 +38,8 @@ final class Product extends AbstractOperation
              * @return Closure(Iterator<TKey, T>): Generator<int, list<T|U>>
              */
             static function (iterable ...$iterables): Closure {
-                /** @var Closure(Iterator<TKey, T>): Generator<int, list<T|U>> $pipe */
-                $pipe = Pipe::of()(
+                // Point free style.
+                return Pipe::ofTyped3(
                     (
                         /**
                          * @param list<Iterator<UKey, U>> $iterables
@@ -95,9 +95,6 @@ final class Product extends AbstractOperation
                     ((new Unwrap())()),
                     ((new Normalize())())
                 );
-
-                // Point free style.
-                return $pipe;
             };
     }
 }

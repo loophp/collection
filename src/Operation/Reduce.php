@@ -46,14 +46,11 @@ final class Reduce extends AbstractOperation
                  * @return Closure(Iterator<TKey, T>): Generator<TKey, W>
                  */
                 static function ($initial) use ($callback): Closure {
-                    /** @var Closure(Iterator<TKey, T>): Generator<TKey, W> $pipe */
-                    $pipe = Pipe::of()(
+                    // Point free style.
+                    return Pipe::ofTyped2(
                         Reduction::of()($callback)($initial),
                         Last::of(),
                     );
-
-                    // Point free style.
-                    return $pipe;
                 };
     }
 }

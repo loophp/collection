@@ -36,13 +36,10 @@ final class Lines extends AbstractOperation
              */
             static fn (array $value): string => implode('', $value);
 
-        /** @var Closure(Iterator<TKey, T>): Generator<int, string> $pipe */
-        $pipe = Pipe::of()(
+        // Point free style.
+        return Pipe::ofTyped2(
             Explode::of()(PHP_EOL, "\n", "\r\n"),
             Map::of()($mapCallback)
         );
-
-        // Point free style.
-        return $pipe;
     }
 }

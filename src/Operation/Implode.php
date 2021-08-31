@@ -41,15 +41,12 @@ final class Implode extends AbstractOperation
                      */
                     static fn (string $carry, $item): string => $carry .= $item;
 
-                /** @var Closure(Iterator<TKey, T>): Generator<TKey, string> $pipe */
-                $pipe = Pipe::of()(
+                // Point free style.
+                return Pipe::ofTyped3(
                     Intersperse::of()($glue)(1)(0),
                     Drop::of()(1),
                     Reduce::of()($reducer)('')
                 );
-
-                // Point free style.
-                return $pipe;
             };
     }
 }

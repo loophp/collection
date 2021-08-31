@@ -55,8 +55,8 @@ final class Scale extends AbstractOperation
                             static function (float $base = 0.0) use ($lowerBound, $upperBound, $wantedLowerBound, $wantedUpperBound): Closure {
                                 $wantedLowerBound = (0.0 === $wantedLowerBound) ? (0.0 === $base ? 0.0 : 1.0) : $wantedLowerBound;
                                 $wantedUpperBound = (1.0 === $wantedUpperBound) ? (0.0 === $base ? 1.0 : $base) : $wantedUpperBound;
-                                /** @var callable(Generator<TKey, (float | int)>):Generator<TKey, float> $mapper */
-                                $mapper = Map::of()(
+
+                                $mapper = (new Map())()(
                                     /**
                                      * @param float|int $v
                                      */
@@ -82,11 +82,8 @@ final class Scale extends AbstractOperation
                                     static fn ($item): bool => $item <= $upperBound
                                 );
 
-                                /** @var Closure(Iterator<TKey, (float | int)>):(Generator<TKey, float|int>) $pipe */
-                                $pipe = Pipe::of()($filter, $mapper);
-
                                 // Point free style.
-                                return $pipe;
+                                return Pipe::ofTyped2($filter, $mapper);
                             };
     }
 }

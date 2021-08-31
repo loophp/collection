@@ -51,8 +51,8 @@ final class Transpose extends AbstractOperation
              */
             static fn (array $carry, array $key, array $value): array => $value;
 
-        /** @var Closure(Iterator<TKey, T>): Generator<TKey, list<T>> $pipe */
-        $pipe = Pipe::of()(
+        // Point free style.
+        return Pipe::ofTyped3(
             Reduce::of()(
                 static function (MultipleIterator $acc, iterable $iterable): MultipleIterator {
                     $acc->attachIterator(new IterableIterator($iterable));
@@ -63,8 +63,5 @@ final class Transpose extends AbstractOperation
             Flatten::of()(1),
             Associate::of()($callbackForKeys)($callbackForValues)
         );
-
-        // Point free style.
-        return $pipe;
     }
 }

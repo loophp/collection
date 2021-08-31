@@ -46,16 +46,13 @@ final class ScanRight extends AbstractOperation
                  * @return Closure(Iterator<TKey, T>): Generator<int|TKey, V|W>
                  */
                 static function ($initial) use ($callback): Closure {
-                    /** @var Closure(Iterator<TKey, T>):(Generator<int|TKey, V|W>) $pipe */
-                    $pipe = Pipe::of()(
+                    // Point free style.
+                    return Pipe::ofTyped4(
                         Reverse::of(),
                         Reduction::of()($callback)($initial),
                         Reverse::of(),
                         Append::of()($initial)
                     );
-
-                    // Point free style.
-                    return $pipe;
                 };
     }
 }
