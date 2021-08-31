@@ -22,7 +22,7 @@ interface Unpairable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#unpair
      *
-     * @return Collection<int, array{0: TKey, 1: T}>
+     * @return Collection<int, (TKey|T)>
      */
     public function unpair(): Collection;
 }
