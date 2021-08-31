@@ -23,7 +23,7 @@ interface Scaleable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#scale
      *
-     * @return Collection<TKey, T>
+     * @return Collection<TKey, float|int>
      */
     public function scale(
         float $lowerBound,

@@ -26,7 +26,7 @@ interface Pluckable
      * @param array<int, string>|array-key $pluck
      * @param mixed|null $default
      *
-     * @return Collection<TKey, T>
+     * @return Collection<int, T|iterable<int, T>>
      */
     public function pluck($pluck, $default = null): Collection;
 }
