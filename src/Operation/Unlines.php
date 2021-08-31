@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
-use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 
@@ -27,7 +26,7 @@ final class Unlines implements Operation
     /**
      * @pure
      *
-     * @return Closure(Iterator<TKey, (T|string)>): Generator<TKey, string>
+     * @return Closure(Iterator<TKey, (T|string)>): Iterator<TKey, string>
      */
     public function __invoke(): Closure
     {

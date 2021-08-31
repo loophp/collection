@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
-use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 
@@ -25,7 +24,7 @@ final class Unwindow implements Operation
     /**
      * @pure
      *
-     * @return Closure(Iterator<TKey, list<T>>): Generator<TKey, T|null>
+     * @return Closure(Iterator<TKey, list<T>>): Iterator<TKey, T|null>
      */
     public function __invoke(): Closure
     {

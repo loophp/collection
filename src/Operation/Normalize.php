@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace loophp\collection\Operation;
 
-use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 
@@ -26,9 +25,9 @@ final class Normalize implements Operation
      *
      * @param Iterator<TKey, T> $iterator
      *
-     * @return Generator<int, T>
+     * @return Iterator<int, T>
      */
-    public function __invoke(Iterator $iterator): Generator
+    public function __invoke(Iterator $iterator): Iterator
     {
         foreach ($iterator as $value) {
             yield $value;

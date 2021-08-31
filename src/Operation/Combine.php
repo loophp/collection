@@ -11,7 +11,6 @@ namespace loophp\collection\Operation;
 
 use ArrayIterator;
 use Closure;
-use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 use MultipleIterator;
@@ -31,7 +30,7 @@ final class Combine implements Operation
      *
      * @param U ...$keys
      *
-     * @return Closure(Iterator<TKey, T>): Generator<null|U, null|T>
+     * @return Closure(Iterator<TKey, T>): Iterator<null|U, null|T>
      */
     public function __invoke(...$keys): Closure
     {

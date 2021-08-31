@@ -11,7 +11,6 @@ namespace loophp\collection\Operation;
 
 use ArrayIterator;
 use Closure;
-use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 
@@ -30,7 +29,7 @@ final class Associate implements Operation
      *
      * @param callable(TKey, TKey, T, Iterator<TKey, T>): (T|TKey) ...$callbackForKeys
      *
-     * @return Closure((callable(T, TKey, T, Iterator<TKey, T>): (T|TKey))...): Closure(Iterator<TKey, T>): Generator<TKey|T, T|TKey>
+     * @return Closure((callable(T, TKey, T, Iterator<TKey, T>): (T|TKey))...): Closure(Iterator<TKey, T>): Iterator<TKey|T, T|TKey>
      */
     public function __invoke(callable ...$callbackForKeys): Closure
     {
@@ -38,15 +37,15 @@ final class Associate implements Operation
             /**
              * @param callable(T, TKey, T, Iterator<TKey, T>): (T|TKey) ...$callbackForValues
              *
-             * @return Closure(Iterator<TKey, T>): Generator<TKey|T, T|TKey>
+             * @return Closure(Iterator<TKey, T>): Iterator<TKey|T, T|TKey>
              */
             static fn (callable ...$callbackForValues): Closure =>
                 /**
                  * @param Iterator<TKey, T> $iterator
                  *
-                 * @return Generator<T|TKey, T|TKey>
+                 * @return Iterator<T|TKey, T|TKey>
                  */
-                static function (Iterator $iterator) use ($callbackForKeys, $callbackForValues): Generator {
+                static function (Iterator $iterator) use ($callbackForKeys, $callbackForValues): Iterator {
                     $callbackFactory =
                         /**
                          * @param TKey $key
@@ -72,10 +71,10 @@ final class Associate implements Operation
                     foreach ($iterator as $key => $value) {
                         $reduceCallback = $callbackFactory($key)($value);
 
-                        /** @var Generator<int, T|TKey> $k */
+                        /** @var Iterator<int, T|TKey> $k */
                         $k = (new Reduce())($reduceCallback)($key)(new ArrayIterator($callbackForKeys));
 
-                        /** @var Generator<int, T|TKey> $c */
+                        /** @var Iterator<int, T|TKey> $c */
                         $c = (new Reduce())($reduceCallback)($value)(new ArrayIterator($callbackForValues));
 
                         yield $k->current() => $c->current();

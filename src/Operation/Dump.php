@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
-use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 use Symfony\Component\VarDumper\VarDumper;
@@ -28,27 +27,27 @@ final class Dump implements Operation
     /**
      * @pure
      *
-     * @return Closure(string): Closure(int): Closure(?Closure): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(string): Closure(int): Closure(?Closure): Closure(Iterator<TKey, T>): Iterator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @return Closure(int): Closure(?Closure): Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @return Closure(int): Closure(?Closure): Closure(Iterator<TKey, T>): Iterator<TKey, T>
              */
             static fn (string $name = ''): Closure =>
                 /**
-                 * @return Closure(?Closure): Closure(Iterator<TKey, T>): Generator<TKey, T>
+                 * @return Closure(?Closure): Closure(Iterator<TKey, T>): Iterator<TKey, T>
                  */
                 static fn (int $size = -1): Closure =>
                     /**
-                     * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
+                     * @return Closure(Iterator<TKey, T>): Iterator<TKey, T>
                      */
                     static fn (?Closure $callback = null): Closure =>
                         /**
-                         * @return Generator<TKey, T>
+                         * @return Iterator<TKey, T>
                          */
-                        static function (Iterator $iterator) use ($name, $size, $callback): Generator {
+                        static function (Iterator $iterator) use ($name, $size, $callback): Iterator {
                             $j = 0;
 
                             /** @var callable $debugFunction */

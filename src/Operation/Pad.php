@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
-use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 
@@ -25,7 +24,7 @@ final class Pad implements Operation
     /**
      * @pure
      *
-     * @return Closure(T): Closure(Iterator<TKey, T>): Generator<int|TKey, T>
+     * @return Closure(T): Closure(Iterator<TKey, T>): Iterator<int|TKey, T>
      */
     public function __invoke(int $size): Closure
     {
@@ -33,15 +32,15 @@ final class Pad implements Operation
             /**
              * @param T $padValue
              *
-             * @return Closure(Iterator<TKey, T>): Generator<int|TKey, T>
+             * @return Closure(Iterator<TKey, T>): Iterator<int|TKey, T>
              */
             static fn ($padValue): Closure =>
                 /**
                  * @param Iterator<TKey, T> $iterator
                  *
-                 * @return Generator<int|TKey, T>
+                 * @return Iterator<int|TKey, T>
                  */
-                static function (Iterator $iterator) use ($size, $padValue): Generator {
+                static function (Iterator $iterator) use ($size, $padValue): Iterator {
                     $y = 0;
 
                     foreach ($iterator as $key => $value) {

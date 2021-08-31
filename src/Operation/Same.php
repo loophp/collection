@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
-use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 
@@ -29,7 +28,7 @@ final class Same implements Operation
      *
      * @param Iterator<TKey, T> $other
      *
-     * @return Closure(callable(T, TKey): Closure(T, TKey): bool): Closure(Iterator<TKey, T>): Generator<int, bool>
+     * @return Closure(callable(T, TKey): Closure(T, TKey): bool): Closure(Iterator<TKey, T>): Iterator<int, bool>
      */
     public function __invoke(Iterator $other): Closure
     {
@@ -37,15 +36,15 @@ final class Same implements Operation
             /**
              * @param callable(T, TKey): (Closure(T, TKey): bool) $comparatorCallback
              *
-             * @return Closure(Iterator<TKey, T>): Generator<int, bool>
+             * @return Closure(Iterator<TKey, T>): Iterator<int, bool>
              */
             static fn (callable $comparatorCallback): Closure =>
                 /**
                  * @param Iterator<TKey, T> $iterator
                  *
-                 * @return Generator<int, bool>
+                 * @return Iterator<int, bool>
                  */
-                static function (Iterator $iterator) use ($other, $comparatorCallback): Generator {
+                static function (Iterator $iterator) use ($other, $comparatorCallback): Iterator {
                     while ($iterator->valid() && $other->valid()) {
                         if (!$comparatorCallback($iterator->current(), $iterator->key())($other->current(), $other->key())) {
                             return yield false;

@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
-use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 
@@ -27,7 +26,7 @@ final class Window implements Operation
     /**
      * @pure
      *
-     * @return Closure(Iterator<TKey, T>): Generator<TKey, list<T>>
+     * @return Closure(Iterator<TKey, T>): Iterator<TKey, list<T>>
      */
     public function __invoke(int $size): Closure
     {

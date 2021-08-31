@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
-use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 
@@ -32,7 +31,7 @@ final class FlatMap implements Operation
      *
      * @param callable(T=, TKey=, Iterator<TKey, T>=): iterable<IKey, IValue> $callback
      *
-     * @return Closure(Iterator<TKey, T>): Generator<IKey, IValue>
+     * @return Closure(Iterator<TKey, T>): Iterator<IKey, IValue>
      */
     public function __invoke(callable $callback): Closure
     {

@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
-use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 
@@ -27,7 +26,7 @@ final class Equals implements Operation
      *
      * @param Iterator<TKey, T> $other
      *
-     * @return Closure(Iterator<TKey, T>): Closure(Iterator<TKey, T>): Generator<int, bool>
+     * @return Closure(Iterator<TKey, T>): Closure(Iterator<TKey, T>): Iterator<int, bool>
      */
     public function __invoke(Iterator $other): Closure
     {
@@ -35,9 +34,9 @@ final class Equals implements Operation
             /**
              * @param Iterator<TKey, T> $iterator
              *
-             * @return Generator<int, bool>
+             * @return Iterator<int, bool>
              */
-            static function (Iterator $iterator) use ($other): Generator {
+            static function (Iterator $iterator) use ($other): Iterator {
                 while ($other->valid() && $iterator->valid()) {
                     $iterator->next();
                     $other->next();

@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
-use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 
@@ -31,7 +30,7 @@ final class ScanRight1 implements Operation
      *
      * @param callable(T|V, T, TKey, Iterator<TKey, T>): V $callback
      *
-     * @return Closure(Iterator<TKey, T>): Generator<int|TKey, T|V>
+     * @return Closure(Iterator<TKey, T>): Iterator<int|TKey, T|V>
      */
     public function __invoke(callable $callback): Closure
     {

@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
-use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 
@@ -31,7 +30,7 @@ final class Map implements Operation
      *
      * @param callable(T=, TKey=, Iterator<TKey, T>=): V $callback
      *
-     * @return Closure(Iterator<TKey, T>): Generator<TKey, V>
+     * @return Closure(Iterator<TKey, T>): Iterator<TKey, V>
      */
     public function __invoke(callable $callback): Closure
     {
@@ -39,9 +38,9 @@ final class Map implements Operation
             /**
              * @param Iterator<TKey, T> $iterator
              *
-             * @return Generator<TKey, V>
+             * @return Iterator<TKey, V>
              */
-            static function (Iterator $iterator) use ($callback): Generator {
+            static function (Iterator $iterator) use ($callback): Iterator {
                 foreach ($iterator as $key => $value) {
                     yield $key => $callback($value, $key, $iterator);
                 }

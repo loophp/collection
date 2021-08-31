@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
-use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Utils\CallbacksArrayReducer;
@@ -30,7 +29,7 @@ final class Every implements Operation
      *
      * @param callable(T=, TKey=, Iterator<TKey, T>=): bool ...$matchers
      *
-     * @return Closure(callable(T, TKey, Iterator<TKey, T>...): bool): Closure(Iterator<TKey, T>): Generator<TKey, bool>
+     * @return Closure(callable(T, TKey, Iterator<TKey, T>...): bool): Closure(Iterator<TKey, T>): Iterator<TKey, bool>
      */
     public function __invoke(callable ...$matchers): Closure
     {
@@ -38,7 +37,7 @@ final class Every implements Operation
             /**
              * @param callable(T=, TKey=, Iterator<TKey, T>=): bool ...$callbacks
              *
-             * @return Closure(Iterator<TKey, T>): Generator<TKey, bool>
+             * @return Closure(Iterator<TKey, T>): Iterator<TKey, bool>
              */
             static function (callable ...$callbacks) use ($matchers): Closure {
                 $callbackReducer =

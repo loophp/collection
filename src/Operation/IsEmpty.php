@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace loophp\collection\Operation;
 
-use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 
@@ -26,9 +25,9 @@ final class IsEmpty implements Operation
      *
      * @param Iterator<TKey, T> $iterator
      *
-     * @return Generator<int, bool>
+     * @return Iterator<int, bool>
      */
-    public function __invoke(Iterator $iterator): Generator
+    public function __invoke(Iterator $iterator): Iterator
     {
         return yield !$iterator->valid();
     }

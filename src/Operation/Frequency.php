@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
-use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 
@@ -25,7 +24,7 @@ final class Frequency implements Operation
     /**
      * @pure
      *
-     * @return Closure(Iterator<TKey, T>): Generator<int, T>
+     * @return Closure(Iterator<TKey, T>): Iterator<int, T>
      */
     public function __invoke(): Closure
     {

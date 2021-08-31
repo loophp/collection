@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
-use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 
@@ -27,7 +26,7 @@ final class Column implements Operation
      *
      * @param mixed $column
      *
-     * @return Closure(Iterator<TKey, T>): Generator<int, mixed>
+     * @return Closure(Iterator<TKey, T>): Iterator<int, mixed>
      */
     public function __invoke($column): Closure
     {

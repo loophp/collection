@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use ArrayIterator;
-use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 
@@ -27,9 +26,9 @@ final class Tails implements Operation
      *
      * @param Iterator<TKey, T> $iterator
      *
-     * @return Generator<int, list<T>, mixed, void>
+     * @return Iterator<int, list<T>>
      */
-    public function __invoke(Iterator $iterator): Generator
+    public function __invoke(Iterator $iterator): Iterator
     {
         $iterator = (new Pack())()($iterator);
         $data = [...$iterator];

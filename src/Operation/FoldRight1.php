@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
-use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 
@@ -27,7 +26,7 @@ final class FoldRight1 implements Operation
     /**
      * @pure
      *
-     * @return Closure(callable((T|null), T, TKey, Iterator<TKey, T>): (T|null)):Closure (Iterator<TKey, T>): Generator<int|TKey, T|null>
+     * @return Closure(callable((T|null), T, TKey, Iterator<TKey, T>): (T|null)):Closure (Iterator<TKey, T>): Iterator<int|TKey, T|null>
      */
     public function __invoke(): Closure
     {
@@ -35,7 +34,7 @@ final class FoldRight1 implements Operation
             /**
              * @param callable(T|null, T, TKey, Iterator<TKey, T>):(T|null) $callback
              *
-             * @return Closure(Iterator<TKey, T>): Generator<int|TKey, T|null>
+             * @return Closure(Iterator<TKey, T>): Iterator<int|TKey, T|null>
              */
             static function (callable $callback): Closure {
                 return Pipe::ofTyped2(

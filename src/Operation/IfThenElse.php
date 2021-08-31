@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
-use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 
@@ -27,7 +26,7 @@ final class IfThenElse implements Operation
     /**
      * @pure
      *
-     * @return Closure(callable(T=, TKey=, Iterator<TKey, T>=): bool): Closure(callable(T=, TKey=, Iterator<TKey, T>=): T): Closure(callable(T=, TKey=, Iterator<TKey, T>=): T): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(callable(T=, TKey=, Iterator<TKey, T>=): bool): Closure(callable(T=, TKey=, Iterator<TKey, T>=): T): Closure(callable(T=, TKey=, Iterator<TKey, T>=): T): Closure(Iterator<TKey, T>): Iterator<TKey, T>
      */
     public function __invoke(): Closure
     {
@@ -35,19 +34,19 @@ final class IfThenElse implements Operation
             /**
              * @param callable(T=, TKey=, Iterator<TKey, T>=): bool $condition
              *
-             * @return Closure(callable(T=, TKey=, Iterator<TKey, T>=): T): Closure(callable(T=, TKey=, Iterator<TKey, T>=): T): Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @return Closure(callable(T=, TKey=, Iterator<TKey, T>=): T): Closure(callable(T=, TKey=, Iterator<TKey, T>=): T): Closure(Iterator<TKey, T>): Iterator<TKey, T>
              */
             static fn (callable $condition): Closure =>
                 /**
                  * @param callable(T=, TKey=, Iterator<TKey, T>=): T $then
                  *
-                 * @return Closure(callable(T=, TKey=, Iterator<TKey, T>=): T): Closure(Iterator<TKey, T>): Generator<TKey, T>
+                 * @return Closure(callable(T=, TKey=, Iterator<TKey, T>=): T): Closure(Iterator<TKey, T>): Iterator<TKey, T>
                  */
                 static fn (callable $then): Closure =>
                     /**
                      * @param callable(T=, TKey=, Iterator<TKey, T>=):T $else
                      *
-                     * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
+                     * @return Closure(Iterator<TKey, T>): Iterator<TKey, T>
                      */
                     static function (callable $else) use ($condition, $then): Closure {
                         $map = (new Map())(

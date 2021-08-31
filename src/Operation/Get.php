@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
-use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 
@@ -25,7 +24,7 @@ final class Get implements Operation
     /**
      * @pure
      *
-     * @return Closure(TKey): Closure (T|null): Closure(Iterator<TKey, T>): Generator<TKey, T|null>
+     * @return Closure(TKey): Closure (T|null): Closure(Iterator<TKey, T>): Iterator<TKey, T|null>
      */
     public function __invoke(): Closure
     {
@@ -33,13 +32,13 @@ final class Get implements Operation
             /**
              * @param TKey $keyToGet
              *
-             * @return Closure(T|null): Closure(Iterator<TKey, T>): Generator<TKey, T|null>
+             * @return Closure(T|null): Closure(Iterator<TKey, T>): Iterator<TKey, T|null>
              */
             static fn ($keyToGet): Closure =>
                 /**
                  * @param T|null $default
                  *
-                 * @return Closure(Iterator<TKey, T>): Generator<TKey, T|null>
+                 * @return Closure(Iterator<TKey, T>): Iterator<TKey, T|null>
                  */
                 static function ($default) use ($keyToGet): Closure {
                     $filterCallback =

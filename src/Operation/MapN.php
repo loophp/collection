@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
-use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 
@@ -27,7 +26,7 @@ final class MapN implements Operation
     /**
      * @pure
      *
-     * @return Closure(callable(mixed, mixed, Iterator<TKey, T>): mixed ...): Closure(Iterator<TKey, T>): Generator<mixed, mixed>
+     * @return Closure(callable(mixed, mixed, Iterator<TKey, T>): mixed ...): Closure(Iterator<TKey, T>): Iterator<mixed, mixed>
      */
     public function __invoke(): Closure
     {
@@ -39,9 +38,9 @@ final class MapN implements Operation
                 /**
                  * @param Iterator<TKey, T> $iterator
                  *
-                 * @return Generator<mixed, mixed>
+                 * @return Iterator<mixed, mixed>
                  */
-                static function (Iterator $iterator) use ($callbacks): Generator {
+                static function (Iterator $iterator) use ($callbacks): Iterator {
                     $callbackFactory =
                         /**
                          * @param mixed $key

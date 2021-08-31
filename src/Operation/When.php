@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
-use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 
@@ -29,7 +28,7 @@ final class When implements Operation
      *
      * @param callable(Iterator<TKey, T>): bool $predicate
      *
-     * @return Closure(callable(Iterator<TKey, T>): iterable<TKey, T>): Closure(callable(Iterator<TKey, T>): iterable<TKey, T>): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(callable(Iterator<TKey, T>): iterable<TKey, T>): Closure(callable(Iterator<TKey, T>): iterable<TKey, T>): Closure(Iterator<TKey, T>): Iterator<TKey, T>
      */
     public function __invoke(callable $predicate): Closure
     {
@@ -37,20 +36,20 @@ final class When implements Operation
             /**
              * @param callable(Iterator<TKey, T>): iterable<TKey, T> $whenTrue
              *
-             * @return Closure(callable(Iterator<TKey, T>): iterable<TKey, T>): Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @return Closure(callable(Iterator<TKey, T>): iterable<TKey, T>): Closure(Iterator<TKey, T>): Iterator<TKey, T>
              */
             static fn (callable $whenTrue): Closure =>
                 /**
                  * @param callable(Iterator<TKey, T>): iterable<TKey, T> $whenFalse
                  *
-                 * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
+                 * @return Closure(Iterator<TKey, T>): Iterator<TKey, T>
                  */
                 static fn (callable $whenFalse): Closure =>
                     /**
                      * @param Iterator<TKey, T> $iterator
                      *
-                     * @return Generator<TKey, T>
+                     * @return Iterator<TKey, T>
                      */
-                    static fn (Iterator $iterator): Generator => yield from (true === $predicate($iterator)) ? $whenTrue($iterator) : $whenFalse($iterator);
+                    static fn (Iterator $iterator): Iterator => yield from (true === $predicate($iterator)) ? $whenTrue($iterator) : $whenFalse($iterator);
     }
 }

@@ -11,7 +11,6 @@ namespace loophp\collection\Operation;
 
 use ArrayIterator;
 use Closure;
-use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 
@@ -32,7 +31,7 @@ final class Duplicate implements Operation
      *
      * @param callable(U): (Closure(U): bool) $comparatorCallback
      *
-     * @return Closure(callable(T, TKey): U): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(callable(T, TKey): U): Closure(Iterator<TKey, T>): Iterator<TKey, T>
      */
     public function __invoke(callable $comparatorCallback): Closure
     {
@@ -40,7 +39,7 @@ final class Duplicate implements Operation
             /**
              * @param callable(T, TKey): U $accessorCallback
              *
-             * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @return Closure(Iterator<TKey, T>): Iterator<TKey, T>
              */
             static function (callable $accessorCallback) use ($comparatorCallback): Closure {
                 /** @var ArrayIterator<int, array{0: TKey, 1: T}> $stack */

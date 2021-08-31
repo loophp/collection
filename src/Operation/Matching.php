@@ -12,7 +12,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Collections\Expr\ClosureExpressionVisitor;
-use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Contract\Operation\Sortable;
@@ -30,13 +29,13 @@ final class Matching implements Operation
     /**
      * @pure
      *
-     * @return Closure(Criteria): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(Criteria): Closure(Iterator<TKey, T>): Iterator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @return Closure(Iterator<TKey, T>): Iterator<TKey, T>
              */
             static function (Criteria $criteria): Closure {
                 $expr = $criteria->getWhereExpression();

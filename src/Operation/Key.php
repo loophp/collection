@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
-use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 
@@ -25,7 +24,7 @@ final class Key implements Operation
     /**
      * @pure
      *
-     * @return Closure(Iterator<TKey, T>): Generator<int, TKey>
+     * @return Closure(Iterator<TKey, T>): Iterator<int, TKey>
      */
     public function __invoke(int $index): Closure
     {

@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
-use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 
@@ -32,7 +31,7 @@ final class ScanLeft implements Operation
      *
      * @param callable((V|W)=, T=, TKey=, Iterator<TKey, T>=): W $callback
      *
-     * @return Closure(V): Closure(Iterator<TKey, T>): Generator<int|TKey, V|W>
+     * @return Closure(V): Closure(Iterator<TKey, T>): Iterator<int|TKey, V|W>
      */
     public function __invoke(callable $callback): Closure
     {
@@ -40,7 +39,7 @@ final class ScanLeft implements Operation
             /**
              * @param V $initial
              *
-             * @return Closure(Iterator<TKey, T>): Generator<int|TKey, V|W>
+             * @return Closure(Iterator<TKey, T>): Iterator<int|TKey, V|W>
              */
             static function ($initial) use ($callback): Closure {
                 return Pipe::ofTyped2(

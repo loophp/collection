@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
-use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Contract\Operation\Splitable;
@@ -28,7 +27,7 @@ final class Explode implements Operation
      *
      * @param T ...$explodes
      *
-     * @return Closure(Iterator<TKey, T>): Generator<int, list<T>>
+     * @return Closure(Iterator<TKey, T>): Iterator<int, list<T>>
      */
     public function __invoke(...$explodes): Closure
     {

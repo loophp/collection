@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
-use Generator;
 use Iterator;
 use loophp\collection\Contract\Operation;
 
@@ -31,15 +30,15 @@ final class Permutate implements Operation
             /**
              * @param list<T> $dataset
              *
-             * @return Generator<int, list<T>>
+             * @return Iterator<int, list<T>>
              */
-            fn (array $dataset): Generator => $this->getPermutations($dataset);
+            fn (array $dataset): Iterator => $this->getPermutations($dataset);
 
         return
             /**
              * @param Iterator<TKey, T> $iterator
              *
-             * @return Generator<int, list<T>>
+             * @return Iterator<int, list<T>>
              */
             static fn (Iterator $iterator): Iterator => $getPermutations([...$iterator]);
     }
@@ -47,9 +46,9 @@ final class Permutate implements Operation
     /**
      * @param list<T> $dataset
      *
-     * @return Generator<int, list<T>>
+     * @return Iterator<int, list<T>>
      */
-    private function getPermutations(array $dataset): Generator
+    private function getPermutations(array $dataset): Iterator
     {
         foreach ($dataset as $key => $firstItem) {
             $remaining = $dataset;
