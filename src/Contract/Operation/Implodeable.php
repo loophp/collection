@@ -23,7 +23,7 @@ interface Implodeable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#implode
      *
-     * @return Collection<int, string>
+     * @return Collection<TKey, string>
      */
     public function implode(string $glue = ''): Collection;
 }

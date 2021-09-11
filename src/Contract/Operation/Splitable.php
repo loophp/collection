@@ -33,7 +33,7 @@ interface Splitable
      *
      * @param callable ...$callbacks
      *
-     * @return Collection<TKey, T>
+     * @return Collection<int, list<T>>
      */
     public function split(int $type = Splitable::BEFORE, callable ...$callbacks): Collection;
 }

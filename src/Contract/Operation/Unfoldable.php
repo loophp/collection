@@ -15,13 +15,12 @@ interface Unfoldable
 {
     /**
      * @template TKey
-     * @template TKey
      * @template T
      *
      * @param callable(mixed|T...): (mixed|array<TKey, T>) $callback
      * @param T ...$parameters
      *
-     * @return Collection<TKey, T>
+     * @return Collection<int, T>
      */
     public static function unfold(callable $callback, ...$parameters): Collection;
 }

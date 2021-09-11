@@ -21,7 +21,7 @@ use const PHP_INT_MIN;
  * @internal
  *
  * @template TKey
- * @template T of string
+ * @template T
  *
  * @extends ProxyIterator<TKey, T>
  */
