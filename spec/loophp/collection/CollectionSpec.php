@@ -1965,9 +1965,26 @@ class CollectionSpec extends ObjectBehavior
             ->inits()
             ->shouldIterateAs([
                 [],
-                ['a'],
-                ['a', 'b'],
-                ['a', 'b', 'c'],
+                [[0, 'a']],
+                [[0, 'a'], [1, 'b']],
+                [[0, 'a'], [1, 'b'], [2, 'c']],
+            ]);
+
+        $gen = static function (): Generator {
+            yield true => 'true';
+
+            yield false => 'false';
+
+            yield [] => 'array';
+        };
+
+        $this::fromIterable($gen())
+            ->inits()
+            ->shouldIterateAs([
+                [],
+                [[true, 'true']],
+                [[true, 'true'], [false, 'false']],
+                [[true, 'true'], [false, 'false'], [[], 'array']],
             ]);
     }
 

@@ -22,7 +22,7 @@ interface Initsable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#inits
      *
-     * @return Collection<int, list<T>>
+     * @return Collection<int, list<array{0: TKey, 1: T}>>
      */
     public function inits(): Collection;
 }

@@ -1233,10 +1233,8 @@ Interface: `Initsable`_
 
 Signature: ``Collection::inits(): Collection;``
 
-.. code-block:: php
-
-    Collection::fromIterable(range('a', 'c'))
-        ->inits(); // [[], ['a'], ['a', 'b'], ['a', 'b', 'c']]
+.. literalinclude:: code/operations/inits.php
+  :language: php
 
 intersect
 ~~~~~~~~~
