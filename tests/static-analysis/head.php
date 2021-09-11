@@ -53,9 +53,9 @@ head_checkStringElement(Collection::fromIterable(['foo' => 'bar', 'baz' => 'bar'
 head_checkStringElement(Collection::fromIterable(['foo' => 'bar', 'baz' => 'bar'])->head()->all()['baz']);
 
 // VALID failures - `current` returns T|null
-/** @psalm-suppress PossiblyNullArgument @phpstan-ignore-next-line */
+/** @psalm-suppress NullArgument @phpstan-ignore-next-line */
 head_checkIntElement(Collection::fromIterable([1, 2, 3])->head()->current());
-/** @psalm-suppress PossiblyNullArgument @phpstan-ignore-next-line */
+/** @psalm-suppress NullArgument @phpstan-ignore-next-line */
 head_checkStringElement(Collection::fromIterable(['foo' => 'bar'])->head()->current());
 
 // VALID failures - these keys don't exist
