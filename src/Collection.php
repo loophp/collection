@@ -196,9 +196,9 @@ final class Collection implements CollectionInterface
     ): CollectionInterface {
         $defaultCallback =
             /**
-             * @param T|TKey $carry
+             * @param mixed $carry
              *
-             * @return T|TKey
+             * @return mixed
              */
             static fn ($carry) => $carry;
 

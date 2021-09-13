@@ -23,10 +23,13 @@ interface Associateable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#associate
      *
-     * @param null|callable(TKey, TKey, T, Iterator<TKey, T>):(T|TKey) $callbackForKeys
-     * @param null|callable(T, TKey, T, Iterator<TKey, T>):(T|TKey) $callbackForValues
+     * @template NewT
+     * @template NewTKey
      *
-     * @return Collection<T|TKey, T|TKey>
+     * @param callable((TKey|NewTKey)=, T=, TKey=, Iterator<TKey, T>=): NewTKey $callbackForKeys
+     * @param callable((T|NewT)=, T=, TKey=, Iterator<TKey, T>=): NewT $callbackForValues
+     *
+     * @return Collection<NewTKey, NewT>
      */
     public function associate(?callable $callbackForKeys = null, ?callable $callbackForValues = null): Collection;
 }

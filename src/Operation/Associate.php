@@ -27,45 +27,48 @@ final class Associate extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(callable(TKey, TKey, T, Iterator<TKey, T>): (T|TKey) ...): Closure((callable(T, TKey, T, Iterator<TKey, T>): (T|TKey))...): Closure(Iterator<TKey, T>): Generator<TKey|T, T|TKey>
+     * @template NewTKey
+     * @template NewT
+     *
+     * @return Closure((callable((TKey|NewTKey)=, T=, TKey=, Iterator<TKey, T>=): NewTKey) ...): Closure((callable((T|NewT)=, T=, TKey=, Iterator<TKey, T>=): NewT)...): Closure(Iterator<TKey, T>): Generator<NewTKey, NewT>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable(TKey, TKey, T, Iterator<TKey, T>): (T|TKey) ...$callbackForKeys
+             * @param callable((TKey|NewTKey)=, T=, TKey=, Iterator<TKey, T>=): NewTKey ...$callbackForKeys
              *
-             * @return Closure((callable(T, TKey, T, Iterator<TKey, T>): (T|TKey))...): Closure(Iterator<TKey, T>): Generator<TKey|T, T|TKey>
+             * @return Closure((callable((T|NewT)=, T=, TKey=, Iterator<TKey, T>=): NewT)...): Closure(Iterator<TKey, T>): Generator<NewTKey, NewT>
              */
             static fn (callable ...$callbackForKeys): Closure =>
                 /**
-                 * @param callable(T, TKey, T, Iterator<TKey, T>): (T|TKey) ...$callbackForValues
+                 * @param callable((T|NewT)=, T=, TKey=, Iterator<TKey, T>=): NewT ...$callbackForValues
                  *
-                 * @return Closure(Iterator<TKey, T>): Generator<TKey|T, T|TKey>
+                 * @return Closure(Iterator<TKey, T>): Generator<NewTKey, NewT>
                  */
                 static fn (callable ...$callbackForValues): Closure =>
                     /**
                      * @param Iterator<TKey, T> $iterator
                      *
-                     * @return Generator<T|TKey, T|TKey>
+                     * @return Generator<NewTKey, NewT>
                      */
                     static function (Iterator $iterator) use ($callbackForKeys, $callbackForValues): Generator {
                         $callbackFactory =
                             /**
                              * @param TKey $key
                              *
-                             * @return Closure(T): Closure(T|TKey, callable(T|TKey, TKey, T, Iterator<TKey, T>): (T|TKey), int, Iterator<TKey, T>): (T|TKey)
+                             * @return Closure(T): Closure(T|TKey, callable((T|TKey)=, TKey=, T=, Iterator<TKey, T>=): (T|TKey), int, Iterator<TKey, T>): (T|TKey)
                              */
                             static fn ($key): Closure =>
                                 /**
                                  * @param T $value
                                  *
-                                 * @return Closure(T|TKey, callable(T|TKey, TKey, T, Iterator<TKey, T>): (T|TKey), int, Iterator<TKey, T>): (T|TKey)
+                                 * @return Closure(T|TKey, callable((T|TKey)=, TKey=, T=, Iterator<TKey, T>=): (T|TKey), int, Iterator<TKey, T>): (T|TKey)
                                  */
                                 static fn ($value): Closure =>
                                     /**
                                      * @param T|TKey $accumulator
-                                     * @param callable(T|TKey, TKey, T, Iterator<TKey, T>): (T|TKey) $callback
+                                     * @param callable((T|TKey)=, TKey=, T=, Iterator<TKey, T>=): (T|TKey) $callback
                                      * @param Iterator<TKey, T> $iterator
                                      *
                                      * @return T|TKey
@@ -75,10 +78,10 @@ final class Associate extends AbstractOperation
                         foreach ($iterator as $key => $value) {
                             $reduceCallback = $callbackFactory($key)($value);
 
-                            /** @var Generator<int, T|TKey> $k */
+                            /** @var Generator<int, NewTKey> $k */
                             $k = Reduce::of()($reduceCallback)($key)(new ArrayIterator($callbackForKeys));
 
-                            /** @var Generator<int, T|TKey> $c */
+                            /** @var Generator<int, NewT> $c */
                             $c = Reduce::of()($reduceCallback)($value)(new ArrayIterator($callbackForValues));
 
                             yield $k->current() => $c->current();
