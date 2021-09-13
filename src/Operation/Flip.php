@@ -30,22 +30,21 @@ final class Flip extends AbstractOperation
     {
         $callbackForKeys =
             /**
-             * @param mixed $carry
              * @param TKey $key
              * @param T $value
              *
              * @return T
              */
-            static fn ($carry, $key, $value) => $value;
+            static fn ($key, $value) => $value;
 
         $callbackForValues =
             /**
-             * @param mixed $carry
+             * @param T $value
              * @param TKey $key
              *
              * @return TKey
              */
-            static fn ($carry, $key) => $key;
+            static fn ($value, $key) => $key;
 
         /** @var Closure(Iterator<TKey, T>): Generator<T, TKey> $associate */
         $associate = Associate::of()($callbackForKeys)($callbackForValues);

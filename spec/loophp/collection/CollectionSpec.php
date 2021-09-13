@@ -225,10 +225,10 @@ class CollectionSpec extends ObjectBehavior
 
         $this::fromIterable($input)
             ->associate(
-                static function (int $carry, int $key, int $value): int {
+                static function (int $key, int $value): int {
                     return $key * 2;
                 },
-                static function (int $carry, int $key, int $value): int {
+                static function (int $value, int $key): int {
                     return $value * 2;
                 }
             )

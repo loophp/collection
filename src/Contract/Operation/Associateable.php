@@ -26,8 +26,8 @@ interface Associateable
      * @template NewT
      * @template NewTKey
      *
-     * @param callable((TKey|NewTKey)=, T=, TKey=, Iterator<TKey, T>=): NewTKey $callbackForKeys
-     * @param callable((T|NewT)=, T=, TKey=, Iterator<TKey, T>=): NewT $callbackForValues
+     * @param callable(TKey=, T=, Iterator<TKey, T>=): NewTKey $callbackForKeys
+     * @param callable(T=, TKey=, Iterator<TKey, T>=): NewT $callbackForValues
      *
      * @return Collection<NewTKey, NewT>
      */
