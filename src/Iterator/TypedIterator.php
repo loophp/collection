@@ -28,7 +28,7 @@ final class TypedIterator extends ProxyIterator
 {
     /**
      * @param Iterator<TKey, T> $iterator
-     * @param null|callable(mixed): string $getType
+     * @param callable(T): string $getType
      */
     public function __construct(Iterator $iterator, ?callable $getType = null)
     {
@@ -55,7 +55,13 @@ final class TypedIterator extends ProxyIterator
             };
 
         $this->iterator = new ClosureIterator(
-            static function (Iterator $iterator) use ($getType): Generator {
+            /**
+             * @param Iterator<TKey, T> $iterator
+             * @param callable(T): string $getType
+             *
+             * @return Generator<TKey, T|null>
+             */
+            static function (Iterator $iterator, callable $getType): Generator {
                 $previousType = null;
 
                 foreach ($iterator as $key => $value) {
@@ -81,7 +87,7 @@ final class TypedIterator extends ProxyIterator
                     yield $key => $value;
                 }
             },
-            [$iterator]
+            [$iterator, $getType]
         );
     }
 }

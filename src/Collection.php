@@ -154,7 +154,7 @@ use const PHP_INT_MIN;
 final class Collection implements CollectionInterface
 {
     /**
-     * @var iterable<mixed>
+     * @var iterable<int, mixed>
      */
     private iterable $parameters;
 
@@ -167,7 +167,7 @@ final class Collection implements CollectionInterface
      * @psalm-external-mutation-free
      *
      * @param callable(mixed ...$parameters): iterable<TKey, T> $callable
-     * @param iterable<array-key, mixed> $parameters
+     * @param iterable<int, mixed> $parameters
      */
     private function __construct(callable $callable, iterable $parameters = [])
     {
@@ -449,7 +449,7 @@ final class Collection implements CollectionInterface
      * @template NewT
      *
      * @param callable(mixed ...$parameters): iterable<NewTKey, NewT> $callable
-     * @param iterable<mixed> $parameters
+     * @param iterable<int, mixed> $parameters
      *
      * @return self<NewTKey, NewT>
      */

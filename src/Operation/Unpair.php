@@ -24,7 +24,7 @@ final class Unpair extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(Iterator<TKey, T>): Generator<int, (TKey|T)>
+     * @return Closure(Iterator<TKey, T>): Generator<int, (TKey|T), mixed, void>
      */
     public function __invoke(): Closure
     {
@@ -32,7 +32,7 @@ final class Unpair extends AbstractOperation
             /**
              * @param Iterator<TKey, T> $iterator
              *
-             * @return Generator<int, (TKey|T)>
+             * @return Generator<int, (TKey|T), mixed, void>
              */
             static function (Iterator $iterator): Generator {
                 foreach ($iterator as $key => $value) {

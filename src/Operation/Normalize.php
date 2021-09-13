@@ -24,7 +24,7 @@ final class Normalize extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(Iterator<TKey, T>): Generator<int, T>
+     * @return Closure(Iterator<TKey, T>): Generator<int, T, mixed, void>
      */
     public function __invoke(): Closure
     {
@@ -32,7 +32,7 @@ final class Normalize extends AbstractOperation
             /**
              * @param Iterator<TKey, T> $iterator
              *
-             * @return Generator<int, T>
+             * @return Generator<int, T, mixed, void>
              */
             static function (Iterator $iterator): Generator {
                 foreach ($iterator as $value) {

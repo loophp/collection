@@ -38,7 +38,7 @@ final class ResourceIterator extends ProxyIterator
             /**
              * @param resource $resource
              *
-             * @return Generator<int, string>
+             * @return Generator<int, string, mixed, void>
              */
             static function ($resource) use ($closeResource): Generator {
                 try {
