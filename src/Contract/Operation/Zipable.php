@@ -22,9 +22,12 @@ interface Zipable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#zip
      *
-     * @param iterable<mixed, mixed> ...$iterables
+     * @template U
+     * @template UKey
      *
-     * @return Collection<list<mixed>, list<mixed>>
+     * @param iterable<UKey, U> ...$iterables
+     *
+     * @return Collection<list<TKey|UKey>, list<T|U>>
      */
     public function zip(iterable ...$iterables): Collection;
 }

@@ -29,34 +29,37 @@ final class Zip extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(iterable<mixed, mixed>...): Closure(Iterator<TKey, T>): Iterator<list<TKey|mixed>, list<T|mixed>>
+     * @template UKey
+     * @template U
+     *
+     * @return Closure(iterable<UKey, U>...): Closure(Iterator<TKey, T>): Iterator<list<TKey|UKey>, list<T|U>>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param iterable<mixed, mixed> ...$iterables
+             * @param iterable<UKey, U> ...$iterables
              *
-             * @return Closure(Iterator<TKey, T>): Iterator<list<TKey|mixed>, list<T|mixed>>
+             * @return Closure(Iterator<TKey, T>): Iterator<list<TKey|UKey>, list<T|U>>
              */
             static function (iterable ...$iterables): Closure {
                 $buildArrayIterator =
                     /**
-                     * @param list<iterable<mixed, mixed>> $iterables
+                     * @param list<iterable<UKey, U>> $iterables
                      */
                     static fn (array $iterables): Closure =>
                     /**
                      * @param Iterator<TKey, T> $iterator
                      *
-                     * @return ArrayIterator<int, (Iterator<TKey, T>|IterableIterator<mixed, mixed>)>
+                     * @return ArrayIterator<int, (Iterator<TKey, T>|IterableIterator<UKey, U>)>
                      */
                     static fn (Iterator $iterator): Iterator => new ArrayIterator([
                         $iterator,
                         ...array_map(
                             /**
-                             * @param iterable<mixed, mixed> $iterable
+                             * @param iterable<UKey, U> $iterable
                              *
-                             * @return IterableIterator<mixed, mixed>
+                             * @return IterableIterator<UKey, U>
                              */
                             static fn (iterable $iterable): IterableIterator => new IterableIterator($iterable),
                             $iterables
@@ -65,7 +68,7 @@ final class Zip extends AbstractOperation
 
                 $buildMultipleIterator =
                     /**
-                     * @return Closure(ArrayIterator<int, (Iterator<TKey, T>|IterableIterator<mixed, mixed>)>): MultipleIterator
+                     * @return Closure(ArrayIterator<int, (Iterator<TKey, T>|IterableIterator<UKey, U>)>): MultipleIterator
                      */
                     Reduce::of()(
                         /**
@@ -78,7 +81,7 @@ final class Zip extends AbstractOperation
                         }
                     )(new MultipleIterator(MultipleIterator::MIT_NEED_ANY));
 
-                /** @var Closure(Iterator<TKey, T>): Generator<list<TKey|mixed>, list<T|mixed>> $pipe */
+                /** @var Closure(Iterator<TKey, T>): Generator<list<TKey|UKey>, list<T|U>> $pipe */
                 $pipe = Pipe::of()(
                     $buildArrayIterator($iterables),
                     $buildMultipleIterator,
