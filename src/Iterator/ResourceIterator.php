@@ -11,7 +11,6 @@ namespace loophp\collection\Iterator;
 
 use Generator;
 use InvalidArgumentException;
-use IteratorIterator;
 
 use function is_resource;
 
@@ -40,7 +39,7 @@ final class ResourceIterator extends ProxyIterator
              *
              * @return Generator<int, string, mixed, void>
              */
-            static function ($resource) use ($closeResource): Generator {
+            static function ($resource, bool $closeResource): Generator {
                 try {
                     while (false !== $chunk = fgetc($resource)) {
                         yield $chunk;
@@ -52,6 +51,6 @@ final class ResourceIterator extends ProxyIterator
                 }
             };
 
-        $this->iterator = new IteratorIterator($callback($resource));
+        $this->iterator = new ClosureIterator($callback, [$resource, $closeResource]);
     }
 }
