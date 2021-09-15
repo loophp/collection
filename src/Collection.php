@@ -466,8 +466,7 @@ final class Collection implements CollectionInterface
     public static function fromFile(string $filepath): self
     {
         return new self(
-            static fn (string $filepath): Iterator => new ResourceIterator(fopen($filepath, 'rb'), true),
-            [$filepath]
+            static fn (): Iterator => new ResourceIterator(fopen($filepath, 'rb'), true),
         );
     }
 
@@ -508,10 +507,7 @@ final class Collection implements CollectionInterface
      */
     public static function fromIterable(iterable $iterable): self
     {
-        return new self(
-            static fn (iterable $iterable): Iterator => new IterableIterator($iterable),
-            [$iterable]
-        );
+        return new self(static fn (): Iterator => new IterableIterator($iterable));
     }
 
     /**
@@ -523,13 +519,7 @@ final class Collection implements CollectionInterface
      */
     public static function fromResource($resource): self
     {
-        return new self(
-            /**
-             * @param resource $resource
-             */
-            static fn ($resource): Iterator => new ResourceIterator($resource),
-            [$resource]
-        );
+        return new self(static fn (): Iterator => new ResourceIterator($resource));
     }
 
     /**
@@ -539,10 +529,7 @@ final class Collection implements CollectionInterface
      */
     public static function fromString(string $string, string $delimiter = ''): self
     {
-        return new self(
-            static fn (string $string, string $delimiter): Iterator => new StringIterator($string, $delimiter),
-            [$string, $delimiter]
-        );
+        return new self(static fn (): Iterator => new StringIterator($string, $delimiter));
     }
 
     /**

@@ -39,7 +39,7 @@ final class ResourceIterator extends ProxyIterator
              *
              * @return Generator<int, string, mixed, void>
              */
-            static function ($resource, bool $closeResource): Generator {
+            static function ($resource) use ($closeResource): Generator {
                 try {
                     while (false !== $chunk = fgetc($resource)) {
                         yield $chunk;
@@ -51,6 +51,6 @@ final class ResourceIterator extends ProxyIterator
                 }
             };
 
-        $this->iterator = new ClosureIterator($callback, [$resource, $closeResource]);
+        $this->iterator = new ClosureIterator($callback, [$resource]);
     }
 }

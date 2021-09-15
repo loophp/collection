@@ -1,11 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Parameter \\#1 \\$callable of class loophp\\\\collection\\\\Collection constructor expects callable\\(\\.\\.\\.mixed\\)\\: iterable\\<int, string\\>, Closure\\(string, string\\)\\: loophp\\\\collection\\\\Iterator\\\\StringIterator\\<mixed, string\\> given\\.$#"
-			count: 1
-			path: src/Collection.php
-
-		-
 			message: "#^Generic type loophp\\\\collection\\\\Contract\\\\Operation\\\\Unpackable\\<mixed, array\\<int, mixed\\>\\> in PHPDoc tag @extends does not specify all template types of interface loophp\\\\collection\\\\Contract\\\\Operation\\\\Unpackable\\: TKey, T, NewTKey, NewT$#"
 			count: 1
 			path: src/Contract/Collection.php
@@ -21,17 +16,6 @@ parameters:
 			path: src/Contract/Operation/Unpackable.php
 
 		-
-			message: "#^Parameter \\#1 \\$callable of class loophp\\\\collection\\\\Iterator\\\\ClosureIterator constructor expects callable\\(\\.\\.\\.mixed\\)\\: iterable\\<int, string\\>, Closure\\(mixed, bool\\)\\: Generator\\<int, string, mixed, void\\> given\\.$#"
-			count: 1
-			path: src/Iterator/ResourceIterator.php
-
-		-
-			message: "#^Parameter \\#1 \\$callable of class loophp\\\\collection\\\\Iterator\\\\ClosureIterator constructor expects callable\\(\\.\\.\\.mixed\\)\\: iterable, Closure\\(Iterator, callable\\(\\)\\: mixed\\)\\: Generator\\<mixed, mixed, mixed, void\\> given\\.$#"
-			count: 1
-			path: src/Iterator/TypedIterator.php
-
-		-
 			message: "#^PHPDoc tag @template T for class loophp\\\\collection\\\\Operation\\\\Unpack with bound type array\\<int, NewT\\|NewTKey\\> is not supported\\.$#"
 			count: 1
 			path: src/Operation/Unpack.php
-
