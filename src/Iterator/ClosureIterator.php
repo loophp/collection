@@ -33,7 +33,7 @@ final class ClosureIterator extends ProxyIterator
 
     /**
      * @param callable(mixed ...$parameters): iterable<TKey, T> $callable
-     * @param iterable<mixed> $parameters
+     * @param iterable<int, mixed> $parameters
      */
     public function __construct(callable $callable, iterable $parameters)
     {
@@ -48,10 +48,10 @@ final class ClosureIterator extends ProxyIterator
     }
 
     /**
-     * @return Generator<TKey, T>
+     * @return Generator<TKey, T, mixed, void>
      */
     private function getGenerator(): Generator
     {
-        return yield from ($this->callable)(...$this->parameters);
+        yield from ($this->callable)(...$this->parameters);
     }
 }

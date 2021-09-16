@@ -154,7 +154,7 @@ use const PHP_INT_MIN;
 final class Collection implements CollectionInterface
 {
     /**
-     * @var iterable<mixed>
+     * @var iterable<int, mixed>
      */
     private iterable $parameters;
 
@@ -167,7 +167,7 @@ final class Collection implements CollectionInterface
      * @psalm-external-mutation-free
      *
      * @param callable(mixed ...$parameters): iterable<TKey, T> $callable
-     * @param iterable<array-key, mixed> $parameters
+     * @param iterable<int, mixed> $parameters
      */
     private function __construct(callable $callable, iterable $parameters = [])
     {
@@ -196,9 +196,9 @@ final class Collection implements CollectionInterface
     ): CollectionInterface {
         $defaultCallback =
             /**
-             * @param T|TKey $carry
+             * @param mixed $carry
              *
-             * @return T|TKey
+             * @return mixed
              */
             static fn ($carry) => $carry;
 
@@ -449,7 +449,7 @@ final class Collection implements CollectionInterface
      * @template NewT
      *
      * @param callable(mixed ...$parameters): iterable<NewTKey, NewT> $callable
-     * @param iterable<mixed> $parameters
+     * @param iterable<int, mixed> $parameters
      *
      * @return self<NewTKey, NewT>
      */
@@ -466,8 +466,7 @@ final class Collection implements CollectionInterface
     public static function fromFile(string $filepath): self
     {
         return new self(
-            static fn (string $filepath): Iterator => new ResourceIterator(fopen($filepath, 'rb'), true),
-            [$filepath]
+            static fn (): Iterator => new ResourceIterator(fopen($filepath, 'rb'), true),
         );
     }
 
@@ -508,10 +507,7 @@ final class Collection implements CollectionInterface
      */
     public static function fromIterable(iterable $iterable): self
     {
-        return new self(
-            static fn (iterable $iterable): Iterator => new IterableIterator($iterable),
-            [$iterable]
-        );
+        return new self(static fn (): Iterator => new IterableIterator($iterable));
     }
 
     /**
@@ -523,13 +519,7 @@ final class Collection implements CollectionInterface
      */
     public static function fromResource($resource): self
     {
-        return new self(
-            /**
-             * @param resource $resource
-             */
-            static fn ($resource): Iterator => new ResourceIterator($resource),
-            [$resource]
-        );
+        return new self(static fn (): Iterator => new ResourceIterator($resource));
     }
 
     /**
@@ -539,10 +529,7 @@ final class Collection implements CollectionInterface
      */
     public static function fromString(string $string, string $delimiter = ''): self
     {
-        return new self(
-            static fn (string $string, string $delimiter): Iterator => new StringIterator($string, $delimiter),
-            [$string, $delimiter]
-        );
+        return new self(static fn (): Iterator => new StringIterator($string, $delimiter));
     }
 
     /**

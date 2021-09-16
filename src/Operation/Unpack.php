@@ -41,16 +41,15 @@ final class Unpack extends AbstractOperation
              *
              * @return NewTKey
              */
-            static fn ($initial, int $key, array $value) => $value[0];
+            static fn (int $key, array $value) => $value[0];
 
         $callbackForValues =
             /**
-             * @param NewT $initial
              * @param T $value
              *
              * @return NewT
              */
-            static fn ($initial, int $key, array $value) => $value[1];
+            static fn (array $value) => $value[1];
 
         /** @var Closure(Iterator<TKey, T>): Generator<NewTKey, NewT> $pipe */
         $pipe = Pipe::of()(

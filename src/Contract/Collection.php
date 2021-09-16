@@ -235,7 +235,7 @@ use loophp\collection\Contract\Operation\Zipable;
  * @template-extends Transposeable<TKey, T>
  * @template-extends Truthyable<TKey, T>
  * @template-extends Unlinesable<TKey, T>
- * @template-extends Unpackable<TKey, T>
+ * @template-extends Unpackable<mixed, array{0: TKey, 1: T}>
  * @template-extends Unpairable<TKey, T>
  * @template-extends Untilable<TKey, T>
  * @template-extends Unwindowable<TKey, T>

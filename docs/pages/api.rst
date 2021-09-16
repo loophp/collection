@@ -287,32 +287,8 @@ Interface: `Associateable`_
 
 Signature: ``Collection::associate(?callable $callbackForKeys = null, ?callable $callbackForValues = null): Collection;``
 
-.. code-block:: php
-
-    $input = range(1, 10);
-
-    Collection::fromIterable($input)
-        ->associate(
-            static function ($key, $value) {
-                return $key * 2;
-            },
-            static function ($key, $value) {
-                return $value * 2;
-            }
-        );
-
-    // [
-    //   0 => 2,
-    //   2 => 4,
-    //   4 => 6,
-    //   6 => 8,
-    //   8 => 10,
-    //   10 => 12,
-    //   12 => 14,
-    //   14 => 16,
-    //   16 => 18,
-    //   18 => 20,
-    // ]
+.. literalinclude:: code/operations/associate.php
+  :language: php
 
 asyncMap
 ~~~~~~~~

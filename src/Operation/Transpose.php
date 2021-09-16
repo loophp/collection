@@ -34,22 +34,19 @@ final class Transpose extends AbstractOperation
     {
         $callbackForKeys =
             /**
-             * @param array $carry
              * @param non-empty-array<int, TKey> $key
              *
              * @return TKey
              */
-            static fn (array $carry, array $key) => reset($key);
+            static fn (array $key) => reset($key);
 
         $callbackForValues =
             /**
-             * @param array $carry
-             * @param array<int, TKey> $key
              * @param array<int, T> $value
              *
              * @return array<int, T>
              */
-            static fn (array $carry, array $key, array $value): array => $value;
+            static fn (array $value): array => $value;
 
         /** @var Closure(Iterator<TKey, T>): Generator<TKey, list<T>> $pipe */
         $pipe = Pipe::of()(
