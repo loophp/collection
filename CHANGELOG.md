@@ -5,7 +5,43 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [5.0.0](https://github.com/loophp/collection/compare/4.1.0...5.0.0)
+## [5.1.0](https://github.com/loophp/collection/compare/5.0.0...5.1.0)
+
+### Merged
+
+- Update various typing information [`#196`](https://github.com/loophp/collection/pull/196)
+- chore(deps): Bump shivammathur/setup-php from 2.13.0 to 2.14.0 [`#195`](https://github.com/loophp/collection/pull/195)
+- refactor: Fix PSalm issues. [`#194`](https://github.com/loophp/collection/pull/194)
+- Fix `inits` operation [`#191`](https://github.com/loophp/collection/pull/191)
+- refactor: Update `Duplicate` and `Distinct` operations in point free style. [`#188`](https://github.com/loophp/collection/pull/188)
+- refactor: Update various operation and typing informations [`#190`](https://github.com/loophp/collection/pull/190)
+- refactor: Update `Init` operation in point free style. [`#186`](https://github.com/loophp/collection/pull/186)
+- refactor: Update `combine` operation in point free style. [`#187`](https://github.com/loophp/collection/pull/187)
+- chore(deps): Bump shivammathur/setup-php from 2.12.0 to 2.13.0 [`#184`](https://github.com/loophp/collection/pull/184)
+- refactor: Update `Transpose` operation in point free style. [`#178`](https://github.com/loophp/collection/pull/178)
+- refactor: Update `Zip` operation in point free style. [`#181`](https://github.com/loophp/collection/pull/181)
+- refactor: Update `Window` operation in point free style. [`#179`](https://github.com/loophp/collection/pull/179)
+- fix: Update PHPStan configuration [`#183`](https://github.com/loophp/collection/pull/183)
+- refactor: Minor optimizations in various operations. [`#180`](https://github.com/loophp/collection/pull/180)
+- refactor: Update `Collapse` operation in point free style. [`#182`](https://github.com/loophp/collection/pull/182)
+- refactor: Update cross `product` operation in point free style. [`#177`](https://github.com/loophp/collection/pull/177)
+
+### Commits
+
+- fix: Update `RandomIterator` types. [`5a5ae1d`](https://github.com/loophp/collection/commit/5a5ae1d95c799d4515a69f4f5e1e1b3824fd7c8c)
+- fix: Fix `Unpair` operation return types. [`885059f`](https://github.com/loophp/collection/commit/885059fe274ede570aace973c5ed1627e0305d5e)
+- fix: Autofix code style. [`08199ca`](https://github.com/loophp/collection/commit/08199ca258fdc750e9a4558d33215547f5f59004)
+- Fix interfaces (to backport to master) [`f9b7c1c`](https://github.com/loophp/collection/commit/f9b7c1c3d95937a52172cf272c1ace5f7cc9d98e)
+- Fix `Rangeable` interface (to backport to master) [`da430f9`](https://github.com/loophp/collection/commit/da430f9612832e7d04f878a27e6b57a970d2f101)
+- Fix `Zipable` interface (to backport to master) [`7e47439`](https://github.com/loophp/collection/commit/7e47439d928e1d77537fad35b7460200a56d88c6)
+- Fix `Initsable` interface (to backport to master) [`711f3c7`](https://github.com/loophp/collection/commit/711f3c768f50f3e58a9120b4158e142bff9ee4b9)
+- Fix `Groupable` interface (to backport to master) [`6c24b7e`](https://github.com/loophp/collection/commit/6c24b7e56f80322afb1aa19f791bff3dc00af0d5)
+- fix: Update return types of `Implode` and `Unlines` operation. [`05bbf8e`](https://github.com/loophp/collection/commit/05bbf8e9fcd7d6f4bfc441636bf4a25d298e89a2)
+- refactor: Update `Frequency` operation return type and minor optimizations here and there. [`a1964f4`](https://github.com/loophp/collection/commit/a1964f49547952f8a633ef4cfac017ea05134b31)
+- refactor: Update `Transpose` operation in point free style - add missing documentation (#178) [`bd0ec78`](https://github.com/loophp/collection/commit/bd0ec7814e97422bf597baf5edcb2bf91b9fb106)
+- tests: Add missing test for the `Window` operation. [`a2ee653`](https://github.com/loophp/collection/commit/a2ee6535812db49aafa7256aa6d9fa517b75f03f)
+
+## [5.0.0](https://github.com/loophp/collection/compare/4.1.0...5.0.0) - 2021-08-06
 
 ### Merged
 
@@ -54,6 +90,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Commits
 
+- docs: Add/update CHANGELOG. [`74d3069`](https://github.com/loophp/collection/commit/74d3069331847f625d2ee11e0522777f82666ce0)
 - chore: Add AFUP presentation link. [`404d0b7`](https://github.com/loophp/collection/commit/404d0b72e49b0388a89636c82ec04c0d0ff815d9)
 - chore: Update Github configuration files. [`c6488a4`](https://github.com/loophp/collection/commit/c6488a475df5fa113e3274d09994f0f22aa6a532)
 - Update IfThenElse operation, add missing typing information. [`5f4ef9e`](https://github.com/loophp/collection/commit/5f4ef9e16cc2d82a3ccd3248ac58c63eec9c9856)
