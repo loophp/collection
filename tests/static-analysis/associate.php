@@ -19,22 +19,51 @@ function associate_checkIntInt(CollectionInterface $collection): void
 {
 }
 /**
- * @param CollectionInterface<string, string> $collection
+ * @param CollectionInterface<string, int|string> $collection
  */
 function associate_checkStringString(CollectionInterface $collection): void
 {
 }
 /**
- * @param CollectionInterface<string, bool> $collection
+ * @param CollectionInterface<string, bool|int> $collection
  */
 function associate_checkStringBool(CollectionInterface $collection): void
 {
 }
+/**
+ * @param CollectionInterface<string, int> $collection
+ */
+function associate_checkStringInt(CollectionInterface $collection): void
+{
+}
+/**
+ * @param CollectionInterface<int, string> $collection
+ */
+function associate_checkIntString(CollectionInterface $collection): void
+{
+}
+
+$intIntGenerator = static function (): Generator {
+    while (true) {
+        yield mt_rand();
+    }
+};
+
+$StringStringGenerator = static function (): Generator {
+    while (true) {
+        yield chr(random_int(0, 255)) => chr(random_int(0, 255));
+    }
+};
 
 $square = static fn (int $val): int => $val ** 2;
 $toBoldString = static fn (int $val): string => sprintf('*%s*', $val);
 $isEven = static fn (int $val): bool => 0 === $val % 2;
+$stringToInt = static fn (string $value): int => (int) $value;
 
-associate_checkIntInt(Collection::fromIterable([1, 2, 3])->associate($square, $square));
-associate_checkStringString(Collection::fromIterable([1, 2, 3])->associate($toBoldString, $toBoldString));
-associate_checkStringBool(Collection::fromIterable([1, 2, 3])->associate($toBoldString, $isEven));
+associate_checkIntInt(Collection::fromIterable($intIntGenerator())->associate($square, $square));
+associate_checkStringString(Collection::fromIterable($intIntGenerator())->associate($toBoldString, $toBoldString));
+associate_checkStringBool(Collection::fromIterable($intIntGenerator())->associate($toBoldString, $isEven));
+
+// With the second callback missing
+associate_checkStringInt(Collection::fromIterable($intIntGenerator())->associate($toBoldString));
+associate_checkIntString(Collection::fromIterable($StringStringGenerator())->associate($stringToInt));
