@@ -22,7 +22,7 @@ interface Flipable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#flip
      *
-     * @return Collection<TKey, T>
+     * @return Collection<T, TKey>
      */
     public function flip(): Collection;
 }
