@@ -12,7 +12,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -20,7 +19,7 @@ use loophp\collection\Contract\Operation;
  * @template TKey
  * @template T
  */
-final class Flip implements Operation
+final class Flip
 {
     /**
      * @pure
@@ -48,17 +47,9 @@ final class Flip implements Operation
             static fn ($value, $key) => $key;
 
         /** @var Closure(Iterator<TKey, T>): Generator<T, TKey> $associate */
-        $associate = Associate::of()($callbackForKeys)($callbackForValues);
+        $associate = (new Associate())()($callbackForKeys)($callbackForValues);
 
         // Point free style.
         return $associate;
-    }
-
-    /**
-     * @pure
-     */
-    public static function of(): Closure
-    {
-        return (new self())->__invoke();
     }
 }

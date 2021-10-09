@@ -12,7 +12,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -22,7 +21,7 @@ use loophp\collection\Contract\Operation;
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
-final class IfThenElse implements Operation
+final class IfThenElse
 {
     /**
      * @pure
@@ -51,7 +50,7 @@ final class IfThenElse implements Operation
                      */
                     static function (callable $else) use ($condition, $then): Closure {
                         /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $map */
-                        $map = Map::of()(
+                        $map = (new Map())()(
                             /**
                              * @param T $value
                              * @param TKey $key
@@ -65,13 +64,5 @@ final class IfThenElse implements Operation
                         // Point free style.
                         return $map;
                     };
-    }
-
-    /**
-     * @pure
-     */
-    public static function of(): Closure
-    {
-        return (new self())->__invoke();
     }
 }

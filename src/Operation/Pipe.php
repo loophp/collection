@@ -11,7 +11,6 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Iterator;
-use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -21,7 +20,7 @@ use loophp\collection\Contract\Operation;
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
-final class Pipe implements Operation
+final class Pipe
 {
     /**
      * @pure
@@ -53,13 +52,5 @@ final class Pipe implements Operation
                     static fn (Iterator $iterator): Iterator => $g($f($iterator)),
                 static fn (Iterator $iterator): Iterator => $iterator
             );
-    }
-
-    /**
-     * @pure
-     */
-    public static function of(): Closure
-    {
-        return (new self())->__invoke();
     }
 }

@@ -13,7 +13,6 @@ use ArrayIterator;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 use loophp\collection\Iterator\IterableIterator;
 
 /**
@@ -22,7 +21,7 @@ use loophp\collection\Iterator\IterableIterator;
  * @template TKey
  * @template T
  */
-final class Product implements Operation
+final class Product
 {
     /**
      * @pure
@@ -40,7 +39,7 @@ final class Product implements Operation
              */
             static function (iterable ...$iterables): Closure {
                 /** @var Closure(Iterator<TKey, T>): Generator<int, list<T|U>> $pipe */
-                $pipe = Pipe::of()(
+                $pipe = (new Pipe())()(
                     (
                         /**
                          * @param list<Iterator<UKey, U>> $iterables
@@ -68,11 +67,11 @@ final class Product implements Operation
                             /**
                              * @param Iterator<int, list<T>> $as
                              */
-                            static fn (Iterator $as): Generator => FlatMap::of()(
+                            static fn (Iterator $as): Generator => (new FlatMap())()(
                                 /**
                                  * @param list<T> $a
                                  */
-                                static fn (array $a): Generator => FlatMap::of()(
+                                static fn (array $a): Generator => (new FlatMap())()(
                                     /**
                                      * @param T|U $x
                                      *
@@ -100,13 +99,5 @@ final class Product implements Operation
                 // Point free style.
                 return $pipe;
             };
-    }
-
-    /**
-     * @pure
-     */
-    public static function of(): Closure
-    {
-        return (new self())->__invoke();
     }
 }

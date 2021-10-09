@@ -12,7 +12,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -20,7 +19,7 @@ use loophp\collection\Contract\Operation;
  * @template TKey
  * @template T
  */
-final class Reverse implements Operation
+final class Reverse
 {
     /**
      * @pure
@@ -39,21 +38,13 @@ final class Reverse implements Operation
             static fn (array $carry, array $value): array => [...$value, ...$carry];
 
         /** @var Closure(Iterator<TKey, T>): Generator<TKey, T, mixed, void> $pipe */
-        $pipe = Pipe::of()(
+        $pipe = (new Pipe())()(
             (new Pack())(),
-            Reduce::of()($callback)([]),
+            (new Reduce())()($callback)([]),
             (new Unpack())(),
         );
 
         // Point free style.
         return $pipe;
-    }
-
-    /**
-     * @pure
-     */
-    public static function of(): Closure
-    {
-        return (new self())->__invoke();
     }
 }

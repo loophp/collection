@@ -12,7 +12,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 
 use const INF;
 
@@ -24,7 +23,7 @@ use const INF;
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
-final class Scale implements Operation
+final class Scale
 {
     /**
      * @pure
@@ -57,7 +56,7 @@ final class Scale implements Operation
                                 $wantedLowerBound = (0.0 === $wantedLowerBound) ? (0.0 === $base ? 0.0 : 1.0) : $wantedLowerBound;
                                 $wantedUpperBound = (1.0 === $wantedUpperBound) ? (0.0 === $base ? 1.0 : $base) : $wantedUpperBound;
                                 /** @var callable(Generator<TKey, (float | int)>):Generator<TKey, float> $mapper */
-                                $mapper = Map::of()(
+                                $mapper = (new Map())()(
                                     /**
                                      * @param float|int $v
                                      */
@@ -84,18 +83,10 @@ final class Scale implements Operation
                                 );
 
                                 /** @var Closure(Iterator<TKey, (float | int)>):(Generator<TKey, float|int>) $pipe */
-                                $pipe = Pipe::of()($filter, $mapper);
+                                $pipe = (new Pipe())()($filter, $mapper);
 
                                 // Point free style.
                                 return $pipe;
                             };
-    }
-
-    /**
-     * @pure
-     */
-    public static function of(): Closure
-    {
-        return (new self())->__invoke();
     }
 }

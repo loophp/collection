@@ -13,7 +13,6 @@ use ArrayIterator;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -23,7 +22,7 @@ use loophp\collection\Contract\Operation;
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
-final class Distinct implements Operation
+final class Distinct
 {
     /**
      * @pure
@@ -78,13 +77,5 @@ final class Distinct implements Operation
                     // Point free style.
                     return $filter;
                 };
-    }
-
-    /**
-     * @pure
-     */
-    public static function of(): Closure
-    {
-        return (new self())->__invoke();
     }
 }

@@ -12,7 +12,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -20,7 +19,7 @@ use loophp\collection\Contract\Operation;
  * @template TKey
  * @template T
  */
-final class IsEmpty implements Operation
+final class IsEmpty
 {
     /**
      * @pure
@@ -30,13 +29,5 @@ final class IsEmpty implements Operation
     public function __invoke(): Closure
     {
         return static fn (Iterator $iterator): Generator => yield !$iterator->valid();
-    }
-
-    /**
-     * @pure
-     */
-    public static function of(): Closure
-    {
-        return (new self())->__invoke();
     }
 }

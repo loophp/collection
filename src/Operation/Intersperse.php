@@ -13,7 +13,6 @@ use Closure;
 use Generator;
 use InvalidArgumentException;
 use Iterator;
-use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -21,7 +20,7 @@ use loophp\collection\Contract\Operation;
  * @template TKey
  * @template T
  */
-final class Intersperse implements Operation
+final class Intersperse
 {
     /**
      * @pure
@@ -71,13 +70,5 @@ final class Intersperse implements Operation
                                 yield $key => $value;
                             }
                         };
-    }
-
-    /**
-     * @pure
-     */
-    public static function of(): Closure
-    {
-        return (new self())->__invoke();
     }
 }

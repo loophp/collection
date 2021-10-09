@@ -15,7 +15,6 @@ use Closure;
 use Generator;
 use Iterator;
 use loophp\collection\Contract\Collection;
-use loophp\collection\Contract\Operation;
 use ReflectionClass;
 
 use function array_key_exists;
@@ -31,7 +30,7 @@ use function is_object;
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
-final class Pluck implements Operation
+final class Pluck
 {
     /**
      * @pure
@@ -83,7 +82,7 @@ final class Pluck implements Operation
                                         }
 
                                         /** @var Generator<TKey, T> $collapse */
-                                        $collapse = Collapse::of()(new ArrayIterator($result));
+                                        $collapse = (new Collapse())()(new ArrayIterator($result));
 
                                         return in_array('*', $key, true) ? $collapse : $result;
                                     }
@@ -96,7 +95,7 @@ final class Pluck implements Operation
                                         $target = $target[$segment];
                                     } elseif ($target instanceof Collection) {
                                         /** @var T $target */
-                                        $target = (Get::of()($segment)($default)($target->getIterator()))->current();
+                                        $target = ((new Get())()($segment)($default)($target->getIterator()))->current();
                                     } elseif ((true === is_object($target)) && (true === property_exists($target, $segment))) {
                                         /** @var T $target */
                                         $target = (new ReflectionClass($target))->getProperty($segment)->getValue($target);
@@ -114,13 +113,5 @@ final class Pluck implements Operation
                             yield $pick($iterator, $value, $key, $default);
                         }
                     };
-    }
-
-    /**
-     * @pure
-     */
-    public static function of(): Closure
-    {
-        return (new self())->__invoke();
     }
 }

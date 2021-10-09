@@ -12,7 +12,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -22,7 +21,7 @@ use loophp\collection\Contract\Operation;
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
-final class Associate implements Operation
+final class Associate
 {
     /**
      * @pure
@@ -57,13 +56,5 @@ final class Associate implements Operation
                             yield $callbackForKeys($key, $value, $iterator) => $callbackForValues($value, $key, $iterator);
                         }
                     };
-    }
-
-    /**
-     * @pure
-     */
-    public static function of(): Closure
-    {
-        return (new self())->__invoke();
     }
 }

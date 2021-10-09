@@ -12,7 +12,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -20,7 +19,7 @@ use loophp\collection\Contract\Operation;
  * @template TKey
  * @template T
  */
-final class Nth implements Operation
+final class Nth
 {
     /**
      * @pure
@@ -45,22 +44,14 @@ final class Nth implements Operation
                         static fn (array $value, int $key): bool => (($key % $step) === $offset);
 
                     /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
-                    $pipe = Pipe::of()(
-                        Pack::of(),
+                    $pipe = (new Pipe())()(
+                        (new Pack())(),
                         (new Filter())()($filterCallback),
-                        Unpack::of()
+                        (new Unpack())()
                     );
 
                     // Point free style.
                     return $pipe;
                 };
-    }
-
-    /**
-     * @pure
-     */
-    public static function of(): Closure
-    {
-        return (new self())->__invoke();
     }
 }

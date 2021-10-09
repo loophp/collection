@@ -12,7 +12,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -20,7 +19,7 @@ use loophp\collection\Contract\Operation;
  * @template TKey
  * @template T
  */
-final class Coalesce implements Operation
+final class Coalesce
 {
     /**
      * @pure
@@ -30,20 +29,12 @@ final class Coalesce implements Operation
     public function __invoke(): Closure
     {
         /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
-        $pipe = Pipe::of()(
-            Compact::of()(),
-            Head::of(),
+        $pipe = (new Pipe())()(
+            (new Compact())()(),
+            (new Head())(),
         );
 
         // Point free style.
         return $pipe;
-    }
-
-    /**
-     * @pure
-     */
-    public static function of(): Closure
-    {
-        return (new self())->__invoke();
     }
 }

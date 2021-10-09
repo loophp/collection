@@ -11,7 +11,6 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Iterator;
-use loophp\collection\Contract\Operation;
 use loophp\collection\Iterator\RandomIterator;
 
 /**
@@ -20,7 +19,7 @@ use loophp\collection\Iterator\RandomIterator;
  * @template TKey
  * @template T
  */
-final class Shuffle implements Operation
+final class Shuffle
 {
     /**
      * @pure
@@ -40,13 +39,5 @@ final class Shuffle implements Operation
                  * @return Iterator<TKey, T>
                  */
                 static fn (Iterator $iterator): Iterator => new RandomIterator($iterator, $seed);
-    }
-
-    /**
-     * @pure
-     */
-    public static function of(): Closure
-    {
-        return (new self())->__invoke();
     }
 }

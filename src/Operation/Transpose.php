@@ -12,7 +12,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 use loophp\collection\Iterator\IterableIterator;
 use MultipleIterator;
 
@@ -22,7 +21,7 @@ use MultipleIterator;
  * @template TKey
  * @template T
  */
-final class Transpose implements Operation
+final class Transpose
 {
     /**
      * @pure
@@ -50,27 +49,19 @@ final class Transpose implements Operation
             static fn (array $value): array => $value;
 
         /** @var Closure(Iterator<TKey, T>): Generator<TKey, list<T>> $pipe */
-        $pipe = Pipe::of()(
-            Reduce::of()(
+        $pipe = (new Pipe())()(
+            (new Reduce())()(
                 static function (MultipleIterator $acc, iterable $iterable): MultipleIterator {
                     $acc->attachIterator(new IterableIterator($iterable));
 
                     return $acc;
                 }
             )(new MultipleIterator(MultipleIterator::MIT_NEED_ANY)),
-            Flatten::of()(1),
-            Associate::of()($callbackForKeys)($callbackForValues)
+            (new Flatten())()(1),
+            (new Associate())()($callbackForKeys)($callbackForValues)
         );
 
         // Point free style.
         return $pipe;
-    }
-
-    /**
-     * @pure
-     */
-    public static function of(): Closure
-    {
-        return (new self())->__invoke();
     }
 }

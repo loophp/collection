@@ -14,7 +14,6 @@ use Closure;
 use Exception;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 
 use function Amp\Iterator\fromIterable;
 use function Amp\ParallelFunctions\parallel;
@@ -35,7 +34,7 @@ if (false === function_exists('Amp\ParallelFunctions\parallel')) {
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
-final class AsyncMapN implements Operation
+final class AsyncMapN
 {
     /**
      * @pure
@@ -78,7 +77,7 @@ final class AsyncMapN implements Operation
                          */
                         static fn (array $value): array => [$value[0], array_reduce($callbacks, $callbackFactory($value[0]), $value[1])];
 
-                    $iter = map(fromIterable(Pack::of()($iterator)), new LocalSemaphore(32), parallel($callback));
+                    $iter = map(fromIterable((new Pack())()($iterator)), new LocalSemaphore(32), parallel($callback));
 
                     while (wait($iter->advance())) {
                         /** @var array{0: mixed, 1: mixed} $item */
@@ -87,13 +86,5 @@ final class AsyncMapN implements Operation
                         yield $item[0] => $item[1];
                     }
                 };
-    }
-
-    /**
-     * @pure
-     */
-    public static function of(): Closure
-    {
-        return (new self())->__invoke();
     }
 }

@@ -12,7 +12,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -20,7 +19,7 @@ use loophp\collection\Contract\Operation;
  * @template TKey
  * @template T
  */
-final class Tail implements Operation
+final class Tail
 {
     /**
      * @pure
@@ -30,17 +29,9 @@ final class Tail implements Operation
     public function __invoke(): Closure
     {
         /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $drop */
-        $drop = Drop::of()(1);
+        $drop = (new Drop())()(1);
 
         // Point free style.
         return $drop;
-    }
-
-    /**
-     * @pure
-     */
-    public static function of(): Closure
-    {
-        return (new self())->__invoke();
     }
 }

@@ -12,7 +12,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 use loophp\collection\Contract\Operation\Splitable;
 use loophp\collection\Utils\CallbacksArrayReducer;
 
@@ -24,7 +23,7 @@ use loophp\collection\Utils\CallbacksArrayReducer;
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
-final class Split implements Operation
+final class Split
 {
     /**
      * @pure
@@ -82,13 +81,5 @@ final class Split implements Operation
                             yield $carry;
                         }
                     };
-    }
-
-    /**
-     * @pure
-     */
-    public static function of(): Closure
-    {
-        return (new self())->__invoke();
     }
 }

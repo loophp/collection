@@ -12,7 +12,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -20,7 +19,7 @@ use loophp\collection\Contract\Operation;
  * @template TKey
  * @template T
  */
-final class Get implements Operation
+final class Get
 {
     /**
      * @pure
@@ -50,22 +49,14 @@ final class Get implements Operation
                         static fn ($value, $key): bool => $key === $keyToGet;
 
                     /** @var Closure(Iterator<TKey, T>): (Generator<TKey, T|null>) $pipe */
-                    $pipe = Pipe::of()(
+                    $pipe = (new Pipe())()(
                         (new Filter())()($filterCallback),
-                        Append::of()($default),
-                        Head::of()
+                        (new Append())()($default),
+                        (new Head())()
                     );
 
                     // Point free style.
                     return $pipe;
                 };
-    }
-
-    /**
-     * @pure
-     */
-    public static function of(): Closure
-    {
-        return (new self())->__invoke();
     }
 }

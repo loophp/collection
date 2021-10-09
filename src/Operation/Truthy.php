@@ -12,7 +12,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -20,7 +19,7 @@ use loophp\collection\Contract\Operation;
  * @template TKey
  * @template T
  */
-final class Truthy implements Operation
+final class Truthy
 {
     /**
      * @pure
@@ -37,20 +36,12 @@ final class Truthy implements Operation
             static fn ($value): bool => !(bool) $value;
 
         /** @var Closure(Iterator<TKey, T>): Generator<int, bool> $pipe */
-        $pipe = Pipe::of()(
-            MatchOne::of()($matchWhenNot)($matcher),
-            Map::of()($matcher),
+        $pipe = (new Pipe())()(
+            (new MatchOne())()($matchWhenNot)($matcher),
+            (new Map())()($matcher),
         );
 
         // Point free style.
         return $pipe;
-    }
-
-    /**
-     * @pure
-     */
-    public static function of(): Closure
-    {
-        return (new self())->__invoke();
     }
 }

@@ -13,7 +13,6 @@ use CachingIterator;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -23,7 +22,7 @@ use loophp\collection\Contract\Operation;
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
-final class Init implements Operation
+final class Init
 {
     /**
      * @pure
@@ -49,20 +48,12 @@ final class Init implements Operation
             static fn (Iterator $iterator): CachingIterator => new CachingIterator($iterator, CachingIterator::FULL_CACHE);
 
         /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $takeWhile */
-        $takeWhile = Pipe::of()(
+        $takeWhile = (new Pipe())()(
             $buildCachingIterator,
-            TakeWhile::of()($callback)
+            (new TakeWhile())()($callback)
         );
 
         // Point free style.
         return $takeWhile;
-    }
-
-    /**
-     * @pure
-     */
-    public static function of(): Closure
-    {
-        return (new self())->__invoke();
     }
 }

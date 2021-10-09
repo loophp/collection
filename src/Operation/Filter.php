@@ -12,7 +12,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 use loophp\collection\Utils\CallbacksArrayReducer;
 
 /**
@@ -23,7 +22,7 @@ use loophp\collection\Utils\CallbacksArrayReducer;
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
-final class Filter implements Operation
+final class Filter
 {
     /**
      * @pure
@@ -61,13 +60,5 @@ final class Filter implements Operation
                         }
                     }
                 };
-    }
-
-    /**
-     * @pure
-     */
-    public static function of(): Closure
-    {
-        return (new self())->__invoke();
     }
 }

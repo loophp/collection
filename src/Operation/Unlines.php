@@ -12,7 +12,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 
 use const PHP_EOL;
 
@@ -22,7 +21,7 @@ use const PHP_EOL;
  * @template TKey
  * @template T
  */
-final class Unlines implements Operation
+final class Unlines
 {
     /**
      * @pure
@@ -32,17 +31,9 @@ final class Unlines implements Operation
     public function __invoke(): Closure
     {
         /** @var Closure(Iterator<TKey, (T|string)>):Generator<TKey, string> $implode */
-        $implode = Implode::of()(PHP_EOL);
+        $implode = (new Implode())()(PHP_EOL);
 
         // Point free style.
         return $implode;
-    }
-
-    /**
-     * @pure
-     */
-    public static function of(): Closure
-    {
-        return (new self())->__invoke();
     }
 }

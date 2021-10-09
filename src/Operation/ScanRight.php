@@ -12,7 +12,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -22,7 +21,7 @@ use loophp\collection\Contract\Operation;
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
-final class ScanRight implements Operation
+final class ScanRight
 {
     /**
      * @pure
@@ -48,23 +47,15 @@ final class ScanRight implements Operation
                  */
                 static function ($initial) use ($callback): Closure {
                     /** @var Closure(Iterator<TKey, T>):(Generator<int|TKey, V|W>) $pipe */
-                    $pipe = Pipe::of()(
-                        Reverse::of(),
-                        Reduction::of()($callback)($initial),
-                        Reverse::of(),
-                        Append::of()($initial)
+                    $pipe = (new Pipe())()(
+                        (new Reverse())(),
+                        (new Reduction())()($callback)($initial),
+                        (new Reverse())(),
+                        (new Append())()($initial)
                     );
 
                     // Point free style.
                     return $pipe;
                 };
-    }
-
-    /**
-     * @pure
-     */
-    public static function of(): Closure
-    {
-        return (new self())->__invoke();
     }
 }

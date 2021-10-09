@@ -12,7 +12,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -22,7 +21,7 @@ use loophp\collection\Contract\Operation;
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
-final class FlatMap implements Operation
+final class FlatMap
 {
     /**
      * @pure
@@ -40,21 +39,13 @@ final class FlatMap implements Operation
              */
             static function (callable $callback): Closure {
                 /** @var Closure(Iterator<TKey, T>): Generator<IKey, IValue> $flatMap */
-                $flatMap = Pipe::of()(
-                    Map::of()($callback),
-                    Flatten::of()(1)
+                $flatMap = (new Pipe())()(
+                    (new Map())()($callback),
+                    (new Flatten())()(1)
                 );
 
                 // Point free style
                 return $flatMap;
             };
-    }
-
-    /**
-     * @pure
-     */
-    public static function of(): Closure
-    {
-        return (new self())->__invoke();
     }
 }

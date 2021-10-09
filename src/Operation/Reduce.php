@@ -12,7 +12,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -22,7 +21,7 @@ use loophp\collection\Contract\Operation;
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
-final class Reduce implements Operation
+final class Reduce
 {
     /**
      * @pure
@@ -48,21 +47,13 @@ final class Reduce implements Operation
                  */
                 static function ($initial) use ($callback): Closure {
                     /** @var Closure(Iterator<TKey, T>): Generator<TKey, W> $pipe */
-                    $pipe = Pipe::of()(
-                        Reduction::of()($callback)($initial),
-                        Last::of(),
+                    $pipe = (new Pipe())()(
+                        (new Reduction())()($callback)($initial),
+                        (new Last())(),
                     );
 
                     // Point free style.
                     return $pipe;
                 };
-    }
-
-    /**
-     * @pure
-     */
-    public static function of(): Closure
-    {
-        return (new self())->__invoke();
     }
 }

@@ -12,7 +12,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -22,7 +21,7 @@ use loophp\collection\Contract\Operation;
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
-final class Implode implements Operation
+final class Implode
 {
     /**
      * @pure
@@ -43,22 +42,14 @@ final class Implode implements Operation
                     static fn (string $carry, $item): string => $carry .= $item;
 
                 /** @var Closure(Iterator<TKey, T>): Generator<TKey, string> $pipe */
-                $pipe = Pipe::of()(
-                    Intersperse::of()($glue)(1)(0),
-                    Drop::of()(1),
-                    Reduce::of()($reducer)('')
+                $pipe = (new Pipe())()(
+                    (new Intersperse())()($glue)(1)(0),
+                    (new Drop())()(1),
+                    (new Reduce())()($reducer)('')
                 );
 
                 // Point free style.
                 return $pipe;
             };
-    }
-
-    /**
-     * @pure
-     */
-    public static function of(): Closure
-    {
-        return (new self())->__invoke();
     }
 }

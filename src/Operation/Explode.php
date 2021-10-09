@@ -12,7 +12,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 use loophp\collection\Contract\Operation\Splitable;
 
 /**
@@ -21,7 +20,7 @@ use loophp\collection\Contract\Operation\Splitable;
  * @template TKey
  * @template T
  */
-final class Explode implements Operation
+final class Explode
 {
     /**
      * @pure
@@ -38,7 +37,7 @@ final class Explode implements Operation
              */
             static function (...$explodes): Closure {
                 /** @var Closure(Iterator<TKey, T>): Generator<int, list<T>> $split */
-                $split = Split::of()(Splitable::REMOVE)(
+                $split = (new Split())()(Splitable::REMOVE)(
                     ...array_map(
                         /**
                          * @param T $explode
@@ -55,13 +54,5 @@ final class Explode implements Operation
                 // Point free style.
                 return $split;
             };
-    }
-
-    /**
-     * @pure
-     */
-    public static function of(): Closure
-    {
-        return (new self())->__invoke();
     }
 }

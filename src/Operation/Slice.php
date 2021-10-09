@@ -12,7 +12,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -20,7 +19,7 @@ use loophp\collection\Contract\Operation;
  * @template TKey
  * @template T
  */
-final class Slice implements Operation
+final class Slice
 {
     /**
      * @pure
@@ -39,28 +38,20 @@ final class Slice implements Operation
                  */
                 static function (int $length = -1) use ($offset): Closure {
                     /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $skip */
-                    $skip = Drop::of()($offset);
+                    $skip = (new Drop())()($offset);
 
                     if (-1 === $length) {
                         return $skip;
                     }
 
                     /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
-                    $pipe = Pipe::of()(
+                    $pipe = (new Pipe())()(
                         $skip,
-                        Limit::of()($length)(0)
+                        (new Limit())()($length)(0)
                     );
 
                     // Point free style.
                     return $pipe;
                 };
-    }
-
-    /**
-     * @pure
-     */
-    public static function of(): Closure
-    {
-        return (new self())->__invoke();
     }
 }

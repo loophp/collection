@@ -12,7 +12,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -20,7 +19,7 @@ use loophp\collection\Contract\Operation;
  * @template TKey
  * @template T
  */
-final class Equals implements Operation
+final class Equals
 {
     /**
      * @pure
@@ -55,18 +54,10 @@ final class Equals implements Operation
                         /**
                          * @param T $current
                          */
-                        static fn ($current): bool => Contains::of()($current)($other)->current();
+                        static fn ($current): bool => (new Contains())()($current)($other)->current();
 
-                    return yield from Every::of()(static fn (): bool => false)($containsCallback)($iterator);
+                    return yield from (new Every())()(static fn (): bool => false)($containsCallback)($iterator);
                 };
             };
-    }
-
-    /**
-     * @pure
-     */
-    public static function of(): Closure
-    {
-        return (new self())->__invoke();
     }
 }

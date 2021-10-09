@@ -12,7 +12,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 use loophp\collection\Iterator\IterableIterator;
 
 /**
@@ -24,7 +23,7 @@ use loophp\collection\Iterator\IterableIterator;
  * @template TKey
  * @template T of array{0: NewTKey, 1: NewT}
  */
-final class Unpack implements Operation
+final class Unpack
 {
     /**
      * @pure
@@ -53,22 +52,14 @@ final class Unpack implements Operation
             static fn (array $value) => $value[1];
 
         /** @var Closure(Iterator<TKey, T>): Generator<NewTKey, NewT> $pipe */
-        $pipe = Pipe::of()(
-            Map::of()($toIterableIterator),
-            Map::of()(Chunk::of()(2)),
-            Flatten::of()(1),
-            Associate::of()($callbackForKeys)($callbackForValues)
+        $pipe = (new Pipe())()(
+            (new Map())()($toIterableIterator),
+            (new Map())()((new Chunk())()(2)),
+            (new Flatten())()(1),
+            (new Associate())()($callbackForKeys)($callbackForValues)
         );
 
         // Point free style.
         return $pipe;
-    }
-
-    /**
-     * @pure
-     */
-    public static function of(): Closure
-    {
-        return (new self())->__invoke();
     }
 }

@@ -11,7 +11,6 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Iterator;
-use loophp\collection\Contract\Operation;
 use loophp\collection\Iterator\TypedIterator;
 
 /**
@@ -20,7 +19,7 @@ use loophp\collection\Iterator\TypedIterator;
  * @template TKey
  * @template T
  */
-final class Strict implements Operation
+final class Strict
 {
     /**
      * @pure
@@ -42,13 +41,5 @@ final class Strict implements Operation
                  * @return Iterator<TKey, T>
                  */
                 static fn (Iterator $iterator): Iterator => new TypedIterator($iterator, $callback);
-    }
-
-    /**
-     * @pure
-     */
-    public static function of(): Closure
-    {
-        return (new self())->__invoke();
     }
 }

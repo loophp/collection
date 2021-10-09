@@ -12,7 +12,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -20,7 +19,7 @@ use loophp\collection\Contract\Operation;
  * @template TKey
  * @template T
  */
-final class Permutate implements Operation
+final class Permutate
 {
     /**
      * @pure
@@ -42,14 +41,6 @@ final class Permutate implements Operation
              * @return Generator<int, list<T>>
              */
             static fn (Iterator $iterator): Iterator => $getPermutations([...$iterator]);
-    }
-
-    /**
-     * @pure
-     */
-    public static function of(): Closure
-    {
-        return (new self())->__invoke();
     }
 
     /**

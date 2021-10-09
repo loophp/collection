@@ -13,7 +13,6 @@ use ArrayIterator;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 use MultipleIterator;
 
 /**
@@ -22,7 +21,7 @@ use MultipleIterator;
  * @template TKey
  * @template T
  */
-final class Combine implements Operation
+final class Combine
 {
     /**
      * @pure
@@ -62,22 +61,14 @@ final class Combine implements Operation
                     };
 
                 /** @var Closure(Iterator<TKey, T>): Generator<null|U, null|T> $pipe */
-                $pipe = Pipe::of()(
+                $pipe = (new Pipe())()(
                     $buildMultipleIterator(new ArrayIterator($keys)),
-                    Flatten::of()(1),
-                    Pair::of(),
+                    (new Flatten())()(1),
+                    (new Pair())(),
                 );
 
                 // Point free style.
                 return $pipe;
             };
-    }
-
-    /**
-     * @pure
-     */
-    public static function of(): Closure
-    {
-        return (new self())->__invoke();
     }
 }

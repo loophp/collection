@@ -14,7 +14,6 @@ use Closure;
 use EmptyIterator;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 
 use function count;
 
@@ -24,7 +23,7 @@ use function count;
  * @template TKey
  * @template T
  */
-final class Chunk implements Operation
+final class Chunk
 {
     /**
      * @pure
@@ -45,7 +44,7 @@ final class Chunk implements Operation
                  */
                 static function (Iterator $iterator) use ($sizes): Generator {
                     /** @var Iterator<int, int> $sizesIterator */
-                    $sizesIterator = Cycle::of()(new ArrayIterator($sizes));
+                    $sizesIterator = (new Cycle())()(new ArrayIterator($sizes));
                     $sizesIterator->rewind();
 
                     $values = [];
@@ -72,13 +71,5 @@ final class Chunk implements Operation
 
                     return yield $values;
                 };
-    }
-
-    /**
-     * @pure
-     */
-    public static function of(): Closure
-    {
-        return (new self())->__invoke();
     }
 }

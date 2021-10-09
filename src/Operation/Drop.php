@@ -12,7 +12,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Iterator;
 use LimitIterator;
-use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -20,7 +19,7 @@ use loophp\collection\Contract\Operation;
  * @template TKey
  * @template T
  */
-final class Drop implements Operation
+final class Drop
 {
     /**
      * @pure
@@ -40,13 +39,5 @@ final class Drop implements Operation
                  * @return Iterator<TKey, T>
                  */
                 static fn (Iterator $iterator): Iterator => new LimitIterator($iterator, $count);
-    }
-
-    /**
-     * @pure
-     */
-    public static function of(): Closure
-    {
-        return (new self())->__invoke();
     }
 }

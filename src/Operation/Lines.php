@@ -12,7 +12,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 
 use const PHP_EOL;
 
@@ -22,7 +21,7 @@ use const PHP_EOL;
  * @template TKey
  * @template T
  */
-final class Lines implements Operation
+final class Lines
 {
     /**
      * @pure
@@ -38,20 +37,12 @@ final class Lines implements Operation
             static fn (array $value): string => implode('', $value);
 
         /** @var Closure(Iterator<TKey, T>): Generator<int, string> $pipe */
-        $pipe = Pipe::of()(
-            Explode::of()(PHP_EOL, "\n", "\r\n"),
-            Map::of()($mapCallback)
+        $pipe = (new Pipe())()(
+            (new Explode())()(PHP_EOL, "\n", "\r\n"),
+            (new Map())()($mapCallback)
         );
 
         // Point free style.
         return $pipe;
-    }
-
-    /**
-     * @pure
-     */
-    public static function of(): Closure
-    {
-        return (new self())->__invoke();
     }
 }

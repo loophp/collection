@@ -12,7 +12,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -20,7 +19,7 @@ use loophp\collection\Contract\Operation;
  * @template TKey
  * @template T
  */
-final class Unwords implements Operation
+final class Unwords
 {
     /**
      * @pure
@@ -30,17 +29,9 @@ final class Unwords implements Operation
     public function __invoke(): Closure
     {
         /** @var Closure(Iterator<TKey, (T|string)>): Generator<TKey, string, mixed, void> $implode */
-        $implode = Implode::of()(' ');
+        $implode = (new Implode())()(' ');
 
         // Point free style.
         return $implode;
-    }
-
-    /**
-     * @pure
-     */
-    public static function of(): Closure
-    {
-        return (new self())->__invoke();
     }
 }

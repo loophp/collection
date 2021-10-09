@@ -12,7 +12,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 use loophp\collection\Iterator\IterableIterator;
 
 /**
@@ -21,7 +20,7 @@ use loophp\collection\Iterator\IterableIterator;
  * @template TKey
  * @template T
  */
-final class Flatten implements Operation
+final class Flatten
 {
     /**
      * @pure
@@ -48,7 +47,7 @@ final class Flatten implements Operation
 
                         if (1 !== $depth) {
                             /** @var callable(Iterator<TKey, T>): Generator<mixed, mixed> $flatten */
-                            $flatten = Flatten::of()($depth - 1);
+                            $flatten = (new Flatten())()($depth - 1);
 
                             $value = $flatten(new IterableIterator($value));
                         }
@@ -56,13 +55,5 @@ final class Flatten implements Operation
                         yield from $value;
                     }
                 };
-    }
-
-    /**
-     * @pure
-     */
-    public static function of(): Closure
-    {
-        return (new self())->__invoke();
     }
 }

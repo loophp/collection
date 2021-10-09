@@ -13,7 +13,6 @@ use ArrayIterator;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 use loophp\collection\Iterator\IterableIterator;
 use MultipleIterator;
 
@@ -25,7 +24,7 @@ use MultipleIterator;
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
-final class Zip implements Operation
+final class Zip
 {
     /**
      * @pure
@@ -71,7 +70,7 @@ final class Zip implements Operation
                     /**
                      * @return Closure(ArrayIterator<int, (Iterator<TKey, T>|IterableIterator<UKey, U>)>): MultipleIterator
                      */
-                    Reduce::of()(
+                    (new Reduce())()(
                         /**
                          * @param Iterator<TKey, T> $iterator
                          */
@@ -83,7 +82,7 @@ final class Zip implements Operation
                     )(new MultipleIterator(MultipleIterator::MIT_NEED_ANY));
 
                 /** @var Closure(Iterator<TKey, T>): Generator<list<TKey|UKey>, list<T|U>> $pipe */
-                $pipe = Pipe::of()(
+                $pipe = (new Pipe())()(
                     $buildArrayIterator($iterables),
                     $buildMultipleIterator,
                     ((new Flatten())()(1))
@@ -92,13 +91,5 @@ final class Zip implements Operation
                 // Point free style.
                 return $pipe;
             };
-    }
-
-    /**
-     * @pure
-     */
-    public static function of(): Closure
-    {
-        return (new self())->__invoke();
     }
 }

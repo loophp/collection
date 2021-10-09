@@ -12,7 +12,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -20,7 +19,7 @@ use loophp\collection\Contract\Operation;
  * @template TKey
  * @template T
  */
-final class Random implements Operation
+final class Random
 {
     /**
      * @pure
@@ -40,22 +39,14 @@ final class Random implements Operation
                      */
                     static function (int $size) use ($seed): Closure {
                         /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
-                        $pipe = Pipe::of()(
-                            Shuffle::of()($seed),
-                            Limit::of()($size)(0)
+                        $pipe = (new Pipe())()(
+                            (new Shuffle())()($seed),
+                            (new Limit())()($size)(0)
                         );
 
                         // Point free style.
                         return $pipe;
                     };
             };
-    }
-
-    /**
-     * @pure
-     */
-    public static function of(): Closure
-    {
-        return (new self())->__invoke();
     }
 }

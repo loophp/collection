@@ -12,7 +12,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -20,7 +19,7 @@ use loophp\collection\Contract\Operation;
  * @template TKey
  * @template T
  */
-final class Unzip implements Operation
+final class Unzip
 {
     /**
      * @pure
@@ -47,20 +46,12 @@ final class Unzip implements Operation
             };
 
         /** @var Closure(Iterator<TKey, list<T>>): Generator<int, list<T>> $pipe */
-        $pipe = Pipe::of()(
-            Reduce::of()($reduceCallback)([]),
-            Flatten::of()(1)
+        $pipe = (new Pipe())()(
+            (new Reduce())()($reduceCallback)([]),
+            (new Flatten())()(1)
         );
 
         // Point free style.
         return $pipe;
-    }
-
-    /**
-     * @pure
-     */
-    public static function of(): Closure
-    {
-        return (new self())->__invoke();
     }
 }

@@ -12,7 +12,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -20,7 +19,7 @@ use loophp\collection\Contract\Operation;
  * @template TKey
  * @template T
  */
-final class Contains implements Operation
+final class Contains
 {
     /**
      * @pure
@@ -47,18 +46,10 @@ final class Contains implements Operation
                         static fn ($right): bool => $left === $right;
 
                 /** @var Closure(Iterator<TKey, T>): Generator<TKey, bool> $matchOne */
-                $matchOne = MatchOne::of()(static fn (): bool => true)(...array_map($callback, $values));
+                $matchOne = (new MatchOne())()(static fn (): bool => true)(...array_map($callback, $values));
 
                 // Point free style.
                 return $matchOne;
             };
-    }
-
-    /**
-     * @pure
-     */
-    public static function of(): Closure
-    {
-        return (new self())->__invoke();
     }
 }

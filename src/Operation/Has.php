@@ -12,7 +12,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -22,7 +21,7 @@ use loophp\collection\Contract\Operation;
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
-final class Has implements Operation
+final class Has
 {
     /**
      * @pure
@@ -39,7 +38,7 @@ final class Has implements Operation
              */
             static function (callable ...$callbacks): Closure {
                 /** @var Closure(Iterator<TKey, T>): Generator<TKey, bool> $pipe */
-                $pipe = MatchOne::of()(static fn (): bool => true)(
+                $pipe = (new MatchOne())()(static fn (): bool => true)(
                     ...array_map(
                         static fn (callable $callback): callable =>
                             /**
@@ -55,13 +54,5 @@ final class Has implements Operation
                 // Point free style.
                 return $pipe;
             };
-    }
-
-    /**
-     * @pure
-     */
-    public static function of(): Closure
-    {
-        return (new self())->__invoke();
     }
 }

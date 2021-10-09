@@ -14,7 +14,7 @@ use Closure;
 use Exception;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
+use loophp\collection\Contract\Operation\Sortable;
 
 /**
  * @immutable
@@ -24,7 +24,7 @@ use loophp\collection\Contract\Operation;
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
-final class Sort implements Operation
+final class Sort
 {
     /**
      * @pure
@@ -37,7 +37,7 @@ final class Sort implements Operation
             /**
              * @return Closure(null|(callable(T|TKey, T|TKey): int)): Closure(Iterator<TKey, T>): Generator<TKey, T>
              */
-            static fn (int $type = Operation\Sortable::BY_VALUES): Closure =>
+            static fn (int $type = Sortable::BY_VALUES): Closure =>
                 /**
                  * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
                  */
@@ -56,18 +56,18 @@ final class Sort implements Operation
                          * @return Generator<TKey, T>
                          */
                         static function (Iterator $iterator) use ($type, $callback): Iterator {
-                            if (Operation\Sortable::BY_VALUES !== $type && Operation\Sortable::BY_KEYS !== $type) {
+                            if (Sortable::BY_VALUES !== $type && Sortable::BY_KEYS !== $type) {
                                 throw new Exception('Invalid sort type.');
                             }
 
-                            $operations = Operation\Sortable::BY_VALUES === $type ?
+                            $operations = Sortable::BY_VALUES === $type ?
                                 [
-                                    'before' => [Pack::of()],
-                                    'after' => [Unpack::of()],
+                                    'before' => [(new Pack())()],
+                                    'after' => [(new Unpack())()],
                                 ] :
                                 [
-                                    'before' => [Flip::of(), Pack::of()],
-                                    'after' => [Unpack::of(), Flip::of()],
+                                    'before' => [(new Flip())(), (new Pack())()],
+                                    'after' => [(new Unpack())(), (new Flip())()],
                                 ];
 
                             $sortCallback =
@@ -84,21 +84,13 @@ final class Sort implements Operation
                                     static fn (array $left, array $right): int => $callback($left[1], $right[1]);
 
                             /** @var callable(Iterator<TKey, T>): Generator<int, array{0:TKey, 1:T}> | callable(Iterator<TKey, T>): Generator<int, array{0:T, 1:TKey}> $before */
-                            $before = Pipe::of()(...$operations['before']);
+                            $before = (new Pipe())()(...$operations['before']);
 
                             $arrayIterator = new ArrayIterator([...$before($iterator)]);
                             $arrayIterator->uasort($sortCallback($callback));
 
-                            return Pipe::of()(...$operations['after'])($arrayIterator);
+                            return (new Pipe())()(...$operations['after'])($arrayIterator);
                         };
                 };
-    }
-
-    /**
-     * @pure
-     */
-    public static function of(): Closure
-    {
-        return (new self())->__invoke();
     }
 }

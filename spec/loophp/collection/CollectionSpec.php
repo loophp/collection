@@ -2607,17 +2607,9 @@ class CollectionSpec extends ObjectBehavior
             );
     }
 
-    public function it_can_pipe(Operation $operation): void
+    public function it_can_pipe(): void
     {
-        $square = new class() implements Operation {
-            /**
-             * @pure
-             */
-            public static function of(): Closure
-            {
-                return (new self())->__invoke();
-            }
-
+        $square = new class() {
             public function __invoke(): Closure
             {
                 return static function ($collection): Generator {
@@ -2628,15 +2620,7 @@ class CollectionSpec extends ObjectBehavior
             }
         };
 
-        $sqrt = new class() implements Operation {
-            /**
-             * @pure
-             */
-            public static function of(): Closure
-            {
-                return (new self())->__invoke();
-            }
-
+        $sqrt = new class() {
             public function __invoke(): Closure
             {
                 return static function ($collection) {
@@ -2647,15 +2631,7 @@ class CollectionSpec extends ObjectBehavior
             }
         };
 
-        $castToInt = new class() implements Operation {
-            /**
-             * @pure
-             */
-            public static function of(): Closure
-            {
-                return (new self())->__invoke();
-            }
-
+        $castToInt = new class() {
             public function __invoke(): Closure
             {
                 return static function ($collection) {

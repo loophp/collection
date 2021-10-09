@@ -13,7 +13,6 @@ use ArrayIterator;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -21,7 +20,7 @@ use loophp\collection\Contract\Operation;
  * @template TKey
  * @template T
  */
-final class Tails implements Operation
+final class Tails
 {
     /**
      * @pure
@@ -38,12 +37,12 @@ final class Tails implements Operation
              */
             static function (Iterator $iterator): Generator {
                 /** @var Iterator<int, array{0: TKey, 1: T}> $iterator */
-                $iterator = Pack::of()($iterator);
+                $iterator = (new Pack())()($iterator);
                 $data = [...$iterator];
 
                 while ([] !== $data) {
                     /** @var Iterator<TKey, T> $unpack */
-                    $unpack = Unpack::of()(new ArrayIterator($data));
+                    $unpack = (new Unpack())()(new ArrayIterator($data));
 
                     yield [...$unpack];
 
@@ -52,13 +51,5 @@ final class Tails implements Operation
 
                 return yield [];
             };
-    }
-
-    /**
-     * @pure
-     */
-    public static function of(): Closure
-    {
-        return (new self())->__invoke();
     }
 }

@@ -12,7 +12,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Contract\Operation;
 use loophp\collection\Utils\CallbacksArrayReducer;
 
 /**
@@ -23,7 +22,7 @@ use loophp\collection\Utils\CallbacksArrayReducer;
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
-final class MatchOne implements Operation
+final class MatchOne
 {
     /**
      * @pure
@@ -81,24 +80,16 @@ final class MatchOne implements Operation
                                     static fn ($value, $key, Iterator $iterator): bool => $reducer1($value, $key, $iterator) === $reducer2($value, $key, $iterator);
 
                         /** @var Closure(Iterator<TKey, T>): Generator<TKey, bool> $pipe */
-                        $pipe = Pipe::of()(
-                            Map::of()($mapCallback($callbackReducer($callbacks))($callbackReducer($matchers))),
-                            DropWhile::of()(static fn (bool $value): bool => false === $value),
-                            Append::of()(false),
-                            Head::of()
+                        $pipe = (new Pipe())()(
+                            (new Map())()($mapCallback($callbackReducer($callbacks))($callbackReducer($matchers))),
+                            (new DropWhile())()(static fn (bool $value): bool => false === $value),
+                            (new Append())()(false),
+                            (new Head())()
                         );
 
                         // Point free style.
                         return $pipe;
                     };
             };
-    }
-
-    /**
-     * @pure
-     */
-    public static function of(): Closure
-    {
-        return (new self())->__invoke();
     }
 }

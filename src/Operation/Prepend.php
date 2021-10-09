@@ -11,7 +11,6 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Iterator;
-use loophp\collection\Contract\Operation;
 use loophp\collection\Iterator\MultipleIterableIterator;
 
 /**
@@ -20,7 +19,7 @@ use loophp\collection\Iterator\MultipleIterableIterator;
  * @template TKey
  * @template T
  */
-final class Prepend implements Operation
+final class Prepend
 {
     /**
      * @pure
@@ -42,13 +41,5 @@ final class Prepend implements Operation
                  * @return Iterator<int|TKey, T>
                  */
                 static fn (Iterator $iterator): Iterator => new MultipleIterableIterator($items, $iterator);
-    }
-
-    /**
-     * @pure
-     */
-    public static function of(): Closure
-    {
-        return (new self())->__invoke();
     }
 }
