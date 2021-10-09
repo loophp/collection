@@ -12,6 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -21,7 +22,7 @@ use Iterator;
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
-final class Map extends AbstractOperation
+final class Map implements Operation
 {
     /**
      * @pure
@@ -47,5 +48,13 @@ final class Map extends AbstractOperation
                         yield $key => $callback($value, $key, $iterator);
                     }
                 };
+    }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
     }
 }

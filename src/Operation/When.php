@@ -12,6 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -21,7 +22,7 @@ use Iterator;
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
-final class When extends AbstractOperation
+final class When implements Operation
 {
     /**
      * @pure
@@ -55,5 +56,13 @@ final class When extends AbstractOperation
                          * @return Generator<TKey, T>
                          */
                         static fn (Iterator $iterator): Generator => yield from (true === $predicate($iterator)) ? $whenTrue($iterator) : $whenFalse($iterator);
+    }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
     }
 }

@@ -12,6 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -21,7 +22,7 @@ use Iterator;
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
-final class Has extends AbstractOperation
+final class Has implements Operation
 {
     /**
      * @pure
@@ -54,5 +55,13 @@ final class Has extends AbstractOperation
                 // Point free style.
                 return $pipe;
             };
+    }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
     }
 }

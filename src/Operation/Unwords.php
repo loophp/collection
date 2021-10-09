@@ -12,6 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -19,7 +20,7 @@ use Iterator;
  * @template TKey
  * @template T
  */
-final class Unwords extends AbstractOperation
+final class Unwords implements Operation
 {
     /**
      * @pure
@@ -33,5 +34,13 @@ final class Unwords extends AbstractOperation
 
         // Point free style.
         return $implode;
+    }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
     }
 }

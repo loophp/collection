@@ -12,6 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\Operation;
 use loophp\collection\Utils\CallbacksArrayReducer;
 
 /**
@@ -22,7 +23,7 @@ use loophp\collection\Utils\CallbacksArrayReducer;
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
-final class DropWhile extends AbstractOperation
+final class DropWhile implements Operation
 {
     /**
      * @pure
@@ -60,5 +61,13 @@ final class DropWhile extends AbstractOperation
                     yield $iterator->key() => $iterator->current();
                 }
             };
+    }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
     }
 }

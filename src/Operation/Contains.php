@@ -12,6 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -19,7 +20,7 @@ use Iterator;
  * @template TKey
  * @template T
  */
-final class Contains extends AbstractOperation
+final class Contains implements Operation
 {
     /**
      * @pure
@@ -51,5 +52,13 @@ final class Contains extends AbstractOperation
                 // Point free style.
                 return $matchOne;
             };
+    }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
     }
 }

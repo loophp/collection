@@ -12,6 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -19,7 +20,7 @@ use Iterator;
  * @template TKey
  * @template T
  */
-final class Unwrap extends AbstractOperation
+final class Unwrap implements Operation
 {
     /**
      * @pure
@@ -33,5 +34,13 @@ final class Unwrap extends AbstractOperation
 
         // Point free style.
         return $flatten;
+    }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
     }
 }

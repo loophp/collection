@@ -12,6 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\Operation;
 
 use const PHP_EOL;
 
@@ -21,7 +22,7 @@ use const PHP_EOL;
  * @template TKey
  * @template T
  */
-final class Lines extends AbstractOperation
+final class Lines implements Operation
 {
     /**
      * @pure
@@ -44,5 +45,13 @@ final class Lines extends AbstractOperation
 
         // Point free style.
         return $pipe;
+    }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
     }
 }

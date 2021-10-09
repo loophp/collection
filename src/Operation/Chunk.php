@@ -14,6 +14,7 @@ use Closure;
 use EmptyIterator;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\Operation;
 
 use function count;
 
@@ -23,7 +24,7 @@ use function count;
  * @template TKey
  * @template T
  */
-final class Chunk extends AbstractOperation
+final class Chunk implements Operation
 {
     /**
      * @pure
@@ -71,5 +72,13 @@ final class Chunk extends AbstractOperation
 
                     return yield $values;
                 };
+    }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
     }
 }

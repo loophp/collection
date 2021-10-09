@@ -12,6 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -19,7 +20,7 @@ use Iterator;
  * @template TKey
  * @template T
  */
-final class Frequency extends AbstractOperation
+final class Frequency implements Operation
 {
     /**
      * @pure
@@ -65,5 +66,13 @@ final class Frequency extends AbstractOperation
 
         // Point free style.
         return $pipe;
+    }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
     }
 }

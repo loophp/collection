@@ -15,6 +15,7 @@ use Closure;
 use Generator;
 use Iterator;
 use loophp\collection\Contract\Collection;
+use loophp\collection\Contract\Operation;
 use ReflectionClass;
 
 use function array_key_exists;
@@ -30,7 +31,7 @@ use function is_object;
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
-final class Pluck extends AbstractOperation
+final class Pluck implements Operation
 {
     /**
      * @pure
@@ -113,5 +114,13 @@ final class Pluck extends AbstractOperation
                             yield $pick($iterator, $value, $key, $default);
                         }
                     };
+    }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
     }
 }

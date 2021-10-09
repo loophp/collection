@@ -12,6 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\Operation;
 
 use function in_array;
 
@@ -23,7 +24,7 @@ use function in_array;
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
-final class Nullsy extends AbstractOperation
+final class Nullsy implements Operation
 {
     /**
      * @var list<null, array, int, bool, string>
@@ -57,5 +58,13 @@ final class Nullsy extends AbstractOperation
 
         // Point free style.
         return $pipe;
+    }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
     }
 }

@@ -12,6 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\Operation;
 
 use const INF;
 
@@ -23,7 +24,7 @@ use const INF;
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
-final class Scale extends AbstractOperation
+final class Scale implements Operation
 {
     /**
      * @pure
@@ -88,5 +89,13 @@ final class Scale extends AbstractOperation
                                 // Point free style.
                                 return $pipe;
                             };
+    }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
     }
 }

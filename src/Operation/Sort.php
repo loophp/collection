@@ -24,7 +24,7 @@ use loophp\collection\Contract\Operation;
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
-final class Sort extends AbstractOperation
+final class Sort implements Operation
 {
     /**
      * @pure
@@ -92,5 +92,13 @@ final class Sort extends AbstractOperation
                             return Pipe::of()(...$operations['after'])($arrayIterator);
                         };
                 };
+    }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
     }
 }

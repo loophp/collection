@@ -11,6 +11,7 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Iterator;
+use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -18,7 +19,7 @@ use Iterator;
  * @template TKey
  * @template T
  */
-final class All extends AbstractOperation
+final class All implements Operation
 {
     /**
      * @pure
@@ -34,5 +35,13 @@ final class All extends AbstractOperation
              * @return array<TKey, T>
              */
             static fn (Iterator $iterator): array => iterator_to_array($iterator);
+    }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
     }
 }

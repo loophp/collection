@@ -12,6 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -19,7 +20,7 @@ use Iterator;
  * @template TKey
  * @template T
  */
-final class Pad extends AbstractOperation
+final class Pad implements Operation
 {
     /**
      * @pure
@@ -57,5 +58,13 @@ final class Pad extends AbstractOperation
                             yield $padValue;
                         }
                     };
+    }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
     }
 }

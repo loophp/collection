@@ -23,7 +23,6 @@ use loophp\collection\Collection;
 use loophp\collection\Contract\Collection as CollectionInterface;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Iterator\ClosureIterator;
-use loophp\collection\Operation\AbstractOperation;
 use OutOfBoundsException;
 use PhpSpec\Exception\Example\FailureException;
 use PhpSpec\Exception\Example\MatcherException;
@@ -2610,7 +2609,15 @@ class CollectionSpec extends ObjectBehavior
 
     public function it_can_pipe(Operation $operation): void
     {
-        $square = new class() extends AbstractOperation implements Operation {
+        $square = new class() implements Operation {
+            /**
+             * @pure
+             */
+            public static function of(): Closure
+            {
+                return (new self())->__invoke();
+            }
+
             public function __invoke(): Closure
             {
                 return static function ($collection): Generator {
@@ -2621,7 +2628,15 @@ class CollectionSpec extends ObjectBehavior
             }
         };
 
-        $sqrt = new class() extends AbstractOperation implements Operation {
+        $sqrt = new class() implements Operation {
+            /**
+             * @pure
+             */
+            public static function of(): Closure
+            {
+                return (new self())->__invoke();
+            }
+
             public function __invoke(): Closure
             {
                 return static function ($collection) {
@@ -2632,7 +2647,15 @@ class CollectionSpec extends ObjectBehavior
             }
         };
 
-        $castToInt = new class() extends AbstractOperation implements Operation {
+        $castToInt = new class() implements Operation {
+            /**
+             * @pure
+             */
+            public static function of(): Closure
+            {
+                return (new self())->__invoke();
+            }
+
             public function __invoke(): Closure
             {
                 return static function ($collection) {

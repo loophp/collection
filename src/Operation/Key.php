@@ -12,6 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -19,7 +20,7 @@ use Iterator;
  * @template TKey
  * @template T
  */
-final class Key extends AbstractOperation
+final class Key implements Operation
 {
     /**
      * @pure
@@ -42,5 +43,13 @@ final class Key extends AbstractOperation
                 // Point free style.
                 return $pipe;
             };
+    }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
     }
 }

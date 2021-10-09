@@ -12,6 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -21,7 +22,7 @@ use Iterator;
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
-final class Partition extends AbstractOperation
+final class Partition implements Operation
 {
     /**
      * @pure
@@ -59,5 +60,13 @@ final class Partition extends AbstractOperation
                     $operations
                 )
             )([(new Filter())(), (new Reject())()]);
+    }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
     }
 }

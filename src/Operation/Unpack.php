@@ -12,6 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\Operation;
 use loophp\collection\Iterator\IterableIterator;
 
 /**
@@ -23,7 +24,7 @@ use loophp\collection\Iterator\IterableIterator;
  * @template TKey
  * @template T of array{0: NewTKey, 1: NewT}
  */
-final class Unpack extends AbstractOperation
+final class Unpack implements Operation
 {
     /**
      * @pure
@@ -61,5 +62,13 @@ final class Unpack extends AbstractOperation
 
         // Point free style.
         return $pipe;
+    }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
     }
 }

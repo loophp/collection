@@ -12,6 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use InfiniteIterator;
 use Iterator;
+use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -19,7 +20,7 @@ use Iterator;
  * @template TKey
  * @template T
  */
-final class Cycle extends AbstractOperation
+final class Cycle implements Operation
 {
     /**
      * @pure
@@ -35,5 +36,13 @@ final class Cycle extends AbstractOperation
              * @return Iterator<TKey, T>
              */
             static fn (Iterator $iterator): Iterator => new InfiniteIterator($iterator);
+    }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
     }
 }

@@ -12,6 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\Operation;
 use loophp\collection\Iterator\IterableIterator;
 
 /**
@@ -20,7 +21,7 @@ use loophp\collection\Iterator\IterableIterator;
  * @template TKey
  * @template T
  */
-final class Flatten extends AbstractOperation
+final class Flatten implements Operation
 {
     /**
      * @pure
@@ -55,5 +56,13 @@ final class Flatten extends AbstractOperation
                         yield from $value;
                     }
                 };
+    }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
     }
 }

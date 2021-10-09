@@ -13,6 +13,7 @@ use ArrayIterator;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\Operation;
 use loophp\collection\Iterator\IterableIterator;
 use MultipleIterator;
 
@@ -24,7 +25,7 @@ use MultipleIterator;
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
-final class Zip extends AbstractOperation
+final class Zip implements Operation
 {
     /**
      * @pure
@@ -91,5 +92,13 @@ final class Zip extends AbstractOperation
                 // Point free style.
                 return $pipe;
             };
+    }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
     }
 }

@@ -12,6 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\Operation;
 use loophp\collection\Contract\Operation\Splitable;
 
 /**
@@ -20,7 +21,7 @@ use loophp\collection\Contract\Operation\Splitable;
  * @template TKey
  * @template T
  */
-final class Explode extends AbstractOperation
+final class Explode implements Operation
 {
     /**
      * @pure
@@ -54,5 +55,13 @@ final class Explode extends AbstractOperation
                 // Point free style.
                 return $split;
             };
+    }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
     }
 }

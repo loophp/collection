@@ -11,6 +11,7 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
+use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -20,7 +21,7 @@ use Generator;
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
-final class Unfold extends AbstractOperation
+final class Unfold implements Operation
 {
     /**
      * @pure
@@ -53,5 +54,13 @@ final class Unfold extends AbstractOperation
                             yield $parameters;
                         }
                     };
+    }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
     }
 }

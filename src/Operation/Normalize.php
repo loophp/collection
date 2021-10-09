@@ -12,6 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\Operation;
 
 /**
  * @immutable
@@ -19,7 +20,7 @@ use Iterator;
  * @template TKey
  * @template T
  */
-final class Normalize extends AbstractOperation
+final class Normalize implements Operation
 {
     /**
      * @pure
@@ -39,5 +40,13 @@ final class Normalize extends AbstractOperation
                     yield $value;
                 }
             };
+    }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
     }
 }

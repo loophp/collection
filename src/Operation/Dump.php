@@ -12,6 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\Operation;
 use Symfony\Component\VarDumper\VarDumper;
 
 /**
@@ -22,7 +23,7 @@ use Symfony\Component\VarDumper\VarDumper;
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
-final class Dump extends AbstractOperation
+final class Dump implements Operation
 {
     /**
      * @pure
@@ -78,5 +79,13 @@ final class Dump extends AbstractOperation
                                 $size = -1;
                             }
                         };
+    }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
     }
 }

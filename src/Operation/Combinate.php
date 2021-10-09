@@ -12,6 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\Operation;
 
 use function array_slice;
 use function count;
@@ -22,7 +23,7 @@ use function count;
  * @template TKey
  * @template T
  */
-final class Combinate extends AbstractOperation
+final class Combinate implements Operation
 {
     /**
      * @pure
@@ -77,5 +78,13 @@ final class Combinate extends AbstractOperation
                     }
                 };
         };
+    }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
     }
 }

@@ -11,6 +11,7 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Iterator;
+use loophp\collection\Contract\Operation;
 use loophp\collection\Iterator\MultipleIterableIterator;
 
 /**
@@ -19,7 +20,7 @@ use loophp\collection\Iterator\MultipleIterableIterator;
  * @template TKey
  * @template T
  */
-final class Merge extends AbstractOperation
+final class Merge implements Operation
 {
     /**
      * @pure
@@ -39,5 +40,13 @@ final class Merge extends AbstractOperation
                  * @return Iterator<TKey, T>
                  */
                 static fn (Iterator $iterator): Iterator => new MultipleIterableIterator($iterator, ...$sources);
+    }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
     }
 }

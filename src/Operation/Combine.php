@@ -13,6 +13,7 @@ use ArrayIterator;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\Operation;
 use MultipleIterator;
 
 /**
@@ -21,7 +22,7 @@ use MultipleIterator;
  * @template TKey
  * @template T
  */
-final class Combine extends AbstractOperation
+final class Combine implements Operation
 {
     /**
      * @pure
@@ -70,5 +71,13 @@ final class Combine extends AbstractOperation
                 // Point free style.
                 return $pipe;
             };
+    }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
     }
 }

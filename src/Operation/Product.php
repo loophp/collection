@@ -13,6 +13,7 @@ use ArrayIterator;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\Operation;
 use loophp\collection\Iterator\IterableIterator;
 
 /**
@@ -21,7 +22,7 @@ use loophp\collection\Iterator\IterableIterator;
  * @template TKey
  * @template T
  */
-final class Product extends AbstractOperation
+final class Product implements Operation
 {
     /**
      * @pure
@@ -99,5 +100,13 @@ final class Product extends AbstractOperation
                 // Point free style.
                 return $pipe;
             };
+    }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
     }
 }

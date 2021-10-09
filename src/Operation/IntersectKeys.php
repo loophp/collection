@@ -12,6 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\Operation;
 
 use function in_array;
 
@@ -21,7 +22,7 @@ use function in_array;
  * @template TKey
  * @template T
  */
-final class IntersectKeys extends AbstractOperation
+final class IntersectKeys implements Operation
 {
     /**
      * @pure
@@ -53,5 +54,13 @@ final class IntersectKeys extends AbstractOperation
                 // Point free style.
                 return $filter;
             };
+    }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
     }
 }

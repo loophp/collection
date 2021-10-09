@@ -14,6 +14,7 @@ use Closure;
 use Exception;
 use Generator;
 use Iterator;
+use loophp\collection\Contract\Operation;
 
 use function Amp\Iterator\fromIterable;
 use function Amp\ParallelFunctions\parallel;
@@ -34,7 +35,7 @@ if (false === function_exists('Amp\ParallelFunctions\parallel')) {
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
-final class AsyncMapN extends AbstractOperation
+final class AsyncMapN implements Operation
 {
     /**
      * @pure
@@ -86,5 +87,13 @@ final class AsyncMapN extends AbstractOperation
                         yield $item[0] => $item[1];
                     }
                 };
+    }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
     }
 }
