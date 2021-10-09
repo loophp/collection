@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="4.10.0@916b098b008f6de4543892b1e0651c1c3b92cbfa">
+  <file src="src/Collection.php">
+    <InvalidArgument occurrences="5">
+      <code>$callbacks</code>
+      <code>$mapCallback</code>
+      <code>$mapCallback</code>
+      <code>(new Times())()($number)($callback)</code>
+      <code>(new Unfold())()(...$parameters)($callback)</code>
+    </InvalidArgument>
+    <InvalidReturnStatement occurrences="1">
+      <code>new self((new Wrap())(), [$this-&gt;getIterator()])</code>
+    </InvalidReturnStatement>
+    <InvalidReturnType occurrences="1">
+      <code>CollectionInterface</code>
+    </InvalidReturnType>
+    <PossiblyNullArgument occurrences="1">
+      <code>$callback</code>
+    </PossiblyNullArgument>
+  </file>
+  <file src="src/Operation/Coalesce.php">
+    <ImpureFunctionCall occurrences="2">
+      <code>(new Compact())()()</code>
+    </ImpureFunctionCall>
+  </file>
+  <file src="src/Operation/Every.php">
+    <InvalidScalarArgument occurrences="1">
+      <code>$mapCallback($callbackReducer($callbacks))($callbackReducer($matchers))</code>
+    </InvalidScalarArgument>
+  </file>
+  <file src="src/Operation/Falsy.php">
+    <ImpureFunctionCall occurrences="3">
+      <code>(new MatchOne())()($matchWhenNot)</code>
+    </ImpureFunctionCall>
+    <InvalidScalarArgument occurrences="1">
+      <code>static fn ($value): bool =&gt; !(bool) $value</code>
+    </InvalidScalarArgument>
+  </file>
+  <file src="src/Operation/FlatMap.php">
+    <InvalidArgument occurrences="1">
+      <code>$callback</code>
+    </InvalidArgument>
+  </file>
+  <file src="src/Operation/Flip.php">
+    <ImpureFunctionCall occurrences="1">
+      <code>(new Associate())()($callbackForKeys)</code>
+    </ImpureFunctionCall>
+  </file>
+  <file src="src/Operation/FoldLeft.php">
+    <InvalidArgument occurrences="1">
+      <code>$callback</code>
+    </InvalidArgument>
+    <PossiblyNullArgument occurrences="1">
+      <code>$initial</code>
+    </PossiblyNullArgument>
+  </file>
+  <file src="src/Operation/FoldLeft1.php">
+    <InvalidArgument occurrences="1">
+      <code>$callback</code>
+    </InvalidArgument>
+  </file>
+  <file src="src/Operation/FoldRight.php">
+    <InvalidArgument occurrences="2">
+      <code>$callback</code>
+      <code>$initial</code>
+    </InvalidArgument>
+  </file>
+  <file src="src/Operation/FoldRight1.php">
+    <InvalidArgument occurrences="1">
+      <code>$callback</code>
+    </InvalidArgument>
+  </file>
+  <file src="src/Operation/Frequency.php">
+    <ImpureFunctionCall occurrences="3">
+      <code>(new Flatten())()(1)</code>
+      <code>(new Reduce())()($reduceCallback)</code>
+    </ImpureFunctionCall>
+    <InvalidArgument occurrences="2">
+      <code>$reduceCallback</code>
+      <code>[]</code>
+    </InvalidArgument>
+  </file>
+  <file src="src/Operation/GroupBy.php">
+    <InvalidArgument occurrences="2">
+      <code>$reducerFactory($callable)</code>
+      <code>[]</code>
+    </InvalidArgument>
+  </file>
+  <file src="src/Operation/Implode.php">
+    <InvalidScalarArgument occurrences="2">
+      <code>$reducer</code>
+      <code>''</code>
+    </InvalidScalarArgument>
+  </file>
+  <file src="src/Operation/Init.php">
+    <ArgumentTypeCoercion occurrences="1">
+      <code>$callback</code>
+    </ArgumentTypeCoercion>
+    <ImpureFunctionCall occurrences="2">
+      <code>(new TakeWhile())()($callback)</code>
+    </ImpureFunctionCall>
+  </file>
+  <file src="src/Operation/Inits.php">
+    <ImpureFunctionCall occurrences="2">
+      <code>(new ScanLeft())()($scanLeftCallback)</code>
+    </ImpureFunctionCall>
+    <InvalidArgument occurrences="2">
+      <code>$scanLeftCallback</code>
+      <code>[]</code>
+    </InvalidArgument>
+  </file>
+  <file src="src/Operation/Keys.php">
+    <ImpureFunctionCall occurrences="1"/>
+  </file>
+  <file src="src/Operation/Lines.php">
+    <ImpureFunctionCall occurrences="3">
+      <code>(new Explode())()(PHP_EOL, "\n", "\r\n")</code>
+      <code>(new Map())()($mapCallback)</code>
+    </ImpureFunctionCall>
+    <InvalidScalarArgument occurrences="1">
+      <code>$mapCallback</code>
+    </InvalidScalarArgument>
+  </file>
+  <file src="src/Operation/MatchOne.php">
+    <InvalidScalarArgument occurrences="1">
+      <code>$mapCallback($callbackReducer($callbacks))($callbackReducer($matchers))</code>
+    </InvalidScalarArgument>
+  </file>
+  <file src="src/Operation/Nullsy.php">
+    <ImpureFunctionCall occurrences="3">
+      <code>(new MatchOne())()($matchWhenNot)</code>
+    </ImpureFunctionCall>
+    <InvalidScalarArgument occurrences="1">
+      <code>static fn ($value): bool =&gt; !$value</code>
+    </InvalidScalarArgument>
+  </file>
+  <file src="src/Operation/Pack.php">
+    <ImpureFunctionCall occurrences="2">
+      <code>(new Map())()($mapCallback)</code>
+    </ImpureFunctionCall>
+    <InvalidArgument occurrences="1">
+      <code>$mapCallback</code>
+    </InvalidArgument>
+  </file>
+  <file src="src/Operation/Pair.php">
+    <ImpureFunctionCall occurrences="4">
+      <code>(new Associate())()($callbackForKeys)</code>
+      <code>(new Chunk())()(2)</code>
+      <code>(new Map())()(static fn (array $value): array =&gt; array_values($value))</code>
+    </ImpureFunctionCall>
+    <InvalidArgument occurrences="3">
+      <code>$callbackForKeys</code>
+      <code>$callbackForValues</code>
+      <code>static fn (array $value): array =&gt; array_values($value)</code>
+    </InvalidArgument>
+  </file>
+  <file src="src/Operation/Product.php">
+    <InvalidArgument occurrences="1">
+      <code>static fn ($x): Generator =&gt; yield [...$a, $x]</code>
+    </InvalidArgument>
+  </file>
+  <file src="src/Operation/Reverse.php">
+    <ImpureFunctionCall occurrences="2">
+      <code>(new Reduce())()($callback)</code>
+    </ImpureFunctionCall>
+    <InvalidArgument occurrences="2">
+      <code>$callback</code>
+      <code>[]</code>
+    </InvalidArgument>
+  </file>
+  <file src="src/Operation/Scale.php">
+    <InvalidArgument occurrences="1">
+      <code>$mapper</code>
+    </InvalidArgument>
+    <InvalidScalarArgument occurrences="1"/>
+  </file>
+  <file src="src/Operation/Sort.php">
+    <InvalidReturnStatement occurrences="1">
+      <code>(new Pipe())()(...$operations['after'])($arrayIterator)</code>
+    </InvalidReturnStatement>
+    <InvalidReturnType occurrences="1">
+      <code>Generator&lt;TKey, T&gt;</code>
+    </InvalidReturnType>
+  </file>
+  <file src="src/Operation/Tail.php">
+    <ImpureFunctionCall occurrences="1">
+      <code>(new Drop())()(1)</code>
+    </ImpureFunctionCall>
+  </file>
+  <file src="src/Operation/Tails.php">
+    <InvalidArgument occurrences="1">
+      <code>new ArrayIterator($data)</code>
+    </InvalidArgument>
+  </file>
+  <file src="src/Operation/Transpose.php">
+    <ImpureFunctionCall occurrences="4">
+      <code>(new Associate())()($callbackForKeys)</code>
+      <code>(new Flatten())()(1)</code>
+    </ImpureFunctionCall>
+    <InvalidArgument occurrences="3">
+      <code>$callbackForValues</code>
+      <code>new MultipleIterator(MultipleIterator::MIT_NEED_ANY)</code>
+    </InvalidArgument>
+  </file>
+  <file src="src/Operation/Truthy.php">
+    <ImpureFunctionCall occurrences="3">
+      <code>(new Map())()($matcher)</code>
+      <code>(new MatchOne())()($matchWhenNot)</code>
+    </ImpureFunctionCall>
+    <InvalidScalarArgument occurrences="1">
+      <code>$matcher</code>
+    </InvalidScalarArgument>
+  </file>
+  <file src="src/Operation/Unlines.php">
+    <ImpureFunctionCall occurrences="1">
+      <code>(new Implode())()(PHP_EOL)</code>
+    </ImpureFunctionCall>
+  </file>
+  <file src="src/Operation/Unpack.php">
+    <ImpureFunctionCall occurrences="6">
+      <code>(new Associate())()($callbackForKeys)</code>
+      <code>(new Chunk())()(2)</code>
+      <code>(new Flatten())()(1)</code>
+      <code>(new Map())()($toIterableIterator)</code>
+      <code>(new Map())()((new Chunk())()(2))</code>
+    </ImpureFunctionCall>
+    <InvalidArgument occurrences="2">
+      <code>$toIterableIterator</code>
+      <code>(new Chunk())()(2)</code>
+    </InvalidArgument>
+  </file>
+  <file src="src/Operation/Unwindow.php">
+    <ImpureFunctionCall occurrences="1"/>
+    <InvalidArgument occurrences="1"/>
+  </file>
+  <file src="src/Operation/Unwords.php">
+    <ImpureFunctionCall occurrences="1">
+      <code>(new Implode())()(' ')</code>
+    </ImpureFunctionCall>
+  </file>
+  <file src="src/Operation/Unwrap.php">
+    <ImpureFunctionCall occurrences="1">
+      <code>(new Flatten())()(1)</code>
+    </ImpureFunctionCall>
+  </file>
+  <file src="src/Operation/Unzip.php">
+    <ImpureFunctionCall occurrences="3">
+      <code>(new Flatten())()(1)</code>
+      <code>(new Reduce())()($reduceCallback)</code>
+    </ImpureFunctionCall>
+    <InvalidArgument occurrences="2">
+      <code>$reduceCallback</code>
+      <code>[]</code>
+    </InvalidArgument>
+  </file>
+  <file src="src/Operation/Window.php">
+    <InvalidArgument occurrences="2">
+      <code>[]</code>
+      <code>static fn (array $stack, $current): array =&gt; array_slice([...$stack, $current], ++$size * -1)</code>
+    </InvalidArgument>
+  </file>
+  <file src="src/Operation/Words.php">
+    <ImpureFunctionCall occurrences="4">
+      <code>(new Compact())()()</code>
+      <code>(new Explode())()("\t", "\n", ' ')</code>
+      <code>(new Map())()($mapCallback)</code>
+    </ImpureFunctionCall>
+    <InvalidScalarArgument occurrences="1">
+      <code>$mapCallback</code>
+    </InvalidScalarArgument>
+  </file>
+  <file src="src/Operation/Wrap.php">
+    <ImpureFunctionCall occurrences="2">
+      <code>(new Map())()($mapCallback)</code>
+    </ImpureFunctionCall>
+    <InvalidArgument occurrences="1">
+      <code>$mapCallback</code>
+    </InvalidArgument>
+  </file>
+  <file src="src/Operation/Zip.php">
+    <InvalidArgument occurrences="2">
+      <code>new MultipleIterator(MultipleIterator::MIT_NEED_ANY)</code>
+    </InvalidArgument>
+  </file>
+  <file src="tests/static-analysis/compact.php">
+    <InvalidScalarArgument occurrences="1">
+      <code>Collection::fromIterable($fooBarGenerator())-&gt;compact()</code>
+    </InvalidScalarArgument>
+  </file>
+</files>
