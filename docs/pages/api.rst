@@ -555,16 +555,15 @@ current
 
 Get the value of an item in the collection given a numeric index or the default ``0``.
 
+If the given numeric index is out of bound, current will return a default value ``null``
+that can be modified by providing a second argument to the operation.
+
 Interface: `Currentable`_
 
-Signature: ``Collection::current(int $index = 0);``
+Signature: ``Collection::current(int $index = 0, $else = null);``
 
-.. code-block:: php
-
-    Collection::fromIterable(['a', 'b', 'c', 'd'])->current(); // Return 'a'
-    Collection::fromIterable(['a', 'b', 'c', 'd'])->current(0); // Return 'a'
-    Collection::fromIterable(['a', 'b', 'c', 'd'])->current(1); // Return 'b'
-    Collection::fromIterable(['a', 'b', 'c', 'd'])->current(10); // Return null
+.. literalinclude:: code/operations/current.php
+  :language: php
 
 cycle
 ~~~~~
