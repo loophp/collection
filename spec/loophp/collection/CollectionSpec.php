@@ -1401,6 +1401,17 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs([true]);
     }
 
+    public function it_can_find(): void
+    {
+        $this::fromIterable(['foo' => 'a', 'bar' => 'b'])
+            ->find('missing', fn($value) => $value === 'b')
+            ->shouldReturn('b');
+
+        $this::fromIterable(['foo' => 'a', 'bar' => 'b'])
+            ->find('missing', fn($value) => $value === 'd')
+            ->shouldReturn('missing');
+    }
+
     public function it_can_flatMap(): void
     {
         $this::fromIterable([1, 2, 3])

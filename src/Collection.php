@@ -50,6 +50,7 @@ use loophp\collection\Operation\Explode;
 use loophp\collection\Operation\Falsy;
 use loophp\collection\Operation\Filter;
 use loophp\collection\Operation\First;
+use loophp\collection\Operation\Find;
 use loophp\collection\Operation\FlatMap;
 use loophp\collection\Operation\Flatten;
 use loophp\collection\Operation\Flip;
@@ -396,6 +397,11 @@ final class Collection implements CollectionInterface
     public function first(): CollectionInterface
     {
         return new self(First::of(), [$this->getIterator()]);
+    }
+
+    public function find($valueIfPredicateIsNotMet, callable ...$predicates)
+    {
+        return (new self(Find::of()($valueIfPredicateIsNotMet, ...$predicates), [$this->getIterator()]))->getIterator()->current();
     }
 
     public function flatMap(callable $callback): CollectionInterface

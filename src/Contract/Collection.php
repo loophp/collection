@@ -43,6 +43,7 @@ use loophp\collection\Contract\Operation\Explodeable;
 use loophp\collection\Contract\Operation\Falsyable;
 use loophp\collection\Contract\Operation\Filterable;
 use loophp\collection\Contract\Operation\Firstable;
+use loophp\collection\Contract\Operation\Findable;
 use loophp\collection\Contract\Operation\FlatMapable;
 use loophp\collection\Contract\Operation\Flattenable;
 use loophp\collection\Contract\Operation\Flipable;
@@ -281,6 +282,7 @@ interface Collection extends
     Falsyable,
     Filterable,
     Firstable,
+    Findable,
     FlatMapable,
     Flattenable,
     Flipable,
