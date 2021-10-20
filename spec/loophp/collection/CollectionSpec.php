@@ -1404,11 +1404,11 @@ class CollectionSpec extends ObjectBehavior
     public function it_can_find(): void
     {
         $this::fromIterable(['foo' => 'a', 'bar' => 'b'])
-            ->find('missing', fn($value) => $value === 'b')
+            ->find('missing', static fn ($value): bool => 'b' === $value)
             ->shouldReturn('b');
 
         $this::fromIterable(['foo' => 'a', 'bar' => 'b'])
-            ->find('missing', fn($value) => $value === 'd')
+            ->find('missing', static fn ($value): bool => 'd' === $value)
             ->shouldReturn('missing');
     }
 
