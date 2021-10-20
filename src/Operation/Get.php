@@ -24,7 +24,9 @@ final class Get extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(TKey): Closure (T|null): Closure(Iterator<TKey, T>): Generator<TKey, T|null>
+     * @template V
+     *
+     * @return Closure(TKey): Closure(V|null): Closure(Iterator<TKey, T>): Generator<TKey, T|V|null>
      */
     public function __invoke(): Closure
     {
@@ -32,13 +34,13 @@ final class Get extends AbstractOperation
             /**
              * @param TKey $keyToGet
              *
-             * @return Closure(T|null): Closure(Iterator<TKey, T>): Generator<TKey, T|null>
+             * @return Closure(V|null): Closure(Iterator<TKey, T>): Generator<TKey, T|V|null>
              */
             static fn ($keyToGet): Closure =>
                 /**
-                 * @param T|null $default
+                 * @param V|null $default
                  *
-                 * @return Closure(Iterator<TKey, T>): Generator<TKey, T|null>
+                 * @return Closure(Iterator<TKey, T>): Generator<TKey, T|V|null>
                  */
                 static function ($default) use ($keyToGet): Closure {
                     $filterCallback =
@@ -48,7 +50,7 @@ final class Get extends AbstractOperation
                          */
                         static fn ($value, $key): bool => $key === $keyToGet;
 
-                    /** @var Closure(Iterator<TKey, T>): (Generator<TKey, T|null>) $pipe */
+                    /** @var Closure(Iterator<TKey, T>): (Generator<TKey, T|V|null>) $pipe */
                     $pipe = Pipe::of()(
                         (new Filter())()($filterCallback),
                         Append::of()($default),

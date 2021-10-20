@@ -532,10 +532,6 @@ final class Collection implements CollectionInterface
         return new self(static fn (): Iterator => new StringIterator($string, $delimiter));
     }
 
-    /**
-     * @param TKey $key
-     * @param T|null $default
-     */
     public function get($key, $default = null): CollectionInterface
     {
         return new self(Get::of()($key)($default), [$this->getIterator()]);
