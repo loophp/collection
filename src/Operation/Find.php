@@ -12,44 +12,43 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\collection\Utils\CallbacksArrayReducer;
 
 /**
  * @immutable
  *
  * @template TKey
  * @template T
- * @template V
+ *
+ * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Find extends AbstractOperation
 {
     /**
      * @pure
+     *
+     * @template V
+     *
+     * @return Closure(V): Closure(callable(T=, TKey=, Iterator<TKey, T>=): bool ...): Closure(Iterator<TKey, T>): Generator<TKey, T|V>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param V        $valueIfPredicateIsNotMet
-             * @param callable ...$predicates
+             * @param V $valueIfPredicateIsNotMet
              *
-             * @return Closure(T, callable[]): Closure(Iterator<TKey, T>): Generator<T|V>
+             * @return Closure(callable(T=, TKey=, Iterator<TKey, T>=): bool ...): Closure(Iterator<TKey, T>): Generator<TKey, T|V>
              */
-            static function ($valueIfPredicateIsNotMet = null, callable ...$predicates): Closure {
-                $findCallback = static function (
-                    Iterator $iterator
-                ) use ($valueIfPredicateIsNotMet, $predicates): Generator {
-                    foreach ($iterator as $key => $current) {
-                        if (CallbacksArrayReducer::or()($predicates, $current, $key, $iterator)) {
-                            yield $current;
-                        }
-                    }
-
-                    yield $valueIfPredicateIsNotMet;
-                };
-
+            static fn ($valueIfPredicateIsNotMet): Closure =>
+            /**
+             * @param callable(T=, TKey=, Iterator<TKey, T>=): bool ...$predicates
+             *
+             * @return Closure(Iterator<TKey, T>): Generator<TKey, T|V>
+             */
+            static function (callable ...$predicates) use ($valueIfPredicateIsNotMet): Closure {
+                /** @var Closure(Iterator<TKey, T>): Generator<TKey, T|V> $pipe */
                 $pipe = Pipe::of()(
-                    $findCallback,
+                    Filter::of()(...$predicates),
+                    Append::of()($valueIfPredicateIsNotMet),
                     Head::of(),
                 );
 
