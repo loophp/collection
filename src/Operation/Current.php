@@ -24,20 +24,32 @@ final class Current extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(int): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @template V
+     *
+     * @return Closure(TKey): Closure(V|null): Closure(Iterator<TKey, T>): Generator<int, T|V|null>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @param TKey $index
+             *
+             * @return Closure(V|null): Closure(Iterator<TKey, T>): Generator<int, T|V|null>
              */
-            static function (int $index): Closure {
-                /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $limit */
-                $limit = Limit::of()(1)($index);
+            static fn (int $index): Closure =>
+            /**
+             * @param V|null $else
+             *
+             * @return Closure(Iterator<TKey, T>): Generator<int, T|V>
+             */
+            static function ($else) use ($index): Closure {
+                /** @var Closure(Iterator<TKey, T>): Generator<int, T|V|null> $pipe */
+                $pipe = Pipe::of()(
+                    (new Normalize())(),
+                    Get::of()($index)($else)
+                );
 
-                // Point free style.
-                return $limit;
+                return $pipe;
             };
     }
 }

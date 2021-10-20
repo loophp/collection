@@ -265,9 +265,9 @@ final class Collection implements CollectionInterface
         return iterator_count($this->getIterator());
     }
 
-    public function current(int $index = 0)
+    public function current(int $index = 0, $else = null)
     {
-        return (new self(Current::of()($index), [$this->getIterator()]))->getIterator()->current();
+        return (new self(Current::of()($index)($else), [$this->getIterator()]))->getIterator()->current();
     }
 
     public function cycle(): CollectionInterface
