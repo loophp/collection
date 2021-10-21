@@ -12,7 +12,6 @@ namespace loophp\collection\Contract\Operation;
 /**
  * @template T
  * @template TKey
- * @template V
  */
 interface Findable
 {
@@ -22,8 +21,10 @@ interface Findable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#find
      *
+     * @template V
+     *
      * @param V $valueIfPredicateIsNotMet
-     * @param callable(T=, TKey=, Iterator<TKey, T>=): bool ...$callbacks
+     * @param callable(T=, TKey=, Iterator<TKey, T>=): bool ...$predicates
      *
      * @return T|V
      */
