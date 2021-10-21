@@ -9,6 +9,8 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
+use Iterator;
+
 /**
  * @template T
  * @template TKey
@@ -24,7 +26,7 @@ interface Findable
      * @template V
      *
      * @param V $valueIfPredicateIsNotMet
-     * @param callable(T=, TKey=, Iterator<TKey, T>=): bool ...$predicates
+     * @param (callable(T=, TKey=, Iterator<TKey, T>=): bool) ...$predicates
      *
      * @return T|V
      */
