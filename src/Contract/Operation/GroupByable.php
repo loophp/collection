@@ -23,7 +23,11 @@ interface GroupByable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#groupby
      *
-     * @return Collection<TKey, T>
+     * @template NewTKey
+     *
+     * @param null|callable(T=, TKey=): NewTKey|null $callable
+     *
+     * @return Collection<TKey|NewTKey, T|non-empty-list<T>>
      */
     public function groupBy(?callable $callable = null): Collection;
 }

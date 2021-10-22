@@ -26,18 +26,20 @@ final class GroupBy extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure((null | callable(TKey, T ): (TKey | null))):Closure (Iterator<TKey, T>): Generator<int, T|list<T>>
+     * @template NewTKey
+     *
+     * @return Closure((null | callable(TKey=, T=): (NewTKey | TKey | null))):Closure (Iterator<TKey, T>): Generator<TKey|NewTKey, T|non-empty-list<T>>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param null|callable(TKey, T):(TKey|null) $callable
+             * @param null|callable(TKey=, T=):(NewTKey|null) $callable
              *
-             * @return Closure(Iterator<TKey, T>): Generator<int, T|list<T>>
+             * @return Closure(Iterator<TKey, T>): Generator<int, T|non-empty-list<T>>
              */
             static function (?callable $callable = null): Closure {
-                /** @var callable(T, TKey): (TKey|null) $callable */
+                /** @var callable(T, TKey): (NewTKey|TKey|null) $callable */
                 $callable = $callable ??
                     /**
                      * @param T $value
@@ -49,17 +51,17 @@ final class GroupBy extends AbstractOperation
 
                 $reducerFactory =
                     /**
-                     * @param callable(T, TKey): (TKey|null) $callback
+                     * @param callable(T, TKey): (NewTKey|TKey|null) $callback
                      *
-                     * @return Closure(array<TKey, T|list<T>>, T, TKey): array<TKey, T|list<T>>
+                     * @return Closure(array<TKey|NewTKey, T|non-empty-list<T>>, T, TKey): array<TKey|NewTKey, T|non-empty-list<T>>
                      */
                     static fn (callable $callback): Closure =>
                         /**
-                         * @param array<TKey, list<T>> $collect
+                         * @param array<TKey|NewTKey, T|non-empty-list<T>> $collect
                          * @param T $value
                          * @param TKey $key
                          *
-                         * @return non-empty-array<TKey, T|list<T>>
+                         * @return non-empty-array<TKey|NewTKey, T|non-empty-list<T>>
                          */
                         static function (array $collect, $value, $key) use ($callback): array {
                             if (null !== $groupKey = $callback($value, $key)) {
@@ -71,7 +73,7 @@ final class GroupBy extends AbstractOperation
                             return $collect;
                         };
 
-                /** @var Closure(Iterator<TKey, T>): Generator<int, list<T>> $pipe */
+                /** @var Closure(Iterator<TKey, T>): Generator<TKey|NewTKey, T|non-empty-list<T>> $pipe */
                 $pipe = Pipe::of()(
                     Reduce::of()($reducerFactory($callable))([]),
                     Flatten::of()(1)
