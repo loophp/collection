@@ -60,8 +60,8 @@ find_checkIntElement(Collection::fromIterable([1, 2, 3])->find('not integer', $i
 find_checkStringElement(Collection::fromIterable(['foo' => 'a', 'bar' => 'b'])->find(-1, $stringValueCallback));
 
 /*
-PHP 8 - using named parameters and the default `null` value -> these should legitimately fail,
-but Psalm reports no issue and PHPStan is reporting a different error than expected:
+PHP 8 - using named parameters and the default `null` value -> these should work fine,
+but Psalm reports no issue and PHPStan is reporting an unexpected issue:
 "Parameter #1 $value of function find_checkNullableInt expects int|null, (Closure)|int given."
 
 find_checkNullableInt(Collection::fromIterable([1, 2, 3])->find(callbacks: $intValueCallback));
