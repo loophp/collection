@@ -394,9 +394,9 @@ final class Collection implements CollectionInterface
         return new self(Filter::of()(...$callbacks), [$this->getIterator()]);
     }
 
-    public function find($valueIfPredicateIsNotMet, callable ...$predicates)
+    public function find($default = null, callable ...$callbacks)
     {
-        return (new self(Find::of()($valueIfPredicateIsNotMet)(...$predicates), [$this->getIterator()]))->getIterator()->current();
+        return (new self(Find::of()($default)(...$callbacks), [$this->getIterator()]))->getIterator()->current();
     }
 
     public function first(): CollectionInterface

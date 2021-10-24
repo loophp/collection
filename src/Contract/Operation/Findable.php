@@ -25,10 +25,10 @@ interface Findable
      *
      * @template V
      *
-     * @param V $valueIfPredicateIsNotMet
-     * @param (callable(T=, TKey=, Iterator<TKey, T>=): bool) ...$predicates
+     * @param V|null $default
+     * @param (callable(T=, TKey=, Iterator<TKey, T>=): bool) ...$callbacks
      *
-     * @return T|V
+     * @return T|V|null
      */
-    public function find($valueIfPredicateIsNotMet, callable ...$predicates);
+    public function find($default = null, callable ...$callbacks);
 }
