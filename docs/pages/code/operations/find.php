@@ -18,16 +18,16 @@ include __DIR__ . '/../../../../vendor/autoload.php';
 /** @var EntityManagerInterface $em */
 $q = $em->createQuery('SELECT u FROM MyProject\Model\Product p');
 
-$isBook = static fn($product): bool => 'books' === $product->category;
-$isScreencast = static fn($product): bool => 'screencasts' === $product->category;
+$isBook = static fn ($product): bool => 'books' === $product->category;
+$isScreencast = static fn ($product): bool => 'screencasts' === $product->category;
 
 $divisibleBy3 = static fn ($value): bool => 0 === $value % 3;
 
 $collection = Collection::fromIterable($q->toIterable())
-                        ->find(null, $isBook);
+    ->find(null, $isBook);
 
 $collection = Collection::fromIterable(range(1, 10))
-                        ->filter($isBook, $isScreencast);
+    ->filter($isBook, $isScreencast);
 
 $collection = Collection::fromIterable(range(1, 10))
-                        ->find($divisibleBy3); // 3
+    ->find($divisibleBy3); // 3
