@@ -1416,6 +1416,10 @@ class CollectionSpec extends ObjectBehavior
             ->shouldBeNull();
 
         $this::fromIterable([1, 3, 5])
+            ->find(-1, static fn ($value): bool => $value % 2 === 0)
+            ->shouldReturn(-1);
+
+        $this::fromIterable([1, 3, 5])
             ->find(null, static fn ($value): bool => $value % 2 !== 0)
             ->shouldReturn(1);
     }

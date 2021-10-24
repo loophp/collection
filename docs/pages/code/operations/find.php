@@ -19,16 +19,16 @@ $divisibleBy3 = static fn ($value): bool => 0 === $value % 3;
 
 // Example 1: find a value and use the default `null` if not found
 $value = Collection::fromIterable(range(1, 10))
-    ->find($divisibleBy3); // 3
+    ->find(null, $divisibleBy3); // 3
 
 $value = Collection::fromIterable([1, 2, 4])
-    ->find($divisibleBy3); // null
+    ->find(null, $divisibleBy3); // null
 
 $value = Collection::fromIterable(['foo' => 'f', 'bar' => 'b'])
-    ->find(static fn ($value): bool => 'b' === $value); // 'b'
+    ->find(null, static fn ($value): bool => 'b' === $value); // 'b'
 
 $value = Collection::fromIterable(['foo' => 'f', 'bar' => 'b'])
-    ->find(static fn ($value): bool => 'x' === $value); // null
+    ->find(null, static fn ($value): bool => 'x' === $value); // null
 
 // Example 2: find a value and use a custom default if not found
 $value = Collection::fromIterable([1, 2, 4])

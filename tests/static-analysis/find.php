@@ -66,7 +66,7 @@ but Psalm reports no issue and PHPStan is reporting a different error than expec
 
 find_checkNullableInt(Collection::fromIterable([1, 2, 3])->find(callbacks: $intValueCallback));
 find_checkNullableString(Collection::fromIterable(['foo' => 'a', 'bar' => 'b'])->find(callbacks: $stringValueCallback));
-*/
+ */
 
 /*
 PHP 8 - using named parameters and the default `null` value -> these should legitimately fail,
@@ -74,4 +74,4 @@ but Psalm reports no issue and the current PHPStan failures are due to the error
 
 find_checkIntElement(Collection::fromIterable([1, 2, 3])->find(callbacks: $intValueCallback));
 find_checkStringElement(Collection::fromIterable(['foo' => 'a', 'bar' => 'b'])->find(callbacks: $stringValueCallback));
-*/
+ */
