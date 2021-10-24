@@ -15,19 +15,33 @@ use function range;
 
 include __DIR__ . '/../../../../vendor/autoload.php';
 
+$divisibleBy3 = static fn ($value): bool => 0 === $value % 3;
+
+// Example 1: find a value and use the default `null` if not found
+$value = Collection::fromIterable(range(1, 10))
+    ->find($divisibleBy3); // 3
+
+$value = Collection::fromIterable([1, 2, 4])
+    ->find($divisibleBy3); // null
+
+$value = Collection::fromIterable(['foo' => 'f', 'bar' => 'b'])
+    ->find(static fn ($value): bool => 'b' === $value); // 'b'
+
+$value = Collection::fromIterable(['foo' => 'f', 'bar' => 'b'])
+    ->find(static fn ($value): bool => 'x' === $value); // null
+
+// Example 2: find a value and use a custom default if not found
+$value = Collection::fromIterable([1, 2, 4])
+    ->find(-1, $divisibleBy3); // -1
+
+$value = Collection::fromIterable(['foo' => 'f', 'bar' => 'b'])
+    ->find(404, static fn ($value): bool => 'x' === $value); // 404
+
+// Example 3: use with a Doctrine Query
 /** @var EntityManagerInterface $em */
 $q = $em->createQuery('SELECT u FROM MyProject\Model\Product p');
 
-$isBook = static fn ($product): bool => 'books' === $product->category;
-$isScreencast = static fn ($product): bool => 'screencasts' === $product->category;
+$isBook = static fn ($product): bool => 'books' === $product->getCategory();
 
-$divisibleBy3 = static fn ($value): bool => 0 === $value % 3;
-
-$collection = Collection::fromIterable($q->toIterable())
+$value = Collection::fromIterable($q->toIterable())
     ->find(null, $isBook);
-
-$collection = Collection::fromIterable(range(1, 10))
-    ->filter($isBook, $isScreencast);
-
-$collection = Collection::fromIterable(range(1, 10))
-    ->find($divisibleBy3); // 3

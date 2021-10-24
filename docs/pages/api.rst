@@ -817,18 +817,20 @@ Signature: ``Collection::filter(callable ...$callbacks): Collection;``
 find
 ~~~~
 
-Find a collection item by one or more callbacks. If the value cannot be found, that is, no callback returns true for
-any collection item, it will return ``$valueIfPredicateIsNotMet``.
+Find a collection item using one or more callbacks. If the value cannot be found, that is, no callback returns true for
+any collection item, it will return the ``$default`` value.
 
-.. warning:: The `callbacks` parameter is variadic and will be evaluated as a logical ``OR``.
+.. warning:: The ``callbacks`` parameter is variadic and will be evaluated as a logical ``OR``.
              If you're looking for a logical ``AND``, you have to make multiple calls to the
              same operation.
+
+.. tip:: This operation is a shortcut for ``filter`` + ``current``.
 
 .. tip:: It is only when the callback returns ``true`` that the value is selected.
 
 Interface: `Findable`_
 
-Signature: ``Collection::find($valueIfPredicateIsNotMet, callable ...$callbacks);``
+Signature: ``Collection::find($default = null, callable ...$callbacks);``
 
 .. literalinclude:: code/operations/find.php
   :language: php
