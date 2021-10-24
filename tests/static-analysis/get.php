@@ -13,7 +13,7 @@ use loophp\collection\Collection;
 use loophp\collection\Contract\Collection as CollectionInterface;
 
 /**
- * @param CollectionInterface<int, int|null> $collection
+ * @param CollectionInterface<int, int> $collection
  */
 function get_checkList(CollectionInterface $collection): void
 {
@@ -25,7 +25,7 @@ function get_checkListNullable(CollectionInterface $collection): void
 {
 }
 /**
- * @param CollectionInterface<string, string|null> $collection
+ * @param CollectionInterface<string, string> $collection
  */
 function get_checkMap(CollectionInterface $collection): void
 {
@@ -36,13 +36,13 @@ function get_checkMap(CollectionInterface $collection): void
 function get_checkMapNullable(CollectionInterface $collection): void
 {
 }
-function get_checkIntElement(?int $value): void
+function get_checkIntElement(int $value): void
 {
 }
 function get_checkNullableInt(?int $value): void
 {
 }
-function get_checkStringElement(?string $value): void
+function get_checkStringElement(string $value): void
 {
 }
 function get_checkNullableString(?string $value): void
@@ -62,13 +62,19 @@ get_checkListNullable(Collection::fromIterable([1, 2, 3])->get(1, -1));
 get_checkMapNullable(Collection::fromIterable(['foo' => 'a', 'bar' => 'b'])->get('foo', 'x'));
 
 // VALID failures - `get` returns `Collection<TKey, T|null>`
+/** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
 get_checkList(Collection::fromIterable([1, 2, 3])->get(1));
+/** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
 get_checkMap(Collection::fromIterable(['foo' => 'a', 'bar' => 'b'])->get('foo'));
 
 // VALID failures - `current` can return `NULL`
+/** @psalm-suppress NullArgument @phpstan-ignore-next-line */
 get_checkIntElement(Collection::fromIterable([1, 2, 3])->get(1)->current());
+/** @psalm-suppress NullArgument @phpstan-ignore-next-line */
 get_checkStringElement(Collection::fromIterable(['foo' => 'a', 'bar' => 'b'])->get('foo')->current());
 
 // VALID but inconvenient failures - although a non-null default is provided to `get`, `current` can return `NULL`
+/** @psalm-suppress NullArgument @phpstan-ignore-next-line */
 get_checkIntElement(Collection::fromIterable([1, 2, 3])->get(1, 2)->current());
+/** @psalm-suppress NullArgument @phpstan-ignore-next-line */
 get_checkStringElement(Collection::fromIterable(['foo' => 'a', 'bar' => 'b'])->get('foo', 'a')->current());
