@@ -25,10 +25,10 @@ interface Findable
      *
      * @template V
      *
-     * @param V|null $default
+     * @param V $default
      * @param (callable(T=, TKey=, Iterator<TKey, T>=): bool) ...$callbacks
      *
-     * @return T|V|null
+     * @return T|V
      */
     public function find($default = null, callable ...$callbacks);
 }

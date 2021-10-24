@@ -1410,6 +1410,24 @@ class CollectionSpec extends ObjectBehavior
         $this::fromIterable(['foo' => 'a', 'bar' => 'b'])
             ->find('missing', static fn ($value): bool => 'd' === $value)
             ->shouldReturn('missing');
+
+        $this::fromIterable([1, 3, 5])
+            ->find(null, static fn ($value): bool => $value % 2 === 0)
+            ->shouldBeNull();
+
+        $this::fromIterable([1, 3, 5])
+            ->find(null, static fn ($value): bool => $value % 2 !== 0)
+            ->shouldReturn(1);
+
+        if (PHP_VERSION_ID >= self::PHP_8) {
+            $this::fromIterable([1, 3, 5])
+                ->find(callbacks: static fn ($value): bool => $value % 2 !== 0)
+                ->shouldReturn(1);
+
+            $this::fromIterable([1, 3, 5])
+                ->find(callbacks: static fn ($value): bool => $value % 2 === 0)
+                ->shouldBeNull();
+        }
     }
 
     public function it_can_flatMap(): void

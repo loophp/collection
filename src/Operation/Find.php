@@ -28,15 +28,15 @@ final class Find extends AbstractOperation
      *
      * @template V
      *
-     * @return Closure(V|null): Closure(callable(T=, TKey=, Iterator<TKey, T>=): bool ...): Closure(Iterator<TKey, T>): Generator<TKey, T|V|null>
+     * @return Closure(V): Closure(callable(T=, TKey=, Iterator<TKey, T>=): bool ...): Closure(Iterator<TKey, T>): Generator<TKey, T|V>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param V|null $default
+             * @param V $default
              *
-             * @return Closure(callable(T=, TKey=, Iterator<TKey, T>=): bool ...): Closure(Iterator<TKey, T>): Generator<TKey, T|V|null>
+             * @return Closure(callable(T=, TKey=, Iterator<TKey, T>=): bool ...): Closure(Iterator<TKey, T>): Generator<TKey, T|V>
              */
             static fn ($default): Closure =>
                 /**
@@ -45,7 +45,7 @@ final class Find extends AbstractOperation
                  * @return Closure(Iterator<TKey, T>): Generator<TKey, T|V>
                  */
                 static function (callable ...$callbacks) use ($default): Closure {
-                    /** @var Closure(Iterator<TKey, T>): Generator<TKey, T|V|null> $pipe */
+                    /** @var Closure(Iterator<TKey, T>): Generator<TKey, T|V> $pipe */
                     $pipe = Pipe::of()(
                         Filter::of()(...$callbacks),
                         Append::of()($default),
