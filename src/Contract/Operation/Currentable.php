@@ -22,7 +22,7 @@ interface Currentable
      *
      * @template V
      *
-     * @param V|null $default
+     * @param V $default
      *
      * @return T|V|null
      */

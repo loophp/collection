@@ -26,7 +26,7 @@ final class Current extends AbstractOperation
      *
      * @template V
      *
-     * @return Closure(TKey): Closure(V|null): Closure(Iterator<TKey, T>): Generator<int, T|V|null>
+     * @return Closure(TKey): Closure(V): Closure(Iterator<TKey, T>): Generator<int, T|V|null>
      */
     public function __invoke(): Closure
     {
@@ -34,13 +34,13 @@ final class Current extends AbstractOperation
             /**
              * @param TKey $index
              *
-             * @return Closure(V|null): Closure(Iterator<TKey, T>): Generator<int, T|V|null>
+             * @return Closure(V): Closure(Iterator<TKey, T>): Generator<int, T|V|null>
              */
             static fn (int $index): Closure =>
             /**
-             * @param V|null $default
+             * @param V $default
              *
-             * @return Closure(Iterator<TKey, T>): Generator<int, T|V>
+             * @return Closure(Iterator<TKey, T>): Generator<int, T|V|null>
              */
             static function ($default) use ($index): Closure {
                 /** @var Closure(Iterator<TKey, T>): Generator<int, T|V|null> $pipe */
