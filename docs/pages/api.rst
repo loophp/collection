@@ -560,7 +560,7 @@ that can be modified by providing a second argument to the operation.
 
 Interface: `Currentable`_
 
-Signature: ``Collection::current(int $index = 0, $else = null);``
+Signature: ``Collection::current(int $index = 0, $default = null);``
 
 .. literalinclude:: code/operations/current.php
   :language: php

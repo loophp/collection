@@ -38,17 +38,18 @@ final class Current extends AbstractOperation
              */
             static fn (int $index): Closure =>
             /**
-             * @param V|null $else
+             * @param V|null $default
              *
              * @return Closure(Iterator<TKey, T>): Generator<int, T|V>
              */
-            static function ($else) use ($index): Closure {
+            static function ($default) use ($index): Closure {
                 /** @var Closure(Iterator<TKey, T>): Generator<int, T|V|null> $pipe */
                 $pipe = Pipe::of()(
                     (new Normalize())(),
-                    Get::of()($index)($else)
+                    Get::of()($index)($default)
                 );
 
+                // Point free style.
                 return $pipe;
             };
     }

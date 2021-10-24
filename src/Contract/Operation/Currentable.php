@@ -22,9 +22,9 @@ interface Currentable
      *
      * @template V
      *
-     * @param V|null $else
+     * @param V|null $default
      *
      * @return T|V|null
      */
-    public function current(int $index = 0, $else = null);
+    public function current(int $index = 0, $default = null);
 }
