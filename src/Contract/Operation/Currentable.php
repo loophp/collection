@@ -24,7 +24,7 @@ interface Currentable
      *
      * @param V $default
      *
-     * @return T|V|null
+     * @return T|V
      */
     public function current(int $index = 0, $default = null);
 }
