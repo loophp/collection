@@ -55,13 +55,16 @@ get_checkMapNullable(Collection::fromIterable(['foo' => 'a', 'bar' => 'b'])->get
 get_checkNullableInt(Collection::fromIterable([1, 2, 3])->get(1)->current());
 get_checkNullableString(Collection::fromIterable(['foo' => 'a', 'bar' => 'b'])->get('foo')->current());
 
-// These should work but Psalm narrows the type to 1|2|3|null and 'a'|'b'|null
-/** @psalm-suppress InvalidArgument */
+// These SHOULD work because the default parameter can be any value or type,
+// but PHPStan doesn't like it:
+// "Parameter #1 $collection of function get_checkListNullable expects loophp\collection\Contract\Collection<int, int|null>,
+// loophp\collection\Contract\Collection<int, int> given."
+/** @phpstan-ignore-next-line */
 get_checkListNullable(Collection::fromIterable([1, 2, 3])->get(1, -1));
-/** @psalm-suppress InvalidArgument */
+/** @phpstan-ignore-next-line */
 get_checkMapNullable(Collection::fromIterable(['foo' => 'a', 'bar' => 'b'])->get('foo', 'x'));
 
-// VALID failures - `get` returns `Collection<TKey, T|null>`
+// VALID failures - `get` returns `Collection<TKey, T|V>, where V can be anything
 /** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
 get_checkList(Collection::fromIterable([1, 2, 3])->get(1));
 /** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */

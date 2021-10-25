@@ -25,9 +25,9 @@ interface Getable
      * @template V
      *
      * @param TKey $key
-     * @param V|null $default
+     * @param V $default
      *
-     * @return Collection<TKey, T|V|null>
+     * @return Collection<TKey, T|V>
      */
     public function get($key, $default = null): Collection;
 }
