@@ -48,6 +48,11 @@ final class MatchOne extends AbstractOperation
                         /** @var Closure(Iterator<TKey, T>): Generator<TKey, bool> $pipe */
                         $pipe = Pipe::of()(
                             Map::of()(
+                                /**
+                                 * @param T $value
+                                 * @param TKey $key
+                                 * @param Iterator<TKey, T> $iterator
+                                 */
                                 static fn ($value, $key, Iterator $iterator): bool => CallbacksArrayReducer::or()($callbacks, $value, $key, $iterator) === CallbacksArrayReducer::or()($matchers, $value, $key, $iterator)
                             ),
                             DropWhile::of()(static fn (bool $value): bool => false === $value),
