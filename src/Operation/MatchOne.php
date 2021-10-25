@@ -45,43 +45,11 @@ final class MatchOne extends AbstractOperation
                      * @return Closure(Iterator<TKey, T>): Generator<TKey, bool>
                      */
                     static function (callable ...$callbacks) use ($matchers): Closure {
-                        $callbackReducer =
-                            /**
-                             * @param list<callable(T=, TKey=, Iterator<TKey, T>=): bool> $callbacks
-                             *
-                             * @return Closure(T, TKey, Iterator<TKey, T>): bool
-                             */
-                            static fn (array $callbacks): Closure =>
-                                /**
-                                 * @param T $current
-                                 * @param TKey $key
-                                 * @param Iterator<TKey, T> $iterator
-                                 */
-                                static fn ($current, $key, Iterator $iterator): bool => CallbacksArrayReducer::or()($callbacks, $current, $key, $iterator);
-
-                        $mapCallback =
-                            /**
-                             * @param callable(T=, TKey=, Iterator<TKey, T>=): mixed $reducer1
-                             *
-                             * @return Closure(callable(T=, TKey=, Iterator<TKey, T>=): mixed): Closure(T, TKey, Iterator<TKey, T>): bool
-                             */
-                            static fn (callable $reducer1): Closure =>
-                                /**
-                                 * @param callable(T=, TKey=, Iterator<TKey, T>=): mixed $reducer2
-                                 *
-                                 * @return Closure(T, TKey, Iterator<TKey, T>): bool
-                                 */
-                                static fn (callable $reducer2): Closure =>
-                                    /**
-                                     * @param T $value
-                                     * @param TKey $key
-                                     * @param Iterator<TKey, T> $iterator
-                                     */
-                                    static fn ($value, $key, Iterator $iterator): bool => $reducer1($value, $key, $iterator) === $reducer2($value, $key, $iterator);
-
                         /** @var Closure(Iterator<TKey, T>): Generator<TKey, bool> $pipe */
                         $pipe = Pipe::of()(
-                            Map::of()($mapCallback($callbackReducer($callbacks))($callbackReducer($matchers))),
+                            Map::of()(
+                                static fn ($value, $key, Iterator $iterator): bool => CallbacksArrayReducer::or()($callbacks, $value, $key, $iterator) === CallbacksArrayReducer::or()($matchers, $value, $key, $iterator)
+                            ),
                             DropWhile::of()(static fn (bool $value): bool => false === $value),
                             Append::of()(false),
                             Head::of()
