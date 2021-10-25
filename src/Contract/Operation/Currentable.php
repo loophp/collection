@@ -20,7 +20,11 @@ interface Currentable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#current
      *
-     * @return T|null
+     * @template V
+     *
+     * @param V $default
+     *
+     * @return T|V
      */
-    public function current(int $index = 0);
+    public function current(int $index = 0, $default = null);
 }

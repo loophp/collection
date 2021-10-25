@@ -266,9 +266,9 @@ final class Collection implements CollectionInterface
         return iterator_count($this->getIterator());
     }
 
-    public function current(int $index = 0)
+    public function current(int $index = 0, $default = null)
     {
-        return (new self(Current::of()($index), [$this->getIterator()]))->getIterator()->current();
+        return (new self(Current::of()($index)($default), [$this->getIterator()]))->getIterator()->current();
     }
 
     public function cycle(): CollectionInterface
@@ -538,10 +538,6 @@ final class Collection implements CollectionInterface
         return new self(static fn (): Iterator => new StringIterator($string, $delimiter));
     }
 
-    /**
-     * @param TKey $key
-     * @param T|null $default
-     */
     public function get($key, $default = null): CollectionInterface
     {
         return new self(Get::of()($key)($default), [$this->getIterator()]);
