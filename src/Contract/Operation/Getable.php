@@ -22,10 +22,12 @@ interface Getable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#get
      *
-     * @param TKey $key
-     * @param T|null $default
+     * @template V
      *
-     * @return Collection<TKey, T|null>
+     * @param TKey $key
+     * @param V $default
+     *
+     * @return Collection<TKey, T|V>
      */
     public function get($key, $default = null): Collection;
 }

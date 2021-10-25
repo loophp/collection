@@ -22,12 +22,16 @@ class CurrentSpec extends ObjectBehavior
         $iterator = new ArrayIterator($input);
 
         $this
-            ->__invoke()(0)($iterator)
+            ->__invoke()(0)(null)($iterator)
             ->shouldIterateAs(['a']);
 
         $this
-            ->__invoke()(0)($iterator)
+            ->__invoke()(0)(null)($iterator)
             ->shouldHaveCount(1);
+
+        $this
+            ->__invoke()(10)('unavailable')($iterator)
+            ->shouldIterateAs(['unavailable']);
     }
 
     public function it_is_initializable(): void
