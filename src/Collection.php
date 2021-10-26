@@ -49,6 +49,7 @@ use loophp\collection\Operation\Every;
 use loophp\collection\Operation\Explode;
 use loophp\collection\Operation\Falsy;
 use loophp\collection\Operation\Filter;
+use loophp\collection\Operation\Find;
 use loophp\collection\Operation\First;
 use loophp\collection\Operation\FlatMap;
 use loophp\collection\Operation\Flatten;
@@ -391,6 +392,11 @@ final class Collection implements CollectionInterface
     public function filter(callable ...$callbacks): CollectionInterface
     {
         return new self(Filter::of()(...$callbacks), [$this->getIterator()]);
+    }
+
+    public function find($default = null, callable ...$callbacks)
+    {
+        return (new self(Find::of()($default)(...$callbacks), [$this->getIterator()]))->getIterator()->current();
     }
 
     public function first(): CollectionInterface

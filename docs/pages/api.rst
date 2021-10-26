@@ -813,6 +813,27 @@ Signature: ``Collection::filter(callable ...$callbacks): Collection;``
 .. literalinclude:: code/operations/filter.php
   :language: php
 
+find
+~~~~
+
+Find a collection item using one or more callbacks. If the value cannot be found, that is, no callback returns true for
+any collection item, it will return the ``$default`` value.
+
+.. warning:: The ``callbacks`` parameter is variadic and will be evaluated as a logical ``OR``.
+             If you're looking for a logical ``AND``, you have to make multiple calls to the
+             same operation.
+
+.. tip:: This operation is a shortcut for ``filter`` + ``current``.
+
+.. tip:: It is only when the callback returns ``true`` that the value is selected.
+
+Interface: `Findable`_
+
+Signature: ``Collection::find($default = null, callable ...$callbacks);``
+
+.. literalinclude:: code/operations/find.php
+  :language: php
+
 first
 ~~~~~
 
@@ -2509,6 +2530,7 @@ Signature: ``Collection::zip(iterable ...$iterables): Collection;``
 .. _Explodeable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Explodeable.php
 .. _Falsyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Falsyable.php
 .. _Filterable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Filterable.php
+.. _Findable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Findable.php
 .. _Firstable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Firstable.php
 .. _FlatMapable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/FlatMapable.php
 .. _Flattenable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Flattenable.php
