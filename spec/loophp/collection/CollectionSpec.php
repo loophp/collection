@@ -1805,7 +1805,7 @@ class CollectionSpec extends ObjectBehavior
         };
 
         $this::fromCallable($callback)
-            ->groupBy()
+            ->groupBy(static fn (string $value, int $key): int => $key)
             ->shouldIterateAs([
                 1 => [
                     'a',
@@ -1854,11 +1854,6 @@ class CollectionSpec extends ObjectBehavior
                     19,
                 ],
             ]);
-
-        $input = range(0, 20);
-        $this::fromIterable($input)
-            ->groupBy(static function () {return null; })
-            ->shouldIterateAs($input);
     }
 
     public function it_can_has(): void

@@ -1084,13 +1084,11 @@ Signature: ``Collection::group(): Collection;``
 groupBy
 ~~~~~~~
 
-Group items based on their keys.
-
-The default behaviour can be customized with a callback.
+Group items based on the provided callback.
 
 Interface: `GroupByable`_
 
-Signature: ``Collection::groupBy(?callable $callback = null): Collection;``
+Signature: ``Collection::groupBy(callable $callback): Collection;``
 
 .. code-block:: php
 
@@ -1104,7 +1102,7 @@ Signature: ``Collection::groupBy(?callable $callback = null): Collection;``
     };
 
     $collection = Collection::fromIterable($callback())
-        ->groupBy(); // [1 => ['a', 'b', 'c'], 2 => ['d', 'e'], 3 => ['f']]
+        ->groupBy(static fn (string $char, int $key): int => $key); // [1 => ['a', 'b', 'c'], 2 => ['d', 'e'], 3 => ['f']]
 
 has
 ~~~

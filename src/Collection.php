@@ -556,7 +556,7 @@ final class Collection implements CollectionInterface
         return new self(Group::of(), [$this->getIterator()]);
     }
 
-    public function groupBy(?callable $callable = null): CollectionInterface
+    public function groupBy(callable $callable): CollectionInterface
     {
         return new self(GroupBy::of()($callable), [$this->getIterator()]);
     }
