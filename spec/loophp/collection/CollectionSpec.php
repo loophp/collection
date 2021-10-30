@@ -41,12 +41,20 @@ class CollectionSpec extends ObjectBehavior
     public function it_can_all(): void
     {
         $this::fromIterable([1, 2, 3])
+            ->all(false)
+            ->shouldIterateAs([1, 2, 3]);
+
+        $this::fromIterable([1, 2, 3])
             ->all()
             ->shouldIterateAs([1, 2, 3]);
 
         $this::fromIterable(['foo' => 'f', 'bar' => 'b'])
-            ->all()
+            ->all(false)
             ->shouldIterateAs(['foo' => 'f', 'bar' => 'b']);
+
+        $this::fromIterable(['foo' => 'f', 'bar' => 'b'])
+            ->all()
+            ->shouldIterateAs(['f', 'b']);
 
         $duplicateKeyGen = static function (): Generator {
             yield 'a' => 1;
@@ -60,8 +68,12 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs($duplicateKeyGen());
 
         $this::fromIterable($duplicateKeyGen())
-            ->all()
+            ->all(false)
             ->shouldIterateAs(['a' => 3, 'b' => 2]);
+
+        $this::fromIterable($duplicateKeyGen())
+            ->all()
+            ->shouldIterateAs([1, 2, 3]);
     }
 
     public function it_can_append(): void
@@ -716,7 +728,7 @@ class CollectionSpec extends ObjectBehavior
 
         $this::fromIterable(range('a', 'c'))
             ->combinate()
-            ->all()
+            ->all(false)
             ->shouldBeEqualTo(
                 [
                     0 => [
