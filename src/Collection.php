@@ -176,9 +176,9 @@ final class Collection implements CollectionInterface
         $this->parameters = $parameters;
     }
 
-    public function all(): array
+    public function all(bool $normalize = true): array
     {
-        return All::of()($this->getIterator());
+        return All::of()($normalize)($this->getIterator());
     }
 
     public function append(...$items): CollectionInterface

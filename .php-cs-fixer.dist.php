@@ -12,6 +12,7 @@ $config = require __DIR__ . '/vendor/drupol/php-conventions/config/php73/php_cs_
 $config
     ->getFinder()
     ->ignoreDotFiles(false)
+    ->notPath('src/Contract/Operation/Allable.php')
     ->name(['.php_cs.dist']);
 
 $rules = $config->getRules();
