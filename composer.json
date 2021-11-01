@@ -30,7 +30,7 @@
         "infection/infection": "^0.23.0 || ^0.24.0",
         "infection/phpspec-adapter": "^0.1.2",
         "phpspec/phpspec": "^7.1",
-        "phpstan/phpstan-strict-rules": "^0.12",
+        "phpstan/phpstan-strict-rules": "^0.12 || ^1.0",
         "psr/cache": "^1.0",
         "symfony/cache": "^5"
     },
