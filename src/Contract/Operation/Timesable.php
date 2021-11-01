@@ -16,8 +16,6 @@ interface Timesable
     /**
      * Create a new instance by invoking the callback a given amount of times.
      *
-     * @template TKey
-     * @template TKey
      * @template T
      *
      * @param null|callable(int): (int|T) $callback

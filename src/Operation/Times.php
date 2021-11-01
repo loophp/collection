@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
-use EmptyIterator;
 use Generator;
 use Iterator;
 
@@ -47,7 +46,7 @@ final class Times extends AbstractOperation
                      */
                     static function (?Iterator $iterator = null) use ($number, $callback): Generator {
                         if (1 > $number) {
-                            return new EmptyIterator();
+                            return;
                         }
 
                         $callback ??= static fn (int $value): int => $value;
