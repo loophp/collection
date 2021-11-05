@@ -56,7 +56,7 @@ result. We can see that some data is missing, why?
 The reason that the frequency analysis for letters 'a' and 'b' is missing
 is because when you call the method ``Collection::all()`` with a *false* parameter, 
 the collection converts the lazy collection into a regular PHP array, 
-and PHP doesn't allow having multiple time the same key, so it overrides 
+and PHP doesn't allow having multiple time the same key; thus, it overrides 
 the previous data and there will be missing information in the resulting array.
 
 In order to prevent this, by default the ``all`` operation will also apply
