@@ -29,13 +29,11 @@ $collection
 // Append items.
 $collection
     ->append('F', 'G', 'H')
-    ->normalize()
     ->all(); // ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
 
 // Prepend items.
 $collection
     ->prepend('1', '2', '3')
-    ->normalize()
     ->all(); // ['1', '2', '3', 'A', 'B', 'C', 'D', 'E']
 
 // Split a collection into chunks of a given size.
@@ -123,7 +121,6 @@ Collection::unfold($random)
     ->map(static fn ($value): float => floor($value * 1000) + 1)
     ->distinct()
     ->limit(300)
-    ->normalize()
     ->all();
 
 // Fibonacci using the static method ::unfold()

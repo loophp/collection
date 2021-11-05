@@ -31,8 +31,7 @@ $wrapped = $frequency
 
 // Method 2 -> normalized collection
 $normalized = $frequency
-    ->normalize() // Replace keys with numerical indexes
-    ->all(); // Convert to regular array
+    ->all(); // Convert to regular array and replace keys with numerical indexes
 
 /**
  * [0 => 'a', 1 => 'b', 2 => 'c', 3 => 'd', 4 => 'e'].
@@ -44,10 +43,10 @@ $normalized = $frequency
 $collection = Collection::fromIterable(range(1, 10))
     ->filter(static fn ($value): bool => $value % 3 === 0);
 
-$filtered = $collection->all(); // [2 => 3, 5 => 6, 8 => 9]
-$filteredNormalized = $collection->normalize()->all(); // [0 => 3, 1 => 6, 2 => 9]
+$filtered = $collection->all(false); // [2 => 3, 5 => 6, 8 => 9]
+$filteredNormalized = $collection->all(); // [0 => 3, 1 => 6, 2 => 9]
 
-// Method 2 -> consuming the collection as an iterator
+// Method 3 -> consuming the collection as an iterator
 foreach ($frequency as $k => $v) {
     var_dump("({$k}, {$v})");
 }

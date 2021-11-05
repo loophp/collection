@@ -9,16 +9,12 @@ declare(strict_types=1);
 
 namespace App;
 
-use ArrayIterator;
 use Generator;
 use loophp\collection\Collection;
-use loophp\collection\Operation\All;
-use loophp\collection\Operation\Filter;
-use loophp\collection\Operation\Pipe;
 
 include __DIR__ . '/../../../../vendor/autoload.php';
 
-// Example 1 -> usage with Collection
+// Example 1 -> usage with "list" collection
 $generator = static function (): Generator {
     yield 0 => 'a';
 
@@ -30,10 +26,13 @@ $generator = static function (): Generator {
 };
 
 $collection = Collection::fromIterable($generator());
-print_r($collection->all()); // [0 => 'c', 1 => 'b', 2 => 'd']
+print_r($collection->all(false)); // [0 => 'c', 1 => 'b', 2 => 'd']
 
-// Example 2 -> standalone usage
-$even = static fn (int $value): bool => $value % 2 === 0;
+$collection = Collection::fromIterable($generator());
+print_r($collection->all()); // ['a', 'b', 'c', 'd']
 
-$piped = Pipe::of()(Filter::of()($even), All::of())(new ArrayIterator([1, 2, 3, 4]));
-print_r($piped); // [2, 4]
+// Example 2 -> usage with "map" collection
+$collection = Collection::fromIterable(['foo' => 1, 'bar' => 2]);
+
+print_r($collection->all(false)); // ['foo' => 1, 'bar' => 2]
+print_r($collection->all()); // [1, 2]

@@ -70,7 +70,7 @@ Signature: ``Collection::fromGenerator(Generator $generator): Collection;``
     $generator->next();
 
     $collection = Collection::fromGenerator($generator)
-        ->all(); // [2 => 3, 3 => 4, 4 => 5]
+        ->all(); // [0 => 3, 1 => 4, 2 => 5]
 
 fromIterable
 ~~~~~~~~~~~~
@@ -221,14 +221,15 @@ When used as a ``Collection`` method, operations fall into a few main categories
 all
 ~~~
 
-Convert the collection into an array.
+Convert the collection into an array, re-indexing keys using ``Collection::normalize()`` to prevent data loss by default.
 
-.. warning:: This is a lossy operation because PHP array keys cannot be duplicated and must either be ``int`` or ``string``.
-            If you want to ensure no data is lost in the case of duplicate keys, look at the ``Collection::normalize()`` operation.
+.. warning:: An earlier version of this operation did not re-index keys by default, which meant at times data loss could occur.
+        The reason data loss could occur is because PHP array keys cannot be duplicated and must either be ``int`` or ``string``. 
+        The old behaviour can still be achieved by using the operation with the ``$normalize`` parameter as *false*.
 
 Interface: `Allable`_
 
-Signature: ``Collection::all(): array;``
+Signature: ``Collection::all(bool $normalize = true): array;``
 
 .. literalinclude:: code/operations/all.php
   :language: php
@@ -238,11 +239,9 @@ append
 
 Add one or more items to a collection.
 
-.. warning:: If appended values overwrite existing values, you might find that this operation doesn't work correctly
-             when the collection is converted into an array.
-             It's always better to never convert the collection to an array and use it in a loop.
-             However, if for some reason, you absolutely need to convert it into an array, then use the
-             ``Collection::normalize()`` operation.
+.. warning:: This operation maintains the keys of the appended items. If you wish to re-index the keys you can use the 
+            ``Collection::normalize()`` operation, or ``Collection::all()`` when converting into an array, which will apply
+            ``normalize`` by default. 
 
 Interface: `Appendable`_
 
@@ -255,12 +254,8 @@ Signature: ``Collection::append(...$items): Collection;``
 
     Collection::fromIterable(['1', '2', '3'])
         ->append('4')
-        ->append('5', '6'); // [0 => 5, 1 => 6, 2 => 3]
-
-    Collection::fromIterable(['1', '2', '3'])
-        ->append('4')
         ->append('5', '6')
-        ->normalize(); // ['1', '2', '3', '4', '5', '6']
+        ->all(); // ['1', '2', '3', '4', '5', '6']
 
 apply
 ~~~~~
@@ -1049,7 +1044,7 @@ Signature: ``Collection::frequency(): Collection;``
 
     $collection = Collection::fromIterable(['a', 'b', 'c', 'b', 'c', 'c'])
         ->frequency()
-        ->all(); // [1 => 'a', 2 => 'b', 3 => 'c'];
+        ->all(false); // [1 => 'a', 2 => 'b', 3 => 'c'];
 
 get
 ~~~
@@ -1480,17 +1475,12 @@ Signature: ``Collection::merge(iterable ...$sources): Collection;``
     $collection = Collection::fromIterable(['a', 'b', 'c'])
         ->merge(Collection::fromIterable(['d', 'e']);
 
-    $collection->all(); // ['d', 'e', 'c'] -> 'a' and 'b' are lost due to key overlap
-    $collection->normalize()->all() // ['a', 'b', 'c', 'd', 'e']
+    $collection->all() // ['a', 'b', 'c', 'd', 'e']
 
 normalize
 ~~~~~~~~~
 
 Replace, reorder and use numeric keys on a collection.
-
-.. note:: If you want to retrieve collection elements as an array via ``Collection::all()`` instead of
-        consuming the collection through a ``foreach``, most often you will want to use this method
-        before the array transformation in order to prevent data loss.
 
 Interface: `Normalizeable`_
 
@@ -1723,11 +1713,9 @@ prepend
 
 Push an item onto the beginning of the collection.
 
-.. warning:: If prepended values overwrite existing values or keys, you might find that this operation doesn't work correctly
-             when the collection is converted into an array.
-             It's always better to never convert the collection to an array and use it in a loop.
-             However, if for some reason, you absolutely need to convert it into an array, then use the
-             ``Collection::normalize()`` operation.
+.. warning:: This operation maintains the keys of the prepended items. If you wish to re-index the keys you can use the 
+            ``Collection::normalize()`` operation, or ``Collection::all()`` when converting into an array, which will apply
+            ``normalize`` by default. 
 
 Interface: `Prependable`_
 
@@ -1741,12 +1729,6 @@ Signature: ``Collection::prepend(...$items): Collection;``
     Collection::fromIterable(['1', '2', '3'])
         ->prepend('4')
         ->prepend('5', '6')
-        ->all(); // [0 => 1, 1 => 2, 2 => 3]
-
-    Collection::fromIterable(['1', '2', '3'])
-        ->prepend('4')
-        ->prepend('5', '6')
-        ->normalize()
         ->all(); // ['5', '6', '4', '1', '2', '3']
 
 product

@@ -102,8 +102,7 @@ In addition to these, in *PHPSpec* we can use the `iterateAs`_ matcher to assert
 final collection object will iterate.
 
 The last option is to transform the collection object into an array with the :ref:`all <All>` operation
-and use any assertion that we would normally use for arrays. However, beware of the potential
-loss of data that can happen when doing this - see the operation's documentation.
+and use any assertion that we would normally use for arrays.
 
 Usability
 ---------
