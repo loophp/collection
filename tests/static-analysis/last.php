@@ -60,6 +60,6 @@ last_checkStringElement(Collection::fromIterable(['foo' => 'bar'])->last()->curr
 
 // VALID failures - these keys don't exist
 /** @psalm-suppress InvalidArrayOffset */
-last_checkIntElement(Collection::fromIterable([1, 2, 3])->last()->all()[4]);
-/** @psalm-suppress InvalidArrayOffset @phpstan-ignore-next-line */
-last_checkStringElement(Collection::fromIterable(['foo' => 'bar', 'baz' => 'bar'])->last()->all()[0]);
+last_checkIntElement(Collection::fromIterable([1, 2, 3])->last()->all(false)[4]);
+/** @psalm-suppress InvalidArrayOffset */
+last_checkStringElement(Collection::fromIterable(['foo' => 'bar', 'baz' => 'bar'])->last()->all(false)[0]);

@@ -60,6 +60,6 @@ first_checkStringElement(Collection::fromIterable(['foo' => 'bar'])->first()->cu
 
 // VALID failures - these keys don't exist
 /** @psalm-suppress InvalidArrayOffset */
-first_checkIntElement(Collection::fromIterable([1, 2, 3])->first()->all()[4]);
-/** @psalm-suppress InvalidArrayOffset @phpstan-ignore-next-line */
-first_checkStringElement(Collection::fromIterable(['foo' => 'bar', 'baz' => 'bar'])->first()->all()[0]);
+first_checkIntElement(Collection::fromIterable([1, 2, 3])->first()->all(false)[4]);
+/** @psalm-suppress InvalidArrayOffset */
+first_checkStringElement(Collection::fromIterable(['foo' => 'bar', 'baz' => 'bar'])->first()->all(false)[0]);
