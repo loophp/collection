@@ -885,7 +885,7 @@ final class Collection implements CollectionInterface
 
     public function squash(): CollectionInterface
     {
-        return self::fromIterable($this->pack()->all())->unpack();
+        return self::fromIterable($this->pack()->all(false))->unpack();
     }
 
     public function strict(?callable $callback = null): CollectionInterface

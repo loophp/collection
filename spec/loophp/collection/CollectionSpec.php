@@ -3456,6 +3456,20 @@ class CollectionSpec extends ObjectBehavior
             )
             ->shouldNotThrow(Exception::class)
             ->during('squash');
+
+        $this::fromIterable([16, 4, 9, 9])
+            ->map(
+                static function (int $value): int {
+                    if (-100 > $value) {
+                        throw new Exception('This should not error');
+                    }
+
+                    return (int) sqrt($value);
+                }
+            )
+            ->squash()
+            ->all(false)
+            ->shouldReturn([4, 2, 3, 3]);
     }
 
     public function it_can_strict_allow(): void
