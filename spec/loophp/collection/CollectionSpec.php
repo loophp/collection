@@ -531,18 +531,26 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs([0, 1, 1, 2, 3, 5, 8, 13, 21, 34]);
     }
 
-    public function it_can_be_json_encoded()
+    public function it_can_be_json_encoded_as_list(): void
+    {
+        $input = ['a', 'b', 'c'];
+
+        $this->beConstructedThrough('fromIterable', [$input]);
+        $this->shouldImplement(JsonSerializable::class);
+
+        $this->jsonSerialize()->shouldReturn($this->all(false));
+        $this->jsonSerialize()->shouldReturn($input);
+    }
+
+    public function it_can_be_json_encoded_as_map(): void
     {
         $input = ['a' => 'A', 'b' => 'B', 'c' => 'C'];
 
         $this->beConstructedThrough('fromIterable', [$input]);
+        $this->shouldImplement(JsonSerializable::class);
 
-        $this
-            ->jsonSerialize()
-            ->shouldReturn($this->all());
-
-        $this
-            ->shouldImplement(JsonSerializable::class);
+        $this->jsonSerialize()->shouldReturn($this->all(false));
+        $this->jsonSerialize()->shouldReturn($input);
     }
 
     public function it_can_be_returned_as_an_array(): void

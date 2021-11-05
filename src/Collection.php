@@ -624,7 +624,7 @@ final class Collection implements CollectionInterface
      */
     public function jsonSerialize(): array
     {
-        return $this->all();
+        return $this->all(false);
     }
 
     public function key(int $index = 0)
