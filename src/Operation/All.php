@@ -23,22 +23,20 @@ final class All extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(bool): Closure(Iterator<TKey, T>): list<T>|array<TKey, T>
+     * @return Closure(bool): Closure(Iterator<TKey, T>): Iterator<int, T>|Iterator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @return Closure(Iterator<TKey, T>): list<T>|array<TKey, T>
+             * @return Closure(Iterator<TKey, T>): Iterator<int, T>|Iterator<TKey, T>
              */
             static fn (bool $normalize): Closure =>
                 /**
                  * @param Iterator<TKey, T> $iterator
                  *
-                 * @return array<TKey, T>|list<T>
+                 * @return Iterator<int, T>|Iterator<TKey, T>
                  */
-                static fn (Iterator $iterator): array => $normalize
-                    ? iterator_to_array((new Normalize())()($iterator))
-                    : iterator_to_array($iterator);
+                static fn (Iterator $iterator): Iterator => $normalize ? (new Normalize())()($iterator) : $iterator;
     }
 }
