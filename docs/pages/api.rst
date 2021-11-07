@@ -1283,6 +1283,21 @@ Signature: ``Collection::isEmpty(): bool;``
 .. literalinclude:: code/operations/isEmpty.php
   :language: php
 
+jsonSerialize
+~~~~~~~~~~~~~
+
+Returns the collection items as an array, allowing serialization. Essentially calls ``all(false)``, 
+which means the collection is not normalized by default.
+
+See the section on :ref:`serialization <Serialization>`.
+
+Interface: `JsonSerializable`_
+
+Signature: ``Collection::jsonSerialize(): array;``
+
+.. literalinclude:: code/operations/jsonSerialize.php
+  :language: php
+
 key
 ~~~
 
@@ -2602,6 +2617,7 @@ Signature: ``Collection::zip(iterable ...$iterables): Collection;``
 .. _Doctrine Collections: https://github.com/doctrine/collections
 .. _Generator: https://www.php.net/manual/en/language.generators.overview.php
 .. _Iterator: https://www.php.net/manual/en/class.iterator.php
+.. _JsonSerializable: https://www.php.net/manual/en/class.jsonserializable.php
 .. _symfony/var-dumper: https://packagist.org/packages/symfony/var-dumper
 .. _Traversable: https://www.php.net/manual/en/class.traversable.php
 .. _TypedIterator: https://github.com/loophp/collection/blob/master/src/Iterator/TypedIterator.php

@@ -51,6 +51,6 @@ final class FoobarCollection implements FoobarCollectionInterface
     }
 
     // This example is intentionally incomplete.
-    // For the sake of brevity, I did not added all the remaining
+    // For the sake of brevity, I did not add all the remaining
     // methods to satisfy the FoobarCollectionInterface.
 }

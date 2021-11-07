@@ -73,6 +73,22 @@ It's up to you to decide which approach to take based on your use case.
 .. literalinclude:: code/duplicate-keys.php
   :language: php
 
+Serialization
+~~~~~~~~~~~~~
+
+The collection object implements the `JsonSerializable`_ interface, thus allowing
+for JSON serialization using the built-in PHP function ``json_encode`` or a 
+custom serializer like the `Symfony Serializer`_.
+
+.. tip:: By default the collection is not normalized when serializing, which allows
+        its usage as an associative array. However, when it is used as a list and
+        there are missing keys, the ``normalize`` operation should be applied before
+        serialization; not doing so will likely not result in the desired outcome, as
+        shown in the example below.
+
+.. literalinclude:: code/serialization.php
+  :language: php
+
 Extending collection
 ~~~~~~~~~~~~~~~~~~~~
 
@@ -175,3 +191,5 @@ Lazy json parsing
   :language: php
 
 .. _article: https://not-a-number.io/2019/php-composition-and-inheritance/
+.. _JsonSerializable: https://www.php.net/manual/en/class.jsonserializable.php
+.. _Symfony Serializer: https://symfony.com/doc/current/components/serializer.html
