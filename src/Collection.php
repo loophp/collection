@@ -176,9 +176,9 @@ final class Collection implements CollectionInterface
         $this->parameters = $parameters;
     }
 
-    public function all(): array
+    public function all(bool $normalize = true): array
     {
-        return All::of()($this->getIterator());
+        return All::of()($normalize)($this->getIterator());
     }
 
     public function append(...$items): CollectionInterface
@@ -624,7 +624,7 @@ final class Collection implements CollectionInterface
      */
     public function jsonSerialize(): array
     {
-        return $this->all();
+        return $this->all(false);
     }
 
     public function key(int $index = 0)
@@ -885,7 +885,7 @@ final class Collection implements CollectionInterface
 
     public function squash(): CollectionInterface
     {
-        return self::fromIterable($this->pack()->all())->unpack();
+        return self::fromIterable($this->pack()->all(false))->unpack();
     }
 
     public function strict(?callable $callback = null): CollectionInterface

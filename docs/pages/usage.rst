@@ -51,26 +51,42 @@ result. We can see that some data is missing, why?
         // Run the frequency analysis tool.
         ->frequency()
         // Convert to regular array.
-        ->all(); // [5 => 'e', 4 => 'd', 3 => 'c']
+        ->all(false); // [5 => 'e', 4 => 'd', 3 => 'c']
 
 The reason that the frequency analysis for letters 'a' and 'b' is missing
-is because when you call the method ``Collection::all()``, the collection converts
-the lazy collection into a regular PHP array, and PHP doesn't allow having
-multiple time the same key, so it overrides the previous data and there will be
-missing information in the resulting array.
+is because when you call the method ``Collection::all()`` with a *false* parameter, 
+the collection converts the lazy collection into a regular PHP array, 
+and PHP doesn't allow having multiple time the same key; thus, it overrides 
+the previous data and there will be missing information in the resulting array.
 
-In order to circumvent this, you can either ``wrap`` the final result or
-``normalize`` it.
-A better way would be to not convert this into an array and use the lazy
-collection as an iterator.
+In order to prevent this, by default the ``all`` operation will also apply
+``normalize``, re-indexing and re-ordering the keys. However, this might not always
+be the desired outcome, like in this instance (see examples below).
 
-Wrapping the result will wrap each result into a PHP array.
-Normalizing the result will replace keys with a numerical index, but then
-you might lose some information then.
+Other ways to circumvent this PHP array limitation:
 
-It's up to you to decide which one you want to use.
+* use the ``wrap`` operation on the final result, wrapping each key-value pair in a PHP array
+* do not convert the collection to an array and use it as an iterator instead
+
+It's up to you to decide which approach to take based on your use case.
 
 .. literalinclude:: code/duplicate-keys.php
+  :language: php
+
+Serialization
+~~~~~~~~~~~~~
+
+The collection object implements the `JsonSerializable`_ interface, thus allowing
+for JSON serialization using the built-in PHP function ``json_encode`` or a 
+custom serializer like the `Symfony Serializer`_.
+
+.. tip:: By default the collection is not normalized when serializing, which allows
+        its usage as an associative array. However, when it is used as a list and
+        there are missing keys, the ``normalize`` operation should be applied before
+        serialization; not doing so will likely not result in the desired outcome, as
+        shown in the example below.
+
+.. literalinclude:: code/serialization.php
   :language: php
 
 Extending collection
@@ -175,3 +191,5 @@ Lazy json parsing
   :language: php
 
 .. _article: https://not-a-number.io/2019/php-composition-and-inheritance/
+.. _JsonSerializable: https://www.php.net/manual/en/class.jsonserializable.php
+.. _Symfony Serializer: https://symfony.com/doc/current/components/serializer.html

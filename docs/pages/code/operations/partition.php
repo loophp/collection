@@ -26,7 +26,7 @@ $input = array_combine(range('a', 'l'), [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3]);
     ->all();
 
 // Numbers that are greater than 5
-print_r($left->all());
+print_r($left->all(false));
 /*
 [
     ['f', 6],
@@ -37,7 +37,7 @@ print_r($left->all());
  */
 
 // Numbers that are not greater than 5
-print_r($right->all());
+print_r($right->all(false));
 /*
 [
     ['a', 1],
@@ -58,7 +58,7 @@ $left = Collection::fromIterable($input)
     ->current();
 
 // Numbers that are greater than 5
-print_r($left->all());
+print_r($left->all(false));
 /*
 [
 ['f', 6],

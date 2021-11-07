@@ -41,12 +41,20 @@ class CollectionSpec extends ObjectBehavior
     public function it_can_all(): void
     {
         $this::fromIterable([1, 2, 3])
+            ->all(false)
+            ->shouldIterateAs([1, 2, 3]);
+
+        $this::fromIterable([1, 2, 3])
             ->all()
             ->shouldIterateAs([1, 2, 3]);
 
         $this::fromIterable(['foo' => 'f', 'bar' => 'b'])
-            ->all()
+            ->all(false)
             ->shouldIterateAs(['foo' => 'f', 'bar' => 'b']);
+
+        $this::fromIterable(['foo' => 'f', 'bar' => 'b'])
+            ->all()
+            ->shouldIterateAs(['f', 'b']);
 
         $duplicateKeyGen = static function (): Generator {
             yield 'a' => 1;
@@ -60,8 +68,12 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs($duplicateKeyGen());
 
         $this::fromIterable($duplicateKeyGen())
-            ->all()
+            ->all(false)
             ->shouldIterateAs(['a' => 3, 'b' => 2]);
+
+        $this::fromIterable($duplicateKeyGen())
+            ->all()
+            ->shouldIterateAs([1, 2, 3]);
     }
 
     public function it_can_append(): void
@@ -519,18 +531,26 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs([0, 1, 1, 2, 3, 5, 8, 13, 21, 34]);
     }
 
-    public function it_can_be_json_encoded()
+    public function it_can_be_json_encoded_as_list(): void
+    {
+        $input = ['a', 'b', 'c'];
+
+        $this->beConstructedThrough('fromIterable', [$input]);
+        $this->shouldImplement(JsonSerializable::class);
+
+        $this->jsonSerialize()->shouldReturn($this->all(false));
+        $this->jsonSerialize()->shouldReturn($input);
+    }
+
+    public function it_can_be_json_encoded_as_map(): void
     {
         $input = ['a' => 'A', 'b' => 'B', 'c' => 'C'];
 
         $this->beConstructedThrough('fromIterable', [$input]);
+        $this->shouldImplement(JsonSerializable::class);
 
-        $this
-            ->jsonSerialize()
-            ->shouldReturn($this->all());
-
-        $this
-            ->shouldImplement(JsonSerializable::class);
+        $this->jsonSerialize()->shouldReturn($this->all(false));
+        $this->jsonSerialize()->shouldReturn($input);
     }
 
     public function it_can_be_returned_as_an_array(): void
@@ -716,7 +736,7 @@ class CollectionSpec extends ObjectBehavior
 
         $this::fromIterable(range('a', 'c'))
             ->combinate()
-            ->all()
+            ->all(false)
             ->shouldBeEqualTo(
                 [
                     0 => [
@@ -3436,6 +3456,20 @@ class CollectionSpec extends ObjectBehavior
             )
             ->shouldNotThrow(Exception::class)
             ->during('squash');
+
+        $this::fromIterable([16, 4, 9, 9])
+            ->map(
+                static function (int $value): int {
+                    if (-100 > $value) {
+                        throw new Exception('This should not error');
+                    }
+
+                    return (int) sqrt($value);
+                }
+            )
+            ->squash()
+            ->all(false)
+            ->shouldReturn([4, 2, 3, 3]);
     }
 
     public function it_can_strict_allow(): void

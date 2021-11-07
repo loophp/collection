@@ -26,6 +26,6 @@ $collection = Collection::fromString($contents)
     // Sort values.
     ->sort()
     // Convert to array.
-    ->all();
+    ->all(false);
 
 print_r($collection);

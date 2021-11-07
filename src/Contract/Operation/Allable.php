@@ -20,7 +20,10 @@ interface Allable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#all
      *
-     * @return array<TKey, T>
+     * @param bool $normalize
+     *
+     * @return list<T>|array<TKey, T>
+     * @psalm-return ($normalize is true ? list<T> : array<TKey, T>)
      */
-    public function all(): array;
+    public function all(bool $normalize = true): array;
 }

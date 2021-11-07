@@ -20,7 +20,6 @@ $random_numbers = Collection::unfold($random)
     ->map(static fn ($value): float => floor($value * 1000) + 1)
     ->distinct()
     ->limit(300)
-    ->normalize()
     ->all();
 
 print_r($random_numbers);
