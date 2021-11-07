@@ -24,6 +24,7 @@ parameters:
       - "/vendor/"
 
   # PHPStan
+  tasks.phpstan.level: 8
   tasks.phpstan.blocking: true
   tasks.phpstan.ignore_patterns:
     - "/.github/"
