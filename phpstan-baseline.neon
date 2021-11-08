@@ -1,32 +1,292 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Method loophp\\\\collection\\\\Collection\\:\\:empty\\(\\) should return loophp\\\\collection\\\\Collection\\<NewTKey, NewT\\> but returns loophp\\\\collection\\\\Collection\\<\\(int&NewTKey\\)\\|\\(NewTKey&string\\), NewT\\>\\.$#"
+			count: 1
+			path: src/Collection.php
+
+		-
+			message: "#^Template type NewT of method loophp\\\\collection\\\\Collection\\:\\:empty\\(\\) is not referenced in a parameter\\.$#"
+			count: 1
+			path: src/Collection.php
+
+		-
+			message: "#^Template type NewTKey of method loophp\\\\collection\\\\Collection\\:\\:empty\\(\\) is not referenced in a parameter\\.$#"
+			count: 1
+			path: src/Collection.php
+
+		-
+			message: "#^PHPDoc tag @param for parameter \\$comparatorCallback contains unresolvable type\\.$#"
+			count: 1
+			path: src/Contract/Operation/Duplicateable.php
+
+		-
+			message: "#^Template type T of method loophp\\\\collection\\\\Contract\\\\Operation\\\\Rangeable\\:\\:range\\(\\) is not referenced in a parameter\\.$#"
+			count: 1
+			path: src/Contract/Operation/Rangeable.php
+
+		-
+			message: "#^Template type TKey of method loophp\\\\collection\\\\Contract\\\\Operation\\\\Rangeable\\:\\:range\\(\\) is not referenced in a parameter\\.$#"
+			count: 1
+			path: src/Contract/Operation/Rangeable.php
+
+		-
+			message: "#^PHPDoc tag @param for parameter \\$comparatorCallback contains unresolvable type\\.$#"
+			count: 1
+			path: src/Contract/Operation/Sameable.php
+
+		-
+			message: "#^Template type TKey of method loophp\\\\collection\\\\Contract\\\\Operation\\\\Unfoldable\\:\\:unfold\\(\\) is not referenced in a parameter\\.$#"
+			count: 1
+			path: src/Contract/Operation/Unfoldable.php
+
+		-
+			message: "#^Anonymous function should return string but returns class\\-string\\|false\\.$#"
+			count: 1
+			path: src/Iterator/TypedIterator.php
+
+		-
+			message: "#^Property loophp\\\\collection\\\\Iterator\\\\ProxyIterator\\<TKey,T\\>\\:\\:\\$iterator \\(Iterator\\<TKey, T\\>\\) does not accept loophp\\\\collection\\\\Iterator\\\\ClosureIterator\\<TKey, T\\|\\(T&null\\)\\>\\.$#"
+			count: 1
+			path: src/Iterator/TypedIterator.php
+
+		-
+			message: "#^Template type NewT of method loophp\\\\collection\\\\Operation\\\\Associate\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
+			count: 1
+			path: src/Operation/Associate.php
+
+		-
+			message: "#^Template type NewTKey of method loophp\\\\collection\\\\Operation\\\\Associate\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
+			count: 1
+			path: src/Operation/Associate.php
+
+		-
+			message: "#^Template type V of method loophp\\\\collection\\\\Operation\\\\AsyncMap\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
+			count: 1
+			path: src/Operation/AsyncMap.php
+
+		-
 			message: "#^Anonymous function with return type void returns void but should not return anything\\.$#"
 			count: 2
 			path: src/Operation/Combinate.php
 
 		-
-			message: "#^Method loophp\\\\collection\\\\Operation\\\\Group\\:\\:__invoke\\(\\) should return Closure\\(Iterator\\<TKey, T\\>\\)\\: Generator\\<int, array\\<int, T\\>, mixed, mixed\\> but returns Closure\\(Iterator\\)\\: Generator\\<int, array\\<int, mixed\\>&nonEmpty, mixed, void\\>\\.$#"
+			message: "#^Template type U of method loophp\\\\collection\\\\Operation\\\\Combine\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
+			count: 1
+			path: src/Operation/Combine.php
+
+		-
+			message: "#^Template type V of method loophp\\\\collection\\\\Operation\\\\Current\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
+			count: 1
+			path: src/Operation/Current.php
+
+		-
+			message: "#^Template type U of method loophp\\\\collection\\\\Operation\\\\Distinct\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
+			count: 1
+			path: src/Operation/Distinct.php
+
+		-
+			message: "#^Parameter \\#1 \\$ of closure expects array\\<int, callable\\(mixed, mixed, Iterator\\<mixed, mixed\\>\\)\\: bool\\>, array\\<int\\|string, callable\\(\\)\\: mixed\\> given\\.$#"
+			count: 1
+			path: src/Operation/DropWhile.php
+
+		-
+			message: "#^Template type U of method loophp\\\\collection\\\\Operation\\\\Duplicate\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
+			count: 1
+			path: src/Operation/Duplicate.php
+
+		-
+			message: "#^Parameter \\#1 \\$ of closure expects array\\<int, callable\\(mixed, mixed, Iterator\\<mixed, mixed\\>\\)\\: bool\\>, array\\<int\\|string, callable\\(\\)\\: mixed\\> given\\.$#"
+			count: 1
+			path: src/Operation/Filter.php
+
+		-
+			message: "#^Template type V of method loophp\\\\collection\\\\Operation\\\\Find\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
+			count: 1
+			path: src/Operation/Find.php
+
+		-
+			message: "#^Template type IKey of method loophp\\\\collection\\\\Operation\\\\FlatMap\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
+			count: 1
+			path: src/Operation/FlatMap.php
+
+		-
+			message: "#^Template type IValue of method loophp\\\\collection\\\\Operation\\\\FlatMap\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
+			count: 1
+			path: src/Operation/FlatMap.php
+
+		-
+			message: "#^Template type V of method loophp\\\\collection\\\\Operation\\\\Get\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
+			count: 1
+			path: src/Operation/Get.php
+
+		-
+			message: "#^Method loophp\\\\collection\\\\Operation\\\\Group\\:\\:__invoke\\(\\) should return Closure\\(Iterator\\<TKey, T\\>\\)\\: Generator\\<int, array\\<int, T\\>, mixed, mixed\\> but returns Closure\\(Iterator\\)\\: Generator\\<int, non\\-empty\\-array\\<int, mixed\\>, mixed, void\\>\\.$#"
 			count: 1
 			path: src/Operation/Group.php
 
 		-
-			message: "#^Strict comparison using \\=\\=\\= between array\\(\\) and array\\<int, T\\>&nonEmpty will always evaluate to false\\.$#"
+			message: "#^Template type NewTKey of method loophp\\\\collection\\\\Operation\\\\GroupBy\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
 			count: 1
-			path: src/Operation/Permutate.php
+			path: src/Operation/GroupBy.php
 
 		-
-			message: "#^Anonymous function should return EmptyIterator but return statement is missing\\.$#"
+			message: "#^Template type V of method loophp\\\\collection\\\\Operation\\\\Map\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
 			count: 1
-			path: src/Operation/Times.php
+			path: src/Operation/Map.php
 
 		-
-			message: "#^Anonymous function should have native return typehint \"\\?T\"\\.$#"
+			message: "#^Parameter \\#1 \\$ of closure expects array\\<int, callable\\(mixed, mixed, Iterator\\<mixed, mixed\\>\\)\\: bool\\>, array\\<int\\|string, callable\\(\\)\\: mixed\\> given\\.$#"
+			count: 2
+			path: src/Operation/MatchOne.php
+
+		-
+			message: "#^PHPDoc tag @var for constant loophp\\\\collection\\\\Operation\\\\Nullsy\\:\\:VALUES contains unresolvable type\\.$#"
 			count: 1
-			path: src/Operation/Unwindow.php
+			path: src/Operation/Nullsy.php
+
+		-
+			message: "#^Template type U of method loophp\\\\collection\\\\Operation\\\\Product\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
+			count: 1
+			path: src/Operation/Product.php
+
+		-
+			message: "#^Template type UKey of method loophp\\\\collection\\\\Operation\\\\Product\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
+			count: 1
+			path: src/Operation/Product.php
+
+		-
+			message: "#^Template type V of method loophp\\\\collection\\\\Operation\\\\Reduce\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
+			count: 1
+			path: src/Operation/Reduce.php
+
+		-
+			message: "#^Template type W of method loophp\\\\collection\\\\Operation\\\\Reduce\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
+			count: 1
+			path: src/Operation/Reduce.php
+
+		-
+			message: "#^Template type V of method loophp\\\\collection\\\\Operation\\\\Reduction\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
+			count: 1
+			path: src/Operation/Reduction.php
+
+		-
+			message: "#^Template type W of method loophp\\\\collection\\\\Operation\\\\Reduction\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
+			count: 1
+			path: src/Operation/Reduction.php
+
+		-
+			message: "#^Parameter \\#1 \\$ of closure expects array\\<int, callable\\(mixed, mixed, Iterator\\<mixed, mixed\\>\\)\\: bool\\>, array\\<int\\|string, callable\\(\\)\\: mixed\\> given\\.$#"
+			count: 1
+			path: src/Operation/Reject.php
+
+		-
+			message: "#^Template type V of method loophp\\\\collection\\\\Operation\\\\ScanLeft\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
+			count: 1
+			path: src/Operation/ScanLeft.php
+
+		-
+			message: "#^Template type W of method loophp\\\\collection\\\\Operation\\\\ScanLeft\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
+			count: 1
+			path: src/Operation/ScanLeft.php
+
+		-
+			message: "#^Template type V of method loophp\\\\collection\\\\Operation\\\\ScanLeft1\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
+			count: 1
+			path: src/Operation/ScanLeft1.php
+
+		-
+			message: "#^Template type V of method loophp\\\\collection\\\\Operation\\\\ScanRight\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
+			count: 1
+			path: src/Operation/ScanRight.php
+
+		-
+			message: "#^Template type W of method loophp\\\\collection\\\\Operation\\\\ScanRight\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
+			count: 1
+			path: src/Operation/ScanRight.php
+
+		-
+			message: "#^Template type V of method loophp\\\\collection\\\\Operation\\\\ScanRight1\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
+			count: 1
+			path: src/Operation/ScanRight1.php
+
+		-
+			message: "#^Parameter \\#1 \\$ of closure expects array\\<int, callable\\(mixed, mixed, Iterator\\<mixed, mixed\\>\\)\\: bool\\>, array\\<int\\|string, callable\\(\\)\\: mixed\\> given\\.$#"
+			count: 1
+			path: src/Operation/Since.php
+
+		-
+			message: "#^Parameter \\#1 \\$ of closure expects array\\<int, callable\\(mixed, mixed, Iterator\\<mixed, mixed\\>\\)\\: bool\\>, array\\<int\\|string, callable\\(\\)\\: mixed\\> given\\.$#"
+			count: 1
+			path: src/Operation/Split.php
+
+		-
+			message: "#^Parameter \\#1 \\$ of closure expects array\\<int, callable\\(mixed, mixed, Iterator\\<mixed, mixed\\>\\)\\: bool\\>, array\\<int\\|string, callable\\(\\)\\: mixed\\> given\\.$#"
+			count: 1
+			path: src/Operation/TakeWhile.php
+
+		-
+			message: "#^While loop condition is always true\\.$#"
+			count: 1
+			path: src/Operation/Unfold.php
+
+		-
+			message: "#^Parameter \\#1 \\$ of closure expects array\\<int, callable\\(mixed, mixed, Iterator\\<mixed, mixed\\>\\)\\: bool\\>, array\\<int\\|string, callable\\(\\)\\: mixed\\> given\\.$#"
+			count: 1
+			path: src/Operation/Until.php
 
 		-
 			message: "#^Foreach overwrites \\$value with its value variable\\.$#"
 			count: 1
 			path: src/Operation/Unwindow.php
+
+		-
+			message: "#^Template type U of method loophp\\\\collection\\\\Operation\\\\Zip\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
+			count: 1
+			path: src/Operation/Zip.php
+
+		-
+			message: "#^Template type UKey of method loophp\\\\collection\\\\Operation\\\\Zip\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
+			count: 1
+			path: src/Operation/Zip.php
+
+		-
+			message: "#^Parameter \\#1 \\$array of function all_checkList expects array\\<int, int\\>, array\\<int\\|string, mixed\\> given\\.$#"
+			count: 1
+			path: tests/static-analysis/all.php
+
+		-
+			message: "#^Parameter \\#1 \\$array of function all_checkMap expects array\\<string, int\\>, array\\<int\\|string, mixed\\> given\\.$#"
+			count: 1
+			path: tests/static-analysis/all.php
+
+		-
+			message: "#^Parameter \\#1 \\$array of function all_checkMixed expects array\\<int, int\\|string\\>, array\\<int\\|string, mixed\\> given\\.$#"
+			count: 1
+			path: tests/static-analysis/all.php
+
+		-
+			message: "#^While loop condition is always true\\.$#"
+			count: 2
+			path: tests/static-analysis/flip.php
+
+		-
+			message: "#^While loop condition is always true\\.$#"
+			count: 4
+			path: tests/static-analysis/random.php
+
+		-
+			message: "#^While loop condition is always true\\.$#"
+			count: 4
+			path: tests/static-analysis/shuffle.php
+
+		-
+			message: "#^While loop condition is always true\\.$#"
+			count: 3
+			path: tests/static-analysis/unpack.php
+
+		-
+			message: "#^While loop condition is always true\\.$#"
+			count: 2
+			path: tests/static-analysis/wrap.php
 
