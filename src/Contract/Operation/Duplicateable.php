@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
+use Closure;
 use loophp\collection\Contract\Collection;
 
 /**

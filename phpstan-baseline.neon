@@ -1,26 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Method loophp\\\\collection\\\\Collection\\:\\:empty\\(\\) should return loophp\\\\collection\\\\Collection\\<NewTKey, NewT\\> but returns loophp\\\\collection\\\\Collection\\<\\(int&NewTKey\\)\\|\\(NewTKey&string\\), NewT\\>\\.$#"
-			count: 1
-			path: src/Collection.php
-
-		-
-			message: "#^Template type NewT of method loophp\\\\collection\\\\Collection\\:\\:empty\\(\\) is not referenced in a parameter\\.$#"
-			count: 1
-			path: src/Collection.php
-
-		-
-			message: "#^Template type NewTKey of method loophp\\\\collection\\\\Collection\\:\\:empty\\(\\) is not referenced in a parameter\\.$#"
-			count: 1
-			path: src/Collection.php
-
-		-
-			message: "#^PHPDoc tag @param for parameter \\$comparatorCallback contains unresolvable type\\.$#"
-			count: 1
-			path: src/Contract/Operation/Duplicateable.php
-
-		-
 			message: "#^Template type T of method loophp\\\\collection\\\\Contract\\\\Operation\\\\Rangeable\\:\\:range\\(\\) is not referenced in a parameter\\.$#"
 			count: 1
 			path: src/Contract/Operation/Rangeable.php
@@ -289,4 +269,3 @@ parameters:
 			message: "#^While loop condition is always true\\.$#"
 			count: 2
 			path: tests/static-analysis/wrap.php
-
