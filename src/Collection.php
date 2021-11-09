@@ -354,16 +354,13 @@ final class Collection implements CollectionInterface
     }
 
     /**
-     * Create a new instance with no items.
+     * @pure
      *
-     * @template NewTKey
-     * @template NewT
-     *
-     * @return self<NewTKey, NewT>
+     * @return self<mixed, mixed>
      */
     public static function empty(): CollectionInterface
     {
-        /** @var array<NewTKey, NewT> $emptyArray */
+        /** @var array<mixed, mixed> $emptyArray */
         $emptyArray = [];
 
         return self::fromIterable($emptyArray);

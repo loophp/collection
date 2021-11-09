@@ -212,6 +212,7 @@ use loophp\collection\Contract\Operation\Zipable;
  * @template-extends Prependable<TKey, T>
  * @template-extends Productable<TKey, T>
  * @template-extends Randomable<TKey, T>
+ * @template-extends Rangeable<TKey, T>
  * @template-extends Reduceable<TKey, T>
  * @template-extends Reductionable<TKey, T>
  * @template-extends Rejectable<TKey, T>
