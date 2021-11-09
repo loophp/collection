@@ -13,13 +13,16 @@ use loophp\collection\Contract\Collection;
 
 use const INF;
 
+/**
+ * @template TKey
+ * @template T
+ */
 interface Rangeable
 {
     /**
-     * Create a new Collection with a range of number.
+     * Build a collection from a range of values.
      *
-     * @template TKey
-     * @template T
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#range
      *
      * @return Collection<int, float>
      */
