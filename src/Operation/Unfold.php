@@ -12,8 +12,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 
-use function is_array;
-
 /**
  * @immutable
  *
@@ -27,7 +25,7 @@ final class Unfold extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(T...): Closure(callable(T...): (list<T>)): Closure(): Generator<int, T|list<T>>
+     * @return Closure(T...): Closure(callable(T...): list<T>): Closure(): Generator<int, list<T>>
      */
     public function __invoke(): Closure
     {
@@ -35,23 +33,21 @@ final class Unfold extends AbstractOperation
             /**
              * @param T ...$parameters
              *
-             * @return Closure(callable(T...): (list<T>)): Closure(): Generator<int, T|list<T>>
+             * @return Closure(callable(T...): list<T>): Closure(): Generator<int, list<T>>
              */
             static fn (...$parameters): Closure =>
                 /**
-                 * @param callable(T...): (T|list<T>) $callback
+                 * @param callable(T...): list<T> $callback
                  *
-                 * @return Closure(): Generator<int, T|list<T>>
+                 * @return Closure(): Generator<int, list<T>>
                  */
                 static fn (callable $callback): Closure =>
                     /**
-                     * @return Generator<int, list<T>|T>
+                     * @return Generator<int, list<T>>
                      */
                     static function () use ($parameters, $callback): Generator {
                         while (true) {
-                            $parameters = is_array($parameters)
-                                ? $callback(...$parameters)
-                                : $callback($parameters);
+                            $parameters = $callback(...$parameters);
 
                             yield $parameters;
                         }

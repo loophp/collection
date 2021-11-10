@@ -20,10 +20,10 @@ interface Unfoldable
      *
      * @template T
      *
-     * @param callable(T ...): (T|list<T>) $callback
+     * @param callable(T ...): list<T> $callback
      * @param T ...$parameters
      *
-     * @return Collection<int, T>
+     * @return Collection<int, list<T>>
      */
     public static function unfold(callable $callback, ...$parameters): Collection;
 }
