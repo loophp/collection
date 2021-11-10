@@ -25,7 +25,7 @@ final class Unfold extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(T...): Closure(callable(mixed|T...): (mixed|array<TKey, T>)): Closure(): Generator<int, T>
+     * @return Closure(T...): Closure(callable(T...): (list<T>)): Closure(): Generator<int, T>
      */
     public function __invoke(): Closure
     {
@@ -33,11 +33,11 @@ final class Unfold extends AbstractOperation
             /**
              * @param T ...$parameters
              *
-             * @return Closure(callable(mixed|T...): (array<TKey, T>)): Closure(): Generator<int, T>
+             * @return Closure(callable(T...): (list<T>)): Closure(): Generator<int, T>
              */
             static fn (...$parameters): Closure =>
                 /**
-                 * @param callable(mixed|T...): (mixed|array<TKey, T>) $callback
+                 * @param callable(T...): (T|list<T>) $callback
                  *
                  * @return Closure(): Generator<int, T>
                  */

@@ -1,11 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Template type TKey of method loophp\\\\collection\\\\Contract\\\\Operation\\\\Unfoldable\\:\\:unfold\\(\\) is not referenced in a parameter\\.$#"
-			count: 1
-			path: src/Contract/Operation/Unfoldable.php
-
-		-
 			message: "#^Anonymous function should return string but returns class\\-string\\|false\\.$#"
 			count: 1
 			path: src/Iterator/TypedIterator.php
