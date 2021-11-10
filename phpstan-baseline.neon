@@ -1,16 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Anonymous function should return string but returns class\\-string\\|false\\.$#"
-			count: 1
-			path: src/Iterator/TypedIterator.php
-
-		-
-			message: "#^Property loophp\\\\collection\\\\Iterator\\\\ProxyIterator\\<TKey,T\\>\\:\\:\\$iterator \\(Iterator\\<TKey, T\\>\\) does not accept loophp\\\\collection\\\\Iterator\\\\ClosureIterator\\<TKey, T\\|\\(T&null\\)\\>\\.$#"
-			count: 1
-			path: src/Iterator/TypedIterator.php
-
-		-
 			message: "#^Template type NewT of method loophp\\\\collection\\\\Operation\\\\Associate\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
 			count: 1
 			path: src/Operation/Associate.php

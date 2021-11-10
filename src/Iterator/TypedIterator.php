@@ -15,6 +15,7 @@ use Iterator;
 
 use function get_class;
 use function gettype;
+use function is_object;
 
 /**
  * @internal
@@ -28,7 +29,7 @@ final class TypedIterator extends ProxyIterator
 {
     /**
      * @param Iterator<TKey, T> $iterator
-     * @param null|callable(T): string $getType
+     * @param null|callable(mixed): string $getType
      */
     public function __construct(Iterator $iterator, ?callable $getType = null)
     {
@@ -37,10 +38,8 @@ final class TypedIterator extends ProxyIterator
              * @param mixed $variable
              */
             static function ($variable): string {
-                $type = gettype($variable);
-
-                if ('object' !== $type) {
-                    return $type;
+                if (!is_object($variable)) {
+                    return gettype($variable);
                 }
 
                 $interfaces = class_implements($variable);
@@ -63,10 +62,6 @@ final class TypedIterator extends ProxyIterator
             static function (Iterator $iterator) use ($getType): Generator {
                 $previousType = null;
 
-                /**
-                 * @var TKey $key
-                 * @var T $value
-                 */
                 foreach ($iterator as $key => $value) {
                     if (null === $value) {
                         yield $key => $value;
