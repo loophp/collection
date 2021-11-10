@@ -3634,7 +3634,7 @@ class CollectionSpec extends ObjectBehavior
 
     public function it_can_unfold(): void
     {
-        $this::unfold(static function (int $n): int {return $n + 1; }, 1)
+        $this::unfold(static fn (int $n): int => $n + 1, 1)
             ->limit(10)
             ->shouldIterateAs([
                 0 => 2,
@@ -3649,32 +3649,13 @@ class CollectionSpec extends ObjectBehavior
                 9 => 11,
             ]);
 
-        $fibonacci = static function ($value1, $value2) {
-            return [$value2, $value1 + $value2];
-        };
-
-        $this::unfold($fibonacci, 0, 1)
+        $this::unfold(static fn (int $a, int $b) => [$b, $a + $b], 0, 1)
             ->limit(10)
             ->shouldIterateAs([[1, 1], [1, 2], [2, 3], [3, 5], [5, 8], [8, 13], [13, 21], [21, 34], [34, 55], [55, 89]]);
 
-        $plusOne = static function ($value) {
-            return $value + 1;
-        };
-
-        $this::unfold($plusOne, 0)
+        $this::unfold(static fn (int $val): int => $val + 1, 0)
             ->limit(10)
-            ->shouldIterateAs([
-                1,
-                2,
-                3,
-                4,
-                5,
-                6,
-                7,
-                8,
-                9,
-                10,
-            ]);
+            ->shouldIterateAs([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
     }
 
     public function it_can_unlines(): void
