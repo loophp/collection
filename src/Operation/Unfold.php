@@ -25,7 +25,7 @@ final class Unfold extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(T...): Closure(callable(mixed|T...): (mixed|array<TKey, T>)): Closure(): Generator<int, T>
+     * @return Closure(T...): Closure(callable(T...): list<T>): Closure(): Generator<int, list<T>>
      */
     public function __invoke(): Closure
     {
@@ -33,22 +33,21 @@ final class Unfold extends AbstractOperation
             /**
              * @param T ...$parameters
              *
-             * @return Closure(callable(mixed|T...): (array<TKey, T>)): Closure(): Generator<int, T>
+             * @return Closure(callable(T...): list<T>): Closure(): Generator<int, list<T>>
              */
             static fn (...$parameters): Closure =>
                 /**
-                 * @param callable(mixed|T...): (mixed|array<TKey, T>) $callback
+                 * @param callable(T...): list<T> $callback
                  *
-                 * @return Closure(): Generator<int, T>
+                 * @return Closure(): Generator<int, list<T>>
                  */
                 static fn (callable $callback): Closure =>
                     /**
-                     * @return Generator<int, T>
+                     * @return Generator<int, list<T>>
                      */
                     static function () use ($parameters, $callback): Generator {
                         while (true) {
-                            /** @var T $parameters */
-                            $parameters = $callback(...array_values((array) $parameters));
+                            $parameters = $callback(...$parameters);
 
                             yield $parameters;
                         }

@@ -3634,47 +3634,20 @@ class CollectionSpec extends ObjectBehavior
 
     public function it_can_unfold(): void
     {
-        $this::unfold(static function (int $n): int {return $n + 1; }, 1)
+        $this::unfold(static fn (int $n): array => [$n + 2], -2)
+            ->limit(5)
+            ->shouldIterateAs([[0], [2], [4], [6], [8]]);
+
+        $this::unfold(static fn (int $a, int $b): array => [$b, $a + $b], 0, 1)
+            ->pluck(0)
             ->limit(10)
-            ->shouldIterateAs([
-                0 => 2,
-                1 => 3,
-                2 => 4,
-                3 => 5,
-                4 => 6,
-                5 => 7,
-                6 => 8,
-                7 => 9,
-                8 => 10,
-                9 => 11,
-            ]);
+            ->shouldIterateAs([1, 1, 2, 3, 5, 8, 13, 21, 34, 55]);
 
-        $fibonacci = static function ($value1, $value2) {
-            return [$value2, $value1 + $value2];
-        };
-
-        $this::unfold($fibonacci, 0, 1)
+        $this::unfold(static fn (int $val = 0): array => [$val + 1])
+            ->unwrap()
+            ->normalize()
             ->limit(10)
-            ->shouldIterateAs([[1, 1], [1, 2], [2, 3], [3, 5], [5, 8], [8, 13], [13, 21], [21, 34], [34, 55], [55, 89]]);
-
-        $plusOne = static function ($value) {
-            return $value + 1;
-        };
-
-        $this::unfold($plusOne, 0)
-            ->limit(10)
-            ->shouldIterateAs([
-                1,
-                2,
-                3,
-                4,
-                5,
-                6,
-                7,
-                8,
-                9,
-                10,
-            ]);
+            ->shouldIterateAs([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
     }
 
     public function it_can_unlines(): void
@@ -3756,21 +3729,23 @@ class CollectionSpec extends ObjectBehavior
 
     public function it_can_until(): void
     {
-        $collatz = static function (int $initial = 1): int {
+        $collatz = static function (int $initial = 1): array {
             return 0 === $initial % 2 ?
-                $initial / 2 :
-                $initial * 3 + 1;
+                [$initial / 2] :
+                [$initial * 3 + 1];
         };
 
         $this::unfold($collatz, 10)
+            ->unwrap()
+            ->normalize()
             ->until(static fn (int $number): bool => 1 === $number)
             ->shouldIterateAs([
-                0 => 5,
-                1 => 16,
-                2 => 8,
-                3 => 4,
-                4 => 2,
-                5 => 1,
+                5,
+                16,
+                8,
+                4,
+                2,
+                1,
             ]);
 
         $input = range(1, 10);
@@ -3779,16 +3754,8 @@ class CollectionSpec extends ObjectBehavior
         $callback2 = static fn (int $number): bool => 3 < $number;
 
         $this::fromIterable($input)
-            ->until(
-                $callback2,
-                $callback1
-            )
-            ->shouldIterateAs([
-                0 => 1,
-                1 => 2,
-                2 => 3,
-                3 => 4,
-            ]);
+            ->until($callback2, $callback1)
+            ->shouldIterateAs([1, 2, 3, 4]);
     }
 
     public function it_can_unwindow(): void

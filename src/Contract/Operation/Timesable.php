@@ -14,7 +14,10 @@ use loophp\collection\Contract\Collection;
 interface Timesable
 {
     /**
-     * Create a new instance by invoking the callback a given amount of times.
+     * Create a collection by invoking a callback a given amount of times.
+     * If no callback is provided, then it will create a simple list of incremented integers.
+     *
+     * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#times
      *
      * @template T
      *

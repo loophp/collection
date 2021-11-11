@@ -16,11 +16,10 @@ $min = 0;
 $max = 1000;
 $groups = 100;
 
-$randomGenerator = static function () use ($min, $max): int {
-    return random_int($min, $max);
-};
+$randomGenerator = static fn (): array => [random_int($min, $max)];
 
 $distribution = Collection::unfold($randomGenerator)
+    ->unwrap()
     ->limit($max)
     ->map(
         static function (int $value) use ($max, $groups): string {
@@ -53,7 +52,7 @@ $distribution = Collection::unfold($randomGenerator)
         }
     );
 
-print_r($distribution->all());
+print_r($distribution->all(false));
 
 /*
 Array

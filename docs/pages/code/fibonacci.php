@@ -11,9 +11,7 @@ include __DIR__ . '/../../../vendor/autoload.php';
 
 use loophp\collection\Collection;
 
-$fibonacci = static function (int $a = 0, int $b = 1): array {
-    return [$b, $b + $a];
-};
+$fibonacci = static fn (int $a = 0, int $b = 1): array => [$b, $b + $a];
 
 $c = Collection::unfold($fibonacci)
     ->pluck(0)    // Get the first item of each result.
