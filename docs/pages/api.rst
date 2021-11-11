@@ -124,21 +124,7 @@ Signature: ``Collection::range(float $start = 0.0, float $end = INF, float $step
 
 .. code-block:: php
 
-    $fibonacci = static function ($a = 0, $b = 1): array {
-        return [$b, $a + $b];
-    };
-
     $even = Collection::range(0, 20, 2); // [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
-
-Another example
-
-.. code-block:: php
-
-    $even = Collection::unfold(static function ($carry) {return $carry + 2;}, -2);
-    $odd = Collection::unfold(static function ($carry) {return $carry + 2;}, -1);
-    // Is the same as
-    $even = Collection::range(0, \INF, 2);
-    $odd = Collection::range(1, \INF, 2);
 
 times
 ~~~~~
@@ -158,34 +144,14 @@ unfold
 
 Create a collection by yielding from a callback with an initial value.
 
-.. warning:: The callback return values are reused as callback arguments at the next callback call.
+.. warning:: The callback needs to return a list of values which will be reused as callback arguments 
+            on the next callback call. Therefore, the returned list should contain values of the same type
+            as the parameters for the callback function.
 
 Signature: ``Collection::unfold(callable $callback, ...$parameters): Collection;``
 
-.. code-block:: php
-
-    // A list of Naturals from 1 to Infinity.
-    Collection::unfold(fn($n) => $n + 1, 1)
-        ->normalize();
-
-.. code-block:: php
-
-    $fibonacci = static function ($a = 0, $b = 1): array {
-        return [$b, $a + $b];
-    };
-
-    Collection::unfold($fibonacci)
-        ->limit(10); // [[0, 1], [1, 1], [1, 2], [2, 3], [3, 5], [5, 8], [8, 13], [13, 21], [21, 34], [34, 55]]
-
-Another example
-
-.. code-block:: php
-
-    $even = Collection::unfold(static function (int $carry): int {return $carry + 2;}, -2);
-    $odd = Collection::unfold(static function (int $carry): int {return $carry + 2;}, -1);
-    // Is the same as
-    $even = Collection::range(0, \INF, 2);
-    $odd = Collection::range(1, \INF, 2);
+.. literalinclude:: code/operations/unfold.php
+  :language: php
 
 Methods (operations)
 --------------------
@@ -2305,17 +2271,14 @@ Signature: ``Collection::until(callable ...$callbacks): Collection;``
 .. code-block:: php
 
     // The Collatz conjecture (https://en.wikipedia.org/wiki/Collatz_conjecture)
-    $collatz = static function (int $value): int
-    {
-        return 0 === $value % 2 ?
-            $value / 2:
-            $value * 3 + 1;
-    };
+    $collatz = static fn (int $value): array => 0 === $value % 2 
+            ? [$value / 2]
+            : [$value * 3 + 1];
 
     $collection = Collection::unfold($collatz, 10)
-        ->until(static function ($number): bool {
-            return 1 === $number;
-        });
+        ->unwrap()
+        ->normalize()
+        ->until(static fn ($number): bool => 1 === $number);
 
 unwindow
 ~~~~~~~~

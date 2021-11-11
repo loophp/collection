@@ -19,7 +19,8 @@ $fact = static fn (float $number): float => (float) Collection::range(1, $number
     ->foldLeft($multiplication, 1)
     ->current();
 
-$number_e_approximation = Collection::unfold(static fn (int $i = 0): int => $i + 1)
+$number_e_approximation = Collection::unfold(static fn (int $i = 0): array => [$i + 1])
+    ->unwrap()
     ->map(static fn (float $value): float => $value / $fact($value))
     ->until(static fn (float $value): bool => 10 ** -12 > $value)
     ->foldLeft($addition, 0)

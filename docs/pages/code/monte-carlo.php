@@ -23,18 +23,11 @@ $monteCarloMethod = static function ($in = 0, $total = 1): array {
 };
 
 $pi_approximation = Collection::unfold($monteCarloMethod)
-    ->map(
-        static function ($value) {
-            return 4 * $value['in'] / $value['total'];
-        }
-    )
+    ->map(static fn ($value) => 4 * $value['in'] / $value['total'])
     ->window(1)
     ->drop(1)
-    ->until(
-        static function (array $value): bool {
-            return 0.00001 > abs($value[0] - $value[1]);
-        }
-    )
+    ->until(static fn (array $value): bool => 0.00001 > abs($value[0] - $value[1]))
+    ->unwrap()
     ->last();
 
-print_r($pi_approximation->all());
+print_r($pi_approximation->all()); // [3.14...]

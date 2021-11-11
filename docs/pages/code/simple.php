@@ -113,20 +113,17 @@ Collection::fromIterable(range('A', 'Z'))
     );
 
 // Generate 300 distinct random numbers between 0 and 1000
-$random = static function () {
-    return mt_rand() / mt_getrandmax();
-};
+$random = static fn (): array => [mt_rand() / mt_getrandmax()];
 
 Collection::unfold($random)
+    ->unwrap()
     ->map(static fn ($value): float => floor($value * 1000) + 1)
     ->distinct()
     ->limit(300)
     ->all();
 
 // Fibonacci using the static method ::unfold()
-$fibonacci = static function ($a = 0, $b = 1): array {
-    return [$b, $b + $a];
-};
+$fibonacci = static fn ($a = 0, $b = 1): array => [$b, $b + $a];
 
 Collection::unfold($fibonacci)
     // Get the first item of each result.
@@ -134,14 +131,10 @@ Collection::unfold($fibonacci)
     // Limit the amount of results to 10.
     ->limit(10)
     // Convert to regular array.
-    ->all(); // [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
+    ->all(); // [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
 
 Collection::unfold($fibonacci)
-    ->map(
-        static function (array $value, $key) {
-            return $value[1] / $value[0];
-        }
-    )
+    ->map(static fn (array $value) => $value[1] / $value[0])
     ->limit(100)
     ->last(); // 1.6180339887499
 
@@ -212,14 +205,11 @@ Collection::fromIterable([0, 2, 4, 6, 8, 10])
 // Iterator over the function: f(x) = r * x * (1-x)
 // Change that parameter $r to see different behavior.
 // More on this: https://en.wikipedia.org/wiki/Logistic_map
-$function = static function ($x = .3, $r = 2) {
-    return $r * $x * (1 - $x);
-};
+$function = static fn ($x = .3, $r = 2): array => [$r * $x * (1 - $x)];
 
 Collection::unfold($function)
-    ->map(static function ($value): float {
-        return round($value, 2);
-    })
+    ->unwrap()
+    ->map(static fn ($value): float => round($value, 2))
     ->limit(10)
     ->all(); // [0.42, 0.48, 0.49, 0.49, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5]
 
