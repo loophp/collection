@@ -2277,7 +2277,6 @@ Signature: ``Collection::until(callable ...$callbacks): Collection;``
 
     $collection = Collection::unfold($collatz, 10)
         ->unwrap()
-        ->normalize()
         ->until(static fn ($number): bool => 1 === $number);
 
 unwindow

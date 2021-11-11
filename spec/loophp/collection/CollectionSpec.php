@@ -3737,9 +3737,15 @@ class CollectionSpec extends ObjectBehavior
 
         $this::unfold($collatz, 10)
             ->unwrap()
-            ->normalize()
             ->until(static fn (int $number): bool => 1 === $number)
-            ->shouldIterateAs([5, 16, 8, 4, 2, 1]);
+            ->shouldIterateAs([
+                0 => 5,
+                0 => 16,
+                0 => 8,
+                0 => 4,
+                0 => 2,
+                0 => 1,
+            ]);
 
         $input = range(1, 10);
 
