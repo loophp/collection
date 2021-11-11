@@ -5,7 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [5.1.0](https://github.com/loophp/collection/compare/5.0.0...5.1.0)
+## [6.0.0](https://github.com/loophp/collection/compare/5.1.0...6.0.0)
+
+### Merged
+
+- [PHPStan Baseline] Fix Errors Part 2 + Modify `Unfold` Operation [`#217`](https://github.com/loophp/collection/pull/217)
+- [PHPStan Baseline] Fix a few errors [`#216`](https://github.com/loophp/collection/pull/216)
+- Fix/update PHPStan [`#212`](https://github.com/loophp/collection/pull/212)
+- Fix `All` operation for standalone usage [`#215`](https://github.com/loophp/collection/pull/215)
+- Update `all` operation to prevent data loss [`#209`](https://github.com/loophp/collection/pull/209)
+- chore(deps): Bump actions/checkout from 2.3.5 to 2.4.0 [`#214`](https://github.com/loophp/collection/pull/214)
+- refactor(groupbyable)!: simplify implementation and update typing info [`#207`](https://github.com/loophp/collection/pull/207)
+- feat: Add `Find` operation [`#204`](https://github.com/loophp/collection/pull/204)
+- Refactor `Current` operation - Let specify a default value [`#205`](https://github.com/loophp/collection/pull/205)
+- chore(deps): Bump actions/checkout from 2.3.4 to 2.3.5 [`#203`](https://github.com/loophp/collection/pull/203)
+- fix: Update `Flipable` interface. [`#200`](https://github.com/loophp/collection/pull/200)
+- chore(deps): Bump shivammathur/setup-php from 2.14.0 to 2.15.0 [`#197`](https://github.com/loophp/collection/pull/197)
+
+### Commits
+
+- Fix ReadTheDocs builds - see readthedocs/readthedocs.org#8616 [`49d1673`](https://github.com/loophp/collection/commit/49d16732949340246233debe8884a0d778561f9e)
+- refactor: Simplify `MatchOne` operation - Add missing typing informations. [`f66b407`](https://github.com/loophp/collection/commit/f66b4074f3e46702c30a6dd02909b3991f7a2a22)
+- refactor: Simplify `MatchOne` operation. [`1e6ad7a`](https://github.com/loophp/collection/commit/1e6ad7a52128007bc938d59af67ec5fadf1d7e04)
+- tests: Add SA tests for `Random` and `Shuffle` operations. [`cefe0f5`](https://github.com/loophp/collection/commit/cefe0f5beeb3e6d6c00f1314cc027b8ffbd04941)
+- tests: Add SA tests for `Wrap` operation. [`ef61f57`](https://github.com/loophp/collection/commit/ef61f5708d5e03e0ed26f3961f16142df75cef3b)
+
+## [5.1.0](https://github.com/loophp/collection/compare/5.0.0...5.1.0) - 2021-09-27
 
 ### Merged
 
@@ -28,6 +53,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Commits
 
+- docs: Update CHANGELOG.md. [`05beff2`](https://github.com/loophp/collection/commit/05beff269b96a0069fec9ce2d2f9d9ed079d1323)
 - fix: Update `RandomIterator` types. [`5a5ae1d`](https://github.com/loophp/collection/commit/5a5ae1d95c799d4515a69f4f5e1e1b3824fd7c8c)
 - fix: Fix `Unpair` operation return types. [`885059f`](https://github.com/loophp/collection/commit/885059fe274ede570aace973c5ed1627e0305d5e)
 - fix: Autofix code style. [`08199ca`](https://github.com/loophp/collection/commit/08199ca258fdc750e9a4558d33215547f5f59004)
