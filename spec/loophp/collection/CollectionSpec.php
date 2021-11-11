@@ -3638,7 +3638,7 @@ class CollectionSpec extends ObjectBehavior
             ->limit(5)
             ->shouldIterateAs([[0], [2], [4], [6], [8]]);
 
-        $this::unfold(static fn (int $a, int $b) => [$b, $a + $b], 0, 1)
+        $this::unfold(static fn (int $a, int $b): array => [$b, $a + $b], 0, 1)
             ->pluck(0)
             ->limit(10)
             ->shouldIterateAs([1, 1, 2, 3, 5, 8, 13, 21, 34, 55]);
