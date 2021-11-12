@@ -12,8 +12,8 @@ namespace loophp\collection\Contract\Operation;
 use Iterator;
 
 /**
- * @template T
  * @template TKey
+ * @template T
  */
 interface Findable
 {
