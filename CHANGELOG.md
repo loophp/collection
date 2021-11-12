@@ -5,7 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [6.0.0](https://github.com/loophp/collection/compare/5.1.0...6.0.0)
+## [6.0.1](https://github.com/loophp/collection/compare/6.0.0...6.0.1)
+
+### Merged
+
+- Update docs version [`#219`](https://github.com/loophp/collection/pull/219)
+- Template param order matters? [`#218`](https://github.com/loophp/collection/pull/218)
+
+## [6.0.0](https://github.com/loophp/collection/compare/5.1.0...6.0.0) - 2021-11-11
 
 ### Merged
 
@@ -24,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Commits
 
+- docs: Add/update CHANGELOG. [`a55e97a`](https://github.com/loophp/collection/commit/a55e97a48f7b9f12d77d1644799086f93d126a06)
 - Fix ReadTheDocs builds - see readthedocs/readthedocs.org#8616 [`49d1673`](https://github.com/loophp/collection/commit/49d16732949340246233debe8884a0d778561f9e)
 - refactor: Simplify `MatchOne` operation - Add missing typing informations. [`f66b407`](https://github.com/loophp/collection/commit/f66b4074f3e46702c30a6dd02909b3991f7a2a22)
 - refactor: Simplify `MatchOne` operation. [`1e6ad7a`](https://github.com/loophp/collection/commit/1e6ad7a52128007bc938d59af67ec5fadf1d7e04)
