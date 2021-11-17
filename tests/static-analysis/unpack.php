@@ -34,21 +34,15 @@ function unpack_checkListStringWithString(CollectionInterface $collection): void
 }
 
 $infiniteIntIntGenerator = static function (): Generator {
-    while (true) {
-        yield [random_int(-10, 10), random_int(-10, 10)];
-    }
+    yield [random_int(-10, 10), random_int(-10, 10)];
 };
 
 $infiniteIntStringGenerator = static function (): Generator {
-    while (true) {
-        yield [random_int(-10, 10), chr(random_int(0, 255))];
-    }
+    yield [random_int(-10, 10), chr(random_int(0, 255))];
 };
 
 $infiniteStringStringGenerator = static function (): Generator {
-    while (true) {
-        yield [chr(random_int(0, 255)), chr(random_int(0, 255))];
-    }
+    yield [chr(random_int(0, 255)), chr(random_int(0, 255))];
 };
 
 unpack_checkListInt(Collection::fromIterable($infiniteIntIntGenerator())->unpack());

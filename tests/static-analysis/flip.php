@@ -32,15 +32,11 @@ function flip_checkStringInt(CollectionInterface $collection): void
 }
 
 $intIntGenerator = static function (): Generator {
-    while (true) {
-        yield mt_rand();
-    }
+    yield mt_rand();
 };
 
 $intStringGenerator = static function (): Generator {
-    while (true) {
-        yield chr(random_int(0, 255));
-    }
+    yield chr(random_int(0, 255));
 };
 
 flip_checkIntInt(Collection::fromIterable($intIntGenerator())->flip());
