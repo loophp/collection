@@ -38,8 +38,9 @@ final class Unwindow extends AbstractOperation
             static function (iterable $iterable) {
                 $value = null;
 
-                /** @var T $value */
-                foreach ($iterable as $value) {
+                /** @var T $iterValue */
+                foreach ($iterable as $iterValue) {
+                    $value = $iterValue;
                 }
 
                 return $value;
