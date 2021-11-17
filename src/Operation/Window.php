@@ -26,16 +26,16 @@ final class Window extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(int): Closure(Iterator<TKey, T>): Generator<TKey, list<T>>
+     * @return Closure(int): Closure(Iterator<TKey, T>): Generator<TKey, <|list|T>>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @return Closure(Iterator<TKey, T>): Generator<TKey, list<T>>
+             * @return Closure(Iterator<TKey, T>): Generator<TKey, <|list|T>>
              */
             static function (int $size): Closure {
-                /** @var Closure(Iterator<TKey, T>): Generator<TKey, list<T>> $reduction */
+                /** @var Closure(Iterator<TKey, T>): Generator<TKey, <|list|T>> $reduction */
                 $reduction = Reduction::of()(
                     /**
                      * @param list<T> $stack

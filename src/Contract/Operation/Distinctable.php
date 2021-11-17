@@ -35,7 +35,7 @@ interface Distinctable
      * @template U
      *
      * @param null|callable(U): (Closure(U): bool) $comparatorCallback
-     * @param null|callable(T, TKey): U $accessorCallback
+     * @param callable(T, TKey): U|null $accessorCallback
      *
      * @return Collection<TKey, T>
      */

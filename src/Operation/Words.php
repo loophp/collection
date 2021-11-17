@@ -24,7 +24,7 @@ final class Words extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(Iterator<TKey, T>): Generator<TKey, string>
+     * @return Closure(Iterator<TKey, <|T>): Generator|TKey, string>
      */
     public function __invoke(): Closure
     {
@@ -34,7 +34,7 @@ final class Words extends AbstractOperation
              */
             static fn (array $value): string => implode('', $value);
 
-        /** @var Closure(Iterator<TKey, T>): Generator<TKey, string> $pipe */
+        /** @var Closure(Iterator<TKey, <|T>): Generator|TKey, string> $pipe */
         $pipe = Pipe::of()(
             Explode::of()("\t", "\n", ' '),
             Map::of()($mapCallback),

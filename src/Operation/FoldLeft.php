@@ -34,16 +34,16 @@ final class FoldLeft extends AbstractOperation
             /**
              * @param callable(T|null, T, TKey, Iterator<TKey, T>):(T|null) $callback
              *
-             * @return Closure(T): Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @return Closure(T): Closure(Iterator<TKey, <|T>): Generator|TKey, T>
              */
             static fn (callable $callback): Closure =>
                 /**
                  * @param T|null $initial
                  *
-                 * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
+                 * @return Closure(Iterator<TKey, <|T>): Generator|TKey, T>
                  */
                 static function ($initial = null) use ($callback): Closure {
-                    /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
+                    /** @var Closure(Iterator<TKey, <|T>): Generator|TKey, T> $pipe */
                     $pipe = Pipe::of()(
                         ScanLeft::of()($callback)($initial),
                         Last::of()

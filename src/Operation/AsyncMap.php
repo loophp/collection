@@ -41,7 +41,7 @@ final class AsyncMap extends AbstractOperation
      *
      * @template V
      *
-     * @return Closure(callable(T, TKey): V): Closure(Iterator<TKey, T>): Generator<TKey, V>
+     * @return Closure(callable(T, TKey): V): Closure(Iterator<TKey, <|T>): Generator|TKey, V>
      */
     public function __invoke(): Closure
     {

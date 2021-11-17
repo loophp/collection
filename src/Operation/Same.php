@@ -34,13 +34,13 @@ final class Same extends AbstractOperation
             /**
              * @param Iterator<TKey, T> $other
              *
-             * @return Closure(callable(T, TKey): Closure(T, TKey): bool): Closure(Iterator<TKey, T>): Generator<int, bool>
+             * @return Closure(callable(T, TKey): Closure(T, TKey): bool): Closure(Iterator<TKey, <|int, bool|T>): Generator>
              */
             static fn (Iterator $other): Closure =>
                 /**
                  * @param callable(T, TKey): (Closure(T, TKey): bool) $comparatorCallback
                  *
-                 * @return Closure(Iterator<TKey, T>): Generator<int, bool>
+                 * @return Closure(Iterator<TKey, <|int, bool|T>): Generator>
                  */
                 static fn (callable $comparatorCallback): Closure =>
                     /**

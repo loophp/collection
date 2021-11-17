@@ -29,7 +29,7 @@ final class TypedIterator extends ProxyIterator
 {
     /**
      * @param Iterator<TKey, T> $iterator
-     * @param null|callable(mixed): string $getType
+     * @param callable(mixed): string|null $getType
      */
     public function __construct(Iterator $iterator, ?callable $getType = null)
     {

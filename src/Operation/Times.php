@@ -36,7 +36,7 @@ final class Times extends AbstractOperation
              */
             static fn (int $number = 0): Closure =>
                 /**
-                 * @return Closure(null|Iterator<TKey, T>): Generator<int, int|T>
+                 * @return Closure(null|Iterator<TKey, <|int, int|T|T>): Generator>
                  */
                 static fn (?callable $callback = null): Closure =>
                     /**

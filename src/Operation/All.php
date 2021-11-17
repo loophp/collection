@@ -23,13 +23,13 @@ final class All extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(bool): Closure(Iterator<TKey, T>): Iterator<int, T>|Iterator<TKey, T>
+     * @return Closure(bool): Closure(Iterator<TKey, <|Iterator|T>): Iterator<int, T>|TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @return Closure(Iterator<TKey, T>): Iterator<int, T>|Iterator<TKey, T>
+             * @return Closure(Iterator<TKey, <|Iterator|T>): Iterator<int, T>|TKey, T>
              */
             static fn (bool $normalize): Closure =>
                 /**

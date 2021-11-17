@@ -36,14 +36,14 @@ final class GroupBy extends AbstractOperation
             /**
              * @param callable(T=, TKey=): NewTKey $callable
              *
-             * @return Closure(Iterator<TKey, T>): Generator<NewTKey, non-empty-list<T>>
+             * @return Closure(Iterator<TKey, T>): Generator<NewTKey, <|non-empty-list|T>>
              */
             static function (callable $callable): Closure {
                 $reducerFactory =
                     /**
                      * @param callable(T=, TKey=): NewTKey $callback
                      *
-                     * @return Closure(array<NewTKey, non-empty-list<T>>, T, TKey): array<NewTKey, non-empty-list<T>>
+                     * @return Closure(array<NewTKey, non-empty-list<T>>, <|<|NewTKey, non-empty-list|T|T, TKey): array>>
                      */
                     static fn (callable $callback): Closure =>
                         /**
@@ -59,7 +59,7 @@ final class GroupBy extends AbstractOperation
                             return $collect;
                         };
 
-                /** @var Closure(Iterator<TKey, T>): Generator<NewTKey, non-empty-list<T>> $pipe */
+                /** @var Closure(Iterator<TKey, T>): Generator<NewTKey, <|non-empty-list|T>> $pipe */
                 $pipe = Pipe::of()(
                     Reduce::of()($reducerFactory($callable))([]),
                     Flatten::of()(1)

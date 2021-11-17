@@ -25,7 +25,7 @@ final class Tails extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(Iterator<TKey, T>): Generator<int, list<T>, mixed, void>
+     * @return Closure(Iterator<TKey, , mixed, void|T>): Generator<int, <|list|T>>
      */
     public function __invoke(): Closure
     {
@@ -33,7 +33,7 @@ final class Tails extends AbstractOperation
             /**
              * @param Iterator<TKey, T> $iterator
              *
-             * @return Generator<int, list<T>, mixed, void>
+             * @return Generator<int, , mixed, void|list<T>>
              */
             static function (Iterator $iterator): Generator {
                 /** @var Iterator<int, array{0: TKey, 1: T}> $iterator */

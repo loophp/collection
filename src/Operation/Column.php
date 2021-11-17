@@ -24,7 +24,7 @@ final class Column extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(mixed): Closure(Iterator<TKey, T>): Generator<int, mixed>
+     * @return Closure(mixed): Closure(Iterator<TKey, <|int, mixed|T>): Generator>
      */
     public function __invoke(): Closure
     {
@@ -32,7 +32,7 @@ final class Column extends AbstractOperation
             /**
              * @param mixed $column
              *
-             * @return Closure(Iterator<TKey, T>): Generator<int, mixed>
+             * @return Closure(Iterator<TKey, <|int, mixed|T>): Generator>
              */
             static function ($column): Closure {
                 $filterCallbackBuilder =
@@ -47,7 +47,7 @@ final class Column extends AbstractOperation
                          */
                         static fn ($value, $key, Iterator $iterator): bool => $key === $column;
 
-                /** @var Closure(Iterator<TKey, T>): Generator<int, mixed> $pipe */
+                /** @var Closure(Iterator<TKey, <|int, mixed|T>): Generator> $pipe */
                 $pipe = Pipe::of()(
                     Transpose::of(),
                     (new Filter())()($filterCallbackBuilder($column)),

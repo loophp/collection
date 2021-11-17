@@ -32,7 +32,7 @@ final class Prepend extends AbstractOperation
             /**
              * @param T ...$items
              *
-             * @return Closure(Iterator<TKey, T>): Iterator<int|TKey, T>
+             * @return Closure(Iterator<TKey, <|int|T>): Iterator|TKey, T>
              */
             static fn (...$items): Closure =>
                 /**

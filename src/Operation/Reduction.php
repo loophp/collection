@@ -37,13 +37,13 @@ final class Reduction extends AbstractOperation
             /**
              * @param callable((V|W)=, T=, TKey=, Iterator<TKey, T>=): W $callback
              *
-             * @return Closure(V): Closure(Iterator<TKey, T>): Generator<TKey, W>
+             * @return Closure(V): Closure(Iterator<TKey, <|T>): Generator|TKey, W>
              */
             static fn (callable $callback): Closure =>
                 /**
                  * @param V $initial
                  *
-                 * @return Closure(Iterator<TKey, T>): Generator<TKey, W>
+                 * @return Closure(Iterator<TKey, <|T>): Generator|TKey, W>
                  */
                 static fn ($initial): Closure =>
                     /**

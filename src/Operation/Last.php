@@ -24,7 +24,7 @@ final class Last extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(Iterator<TKey, <|T>): Generator|TKey, T>
      */
     public function __invoke(): Closure
     {

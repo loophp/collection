@@ -27,13 +27,13 @@ final class Cache extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(CacheItemPoolInterface): Closure(Iterator<TKey, T>): Iterator<TKey, T>
+     * @return Closure(CacheItemPoolInterface): Closure(Iterator<TKey, <|T>): Iterator|TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @return Closure(Iterator<TKey, T>): Iterator<TKey, T>
+             * @return Closure(Iterator<TKey, <|T>): Iterator|TKey, T>
              */
             static fn (CacheItemPoolInterface $cache): Closure =>
                 /**

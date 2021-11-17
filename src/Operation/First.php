@@ -24,11 +24,11 @@ final class First extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(Iterator<TKey, <|T>): Generator|TKey, T>
      */
     public function __invoke(): Closure
     {
-        /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $head */
+        /** @var Closure(Iterator<TKey, <|T>): Generator|TKey, T> $head */
         $head = Head::of();
 
         // Point free style.

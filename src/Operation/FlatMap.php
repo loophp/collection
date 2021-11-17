@@ -38,7 +38,7 @@ final class FlatMap extends AbstractOperation
              * @param callable(T=, TKey=, Iterator<TKey, T>=): iterable<IKey, IValue> $callback
              */
             static function (callable $callback): Closure {
-                /** @var Closure(Iterator<TKey, T>): Generator<IKey, IValue> $flatMap */
+                /** @var Closure(Iterator<TKey, <|IKey, IValue|T>): Generator> $flatMap */
                 $flatMap = Pipe::of()(
                     Map::of()($callback),
                     Flatten::of()(1)

@@ -24,7 +24,7 @@ final class Frequency extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(Iterator<TKey, T>): Generator<int, T>
+     * @return Closure(Iterator<TKey, <|int, T|T>): Generator>
      */
     public function __invoke(): Closure
     {
@@ -56,7 +56,7 @@ final class Frequency extends AbstractOperation
                 return $storage;
             };
 
-        /** @var Closure(Iterator<TKey, T>): Generator<int, T> $pipe */
+        /** @var Closure(Iterator<TKey, <|int, T|T>): Generator> $pipe */
         $pipe = Pipe::of()(
             Reduce::of()($reduceCallback)([]),
             Flatten::of()(1),

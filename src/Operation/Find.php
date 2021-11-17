@@ -42,10 +42,10 @@ final class Find extends AbstractOperation
                 /**
                  * @param callable(T=, TKey=, Iterator<TKey, T>=): bool ...$callbacks
                  *
-                 * @return Closure(Iterator<TKey, T>): Generator<TKey, T|V>
+                 * @return Closure(Iterator<TKey, <|T>): Generator|TKey, T|V>
                  */
                 static function (callable ...$callbacks) use ($default): Closure {
-                    /** @var Closure(Iterator<TKey, T>): Generator<TKey, T|V> $pipe */
+                    /** @var Closure(Iterator<TKey, <|T>): Generator|TKey, T|V> $pipe */
                     $pipe = Pipe::of()(
                         Filter::of()(...$callbacks),
                         Append::of()($default),

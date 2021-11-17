@@ -24,7 +24,7 @@ final class Group extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(Iterator<TKey, T>): Generator<int, list<T>>
+     * @return Closure(Iterator<TKey, T>): Generator<int, <|list|T>>
      */
     public function __invoke(): Closure
     {

@@ -34,7 +34,7 @@ final class FoldRight1 extends AbstractOperation
             /**
              * @param callable(T|null, T, TKey, Iterator<TKey, T>):(T|null) $callback
              *
-             * @return Closure(Iterator<TKey, T>): Generator<int|TKey, T|null>
+             * @return Closure(Iterator<TKey, <|int|T>): Generator|TKey, T|null>
              */
             static function (callable $callback): Closure {
                 /** @var Closure(Iterator<TKey, T>):(Generator<int|TKey, T|null>) $pipe */

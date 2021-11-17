@@ -34,19 +34,19 @@ final class When extends AbstractOperation
             /**
              * @param callable(Iterator<TKey, T>): bool $predicate
              *
-             * @return Closure(callable(Iterator<TKey, T>): iterable<TKey, T>): Closure(callable(Iterator<TKey, T>): iterable<TKey, T>): Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @return Closure(callable(Iterator<TKey, ): Generator|<|T>): iterable<TKey, T>): Closure(callable(Iterator<TKey, T>): iterable<TKey, T>): Closure(Iterator<TKey, T>|TKey, T>
              */
             static fn (callable $predicate): Closure =>
                 /**
-                 * @param callable(Iterator<TKey, T>): iterable<TKey, T> $whenTrue
+                 * @param callable(Iterator<TKey, <|T>): iterable|TKey, T> $whenTrue
                  *
-                 * @return Closure(callable(Iterator<TKey, T>): iterable<TKey, T>): Closure(Iterator<TKey, T>): Generator<TKey, T>
+                 * @return Closure(callable(Iterator<TKey, ): Generator|<|T>): iterable<TKey, (|<|Iterator|T>): Closure|TKey, T>|TKey, T>
                  */
                 static fn (callable $whenTrue): Closure =>
                     /**
-                     * @param callable(Iterator<TKey, T>): iterable<TKey, T> $whenFalse
+                     * @param callable(Iterator<TKey, <|T>): iterable|TKey, T> $whenFalse
                      *
-                     * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
+                     * @return Closure(Iterator<TKey, <|T>): Generator|TKey, T>
                      */
                     static fn (callable $whenFalse): Closure =>
                         /**

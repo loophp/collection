@@ -31,17 +31,17 @@ final class Pipe extends AbstractOperation
     {
         return
             /**
-             * @param callable(Iterator<TKey, T>): Iterator<TKey, T> ...$operations
+             * @param callable(Iterator<TKey, <|T>): Iterator|TKey, T> ...$operations
              *
-             * @return Closure(Iterator<TKey, T>): Iterator<TKey, T>
+             * @return Closure(Iterator<TKey, <|T>): Iterator|TKey, T>
              */
             static fn (callable ...$operations): Closure => array_reduce(
                 $operations,
                 /**
-                 * @param callable(Iterator<TKey, T>): Iterator<TKey, T> $f
-                 * @param callable(Iterator<TKey, T>): Iterator<TKey, T> $g
+                 * @param callable(Iterator<TKey, <|T>): Iterator|TKey, T> $f
+                 * @param callable(Iterator<TKey, <|T>): Iterator|TKey, T> $g
                  *
-                 * @return Closure(Iterator<TKey, T>): Iterator<TKey, T>
+                 * @return Closure(Iterator<TKey, <|T>): Iterator|TKey, T>
                  */
                 static fn (callable $f, callable $g): Closure =>
                     /**

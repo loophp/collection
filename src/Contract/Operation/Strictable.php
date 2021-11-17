@@ -26,7 +26,7 @@ interface Strictable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#strict
      *
-     * @param null|callable(mixed): string $callback
+     * @param callable(mixed): string|null $callback
      *
      * @return Collection<TKey, T>
      */

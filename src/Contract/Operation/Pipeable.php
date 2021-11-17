@@ -24,7 +24,7 @@ interface Pipeable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#pipe
      *
-     * @param callable(iterable<TKey, T>): iterable<TKey, T> ...$callbacks
+     * @param callable(iterable<TKey, <|T>): iterable|TKey, T> ...$callbacks
      *
      * @return Collection<TKey, T>
      */

@@ -36,10 +36,10 @@ final class ScanRight1 extends AbstractOperation
             /**
              * @param callable(T|V, T, TKey, Iterator<TKey, T>): V $callback
              *
-             * @return Closure(Iterator<TKey, T>): Generator<int|TKey, T|V>
+             * @return Closure(Iterator<TKey, <|int|T>): Generator|TKey, T|V>
              */
             static function (callable $callback): Closure {
-                /** @var Closure(Iterator<TKey, T>): Generator<TKey, T|V> $pipe */
+                /** @var Closure(Iterator<TKey, <|T>): Generator|TKey, T|V> $pipe */
                 $pipe = Pipe::of()(
                     Reverse::of(),
                     ScanLeft1::of()($callback),

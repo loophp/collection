@@ -28,7 +28,7 @@ final class Unpack extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(Iterator<TKey, T>): Generator<NewTKey, NewT>
+     * @return Closure(Iterator<TKey, <|NewTKey, NewT|T>): Generator>
      */
     public function __invoke(): Closure
     {
@@ -51,7 +51,7 @@ final class Unpack extends AbstractOperation
              */
             static fn (array $value) => $value[1];
 
-        /** @var Closure(Iterator<TKey, T>): Generator<NewTKey, NewT> $pipe */
+        /** @var Closure(Iterator<TKey, <|NewTKey, NewT|T>): Generator> $pipe */
         $pipe = Pipe::of()(
             Map::of()($toIterableIterator),
             Map::of()(Chunk::of()(2)),

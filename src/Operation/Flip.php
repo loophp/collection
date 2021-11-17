@@ -24,7 +24,7 @@ final class Flip extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(Iterator<TKey, T>): Generator<T, TKey>
+     * @return Closure(Iterator<TKey, <|T, TKey|T>): Generator>
      */
     public function __invoke(): Closure
     {
@@ -46,7 +46,7 @@ final class Flip extends AbstractOperation
              */
             static fn ($value, $key) => $key;
 
-        /** @var Closure(Iterator<TKey, T>): Generator<T, TKey> $associate */
+        /** @var Closure(Iterator<TKey, <|T, TKey|T>): Generator> $associate */
         $associate = Associate::of()($callbackForKeys)($callbackForValues);
 
         // Point free style.

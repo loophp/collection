@@ -23,7 +23,7 @@ interface Pluckable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#pluck
      *
-     * @param array<int, string>|array-key $pluck
+     * @param array-key|array<int, string> $pluck
      * @param mixed|null $default
      *
      * @return Collection<int, iterable<int, T>|T>

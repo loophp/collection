@@ -37,16 +37,16 @@ final class Reduce extends AbstractOperation
             /**
              * @param callable((V|W)=, T=, TKey=, Iterator<TKey, T>=): W $callback
              *
-             * @return Closure(V): Closure(Iterator<TKey, T>): Generator<TKey, W>
+             * @return Closure(V): Closure(Iterator<TKey, <|T>): Generator|TKey, W>
              */
             static fn (callable $callback): Closure =>
                 /**
                  * @param V $initial
                  *
-                 * @return Closure(Iterator<TKey, T>): Generator<TKey, W>
+                 * @return Closure(Iterator<TKey, <|T>): Generator|TKey, W>
                  */
                 static function ($initial) use ($callback): Closure {
-                    /** @var Closure(Iterator<TKey, T>): Generator<TKey, W> $pipe */
+                    /** @var Closure(Iterator<TKey, <|T>): Generator|TKey, W> $pipe */
                     $pipe = Pipe::of()(
                         Reduction::of()($callback)($initial),
                         Last::of(),

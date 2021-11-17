@@ -29,7 +29,7 @@ final class Sort extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(int): Closure(callable(T|TKey, T|TKey): int): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(int): Closure(callable(T|TKey, T|TKey): int): Closure(Iterator<TKey, <|T>): Generator|TKey, T>
      */
     public function __invoke(): Closure
     {
@@ -39,7 +39,7 @@ final class Sort extends AbstractOperation
              */
             static fn (int $type = Operation\Sortable::BY_VALUES): Closure =>
                 /**
-                 * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
+                 * @return Closure(Iterator<TKey, <|T>): Generator|TKey, T>
                  */
                 static function (?callable $callback = null) use ($type): Closure {
                     $callback ??=

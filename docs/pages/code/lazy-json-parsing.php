@@ -31,8 +31,7 @@ $composerJson = __DIR__ . '/../../../composer.json';
 
 $json = Collection::fromIterable(JsonMachine::fromFile($composerJson));
 
-foreach ($json as $key => $value) {
-}
+foreach ($json as $key => $value);
 
 $remoteFile = 'https://httpbin.org/anything';
 
@@ -43,8 +42,7 @@ $phpStream = \GuzzleHttp\Psr7\StreamWrapper::getResource($response->getBody());
 
 $json = Collection::fromIterable(\JsonMachine\JsonMachine::fromStream($phpStream));
 
-foreach ($json as $key => $value) {
-}
+foreach ($json as $key => $value);
 
 // Parse a remote JSON file with Symfony HTTP client
 $client = HttpClient::create();
@@ -59,5 +57,4 @@ $json = Collection::fromIterable(
     )
 );
 
-foreach ($json as $key => $value) {
-}
+foreach ($json as $key => $value);

@@ -24,7 +24,7 @@ final class Wrap extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(Iterator<TKey, T>): Generator<int, array<TKey, T>>
+     * @return Closure(Iterator<TKey, T>): Generator<int, <|array|TKey, T>>
      */
     public function __invoke(): Closure
     {
@@ -37,7 +37,7 @@ final class Wrap extends AbstractOperation
              */
             static fn ($value, $key): array => [$key => $value];
 
-        /** @var Closure(Iterator<TKey, T>): Generator<int, array<TKey, T>> $pipe */
+        /** @var Closure(Iterator<TKey, T>): Generator<int, <|array|TKey, T>> $pipe */
         $pipe = Pipe::of()(
             Map::of()($mapCallback),
             Normalize::of()

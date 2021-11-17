@@ -24,17 +24,17 @@ final class Nth extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(int): Closure(int): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(int): Closure(int): Closure(Iterator<TKey, <|T>): Generator|TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @return Closure(int): Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @return Closure(int): Closure(Iterator<TKey, <|T>): Generator|TKey, T>
              */
             static fn (int $step): Closure =>
                 /**
-                 * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
+                 * @return Closure(Iterator<TKey, <|T>): Generator|TKey, T>
                  */
                 static function (int $offset) use ($step): Closure {
                     $filterCallback =
@@ -43,7 +43,7 @@ final class Nth extends AbstractOperation
                          */
                         static fn (array $value, int $key): bool => (($key % $step) === $offset);
 
-                    /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
+                    /** @var Closure(Iterator<TKey, <|T>): Generator|TKey, T> $pipe */
                     $pipe = Pipe::of()(
                         Pack::of(),
                         (new Filter())()($filterCallback),

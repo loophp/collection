@@ -42,10 +42,10 @@ final class MatchOne extends AbstractOperation
                     /**
                      * @param callable(T=, TKey=, Iterator<TKey, T>=): bool ...$callbacks
                      *
-                     * @return Closure(Iterator<TKey, T>): Generator<TKey, bool>
+                     * @return Closure(Iterator<TKey, <|T>): Generator|TKey, bool>
                      */
                     static function (callable ...$callbacks) use ($matchers): Closure {
-                        /** @var Closure(Iterator<TKey, T>): Generator<TKey, bool> $pipe */
+                        /** @var Closure(Iterator<TKey, <|T>): Generator|TKey, bool> $pipe */
                         $pipe = Pipe::of()(
                             Map::of()(
                                 /**

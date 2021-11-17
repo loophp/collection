@@ -24,15 +24,15 @@ final class Strict extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(null|callable(mixed): string): Closure(Iterator<TKey, T>): Iterator<TKey, T>
+     * @return Closure(null|callable(mixed): string): Closure(Iterator<TKey, <|T>): Iterator|TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param null|callable(mixed): string $callback
+             * @param callable(mixed): string|null $callback
              *
-             * @return Closure(Iterator<TKey, T>): Iterator<TKey, T>
+             * @return Closure(Iterator<TKey, <|T>): Iterator|TKey, T>
              */
             static fn (?callable $callback = null): Closure =>
                 /**

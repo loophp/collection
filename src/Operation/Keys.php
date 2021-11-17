@@ -24,11 +24,11 @@ final class Keys extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(Iterator<TKey, T>): Generator<int, TKey>
+     * @return Closure(Iterator<TKey, <|int, TKey|T>): Generator>
      */
     public function __invoke(): Closure
     {
-        /** @var Closure(Iterator<TKey, T>): Generator<int, TKey> $pipe */
+        /** @var Closure(Iterator<TKey, <|int, TKey|T>): Generator> $pipe */
         $pipe = Pipe::of()(
             Flip::of(),
             Normalize::of()

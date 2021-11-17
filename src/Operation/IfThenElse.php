@@ -46,10 +46,10 @@ final class IfThenElse extends AbstractOperation
                     /**
                      * @param callable(T=, TKey=, Iterator<TKey, T>=):T $else
                      *
-                     * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
+                     * @return Closure(Iterator<TKey, <|T>): Generator|TKey, T>
                      */
                     static function (callable $else) use ($condition, $then): Closure {
-                        /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $map */
+                        /** @var Closure(Iterator<TKey, <|T>): Generator|TKey, T> $map */
                         $map = Map::of()(
                             /**
                              * @param T $value

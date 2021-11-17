@@ -27,21 +27,21 @@ final class Dump extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(string): Closure(int): Closure(?Closure): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(string): Closure(int): Closure(?Closure): Closure(Iterator<TKey, <|T>): Generator|TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @return Closure(int): Closure(?Closure): Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @return Closure(int): Closure(?Closure): Closure(Iterator<TKey, <|T>): Generator|TKey, T>
              */
             static fn (string $name = ''): Closure =>
                 /**
-                 * @return Closure(?Closure): Closure(Iterator<TKey, T>): Generator<TKey, T>
+                 * @return Closure(?Closure): Closure(Iterator<TKey, <|T>): Generator|TKey, T>
                  */
                 static fn (int $size = -1): Closure =>
                     /**
-                     * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
+                     * @return Closure(Iterator<TKey, <|T>): Generator|TKey, T>
                      */
                     static fn (?Closure $callback = null): Closure =>
                         /**

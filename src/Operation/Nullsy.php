@@ -33,7 +33,7 @@ final class Nullsy extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(Iterator<TKey, T>): Generator<int, bool>
+     * @return Closure(Iterator<TKey, <|int, bool|T>): Generator>
      */
     public function __invoke(): Closure
     {
@@ -44,7 +44,7 @@ final class Nullsy extends AbstractOperation
              */
             static fn ($value): bool => in_array($value, self::VALUES, true);
 
-        /** @var Closure(Iterator<TKey, T>): Generator<int, bool> $pipe */
+        /** @var Closure(Iterator<TKey, <|int, bool|T>): Generator> $pipe */
         $pipe = Pipe::of()(
             MatchOne::of()($matchWhenNot)($matcher),
             Map::of()(

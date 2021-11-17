@@ -34,7 +34,7 @@ final class Intersect extends AbstractOperation
             /**
              * @param T ...$values
              *
-             * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @return Closure(Iterator<TKey, <|T>): Generator|TKey, T>
              */
             static function (...$values): Closure {
                 $filterCallbackFactory =

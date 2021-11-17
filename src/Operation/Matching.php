@@ -29,13 +29,13 @@ final class Matching extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(Criteria): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(Criteria): Closure(Iterator<TKey, <|T>): Generator|TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @return Closure(Iterator<TKey, <|T>): Generator|TKey, T>
              */
             static function (Criteria $criteria): Closure {
                 $expr = $criteria->getWhereExpression();
@@ -64,7 +64,7 @@ final class Matching extends AbstractOperation
                     $pipes[] = Limit::of()($length)((int) $offset);
                 }
 
-                /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
+                /** @var Closure(Iterator<TKey, <|T>): Generator|TKey, T> $pipe */
                 $pipe = Pipe::of()(...$pipes);
 
                 // Point free style.

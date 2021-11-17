@@ -34,7 +34,7 @@ final class DiffKeys extends AbstractOperation
             /**
              * @param TKey ...$keys
              *
-             * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @return Closure(Iterator<TKey, <|T>): Generator|TKey, T>
              */
             static function (...$keys): Closure {
                 $filterCallbackFactory =

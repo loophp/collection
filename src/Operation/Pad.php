@@ -24,19 +24,19 @@ final class Pad extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(int): Closure(T): Closure(Iterator<TKey, T>): Generator<int|TKey, T>
+     * @return Closure(int): Closure(T): Closure(Iterator<TKey, <|int|T>): Generator|TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @return Closure(T): Closure(Iterator<TKey, T>): Generator<int|TKey, T>
+             * @return Closure(T): Closure(Iterator<TKey, <|int|T>): Generator|TKey, T>
              */
             static fn (int $size): Closure =>
                 /**
                  * @param T $padValue
                  *
-                 * @return Closure(Iterator<TKey, T>): Generator<int|TKey, T>
+                 * @return Closure(Iterator<TKey, <|int|T>): Generator|TKey, T>
                  */
                 static fn ($padValue): Closure =>
                     /**

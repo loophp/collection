@@ -715,7 +715,7 @@ final class Collection implements CollectionInterface
              */
             static function (array $partitionResult): CollectionInterface {
                 /**
-                 * @var Closure(Iterator<TKey, T>): Generator<TKey, T> $callback
+                 * @var Closure(Iterator<TKey, <|T>): Generator|TKey, T> $callback
                  * @var array{0: Iterator<TKey, T>} $parameters
                  */
                 [$callback, $parameters] = $partitionResult;
@@ -864,7 +864,7 @@ final class Collection implements CollectionInterface
              */
             static function (array $spanResult): CollectionInterface {
                 /**
-                 * @var Closure(Iterator<TKey, T>): Generator<TKey, T> $callback
+                 * @var Closure(Iterator<TKey, <|T>): Generator|TKey, T> $callback
                  * @var array{0: Iterator<TKey, T>} $parameters
                  */
                 [$callback, $parameters] = $spanResult;

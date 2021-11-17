@@ -27,7 +27,7 @@ final class Init extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(Iterator<TKey, <|T>): Generator|TKey, T>
      */
     public function __invoke(): Closure
     {
@@ -47,7 +47,7 @@ final class Init extends AbstractOperation
              */
             static fn (Iterator $iterator): CachingIterator => new CachingIterator($iterator, CachingIterator::FULL_CACHE);
 
-        /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $takeWhile */
+        /** @var Closure(Iterator<TKey, <|T>): Generator|TKey, T> $takeWhile */
         $takeWhile = Pipe::of()(
             $buildCachingIterator,
             TakeWhile::of()($callback)

@@ -26,7 +26,7 @@ final class Get extends AbstractOperation
      *
      * @template V
      *
-     * @return Closure(TKey): Closure(V): Closure(Iterator<TKey, T>): Generator<TKey, T|V>
+     * @return Closure(TKey): Closure(V): Closure(Iterator<TKey, <|T>): Generator|TKey, T|V>
      */
     public function __invoke(): Closure
     {
@@ -34,13 +34,13 @@ final class Get extends AbstractOperation
             /**
              * @param TKey $keyToGet
              *
-             * @return Closure(V): Closure(Iterator<TKey, T>): Generator<TKey, T|V>
+             * @return Closure(V): Closure(Iterator<TKey, <|T>): Generator|TKey, T|V>
              */
             static fn ($keyToGet): Closure =>
                 /**
                  * @param V $default
                  *
-                 * @return Closure(Iterator<TKey, T>): Generator<TKey, T|V>
+                 * @return Closure(Iterator<TKey, <|T>): Generator|TKey, T|V>
                  */
                 static function ($default) use ($keyToGet): Closure {
                     $filterCallback =

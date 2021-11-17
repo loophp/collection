@@ -24,7 +24,7 @@ final class Normalize extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(Iterator<TKey, T>): Generator<int, T, mixed, void>
+     * @return Closure(Iterator<TKey, <|int, T, mixed, void|T>): Generator>
      */
     public function __invoke(): Closure
     {

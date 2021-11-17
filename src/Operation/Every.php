@@ -42,7 +42,7 @@ final class Every extends AbstractOperation
                     /**
                      * @param callable(T=, TKey=, Iterator<TKey, T>=): bool ...$callbacks
                      *
-                     * @return Closure(Iterator<TKey, T>): Generator<TKey, bool>
+                     * @return Closure(Iterator<TKey, <|T>): Generator|TKey, bool>
                      */
                     static function (callable ...$callbacks) use ($matchers): Closure {
                         $callbackReducer =
@@ -79,7 +79,7 @@ final class Every extends AbstractOperation
                                      */
                                     static fn ($value, $key, Iterator $iterator): bool => $reducer1($value, $key, $iterator) !== $reducer2($value, $key, $iterator);
 
-                        /** @var Closure(Iterator<TKey, T>): Generator<TKey, bool> $pipe */
+                        /** @var Closure(Iterator<TKey, <|T>): Generator|TKey, bool> $pipe */
                         $pipe = Pipe::of()(
                             Map::of()($mapCallback($callbackReducer($callbacks))($callbackReducer($matchers))),
                             DropWhile::of()(static fn (bool $value): bool => true === $value),

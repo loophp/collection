@@ -40,7 +40,7 @@ final class Split extends AbstractOperation
                 /**
                  * @param callable(T, TKey): bool ...$callbacks
                  *
-                 * @return Closure(Iterator<TKey, T>): Generator<int, list<T>>
+                 * @return Closure(Iterator<TKey, T>): Generator<int, <|list|T>>
                  */
                 static fn (callable ...$callbacks): Closure =>
                     /**

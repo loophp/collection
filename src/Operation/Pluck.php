@@ -35,7 +35,7 @@ final class Pluck extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(T):Closure(T):Closure(Iterator<TKey, T>):Generator<int, T|iterable<int, T>, mixed, void>
+     * @return Closure(T):Closure(T):Closure(Iterator<TKey, , mixed, void|T>):Generator<int, <|int, T|iterable|T>>
      */
     public function __invoke(): Closure
     {
@@ -43,19 +43,19 @@ final class Pluck extends AbstractOperation
             /**
              * @param T $key
              *
-             * @return Closure(T): Closure(Iterator<TKey, T>): Generator<int, T|iterable<int, T>, mixed, void>
+             * @return Closure(T): Closure(Iterator<TKey, , mixed, void|T>): Generator<int, <|int, T|iterable|T>>
              */
             static fn ($key): Closure =>
                 /**
                  * @param T $default
                  *
-                 * @return Closure(Iterator<TKey, T>): Generator<int, T|iterable<int, T>, mixed, void>
+                 * @return Closure(Iterator<TKey, , mixed, void|T>): Generator<int, <|int, T|iterable|T>>
                  */
                 static fn ($default): Closure =>
                     /**
                      * @param Iterator<TKey, T> $iterator
                      *
-                     * @return Generator<int, T|iterable<int, T>, mixed, void>
+                     * @return Generator<int, , mixed, void|iterable<int, T>|T>
                      */
                     static function (Iterator $iterator) use ($key, $default): Generator {
                         $pick =

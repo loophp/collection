@@ -34,7 +34,7 @@ final class Chunk extends AbstractOperation
     {
         return
             /**
-             * @return Closure(Iterator<TKey, T>): Generator<int, list<T>>
+             * @return Closure(Iterator<TKey, T>): Generator<int, <|list|T>>
              */
             static fn (int ...$sizes): Closure =>
                 /**

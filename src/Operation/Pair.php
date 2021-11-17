@@ -24,7 +24,7 @@ final class Pair extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(Iterator<TKey, T>): Generator<T, T|null>
+     * @return Closure(Iterator<TKey, <|T, T|T>): Generator|null>
      */
     public function __invoke(): Closure
     {
@@ -45,7 +45,7 @@ final class Pair extends AbstractOperation
              */
             static fn (array $value) => $value[1] ?? null;
 
-        /** @var Closure(Iterator<TKey, T>): Generator<T, T|null> $pipe */
+        /** @var Closure(Iterator<TKey, <|T, T|T>): Generator|null> $pipe */
         $pipe = Pipe::of()(
             Chunk::of()(2),
             Map::of()(static fn (array $value): array => array_values($value)),

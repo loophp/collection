@@ -25,7 +25,7 @@ final class Intersperse extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(T): Closure(int): Closure(int): Closure(Iterator<TKey, T>): Generator<int|TKey, T>
+     * @return Closure(T): Closure(int): Closure(int): Closure(Iterator<TKey, <|int|T>): Generator|TKey, T>
      */
     public function __invoke(): Closure
     {
@@ -33,15 +33,15 @@ final class Intersperse extends AbstractOperation
             /**
              * @param T $element
              *
-             * @return Closure(int): Closure(int): Closure(Iterator<TKey, T>): Generator<int|TKey, T>
+             * @return Closure(int): Closure(int): Closure(Iterator<TKey, <|int|T>): Generator|TKey, T>
              */
             static fn ($element): Closure =>
                 /**
-                 * @return Closure(int): Closure(Iterator<TKey, T>): Generator<int|TKey, T>
+                 * @return Closure(int): Closure(Iterator<TKey, <|int|T>): Generator|TKey, T>
                  */
                 static fn (int $atEvery): Closure =>
                     /**
-                     * @return Closure(Iterator<TKey, T>): Generator<int|TKey, T>
+                     * @return Closure(Iterator<TKey, <|int|T>): Generator|TKey, T>
                      */
                     static fn (int $startAt): Closure =>
                         /**

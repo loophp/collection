@@ -32,7 +32,7 @@ final class Equals extends AbstractOperation
             /**
              * @param Iterator<TKey, T> $other
              *
-             * @return Closure(Iterator<TKey, T>): Generator<int, bool>
+             * @return Closure(Iterator<TKey, <|int, bool|T>): Generator>
              */
             static function (Iterator $other): Closure {
                 /**

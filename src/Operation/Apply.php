@@ -34,7 +34,7 @@ final class Apply extends AbstractOperation
             /**
              * @param callable(T=, TKey=, Iterator<TKey, T>=): bool ...$callbacks
              *
-             * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @return Closure(Iterator<TKey, <|T>): Generator|TKey, T>
              */
             static fn (callable ...$callbacks): Closure =>
                 /**

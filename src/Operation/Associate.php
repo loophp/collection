@@ -43,7 +43,7 @@ final class Associate extends AbstractOperation
                 /**
                  * @param callable(T=, TKey=, Iterator<TKey, T>=): NewT $callbackForValues
                  *
-                 * @return Closure(Iterator<TKey, T>): Generator<NewTKey, NewT>
+                 * @return Closure(Iterator<TKey, <|NewTKey, NewT|T>): Generator>
                  */
                 static fn (callable $callbackForValues): Closure =>
                     /**

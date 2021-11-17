@@ -24,7 +24,7 @@ final class Unzip extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(Iterator<TKey, list<T>>): Generator<int, list<T>>
+     * @return Closure(Iterator<TKey, list<<|<|int, list|T|T>>): Generator>>
      */
     public function __invoke(): Closure
     {
@@ -45,7 +45,7 @@ final class Unzip extends AbstractOperation
                 return $carry;
             };
 
-        /** @var Closure(Iterator<TKey, list<T>>): Generator<int, list<T>> $pipe */
+        /** @var Closure(Iterator<TKey, list<<|<|int, list|T|T>>): Generator>> $pipe */
         $pipe = Pipe::of()(
             Reduce::of()($reduceCallback)([]),
             Flatten::of()(1)

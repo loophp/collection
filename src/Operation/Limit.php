@@ -26,17 +26,17 @@ final class Limit extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(int): Closure(int): Closure(Iterator<TKey, T>): Iterator<TKey, T>
+     * @return Closure(int): Closure(int): Closure(Iterator<TKey, <|T>): Iterator|TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @return Closure(int): Closure(Iterator<TKey, T>): Iterator<TKey, T>
+             * @return Closure(int): Closure(Iterator<TKey, <|T>): Iterator|TKey, T>
              */
             static fn (int $count = -1): Closure =>
                 /**
-                 * @return Closure(Iterator<TKey, T>): Iterator<TKey, T>
+                 * @return Closure(Iterator<TKey, <|T>): Iterator|TKey, T>
                  */
                 static fn (int $offset = 0): Closure =>
                     /**

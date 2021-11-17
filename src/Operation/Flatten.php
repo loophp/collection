@@ -25,13 +25,13 @@ final class Flatten extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(int): Closure(Iterator<TKey, T>): Generator<mixed, mixed>
+     * @return Closure(int): Closure(Iterator<TKey, <|mixed, mixed|T>): Generator>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @return Closure(Iterator<TKey, T>): Generator<mixed, mixed>
+             * @return Closure(Iterator<TKey, <|mixed, mixed|T>): Generator>
              */
             static fn (int $depth): Closure =>
                 /**
@@ -46,7 +46,7 @@ final class Flatten extends AbstractOperation
                         }
 
                         if (1 !== $depth) {
-                            /** @var callable(Iterator<TKey, T>): Generator<mixed, mixed> $flatten */
+                            /** @var callable(Iterator<TKey, <|mixed, mixed|T>): Generator> $flatten */
                             $flatten = Flatten::of()($depth - 1);
 
                             $value = $flatten(new IterableIterator($value));

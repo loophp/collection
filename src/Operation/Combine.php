@@ -36,7 +36,7 @@ final class Combine extends AbstractOperation
             /**
              * @param U ...$keys
              *
-             * @return Closure(Iterator<TKey, T>): Generator<null|U, null|T>
+             * @return Closure(Iterator<TKey, <|T|T>): Generator|U, null|null>
              */
             static function (...$keys): Closure {
                 $buildMultipleIterator =
@@ -60,7 +60,7 @@ final class Combine extends AbstractOperation
                             };
                     };
 
-                /** @var Closure(Iterator<TKey, T>): Generator<null|U, null|T> $pipe */
+                /** @var Closure(Iterator<TKey, <|T|T>): Generator|U, null|null> $pipe */
                 $pipe = Pipe::of()(
                     $buildMultipleIterator(new ArrayIterator($keys)),
                     Flatten::of()(1),
