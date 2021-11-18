@@ -181,11 +181,6 @@ parameters:
 			path: src/Operation/Until.php
 
 		-
-			message: "#^Foreach overwrites \\$value with its value variable\\.$#"
-			count: 1
-			path: src/Operation/Unwindow.php
-
-		-
 			message: "#^Template type U of method loophp\\\\collection\\\\Operation\\\\Zip\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
 			count: 1
 			path: src/Operation/Zip.php
@@ -194,43 +189,3 @@ parameters:
 			message: "#^Template type UKey of method loophp\\\\collection\\\\Operation\\\\Zip\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
 			count: 1
 			path: src/Operation/Zip.php
-
-		-
-			message: "#^Parameter \\#1 \\$array of function all_checkList expects array\\<int, int\\>, array\\<int\\|string, mixed\\> given\\.$#"
-			count: 1
-			path: tests/static-analysis/all.php
-
-		-
-			message: "#^Parameter \\#1 \\$array of function all_checkMap expects array\\<string, int\\>, array\\<int\\|string, mixed\\> given\\.$#"
-			count: 1
-			path: tests/static-analysis/all.php
-
-		-
-			message: "#^Parameter \\#1 \\$array of function all_checkMixed expects array\\<int, int\\|string\\>, array\\<int\\|string, mixed\\> given\\.$#"
-			count: 1
-			path: tests/static-analysis/all.php
-
-		-
-			message: "#^While loop condition is always true\\.$#"
-			count: 2
-			path: tests/static-analysis/flip.php
-
-		-
-			message: "#^While loop condition is always true\\.$#"
-			count: 4
-			path: tests/static-analysis/random.php
-
-		-
-			message: "#^While loop condition is always true\\.$#"
-			count: 4
-			path: tests/static-analysis/shuffle.php
-
-		-
-			message: "#^While loop condition is always true\\.$#"
-			count: 3
-			path: tests/static-analysis/unpack.php
-
-		-
-			message: "#^While loop condition is always true\\.$#"
-			count: 2
-			path: tests/static-analysis/wrap.php

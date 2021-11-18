@@ -38,27 +38,19 @@ function shuffle_checkStringMap(CollectionInterface $collection): void
 }
 
 $intGenerator = static function (): Generator {
-    while (true) {
-        yield mt_rand();
-    }
+    yield mt_rand();
 };
 
 $boolGenerator = static function (): Generator {
-    while (true) {
-        yield (0 === mt_rand() % 2) ? true : false;
-    }
+    yield (0 === mt_rand() % 2) ? true : false;
 };
 
 $stringGenerator = static function (): Generator {
-    while (true) {
-        yield chr(random_int(0, 255));
-    }
+    yield chr(random_int(0, 255));
 };
 
 $stringStringGenerator = static function (): Generator {
-    while (true) {
-        yield chr(random_int(0, 255)) => chr(random_int(0, 255));
-    }
+    yield chr(random_int(0, 255)) => chr(random_int(0, 255));
 };
 
 shuffle_checkIntList(Collection::fromIterable($intGenerator())->shuffle());
