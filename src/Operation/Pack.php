@@ -29,17 +29,22 @@ final class Pack extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        return
+        $mapCallback =
             /**
-             * @param Iterator<TKey, T> $iterator
+             * @param T $value
+             * @param TKey $key
              *
-             * @return Generator<int, array{0: TKey, 1: T}>
+             * @return array{0: TKey, 1: T}
              */
-            static function (Iterator $iterator): Generator {
-                /** @var PackIterableAggregate<TKey, T> $packIterableAggregate */
-                $packIterableAggregate = new PackIterableAggregate($iterator);
+            static fn ($value, $key): array => [$key, $value];
 
-                return yield from $packIterableAggregate->getIterator();
-            };
+        /** @var Closure(Iterator<TKey, T>): Generator<int, array{0: TKey, 1: T}> $pipe */
+        $pipe = Pipe::ofTyped2(
+            Map::of()($mapCallback),
+            (new Normalize())()
+        );
+
+        // Point free style.
+        return $pipe;
     }
 }

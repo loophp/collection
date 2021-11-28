@@ -44,7 +44,7 @@ final class Current extends AbstractOperation
              */
             static function ($default) use ($index): Closure {
                 /** @var Closure(Iterator<TKey, T>): Generator<int, T|V> $pipe */
-                $pipe = Pipe::of()(
+                $pipe = Pipe::ofTyped2(
                     (new Normalize())(),
                     Get::of()($index)($default)
                 );

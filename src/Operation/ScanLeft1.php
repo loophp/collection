@@ -48,7 +48,7 @@ final class ScanLeft1 extends AbstractOperation
                     $initial = $iterator->current();
 
                     /** @var Closure(Iterator<TKey, T>): Generator<int|TKey, T|V> $pipe */
-                    $pipe = Pipe::of()(
+                    $pipe = Pipe::ofTyped3(
                         Tail::of(),
                         Reduction::of()($callback)($initial),
                         Prepend::of()($initial)

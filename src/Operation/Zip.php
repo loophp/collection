@@ -82,7 +82,7 @@ final class Zip extends AbstractOperation
                     )(new MultipleIterator(MultipleIterator::MIT_NEED_ANY));
 
                 /** @var Closure(Iterator<TKey, T>): Generator<list<TKey|UKey>, list<T|U>> $pipe */
-                $pipe = Pipe::of()(
+                $pipe = Pipe::ofTyped3(
                     $buildArrayIterator($iterables),
                     $buildMultipleIterator,
                     ((new Flatten())()(1))

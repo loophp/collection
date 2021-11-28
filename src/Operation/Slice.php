@@ -45,7 +45,7 @@ final class Slice extends AbstractOperation
                     }
 
                     /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
-                    $pipe = Pipe::of()(
+                    $pipe = Pipe::ofTyped2(
                         $skip,
                         Limit::of()($length)(0)
                     );

@@ -29,7 +29,7 @@ final class Keys extends AbstractOperation
     public function __invoke(): Closure
     {
         /** @var Closure(Iterator<TKey, T>): Generator<int, TKey> $pipe */
-        $pipe = Pipe::of()(
+        $pipe = Pipe::ofTyped2(
             Flip::of(),
             (new Normalize())()
         );

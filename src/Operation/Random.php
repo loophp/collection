@@ -39,7 +39,7 @@ final class Random extends AbstractOperation
                      */
                     static function (int $size) use ($seed): Closure {
                         /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
-                        $pipe = Pipe::of()(
+                        $pipe = Pipe::ofTyped2(
                             Shuffle::of()($seed),
                             Limit::of()($size)(0)
                         );

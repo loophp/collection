@@ -49,7 +49,7 @@ final class Transpose extends AbstractOperation
             static fn (array $value): array => $value;
 
         /** @var Closure(Iterator<TKey, T>): Generator<TKey, list<T>> $pipe */
-        $pipe = Pipe::of()(
+        $pipe = Pipe::ofTyped3(
             Reduce::of()(
                 static function (MultipleIterator $acc, iterable $iterable): MultipleIterator {
                     $acc->attachIterator(new IterableIterator($iterable));

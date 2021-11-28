@@ -46,7 +46,7 @@ final class Pair extends AbstractOperation
             static fn (array $value) => $value[1] ?? null;
 
         /** @var Closure(Iterator<TKey, T>): Generator<T, T|null> $pipe */
-        $pipe = Pipe::of()(
+        $pipe = Pipe::ofTyped3(
             Chunk::of()(2),
             Map::of()(static fn (array $value): array => array_values($value)),
             Associate::of()($callbackForKeys)($callbackForValues)

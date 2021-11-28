@@ -80,7 +80,7 @@ final class Every extends AbstractOperation
                                     static fn ($value, $key, Iterator $iterator): bool => $reducer1($value, $key, $iterator) !== $reducer2($value, $key, $iterator);
 
                         /** @var Closure(Iterator<TKey, T>): Generator<TKey, bool> $pipe */
-                        $pipe = Pipe::of()(
+                        $pipe = Pipe::ofTyped4(
                             Map::of()($mapCallback($callbackReducer($callbacks))($callbackReducer($matchers))),
                             DropWhile::of()(static fn (bool $value): bool => true === $value),
                             Append::of()(true),

@@ -35,7 +35,7 @@ final class Words extends AbstractOperation
             static fn (array $value): string => implode('', $value);
 
         /** @var Closure(Iterator<TKey, T>): Generator<TKey, string> $pipe */
-        $pipe = Pipe::of()(
+        $pipe = Pipe::ofTyped3(
             Explode::of()("\t", "\n", ' '),
             Map::of()($mapCallback),
             Compact::of()()

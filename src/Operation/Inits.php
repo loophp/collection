@@ -42,7 +42,7 @@ final class Inits extends AbstractOperation
             };
 
         /** @var Closure(Iterator<TKey, T>): Generator<int, list<array{0: TKey, 1: T}>> $inits */
-        $inits = Pipe::of()(
+        $inits = Pipe::ofTyped3(
             Pack::of(),
             ScanLeft::of()($scanLeftCallback)([]),
             (new Normalize())()

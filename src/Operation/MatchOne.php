@@ -46,7 +46,7 @@ final class MatchOne extends AbstractOperation
                      */
                     static function (callable ...$callbacks) use ($matchers): Closure {
                         /** @var Closure(Iterator<TKey, T>): Generator<TKey, bool> $pipe */
-                        $pipe = Pipe::of()(
+                        $pipe = Pipe::ofTyped4(
                             Map::of()(
                                 /**
                                  * @param T $value

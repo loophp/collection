@@ -44,7 +44,7 @@ final class Nth extends AbstractOperation
                         static fn (array $value, int $key): bool => (($key % $step) === $offset);
 
                     /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
-                    $pipe = Pipe::of()(
+                    $pipe = Pipe::ofTyped3(
                         Pack::of(),
                         (new Filter())()($filterCallback),
                         Unpack::of()
