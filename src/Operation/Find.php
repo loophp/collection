@@ -47,7 +47,7 @@ final class Find extends AbstractOperation
                 static function (callable ...$callbacks) use ($default): Closure {
                     /** @var Closure(Iterator<TKey, T>): Generator<TKey, T|V> $pipe */
                     $pipe = Pipe::of()(
-                        Filter::of()(...$callbacks),
+                        (new Filter)()(...$callbacks),
                         Append::of()($default),
                         Head::of(),
                     );

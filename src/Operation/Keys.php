@@ -31,7 +31,7 @@ final class Keys extends AbstractOperation
         /** @var Closure(Iterator<TKey, T>): Generator<int, TKey> $pipe */
         $pipe = Pipe::of()(
             Flip::of(),
-            Normalize::of()
+            (new Normalize())()
         );
 
         // Point free style.

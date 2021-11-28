@@ -45,7 +45,7 @@ final class Inits extends AbstractOperation
         $inits = Pipe::of()(
             Pack::of(),
             ScanLeft::of()($scanLeftCallback)([]),
-            Normalize::of()
+            (new Normalize())()
         );
 
         // Point free style.

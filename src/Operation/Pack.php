@@ -40,7 +40,7 @@ final class Pack extends AbstractOperation
         /** @var Closure(Iterator<TKey, T>): Generator<int, array{0: TKey, 1: T}> $pipe */
         $pipe = Pipe::of()(
             Map::of()($mapCallback),
-            Normalize::of()
+            (new Normalize())()
         );
 
         // Point free style.
