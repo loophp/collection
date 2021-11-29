@@ -12,6 +12,7 @@ namespace loophp\collection\Iterator;
 use Iterator;
 use Psr\Cache\CacheItemInterface;
 use Psr\Cache\CacheItemPoolInterface;
+use ReturnTypeWillChange;
 
 /**
  * @internal
@@ -39,6 +40,7 @@ final class PsrCacheIterator extends ProxyIterator
     /**
      * @return T
      */
+    #[ReturnTypeWillChange]
     public function current()
     {
         /** @var array{TKey, T} $data */
@@ -50,6 +52,7 @@ final class PsrCacheIterator extends ProxyIterator
     /**
      * @return TKey
      */
+    #[ReturnTypeWillChange]
     public function key()
     {
         /** @var array{TKey, T} $data */
