@@ -65,4 +65,12 @@ final class IfThenElse extends AbstractOperation
                         return $map;
                     };
     }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
+    }
 }

@@ -39,4 +39,12 @@ final class All extends AbstractOperation
                  */
                 static fn (Iterator $iterator): Iterator => $normalize ? (new Normalize())()($iterator) : $iterator;
     }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
+    }
 }

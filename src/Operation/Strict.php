@@ -42,4 +42,12 @@ final class Strict extends AbstractOperation
                  */
                 static fn (Iterator $iterator): Iterator => new TypedIterator($iterator, $callback);
     }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
+    }
 }

@@ -30,4 +30,12 @@ final class IsEmpty extends AbstractOperation
     {
         return static fn (Iterator $iterator): Generator => yield !$iterator->valid();
     }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
+    }
 }

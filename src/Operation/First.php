@@ -34,4 +34,12 @@ final class First extends AbstractOperation
         // Point free style.
         return $head;
     }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
+    }
 }

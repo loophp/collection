@@ -46,4 +46,12 @@ final class Limit extends AbstractOperation
                      */
                     static fn (Iterator $iterator): Iterator => new LimitIterator($iterator, $offset, $count);
     }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
+    }
 }

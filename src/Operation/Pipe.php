@@ -56,6 +56,14 @@ final class Pipe extends AbstractOperation
 
     /**
      * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
+    }
+
+    /**
+     * @pure
      *
      * @template Ik
      * @template Iv

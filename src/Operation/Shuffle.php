@@ -42,4 +42,12 @@ final class Shuffle extends AbstractOperation
                  */
                 static fn (Iterator $iterator): Iterator => (new RandomIterableAggregate($iterator, $seed))->getIterator();
     }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
+    }
 }

@@ -34,4 +34,12 @@ final class Tail extends AbstractOperation
         // Point free style.
         return $drop;
     }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
+    }
 }

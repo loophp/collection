@@ -49,4 +49,12 @@ final class Falsy extends AbstractOperation
         // Point free style.
         return $pipe;
     }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
+    }
 }

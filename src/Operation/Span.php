@@ -49,4 +49,12 @@ final class Span extends AbstractOperation
                 yield new ClosureIteratorAggregate((new DropWhile())()(...$callbacks), [$iteratorAggregate->getIterator()]);
             };
     }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
+    }
 }

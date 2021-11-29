@@ -61,4 +61,12 @@ final class Filter extends AbstractOperation
                     }
                 };
     }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
+    }
 }

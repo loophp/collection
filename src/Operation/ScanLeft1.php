@@ -57,4 +57,12 @@ final class ScanLeft1 extends AbstractOperation
                     return $pipe($iterator);
                 };
     }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
+    }
 }

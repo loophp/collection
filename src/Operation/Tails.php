@@ -52,4 +52,12 @@ final class Tails extends AbstractOperation
                 return yield [];
             };
     }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
+    }
 }

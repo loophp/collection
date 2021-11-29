@@ -2926,6 +2926,14 @@ trait GenericCollectionProviders
     public function pipeOperationProvider()
     {
         $square = new class() extends AbstractOperation implements Operation {
+            /**
+             * @pure
+             */
+            public static function of(): Closure
+            {
+                return (new self())->__invoke();
+            }
+
             public function __invoke(): Closure
             {
                 return static function ($collection): Generator {
@@ -2937,6 +2945,14 @@ trait GenericCollectionProviders
         };
 
         $sqrt = new class() extends AbstractOperation implements Operation {
+            /**
+             * @pure
+             */
+            public static function of(): Closure
+            {
+                return (new self())->__invoke();
+            }
+
             public function __invoke(): Closure
             {
                 return static function ($collection) {
@@ -2948,6 +2964,14 @@ trait GenericCollectionProviders
         };
 
         $castToInt = new class() extends AbstractOperation implements Operation {
+            /**
+             * @pure
+             */
+            public static function of(): Closure
+            {
+                return (new self())->__invoke();
+            }
+
             public function __invoke(): Closure
             {
                 return static function ($collection) {

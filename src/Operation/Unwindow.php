@@ -50,4 +50,12 @@ final class Unwindow extends AbstractOperation
         // Point free style.
         return $unwindow;
     }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
+    }
 }

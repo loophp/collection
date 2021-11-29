@@ -36,4 +36,12 @@ final class Cycle extends AbstractOperation
              */
             static fn (Iterator $iterator): Iterator => new InfiniteIterator($iterator);
     }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
+    }
 }

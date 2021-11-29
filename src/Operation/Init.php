@@ -56,4 +56,12 @@ final class Init extends AbstractOperation
         // Point free style.
         return $takeWhile;
     }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
+    }
 }

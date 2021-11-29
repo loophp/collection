@@ -42,4 +42,12 @@ final class Append extends AbstractOperation
                  */
                 static fn (Iterator $iterator): Iterator => new MultipleIterableIterator($iterator, $items);
     }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
+    }
 }

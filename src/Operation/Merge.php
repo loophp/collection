@@ -40,4 +40,12 @@ final class Merge extends AbstractOperation
                  */
                 static fn (Iterator $iterator): Iterator => new MultipleIterableIterator($iterator, ...$sources);
     }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
+    }
 }

@@ -52,4 +52,12 @@ final class Contains extends AbstractOperation
                 return $matchOne;
             };
     }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
+    }
 }

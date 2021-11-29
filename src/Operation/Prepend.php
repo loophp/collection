@@ -42,4 +42,12 @@ final class Prepend extends AbstractOperation
                  */
                 static fn (Iterator $iterator): Iterator => new MultipleIterableIterator($items, $iterator);
     }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
+    }
 }

@@ -48,4 +48,12 @@ final class FlatMap extends AbstractOperation
                 return $flatMap;
             };
     }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
+    }
 }

@@ -50,4 +50,12 @@ final class Window extends AbstractOperation
                 return $reduction;
             };
     }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
+    }
 }

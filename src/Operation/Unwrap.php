@@ -34,4 +34,12 @@ final class Unwrap extends AbstractOperation
         // Point free style.
         return $flatten;
     }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
+    }
 }

@@ -44,6 +44,14 @@ final class Permutate extends AbstractOperation
     }
 
     /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
+    }
+
+    /**
      * @param list<T> $dataset
      *
      * @return Generator<int, list<T>>

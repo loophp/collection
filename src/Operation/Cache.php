@@ -43,4 +43,12 @@ final class Cache extends AbstractOperation
                  */
                 static fn (Iterator $iterator): Iterator => new PsrCacheIterator($iterator, $cache);
     }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
+    }
 }

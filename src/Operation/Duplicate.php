@@ -78,4 +78,12 @@ final class Duplicate extends AbstractOperation
                     return $filter;
                 };
     }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
+    }
 }

@@ -61,4 +61,12 @@ final class Reject extends AbstractOperation
                 return $reject;
             };
     }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
+    }
 }

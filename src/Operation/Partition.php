@@ -49,4 +49,12 @@ final class Partition extends AbstractOperation
                 yield new ClosureIteratorAggregate((new Reject())()(...$callbacks), [$iteratorAggregate->getIterator()]);
             };
     }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
+    }
 }

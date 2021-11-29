@@ -55,4 +55,12 @@ final class Explode extends AbstractOperation
                 return $split;
             };
     }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
+    }
 }

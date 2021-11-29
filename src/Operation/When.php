@@ -56,4 +56,12 @@ final class When extends AbstractOperation
                          */
                         static fn (Iterator $iterator): Generator => yield from (true === $predicate($iterator)) ? $whenTrue($iterator) : $whenFalse($iterator);
     }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
+    }
 }

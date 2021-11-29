@@ -72,4 +72,12 @@ final class Chunk extends AbstractOperation
                     return yield $values;
                 };
     }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
+    }
 }

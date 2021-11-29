@@ -52,4 +52,12 @@ final class Flip extends AbstractOperation
         // Point free style.
         return $associate;
     }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
+    }
 }

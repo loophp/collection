@@ -40,4 +40,12 @@ final class Drop extends AbstractOperation
                  */
                 static fn (Iterator $iterator): Iterator => new LimitIterator($iterator, $count);
     }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
+    }
 }

@@ -51,4 +51,12 @@ final class Inits extends AbstractOperation
         // Point free style.
         return $inits;
     }
+
+    /**
+     * @pure
+     */
+    public static function of(): Closure
+    {
+        return (new self())->__invoke();
+    }
 }
