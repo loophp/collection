@@ -5,12 +5,38 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [6.0.1](https://github.com/loophp/collection/compare/6.0.0...6.0.1)
+## [6.0.2](https://github.com/loophp/collection/compare/6.0.2...6.0.2)
+
+### Commits
+
+- cs: Autofix code style. [`ab5cac3`](https://github.com/loophp/collection/commit/ab5cac3691e42801535ed41d02458e9842daeb61)
+- Fix PHP 8.1 Deprecations #225 [`0cb2e0e`](https://github.com/loophp/collection/commit/0cb2e0e336f5d56a70575bf7150d5ac6ea7c8b8e)
+
+## [6.0.2](https://github.com/loophp/collection/compare/6.0.1...6.0.2) - 2021-11-30
+
+### Merged
+
+- chore(deps): Bump shivammathur/setup-php from 2.15.0 to 2.16.0 [`#223`](https://github.com/loophp/collection/pull/223)
+- chore(deps): Bump actions/cache from 2.1.6 to 2.1.7 [`#222`](https://github.com/loophp/collection/pull/222)
+- [PHPStan Baseline] A few small fixes [`#220`](https://github.com/loophp/collection/pull/220)
+
+### Commits
+
+- docs: Add/update CHANGELOG. [`88faf68`](https://github.com/loophp/collection/commit/88faf68e3bd2758a6ee3bf008fdd6c3c9a311771)
+- cs: Autofix code style. [`77f161d`](https://github.com/loophp/collection/commit/77f161d4605c2aedb05fc490f4ac033ef9a3f893)
+- cs: Autofix code style. [`d8d812b`](https://github.com/loophp/collection/commit/d8d812bb413fbcfec44e8bda4a40cbe0b60d9dec)
+- sa: Improve static analysis score. [`db0073e`](https://github.com/loophp/collection/commit/db0073e5e1b4cc07f8d88eac2111458ea681a074)
+
+## [6.0.1](https://github.com/loophp/collection/compare/6.0.0...6.0.1) - 2021-11-12
 
 ### Merged
 
 - Update docs version [`#219`](https://github.com/loophp/collection/pull/219)
 - Template param order matters? [`#218`](https://github.com/loophp/collection/pull/218)
+
+### Commits
+
+- docs: Add/update CHANGELOG. [`3142f23`](https://github.com/loophp/collection/commit/3142f2372144caf4896be1a729e0d905eec58ed9)
 
 ## [6.0.0](https://github.com/loophp/collection/compare/5.1.0...6.0.0) - 2021-11-11
 
