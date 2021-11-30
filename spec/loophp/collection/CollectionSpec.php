@@ -2187,16 +2187,16 @@ class CollectionSpec extends ObjectBehavior
 
         $withValues = $this::fromIterable([1, 2, 3]);
 
-        foreach ($withValues as $value) {
-            // iterating once through it
-        }
+        foreach ($withValues as $value);
+        // iterating once through it
+
         $withValues->isEmpty()->shouldBe(false);
 
         $withoutValues = $this::fromIterable([]);
 
-        foreach ($withoutValues as $value) {
-            // iterating once through it
-        }
+        foreach ($withoutValues as $value);
+        // iterating once through it
+
         $withoutValues->isEmpty()->shouldBe(true);
     }
 
