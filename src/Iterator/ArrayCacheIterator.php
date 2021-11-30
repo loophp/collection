@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace loophp\collection\Iterator;
 
 use Iterator;
+use ReturnTypeWillChange;
 
 use function array_key_exists;
 
@@ -41,6 +42,7 @@ final class ArrayCacheIterator extends ProxyIterator
     /**
      * @return T
      */
+    #[ReturnTypeWillChange]
     public function current()
     {
         $data = $this->getTupleFromCache($this->key);
@@ -51,6 +53,7 @@ final class ArrayCacheIterator extends ProxyIterator
     /**
      * @return TKey
      */
+    #[ReturnTypeWillChange]
     public function key()
     {
         $data = $this->getTupleFromCache($this->key);

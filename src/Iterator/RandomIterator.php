@@ -11,6 +11,7 @@ namespace loophp\collection\Iterator;
 
 use BadMethodCallException;
 use Iterator;
+use ReturnTypeWillChange;
 
 use function assert;
 
@@ -51,6 +52,7 @@ final class RandomIterator extends ProxyIterator
         $this->wrappedIterator = new ArrayCacheIterator($iterator);
     }
 
+    #[ReturnTypeWillChange]
     public function current()
     {
         if (!$this->valid()) {
@@ -64,6 +66,7 @@ final class RandomIterator extends ProxyIterator
         return $keyValueTuple[1];
     }
 
+    #[ReturnTypeWillChange]
     public function key()
     {
         if (!$this->valid()) {

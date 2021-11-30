@@ -11,6 +11,7 @@ namespace loophp\collection\Iterator;
 
 use Iterator;
 use OuterIterator;
+use ReturnTypeWillChange;
 
 /**
  * @internal
@@ -30,6 +31,7 @@ abstract class ProxyIterator implements OuterIterator
     /**
      * @return T
      */
+    #[ReturnTypeWillChange]
     public function current()
     {
         return $this->iterator->current();
@@ -46,6 +48,7 @@ abstract class ProxyIterator implements OuterIterator
     /**
      * @return TKey
      */
+    #[ReturnTypeWillChange]
     public function key()
     {
         return $this->iterator->key();
