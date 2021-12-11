@@ -62,8 +62,11 @@ final class Intersperse extends AbstractOperation
                                 );
                             }
 
+                            $current = 0;
+
                             foreach ($iterator as $key => $value) {
-                                if (0 === $startAt++ % $atEvery) {
+                                if ($startAt === $current++) {
+                                    $startAt += $atEvery;
                                     yield $element;
                                 }
 
