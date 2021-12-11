@@ -2139,8 +2139,6 @@ class CollectionSpec extends ObjectBehavior
             ->shouldIterateAs($generator());
 
         $generator = static function () {
-            yield 0 => 'foo';
-
             yield 0 => 'A';
 
             yield 1 => 'B';
