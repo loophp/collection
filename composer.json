@@ -1,22 +1,37 @@
 {
     "name": "loophp/collection",
-    "type": "library",
     "description": "A (memory) friendly, easy, lazy and modular collection class.",
+    "license": "MIT",
+    "type": "library",
     "keywords": [
         "collection",
         "generator",
         "iterator",
         "yield"
     ],
-    "homepage": "https://github.com/loophp/collection",
     "readme": "README.md",
-    "license": "MIT",
     "authors": [
         {
             "name": "Pol Dellaiera",
             "email": "pol.dellaiera@protonmail.com",
             "homepage": "https://not-a-number.io",
             "role": "author"
+        }
+    ],
+    "homepage": "https://github.com/loophp/collection",
+    "support": {
+        "issues": "https://github.com/loophp/collection/issues",
+        "source": "https://github.com/loophp/collection",
+        "docs": "https://loophp-collection.rtfd.io"
+    },
+    "funding": [
+        {
+            "type": "github",
+            "url": "https://github.com/drupol"
+        },
+        {
+            "type": "paypal",
+            "url": "https://www.paypal.me/drupol"
         }
     ],
     "require": {
@@ -34,9 +49,6 @@
         "psr/cache": "^1.0",
         "symfony/cache": "^5"
     },
-    "config": {
-        "sort-packages": true
-    },
     "autoload": {
         "psr-4": {
             "loophp\\collection\\": "./src/"
@@ -48,26 +60,14 @@
             "spec\\loophp\\collection\\": "./spec/loophp/collection/"
         }
     },
+    "config": {
+        "sort-packages": true
+    },
     "scripts": {
         "changelog-unreleased": "docker-compose run auto_changelog -c .auto-changelog -u",
         "changelog-version": "docker-compose run auto_changelog -c .auto-changelog -v",
         "grumphp": "./vendor/bin/grumphp run",
         "infection": "vendor/bin/infection run -j 2",
         "phpspec": "vendor/bin/phpspec run -vvv --stop-on-failure"
-    },
-    "support": {
-        "issues": "https://github.com/loophp/collection/issues",
-        "source": "https://github.com/loophp/collection",
-        "docs": "https://loophp-collection.rtfd.io"
-    },
-    "funding": [
-        {
-            "type": "github",
-            "url": "https://github.com/drupol"
-        },
-        {
-            "type": "paypal",
-            "url": "https://www.paypal.me/drupol"
-        }
-    ]
+    }
 }
