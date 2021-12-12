@@ -1,66 +1,66 @@
 imports:
-  - { resource: vendor/drupol/php-conventions/config/php73/grumphp.yml }
+    - { resource: vendor/drupol/php-conventions/config/php73/grumphp.yml }
 
 parameters:
-  # GrumPHP License
-  tasks.license.holder: Pol Dellaiera
-  tasks.license.date_from: 2019
+    # GrumPHP License
+    tasks.license.holder: Pol Dellaiera
+    tasks.license.date_from: 2019
 
-  # PHP CS Fixer
-  tasks.phpcsfixer.config: .php-cs-fixer.dist.php
-  tasks.phpcsfixer.diff: true
+    # PHP CS Fixer
+    tasks.phpcsfixer.config: .php-cs-fixer.dist.php
+    tasks.phpcsfixer.diff: true
 
-  # PHPCS
-  tasks.phpcs.ignore_patterns:
-      - "/.github/"
-      - "/.idea/"
-      - "/build/"
-      - "/benchmarks/"
-      - "/docs/"
-      - "/node_modules/"
-      - "/resource/"
-      - "/spec/"
-      - "/tests/"
-      - "/var/"
-      - "/vendor/"
+    # PHPCS
+    tasks.phpcs.ignore_patterns:
+        - "/.github/"
+        - "/.idea/"
+        - "/build/"
+        - "/benchmarks/"
+        - "/docs/"
+        - "/node_modules/"
+        - "/resource/"
+        - "/spec/"
+        - "/tests/"
+        - "/var/"
+        - "/vendor/"
 
-  # PHPStan
-  tasks.phpstan.level: 8
-  tasks.phpstan.blocking: true
-  tasks.phpstan.ignore_patterns:
-    - "/.github/"
-    - "/.idea/"
-    - "/build/"
-    - "/benchmarks/"
-    - "/docs/"
-    - "/node_modules/"
-    - "/resource/"
-    - "/spec/"
-    - "/var/"
-    - "/vendor/"
+    # PHPStan
+    tasks.phpstan.level: 8
+    tasks.phpstan.blocking: true
+    tasks.phpstan.ignore_patterns:
+        - "/.github/"
+        - "/.idea/"
+        - "/build/"
+        - "/benchmarks/"
+        - "/docs/"
+        - "/node_modules/"
+        - "/resource/"
+        - "/spec/"
+        - "/var/"
+        - "/vendor/"
 
-  # Psalm
-  tasks.psalm.blocking: true
-  tasks.psalm.ignore_patterns:
-      - "/.github/"
-      - "/.idea/"
-      - "/build/"
-      - "/benchmarks/"
-      - "/node_modules/"
-      - "/resource/"
-      - "/spec/"
-      - "/var/"
-      - "/vendor/"
+    # Psalm
+    tasks.psalm.blocking: true
+    tasks.psalm.ignore_patterns:
+        - "/.github/"
+        - "/.idea/"
+        - "/build/"
+        - "/benchmarks/"
+        - "/node_modules/"
+        - "/resource/"
+        - "/spec/"
+        - "/var/"
+        - "/vendor/"
 
-  extra_tasks:
-    phpspec:
-      verbose: true
-    clover_coverage:
-      clover_file: build/logs/clover.xml
-      level: 99
-    infection:
-      threads: 10
-      test_framework: phpspec
-      configuration: infection.json
-      min_msi: 90
-      min_covered_msi: 90
+    extra_tasks:
+        phpunit:
+            always_execute: true
+        clover_coverage:
+            clover_file: build/logs/coverage/clover.xml
+            level: 99
+        infection:
+            threads: 10
+            test_framework: phpunit
+            configuration: infection.json
+            min_msi: 90
+            min_covered_msi: 90
