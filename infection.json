@@ -1,5 +1,5 @@
 {
-    "timeout": 10,
+    "timeout": 30,
     "source": {
         "directories": [
             "src"
@@ -7,13 +7,13 @@
     },
     "logs": {
         "github": true,
-        "text": "build/infection.log",
-        "summary": "build/summary.log",
-        "debug": "build/debug.log",
-        "perMutator": "build/per-mutator.md",
+        "text": "build/logs/infection/infection.log",
+        "summary": "build/logs/infection/summary.log",
+        "debug": "build/logs/infection/debug.log",
+        "perMutator": "build/logs/infection/per-mutator.md",
         "badge": {
             "branch": "master"
         }
     },
-    "testFramework":"phpspec"
+    "testFramework":"phpunit"
 }
