@@ -55,5 +55,5 @@ jobs:
             - name: Send Scrutinizer data
               run: |
                   composer require scrutinizer/ocular --dev
-                  vendor/bin/ocular code-coverage:upload --format=php-clover build/logs/clover.xml
+                  vendor/bin/ocular code-coverage:upload --format=php-clover build/logs/coverage/clover.xml
               continue-on-error: true
