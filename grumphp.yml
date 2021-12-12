@@ -38,6 +38,8 @@ parameters:
         - "/spec/"
         - "/var/"
         - "/vendor/"
+        - "tests/unit/"
+        - "tests/src/"
 
     # Psalm
     tasks.psalm.blocking: true
