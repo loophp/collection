@@ -42,11 +42,12 @@
         "amphp/parallel-functions": "^1",
         "doctrine/collections": "^1.6",
         "drupol/php-conventions": "^5",
-        "friends-of-phpspec/phpspec-code-coverage": "^6.1",
-        "infection/infection": "^0.23.0 || ^0.24.0",
-        "infection/phpspec-adapter": "^0.1.2",
-        "phpspec/phpspec": "^7.1",
+        "infection/infection": ">= 0.24.0",
+        "loophp/phpunit-iterable-assertions": "^1.0",
+        "phpspec/prophecy-phpunit": "^2.0",
         "phpstan/phpstan-strict-rules": "^1.0",
+        "phpunit/php-code-coverage": "^9.2",
+        "phpunit/phpunit": "^9.5",
         "psr/cache": "^1.0",
         "symfony/cache": "^5"
     },
@@ -57,8 +58,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "loophp\\collection\\benchmarks\\": "./benchmarks/",
-            "spec\\loophp\\collection\\": "./spec/loophp/collection/"
+            "tests\\loophp\\collection\\": "./tests/unit/"
         }
     },
     "config": {
@@ -69,6 +69,6 @@
         "changelog-version": "docker-compose run auto_changelog -c .auto-changelog -v",
         "grumphp": "./vendor/bin/grumphp run",
         "infection": "vendor/bin/infection run -j 2",
-        "phpspec": "vendor/bin/phpspec run -vvv --stop-on-failure"
+        "phpunit": "vendor/bin/phpunit"
     }
 }
