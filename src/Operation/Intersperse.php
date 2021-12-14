@@ -14,7 +14,6 @@ use ArrayIterator;
 use Closure;
 use Generator;
 use InfiniteIterator;
-use InvalidArgumentException;
 use Iterator;
 
 /**
@@ -53,18 +52,6 @@ final class Intersperse extends AbstractOperation
                          * @return Generator<int|TKey, T>
                          */
                         static function (Iterator $iterator) use ($element, $atEvery, $startAt): Generator {
-                            if (0 > $atEvery) {
-                                throw new InvalidArgumentException(
-                                    'The second parameter must be a positive integer.'
-                                );
-                            }
-
-                            if (0 > $startAt) {
-                                throw new InvalidArgumentException(
-                                    'The third parameter must be a positive integer.'
-                                );
-                            }
-
                             $intersperse = new AppendIterator();
                             $intersperse->append(
                                 new ArrayIterator(array_fill(0, $startAt, 1))

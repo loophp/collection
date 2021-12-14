@@ -2159,16 +2159,6 @@ class CollectionSpec extends ObjectBehavior
         $this::fromIterable(range('A', 'F'))
             ->intersperse('foo', 2, 2)
             ->shouldIterateAs($generator());
-
-        $this::fromIterable(range('A', 'F'))
-            ->intersperse('foo', -1, 1)
-            ->shouldThrow(Exception::class)
-            ->during('all');
-
-        $this::fromIterable(range('A', 'F'))
-            ->intersperse('foo', 1, -1)
-            ->shouldThrow(Exception::class)
-            ->during('all');
     }
 
     public function it_can_isEmpty(): void
