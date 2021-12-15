@@ -12,6 +12,7 @@ namespace loophp\collection\Iterator;
 use Generator;
 use InvalidArgumentException;
 use Iterator;
+use loophp\iterators\ClosureIterator;
 
 use function get_class;
 use function gettype;

@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace loophp\collection\Iterator;
 
 use AppendIterator;
+use loophp\iterators\IterableIterator;
 use NoRewindIterator;
 
 /**

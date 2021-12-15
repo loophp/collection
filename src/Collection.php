@@ -16,8 +16,6 @@ use Iterator;
 use loophp\collection\Contract\Collection as CollectionInterface;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Iterator\ArrayCacheIterator;
-use loophp\collection\Iterator\ClosureIterator;
-use loophp\collection\Iterator\IterableIterator;
 use loophp\collection\Iterator\ResourceIterator;
 use loophp\collection\Iterator\StringIterator;
 use loophp\collection\Operation\All;
@@ -135,6 +133,8 @@ use loophp\collection\Operation\Window;
 use loophp\collection\Operation\Words;
 use loophp\collection\Operation\Wrap;
 use loophp\collection\Operation\Zip;
+use loophp\iterators\ClosureIterator;
+use loophp\iterators\IterableIterator;
 use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
 
