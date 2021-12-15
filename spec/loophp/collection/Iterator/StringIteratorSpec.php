@@ -18,14 +18,14 @@ class StringIteratorSpec extends ObjectBehavior
     {
         $this->beConstructedWith('A string.');
 
-        $this->getInnerIterator()->shouldIterateAs(['A', ' ', 's', 't', 'r', 'i', 'n', 'g', '.']);
+        $this->shouldIterateAs(['A', ' ', 's', 't', 'r', 'i', 'n', 'g', '.']);
     }
 
     public function it_can_iterate_with_given_delimiter(): void
     {
         $this->beConstructedWith('I am a string.', ' ');
 
-        $this->getInnerIterator()->shouldIterateAs(['I', 'am', 'a', 'string.']);
+        $this->shouldIterateAs(['I', 'am', 'a', 'string.']);
     }
 
     public function it_is_initializable_with_default_delimiter(): void

@@ -80,16 +80,6 @@ class PsrCacheIteratorSpec extends ObjectBehavior
             ->shouldHaveBeenCalledOnce();
     }
 
-    public function it_can_get_the_inner_iterator(Iterator $iterator, CacheItemPoolInterface $cache): void
-    {
-        $this
-            ->beConstructedWith($iterator, $cache);
-
-        $this
-            ->getInnerIterator()
-            ->shouldReturn($iterator);
-    }
-
     public function it_is_initializable(Iterator $iterator, CacheItemPoolInterface $cache): void
     {
         $this->beConstructedWith($iterator, $cache);

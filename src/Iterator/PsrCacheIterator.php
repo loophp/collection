@@ -20,11 +20,16 @@ use ReturnTypeWillChange;
  * @template TKey
  * @template T
  *
- * @extends ProxyIterator<TKey, T>
+ * @implements Iterator<TKey, T>
  */
-final class PsrCacheIterator extends ProxyIterator
+final class PsrCacheIterator implements Iterator
 {
     private CacheItemPoolInterface $cache;
+
+    /**
+     * @var Iterator<TKey, T>
+     */
+    private Iterator $iterator;
 
     private int $key = 0;
 
@@ -66,19 +71,19 @@ final class PsrCacheIterator extends ProxyIterator
         // This is mostly for iterator_count().
         $this->getTupleFromCache($this->key++);
 
-        parent::next();
+        $this->iterator->next();
     }
 
     public function rewind(): void
     {
-        // No call to parent::rewind() because we do not know if the inner
+        // No call to $this->iterator->rewind() because we do not know if the inner
         // iterator can be rewinded or not.
         $this->key = 0;
     }
 
     public function valid(): bool
     {
-        return parent::valid() || $this->cache->hasItem((string) $this->key);
+        return $this->iterator->valid() || $this->cache->hasItem((string) $this->key);
     }
 
     private function getTupleFromCache(int $key): CacheItemInterface
@@ -87,8 +92,8 @@ final class PsrCacheIterator extends ProxyIterator
 
         if (false === $item->isHit()) {
             $item->set([
-                parent::key(),
-                parent::current(),
+                $this->iterator->key(),
+                $this->iterator->current(),
             ]);
 
             $this->cache->save($item);

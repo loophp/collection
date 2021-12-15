@@ -10,18 +10,21 @@ declare(strict_types=1);
 namespace loophp\collection\Iterator;
 
 use Generator;
+use Iterator;
 use IteratorIterator;
 
 /**
  * @internal
  *
- * @template TKey
- * @template T of string
- *
- * @extends ProxyIterator<int, string>
+ * @implements Iterator<int, string>
  */
-final class StringIterator extends ProxyIterator
+final class StringIterator implements Iterator
 {
+    /**
+     * @var Iterator<int, string>
+     */
+    private Iterator $iterator;
+
     public function __construct(string $data, string $delimiter = '')
     {
         $callback =
@@ -46,5 +49,36 @@ final class StringIterator extends ProxyIterator
             };
 
         $this->iterator = new IteratorIterator($callback($data, $delimiter));
+    }
+
+    /**
+     * @return string
+     */
+    public function current()
+    {
+        return $this->iterator->current();
+    }
+
+    /**
+     * @return int
+     */
+    public function key()
+    {
+        return $this->iterator->key();
+    }
+
+    public function next(): void
+    {
+        $this->iterator->next();
+    }
+
+    public function rewind(): void
+    {
+        $this->iterator->rewind();
+    }
+
+    public function valid(): bool
+    {
+        return $this->iterator->valid();
     }
 }

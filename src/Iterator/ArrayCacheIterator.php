@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace loophp\collection\Iterator;
 
 use Iterator;
-use ReturnTypeWillChange;
 
 use function array_key_exists;
 
@@ -20,14 +19,19 @@ use function array_key_exists;
  * @template TKey
  * @template T
  *
- * @extends ProxyIterator<TKey, T>
+ * @implements Iterator<TKey, T>
  */
-final class ArrayCacheIterator extends ProxyIterator
+final class ArrayCacheIterator implements Iterator
 {
     /**
      * @var array<int, array{0: TKey, 1: T}>
      */
     private array $cache = [];
+
+    /**
+     * @var Iterator<TKey, T>
+     */
+    private Iterator $iterator;
 
     private int $key = 0;
 
@@ -42,7 +46,6 @@ final class ArrayCacheIterator extends ProxyIterator
     /**
      * @return T
      */
-    #[ReturnTypeWillChange]
     public function current()
     {
         $data = $this->getTupleFromCache($this->key);
@@ -53,7 +56,6 @@ final class ArrayCacheIterator extends ProxyIterator
     /**
      * @return TKey
      */
-    #[ReturnTypeWillChange]
     public function key()
     {
         $data = $this->getTupleFromCache($this->key);
@@ -66,19 +68,19 @@ final class ArrayCacheIterator extends ProxyIterator
         // This is mostly for iterator_count().
         $this->getTupleFromCache($this->key++);
 
-        parent::next();
+        $this->iterator->next();
     }
 
     public function rewind(): void
     {
-        // No call to parent::rewind() because we do not know if the inner
+        // No call to $this->iterator->rewind() because we do not know if the inner
         // iterator can be rewinded or not.
         $this->key = 0;
     }
 
     public function valid(): bool
     {
-        return parent::valid() || array_key_exists($this->key, $this->cache);
+        return $this->iterator->valid() || array_key_exists($this->key, $this->cache);
     }
 
     /**
@@ -87,8 +89,8 @@ final class ArrayCacheIterator extends ProxyIterator
     private function getTupleFromCache(int $key): array
     {
         return $this->cache[$key] ??= [
-            parent::key(),
-            parent::current(),
+            $this->iterator->key(),
+            $this->iterator->current(),
         ];
     }
 }

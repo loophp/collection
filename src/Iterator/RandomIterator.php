@@ -11,7 +11,6 @@ namespace loophp\collection\Iterator;
 
 use BadMethodCallException;
 use Iterator;
-use ReturnTypeWillChange;
 
 use function assert;
 
@@ -24,9 +23,9 @@ use const PHP_INT_MIN;
  * @template TKey
  * @template T
  *
- * @extends ProxyIterator<TKey, T>
+ * @implements Iterator<TKey, T>
  */
-final class RandomIterator extends ProxyIterator
+final class RandomIterator implements Iterator
 {
     /**
      * @var array<int, int>
@@ -47,12 +46,13 @@ final class RandomIterator extends ProxyIterator
      */
     public function __construct(Iterator $iterator, ?int $seed = null)
     {
-        $this->iterator = $iterator;
         $this->seed = $seed ?? random_int(PHP_INT_MIN, PHP_INT_MAX);
         $this->wrappedIterator = new ArrayCacheIterator($iterator);
     }
 
-    #[ReturnTypeWillChange]
+    /**
+     * @return T
+     */
     public function current()
     {
         if (!$this->valid()) {
@@ -66,7 +66,9 @@ final class RandomIterator extends ProxyIterator
         return $keyValueTuple[1];
     }
 
-    #[ReturnTypeWillChange]
+    /**
+     * @return TKey
+     */
     public function key()
     {
         if (!$this->valid()) {
