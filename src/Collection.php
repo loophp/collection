@@ -15,7 +15,6 @@ use Generator;
 use Iterator;
 use loophp\collection\Contract\Collection as CollectionInterface;
 use loophp\collection\Contract\Operation;
-use loophp\collection\Iterator\ArrayCacheIterator;
 use loophp\collection\Iterator\ResourceIterator;
 use loophp\collection\Iterator\StringIterator;
 use loophp\collection\Operation\All;
@@ -133,6 +132,7 @@ use loophp\collection\Operation\Window;
 use loophp\collection\Operation\Words;
 use loophp\collection\Operation\Wrap;
 use loophp\collection\Operation\Zip;
+use loophp\iterators\CachingIteratorAggregate;
 use loophp\iterators\ClosureIterator;
 use loophp\iterators\IterableIterator;
 use Psr\Cache\CacheItemPoolInterface;
@@ -484,7 +484,7 @@ final class Collection implements CollectionInterface
     public static function fromGenerator(Generator $generator): self
     {
         return self::fromIterable(
-            new ArrayCacheIterator(
+            new CachingIteratorAggregate(
                 new ClosureIterator(
                     static function (Generator $generator): Generator {
                         while ($generator->valid()) {

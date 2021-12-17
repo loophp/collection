@@ -11,6 +11,9 @@ namespace loophp\collection\Iterator;
 
 use BadMethodCallException;
 use Iterator;
+use IteratorAggregate;
+use loophp\iterators\CachingIteratorAggregate;
+use RuntimeException;
 
 use function assert;
 
@@ -28,6 +31,11 @@ use const PHP_INT_MIN;
 final class RandomIterator implements Iterator
 {
     /**
+     * @var IteratorAggregate<TKey, T>
+     */
+    private IteratorAggregate $cache;
+
+    /**
      * @var array<int, int>
      */
     private array $indexes = [];
@@ -37,17 +45,12 @@ final class RandomIterator implements Iterator
     private int $seed;
 
     /**
-     * @var Iterator<TKey, T>
-     */
-    private Iterator $wrappedIterator;
-
-    /**
      * @param Iterator<TKey, T> $iterator
      */
     public function __construct(Iterator $iterator, ?int $seed = null)
     {
         $this->seed = $seed ?? random_int(PHP_INT_MIN, PHP_INT_MAX);
-        $this->wrappedIterator = new ArrayCacheIterator($iterator);
+        $this->cache = new CachingIteratorAggregate($iterator);
     }
 
     /**
@@ -94,7 +97,7 @@ final class RandomIterator implements Iterator
     {
         // @todo: Try to get rid of iterator_count().
         $this->indexes = $this->predictableRandomArray(
-            range(0, iterator_count($this->wrappedIterator) - 1),
+            range(0, iterator_count($this->cache->getIterator()) - 1),
             $this->seed
         );
         $this->key = 0;
@@ -115,13 +118,13 @@ final class RandomIterator implements Iterator
     {
         $i = 0;
 
-        $this->wrappedIterator->rewind();
-
-        while ($this->indexes[$key] !== $i++) {
-            $this->wrappedIterator->next();
+        foreach ($this->cache as $k => $v) {
+            if ($this->indexes[$key] === $i++) {
+                return [$k, $v];
+            }
         }
 
-        return [$this->wrappedIterator->key(), $this->wrappedIterator->current()];
+        throw new RuntimeException('Unable to find key and value.');
     }
 
     /**
