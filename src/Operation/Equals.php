@@ -24,7 +24,7 @@ final class Equals extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(Iterator<TKey, T>): Closure(Iterator<TKey, T>): Generator<int, bool>
+     * @return Closure(Iterator<TKey, T>): Closure(Iterator<TKey, T>): Generator<int|TKey, bool>
      */
     public function __invoke(): Closure
     {
@@ -32,13 +32,13 @@ final class Equals extends AbstractOperation
             /**
              * @param Iterator<TKey, T> $other
              *
-             * @return Closure(Iterator<TKey, T>): Generator<int, bool>
+             * @return Closure(Iterator<TKey, T>): Generator<int|TKey, bool>
              */
             static function (Iterator $other): Closure {
                 /**
                  * @param Iterator<TKey, T> $iterator
                  *
-                 * @return Generator<int, bool>
+                 * @return Generator<int|TKey, bool>
                  */
                 return static function (Iterator $iterator) use ($other): Generator {
                     while ($other->valid() && $iterator->valid()) {
@@ -54,9 +54,9 @@ final class Equals extends AbstractOperation
                         /**
                          * @param T $current
                          */
-                        static fn ($current): bool => Contains::of()($current)($other)->current();
+                        static fn ($current): bool => (new Contains())()($current)($other)->current();
 
-                    return yield from Every::of()(static fn (): bool => false)($containsCallback)($iterator);
+                    return yield from (new Every())()(static fn (): bool => false)($containsCallback)($iterator);
                 };
             };
     }
