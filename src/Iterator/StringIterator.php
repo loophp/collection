@@ -12,6 +12,7 @@ namespace loophp\collection\Iterator;
 use Generator;
 use Iterator;
 use IteratorIterator;
+use ReturnTypeWillChange;
 
 /**
  * @internal
@@ -54,6 +55,7 @@ final class StringIterator implements Iterator
     /**
      * @return string
      */
+    #[ReturnTypeWillChange]
     public function current()
     {
         return $this->iterator->current();
@@ -62,6 +64,7 @@ final class StringIterator implements Iterator
     /**
      * @return int
      */
+    #[ReturnTypeWillChange]
     public function key()
     {
         return $this->iterator->key();

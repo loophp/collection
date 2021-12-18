@@ -13,6 +13,7 @@ use BadMethodCallException;
 use Iterator;
 use IteratorAggregate;
 use loophp\iterators\CachingIteratorAggregate;
+use ReturnTypeWillChange;
 use RuntimeException;
 
 use function assert;
@@ -56,6 +57,7 @@ final class RandomIterator implements Iterator
     /**
      * @return T
      */
+    #[ReturnTypeWillChange]
     public function current()
     {
         if (!$this->valid()) {
@@ -72,6 +74,7 @@ final class RandomIterator implements Iterator
     /**
      * @return TKey
      */
+    #[ReturnTypeWillChange]
     public function key()
     {
         if (!$this->valid()) {

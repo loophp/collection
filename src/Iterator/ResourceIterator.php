@@ -13,6 +13,7 @@ use Generator;
 use InvalidArgumentException;
 use Iterator;
 use loophp\iterators\ClosureIterator;
+use ReturnTypeWillChange;
 
 use function is_resource;
 
@@ -61,6 +62,7 @@ final class ResourceIterator implements Iterator
     /**
      * @return string
      */
+    #[ReturnTypeWillChange]
     public function current()
     {
         return $this->iterator->current();
@@ -69,6 +71,7 @@ final class ResourceIterator implements Iterator
     /**
      * @return int
      */
+    #[ReturnTypeWillChange]
     public function key()
     {
         return $this->iterator->key();

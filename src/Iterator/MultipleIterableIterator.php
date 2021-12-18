@@ -13,6 +13,7 @@ use AppendIterator;
 use Iterator;
 use loophp\iterators\IterableIterator;
 use NoRewindIterator;
+use ReturnTypeWillChange;
 
 /**
  * @internal
@@ -46,6 +47,7 @@ final class MultipleIterableIterator implements Iterator
     /**
      * @return T
      */
+    #[ReturnTypeWillChange]
     public function current()
     {
         return $this->iterator->current();
@@ -54,6 +56,7 @@ final class MultipleIterableIterator implements Iterator
     /**
      * @return TKey
      */
+    #[ReturnTypeWillChange]
     public function key()
     {
         return $this->iterator->key();

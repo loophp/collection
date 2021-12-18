@@ -13,6 +13,7 @@ use Generator;
 use InvalidArgumentException;
 use Iterator;
 use loophp\iterators\ClosureIterator;
+use ReturnTypeWillChange;
 
 use function get_class;
 use function gettype;
@@ -98,6 +99,7 @@ final class TypedIterator implements Iterator
     /**
      * @return T
      */
+    #[ReturnTypeWillChange]
     public function current()
     {
         return $this->iterator->current();
@@ -106,6 +108,7 @@ final class TypedIterator implements Iterator
     /**
      * @return TKey
      */
+    #[ReturnTypeWillChange]
     public function key()
     {
         return $this->iterator->key();
