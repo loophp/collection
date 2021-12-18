@@ -52,11 +52,8 @@ final class StringIterator implements Iterator
         $this->iterator = new IteratorIterator($callback($data, $delimiter));
     }
 
-    /**
-     * @return string
-     */
     #[ReturnTypeWillChange]
-    public function current()
+    public function current(): string
     {
         return $this->iterator->current();
     }
