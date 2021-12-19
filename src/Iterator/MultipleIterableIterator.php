@@ -10,7 +10,10 @@ declare(strict_types=1);
 namespace loophp\collection\Iterator;
 
 use AppendIterator;
+use Iterator;
+use loophp\iterators\IterableIterator;
 use NoRewindIterator;
+use ReturnTypeWillChange;
 
 /**
  * @internal
@@ -18,12 +21,17 @@ use NoRewindIterator;
  * @template TKey
  * @template T
  *
- * @extends ProxyIterator<TKey, T>
+ * @implements Iterator<TKey, T>
  */
-final class MultipleIterableIterator extends ProxyIterator
+final class MultipleIterableIterator implements Iterator
 {
     /**
-     * @param iterable<TKey, T> $iterables
+     * @var Iterator<TKey, T>
+     */
+    private Iterator $iterator;
+
+    /**
+     * @param iterable<TKey, T> ...$iterables
      */
     public function __construct(iterable ...$iterables)
     {
@@ -34,5 +42,38 @@ final class MultipleIterableIterator extends ProxyIterator
         }
 
         $this->iterator = $appendIterator;
+    }
+
+    /**
+     * @return T
+     */
+    #[ReturnTypeWillChange]
+    public function current()
+    {
+        return $this->iterator->current();
+    }
+
+    /**
+     * @return TKey
+     */
+    #[ReturnTypeWillChange]
+    public function key()
+    {
+        return $this->iterator->key();
+    }
+
+    public function next(): void
+    {
+        $this->iterator->next();
+    }
+
+    public function rewind(): void
+    {
+        $this->iterator->rewind();
+    }
+
+    public function valid(): bool
+    {
+        return $this->iterator->valid();
     }
 }

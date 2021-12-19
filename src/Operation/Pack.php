@@ -12,6 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\iterators\PackIterableAggregate;
 
 /**
  * @immutable
@@ -28,22 +29,17 @@ final class Pack extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        $mapCallback =
+        return
             /**
-             * @param T $value
-             * @param TKey $key
+             * @param Iterator<TKey, T> $iterator
              *
-             * @return array{0: TKey, 1: T}
+             * @return Generator<int, array{0: TKey, 1: T}>
              */
-            static fn ($value, $key): array => [$key, $value];
+            static function (Iterator $iterator): Generator {
+                /** @var PackIterableAggregate<TKey, T> $packIterableAggregate */
+                $packIterableAggregate = new PackIterableAggregate($iterator);
 
-        /** @var Closure(Iterator<TKey, T>): Generator<int, array{0: TKey, 1: T}> $pipe */
-        $pipe = Pipe::of()(
-            Map::of()($mapCallback),
-            (new Normalize())()
-        );
-
-        // Point free style.
-        return $pipe;
+                return yield from $packIterableAggregate->getIterator();
+            };
     }
 }

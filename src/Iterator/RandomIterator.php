@@ -11,7 +11,10 @@ namespace loophp\collection\Iterator;
 
 use BadMethodCallException;
 use Iterator;
+use IteratorAggregate;
+use loophp\iterators\CachingIteratorAggregate;
 use ReturnTypeWillChange;
+use RuntimeException;
 
 use function assert;
 
@@ -24,10 +27,15 @@ use const PHP_INT_MIN;
  * @template TKey
  * @template T
  *
- * @extends ProxyIterator<TKey, T>
+ * @implements Iterator<TKey, T>
  */
-final class RandomIterator extends ProxyIterator
+final class RandomIterator implements Iterator
 {
+    /**
+     * @var IteratorAggregate<TKey, T>
+     */
+    private IteratorAggregate $cache;
+
     /**
      * @var array<int, int>
      */
@@ -38,20 +46,17 @@ final class RandomIterator extends ProxyIterator
     private int $seed;
 
     /**
-     * @var Iterator<TKey, T>
-     */
-    private Iterator $wrappedIterator;
-
-    /**
      * @param Iterator<TKey, T> $iterator
      */
     public function __construct(Iterator $iterator, ?int $seed = null)
     {
-        $this->iterator = $iterator;
         $this->seed = $seed ?? random_int(PHP_INT_MIN, PHP_INT_MAX);
-        $this->wrappedIterator = new ArrayCacheIterator($iterator);
+        $this->cache = new CachingIteratorAggregate($iterator);
     }
 
+    /**
+     * @return T
+     */
     #[ReturnTypeWillChange]
     public function current()
     {
@@ -66,6 +71,9 @@ final class RandomIterator extends ProxyIterator
         return $keyValueTuple[1];
     }
 
+    /**
+     * @return TKey
+     */
     #[ReturnTypeWillChange]
     public function key()
     {
@@ -92,7 +100,7 @@ final class RandomIterator extends ProxyIterator
     {
         // @todo: Try to get rid of iterator_count().
         $this->indexes = $this->predictableRandomArray(
-            range(0, iterator_count($this->wrappedIterator) - 1),
+            range(0, iterator_count($this->cache->getIterator()) - 1),
             $this->seed
         );
         $this->key = 0;
@@ -113,13 +121,13 @@ final class RandomIterator extends ProxyIterator
     {
         $i = 0;
 
-        $this->wrappedIterator->rewind();
-
-        while ($this->indexes[$key] !== $i++) {
-            $this->wrappedIterator->next();
+        foreach ($this->cache as $k => $v) {
+            if ($this->indexes[$key] === $i++) {
+                return [$k, $v];
+            }
         }
 
-        return [$this->wrappedIterator->key(), $this->wrappedIterator->current()];
+        throw new RuntimeException('Unable to find key and value.');
     }
 
     /**

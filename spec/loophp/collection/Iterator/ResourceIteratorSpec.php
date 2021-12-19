@@ -21,7 +21,7 @@ class ResourceIteratorSpec extends ObjectBehavior
     {
         $this->beConstructedWith(fopen('data://text/plain,ABCD', 'rb'));
 
-        $this->getInnerIterator()->shouldIterateAs(['A', 'B', 'C', 'D']);
+        $this->shouldIterateAs(['A', 'B', 'C', 'D']);
     }
 
     public function it_closes_opened_file_if_needed(): void
@@ -30,7 +30,7 @@ class ResourceIteratorSpec extends ObjectBehavior
 
         $this->beConstructedWith($file, true);
 
-        $this->getInnerIterator()->shouldIterateAs(['a', 'b', 'c']);
+        $this->shouldIterateAs(['a', 'b', 'c']);
 
         if (is_resource($file)) {
             throw new FailureException('Failed to close resource!');
@@ -57,7 +57,7 @@ class ResourceIteratorSpec extends ObjectBehavior
 
         $this->beConstructedWith($file);
 
-        $this->getInnerIterator()->shouldIterateAs(['a', 'b', 'c']);
+        $this->shouldIterateAs(['a', 'b', 'c']);
 
         if (!is_resource($file)) {
             throw new FailureException('Resource was closed but should not have been!');

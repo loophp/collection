@@ -16,13 +16,6 @@ use PhpSpec\ObjectBehavior;
 
 class MultipleIterableIteratorSpec extends ObjectBehavior
 {
-    public function it_can_iterate_with_a_single_iterable(): void
-    {
-        $this->beConstructedWith([1, 2, 3]);
-
-        $this->getInnerIterator()->shouldIterateAs([1, 2, 3]);
-    }
-
     public function it_can_iterate_with_multiple_iterables(): void
     {
         $this->beConstructedWith([1, 2, 3], new ArrayIterator([4, 5, 6]));
@@ -41,7 +34,7 @@ class MultipleIterableIteratorSpec extends ObjectBehavior
             yield 2 => 6;
         };
 
-        $this->getInnerIterator()->shouldIterateAs($expected());
+        $this->shouldIterateAs($expected());
     }
 
     public function it_is_initializable_with_a_single_iterable(): void

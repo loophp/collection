@@ -12,6 +12,8 @@ namespace loophp\collection\Iterator;
 use Generator;
 use InvalidArgumentException;
 use Iterator;
+use loophp\iterators\ClosureIterator;
+use ReturnTypeWillChange;
 
 use function get_class;
 use function gettype;
@@ -23,10 +25,15 @@ use function is_object;
  * @template TKey
  * @template T
  *
- * @extends ProxyIterator<TKey, T>
+ * @implements Iterator<TKey, T>
  */
-final class TypedIterator extends ProxyIterator
+final class TypedIterator implements Iterator
 {
+    /**
+     * @var Iterator<TKey, T>
+     */
+    private Iterator $iterator;
+
     /**
      * @param Iterator<TKey, T> $iterator
      * @param null|callable(mixed): string $getType
@@ -87,5 +94,38 @@ final class TypedIterator extends ProxyIterator
             },
             [$iterator]
         );
+    }
+
+    /**
+     * @return T
+     */
+    #[ReturnTypeWillChange]
+    public function current()
+    {
+        return $this->iterator->current();
+    }
+
+    /**
+     * @return TKey
+     */
+    #[ReturnTypeWillChange]
+    public function key()
+    {
+        return $this->iterator->key();
+    }
+
+    public function next(): void
+    {
+        $this->iterator->next();
+    }
+
+    public function rewind(): void
+    {
+        $this->iterator->rewind();
+    }
+
+    public function valid(): bool
+    {
+        return $this->iterator->valid();
     }
 }

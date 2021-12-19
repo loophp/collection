@@ -11,19 +11,24 @@ namespace loophp\collection\Iterator;
 
 use Generator;
 use InvalidArgumentException;
+use Iterator;
+use loophp\iterators\ClosureIterator;
+use ReturnTypeWillChange;
 
 use function is_resource;
 
 /**
  * @internal
  *
- * @template TKey
- * @template T
- *
- * @extends ProxyIterator<int, string>
+ * @implements Iterator<int, string>
  */
-final class ResourceIterator extends ProxyIterator
+final class ResourceIterator implements Iterator
 {
+    /**
+     * @var Iterator<int, string>
+     */
+    private Iterator $iterator;
+
     /**
      * @param false|resource $resource
      */
@@ -52,5 +57,35 @@ final class ResourceIterator extends ProxyIterator
             };
 
         $this->iterator = new ClosureIterator($callback, [$resource]);
+    }
+
+    #[ReturnTypeWillChange]
+    public function current(): string
+    {
+        return $this->iterator->current();
+    }
+
+    /**
+     * @return int
+     */
+    #[ReturnTypeWillChange]
+    public function key()
+    {
+        return $this->iterator->key();
+    }
+
+    public function next(): void
+    {
+        $this->iterator->next();
+    }
+
+    public function rewind(): void
+    {
+        $this->iterator->rewind();
+    }
+
+    public function valid(): bool
+    {
+        return $this->iterator->valid();
     }
 }
