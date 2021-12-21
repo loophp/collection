@@ -50,7 +50,7 @@ jobs:
               run: composer install --no-progress --prefer-dist --optimize-autoloader
 
             - name: Run Grumphp
-              run: vendor/bin/grumphp run --tasks=phpspec,coverage_clover
+              run: vendor/bin/grumphp run --tasks=phpspec,clover_coverage
 
             - name: Send Scrutinizer data
               run: |
