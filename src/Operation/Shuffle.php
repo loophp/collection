@@ -11,13 +11,15 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Iterator;
-use loophp\collection\Iterator\RandomIterator;
+use loophp\iterators\RandomIterableAggregate;
 
 /**
  * @immutable
  *
  * @template TKey
  * @template T
+ *
+ * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Shuffle extends AbstractOperation
 {
@@ -38,6 +40,6 @@ final class Shuffle extends AbstractOperation
                  *
                  * @return Iterator<TKey, T>
                  */
-                static fn (Iterator $iterator): Iterator => new RandomIterator($iterator, $seed);
+                static fn (Iterator $iterator): Iterator => (new RandomIterableAggregate($iterator, $seed))->getIterator();
     }
 }

@@ -140,7 +140,6 @@ use Symfony\Component\Cache\Adapter\ArrayAdapter;
 
 use const INF;
 use const PHP_INT_MAX;
-use const PHP_INT_MIN;
 
 /**
  * @immutable
@@ -753,7 +752,7 @@ final class Collection implements CollectionInterface
 
     public function random(int $size = 1, ?int $seed = null): CollectionInterface
     {
-        return new self(Random::of()($seed ?? random_int(PHP_INT_MIN, PHP_INT_MAX))($size), [$this->getIterator()]);
+        return new self(Random::of()($seed ?? random_int(0, 1000))($size), [$this->getIterator()]);
     }
 
     public static function range(float $start = 0.0, float $end = INF, float $step = 1.0): CollectionInterface
@@ -837,7 +836,7 @@ final class Collection implements CollectionInterface
 
     public function shuffle(?int $seed = null): CollectionInterface
     {
-        return new self(Shuffle::of()($seed ?? random_int(PHP_INT_MIN, PHP_INT_MAX)), [$this->getIterator()]);
+        return new self(Shuffle::of()($seed ?? random_int(0, 1000)), [$this->getIterator()]);
     }
 
     public function since(callable ...$callbacks): CollectionInterface
