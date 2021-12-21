@@ -220,7 +220,7 @@ For more detailed changelogs, please check [the release changelogs][45].
 [donate github]: https://img.shields.io/badge/Sponsor-Github-brightgreen.svg?style=flat-square
 [donate paypal]: https://img.shields.io/badge/Sponsor-Paypal-brightgreen.svg?style=flat-square
 [mutation badge url]: https://img.shields.io/endpoint?style=flat-square&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Floophp%2Fcollection%2Fmaster
-[mutation badge link]: https://dashboard.stryker-mutator.io/reports/github.com/loophp/dynamicobjects/master
+[mutation badge link]: https://dashboard.stryker-mutator.io/reports/github.com/loophp/collection/master
 [7]: https://packagist.org/?query=collection
 [11]: https://en.wikipedia.org/wiki/Immutable_object
 [12]: https://www.php.net/manual/en/class.generator.php
