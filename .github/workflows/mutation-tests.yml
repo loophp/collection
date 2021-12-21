@@ -50,6 +50,8 @@ jobs:
               run: composer install --no-progress --prefer-dist --optimize-autoloader
 
             - name: Run Grumphp
+              env:
+                  STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
               run: vendor/bin/grumphp run --tasks=infection -n
 
             - name: Send feedback on Github
