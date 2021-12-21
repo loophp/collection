@@ -5,6 +5,7 @@
  [![Scrutinizer code quality][code quality]][3]
  [![Type Coverage][type coverage]][4]
  [![Code Coverage][code coverage]][3]
+ [![Mutation testing badge][mutation badge url]][mutation badge link]
  [![License][license]][1]
  [![Donate!][donate github]][5]
  [![Donate!][donate paypal]][6]
@@ -218,6 +219,8 @@ For more detailed changelogs, please check [the release changelogs][45].
 [license]: https://img.shields.io/packagist/l/loophp/collection.svg?style=flat-square
 [donate github]: https://img.shields.io/badge/Sponsor-Github-brightgreen.svg?style=flat-square
 [donate paypal]: https://img.shields.io/badge/Sponsor-Paypal-brightgreen.svg?style=flat-square
+[mutation badge url]: https://img.shields.io/endpoint?style=flat-square&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Floophp%2Fcollection%2Fmaster
+[mutation badge link]: https://dashboard.stryker-mutator.io/reports/github.com/loophp/dynamicobjects/master
 [7]: https://packagist.org/?query=collection
 [11]: https://en.wikipedia.org/wiki/Immutable_object
 [12]: https://www.php.net/manual/en/class.generator.php
