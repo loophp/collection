@@ -13,6 +13,7 @@ use Closure;
 use Doctrine\Common\Collections\Criteria;
 use Generator;
 use Iterator;
+use IteratorAggregate;
 use loophp\collection\Contract\Collection as CollectionInterface;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Iterator\ResourceIterator;
@@ -708,8 +709,15 @@ final class Collection implements CollectionInterface
 
     public function partition(callable ...$callbacks): CollectionInterface
     {
-        return (new self(Partition::of()(...$callbacks), [$this]))
-            ->map([$this, 'fromIterable']);
+        return (new self((new Partition())()(...$callbacks), [$this]))
+            ->map(
+                /**
+                 * @param IteratorAggregate<TKey, T> $iteratorAggregate
+                 *
+                 * @return CollectionInterface<TKey, T>
+                 */
+                static fn (IteratorAggregate $iteratorAggregate): CollectionInterface => Collection::fromIterable($iteratorAggregate)
+            );
     }
 
     public function permutate(): CollectionInterface
@@ -843,8 +851,15 @@ final class Collection implements CollectionInterface
 
     public function span(callable ...$callbacks): CollectionInterface
     {
-        return (new self(Span::of()(...$callbacks), [$this]))
-            ->map([$this, 'fromIterable']);
+        return (new self((new Span())()(...$callbacks), [$this]))
+            ->map(
+                /**
+                 * @param IteratorAggregate<TKey, T> $iteratorAggregate
+                 *
+                 * @return CollectionInterface<TKey, T>
+                 */
+                static fn (IteratorAggregate $iteratorAggregate): CollectionInterface => Collection::fromIterable($iteratorAggregate)
+            );
     }
 
     public function split(int $type = Operation\Splitable::BEFORE, callable ...$callbacks): CollectionInterface
