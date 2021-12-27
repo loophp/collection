@@ -8,7 +8,6 @@
  [![Mutation testing badge][mutation badge url]][mutation badge link]
  [![License][license]][1]
  [![Donate!][donate github]][5]
- [![Donate!][donate paypal]][6]
 
 # PHP Collection
 
@@ -165,8 +164,8 @@ that are at the core of this package, so you can get the most out of its usage.
 [The API][28] will give you a pretty good idea of the existing methods and what
 you can do with them.
 
-I'm doing my best to keep the documentation up to date; if you found something
-odd, please let me know in the [issue queue][34].
+We are doing our best to keep the documentation up to date; if you found something
+odd, please let us know in the [issue queue][34].
 
 ## Code quality, tests, benchmarks
 
@@ -188,10 +187,16 @@ Static analyzers are also controlling the code. [PHPStan][38] and
 
 ## Contributing
 
-Feel free to contribute by sending Github pull requests. I'm quite responsive :-)
+Feel free to contribute by sending pull requests. We are a
+usually very responsive team and we will help you going
+through your pull request from the beginning to the end.
 
-If you can't contribute to the code, you can also sponsor me on [Github][5] or
-[Paypal][6].
+For some reasons, if you can't contribute to the code and
+willing to help, sponsoring is a good, sound and safe way
+to show us some gratitude for the hours we invested in this
+package.
+
+Sponsor me on [Github][5] and/or any of [the contributors][6].
 
 ## On the internet
 
@@ -251,7 +256,7 @@ For more detailed changelogs, please check [the release changelogs][45].
 [38]: https://github.com/phpstan/phpstan
 [39]: https://github.com/vimeo/psalm
 [5]: https://github.com/sponsors/drupol
-[6]: https://www.paypal.me/drupol
+[6]: https://github.com/loophp/collection/graphs/contributors
 [40]: https://www.reddit.com/r/PHP/comments/csxw23/a_stateless_and_modular_collection_class/
 [41]: https://www.reddit.com/r/PHP/comments/i2u2le/release_of_version_200_of_loophpcollection/
 [42]: https://blog.jetbrains.com/phpstorm/2020/08/php-annotated-august-2020/
