@@ -1,14 +1,14 @@
 Principles
 ==========
 
-This section describes a few elements which are at the core of ``Collection`` 
+This section describes a few elements which are at the core of ``Collection``
 and guides on how to get the most out of the package.
 
 Immutability
 ------------
 
 Most :ref:`operations <Methods (operations)>` return a new collection object
-rather than modifying the original one. 
+rather than modifying the original one.
 
 Immutability usually makes our code:
 
@@ -17,7 +17,7 @@ Immutability usually makes our code:
 * more robust and consistent
 
 A few notable exceptions to this are methods that return scalar values like ``count``;
-read more about them in the :ref:`operations background <Background>` section. 
+read more about them in the :ref:`operations background <Background>` section.
 
 Laziness
 --------
@@ -58,13 +58,13 @@ Internals
 
 The ``Collection`` object is assisted by a couple of powerful components:
 
-`ClosureIterator`_ - allows iterating over the collection object by creating 
+`ClosureIterator`_ - allows iterating over the collection object by creating
 a new PHP Generator each time iteration is started.
 
 `AbstractOperation`_ and the `Operation Interface`_ - provide the blueprint
 for collection operations, which are pure functions defined as final classes
-with the `invoke`_ PHP magic method. Operations return a ``Closure`` when called, 
-which itself returns an ``Iterator``; they can thus be used inside ``ClosureIterator`` to 
+with the `invoke`_ PHP magic method. Operations return a ``Closure`` when called,
+which itself returns an ``Iterator``; they can thus be used inside ``ClosureIterator`` to
 create new generators when needed.
 
 Side-Effects
@@ -72,12 +72,12 @@ Side-Effects
 
 ``Collection`` is a helper for making transformations to input data sets.
 Even though we can technically trigger side-effects in some operations
-through a custom ``Closure``, it's better to avoid this type of usage and instead 
+through a custom ``Closure``, it's better to avoid this type of usage and instead
 use the operations for their transformative effects (use the return values).
 
 Exception handling is one scenario where we might find ourselves wanting ``Collection``
 to behave eagerly. If we want an exception to be thrown and handled in a specific function,
-during an operation, rather than when the collection is later iterated on, we can take advantage 
+during an operation, rather than when the collection is later iterated on, we can take advantage
 of the :ref:`squash <Squash>` operation.
 
 Testing
@@ -90,16 +90,16 @@ objects returned by a function.
 ``Collection`` already provides two operations which can be used for comparison:
 
 * :ref:`Equals <Equals>` - allows usage of the `assertObjectEquals`_ assertion in *PHPUnit*
-* :ref:`Same <Same>` - allows customizing precisely how elements are compared using a callback 
+* :ref:`Same <Same>` - allows customizing precisely how elements are compared using a callback
 
 Note that these operations will traverse both collections as part of the comparison. As such,
 any side effects triggered in our source code will be triggered during this comparison. When
 using ``equals`` in particular, we might find it useful to apply ``squash`` to the resulting
-collection object before the comparison if our test needs to assert how many times 
-a side effect is performed. 
+collection object before the comparison if our test needs to assert how many times
+a side effect is performed.
 
-In addition to these, in *PHPSpec* we can use the `iterateAs`_ matcher to assert how our
-final collection object will iterate.
+In addition to these, in *PHPUnit* we can use the `assertIdenticalIterable`_ assertion to assert
+how our final collection object will iterate.
 
 The last option is to transform the collection object into an array with the :ref:`all <All>` operation
 and use any assertion that we would normally use for arrays.
@@ -135,7 +135,7 @@ Custom Callbacks
 Many operations allow us to customize their behavior through custom callbacks. This gives us the power
 to achieve what we need with the operation if the default behavior is not the best fit for our use case.
 
-For example, by default the :ref:`same <Same>` operation will compare collection elements using 
+For example, by default the :ref:`same <Same>` operation will compare collection elements using
 strict equality (``===``). However, when dealing with objects we might want a different behavior:
 
 .. code-block:: php
@@ -165,6 +165,6 @@ we can use `iterator_to_array`_ to convert this back to a normal array when need
 .. _ClosureIterator: https://github.com/loophp/collection/blob/master/src/Iterator/ClosureIterator.php
 .. _invoke: https://www.php.net/manual/en/language.oop5.magic.php#object.invoke
 .. _iterator_to_array: https://www.php.net/manual/en/function.iterator-to-array.php
-.. _iterateAs: https://www.phpspec.net/en/stable/cookbook/matchers.html#iterateas-matcher
+.. _iterateAs: https://github.com/loophp/phpunit-iterable-assertions
 .. _Lazy evaluation: https://en.wikipedia.org/wiki/Lazy_evaluation
 .. _Operation Interface: https://github.com/loophp/collection/blob/master/src/Contract/Operation.php
