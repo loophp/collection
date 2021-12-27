@@ -19,7 +19,6 @@ branches:
                   - "Unit Tests (macOS-latest, 8.0)"
                   - "Unit Tests (windows-latest, 7.4)"
                   - "Unit Tests (windows-latest, 8.0)"
-                  - "Mutation Testing (ubuntu-latest, 7.4)"
                   - "Mutation Testing (ubuntu-latest, 8.0)"
                   - "Code Style (ubuntu-latest, 7.4)"
                   - "Code Style (ubuntu-latest, 8.0)"
