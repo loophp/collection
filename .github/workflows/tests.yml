@@ -27,7 +27,7 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v2.4.0
               with:
-                  fetch-depth: 1
+                  fetch-depth: 2
 
             - name: Install PHP
               uses: shivammathur/setup-php@2.16.0
