@@ -152,6 +152,10 @@ This library has been inspired by:
 Check out the [usage][32] page for both trivial and
 more advanced use cases.
 
+## Dependencies
+
+* [loophp/iterators][48]: A very small package providing very useful PHP Iterators.
+
 ## Documentation
 
 On top of well-documented code, the package includes a complete documentation
@@ -173,7 +177,7 @@ Every time changes are introduced into the library, [Github][2] runs the
 tests.
 
 The library has tests written with [PHPUnit][35].
-Feel free to check them out in the `tests/unit/` directory. 
+Feel free to check them out in the `tests/unit/` directory.
 Run `composer phpunit` to trigger the tests.
 
 Before each commit, some inspections are executed with [GrumPHP][36]; run
@@ -270,3 +274,4 @@ For more detailed changelogs, please check [the release changelogs][45].
 [31]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flatMap
 [46]: https://www.youtube.com/watch?v=Kp47f8dtqoo
 [47]: https://loophp-collection.readthedocs.io/en/stable/pages/principles.html
+[48]: https://github.com/loophp/iterators
