@@ -48,7 +48,7 @@ final class PsrCacheIteratorTest extends TestCase
 
         $iterator->rewind();
 
-        self::assertEquals('a', $iterator->current());
+        self::assertSame('a', $iterator->current());
 
         $cache
             ->getItem(0)
@@ -56,7 +56,7 @@ final class PsrCacheIteratorTest extends TestCase
 
         $iterator->rewind();
 
-        self::assertEquals('a', $iterator->current());
+        self::assertSame('a', $iterator->current());
 
         $cacheItem = new CacheItem();
         $cacheItem->set('b');

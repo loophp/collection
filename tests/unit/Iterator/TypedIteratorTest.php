@@ -371,25 +371,25 @@ final class TypedIteratorTest extends TestCase
     {
         $iterator = new TypedIterator(new ArrayIterator(self::LIST_DATA));
 
-        self::assertEquals(0, $iterator->key());
+        self::assertSame(0, $iterator->key());
         $iterator->next();
-        self::assertEquals(1, $iterator->key());
+        self::assertSame(1, $iterator->key());
     }
 
     public function testReturnAStringKey(): void
     {
         $iterator = new TypedIterator(new ArrayIterator(self::MAP_DATA));
 
-        self::assertEquals('foo', $iterator->key());
+        self::assertSame('foo', $iterator->key());
         $iterator->next();
-        self::assertEquals('bar', $iterator->key());
+        self::assertSame('bar', $iterator->key());
     }
 
     public function testRewind(): void
     {
         $iterator = new TypedIterator(new ArrayIterator(['foo']));
 
-        self::assertEquals('foo', $iterator->current());
+        self::assertSame('foo', $iterator->current());
 
         $iterator->next();
         self::assertFalse($iterator->valid());
@@ -397,6 +397,6 @@ final class TypedIteratorTest extends TestCase
 
         $iterator->rewind();
         self::assertTrue($iterator->valid());
-        self::assertEquals('foo', $iterator->current());
+        self::assertSame('foo', $iterator->current());
     }
 }

@@ -61,7 +61,7 @@ final class CollectionSpecificOperationTest extends TestCase
             'e' => ['fn1'],
         ];
 
-        self::assertEquals($expected, $stack);
+        self::assertSame($expected, $stack);
 
         $stack = [];
 
@@ -82,7 +82,7 @@ final class CollectionSpecificOperationTest extends TestCase
             'a' => ['fn1'],
         ];
 
-        self::assertEquals($expected, $stack);
+        self::assertSame($expected, $stack);
 
         $stack = [];
 
@@ -113,7 +113,7 @@ final class CollectionSpecificOperationTest extends TestCase
             'e' => ['fn1', 'fn2'],
         ];
 
-        self::assertEquals($expected, $stack);
+        self::assertSame($expected, $stack);
 
         $stack = [];
 
@@ -150,7 +150,7 @@ final class CollectionSpecificOperationTest extends TestCase
             'c' => ['fn1'],
         ];
 
-        self::assertEquals($expected, $stack);
+        self::assertSame($expected, $stack);
     }
 
     public function testCoalesceOperation(): void
@@ -246,7 +246,7 @@ final class CollectionSpecificOperationTest extends TestCase
             $test1
         );
 
-        self::assertEquals(5, $count);
+        self::assertSame(5, $count);
 
         $count = 0;
 
@@ -261,7 +261,7 @@ final class CollectionSpecificOperationTest extends TestCase
             $test2
         );
 
-        self::assertEquals(0, $count);
+        self::assertSame(0, $count);
 
         $callback = static function (string $name, $key, $value) use (&$count) {
             ++$count;
@@ -275,7 +275,7 @@ final class CollectionSpecificOperationTest extends TestCase
             $test3
         );
 
-        self::assertEquals(2, $count);
+        self::assertSame(2, $count);
 
         $expectedOutput = <<<'EOF'
             array(3) {
