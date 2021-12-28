@@ -165,6 +165,6 @@ we can use `iterator_to_array`_ to convert this back to a normal array when need
 .. _ClosureIterator: https://github.com/loophp/collection/blob/master/src/Iterator/ClosureIterator.php
 .. _invoke: https://www.php.net/manual/en/language.oop5.magic.php#object.invoke
 .. _iterator_to_array: https://www.php.net/manual/en/function.iterator-to-array.php
-.. _iterateAs: https://github.com/loophp/phpunit-iterable-assertions
+.. _assertIdenticalIterable: https://github.com/loophp/phpunit-iterable-assertions
 .. _Lazy evaluation: https://en.wikipedia.org/wiki/Lazy_evaluation
 .. _Operation Interface: https://github.com/loophp/collection/blob/master/src/Contract/Operation.php
