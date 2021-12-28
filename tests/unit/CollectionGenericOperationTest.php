@@ -165,7 +165,7 @@ final class CollectionGenericOperationTest extends TestCase
         iterable $actual,
         $expected
     ): void {
-        self::assertEquals(
+        self::assertSame(
             $expected,
             Collection::fromIterable($actual)->{$operation}(...$parameters)
         );
