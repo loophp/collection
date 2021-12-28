@@ -3,7 +3,7 @@ This PR:
 * [ ] Fix ...
 * [ ] Provide ...
 * [ ] It breaks backward compatibility
-* [ ] Has unit tests (phpspec)
+* [ ] Is covered by unit tests
 * [ ] Has static analysis tests (psalm, phpstan)
 * [ ] Has documentation
 * [ ] Is an experimental thing
