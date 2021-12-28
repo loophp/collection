@@ -3156,7 +3156,7 @@ class CollectionSpec extends ObjectBehavior
 
     public function it_can_shuffle(): void
     {
-        $input = range('A', 'Z');
+        $input = range('a', 'e');
 
         $this::fromIterable($input)
             ->shuffle()
@@ -3169,32 +3169,11 @@ class CollectionSpec extends ObjectBehavior
         $this::fromIterable($input)
             ->shuffle(123)
             ->shouldIterateAs([
-                2 => 'C',
-                20 => 'U',
-                8 => 'I',
-                3 => 'D',
-                7 => 'H',
-                9 => 'J',
-                0 => 'A',
-                21 => 'V',
-                12 => 'M',
-                15 => 'P',
-                13 => 'N',
-                4 => 'E',
-                19 => 'T',
-                10 => 'K',
-                22 => 'W',
-                11 => 'L',
-                1 => 'B',
-                5 => 'F',
-                18 => 'S',
-                23 => 'X',
-                17 => 'R',
-                24 => 'Y',
-                16 => 'Q',
-                25 => 'Z',
-                14 => 'O',
-                6 => 'G',
+                2 => 'c',
+                1 => 'b',
+                3 => 'd',
+                4 => 'e',
+                0 => 'a',
             ]);
     }
 
