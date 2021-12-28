@@ -75,7 +75,7 @@ final class PsrCacheIteratorTest extends TestCase
 
         $iterator->next();
 
-        self::assertEquals('b', $iterator->current());
+        self::assertSame('b', $iterator->current());
 
         $cache
             ->save($cacheItem)
