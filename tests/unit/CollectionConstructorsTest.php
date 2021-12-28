@@ -10,7 +10,9 @@ declare(strict_types=1);
 namespace tests\loophp\collection;
 
 use ArrayIterator;
+use Error;
 use Generator;
+use InvalidArgumentException;
 use loophp\collection\Collection;
 use loophp\PhpUnitIterableAssertions\Traits\IterableAssertions;
 use PHPUnit\Framework\TestCase;
@@ -187,12 +189,9 @@ final class CollectionConstructorsTest extends TestCase
             Collection::fromIterable($generator)
         );
 
-        // TODO: Reimplement with PHPUNIT.
-        /*
-        $subject
-            ->shouldThrow(Error::class)
-            ->during('count');
-         */
+        $this->expectException(Error::class);
+
+        Collection::fromIterable($generator)->count();
     }
 
     public function testFromResourceConstructor()
@@ -213,14 +212,11 @@ final class CollectionConstructorsTest extends TestCase
             Collection::fromResource($stream)
         );
 
-        // TODO: Implement this with PHPUnit
-        /*
+        $this->expectException(InvalidArgumentException::class);
+
         $stream = imagecreate(100, 100);
 
-        $this::fromResource($stream)
-            ->shouldThrow(InvalidArgumentException::class)
-            ->during('all');
-         */
+        Collection::fromResource($stream)->all();
     }
 
     public function testFromStringConstructor(): void
