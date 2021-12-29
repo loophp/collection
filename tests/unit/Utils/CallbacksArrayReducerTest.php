@@ -16,54 +16,101 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \loophp\collection\Utils
+ * @coversDefaultClass \loophp\collection\Utils\CallbacksArrayReducer
  */
 final class CallbacksArrayReducerTest extends TestCase
 {
-    public function testEnsureCallbacksReceiveTheNeededArguments(): void
+    public function dataProvider()
     {
-        $callbacks = [
-            static fn (string $value, string $key, Iterator $iterator): bool => 'value_key_a_b_c' === sprintf('%s_%s_%s', $value, $key, implode('_', iterator_to_array($iterator))),
+        // Ensure Callbacks receive the needed arguments.
+        yield [
+            [
+                static fn (string $value, string $key, Iterator $iterator): bool => 'value_key_a_b_c' === sprintf('%s_%s_%s', $value, $key, implode('_', iterator_to_array($iterator))),
+            ],
+            'value',
+            'key',
+            range('a', 'c'),
+            true,
         ];
 
-        $iterator = new ArrayIterator(range('a', 'c'));
-
-        self::assertTrue(CallbacksArrayReducer::or()($callbacks, 'value', 'key', $iterator));
-    }
-
-    public function testReducesEmptyCallbacksArray(): void
-    {
-        $iterator = new ArrayIterator(range(0, 10));
-
-        self::assertFalse(CallbacksArrayReducer::or()([], 0, 0, $iterator));
-    }
-
-    public function testReducesMultipleCallbacks(): void
-    {
-        $callbacks = [
-            static fn (int $v): bool => 5 < $v,
-            static fn (int $v): bool => 0 === $v % 2,
+        // Reduce empty callbacks array
+        yield [
+            [],
+            0,
+            0,
+            range('a', 'c'),
+            false,
         ];
 
-        $iterator = new ArrayIterator(range(0, 10));
-
-        self::assertTrue(CallbacksArrayReducer::or()($callbacks, 0, 0, $iterator));
-
-        self::assertTrue(CallbacksArrayReducer::or()($callbacks, 13, 0, $iterator));
-
-        self::assertFalse(CallbacksArrayReducer::or()($callbacks, 3, 0, $iterator));
-    }
-
-    public function testReducesSingleCallback(): void
-    {
-        $callbacks = [
-            static fn (int $v): bool => 5 < $v,
+        // Reduce multiple callbacks
+        yield [
+            [
+                static fn (int $v): bool => 5 < $v,
+                static fn (int $v): bool => 0 === $v % 2,
+            ],
+            0,
+            0,
+            range(0, 10),
+            true,
         ];
 
-        $iterator = new ArrayIterator(range(0, 10));
+        yield [
+            [
+                static fn (int $v): bool => 5 < $v,
+                static fn (int $v): bool => 0 === $v % 2,
+            ],
+            13,
+            0,
+            range(0, 10),
+            true,
+        ];
 
-        self::assertFalse(CallbacksArrayReducer::or()($callbacks, 0, 0, $iterator));
+        yield [
+            [
+                static fn (int $v): bool => 5 < $v,
+                static fn (int $v): bool => 0 === $v % 2,
+            ],
+            3,
+            0,
+            range(0, 10),
+            false,
+        ];
 
-        self::assertTrue(CallbacksArrayReducer::or()($callbacks, 6, 0, $iterator));
+        // Reduce single callback
+        yield [
+            [
+                static fn (int $v): bool => 5 < $v,
+            ],
+            0,
+            0,
+            range(0, 10),
+            false,
+        ];
+
+        yield [
+            [
+                static fn (int $v): bool => 5 < $v,
+            ],
+            6,
+            0,
+            range(0, 10),
+            true,
+        ];
+    }
+
+    /**
+     * @dataProvider dataProvider
+     *
+     * @param mixed $current
+     * @param mixed $key
+     */
+    public function testGeneric(
+        array $callbacks,
+        $current,
+        $key,
+        array $iterator,
+        bool $expected
+    ): void {
+        self::assertSame($expected, CallbacksArrayReducer::or()($callbacks, $current, $key, new ArrayIterator($iterator)));
     }
 }
