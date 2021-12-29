@@ -44,13 +44,9 @@ final class DropWhile extends AbstractOperation
              * @return Generator<TKey, T>
              */
             static function (Iterator $iterator) use ($callbacks): Generator {
-                $result = true;
-
                 foreach ($iterator as $key => $current) {
-                    if (true === $result) {
-                        if (true === $result = CallbacksArrayReducer::or()($callbacks, $current, $key, $iterator)) {
-                            continue;
-                        }
+                    if (CallbacksArrayReducer::or()($callbacks, $current, $key, $iterator)) {
+                        continue;
                     }
 
                     break;
