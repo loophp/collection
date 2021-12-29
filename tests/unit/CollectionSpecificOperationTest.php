@@ -441,6 +441,13 @@ final class CollectionSpecificOperationTest extends TestCase
         );
     }
 
+    public function testSortInvalidSortType()
+    {
+        $this->expectException(Exception::class);
+
+        Collection::empty()->sort(10)->all();
+    }
+
     public function testSpanOperation(): void
     {
         $input = range(1, 10);
