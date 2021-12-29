@@ -152,6 +152,10 @@ This library has been inspired by:
 Check out the [usage][32] page for both trivial and
 more advanced use cases.
 
+## Dependencies
+
+* [loophp/iterators][48]: A very small package providing very useful PHP Iterators.
+
 ## Documentation
 
 On top of well-documented code, the package includes a complete documentation
@@ -172,9 +176,9 @@ odd, please let us know in the [issue queue][34].
 Every time changes are introduced into the library, [Github][2] runs the
 tests.
 
-The library has tests written with [PHPSpec][35].
-Feel free to check them out in the `spec` directory. Run `composer phpspec` to
-trigger the tests.
+The library has tests written with [PHPUnit][35].
+Feel free to check them out in the `tests/unit/` directory.
+Run `composer phpunit` to trigger the tests.
 
 Before each commit, some inspections are executed with [GrumPHP][36]; run
 `composer grumphp` to check manually.
@@ -250,7 +254,7 @@ For more detailed changelogs, please check [the release changelogs][45].
 [32]: https://loophp-collection.readthedocs.io/en/stable/pages/usage.html
 [34]: https://github.com/loophp/collection/issues
 [2]: https://github.com/loophp/collection/actions
-[35]: http://www.phpspec.net/
+[35]: https://www.phpunit.de/
 [36]: https://github.com/phpro/grumphp
 [37]: https://github.com/infection/infection
 [38]: https://github.com/phpstan/phpstan
@@ -270,3 +274,4 @@ For more detailed changelogs, please check [the release changelogs][45].
 [31]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flatMap
 [46]: https://www.youtube.com/watch?v=Kp47f8dtqoo
 [47]: https://loophp-collection.readthedocs.io/en/stable/pages/principles.html
+[48]: https://github.com/loophp/iterators

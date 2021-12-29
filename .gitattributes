@@ -12,7 +12,7 @@
 .scrutinizer.yml export-ignore
 infection.json export-ignore
 grumphp.yml export-ignore
-phpspec.yml export-ignore
+phpunit.xml export-ignore
 docker-compose.yaml export-ignore
 psalm-baseline.xml export-ignore
 psalm.xml export-ignore

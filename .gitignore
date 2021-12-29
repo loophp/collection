@@ -10,3 +10,4 @@
 /node_modules/
 /benchmarks/
 /.vscode/
+/.phpunit.result.cache

@@ -19,5 +19,7 @@ $config
 $rules = $config->getRules();
 
 $rules['return_assignment'] = false;
+// See https://github.com/FriendsOfPHP/PHP-CS-Fixer/issues/6179
+$rules['php_unit_dedicate_assert'] = false;
 
 return $config->setRules($rules);

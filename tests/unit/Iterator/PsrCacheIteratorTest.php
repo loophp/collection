@@ -7,22 +7,29 @@
 
 declare(strict_types=1);
 
-namespace spec\loophp\collection\Iterator;
+namespace tests\loophp\collection\Iterator;
 
 use ArrayIterator;
-use Iterator;
 use loophp\collection\Iterator\PsrCacheIterator;
-use PhpSpec\ObjectBehavior;
+use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\Cache\CacheItem;
 
-class PsrCacheIteratorSpec extends ObjectBehavior
+/**
+ * @internal
+ * @coversDefaultClass \loophp\collection\Iterator
+ */
+final class PsrCacheIteratorTest extends TestCase
 {
-    public function it_can_cache_data(CacheItemPoolInterface $cache): void
+    use ProphecyTrait;
+
+    public function testCacheData(): void
     {
+        $cache = $this->prophesize(CacheItemPoolInterface::class);
         $it = new ArrayIterator(range('a', 'e'));
 
-        $this->beConstructedWith($it, $cache);
+        $iterator = new PsrCacheIterator($it, $cache->reveal());
 
         $cacheItem = new CacheItem();
         $cacheItem->set('a');
@@ -39,20 +46,17 @@ class PsrCacheIteratorSpec extends ObjectBehavior
             ->hasItem(0)
             ->willReturn(true);
 
-        $this->rewind();
+        $iterator->rewind();
 
-        $this
-            ->current()
-            ->shouldReturn('a');
+        self::assertSame('a', $iterator->current());
 
         $cache
             ->getItem(0)
             ->shouldHaveBeenCalledOnce();
-        $this->rewind();
 
-        $this
-            ->current()
-            ->shouldReturn('a');
+        $iterator->rewind();
+
+        self::assertSame('a', $iterator->current());
 
         $cacheItem = new CacheItem();
         $cacheItem->set('b');
@@ -69,20 +73,12 @@ class PsrCacheIteratorSpec extends ObjectBehavior
             ->hasItem(1)
             ->willReturn(false);
 
-        $this->next();
+        $iterator->next();
 
-        $this
-            ->current()
-            ->shouldReturn('b');
+        self::assertSame('b', $iterator->current());
 
         $cache
             ->save($cacheItem)
             ->shouldHaveBeenCalledOnce();
-    }
-
-    public function it_is_initializable(Iterator $iterator, CacheItemPoolInterface $cache): void
-    {
-        $this->beConstructedWith($iterator, $cache);
-        $this->shouldHaveType(PsrCacheIterator::class);
     }
 }

@@ -12,16 +12,16 @@ branches:
               strict: true
               contexts:
                   - "Static Analysis (ubuntu-latest, 7.4)"
-                  - "Static Analysis (ubuntu-latest, 8.0)"
+                  - "Static Analysis (ubuntu-latest, 8.1)"
                   - "Unit Tests (ubuntu-latest, 7.4)"
-                  - "Unit Tests (ubuntu-latest, 8.0)"
+                  - "Unit Tests (ubuntu-latest, 8.1)"
                   - "Unit Tests (macOS-latest, 7.4)"
-                  - "Unit Tests (macOS-latest, 8.0)"
+                  - "Unit Tests (macOS-latest, 8.1)"
                   - "Unit Tests (windows-latest, 7.4)"
-                  - "Unit Tests (windows-latest, 8.0)"
-                  - "Mutation Testing (ubuntu-latest, 8.0)"
+                  - "Unit Tests (windows-latest, 8.1)"
+                  - "Mutation Testing (ubuntu-latest, 8.1)"
                   - "Code Style (ubuntu-latest, 7.4)"
-                  - "Code Style (ubuntu-latest, 8.0)"
+                  - "Code Style (ubuntu-latest, 8.1)"
 
           restrictions: null
           required_linear_history: true
