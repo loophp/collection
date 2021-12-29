@@ -25,13 +25,13 @@ final class CallbacksArrayReducer
     /**
      * @pure
      *
-     * @return Closure(list<callable(T=, TKey=, Iterator<TKey, T>=): bool>, T, TKey, Iterator<TKey, T>): bool
+     * @return Closure(array<array-key, callable(T=, TKey=, Iterator<TKey, T>=): bool>, T, TKey, Iterator<TKey, T>): bool
      */
     public static function or(): Closure
     {
         return
             /**
-             * @param list<callable(T=, TKey=, Iterator<TKey, T>=): bool> $callbacks
+             * @param array<array-key, callable(T=, TKey=, Iterator<TKey, T>=): bool> $callbacks
              * @param T $current
              * @param TKey $key
              * @param Iterator<TKey, T> $iterator
