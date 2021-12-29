@@ -45,14 +45,9 @@ final class Flatten extends AbstractOperation
                             continue;
                         }
 
-                        if (1 !== $depth) {
-                            /** @var callable(Iterator<TKey, T>): Generator<mixed, mixed> $flatten */
-                            $flatten = Flatten::of()($depth - 1);
-
-                            $value = $flatten(new IterableIterator($value));
-                        }
-
-                        yield from $value;
+                        yield from (1 !== $depth)
+                            ? (new Flatten())()($depth - 1)(new IterableIterator($value))
+                            : $value;
                     }
                 };
     }
