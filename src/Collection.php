@@ -136,6 +136,7 @@ use loophp\collection\Operation\Zip;
 use loophp\iterators\CachingIteratorAggregate;
 use loophp\iterators\ClosureIterator;
 use loophp\iterators\IterableIterator;
+use NoRewindIterator;
 use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
 
@@ -485,15 +486,7 @@ final class Collection implements CollectionInterface
     {
         return self::fromIterable(
             new CachingIteratorAggregate(
-                new ClosureIterator(
-                    static function (Generator $generator): Generator {
-                        while ($generator->valid()) {
-                            yield $generator->key() => $generator->current();
-                            $generator->next();
-                        }
-                    },
-                    [$generator]
-                )
+                new NoRewindIterator($generator)
             )
         );
     }
