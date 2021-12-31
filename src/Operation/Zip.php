@@ -66,7 +66,6 @@ final class Zip extends AbstractOperation
                         ),
                     ]);
 
-                /** @var MultipleIterator<array-key, (Iterator<TKey, T>|Iterator<UKey, U>)> $buildMultipleIterator */
                 $buildMultipleIterator =
                      /**
                       * @return Closure(ArrayIterator<int, (Iterator<TKey, T>|IterableIterator<UKey, U>)>): MultipleIterator
