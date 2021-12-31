@@ -29,7 +29,7 @@ final class Associate extends AbstractOperation
      * @template NewTKey
      * @template NewT
      *
-     * @return Closure(callable(TKey=, T=, Iterator<TKey, T>=): NewTKey): Closure(callable(T=, TKey=, Iterator<TKey, T>=): NewT): Closure(Iterator<TKey, T>): Generator<NewTKey, NewT>
+     * @return Closure(callable(mixed=, mixed=, Iterator<mixed, mixed>=): mixed): Closure(callable(mixed=, mixed=, Iterator<mixed, mixed>=): mixed): Closure(Iterator<mixed, mixed>): Generator<mixed, mixed>
      */
     public function __invoke(): Closure
     {

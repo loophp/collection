@@ -66,11 +66,12 @@ final class Zip extends AbstractOperation
                         ),
                     ]);
 
+                /** @var MultipleIterator<array-key, (Iterator<TKey, T>|Iterator<UKey, U>)> $buildMultipleIterator */
                 $buildMultipleIterator =
-                    /**
-                     * @return Closure(ArrayIterator<int, (Iterator<TKey, T>|IterableIterator<UKey, U>)>): MultipleIterator
-                     */
-                    Reduce::of()(
+                     /**
+                      * @return Closure(ArrayIterator<int, (Iterator<TKey, T>|IterableIterator<UKey, U>)>): MultipleIterator
+                      */
+                     (new Reduce())()(
                         /**
                          * @param Iterator<TKey, T> $iterator
                          */
@@ -79,7 +80,7 @@ final class Zip extends AbstractOperation
 
                             return $acc;
                         }
-                    )(new MultipleIterator(MultipleIterator::MIT_NEED_ANY));
+                     )(new MultipleIterator(MultipleIterator::MIT_NEED_ANY));
 
                 /** @var Closure(Iterator<TKey, T>): Generator<list<TKey|UKey>, list<T|U>> $pipe */
                 $pipe = Pipe::of()(

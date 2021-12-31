@@ -29,7 +29,7 @@ final class Reduction extends AbstractOperation
      * @template V
      * @template W
      *
-     * @return Closure(callable((V|W)=, T=, TKey=, Iterator<TKey, T>=): W): Closure(V): Closure(Iterator<TKey, T>): Generator<TKey, W>
+     * @return Closure(callable(mixed=, mixed=, mixed=, Iterator<mixed, mixed>=): mixed): Closure(mixed): Closure(Iterator<TKey, T>): Generator<TKey, mixed>
      */
     public function __invoke(): Closure
     {

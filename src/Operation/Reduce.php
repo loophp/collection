@@ -29,7 +29,7 @@ final class Reduce extends AbstractOperation
      * @template V
      * @template W
      *
-     * @return Closure(callable((V|W)=, T=, TKey=, Iterator<TKey, T>=): W): Closure(V): Closure(Iterator<TKey, T>): Generator<TKey, W>
+     * @return Closure(callable(mixed=, mixed=, mixed=, Iterator<mixed, mixed>=): mixed): Closure(mixed): Closure(Iterator<TKey, T>): Generator<TKey, mixed>
      */
     public function __invoke(): Closure
     {
@@ -48,7 +48,7 @@ final class Reduce extends AbstractOperation
                 static function ($initial) use ($callback): Closure {
                     /** @var Closure(Iterator<TKey, T>): Generator<TKey, W> $pipe */
                     $pipe = Pipe::of()(
-                        Reduction::of()($callback)($initial),
+                        (new Reduction())()($callback)($initial),
                         Last::of(),
                     );
 

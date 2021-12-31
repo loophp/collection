@@ -29,13 +29,13 @@ final class FlatMap extends AbstractOperation
      * @template IKey
      * @template IValue
      *
-     * @return Closure(callable(T=, TKey=, Iterator<TKey, T>=): iterable<IKey, IValue>): Closure(Iterator<TKey, T>): Generator<IKey, IValue>
+     * @return Closure(callable(T=, TKey=, Iterator<TKey, T>=): iterable<mixed, mixed>): Closure(Iterator<TKey, T>): Generator<mixed, mixed>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable(T=, TKey=, Iterator<TKey, T>=): iterable<IKey, IValue> $callback
+             * @param callable(T=, TKey=, Iterator<TKey, T>=): iterable<mixed, mixed> $callback
              */
             static function (callable $callback): Closure {
                 /** @var Closure(Iterator<TKey, T>): Generator<IKey, IValue> $flatMap */
