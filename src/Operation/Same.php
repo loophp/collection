@@ -58,7 +58,7 @@ final class Same extends AbstractOperation
                             $other->next();
                         }
 
-                        return yield $iterator->valid() === $other->valid();
+                        yield $iterator->valid() === $other->valid();
                     };
     }
 }

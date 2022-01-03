@@ -53,7 +53,7 @@ final class Chunk extends AbstractOperation
                         $size = $sizesIterator->current();
 
                         if (0 >= $size) {
-                            return new EmptyIterator();
+                            return yield [];
                         }
 
                         if (count($values) !== $size) {
@@ -69,7 +69,7 @@ final class Chunk extends AbstractOperation
                         $values = [$value];
                     }
 
-                    return yield $values;
+                    yield $values;
                 };
     }
 }

@@ -24,7 +24,7 @@ final class Head extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(Iterator<TKey, T>): Generator<TKey, T, mixed, void>
      */
     public function __invoke(): Closure
     {
@@ -32,11 +32,12 @@ final class Head extends AbstractOperation
             /**
              * @param Iterator<TKey, T> $iterator
              *
-             * @return Generator<TKey, T>
+             * @return Generator<TKey, T, mixed, void>
              */
             static function (Iterator $iterator): Generator {
                 $isEmpty = true;
 
+                $key = $current = null;
                 foreach ($iterator as $key => $current) {
                     $isEmpty = false;
 
@@ -44,11 +45,7 @@ final class Head extends AbstractOperation
                 }
 
                 if (false === $isEmpty) {
-                    /**
-                     * @var TKey $key
-                     * @var T $current
-                     */
-                    return yield $key => $current;
+                    yield $key => $current;
                 }
             };
     }

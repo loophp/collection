@@ -37,16 +37,13 @@ final class Last extends AbstractOperation
             static function (Iterator $iterator): Generator {
                 $isEmpty = true;
 
+                $key = $current = null;
                 foreach ($iterator as $key => $current) {
                     $isEmpty = false;
                 }
 
                 if (false === $isEmpty) {
-                    /**
-                     * @var TKey $key
-                     * @var T $current
-                     */
-                    return yield $key => $current;
+                    yield $key => $current;
                 }
             };
     }

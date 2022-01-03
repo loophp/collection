@@ -39,7 +39,7 @@ final class Pack extends AbstractOperation
                 /** @var PackIterableAggregate<TKey, T> $packIterableAggregate */
                 $packIterableAggregate = new PackIterableAggregate($iterator);
 
-                return yield from $packIterableAggregate->getIterator();
+                yield from $packIterableAggregate->getIterator();
             };
     }
 }
