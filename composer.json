@@ -58,7 +58,14 @@
         }
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "phpstan/extension-installer": true,
+            "ergebnis/composer-normalize": true,
+            "phpro/grumphp": true,
+            "composer/package-versions-deprecated": true,
+            "infection/extension-installer": true
+        }
     },
     "scripts": {
         "changelog-unreleased": "docker-compose run auto_changelog -c .auto-changelog -u",

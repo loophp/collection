@@ -38,6 +38,7 @@ final class Head extends AbstractOperation
                 $isEmpty = true;
 
                 $key = $current = null;
+
                 foreach ($iterator as $key => $current) {
                     $isEmpty = false;
 
