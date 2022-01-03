@@ -46,19 +46,9 @@ parameters:
 			path: src/Operation/Distinct.php
 
 		-
-			message: "#^Parameter \\#1 \\$ of closure expects array\\<int, callable\\(mixed, mixed, Iterator\\<mixed, mixed\\>\\)\\: bool\\>, array\\<int\\|string, callable\\(\\)\\: mixed\\> given\\.$#"
-			count: 1
-			path: src/Operation/DropWhile.php
-
-		-
 			message: "#^Template type U of method loophp\\\\collection\\\\Operation\\\\Duplicate\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
 			count: 1
 			path: src/Operation/Duplicate.php
-
-		-
-			message: "#^Parameter \\#1 \\$ of closure expects array\\<int, callable\\(mixed, mixed, Iterator\\<mixed, mixed\\>\\)\\: bool\\>, array\\<int\\|string, callable\\(\\)\\: mixed\\> given\\.$#"
-			count: 1
-			path: src/Operation/Filter.php
 
 		-
 			message: "#^Template type V of method loophp\\\\collection\\\\Operation\\\\Find\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
@@ -81,24 +71,34 @@ parameters:
 			path: src/Operation/Get.php
 
 		-
-			message: "#^Method loophp\\\\collection\\\\Operation\\\\Group\\:\\:__invoke\\(\\) should return Closure\\(Iterator\\<TKey, T\\>\\)\\: Generator\\<int, array\\<int, T\\>, mixed, mixed\\> but returns Closure\\(Iterator\\)\\: Generator\\<int, non\\-empty\\-array\\<int, mixed\\>, mixed, void\\>\\.$#"
-			count: 1
-			path: src/Operation/Group.php
-
-		-
 			message: "#^Template type NewTKey of method loophp\\\\collection\\\\Operation\\\\GroupBy\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
 			count: 1
 			path: src/Operation/GroupBy.php
 
 		-
+			message: "#^Foreach overwrites \\$current with its value variable\\.$#"
+			count: 1
+			path: src/Operation/Head.php
+
+		-
+			message: "#^Foreach overwrites \\$key with its key variable\\.$#"
+			count: 1
+			path: src/Operation/Head.php
+
+		-
+			message: "#^Foreach overwrites \\$current with its value variable\\.$#"
+			count: 1
+			path: src/Operation/Last.php
+
+		-
+			message: "#^Foreach overwrites \\$key with its key variable\\.$#"
+			count: 1
+			path: src/Operation/Last.php
+
+		-
 			message: "#^Template type V of method loophp\\\\collection\\\\Operation\\\\Map\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
 			count: 1
 			path: src/Operation/Map.php
-
-		-
-			message: "#^Parameter \\#1 \\$ of closure expects array\\<int, callable\\(mixed, mixed, Iterator\\<mixed, mixed\\>\\)\\: bool\\>, array\\<int\\|string, callable\\(\\)\\: mixed\\> given\\.$#"
-			count: 2
-			path: src/Operation/MatchOne.php
 
 		-
 			message: "#^Template type U of method loophp\\\\collection\\\\Operation\\\\Product\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
@@ -131,11 +131,6 @@ parameters:
 			path: src/Operation/Reduction.php
 
 		-
-			message: "#^Parameter \\#1 \\$ of closure expects array\\<int, callable\\(mixed, mixed, Iterator\\<mixed, mixed\\>\\)\\: bool\\>, array\\<int\\|string, callable\\(\\)\\: mixed\\> given\\.$#"
-			count: 1
-			path: src/Operation/Reject.php
-
-		-
 			message: "#^Template type V of method loophp\\\\collection\\\\Operation\\\\ScanLeft\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
 			count: 1
 			path: src/Operation/ScanLeft.php
@@ -166,29 +161,9 @@ parameters:
 			path: src/Operation/ScanRight1.php
 
 		-
-			message: "#^Parameter \\#1 \\$ of closure expects array\\<int, callable\\(mixed, mixed, Iterator\\<mixed, mixed\\>\\)\\: bool\\>, array\\<int\\|string, callable\\(\\)\\: mixed\\> given\\.$#"
-			count: 1
-			path: src/Operation/Since.php
-
-		-
-			message: "#^Parameter \\#1 \\$ of closure expects array\\<int, callable\\(mixed, mixed, Iterator\\<mixed, mixed\\>\\)\\: bool\\>, array\\<int\\|string, callable\\(\\)\\: mixed\\> given\\.$#"
-			count: 1
-			path: src/Operation/Split.php
-
-		-
-			message: "#^Parameter \\#1 \\$ of closure expects array\\<int, callable\\(mixed, mixed, Iterator\\<mixed, mixed\\>\\)\\: bool\\>, array\\<int\\|string, callable\\(\\)\\: mixed\\> given\\.$#"
-			count: 1
-			path: src/Operation/TakeWhile.php
-
-		-
 			message: "#^While loop condition is always true\\.$#"
 			count: 1
 			path: src/Operation/Unfold.php
-
-		-
-			message: "#^Parameter \\#1 \\$ of closure expects array\\<int, callable\\(mixed, mixed, Iterator\\<mixed, mixed\\>\\)\\: bool\\>, array\\<int\\|string, callable\\(\\)\\: mixed\\> given\\.$#"
-			count: 1
-			path: src/Operation/Until.php
 
 		-
 			message: "#^Template type U of method loophp\\\\collection\\\\Operation\\\\Zip\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
