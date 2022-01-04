@@ -12,7 +12,9 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\iterators\IterableIterator;
+use loophp\iterators\IterableIteratorAggregate;
+use loophp\iterators\UnpackIterableAggregate;
+use Traversable;
 
 /**
  * @immutable
@@ -22,6 +24,8 @@ use loophp\iterators\IterableIterator;
  *
  * @template TKey
  * @template T of array{0: NewTKey, 1: NewT}
+ *
+ * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Unpack extends AbstractOperation
 {
@@ -32,31 +36,12 @@ final class Unpack extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        $toIterableIterator = static fn (iterable $value): Iterator => new IterableIterator($value);
-
-        $callbackForKeys =
-            /**
-             * @param NewTKey $initial
-             * @param T $value
-             *
-             * @return NewTKey
-             */
-            static fn (int $key, array $value) => $value[0];
-
-        $callbackForValues =
-            /**
-             * @param T $value
-             *
-             * @return NewT
-             */
-            static fn (array $value) => $value[1];
-
         /** @var Closure(Iterator<TKey, T>): Generator<NewTKey, NewT> $pipe */
         $pipe = Pipe::of()(
-            Map::of()($toIterableIterator),
+            Map::of()(static fn (iterable $iterable): Iterator => (new IterableIteratorAggregate($iterable))->getIterator()),
             Map::of()(Chunk::of()(2)),
             Flatten::of()(1),
-            Associate::of()($callbackForKeys)($callbackForValues)
+            static fn (Iterator $iterator): Traversable => (new UnpackIterableAggregate($iterator))->getIterator()
         );
 
         // Point free style.
