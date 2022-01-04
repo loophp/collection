@@ -16,9 +16,9 @@ use loophp\iterators\IterableIteratorAggregate;
 use loophp\iterators\UnpackIterableAggregate;
 use Traversable;
 
+// phpcs:disable Generic.Files.LineLength.TooLong
+
 /**
- * phpcs:disable Generic.Files.LineLength.TooLong
- *
  * @immutable
  *
  * @template NewTKey
