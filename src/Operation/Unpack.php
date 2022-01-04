@@ -17,6 +17,8 @@ use loophp\iterators\UnpackIterableAggregate;
 use Traversable;
 
 /**
+ * phpcs:disable Generic.Files.LineLength.TooLong
+ *
  * @immutable
  *
  * @template NewTKey
@@ -24,8 +26,6 @@ use Traversable;
  *
  * @template TKey
  * @template T of array{0: NewTKey, 1: NewT}
- *
- * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Unpack extends AbstractOperation
 {
