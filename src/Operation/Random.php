@@ -39,9 +39,9 @@ final class Random extends AbstractOperation
                      */
                     static function (int $size) use ($seed): Closure {
                         /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
-                        $pipe = Pipe::of()(
-                            Shuffle::of()($seed),
-                            Limit::of()($size)(0)
+                        $pipe = (new Pipe())()(
+                            (new Shuffle())()($seed),
+                            (new Limit())()($size)(0)
                         );
 
                         // Point free style.

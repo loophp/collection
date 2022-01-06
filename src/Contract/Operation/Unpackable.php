@@ -13,10 +13,7 @@ use loophp\collection\Contract\Collection;
 
 /**
  * @template TKey
- * @template T of array{0: NewTKey, 1: NewT}
- *
- * @template NewTKey
- * @template NewT
+ * @template T
  */
 interface Unpackable
 {
@@ -25,7 +22,7 @@ interface Unpackable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#unpack
      *
-     * @return Collection<NewTKey, NewT>
+     * @return Collection<mixed, mixed>
      */
     public function unpack(): Collection;
 }

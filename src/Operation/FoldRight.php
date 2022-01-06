@@ -38,9 +38,9 @@ final class FoldRight extends AbstractOperation
              */
             static fn (callable $callback): Closure => static function ($initial = null) use ($callback): Closure {
                 /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
-                $pipe = Pipe::of()(
-                    ScanRight::of()($callback)($initial),
-                    Head::of()
+                $pipe = (new Pipe())()(
+                    (new ScanRight())()($callback)($initial),
+                    (new Head())()
                 );
 
                 // Point free style.

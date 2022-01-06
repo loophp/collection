@@ -36,7 +36,7 @@ final class Window extends AbstractOperation
              */
             static function (int $size): Closure {
                 /** @var Closure(Iterator<TKey, T>): Generator<TKey, list<T>> $reduction */
-                $reduction = Reduction::of()(
+                $reduction = (new Reduction())()(
                     /**
                      * @param list<T> $stack
                      * @param T $current

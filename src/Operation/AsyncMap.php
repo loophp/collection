@@ -64,7 +64,7 @@ final class AsyncMap extends AbstractOperation
                          */
                         static fn (array $value): array => [$value[0], $callback($value[1], $value[0])];
 
-                    $iter = map(fromIterable(Pack::of()($iterator)), new LocalSemaphore(32), parallel($parallelCallBack));
+                    $iter = map(fromIterable((new Pack())()($iterator)), new LocalSemaphore(32), parallel($parallelCallBack));
 
                     while (wait($iter->advance())) {
                         /** @var array{0: TKey, 1: V} $item */

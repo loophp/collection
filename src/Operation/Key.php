@@ -34,9 +34,9 @@ final class Key extends AbstractOperation
              */
             static function (int $index): Closure {
                 /** @var Closure(Iterator<TKey, T>): Generator<int, TKey> $pipe */
-                $pipe = Pipe::of()(
-                    Limit::of()(1)($index),
-                    Flip::of()
+                $pipe = (new Pipe())()(
+                    (new Limit())()(1)($index),
+                    (new Flip())()
                 );
 
                 // Point free style.

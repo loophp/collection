@@ -1,6 +1,0 @@
-parameters:
-	ignoreErrors:
-		-
-			message: "#^Generic type loophp\\\\collection\\\\Contract\\\\Operation\\\\Unpackable\\<mixed, array\\<int, mixed\\>\\> in PHPDoc tag @extends does not specify all template types of interface loophp\\\\collection\\\\Contract\\\\Operation\\\\Unpackable\\: TKey, T, NewTKey, NewT$#"
-			count: 1
-			path: src/Contract/Collection.php

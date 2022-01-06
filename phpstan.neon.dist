@@ -2,4 +2,3 @@ parameters:
 	reportUnmatchedIgnoredErrors: true
 includes:
 	- phpstan-baseline.neon
-	- phpstan-unsupported-baseline.neon

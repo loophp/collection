@@ -28,7 +28,7 @@ final class Map extends AbstractOperation
      *
      * @template V
      *
-     * @return Closure(callable(T=, TKey=, Iterator<TKey, T>=): V): Closure(Iterator<TKey, T>): Generator<TKey, V>
+     * @return Closure(callable(T=, TKey=, Iterator<TKey, T>=): mixed): Closure(Iterator<TKey, T>): Generator<TKey, mixed>
      */
     public function __invoke(): Closure
     {

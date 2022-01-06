@@ -56,7 +56,7 @@ final class Scale extends AbstractOperation
                                 $wantedLowerBound = (0.0 === $wantedLowerBound) ? (0.0 === $base ? 0.0 : 1.0) : $wantedLowerBound;
                                 $wantedUpperBound = (1.0 === $wantedUpperBound) ? (0.0 === $base ? 1.0 : $base) : $wantedUpperBound;
                                 /** @var callable(Generator<TKey, (float | int)>):Generator<TKey, float> $mapper */
-                                $mapper = Map::of()(
+                                $mapper = (new Map())()(
                                     /**
                                      * @param float|int $v
                                      */

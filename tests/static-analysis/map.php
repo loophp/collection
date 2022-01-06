@@ -65,7 +65,15 @@ map_checkListString(Collection::fromIterable([1, 2, 3])->map($square)->map($toSt
 
 // VALID failures due to usage with wrong types
 
-/** @psalm-suppress InvalidScalarArgument @phpstan-ignore-next-line */
+/**
+ * @psalm-suppress InvalidArgument
+ * @psalm-suppress InvalidScalarArgument
+ * @phpstan-ignore-next-line
+ */
 map_checkListInt(Collection::fromIterable(['foo' => 'bar'])->map($square));
-/** @psalm-suppress InvalidScalarArgument @phpstan-ignore-next-line */
+/**
+ * @psalm-suppress InvalidArgument
+ * @psalm-suppress InvalidScalarArgument
+ * @phpstan-ignore-next-line
+ */
 map_checkMapString(Collection::fromIterable([1, 2, 3])->map($appendBar));

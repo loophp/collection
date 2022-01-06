@@ -23,11 +23,9 @@ interface Mapable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#map
      *
-     * @template V
+     * @param callable(T=, TKey=, Iterator<TKey, T>=): mixed $callback
      *
-     * @param callable(T=, TKey=, Iterator<TKey, T>=): V $callback
-     *
-     * @return Collection<TKey, V>
+     * @return Collection<TKey, mixed>
      */
     public function map(callable $callback): Collection;
 }

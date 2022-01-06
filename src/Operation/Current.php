@@ -44,9 +44,9 @@ final class Current extends AbstractOperation
              */
             static function ($default) use ($index): Closure {
                 /** @var Closure(Iterator<TKey, T>): Generator<int, T|V> $pipe */
-                $pipe = Pipe::of()(
+                $pipe = (new Pipe())()(
                     (new Normalize())(),
-                    Get::of()($index)($default)
+                    (new Get())()($index)($default)
                 );
 
                 // Point free style.

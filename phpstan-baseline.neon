@@ -1,16 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Method loophp\\\\collection\\\\Collection\\:\\:partition\\(\\) should return loophp\\\\collection\\\\Contract\\\\Collection\\<int, loophp\\\\collection\\\\Contract\\\\Collection\\<TKey, T\\>\\> but returns loophp\\\\collection\\\\Contract\\\\Collection\\<mixed, loophp\\\\collection\\\\Collection\\<mixed, mixed\\>\\>\\.$#"
-			count: 1
-			path: src/Collection.php
-
-		-
-			message: "#^Method loophp\\\\collection\\\\Collection\\:\\:span\\(\\) should return loophp\\\\collection\\\\Contract\\\\Collection\\<int, loophp\\\\collection\\\\Contract\\\\Collection\\<TKey, T\\>\\> but returns loophp\\\\collection\\\\Contract\\\\Collection\\<mixed, loophp\\\\collection\\\\Collection\\<mixed, mixed\\>\\>\\.$#"
-			count: 1
-			path: src/Collection.php
-
-		-
 			message: "#^Template type NewT of method loophp\\\\collection\\\\Operation\\\\Associate\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
 			count: 1
 			path: src/Operation/Associate.php
