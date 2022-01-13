@@ -13,11 +13,13 @@ use ArrayIterator;
 use Countable;
 use Generator;
 use InvalidArgumentException;
+use IteratorAggregate;
 use JsonSerializable;
 use loophp\collection\Iterator\TypedIterator;
 use loophp\PhpUnitIterableAssertions\Traits\IterableAssertions;
 use PHPUnit\Framework\TestCase;
 use stdClass;
+use Traversable;
 
 use function gettype;
 
@@ -114,6 +116,41 @@ final class TypedIteratorTest extends TestCase
             public function count(): int
             {
                 return 0;
+            }
+        };
+
+        $data = [new $obj1(), new $obj2()];
+
+        $iterator = new TypedIterator(new ArrayIterator($data));
+        self::assertIdenticalIterable(
+            $data,
+            $iterator
+        );
+    }
+
+    public function testAllowsDifferentClassesWithSameInterfaceButInDifferentOrder(): void
+    {
+        $obj1 = new class() implements Countable, IteratorAggregate {
+            public function count(): int
+            {
+                return 0;
+            }
+
+            public function getIterator(): Traversable
+            {
+                yield 0;
+            }
+        };
+
+        $obj2 = new class() implements Countable, IteratorAggregate {
+            public function count(): int
+            {
+                return 0;
+            }
+
+            public function getIterator(): Traversable
+            {
+                yield 0;
             }
         };
 
