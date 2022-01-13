@@ -40,4 +40,14 @@ final class StringIteratorTest extends TestCase
             $iterator
         );
     }
+
+    public function testWithUTF8String(): void
+    {
+        $iterator = new StringIterator('😃😁😂');
+
+        self::assertIdenticalIterable(
+            ['😃', '😁', '😂'],
+            $iterator
+        );
+    }
 }
