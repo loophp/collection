@@ -130,7 +130,7 @@ final class TypedIteratorTest extends TestCase
 
     public function testAllowsDifferentClassesWithSameInterfaceButInDifferentOrder(): void
     {
-        $obj1 = new class() implements Countable, IteratorAggregate {
+        $obj1 = new class() implements IteratorAggregate, Countable {
             public function count(): int
             {
                 return 0;
