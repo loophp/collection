@@ -11,8 +11,9 @@
         "summary": "build/logs/infection/summary.log",
         "debug": "build/logs/infection/debug.log",
         "perMutator": "build/logs/infection/per-mutator.md",
-        "badge": {
-            "branch": "master"
+        "html": "build/logs/infection/report.html",
+        "stryker": {
+            "report": "master"
         }
     },
     "testFramework":"phpunit"
