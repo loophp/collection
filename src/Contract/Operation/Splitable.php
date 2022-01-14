@@ -31,8 +31,6 @@ interface Splitable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#split
      *
-     * @param callable ...$callbacks
-     *
      * @return Collection<int, list<T>>
      */
     public function split(int $type = Splitable::BEFORE, callable ...$callbacks): Collection;
