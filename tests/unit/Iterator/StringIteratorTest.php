@@ -50,4 +50,14 @@ final class StringIteratorTest extends TestCase
             $iterator
         );
     }
+
+    public function testWithUTF8StringDelimiter(): void
+    {
+        $iterator = new StringIterator('a😃b😃c', '😃');
+
+        self::assertIdenticalIterable(
+            ['a', 'b', 'c'],
+            $iterator
+        );
+    }
 }
