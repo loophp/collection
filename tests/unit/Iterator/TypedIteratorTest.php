@@ -35,6 +35,18 @@ final class TypedIteratorTest extends TestCase
 
     private const MAP_DATA = ['foo' => 1, 'bar' => 2];
 
+    public function testWithNullValues(): void
+    {
+        $data = ['a' => null, 'b' => null];
+
+        $iterator = new TypedIterator(new ArrayIterator($data));
+
+        self::assertIdenticalIterable(
+            $data,
+            $iterator
+        );
+    }
+
     public function testAllowsArrayOfAnyType(): void
     {
         $data = [self::MAP_DATA, self::LIST_DATA];
