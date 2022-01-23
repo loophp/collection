@@ -17,7 +17,6 @@ use IteratorAggregate;
 use loophp\collection\Contract\Collection as CollectionInterface;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Iterator\ResourceIterator;
-use loophp\collection\Iterator\StringIterator;
 use loophp\collection\Operation\All;
 use loophp\collection\Operation\Append;
 use loophp\collection\Operation\Apply;
@@ -136,6 +135,7 @@ use loophp\collection\Operation\Zip;
 use loophp\iterators\CachingIteratorAggregate;
 use loophp\iterators\ClosureIterator;
 use loophp\iterators\IterableIterator;
+use loophp\iterators\StringIteratorAggregate;
 use NoRewindIterator;
 use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
@@ -525,7 +525,7 @@ final class Collection implements CollectionInterface
      */
     public static function fromString(string $string, string $delimiter = ''): self
     {
-        return new self(static fn (): Iterator => new StringIterator($string, $delimiter));
+        return new self(static fn (): IteratorAggregate => new StringIteratorAggregate($string, $delimiter));
     }
 
     public function get($key, $default = null): CollectionInterface
