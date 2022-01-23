@@ -59,11 +59,11 @@
     },
     "config": {
         "allow-plugins": {
-            "phpstan/extension-installer": true,
-            "ergebnis/composer-normalize": true,
-            "phpro/grumphp": true,
             "composer/package-versions-deprecated": true,
-            "infection/extension-installer": true
+            "ergebnis/composer-normalize": true,
+            "infection/extension-installer": true,
+            "phpro/grumphp": true,
+            "phpstan/extension-installer": true
         },
         "sort-packages": true
     },
