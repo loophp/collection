@@ -11,7 +11,8 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Iterator;
-use loophp\collection\Iterator\TypedIterator;
+use IteratorAggregate;
+use loophp\iterators\TypedIteratorAggregate;
 
 /**
  * @immutable
@@ -24,7 +25,7 @@ final class Strict extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(null|callable(mixed): string): Closure(Iterator<TKey, T>): Iterator<TKey, T>
+     * @return Closure(null|callable(mixed): string): Closure(Iterator<TKey, T>): IteratorAggregate<TKey, T>
      */
     public function __invoke(): Closure
     {
@@ -32,14 +33,14 @@ final class Strict extends AbstractOperation
             /**
              * @param null|callable(mixed): string $callback
              *
-             * @return Closure(Iterator<TKey, T>): Iterator<TKey, T>
+             * @return Closure(Iterator<TKey, T>): IteratorAggregate<TKey, T>
              */
             static fn (?callable $callback = null): Closure =>
                 /**
                  * @param Iterator<TKey, T> $iterator
                  *
-                 * @return Iterator<TKey, T>
+                 * @return IteratorAggregate<TKey, T>
                  */
-                static fn (Iterator $iterator): Iterator => new TypedIterator($iterator, $callback);
+                static fn (Iterator $iterator): IteratorAggregate => new TypedIteratorAggregate($iterator, $callback);
     }
 }

@@ -16,7 +16,6 @@ use Iterator;
 use IteratorAggregate;
 use loophp\collection\Contract\Collection as CollectionInterface;
 use loophp\collection\Contract\Operation;
-use loophp\collection\Iterator\ResourceIterator;
 use loophp\collection\Operation\All;
 use loophp\collection\Operation\Append;
 use loophp\collection\Operation\Apply;
@@ -135,6 +134,7 @@ use loophp\collection\Operation\Zip;
 use loophp\iterators\CachingIteratorAggregate;
 use loophp\iterators\ClosureIterator;
 use loophp\iterators\IterableIterator;
+use loophp\iterators\ResourceIteratorAggregate;
 use loophp\iterators\StringIteratorAggregate;
 use NoRewindIterator;
 use Psr\Cache\CacheItemPoolInterface;
@@ -470,7 +470,7 @@ final class Collection implements CollectionInterface
     public static function fromFile(string $filepath): self
     {
         return new self(
-            static fn (): Iterator => new ResourceIterator(fopen($filepath, 'rb'), true),
+            static fn (): IteratorAggregate => new ResourceIteratorAggregate(fopen($filepath, 'rb'), true),
         );
     }
 
@@ -515,7 +515,7 @@ final class Collection implements CollectionInterface
      */
     public static function fromResource($resource): self
     {
-        return new self(static fn (): Iterator => new ResourceIterator($resource));
+        return new self(static fn (): IteratorAggregate => new ResourceIteratorAggregate($resource));
     }
 
     /**
