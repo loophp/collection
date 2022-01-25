@@ -11,8 +11,7 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use Iterator;
-use loophp\iterators\NormalizeIteratorAggregate;
+use loophp\iterators\NormalizeIterableAggregate;
 
 /**
  * @immutable
@@ -25,16 +24,16 @@ final class Normalize extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(Iterator<TKey, T>): Generator<int, T>
+     * @return Closure(iterable<TKey, T>): Generator<int, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param Iterator<TKey, T> $iterator
+             * @param iterable<TKey, T> $iterable
              *
              * @return Generator<int, T>
              */
-            static fn (Iterator $iterator): Generator => yield from new NormalizeIteratorAggregate($iterator);
+            static fn (iterable $iterable): Generator => yield from new NormalizeIterableAggregate($iterable);
     }
 }
