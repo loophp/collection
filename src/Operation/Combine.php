@@ -9,10 +9,10 @@ declare(strict_types=1);
 
 namespace loophp\collection\Operation;
 
-use ArrayIterator;
 use Closure;
 use Generator;
 use Iterator;
+use loophp\iterators\MultipleIterableAggregate;
 use MultipleIterator;
 
 /**
@@ -20,6 +20,8 @@ use MultipleIterator;
  *
  * @template TKey
  * @template T
+ *
+ * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Combine extends AbstractOperation
 {
@@ -39,30 +41,21 @@ final class Combine extends AbstractOperation
              * @return Closure(Iterator<TKey, T>): Generator<null|U, null|T>
              */
             static function (...$keys): Closure {
-                $buildMultipleIterator =
+                $buildMultipleIterable =
                     /**
-                     * @param Iterator<int, U> $keyIterator
+                     * @param array<array-key, U> $keys
                      */
-                    static function (Iterator $keyIterator): Closure {
-                        return
-                            /**
-                             * @param Iterator<TKey, T> $iterator
-                             *
-                             * @return MultipleIterator
-                             */
-                            static function (Iterator $iterator) use ($keyIterator): MultipleIterator {
-                                $mit = new MultipleIterator(MultipleIterator::MIT_NEED_ANY);
-
-                                $mit->attachIterator($keyIterator);
-                                $mit->attachIterator($iterator);
-
-                                return $mit;
-                            };
-                    };
+                    static fn (array $keys): Closure =>
+                        /**
+                         * @param Iterator<TKey, T> $iterator
+                         *
+                         * @return iterable
+                         */
+                        static fn (Iterator $iterator): iterable => yield from new MultipleIterableAggregate([$keys, $iterator], MultipleIterator::MIT_NEED_ANY);
 
                 /** @var Closure(Iterator<TKey, T>): Generator<null|U, null|T> $pipe */
                 $pipe = Pipe::of()(
-                    $buildMultipleIterator(new ArrayIterator($keys)),
+                    $buildMultipleIterable($keys),
                     Flatten::of()(1),
                     Pair::of(),
                 );

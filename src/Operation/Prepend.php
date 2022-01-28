@@ -10,14 +10,17 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
+use Generator;
 use Iterator;
-use loophp\collection\Iterator\MultipleIterableIterator;
+use loophp\iterators\ConcatIterableAggregate;
 
 /**
  * @immutable
  *
  * @template TKey
  * @template T
+ *
+ * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Prepend extends AbstractOperation
 {
@@ -38,8 +41,8 @@ final class Prepend extends AbstractOperation
                 /**
                  * @param Iterator<TKey, T> $iterator
                  *
-                 * @return Iterator<int|TKey, T>
+                 * @return Generator<int|TKey, T>
                  */
-                static fn (Iterator $iterator): Iterator => new MultipleIterableIterator($items, $iterator);
+                static fn (Iterator $iterator): Generator => yield from new ConcatIterableAggregate([$items, $iterator]);
     }
 }

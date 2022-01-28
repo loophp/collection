@@ -9,11 +9,10 @@ declare(strict_types=1);
 
 namespace loophp\collection\Operation;
 
-use ArrayIterator;
 use Closure;
 use Generator;
 use Iterator;
-use loophp\iterators\IterableIterator;
+use loophp\iterators\MultipleIterableAggregate;
 use MultipleIterator;
 
 /**
@@ -32,7 +31,7 @@ final class Zip extends AbstractOperation
      * @template UKey
      * @template U
      *
-     * @return Closure(iterable<UKey, U>...): Closure(Iterator<TKey, T>): Iterator<list<TKey|UKey>, list<T|U>>
+     * @return Closure(iterable<UKey, U>...): Closure(Iterator<TKey, T>): Generator<array<int, TKey|UKey|null>, array<int, T|U|null>>
      */
     public function __invoke(): Closure
     {
@@ -40,56 +39,14 @@ final class Zip extends AbstractOperation
             /**
              * @param iterable<UKey, U> ...$iterables
              *
-             * @return Closure(Iterator<TKey, T>): Iterator<list<TKey|UKey>, list<T|U>>
+             * @return Closure(Iterator<TKey, T>): Generator<array<int, TKey|UKey|null>, array<int, T|U|null>>
              */
-            static function (iterable ...$iterables): Closure {
-                $buildArrayIterator =
-                    /**
-                     * @param list<iterable<UKey, U>> $iterables
-                     */
-                    static fn (array $iterables): Closure =>
-                    /**
-                     * @param Iterator<TKey, T> $iterator
-                     *
-                     * @return ArrayIterator<int, (Iterator<TKey, T>|IterableIterator<UKey, U>)>
-                     */
-                    static fn (Iterator $iterator): Iterator => new ArrayIterator([
-                        $iterator,
-                        ...array_map(
-                            /**
-                             * @param iterable<UKey, U> $iterable
-                             *
-                             * @return IterableIterator<UKey, U>
-                             */
-                            static fn (iterable $iterable): IterableIterator => new IterableIterator($iterable),
-                            $iterables
-                        ),
-                    ]);
-
-                $buildMultipleIterator =
-                     /**
-                      * @return Closure(ArrayIterator<int, (Iterator<TKey, T>|IterableIterator<UKey, U>)>): MultipleIterator
-                      */
-                     (new Reduce())()(
-                         /**
-                          * @param Iterator<TKey, T> $iterator
-                          */
-                         static function (MultipleIterator $acc, Iterator $iterator): MultipleIterator {
-                             $acc->attachIterator($iterator);
-
-                             return $acc;
-                         }
-                     )(new MultipleIterator(MultipleIterator::MIT_NEED_ANY));
-
-                /** @var Closure(Iterator<TKey, T>): Generator<list<TKey|UKey>, list<T|U>> $pipe */
-                $pipe = Pipe::of()(
-                    $buildArrayIterator($iterables),
-                    $buildMultipleIterator,
-                    ((new Flatten())()(1))
-                );
-
-                // Point free style.
-                return $pipe;
-            };
+            static fn (iterable ...$iterables): Closure =>
+                /**
+                 * @param iterable<TKey, T> $iterable
+                 *
+                 * @return Generator<array<int, TKey|UKey|null>, array<int, T|U|null>>
+                 */
+                static fn (iterable $iterable): Generator => yield from new MultipleIterableAggregate([$iterable, ...array_values($iterables)], MultipleIterator::MIT_NEED_ANY);
     }
 }

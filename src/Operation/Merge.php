@@ -10,21 +10,23 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
-use Iterator;
-use loophp\collection\Iterator\MultipleIterableIterator;
+use Generator;
+use loophp\iterators\ConcatIterableAggregate;
 
 /**
  * @immutable
  *
  * @template TKey
  * @template T
+ *
+ * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Merge extends AbstractOperation
 {
     /**
      * @pure
      *
-     * @return Closure(iterable<TKey, T>...): Closure(Iterator<TKey, T>): Iterator<TKey, T>
+     * @return Closure(iterable<TKey, T> ...$sources): Closure(iterable<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
@@ -36,8 +38,8 @@ final class Merge extends AbstractOperation
                 /**
                  * @param Iterator<TKey, T> $iterator
                  *
-                 * @return Iterator<TKey, T>
+                 * @return Generator<TKey, T>
                  */
-                static fn (Iterator $iterator): Iterator => new MultipleIterableIterator($iterator, ...$sources);
+                static fn (iterable $iterable): Generator => yield from new ConcatIterableAggregate([$iterable, ...array_values($sources)]);
     }
 }
