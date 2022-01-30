@@ -28,16 +28,6 @@ final class Drop extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        return
-            /**
-             * @return Closure(Iterator<TKey, T>): Iterator<TKey, T>
-             */
-            static fn (int $count): Closure =>
-                /**
-                 * @param Iterator<TKey, T> $iterator
-                 *
-                 * @return Iterator<TKey, T>
-                 */
-                static fn (Iterator $iterator): Iterator => new LimitIterator($iterator, $count);
+        return Limit::of()(-1);
     }
 }
