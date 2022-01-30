@@ -11,7 +11,6 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Iterator;
-use LimitIterator;
 
 /**
  * @immutable

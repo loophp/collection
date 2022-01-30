@@ -41,10 +41,7 @@ final class Tails extends AbstractOperation
                 $data = [...$iterator];
 
                 while ([] !== $data) {
-                    /** @var Iterator<TKey, T> $unpack */
-                    $unpack = Unpack::of()(new ArrayIterator($data));
-
-                    yield [...$unpack];
+                    yield [...Unpack::of()(new ArrayIterator($data))];
 
                     array_shift($data);
                 }
