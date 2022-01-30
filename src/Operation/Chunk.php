@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace loophp\collection\Operation;
 
-use ArrayIterator;
 use Closure;
 use Generator;
 use Iterator;
@@ -27,27 +26,27 @@ final class Chunk extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(int...): Closure(Iterator<TKey, T>): Generator<int, list<T>>
+     * @return Closure(int...): Closure(iterable<TKey, T>): Generator<int, list<T>>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @return Closure(Iterator<TKey, T>): Generator<int, list<T>>
+             * @return Closure(iterable<TKey, T>): Generator<int, list<T>>
              */
             static fn (int ...$sizes): Closure =>
                 /**
-                 * @param Iterator<TKey, T> $iterator
+                 * @param iterable<TKey, T> $iterable
                  *
                  * @return Generator<int, list<T>>
                  */
-                static function (Iterator $iterator) use ($sizes): Generator {
+                static function (iterable $iterable) use ($sizes): Generator {
                     /** @var Iterator<int, int> $sizesIterator */
-                    $sizesIterator = (new Cycle())()(new ArrayIterator($sizes));
+                    $sizesIterator = (new Cycle())()($sizes);
 
                     $values = [];
 
-                    foreach ($iterator as $value) {
+                    foreach ($iterable as $value) {
                         $size = $sizesIterator->current();
 
                         if (0 >= $size) {

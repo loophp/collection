@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
-use Iterator;
 use loophp\collection\Contract\Collection;
 
 /**
@@ -23,7 +22,7 @@ interface Filterable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#filter
      *
-     * @param callable(T=, TKey=, Iterator<TKey, T>=): bool ...$callbacks
+     * @param callable(T=, TKey=, iterable<TKey, T>=): bool ...$callbacks
      *
      * @return Collection<TKey, T>
      */

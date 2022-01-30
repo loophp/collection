@@ -10,20 +10,22 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
-use Iterator;
+use Generator;
 
 /**
  * @immutable
  *
  * @template TKey
  * @template T
+ *
+ * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Drop extends AbstractOperation
 {
     /**
      * @pure
      *
-     * @return Closure(int): Closure(Iterator<TKey, T>): Iterator<TKey, T>
+     * @return Closure(int): Closure(iterable<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {

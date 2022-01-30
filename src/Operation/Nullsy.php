@@ -11,7 +11,6 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use Iterator;
 
 use function in_array;
 
@@ -33,7 +32,7 @@ final class Nullsy extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(Iterator<TKey, T>): Generator<int, bool>
+     * @return Closure(iterable<TKey, T>): Generator<int, bool>
      */
     public function __invoke(): Closure
     {
@@ -44,7 +43,7 @@ final class Nullsy extends AbstractOperation
              */
             static fn (bool $value): bool => in_array($value, self::VALUES, true);
 
-        /** @var Closure(Iterator<TKey, T>): Generator<int, bool> $pipe */
+        /** @var Closure(iterable<TKey, T>): Generator<int, bool> $pipe */
         $pipe = Pipe::of()(
             Map::of()(
                 /**

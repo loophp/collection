@@ -12,7 +12,7 @@ namespace loophp\collection\Operation;
 use CachingIterator;
 use Closure;
 use Generator;
-use Iterator;
+use loophp\iterators\IterableIteratorAggregate;
 
 /**
  * @immutable
@@ -27,7 +27,7 @@ final class Init extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(iterable<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
@@ -41,13 +41,13 @@ final class Init extends AbstractOperation
 
         $buildCachingIterator =
             /**
-             * @param Iterator<TKey, T> $iterator
+             * @param iterable<TKey, T> $iterable
              *
              * @return CachingIterator<TKey, T>
              */
-            static fn (Iterator $iterator): CachingIterator => new CachingIterator($iterator, CachingIterator::FULL_CACHE);
+            static fn (iterable $iterator): CachingIterator => new CachingIterator((new IterableIteratorAggregate($iterator))->getIterator(), CachingIterator::FULL_CACHE);
 
-        /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $takeWhile */
+        /** @var Closure(iterable<TKey, T>): Generator<TKey, T> $takeWhile */
         $takeWhile = Pipe::of()(
             $buildCachingIterator,
             TakeWhile::of()($callback)

@@ -11,7 +11,6 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use Iterator;
 
 /**
  * @immutable
@@ -28,18 +27,18 @@ final class ScanRight1 extends AbstractOperation
      *
      * @template V
      *
-     * @return Closure(callable(mixed, T, TKey, Iterator<TKey, T>): mixed): Closure(Iterator<TKey, T>): Generator<int|TKey, mixed>
+     * @return Closure(callable(mixed, T, TKey, iterable<TKey, T>): mixed): Closure(iterable<TKey, T>): Generator<int|TKey, mixed>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable(T|V, T, TKey, Iterator<TKey, T>): V $callback
+             * @param callable(T|V, T, TKey, iterable<TKey, T>): V $callback
              *
-             * @return Closure(Iterator<TKey, T>): Generator<int|TKey, T|V>
+             * @return Closure(iterable<TKey, T>): Generator<int|TKey, T|V>
              */
             static function (callable $callback): Closure {
-                /** @var Closure(Iterator<TKey, T>): Generator<TKey, T|V> $pipe */
+                /** @var Closure(iterable<TKey, T>): Generator<TKey, T|V> $pipe */
                 $pipe = (new Pipe())()(
                     (new Reverse())(),
                     (new ScanLeft1())()($callback),

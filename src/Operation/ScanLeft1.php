@@ -11,7 +11,7 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use Iterator;
+use loophp\iterators\IterableIteratorAggregate;
 
 /**
  * @immutable
@@ -28,33 +28,31 @@ final class ScanLeft1 extends AbstractOperation
      *
      * @template V
      *
-     * @return Closure(callable(mixed, T, TKey, Iterator<TKey, T>): mixed): Closure(Iterator<TKey, T>): Generator<int|TKey, mixed>
+     * @return Closure(callable(mixed, T, TKey, iterable<TKey, T>): mixed): Closure(iterable<TKey, T>): Generator<int|TKey, mixed>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable(T|V, T, TKey, Iterator<TKey, T>): V $callback
+             * @param callable(T|V, T, TKey, iterable<TKey, T>): V $callback
              *
-             * @return Closure(Iterator<TKey, T>): Generator<int|TKey, T|V>
+             * @return Closure(iterable<TKey, T>): Generator<int|TKey, T|V>
              */
             static fn (callable $callback): Closure =>
                 /**
-                 * @param Iterator<TKey, T> $iterator
-                 *
                  * @return Generator<int|TKey, T|V>
                  */
-                static function (Iterator $iterator) use ($callback): Iterator {
-                    $initial = $iterator->current();
+                static function (iterable $iterable) use ($callback): Generator {
+                    $initial = (new IterableIteratorAggregate($iterable))->getIterator()->current();
 
-                    /** @var Closure(Iterator<TKey, T>): Generator<int|TKey, T|V> $pipe */
+                    /** @var Closure(iterable<TKey, T>): Generator<int|TKey, T|V> $pipe */
                     $pipe = (new Pipe())()(
                         (new Tail())(),
                         (new Reduction())()($callback)($initial),
                         (new Prepend())()($initial)
                     );
 
-                    return $pipe($iterator);
+                    return $pipe($iterable);
                 };
     }
 }

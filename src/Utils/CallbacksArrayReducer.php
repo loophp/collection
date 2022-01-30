@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace loophp\collection\Utils;
 
 use Closure;
-use Iterator;
 
 /**
  * @immutable
@@ -25,24 +24,24 @@ final class CallbacksArrayReducer
     /**
      * @pure
      *
-     * @return Closure(array<array-key, callable(T=, TKey=, Iterator<TKey, T>=): bool>, T, TKey, Iterator<TKey, T>): bool
+     * @return Closure(array<array-key, callable(T=, TKey=, iterable<TKey, T>=): bool>, T, TKey, iterable<TKey, T>): bool
      */
     public static function or(): Closure
     {
         return
             /**
-             * @param array<array-key, callable(T=, TKey=, Iterator<TKey, T>=): bool> $callbacks
+             * @param array<array-key, callable(T=, TKey=, iterable<TKey, T>=): bool> $callbacks
              * @param T $current
              * @param TKey $key
-             * @param Iterator<TKey, T> $iterator
+             * @param iterable<TKey, T> $iterable
              */
-            static fn (array $callbacks, $current, $key, Iterator $iterator): bool => array_reduce(
+            static fn (array $callbacks, $current, $key, iterable $iterable): bool => array_reduce(
                 $callbacks,
                 /**
                  * @param bool $carry
-                 * @param callable(T=, TKey=, Iterator<TKey, T>=): bool $callable
+                 * @param callable(T=, TKey=, iterable<TKey, T>=): bool $callable
                  */
-                static fn (bool $carry, callable $callable): bool => $carry || $callable($current, $key, $iterator),
+                static fn (bool $carry, callable $callable): bool => $carry || $callable($current, $key, $iterable),
                 false
             );
     }

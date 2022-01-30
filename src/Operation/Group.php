@@ -11,7 +11,6 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use Iterator;
 
 /**
  * @immutable
@@ -24,20 +23,20 @@ final class Group extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(Iterator<TKey, T>): Generator<int, list<T>>
+     * @return Closure(iterable<TKey, T>): Generator<int, list<T>>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param Iterator<TKey, T> $iterator
+             * @param iterable<TKey, T> $iterable
              *
              * @return Generator<int, list<T>>
              */
-            static function (Iterator $iterator): Generator {
+            static function (iterable $iterable): Generator {
                 $last = [];
 
-                foreach ($iterator as $current) {
+                foreach ($iterable as $current) {
                     if ([] === $last) {
                         $last = [$current];
 

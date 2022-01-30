@@ -11,7 +11,6 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use Iterator;
 
 /**
  * @immutable
@@ -24,18 +23,18 @@ final class Unpair extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(Iterator<TKey, T>): Generator<int, (TKey|T), mixed, void>
+     * @return Closure(iterable<TKey, T>): Generator<int, (TKey|T), mixed, void>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param Iterator<TKey, T> $iterator
+             * @param iterable<TKey, T> $iterable
              *
              * @return Generator<int, (TKey|T), mixed, void>
              */
-            static function (Iterator $iterator): Generator {
-                foreach ($iterator as $key => $value) {
+            static function (iterable $iterable): Generator {
+                foreach ($iterable as $key => $value) {
                     yield $key;
 
                     yield $value;

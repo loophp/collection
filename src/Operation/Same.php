@@ -11,7 +11,7 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use Iterator;
+use loophp\iterators\IterableIteratorAggregate;
 
 /**
  * @immutable
@@ -26,29 +26,35 @@ final class Same extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(Iterator<TKey, T>): Closure(callable(T, TKey): Closure(T, TKey): bool): Closure(Iterator<TKey, T>): Generator<int, bool>
+     * @return Closure(iterable<TKey, T>): Closure(callable(T, TKey): Closure(T, TKey): bool): Closure(iterable<TKey, T>): Generator<int, bool>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param Iterator<TKey, T> $other
+             * @param iterable<TKey, T> $other
              *
-             * @return Closure(callable(T, TKey): Closure(T, TKey): bool): Closure(Iterator<TKey, T>): Generator<int, bool>
+             * @return Closure(callable(T, TKey): Closure(T, TKey): bool): Closure(iterable<TKey, T>): Generator<int, bool>
              */
-            static fn (Iterator $other): Closure =>
+            static fn (iterable $other): Closure =>
                 /**
                  * @param callable(T, TKey): (Closure(T, TKey): bool) $comparatorCallback
                  *
-                 * @return Closure(Iterator<TKey, T>): Generator<int, bool>
+                 * @return Closure(iterable<TKey, T>): Generator<int, bool>
                  */
                 static fn (callable $comparatorCallback): Closure =>
                     /**
-                     * @param Iterator<TKey, T> $iterator
+                     * @param iterable<TKey, T> $iterable
                      *
                      * @return Generator<int, bool>
                      */
-                    static function (Iterator $iterator) use ($other, $comparatorCallback): Generator {
+                    static function (iterable $iterable) use ($other, $comparatorCallback): Generator {
+                        $otherAggregate = (new IterableIteratorAggregate($other));
+                        $iteratorAggregate = new IterableIteratorAggregate($iterable);
+
+                        $iterator = $iteratorAggregate->getIterator();
+                        $other = $otherAggregate->getIterator();
+
                         while ($iterator->valid() && $other->valid()) {
                             if (!$comparatorCallback($iterator->current(), $iterator->key())($other->current(), $other->key())) {
                                 return yield false;

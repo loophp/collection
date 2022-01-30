@@ -11,7 +11,6 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use Iterator;
 
 /**
  * @immutable
@@ -26,13 +25,13 @@ final class Implode extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(string): Closure(Iterator<TKey, T>): Generator<TKey, string>
+     * @return Closure(string): Closure(iterable<TKey, T>): Generator<TKey, string>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @return Closure(Iterator<TKey, T>): Generator<TKey, string>
+             * @return Closure(iterable<TKey, T>): Generator<TKey, string>
              */
             static function (string $glue): Closure {
                 $reducer =
@@ -41,7 +40,7 @@ final class Implode extends AbstractOperation
                      */
                     static fn (string $carry, $item): string => $carry .= $item;
 
-                /** @var Closure(Iterator<TKey, T>): Generator<TKey, string> $pipe */
+                /** @var Closure(iterable<TKey, T>): Generator<TKey, string> $pipe */
                 $pipe = (new Pipe())()(
                     (new Intersperse())()($glue)(1)(0),
                     (new Drop())()(1),

@@ -11,7 +11,6 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use Iterator;
 
 /**
  * @immutable
@@ -24,27 +23,27 @@ final class Slice extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(int): Closure(int=): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(int): Closure(int=): Closure(iterable<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @return Closure(int=): Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @return Closure(int=): Closure(iterable<TKey, T>): Generator<TKey, T>
              */
             static fn (int $offset): Closure =>
                 /**
-                 * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
+                 * @return Closure(iterable<TKey, T>): Generator<TKey, T>
                  */
                 static function (int $length = -1) use ($offset): Closure {
-                    /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $skip */
+                    /** @var Closure(iterable<TKey, T>): Generator<TKey, T> $skip */
                     $skip = (new Drop())()($offset);
 
                     if (-1 === $length) {
                         return $skip;
                     }
 
-                    /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
+                    /** @var Closure(iterable<TKey, T>): Generator<TKey, T> $pipe */
                     $pipe = (new Pipe())()(
                         $skip,
                         (new Limit())()($length)(0)

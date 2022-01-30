@@ -11,7 +11,6 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use Iterator;
 use loophp\iterators\MultipleIterableAggregate;
 use MultipleIterator;
 
@@ -30,7 +29,7 @@ final class Combine extends AbstractOperation
      *
      * @template U
      *
-     * @return Closure(U...): Closure(Iterator<TKey, T>): Generator<null|U, null|T>
+     * @return Closure(U...): Closure(iterable<TKey, T>): Generator<null|U, null|T>
      */
     public function __invoke(): Closure
     {
@@ -38,7 +37,7 @@ final class Combine extends AbstractOperation
             /**
              * @param U ...$keys
              *
-             * @return Closure(Iterator<TKey, T>): Generator<null|U, null|T>
+             * @return Closure(iterable<TKey, T>): Generator<null|U, null|T>
              */
             static function (...$keys): Closure {
                 $buildMultipleIterable =
@@ -47,14 +46,14 @@ final class Combine extends AbstractOperation
                      */
                     static fn (array $keys): Closure =>
                         /**
-                         * @param Iterator<TKey, T> $iterator
+                         * @param iterable<TKey, T> $iterable
                          *
-                         * @return iterable
+                         * @return Generator
                          */
-                        static fn (Iterator $iterator): iterable => yield from new MultipleIterableAggregate([$keys, $iterator], MultipleIterator::MIT_NEED_ANY);
+                        static fn (iterable $iterable): Generator => yield from new MultipleIterableAggregate([$keys, $iterable], MultipleIterator::MIT_NEED_ANY);
 
-                /** @var Closure(Iterator<TKey, T>): Generator<null|U, null|T> $pipe */
-                $pipe = Pipe::of()(
+                /** @var Closure(iterable<TKey, T>): Generator<null|U, null|T> $pipe */
+                $pipe = (new Pipe())()(
                     $buildMultipleIterable($keys),
                     (new Flatten())()(1),
                     (new Pair())(),

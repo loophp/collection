@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
-use Iterator;
 use loophp\collection\Contract\Collection;
 
 /**
@@ -27,7 +26,7 @@ interface FlatMapable
      * @template IKey
      * @template IValue
      *
-     * @param callable(T=, TKey=, Iterator<TKey, T>=): iterable<IKey, IValue> $callback
+     * @param callable(T=, TKey=, iterable<TKey, T>=): iterable<IKey, IValue> $callback
      *
      * @return Collection<IKey, IValue>
      */

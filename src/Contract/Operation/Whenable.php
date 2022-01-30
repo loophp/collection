@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
-use Iterator;
 use loophp\collection\Contract\Collection;
 
 /**
@@ -27,9 +26,9 @@ interface Whenable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#when
      *
-     * @param callable(Iterator<TKey, T>): bool $predicate
-     * @param callable(Iterator<TKey, T>): iterable<TKey, T> $whenTrue
-     * @param callable(Iterator<TKey, T>): iterable<TKey, T> $whenFalse
+     * @param callable(iterable<TKey, T>): bool $predicate
+     * @param callable(iterable<TKey, T>): iterable<TKey, T> $whenTrue
+     * @param callable(iterable<TKey, T>): iterable<TKey, T> $whenFalse
      *
      * @return Collection<TKey, T>
      */

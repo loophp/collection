@@ -11,7 +11,6 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use Iterator;
 
 /**
  * @immutable
@@ -24,7 +23,7 @@ final class Column extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(mixed): Closure(Iterator<TKey, T>): Generator<int, mixed>
+     * @return Closure(mixed): Closure(iterable<TKey, T>): Generator<int, mixed>
      */
     public function __invoke(): Closure
     {
@@ -32,7 +31,7 @@ final class Column extends AbstractOperation
             /**
              * @param mixed $column
              *
-             * @return Closure(Iterator<TKey, T>): Generator<int, mixed>
+             * @return Closure(iterable<TKey, T>): Generator<int, mixed>
              */
             static function ($column): Closure {
                 $filterCallbackBuilder =
@@ -43,11 +42,10 @@ final class Column extends AbstractOperation
                         /**
                          * @param T $value
                          * @param TKey $key
-                         * @param Iterator<TKey, T> $iterator
                          */
-                        static fn ($value, $key, Iterator $iterator): bool => $key === $column;
+                        static fn ($value, $key): bool => $key === $column;
 
-                /** @var Closure(Iterator<TKey, T>): Generator<int, mixed> $pipe */
+                /** @var Closure(iterable<TKey, T>): Generator<int, mixed> $pipe */
                 $pipe = (new Pipe())()(
                     (new Transpose())(),
                     (new Filter())()($filterCallbackBuilder($column)),

@@ -11,7 +11,6 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use Iterator;
 
 /**
  * @immutable
@@ -26,18 +25,18 @@ final class FoldRight1 extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(callable((T|null), T, TKey, Iterator<TKey, T>): (T|null)):Closure (Iterator<TKey, T>): Generator<int|TKey, T|null>
+     * @return Closure(callable((T|null), T, TKey, iterable<TKey, T>): (T|null)):Closure (iterable<TKey, T>): Generator<int|TKey, T|null>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable(T|null, T, TKey, Iterator<TKey, T>):(T|null) $callback
+             * @param callable(T|null, T, TKey, iterable<TKey, T>):(T|null) $callback
              *
-             * @return Closure(Iterator<TKey, T>): Generator<int|TKey, T|null>
+             * @return Closure(iterable<TKey, T>): Generator<int|TKey, T|null>
              */
             static function (callable $callback): Closure {
-                /** @var Closure(Iterator<TKey, T>):(Generator<int|TKey, T|null>) $pipe */
+                /** @var Closure(iterable<TKey, T>):(Generator<int|TKey, T|null>) $pipe */
                 $pipe = (new Pipe())()(
                     (new ScanRight1())()($callback),
                     (new Head())()

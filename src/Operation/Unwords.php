@@ -11,7 +11,6 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use Iterator;
 
 /**
  * @immutable
@@ -24,11 +23,11 @@ final class Unwords extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(Iterator<TKey, (T|string)>): Generator<TKey, string, mixed, void>
+     * @return Closure(iterable<TKey, (T|string)>): Generator<TKey, string>
      */
     public function __invoke(): Closure
     {
-        /** @var Closure(Iterator<TKey, (T|string)>): Generator<TKey, string, mixed, void> $implode */
+        /** @var Closure(iterable<TKey, (T|string)>): Generator<TKey, string> $implode */
         $implode = Implode::of()(' ');
 
         // Point free style.

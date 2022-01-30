@@ -11,7 +11,6 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use Iterator;
 use loophp\collection\Utils\CallbacksArrayReducer;
 
 /**
@@ -27,59 +26,59 @@ final class Every extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(callable(T, TKey, Iterator<TKey, T>...): bool): Closure(callable(T, TKey, Iterator<TKey, T>...): bool): Closure(Iterator<TKey, T>): Generator<TKey, bool>
+     * @return Closure(callable(T, TKey, iterable<TKey, T>...): bool): Closure(callable(T, TKey, iterable<TKey, T>...): bool): Closure(iterable<TKey, T>): Generator<TKey, bool>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable(T=, TKey=, Iterator<TKey, T>=): bool ...$matchers
+             * @param callable(T=, TKey=, iterable<TKey, T>=): bool ...$matchers
              *
-             * @return Closure(...callable(T=, TKey=, Iterator<TKey, T>=): bool): Closure(Iterator<TKey, T>): Generator<TKey, bool>
+             * @return Closure(...callable(T=, TKey=, iterable<TKey, T>=): bool): Closure(iterable<TKey, T>): Generator<TKey, bool>
              */
             static function (callable ...$matchers): Closure {
                 return
                     /**
-                     * @param callable(T=, TKey=, Iterator<TKey, T>=): bool ...$callbacks
+                     * @param callable(T=, TKey=, iterable<TKey, T>=): bool ...$callbacks
                      *
-                     * @return Closure(Iterator<TKey, T>): Generator<TKey, bool>
+                     * @return Closure(iterable<TKey, T>): Generator<TKey, bool>
                      */
                     static function (callable ...$callbacks) use ($matchers): Closure {
                         $callbackReducer =
                             /**
-                             * @param list<callable(T=, TKey=, Iterator<TKey, T>=): bool> $callbacks
+                             * @param list<callable(T=, TKey=, iterable<TKey, T>=): bool> $callbacks
                              *
-                             * @return Closure(T, TKey, Iterator<TKey, T>): bool
+                             * @return Closure(T, TKey, iterable<TKey, T>): bool
                              */
                             static fn (array $callbacks): Closure =>
                                 /**
                                  * @param T $current
                                  * @param TKey $key
-                                 * @param Iterator<TKey, T> $iterator
+                                 * @param iterable<TKey, T> $iterable
                                  */
-                                static fn ($current, $key, Iterator $iterator): bool => CallbacksArrayReducer::or()($callbacks, $current, $key, $iterator);
+                                static fn ($current, $key, iterable $iterable): bool => CallbacksArrayReducer::or()($callbacks, $current, $key, $iterable);
 
                         $mapCallback =
                             /**
-                             * @param callable(T=, TKey=, Iterator<TKey, T>=): mixed $reducer1
+                             * @param callable(T=, TKey=, iterable<TKey, T>=): mixed $reducer1
                              *
-                             * @return Closure(callable(T=, TKey=, Iterator<TKey, T>=)): Closure(T, TKey, Iterator<TKey, T>): bool
+                             * @return Closure(callable(T=, TKey=, iterable<TKey, T>=)): Closure(T, TKey, iterable<TKey, T>): bool
                              */
                             static fn (callable $reducer1): Closure =>
                                 /**
-                                 * @param callable(T=, TKey=, Iterator<TKey, T>=): mixed $reducer2
+                                 * @param callable(T=, TKey=, iterable<TKey, T>=): mixed $reducer2
                                  *
-                                 * @return Closure(T, TKey, Iterator<TKey, T>): bool
+                                 * @return Closure(T, TKey, iterable<TKey, T>): bool
                                  */
                                 static fn (callable $reducer2): Closure =>
                                     /**
                                      * @param T $value
                                      * @param TKey $key
-                                     * @param Iterator<TKey, T> $iterator
+                                     * @param iterable<TKey, T> $iterable
                                      */
-                                    static fn ($value, $key, Iterator $iterator): bool => $reducer1($value, $key, $iterator) !== $reducer2($value, $key, $iterator);
+                                    static fn ($value, $key, iterable $iterable): bool => $reducer1($value, $key, $iterable) !== $reducer2($value, $key, $iterable);
 
-                        /** @var Closure(Iterator<TKey, T>): Generator<TKey, bool> $pipe */
+                        /** @var Closure(iterable<TKey, T>): Generator<TKey, bool> $pipe */
                         $pipe = (new Pipe())()(
                             (new Map())()($mapCallback($callbackReducer($callbacks))($callbackReducer($matchers))),
                             (new DropWhile())()(static fn (bool $value): bool => $value),

@@ -11,7 +11,6 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use Iterator;
 
 /**
  * @immutable
@@ -24,21 +23,21 @@ final class Random extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(int): Closure(int): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(int): Closure(int): Closure(iterable<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @return Closure(int): Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @return Closure(int): Closure(iterable<TKey, T>): Generator<TKey, T>
              */
             static function (int $seed): Closure {
                 return
                     /**
-                     * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
+                     * @return Closure(iterable<TKey, T>): Generator<TKey, T>
                      */
                     static function (int $size) use ($seed): Closure {
-                        /** @var Closure(Iterator<TKey, T>): Generator<TKey, T> $pipe */
+                        /** @var Closure(iterable<TKey, T>): Generator<TKey, T> $pipe */
                         $pipe = (new Pipe())()(
                             (new Shuffle())()($seed),
                             (new Limit())()($size)(0)

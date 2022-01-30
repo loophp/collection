@@ -11,7 +11,6 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use Iterator;
 use Symfony\Component\VarDumper\VarDumper;
 
 /**
@@ -27,27 +26,27 @@ final class Dump extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(string): Closure(int): Closure(?Closure): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(string): Closure(int): Closure(?Closure): Closure(iterable<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @return Closure(int): Closure(?Closure): Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @return Closure(int): Closure(?Closure): Closure(iterable<TKey, T>): Generator<TKey, T>
              */
             static fn (string $name = ''): Closure =>
                 /**
-                 * @return Closure(?Closure): Closure(Iterator<TKey, T>): Generator<TKey, T>
+                 * @return Closure(?Closure): Closure(iterable<TKey, T>): Generator<TKey, T>
                  */
                 static fn (int $size = -1): Closure =>
                     /**
-                     * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
+                     * @return Closure(iterable<TKey, T>): Generator<TKey, T>
                      */
                     static fn (?Closure $callback = null): Closure =>
                         /**
                          * @return Generator<TKey, T>
                          */
-                        static function (Iterator $iterator) use ($name, $size, $callback): Generator {
+                        static function (iterable $iterable) use ($name, $size, $callback): Generator {
                             $j = 0;
 
                             /** @var callable $debugFunction */
@@ -62,7 +61,7 @@ final class Dump extends AbstractOperation
                                  */
                                 static fn (string $name, $key, $value) => $debugFunction(['name' => $name, 'key' => $key, 'value' => $value]);
 
-                            foreach ($iterator as $key => $value) {
+                            foreach ($iterable as $key => $value) {
                                 yield $key => $value;
 
                                 if (-1 === $size) {

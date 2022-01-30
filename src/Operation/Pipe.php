@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
-use Iterator;
 
 /**
  * @immutable
@@ -25,32 +24,32 @@ final class Pipe extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(callable(Iterator<TKey, T>): Iterator<TKey, T> ...): Closure(Iterator<TKey, T>): Iterator<TKey, T>
+     * @return Closure(callable(iterable<TKey, T>): iterable<TKey, T> ...): Closure(iterable<TKey, T>): iterable<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable(Iterator<TKey, T>): Iterator<TKey, T> ...$operations
+             * @param callable(iterable<TKey, T>): iterable<TKey, T> ...$operations
              *
-             * @return Closure(Iterator<TKey, T>): Iterator<TKey, T>
+             * @return Closure(iterable<TKey, T>): iterable<TKey, T>
              */
             static fn (callable ...$operations): Closure => array_reduce(
                 $operations,
                 /**
-                 * @param callable(Iterator<TKey, T>): Iterator<TKey, T> $f
-                 * @param callable(Iterator<TKey, T>): Iterator<TKey, T> $g
+                 * @param callable(iterable<TKey, T>): iterable<TKey, T> $f
+                 * @param callable(iterable<TKey, T>): iterable<TKey, T> $g
                  *
-                 * @return Closure(Iterator<TKey, T>): Iterator<TKey, T>
+                 * @return Closure(iterable<TKey, T>): iterable<TKey, T>
                  */
                 static fn (callable $f, callable $g): Closure =>
                     /**
-                     * @param Iterator<TKey, T> $iterator
+                     * @param iterable<TKey, T> $iterable
                      *
-                     * @return Iterator<TKey, T>
+                     * @return iterable<TKey, T>
                      */
-                    static fn (Iterator $iterator): Iterator => $g($f($iterator)),
-                static fn (Iterator $iterator): Iterator => $iterator
+                    static fn (iterable $iterable): iterable => $g($f($iterable)),
+                static fn (iterable $iterable): iterable => $iterable
             );
     }
 }

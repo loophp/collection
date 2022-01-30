@@ -11,7 +11,6 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use Iterator;
 
 /**
  * @immutable
@@ -24,7 +23,7 @@ final class Frequency extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(Iterator<TKey, T>): Generator<int, T>
+     * @return Closure(iterable<TKey, T>): Generator<int, T>
      */
     public function __invoke(): Closure
     {
@@ -56,7 +55,7 @@ final class Frequency extends AbstractOperation
                 return $storage;
             };
 
-        /** @var Closure(Iterator<TKey, T>): Generator<int, T> $pipe */
+        /** @var Closure(iterable<TKey, T>): Generator<int, T> $pipe */
         $pipe = Pipe::of()(
             Reduce::of()($reduceCallback)([]),
             Flatten::of()(1),

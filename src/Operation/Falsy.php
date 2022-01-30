@@ -11,7 +11,6 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use Iterator;
 
 /**
  * @immutable
@@ -24,7 +23,7 @@ final class Falsy extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(Iterator<TKey, T>): Generator<int, bool>
+     * @return Closure(iterable<TKey, T>): Generator<int, bool>
      */
     public function __invoke(): Closure
     {
@@ -35,7 +34,7 @@ final class Falsy extends AbstractOperation
              */
             static fn (bool $value): bool => $value;
 
-        /** @var Closure(Iterator<TKey, T>): Generator<int, bool> $pipe */
+        /** @var Closure(iterable<TKey, T>): Generator<int, bool> $pipe */
         $pipe = Pipe::of()(
             Map::of()(
                 /**

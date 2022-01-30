@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
-use Iterator;
 use loophp\collection\Contract\Collection;
 
 /**
@@ -23,7 +22,7 @@ interface MapNable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#mapn
      *
-     * @param callable(mixed, mixed, Iterator<TKey, T>): mixed ...$callbacks
+     * @param callable(mixed, mixed, iterable<TKey, T>): mixed ...$callbacks
      *
      * @return Collection<mixed, mixed>
      */

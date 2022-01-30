@@ -11,7 +11,6 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use Iterator;
 use loophp\collection\Utils\CallbacksArrayReducer;
 
 /**
@@ -27,15 +26,15 @@ final class Reject extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(callable(T=, TKey=, Iterator<TKey, T>=): bool ...): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(callable(T=, TKey=, iterable<TKey, T>=): bool ...): Closure(iterable<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable(T=, TKey=, Iterator<TKey, T>=): bool ...$callbacks
+             * @param callable(T=, TKey=, iterable<TKey, T>=): bool ...$callbacks
              *
-             * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @return Closure(iterable<TKey, T>): Generator<TKey, T>
              */
             static function (callable ...$callbacks): Closure {
                 $defaultCallback =
@@ -52,9 +51,9 @@ final class Reject extends AbstractOperation
                     /**
                      * @param T $current
                      * @param TKey $key
-                     * @param Iterator<TKey, T> $iterator
+                     * @param iterable<TKey, T> $iterable
                      */
-                    static fn ($current, $key, Iterator $iterator): bool => !CallbacksArrayReducer::or()($callbacks, $current, $key, $iterator)
+                    static fn ($current, $key, iterable $iterable): bool => !CallbacksArrayReducer::or()($callbacks, $current, $key, $iterable)
                 );
 
                 // Point free style.

@@ -9,8 +9,6 @@ declare(strict_types=1);
 
 namespace tests\loophp\collection\Utils;
 
-use ArrayIterator;
-use Iterator;
 use loophp\collection\Utils\CallbacksArrayReducer;
 use PHPUnit\Framework\TestCase;
 
@@ -25,7 +23,7 @@ final class CallbacksArrayReducerTest extends TestCase
         // Ensure Callbacks receive the needed arguments.
         yield [
             [
-                static fn (string $value, string $key, Iterator $iterator): bool => 'value_key_a_b_c' === sprintf('%s_%s_%s', $value, $key, implode('_', iterator_to_array($iterator))),
+                static fn (string $value, string $key, iterable $iterable): bool => 'value_key_a_b_c' === sprintf('%s_%s_%s', $value, $key, implode('_', $iterable)),
             ],
             'value',
             'key',
@@ -111,6 +109,6 @@ final class CallbacksArrayReducerTest extends TestCase
         array $iterator,
         bool $expected
     ): void {
-        self::assertSame($expected, CallbacksArrayReducer::or()($callbacks, $current, $key, new ArrayIterator($iterator)));
+        self::assertSame($expected, CallbacksArrayReducer::or()($callbacks, $current, $key, $iterator));
     }
 }

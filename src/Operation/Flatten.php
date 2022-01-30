@@ -11,8 +11,6 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use Iterator;
-use loophp\iterators\IterableIterator;
 
 /**
  * @immutable
@@ -25,20 +23,20 @@ final class Flatten extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(int): Closure(Iterator<TKey, T>): Generator<mixed, mixed>
+     * @return Closure(int): Closure(iterable<TKey, T>): Generator<mixed, mixed>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @return Closure(Iterator<TKey, T>): Generator<mixed, mixed>
+             * @return Closure(iterable<TKey, T>): Generator<mixed, mixed>
              */
             static fn (int $depth): Closure =>
                 /**
-                 * @param Iterator<TKey, T> $iterator
+                 * @param iterable<TKey, T> $iterable
                  */
-                static function (Iterator $iterator) use ($depth): Generator {
-                    foreach ($iterator as $key => $value) {
+                static function (iterable $iterable) use ($depth): Generator {
+                    foreach ($iterable as $key => $value) {
                         if (!is_iterable($value)) {
                             yield $key => $value;
 
@@ -46,7 +44,7 @@ final class Flatten extends AbstractOperation
                         }
 
                         yield from (1 !== $depth)
-                            ? (new Flatten())()($depth - 1)(new IterableIterator($value))
+                            ? (new Flatten())()($depth - 1)($value)
                             : $value;
                     }
                 };

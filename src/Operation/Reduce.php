@@ -11,7 +11,6 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use Iterator;
 
 /**
  * @immutable
@@ -29,24 +28,24 @@ final class Reduce extends AbstractOperation
      * @template V
      * @template W
      *
-     * @return Closure(callable(mixed=, mixed=, mixed=, Iterator<mixed, mixed>=): mixed): Closure(mixed): Closure(Iterator<TKey, T>): Generator<TKey, mixed>
+     * @return Closure(callable(mixed=, mixed=, mixed=, iterable<mixed, mixed>=): mixed): Closure(mixed): Closure(iterable<TKey, T>): Generator<TKey, mixed>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable((V|W)=, T=, TKey=, Iterator<TKey, T>=): W $callback
+             * @param callable((V|W)=, T=, TKey=, iterable<TKey, T>=): W $callback
              *
-             * @return Closure(V): Closure(Iterator<TKey, T>): Generator<TKey, W>
+             * @return Closure(V): Closure(iterable<TKey, T>): Generator<TKey, W>
              */
             static fn (callable $callback): Closure =>
                 /**
                  * @param V $initial
                  *
-                 * @return Closure(Iterator<TKey, T>): Generator<TKey, W>
+                 * @return Closure(iterable<TKey, T>): Generator<TKey, W>
                  */
                 static function ($initial) use ($callback): Closure {
-                    /** @var Closure(Iterator<TKey, T>): Generator<TKey, W> $pipe */
+                    /** @var Closure(iterable<TKey, T>): Generator<TKey, W> $pipe */
                     $pipe = (new Pipe())()(
                         (new Reduction())()($callback)($initial),
                         (new Last())(),

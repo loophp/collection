@@ -11,7 +11,6 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use Iterator;
 
 /**
  * @immutable
@@ -29,31 +28,31 @@ final class Associate extends AbstractOperation
      * @template NewTKey
      * @template NewT
      *
-     * @return Closure(callable(mixed=, mixed=, Iterator<mixed, mixed>=): mixed): Closure(callable(mixed=, mixed=, Iterator<mixed, mixed>=): mixed): Closure(Iterator<mixed, mixed>): Generator<mixed, mixed>
+     * @return Closure(callable(mixed=, mixed=, iterable<mixed, mixed>=): mixed): Closure(callable(mixed=, mixed=, iterable<mixed, mixed>=): mixed): Closure(iterable<mixed, mixed>): Generator<mixed, mixed>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable(TKey=, T=, Iterator<TKey, T>=): NewTKey $callbackForKeys
+             * @param callable(TKey=, T=, iterable<TKey, T>=): NewTKey $callbackForKeys
              *
-             * @return Closure((callable(T=, TKey=, Iterator<TKey, T>=): NewT)): Closure(Iterator<TKey, T>): Generator<NewTKey, NewT>
+             * @return Closure((callable(T=, TKey=, iterable<TKey, T>=): NewT)): Closure(iterable<TKey, T>): Generator<NewTKey, NewT>
              */
             static fn (callable $callbackForKeys): Closure =>
                 /**
-                 * @param callable(T=, TKey=, Iterator<TKey, T>=): NewT $callbackForValues
+                 * @param callable(T=, TKey=, iterable<TKey, T>=): NewT $callbackForValues
                  *
-                 * @return Closure(Iterator<TKey, T>): Generator<NewTKey, NewT>
+                 * @return Closure(iterable<TKey, T>): Generator<NewTKey, NewT>
                  */
                 static fn (callable $callbackForValues): Closure =>
                     /**
-                     * @param Iterator<TKey, T> $iterator
+                     * @param iterable<TKey, T> $iterable
                      *
                      * @return Generator<NewTKey, NewT>
                      */
-                    static function (Iterator $iterator) use ($callbackForKeys, $callbackForValues): Generator {
-                        foreach ($iterator as $key => $value) {
-                            yield $callbackForKeys($key, $value, $iterator) => $callbackForValues($value, $key, $iterator);
+                    static function (iterable $iterable) use ($callbackForKeys, $callbackForValues): Generator {
+                        foreach ($iterable as $key => $value) {
+                            yield $callbackForKeys($key, $value, $iterable) => $callbackForValues($value, $key, $iterable);
                         }
                     };
     }

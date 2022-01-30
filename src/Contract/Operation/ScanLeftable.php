@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
-use Iterator;
 use loophp\collection\Contract\Collection;
 
 /**
@@ -25,7 +24,7 @@ interface ScanLeftable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#scanleft
      *
-     * @param callable(mixed=, T=, TKey=, Iterator<TKey, T>=): mixed $callback
+     * @param callable(mixed=, T=, TKey=, iterable<TKey, T>=): mixed $callback
      * @param mixed $initial
      *
      * @return Collection<int|TKey, mixed>

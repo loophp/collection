@@ -11,7 +11,6 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use Iterator;
 
 /**
  * @immutable
@@ -29,19 +28,19 @@ final class FlatMap extends AbstractOperation
      * @template IKey
      * @template IValue
      *
-     * @return Closure(callable(T=, TKey=, Iterator<TKey, T>=): iterable<mixed, mixed>): Closure(Iterator<TKey, T>): Generator<mixed, mixed>
+     * @return Closure(callable(T=, TKey=, iterable<TKey, T>=): iterable<mixed, mixed>): Closure(iterable<TKey, T>): Generator<mixed, mixed>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable(T=, TKey=, Iterator<TKey, T>=): iterable<mixed, mixed> $callback
+             * @param callable(T=, TKey=, iterable<TKey, T>=): iterable<mixed, mixed> $callback
              */
             static function (callable $callback): Closure {
-                /** @var Closure(Iterator<TKey, T>): Generator<IKey, IValue> $flatMap */
+                /** @var Closure(iterable<TKey, T>): Generator<IKey, IValue> $flatMap */
                 $flatMap = (new Pipe())()(
                     (new Map())()($callback),
-                    (new Flatten())()(1)
+                    (new Flatten())()(1),
                 );
 
                 // Point free style

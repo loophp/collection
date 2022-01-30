@@ -10,10 +10,8 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use ArrayAccess;
-use ArrayIterator;
 use Closure;
 use Generator;
-use Iterator;
 use loophp\collection\Contract\Collection;
 use ReflectionClass;
 
@@ -35,7 +33,7 @@ final class Pluck extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(T):Closure(T):Closure(Iterator<TKey, T>):Generator<int, T|iterable<int, T>, mixed, void>
+     * @return Closure(T):Closure(T):Closure(iterable<TKey, T>):Generator<int, T|iterable<int, T>, mixed, void>
      */
     public function __invoke(): Closure
     {
@@ -43,31 +41,31 @@ final class Pluck extends AbstractOperation
             /**
              * @param T $key
              *
-             * @return Closure(T): Closure(Iterator<TKey, T>): Generator<int, T|iterable<int, T>, mixed, void>
+             * @return Closure(T): Closure(iterable<TKey, T>): Generator<int, T|iterable<int, T>, mixed, void>
              */
             static fn ($key): Closure =>
                 /**
                  * @param T $default
                  *
-                 * @return Closure(Iterator<TKey, T>): Generator<int, T|iterable<int, T>, mixed, void>
+                 * @return Closure(iterable<TKey, T>): Generator<int, T|iterable<int, T>, mixed, void>
                  */
                 static fn ($default): Closure =>
                     /**
-                     * @param Iterator<TKey, T> $iterator
+                     * @param iterable<TKey, T> $iterable
                      *
                      * @return Generator<int, T|iterable<int, T>, mixed, void>
                      */
-                    static function (Iterator $iterator) use ($key, $default): Generator {
+                    static function (iterable $iterable) use ($key, $default): Generator {
                         $pick =
                             /**
-                             * @param Iterator<TKey, T> $iterator
+                             * @param iterable<TKey, T> $iterable
                              * @param iterable<TKey, T>|T $target
                              * @param array<int, string> $key
                              * @param T $default
                              *
                              * @return iterable<int, T>|T
                              */
-                            static function (Iterator $iterator, $target, array $key, $default = null) use (&$pick) {
+                            static function (iterable $iterable, $target, array $key, $default = null) use (&$pick) {
                                 while (null !== $segment = array_shift($key)) {
                                     if ('*' === $segment) {
                                         if (!is_iterable($target)) {
@@ -78,16 +76,16 @@ final class Pluck extends AbstractOperation
                                         $result = [];
 
                                         foreach ($target as $item) {
-                                            $result[] = $pick($iterator, $item, $key);
+                                            $result[] = $pick($iterable, $item, $key);
                                         }
 
                                         /** @var Generator<TKey, T> $collapse */
-                                        $collapse = Collapse::of()(new ArrayIterator($result));
+                                        $collapse = Collapse::of()($result);
 
                                         return in_array('*', $key, true) ? $collapse : $result;
                                     }
 
-                                    if ((is_array($target)) && (array_key_exists($segment, $target))) {
+                                    if (is_array($target) && array_key_exists($segment, $target)) {
                                         /** @var T $target */
                                         $target = $target[$segment];
                                     } elseif (($target instanceof ArrayAccess) && ($target->offsetExists($segment))) {
@@ -95,8 +93,8 @@ final class Pluck extends AbstractOperation
                                         $target = $target[$segment];
                                     } elseif ($target instanceof Collection) {
                                         /** @var T $target */
-                                        $target = (Get::of()($segment)($default)($target->getIterator()))->current();
-                                    } elseif ((is_object($target)) && (property_exists($target, $segment))) {
+                                        $target = (Get::of()($segment)($default)($target))->current();
+                                    } elseif (is_object($target) && property_exists($target, $segment)) {
                                         /** @var T $target */
                                         $target = (new ReflectionClass($target))->getProperty($segment)->getValue($target);
                                     } else {
@@ -109,8 +107,8 @@ final class Pluck extends AbstractOperation
 
                         $key = is_scalar($key) ? explode('.', trim((string) $key, '.')) : $key;
 
-                        foreach ($iterator as $value) {
-                            yield $pick($iterator, $value, $key, $default);
+                        foreach ($iterable as $value) {
+                            yield $pick($iterable, $value, $key, $default);
                         }
                     };
     }

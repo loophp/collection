@@ -36,7 +36,7 @@ final class Merge extends AbstractOperation
              */
             static fn (iterable ...$sources): Closure =>
                 /**
-                 * @param Iterator<TKey, T> $iterator
+                 * @param iterable<TKey, T> $iterable
                  *
                  * @return Generator<TKey, T>
                  */

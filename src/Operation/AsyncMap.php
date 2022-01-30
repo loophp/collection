@@ -13,7 +13,6 @@ use Amp\Sync\LocalSemaphore;
 use Closure;
 use Exception;
 use Generator;
-use Iterator;
 
 use function Amp\Iterator\fromIterable;
 use function Amp\ParallelFunctions\parallel;
@@ -41,7 +40,7 @@ final class AsyncMap extends AbstractOperation
      *
      * @template V
      *
-     * @return Closure(callable(T, TKey): V): Closure(Iterator<TKey, T>): Generator<TKey, V>
+     * @return Closure(callable(T, TKey): V): Closure(iterable<TKey, T>): Generator<TKey, V>
      */
     public function __invoke(): Closure
     {
@@ -51,11 +50,9 @@ final class AsyncMap extends AbstractOperation
              */
             static fn (callable $callback): Closure =>
                 /**
-                 * @param Iterator<TKey, T> $iterator
-                 *
                  * @return Generator<TKey, V>
                  */
-                static function (Iterator $iterator) use ($callback): Generator {
+                static function (iterable $iterable) use ($callback): Generator {
                     $parallelCallBack =
                         /**
                          * @param array{0: TKey, 1: T} $value
@@ -64,7 +61,7 @@ final class AsyncMap extends AbstractOperation
                          */
                         static fn (array $value): array => [$value[0], $callback($value[1], $value[0])];
 
-                    $iter = map(fromIterable((new Pack())()($iterator)), new LocalSemaphore(32), parallel($parallelCallBack));
+                    $iter = map(fromIterable((new Pack())()($iterable)), new LocalSemaphore(32), parallel($parallelCallBack));
 
                     while (wait($iter->advance())) {
                         /** @var array{0: TKey, 1: V} $item */

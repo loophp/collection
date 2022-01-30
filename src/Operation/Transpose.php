@@ -11,8 +11,7 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use Iterator;
-use loophp\iterators\IterableIterator;
+use loophp\iterators\IterableIteratorAggregate;
 use MultipleIterator;
 
 /**
@@ -28,7 +27,7 @@ final class Transpose extends AbstractOperation
      *
      * @psalm-suppress ImpureMethodCall - using MultipleIterator as an internal tool which is not returned
      *
-     * @return Closure(Iterator<TKey, T>): Generator<TKey, list<T>>
+     * @return Closure(iterable<TKey, T>): Generator<TKey, list<T>>
      */
     public function __invoke(): Closure
     {
@@ -48,11 +47,11 @@ final class Transpose extends AbstractOperation
              */
             static fn (array $value): array => $value;
 
-        /** @var Closure(Iterator<TKey, T>): Generator<TKey, list<T>> $pipe */
+        /** @var Closure(iterable<TKey, T>): Generator<TKey, list<T>> $pipe */
         $pipe = Pipe::of()(
             Reduce::of()(
                 static function (MultipleIterator $acc, iterable $iterable): MultipleIterator {
-                    $acc->attachIterator(new IterableIterator($iterable));
+                    $acc->attachIterator((new IterableIteratorAggregate($iterable))->getIterator());
 
                     return $acc;
                 }

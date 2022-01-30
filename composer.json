@@ -32,7 +32,7 @@
     ],
     "require": {
         "php": ">= 7.4",
-        "loophp/iterators": "^1.5.13"
+        "loophp/iterators": "^1.5"
     },
     "require-dev": {
         "amphp/parallel-functions": "^1",

@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
-use Iterator;
 use loophp\collection\Contract\Collection;
 
 /**
@@ -26,7 +25,7 @@ interface Reduceable
      * @template V
      * @template W
      *
-     * @param callable((V|W)=, T=, TKey=, Iterator<TKey, T>=): W $callback
+     * @param callable((V|W)=, T=, TKey=, iterable<TKey, T>=): W $callback
      * @param V $initial
      *
      * @return Collection<TKey, W>

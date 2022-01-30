@@ -11,7 +11,6 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use Iterator;
 
 /**
  * @immutable
@@ -29,31 +28,34 @@ final class Reduction extends AbstractOperation
      * @template V
      * @template W
      *
-     * @return Closure(callable(mixed=, mixed=, mixed=, Iterator<mixed, mixed>=): mixed): Closure(mixed): Closure(Iterator<TKey, T>): Generator<TKey, mixed>
+     * @return Closure(callable(mixed=, mixed=, mixed=, iterable<mixed, mixed>=): mixed): Closure(mixed): Closure(iterable<TKey, T>): Generator<TKey, mixed>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable((V|W)=, T=, TKey=, Iterator<TKey, T>=): W $callback
+             * @param callable((V|W)=, T=, TKey=, iterable<TKey, T>=): W $callback
              *
-             * @return Closure(V): Closure(Iterator<TKey, T>): Generator<TKey, W>
+             * @return Closure(V): Closure(iterable<TKey, T>): Generator<TKey, W>
              */
             static fn (callable $callback): Closure =>
                 /**
                  * @param V $initial
                  *
-                 * @return Closure(Iterator<TKey, T>): Generator<TKey, W>
+                 * @return Closure(iterable<TKey, T>): Generator<TKey, W>
                  */
                 static fn ($initial): Closure =>
                     /**
-                     * @param Iterator<TKey, T> $iterator
+                     * @param iterable<TKey, T> $iterable
                      *
                      * @return Generator<TKey, W>
                      */
-                    static function (Iterator $iterator) use ($callback, $initial): Generator {
-                        foreach ($iterator as $key => $value) {
-                            yield $key => ($initial = $callback($initial, $value, $key, $iterator));
+                    static function (iterable $iterable) use ($callback, $initial): Generator {
+                        foreach ($iterable as $key => $value) {
+                            /** @var W $initial */
+                            $initial = $callback($initial, $value, $key, $iterable);
+
+                            yield $key => $initial;
                         }
                     };
     }
