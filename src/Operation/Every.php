@@ -82,7 +82,7 @@ final class Every extends AbstractOperation
                         /** @var Closure(Iterator<TKey, T>): Generator<TKey, bool> $pipe */
                         $pipe = Pipe::of()(
                             Map::of()($mapCallback($callbackReducer($callbacks))($callbackReducer($matchers))),
-                            DropWhile::of()(static fn (bool $value): bool => true === $value),
+                            DropWhile::of()(static fn (bool $value): bool => $value),
                             Append::of()(true),
                             Head::of(),
                         );

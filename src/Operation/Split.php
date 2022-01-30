@@ -58,7 +58,7 @@ final class Split extends AbstractOperation
                                 $carry[] = $current;
                             }
 
-                            if (Splitable::REMOVE === $type && true === $callbackReturn) {
+                            if ($callbackReturn && (Splitable::REMOVE === $type)) {
                                 yield $carry;
 
                                 $carry = [];
@@ -66,7 +66,7 @@ final class Split extends AbstractOperation
                                 continue;
                             }
 
-                            if (true === $callbackReturn && [] !== $carry) {
+                            if ($callbackReturn && ([] !== $carry)) {
                                 yield $carry;
 
                                 $carry = [];

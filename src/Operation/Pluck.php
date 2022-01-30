@@ -70,7 +70,7 @@ final class Pluck extends AbstractOperation
                             static function (Iterator $iterator, $target, array $key, $default = null) use (&$pick) {
                                 while (null !== $segment = array_shift($key)) {
                                     if ('*' === $segment) {
-                                        if (false === is_iterable($target)) {
+                                        if (!is_iterable($target)) {
                                             return $default;
                                         }
 
@@ -87,16 +87,16 @@ final class Pluck extends AbstractOperation
                                         return in_array('*', $key, true) ? $collapse : $result;
                                     }
 
-                                    if ((true === is_array($target)) && (true === array_key_exists($segment, $target))) {
+                                    if ((is_array($target)) && (array_key_exists($segment, $target))) {
                                         /** @var T $target */
                                         $target = $target[$segment];
-                                    } elseif (($target instanceof ArrayAccess) && (true === $target->offsetExists($segment))) {
+                                    } elseif (($target instanceof ArrayAccess) && ($target->offsetExists($segment))) {
                                         /** @var T $target */
                                         $target = $target[$segment];
                                     } elseif ($target instanceof Collection) {
                                         /** @var T $target */
                                         $target = (Get::of()($segment)($default)($target->getIterator()))->current();
-                                    } elseif ((true === is_object($target)) && (true === property_exists($target, $segment))) {
+                                    } elseif ((is_object($target)) && (property_exists($target, $segment))) {
                                         /** @var T $target */
                                         $target = (new ReflectionClass($target))->getProperty($segment)->getValue($target);
                                     } else {
@@ -107,7 +107,7 @@ final class Pluck extends AbstractOperation
                                 return $target;
                             };
 
-                        $key = true === is_scalar($key) ? explode('.', trim((string) $key, '.')) : $key;
+                        $key = is_scalar($key) ? explode('.', trim((string) $key, '.')) : $key;
 
                         foreach ($iterator as $value) {
                             yield $pick($iterator, $value, $key, $default);

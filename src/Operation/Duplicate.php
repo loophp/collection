@@ -64,7 +64,7 @@ final class Duplicate extends AbstractOperation
 
                             $matchFalse = (new MatchOne())()($matchWhenNot)($matcher)($stack);
 
-                            if (true === $matchFalse->current()) {
+                            if ($matchFalse->current()) {
                                 return true;
                             }
 

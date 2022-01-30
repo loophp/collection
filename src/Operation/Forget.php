@@ -46,7 +46,7 @@ final class Forget extends AbstractOperation
                          * @param T $value
                          * @param TKey $key
                          */
-                        static fn ($value, $key): bool => false === in_array($key, $keys, true);
+                        static fn ($value, $key): bool => !in_array($key, $keys, true);
 
                 $filter = (new Filter())()($filterCallbackFactory($keys));
 

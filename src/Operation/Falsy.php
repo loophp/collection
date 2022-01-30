@@ -31,18 +31,24 @@ final class Falsy extends AbstractOperation
         $matchWhenNot = static fn (): bool => true;
         $matcher =
             /**
-             * @param T $value
+             * @param bool $value
              */
-            static fn ($value): bool => (bool) $value;
+            static fn (bool $value): bool => $value;
 
         /** @var Closure(Iterator<TKey, T>): Generator<int, bool> $pipe */
         $pipe = Pipe::of()(
-            MatchOne::of()($matchWhenNot)($matcher),
             Map::of()(
                 /**
                  * @param T $value
                  */
-                static fn ($value): bool => !(bool) $value
+                static fn ($value): bool => (bool) $value
+            ),
+            MatchOne::of()($matchWhenNot)($matcher),
+            Map::of()(
+                /**
+                 * @param bool $value
+                 */
+                static fn (bool $value): bool => !$value
             ),
         );
 

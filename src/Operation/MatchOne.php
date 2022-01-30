@@ -55,7 +55,7 @@ final class MatchOne extends AbstractOperation
                                  */
                                 static fn ($value, $key, Iterator $iterator): bool => CallbacksArrayReducer::or()($callbacks, $value, $key, $iterator) === CallbacksArrayReducer::or()($matchers, $value, $key, $iterator)
                             ),
-                            DropWhile::of()(static fn (bool $value): bool => false === $value),
+                            DropWhile::of()(static fn (bool $value): bool => !$value),
                             Append::of()(false),
                             Head::of()
                         );

@@ -54,6 +54,6 @@ final class When extends AbstractOperation
                          *
                          * @return Generator<TKey, T>
                          */
-                        static fn (Iterator $iterator): Generator => yield from (true === $predicate($iterator)) ? $whenTrue($iterator) : $whenFalse($iterator);
+                        static fn (Iterator $iterator): Generator => yield from ($predicate($iterator) ? $whenTrue($iterator) : $whenFalse($iterator));
     }
 }

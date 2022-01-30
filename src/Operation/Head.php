@@ -45,7 +45,7 @@ final class Head extends AbstractOperation
                     break;
                 }
 
-                if (false === $isEmpty) {
+                if (!$isEmpty) {
                     yield $key => $current;
                 }
             };

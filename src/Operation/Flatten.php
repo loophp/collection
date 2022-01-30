@@ -39,7 +39,7 @@ final class Flatten extends AbstractOperation
                  */
                 static function (Iterator $iterator) use ($depth): Generator {
                     foreach ($iterator as $key => $value) {
-                        if (false === is_iterable($value)) {
+                        if (!is_iterable($value)) {
                             yield $key => $value;
 
                             continue;

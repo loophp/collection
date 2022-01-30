@@ -45,7 +45,7 @@ final class Diff extends AbstractOperation
                         /**
                          * @param T $value
                          */
-                        static fn ($value): bool => false === in_array($value, $values, true);
+                        static fn ($value): bool => !in_array($value, $values, true);
 
                 $filter = (new Filter())()($filterCallbackFactory($values));
 

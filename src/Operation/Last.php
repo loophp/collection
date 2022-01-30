@@ -43,7 +43,7 @@ final class Last extends AbstractOperation
                     $isEmpty = false;
                 }
 
-                if (false === $isEmpty) {
+                if (!$isEmpty) {
                     yield $key => $current;
                 }
             };

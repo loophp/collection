@@ -22,7 +22,7 @@ use function Amp\Sync\ConcurrentIterator\map;
 use function function_exists;
 
 // phpcs:disable
-if (false === function_exists('Amp\ParallelFunctions\parallel')) {
+if (!function_exists('Amp\ParallelFunctions\parallel')) {
     throw new Exception('You need amphp/parallel-functions to get this operation working.');
 }
 // phpcs:enable
