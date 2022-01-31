@@ -37,7 +37,7 @@ final class Collapse extends AbstractOperation
             static fn ($value): bool => is_iterable($value);
 
         /** @var Closure(Iterator<TKey, (T|iterable<TKey, T>)>): Generator<TKey, T> $pipe */
-        $pipe = Pipe::of()(
+        $pipe = (new Pipe())()(
             (new Filter())()($filterCallback),
             (new Flatten())()(1),
         );

@@ -46,8 +46,8 @@ final class MatchOne extends AbstractOperation
                      */
                     static function (callable ...$callbacks) use ($matchers): Closure {
                         /** @var Closure(Iterator<TKey, T>): Generator<TKey, bool> $pipe */
-                        $pipe = Pipe::of()(
-                            Map::of()(
+                        $pipe = (new Pipe())()(
+                            (new Map())()(
                                 /**
                                  * @param T $value
                                  * @param TKey $key
@@ -55,9 +55,9 @@ final class MatchOne extends AbstractOperation
                                  */
                                 static fn ($value, $key, Iterator $iterator): bool => CallbacksArrayReducer::or()($callbacks, $value, $key, $iterator) === CallbacksArrayReducer::or()($matchers, $value, $key, $iterator)
                             ),
-                            DropWhile::of()(static fn (bool $value): bool => !$value),
-                            Append::of()(false),
-                            Head::of()
+                            (new DropWhile())()(static fn (bool $value): bool => !$value),
+                            (new Append())()(false),
+                            (new Head())()
                         );
 
                         // Point free style.

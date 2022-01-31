@@ -48,11 +48,11 @@ final class Column extends AbstractOperation
                         static fn ($value, $key, Iterator $iterator): bool => $key === $column;
 
                 /** @var Closure(Iterator<TKey, T>): Generator<int, mixed> $pipe */
-                $pipe = Pipe::of()(
-                    Transpose::of(),
+                $pipe = (new Pipe())()(
+                    (new Transpose())(),
                     (new Filter())()($filterCallbackBuilder($column)),
-                    Head::of(),
-                    Flatten::of()(1)
+                    (new Head())(),
+                    (new Flatten())()(1)
                 );
 
                 // Point free style.

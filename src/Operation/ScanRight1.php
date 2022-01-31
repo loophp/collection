@@ -28,7 +28,7 @@ final class ScanRight1 extends AbstractOperation
      *
      * @template V
      *
-     * @return Closure(callable(T|V, T, TKey, Iterator<TKey, T>): V): Closure(Iterator<TKey, T>): Generator<int|TKey, T|V>
+     * @return Closure(callable(mixed, T, TKey, Iterator<TKey, T>): mixed): Closure(Iterator<TKey, T>): Generator<int|TKey, mixed>
      */
     public function __invoke(): Closure
     {
@@ -40,10 +40,10 @@ final class ScanRight1 extends AbstractOperation
              */
             static function (callable $callback): Closure {
                 /** @var Closure(Iterator<TKey, T>): Generator<TKey, T|V> $pipe */
-                $pipe = Pipe::of()(
-                    Reverse::of(),
-                    ScanLeft1::of()($callback),
-                    Reverse::of()
+                $pipe = (new Pipe())()(
+                    (new Reverse())(),
+                    (new ScanLeft1())()($callback),
+                    (new Reverse())()
                 );
 
                 // Point free style.

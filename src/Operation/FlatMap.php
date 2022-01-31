@@ -39,9 +39,9 @@ final class FlatMap extends AbstractOperation
              */
             static function (callable $callback): Closure {
                 /** @var Closure(Iterator<TKey, T>): Generator<IKey, IValue> $flatMap */
-                $flatMap = Pipe::of()(
-                    Map::of()($callback),
-                    Flatten::of()(1)
+                $flatMap = (new Pipe())()(
+                    (new Map())()($callback),
+                    (new Flatten())()(1)
                 );
 
                 // Point free style

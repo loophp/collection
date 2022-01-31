@@ -38,9 +38,9 @@ final class FoldLeft1 extends AbstractOperation
              */
             static function (callable $callback): Closure {
                 /** @var Closure(Iterator<TKey, T>):(Generator<int|TKey, T|null>) $pipe */
-                $pipe = Pipe::of()(
-                    ScanLeft1::of()($callback),
-                    Last::of()
+                $pipe = (new Pipe())()(
+                    (new ScanLeft1())()($callback),
+                    (new Last())()
                 );
 
                 // Point free style.

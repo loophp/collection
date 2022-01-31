@@ -21,22 +21,19 @@ use Traversable;
 /**
  * @immutable
  *
- * @template NewTKey
- * @template NewT
- *
  * @template TKey
- * @template T of array{0: NewTKey, 1: NewT}
+ * @template T
  */
 final class Unpack extends AbstractOperation
 {
     /**
      * @pure
      *
-     * @return Closure(Iterator<TKey, T>): Generator<NewTKey, NewT>
+     * @return Closure(Iterator<mixed, mixed>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
-        /** @var Closure(Iterator<TKey, T>): Generator<NewTKey, NewT> $pipe */
+        /** @var Closure(Iterator<array-key, array{0: TKey, 1: T}>): Generator<TKey, T> $pipe */
         $pipe = Pipe::of()(
             Map::of()(static fn (iterable $iterable): Iterator => (new IterableIteratorAggregate($iterable))->getIterator()),
             Map::of()(Chunk::of()(2)),

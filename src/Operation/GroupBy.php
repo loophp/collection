@@ -60,9 +60,9 @@ final class GroupBy extends AbstractOperation
                         };
 
                 /** @var Closure(Iterator<TKey, T>): Generator<NewTKey, non-empty-list<T>> $pipe */
-                $pipe = Pipe::of()(
-                    Reduce::of()($reducerFactory($callable))([]),
-                    Flatten::of()(1)
+                $pipe = (new Pipe())()(
+                    (new Reduce())()($reducerFactory($callable))([]),
+                    (new Flatten())()(1)
                 );
 
                 // Point free style.

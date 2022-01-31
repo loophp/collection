@@ -56,8 +56,8 @@ final class Combine extends AbstractOperation
                 /** @var Closure(Iterator<TKey, T>): Generator<null|U, null|T> $pipe */
                 $pipe = Pipe::of()(
                     $buildMultipleIterable($keys),
-                    Flatten::of()(1),
-                    Pair::of(),
+                    (new Flatten())()(1),
+                    (new Pair())(),
                 );
 
                 // Point free style.

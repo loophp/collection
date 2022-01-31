@@ -39,7 +39,7 @@ final class Product extends AbstractOperation
              */
             static function (iterable ...$iterables): Closure {
                 /** @var Closure(Iterator<TKey, T>): Generator<int, list<T|U>> $pipe */
-                $pipe = Pipe::of()(
+                $pipe = (new Pipe())()(
                     (
                         /**
                          * @param list<Iterator<UKey, U>> $iterables

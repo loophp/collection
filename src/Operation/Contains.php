@@ -46,7 +46,7 @@ final class Contains extends AbstractOperation
                         static fn ($right): bool => $left === $right;
 
                 /** @var Closure(Iterator<TKey, T>): Generator<TKey, bool> $matchOne */
-                $matchOne = MatchOne::of()(static fn (): bool => true)(...array_map($callback, $values));
+                $matchOne = (new MatchOne())()(static fn (): bool => true)(...array_map($callback, $values));
 
                 // Point free style.
                 return $matchOne;

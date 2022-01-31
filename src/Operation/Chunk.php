@@ -43,7 +43,7 @@ final class Chunk extends AbstractOperation
                  */
                 static function (Iterator $iterator) use ($sizes): Generator {
                     /** @var Iterator<int, int> $sizesIterator */
-                    $sizesIterator = Cycle::of()(new ArrayIterator($sizes));
+                    $sizesIterator = (new Cycle())()(new ArrayIterator($sizes));
 
                     $values = [];
 

@@ -37,7 +37,7 @@ final class Explode extends AbstractOperation
              */
             static function (...$explodes): Closure {
                 /** @var Closure(Iterator<TKey, T>): Generator<int, list<T>> $split */
-                $split = Split::of()(Splitable::REMOVE)(
+                $split = (new Split())()(Splitable::REMOVE)(
                     ...array_map(
                         /**
                          * @param T $explode
