@@ -23,12 +23,10 @@ use Generator;
 final class Drop extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(int): Closure(iterable<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
-        return Limit::of()(-1);
+        return (new Limit())()(-1);
     }
 }

@@ -23,8 +23,6 @@ use Generator;
 final class Unfold extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(T...): Closure(callable(T...): list<T>): Closure(): Generator<int, list<T>>
      */
     public function __invoke(): Closure

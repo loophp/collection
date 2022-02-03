@@ -24,8 +24,6 @@ use loophp\iterators\RandomIterableAggregate;
 final class Shuffle extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(int): Closure(iterable<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure

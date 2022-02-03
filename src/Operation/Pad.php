@@ -21,8 +21,6 @@ use Generator;
 final class Pad extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(int): Closure(T): Closure(iterable<TKey, T>): Generator<int|TKey, T>
      */
     public function __invoke(): Closure

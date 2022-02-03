@@ -21,8 +21,6 @@ use Generator;
 final class Words extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(iterable<TKey, T>): Generator<TKey, string>
      */
     public function __invoke(): Closure
@@ -34,10 +32,10 @@ final class Words extends AbstractOperation
             static fn (array $value): string => implode('', $value);
 
         /** @var Closure(iterable<TKey, T>): Generator<TKey, string> $pipe */
-        $pipe = Pipe::of()(
-            Explode::of()("\t", "\n", ' '),
-            Map::of()($mapCallback),
-            Compact::of()()
+        $pipe = (new Pipe())()(
+            (new Explode())()("\t", "\n", ' '),
+            (new Map())()($mapCallback),
+            (new Compact())()()
         );
 
         // Point free style.

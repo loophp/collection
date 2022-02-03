@@ -22,8 +22,6 @@ use loophp\iterators\NormalizeIterableAggregate;
 final class Normalize extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(iterable<TKey, T>): Generator<int, T>
      */
     public function __invoke(): Closure

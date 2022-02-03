@@ -36,8 +36,6 @@ if (!function_exists('Amp\ParallelFunctions\parallel')) {
 final class AsyncMap extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @template V
      *
      * @return Closure(callable(T, TKey): V): Closure(iterable<TKey, T>): Generator<TKey, V>

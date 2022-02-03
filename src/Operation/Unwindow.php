@@ -21,14 +21,12 @@ use Generator;
 final class Unwindow extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(iterable<TKey, list<T>>): Generator<TKey, T|null>
      */
     public function __invoke(): Closure
     {
         /** @var Closure(iterable<TKey, list<T>>): Generator<TKey, T|null> $unwindow */
-        $unwindow = Map::of()(
+        $unwindow = (new Map())()(
             /**
              * @param iterable<TKey, list<T>> $iterable
              *

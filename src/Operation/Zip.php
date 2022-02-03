@@ -25,8 +25,6 @@ use MultipleIterator;
 final class Zip extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @template UKey
      * @template U
      *

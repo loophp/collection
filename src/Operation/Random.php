@@ -21,8 +21,6 @@ use Generator;
 final class Random extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(int): Closure(int): Closure(iterable<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure

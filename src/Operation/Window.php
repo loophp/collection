@@ -23,8 +23,6 @@ use function array_slice;
 final class Window extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(int): Closure(iterable<TKey, T>): Generator<TKey, list<T>>
      */
     public function __invoke(): Closure

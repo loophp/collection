@@ -26,8 +26,6 @@ use loophp\iterators\IterableIteratorAggregate;
 final class Partition extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(callable(T=, TKey=, iterable<TKey, T>=): bool ...): Closure(iterable<TKey, T>): Generator<int, iterable<TKey, T>>
      */
     public function __invoke(): Closure

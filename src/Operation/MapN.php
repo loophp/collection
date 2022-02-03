@@ -23,8 +23,6 @@ use Generator;
 final class MapN extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(callable(mixed, mixed, iterable<TKey, T>): mixed ...): Closure(iterable<TKey, T>): Generator<mixed, mixed>
      */
     public function __invoke(): Closure

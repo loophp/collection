@@ -22,8 +22,6 @@ use Closure;
 final class CallbacksArrayReducer
 {
     /**
-     * @pure
-     *
      * @return Closure(array<array-key, callable(T=, TKey=, iterable<TKey, T>=): bool>, T, TKey, iterable<TKey, T>): bool
      */
     public static function or(): Closure

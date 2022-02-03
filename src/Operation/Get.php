@@ -21,8 +21,6 @@ use Generator;
 final class Get extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @template V
      *
      * @return Closure(TKey): Closure(V): Closure(iterable<TKey, T>): Generator<TKey, T|V>

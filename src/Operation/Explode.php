@@ -22,8 +22,6 @@ use loophp\collection\Contract\Operation\Splitable;
 final class Explode extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(T...): Closure(iterable<TKey, T>): Generator<int, list<T>>
      */
     public function __invoke(): Closure

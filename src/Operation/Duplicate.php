@@ -23,8 +23,6 @@ use Generator;
 final class Duplicate extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @template U
      *
      * @return Closure(callable(U): Closure(U): bool): Closure(callable(T, TKey): U): Closure(iterable<TKey, T>): Generator<TKey, T>

@@ -23,8 +23,6 @@ use MultipleIterator;
 final class Transpose extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @psalm-suppress ImpureMethodCall - using MultipleIterator as an internal tool which is not returned
      *
      * @return Closure(iterable<TKey, T>): Generator<TKey, list<T>>
@@ -48,16 +46,16 @@ final class Transpose extends AbstractOperation
             static fn (array $value): array => $value;
 
         /** @var Closure(iterable<TKey, T>): Generator<TKey, list<T>> $pipe */
-        $pipe = Pipe::of()(
-            Reduce::of()(
+        $pipe = (new Pipe())()(
+            (new Reduce())()(
                 static function (MultipleIterator $acc, iterable $iterable): MultipleIterator {
                     $acc->attachIterator((new IterableIteratorAggregate($iterable))->getIterator());
 
                     return $acc;
                 }
             )(new MultipleIterator(MultipleIterator::MIT_NEED_ANY)),
-            Flatten::of()(1),
-            Associate::of()($callbackForKeys)($callbackForValues)
+            (new Flatten())()(1),
+            (new Associate())()($callbackForKeys)($callbackForValues)
         );
 
         // Point free style.

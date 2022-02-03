@@ -25,8 +25,6 @@ use loophp\iterators\TypedIteratorAggregate;
 final class Strict extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(null|callable(mixed): string): Closure(iterable<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure

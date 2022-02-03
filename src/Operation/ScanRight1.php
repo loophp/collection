@@ -23,8 +23,6 @@ use Generator;
 final class ScanRight1 extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @template V
      *
      * @return Closure(callable(mixed, T, TKey, iterable<TKey, T>): mixed): Closure(iterable<TKey, T>): Generator<int|TKey, mixed>

@@ -31,8 +31,6 @@ use function is_object;
 final class Pluck extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(T):Closure(T):Closure(iterable<TKey, T>):Generator<int, T|iterable<int, T>, mixed, void>
      */
     public function __invoke(): Closure
@@ -80,7 +78,7 @@ final class Pluck extends AbstractOperation
                                         }
 
                                         /** @var Generator<TKey, T> $collapse */
-                                        $collapse = Collapse::of()($result);
+                                        $collapse = (new Collapse())()($result);
 
                                         return in_array('*', $key, true) ? $collapse : $result;
                                     }
@@ -93,7 +91,7 @@ final class Pluck extends AbstractOperation
                                         $target = $target[$segment];
                                     } elseif ($target instanceof Collection) {
                                         /** @var T $target */
-                                        $target = (Get::of()($segment)($default)($target))->current();
+                                        $target = ((new Get())()($segment)($default)($target))->current();
                                     } elseif (is_object($target) && property_exists($target, $segment)) {
                                         /** @var T $target */
                                         $target = (new ReflectionClass($target))->getProperty($segment)->getValue($target);

@@ -11,16 +11,12 @@ namespace loophp\collection\Contract;
 
 use Closure;
 
-/** @immutable */
+/**
+ * @immutable
+ */
 interface Operation
 {
-    /**
-     * @pure
-     */
     public function __invoke(): Closure;
 
-    /**
-     * @pure
-     */
     public static function of(): Closure;
 }

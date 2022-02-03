@@ -24,8 +24,6 @@ use function count;
 final class Chunk extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(int...): Closure(iterable<TKey, T>): Generator<int, list<T>>
      */
     public function __invoke(): Closure

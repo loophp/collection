@@ -23,8 +23,6 @@ use Generator;
 final class Associate extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @template NewTKey
      * @template NewT
      *

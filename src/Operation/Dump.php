@@ -24,8 +24,6 @@ use Symfony\Component\VarDumper\VarDumper;
 final class Dump extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(string): Closure(int): Closure(?Closure): Closure(iterable<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure

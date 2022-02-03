@@ -25,8 +25,6 @@ use loophp\collection\Utils\CallbacksArrayReducer;
 final class Split extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(int): Closure((callable(T, TKey): bool)...): Closure(iterable<TKey, T>): Generator<int, list<T>>
      */
     public function __invoke(): Closure

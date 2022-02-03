@@ -22,8 +22,6 @@ use loophp\iterators\PackIterableAggregate;
 final class Pack extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(iterable<TKey, T>): Generator<int, array{0: TKey, 1: T}>
      */
     public function __invoke(): Closure

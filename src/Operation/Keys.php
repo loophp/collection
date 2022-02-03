@@ -21,15 +21,13 @@ use Generator;
 final class Keys extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(iterable<TKey, T>): Generator<int, TKey>
      */
     public function __invoke(): Closure
     {
         /** @var Closure(iterable<TKey, T>): Generator<int, TKey> $pipe */
-        $pipe = Pipe::of()(
-            Flip::of(),
+        $pipe = (new Pipe())()(
+            (new Flip())(),
             (new Normalize())()
         );
 

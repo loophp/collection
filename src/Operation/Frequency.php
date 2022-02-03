@@ -21,8 +21,6 @@ use Generator;
 final class Frequency extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(iterable<TKey, T>): Generator<int, T>
      */
     public function __invoke(): Closure
@@ -56,10 +54,10 @@ final class Frequency extends AbstractOperation
             };
 
         /** @var Closure(iterable<TKey, T>): Generator<int, T> $pipe */
-        $pipe = Pipe::of()(
-            Reduce::of()($reduceCallback)([]),
-            Flatten::of()(1),
-            Unpack::of()
+        $pipe = (new Pipe())()(
+            (new Reduce())()($reduceCallback)([]),
+            (new Flatten())()(1),
+            (new Unpack())()
         );
 
         // Point free style.

@@ -21,8 +21,6 @@ use Generator;
 final class Column extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(mixed): Closure(iterable<TKey, T>): Generator<int, mixed>
      */
     public function __invoke(): Closure

@@ -21,14 +21,12 @@ use Generator;
 final class Tail extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(iterable<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         /** @var Closure(iterable<TKey, T>): Generator<TKey, T> $drop */
-        $drop = Drop::of()(1);
+        $drop = (new Drop())()(1);
 
         // Point free style.
         return $drop;

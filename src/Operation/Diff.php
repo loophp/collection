@@ -23,8 +23,6 @@ use function in_array;
 final class Diff extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(T...): Closure(iterable<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure

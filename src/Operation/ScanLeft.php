@@ -23,8 +23,6 @@ use Generator;
 final class ScanLeft extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @template V
      * @template W
      *

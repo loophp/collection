@@ -21,8 +21,6 @@ use Generator;
 final class Contains extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(T ...$values): Closure(iterable<TKey, T>): Generator<TKey, bool>
      */
     public function __invoke(): Closure

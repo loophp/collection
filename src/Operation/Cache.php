@@ -26,8 +26,6 @@ use Psr\Cache\CacheItemPoolInterface;
 final class Cache extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(CacheItemPoolInterface): Closure(iterable<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure

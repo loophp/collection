@@ -25,8 +25,6 @@ use Traversable;
 final class Product extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @template UKey
      * @template U
      */

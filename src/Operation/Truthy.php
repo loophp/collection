@@ -21,8 +21,6 @@ use Generator;
 final class Truthy extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(iterable<TKey, T>): Generator<int, bool>
      */
     public function __invoke(): Closure
@@ -35,15 +33,15 @@ final class Truthy extends AbstractOperation
             static fn (bool $value): bool => !$value;
 
         /** @var Closure(iterable<TKey, T>): Generator<int, bool> $pipe */
-        $pipe = Pipe::of()(
-            Map::of()(
+        $pipe = (new Pipe())()(
+            (new Map())()(
                 /**
                  * @param T $value
                  */
                 static fn ($value): bool => (bool) $value
             ),
-            MatchOne::of()($matchWhenNot)($matcher),
-            Map::of()($matcher),
+            (new MatchOne())()($matchWhenNot)($matcher),
+            (new Map())()($matcher),
         );
 
         // Point free style.

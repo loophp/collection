@@ -23,9 +23,6 @@ use loophp\iterators\IterableIteratorAggregate;
  */
 final class Permutate extends AbstractOperation
 {
-    /**
-     * @pure
-     */
     public function __invoke(): Closure
     {
         $getPermutations =

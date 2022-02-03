@@ -23,8 +23,6 @@ use Generator;
 final class FoldRight1 extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(callable((T|null), T, TKey, iterable<TKey, T>): (T|null)):Closure (iterable<TKey, T>): Generator<int|TKey, T|null>
      */
     public function __invoke(): Closure

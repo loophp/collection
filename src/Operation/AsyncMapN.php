@@ -36,8 +36,6 @@ if (!function_exists('Amp\ParallelFunctions\parallel')) {
 final class AsyncMapN extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(callable(mixed, mixed): mixed ...): Closure(iterable<TKey, T>): Generator<mixed, mixed>
      */
     public function __invoke(): Closure

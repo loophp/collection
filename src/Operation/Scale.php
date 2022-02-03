@@ -25,8 +25,6 @@ use const INF;
 final class Scale extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(float): Closure(float): Closure(float): Closure(float): Closure(float): Closure(iterable<TKey, float|int>): Generator<TKey, float|int>
      */
     public function __invoke(): Closure
@@ -54,7 +52,7 @@ final class Scale extends AbstractOperation
                             static function (float $base = 0.0) use ($lowerBound, $upperBound, $wantedLowerBound, $wantedUpperBound): Closure {
                                 $wantedLowerBound = (0.0 === $wantedLowerBound) ? (0.0 === $base ? 0.0 : 1.0) : $wantedLowerBound;
                                 $wantedUpperBound = (1.0 === $wantedUpperBound) ? (0.0 === $base ? 1.0 : $base) : $wantedUpperBound;
-                                /** @var callable(Generator<TKey, (float | int)>):Generator<TKey, float> $mapper */
+
                                 $mapper = (new Map())()(
                                     /**
                                      * @param float|int $v
@@ -82,7 +80,7 @@ final class Scale extends AbstractOperation
                                 );
 
                                 /** @var Closure(iterable<TKey, (float|int)>):(Generator<TKey, float|int>) $pipe */
-                                $pipe = Pipe::of()($filter, $mapper);
+                                $pipe = (new Pipe())()($filter, $mapper);
 
                                 // Point free style.
                                 return $pipe;

@@ -26,17 +26,15 @@ use loophp\iterators\UnpackIterableAggregate;
 final class Unpack extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(iterable<mixed, mixed>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         /** @var Closure(iterable<array-key, array{0: TKey, 1: T}>): Generator<TKey, T> $pipe */
-        $pipe = Pipe::of()(
-            Map::of()(static fn (iterable $iterable): iterable => new IterableIteratorAggregate($iterable)),
-            Map::of()(Chunk::of()(2)),
-            Flatten::of()(1),
+        $pipe = (new Pipe())()(
+            (new Map())()(static fn (iterable $iterable): iterable => new IterableIteratorAggregate($iterable)),
+            (new Map())()((new Chunk())()(2)),
+            (new Flatten())()(1),
             static fn (iterable $iterable): IteratorAggregate => new UnpackIterableAggregate($iterable)
         );
 

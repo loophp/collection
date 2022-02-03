@@ -25,8 +25,6 @@ use const INF;
 final class Range extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(float=): Closure(float=): Closure(float=): Closure(): Generator<int, float>
      */
     public function __invoke(): Closure

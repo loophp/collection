@@ -23,8 +23,6 @@ use Generator;
 final class FlatMap extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @template IKey
      * @template IValue
      *

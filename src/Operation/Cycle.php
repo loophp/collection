@@ -22,8 +22,6 @@ use loophp\iterators\IterableIteratorAggregate;
 final class Cycle extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(iterable<TKey, T>): iterable<TKey, T>
      */
     public function __invoke(): Closure

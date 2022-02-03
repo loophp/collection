@@ -26,8 +26,6 @@ use loophp\collection\Contract\Operation\Sortable;
 final class Matching extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(Criteria): Closure(iterable<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
@@ -53,18 +51,16 @@ final class Matching extends AbstractOperation
                         $next = ClosureExpressionVisitor::sortByField($field, Criteria::DESC === $ordering ? -1 : 1, $next);
                     }
 
-                    $pipes[] = Sort::of()(Sortable::BY_VALUES)($next);
+                    $pipes[] = (new Sort())()(Sortable::BY_VALUES)($next);
                 }
 
                 $offset = $criteria->getFirstResult();
                 $length = $criteria->getMaxResults();
 
-                if (null !== $offset || null !== $length) {
-                    $pipes[] = Limit::of()($length)((int) $offset);
-                }
+                $pipes[] = (new Limit())()(null !== $length ? $length : -1)(null !== $offset ? $offset : 0);
 
                 /** @var Closure(iterable<TKey, T>): Generator<TKey, T> $pipe */
-                $pipe = Pipe::of()(...$pipes);
+                $pipe = (new Pipe())()(...$pipes);
 
                 // Point free style.
                 return $pipe;

@@ -21,8 +21,6 @@ use Generator;
 final class Unpair extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(iterable<TKey, T>): Generator<int, (TKey|T), mixed, void>
      */
     public function __invoke(): Closure

@@ -21,16 +21,14 @@ use Generator;
 final class Coalesce extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(iterable<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         /** @var Closure(iterable<TKey, T>): Generator<TKey, T> $pipe */
-        $pipe = Pipe::of()(
-            Compact::of()(),
-            Head::of(),
+        $pipe = (new Pipe())()(
+            (new Compact())()(),
+            (new Head())(),
         );
 
         // Point free style.

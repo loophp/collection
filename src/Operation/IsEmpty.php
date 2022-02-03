@@ -24,8 +24,6 @@ use loophp\iterators\IterableIteratorAggregate;
 final class IsEmpty extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(iterable<TKey, T>): Generator<int, bool>
      */
     public function __invoke(): Closure

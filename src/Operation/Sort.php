@@ -26,8 +26,6 @@ use loophp\collection\Contract\Operation;
 final class Sort extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(int): Closure(callable(T|TKey, T|TKey): int): Closure(iterable<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
@@ -61,12 +59,12 @@ final class Sort extends AbstractOperation
 
                             $operations = Operation\Sortable::BY_VALUES === $type ?
                                 [
-                                    'before' => [Pack::of()],
-                                    'after' => [Unpack::of()],
+                                    'before' => [(new Pack())()],
+                                    'after' => [(new Unpack())()],
                                 ] :
                                 [
-                                    'before' => [Flip::of(), Pack::of()],
-                                    'after' => [Unpack::of(), Flip::of()],
+                                    'before' => [(new Flip())(), (new Pack())()],
+                                    'after' => [(new Unpack())(), (new Flip())()],
                                 ];
 
                             $sortCallback =
@@ -83,12 +81,12 @@ final class Sort extends AbstractOperation
                                     static fn (array $left, array $right): int => $callback($left[1], $right[1]);
 
                             /** @var callable(iterable<TKey, T>): Generator<int, array{0:TKey, 1:T}> | callable(iterable<TKey, T>): Generator<int, array{0:T, 1:TKey}> $before */
-                            $before = Pipe::of()(...$operations['before']);
+                            $before = (new Pipe())()(...$operations['before']);
 
                             $arrayIterator = new ArrayIterator([...$before($iterable)]);
                             $arrayIterator->uasort($sortCallback($callback));
 
-                            yield from Pipe::of()(...$operations['after'])($arrayIterator);
+                            yield from (new Pipe())()(...$operations['after'])($arrayIterator);
                         };
                 };
     }

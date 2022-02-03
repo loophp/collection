@@ -23,8 +23,6 @@ use Generator;
 final class Find extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @template V
      *
      * @return Closure(V): Closure(callable(T=, TKey=, iterable<TKey, T>=): bool ...): Closure(iterable<TKey, T>): Generator<TKey, T|V>

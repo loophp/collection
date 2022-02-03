@@ -21,8 +21,6 @@ use Generator;
 final class Tails extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(iterable<TKey, T>): Generator<int, list<T>, mixed, void>
      */
     public function __invoke(): Closure
@@ -35,11 +33,11 @@ final class Tails extends AbstractOperation
              */
             static function (iterable $iterable): Generator {
                 /** @var Generator<int, array{0: TKey, 1: T}> $generator */
-                $generator = Pack::of()($iterable);
+                $generator = (new Pack())()($iterable);
                 $data = [...$generator];
 
                 while ([] !== $data) {
-                    yield [...Unpack::of()($data)];
+                    yield [...(new Unpack())()($data)];
 
                     array_shift($data);
                 }

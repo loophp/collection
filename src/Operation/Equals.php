@@ -24,8 +24,6 @@ use loophp\iterators\IterableIteratorAggregate;
 final class Equals extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(iterable<TKey, T>): Closure(iterable<TKey, T>): Generator<int|TKey, bool>
      */
     public function __invoke(): Closure

@@ -22,8 +22,6 @@ use Closure;
 final class Pipe extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(callable(iterable<TKey, T>): iterable<TKey, T> ...): Closure(iterable<TKey, T>): iterable<TKey, T>
      */
     public function __invoke(): Closure

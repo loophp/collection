@@ -23,8 +23,6 @@ use Generator;
 final class Apply extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(callable(T=, TKey=, iterable<TKey, T>=):bool ...): Closure(iterable<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure

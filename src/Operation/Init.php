@@ -25,9 +25,8 @@ use loophp\iterators\IterableIteratorAggregate;
 final class Init extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(iterable<TKey, T>): Generator<TKey, T>
+     * @psalm-suppress InvalidArgument
      */
     public function __invoke(): Closure
     {
@@ -48,9 +47,9 @@ final class Init extends AbstractOperation
             static fn (iterable $iterator): CachingIterator => new CachingIterator((new IterableIteratorAggregate($iterator))->getIterator(), CachingIterator::FULL_CACHE);
 
         /** @var Closure(iterable<TKey, T>): Generator<TKey, T> $takeWhile */
-        $takeWhile = Pipe::of()(
+        $takeWhile = (new Pipe())()(
             $buildCachingIterator,
-            TakeWhile::of()($callback)
+            (new TakeWhile())()($callback)
         );
 
         // Point free style.

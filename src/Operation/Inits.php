@@ -21,8 +21,6 @@ use Generator;
 final class Inits extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(iterable<TKey, T>): Generator<int, list<array{0: TKey, 1: T}>>
      */
     public function __invoke(): Closure
@@ -41,9 +39,9 @@ final class Inits extends AbstractOperation
             };
 
         /** @var Closure(iterable<TKey, T>): Generator<int, list<array{0: TKey, 1: T}>> $inits */
-        $inits = Pipe::of()(
-            Pack::of(),
-            ScanLeft::of()($scanLeftCallback)([]),
+        $inits = (new Pipe())()(
+            (new Pack())(),
+            (new ScanLeft())()($scanLeftCallback)([]),
             (new Normalize())()
         );
 

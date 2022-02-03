@@ -30,8 +30,6 @@ final class Nullsy extends AbstractOperation
     public const VALUES = [null, [], 0, false, ''];
 
     /**
-     * @pure
-     *
      * @return Closure(iterable<TKey, T>): Generator<int, bool>
      */
     public function __invoke(): Closure
@@ -44,15 +42,15 @@ final class Nullsy extends AbstractOperation
             static fn (bool $value): bool => in_array($value, self::VALUES, true);
 
         /** @var Closure(iterable<TKey, T>): Generator<int, bool> $pipe */
-        $pipe = Pipe::of()(
-            Map::of()(
+        $pipe = (new Pipe())()(
+            (new Map())()(
                 /**
                  * @param T $value
                  */
                 static fn ($value): bool => (bool) $value
             ),
-            MatchOne::of()($matchWhenNot)($matcher),
-            Map::of()(
+            (new MatchOne())()($matchWhenNot)($matcher),
+            (new Map())()(
                 /**
                  * @param bool $value
                  */

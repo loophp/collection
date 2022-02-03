@@ -23,8 +23,6 @@ use Generator;
 final class Implode extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(string): Closure(iterable<TKey, T>): Generator<TKey, string>
      */
     public function __invoke(): Closure

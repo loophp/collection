@@ -23,8 +23,6 @@ use Generator;
 final class FoldLeft1 extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(callable((T|null), T, TKey, iterable<TKey, T>):(T|null)): Closure(iterable<TKey, T>): Generator<int|TKey, null|T>
      */
     public function __invoke(): Closure

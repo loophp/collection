@@ -21,14 +21,12 @@ use Generator;
 final class Unwords extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(iterable<TKey, (T|string)>): Generator<TKey, string>
      */
     public function __invoke(): Closure
     {
         /** @var Closure(iterable<TKey, (T|string)>): Generator<TKey, string> $implode */
-        $implode = Implode::of()(' ');
+        $implode = (new Implode())()(' ');
 
         // Point free style.
         return $implode;

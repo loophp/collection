@@ -21,8 +21,6 @@ use Generator;
 final class Wrap extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(iterable<TKey, T>): Generator<int, array<TKey, T>>
      */
     public function __invoke(): Closure
@@ -37,8 +35,8 @@ final class Wrap extends AbstractOperation
             static fn ($value, $key): array => [$key => $value];
 
         /** @var Closure(iterable<TKey, T>): Generator<int, array<TKey, T>> $pipe */
-        $pipe = Pipe::of()(
-            Map::of()($mapCallback),
+        $pipe = (new Pipe())()(
+            (new Map())()($mapCallback),
             (new Normalize())()
         );
 

@@ -23,8 +23,6 @@ use Generator;
 final class IfThenElse extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(callable(T=, TKey=, iterable<TKey, T>=): bool): Closure(callable(T=, TKey=, iterable<TKey, T>=): T): Closure(callable(T=, TKey=, iterable<TKey, T>=): T): Closure(iterable<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure

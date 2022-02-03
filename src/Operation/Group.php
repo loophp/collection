@@ -21,8 +21,6 @@ use Generator;
 final class Group extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(iterable<TKey, T>): Generator<int, list<T>>
      */
     public function __invoke(): Closure

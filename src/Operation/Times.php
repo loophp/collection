@@ -24,8 +24,6 @@ use Iterator;
 final class Times extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(int): Closure(null|callable(int): (int|T)): Closure(null|Iterator<TKey, T>): Generator<int, int|T>
      */
     public function __invoke(): Closure

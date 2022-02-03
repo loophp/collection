@@ -24,8 +24,6 @@ use loophp\iterators\ConcatIterableAggregate;
 final class Prepend extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(T...): Closure(iterable<TKey, T>): iterable<int|TKey, T>
      */
     public function __invoke(): Closure

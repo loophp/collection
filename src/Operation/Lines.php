@@ -23,8 +23,6 @@ use const PHP_EOL;
 final class Lines extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(iterable<TKey, T>): Generator<int, string>
      */
     public function __invoke(): Closure
@@ -36,9 +34,9 @@ final class Lines extends AbstractOperation
             static fn (array $value): string => implode('', $value);
 
         /** @var Closure(iterable<TKey, T>): Generator<int, string> $pipe */
-        $pipe = Pipe::of()(
-            Explode::of()(PHP_EOL, "\n", "\r\n"),
-            Map::of()($mapCallback)
+        $pipe = (new Pipe())()(
+            (new Explode())()(PHP_EOL, "\n", "\r\n"),
+            (new Map())()($mapCallback)
         );
 
         // Point free style.

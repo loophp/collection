@@ -20,8 +20,6 @@ use Closure;
 final class All extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(bool): Closure(iterable<TKey, T>): iterable<int, T>|iterable<TKey, T>
      */
     public function __invoke(): Closure

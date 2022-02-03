@@ -23,8 +23,6 @@ use Generator;
 final class Map extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @template V
      *
      * @return Closure(callable(T=, TKey=, iterable<TKey, T>=): mixed): Closure(iterable<TKey, T>): Generator<TKey, mixed>

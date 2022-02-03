@@ -25,8 +25,6 @@ use MultipleIterator;
 final class Combine extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @template U
      *
      * @return Closure(U...): Closure(iterable<TKey, T>): Generator<null|U, null|T>

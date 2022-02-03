@@ -23,9 +23,6 @@ use function count;
  */
 final class Combinate extends AbstractOperation
 {
-    /**
-     * @pure
-     */
     public function __invoke(): Closure
     {
         return static function (?int $length = null): Closure {

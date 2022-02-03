@@ -21,8 +21,6 @@ use Generator;
 final class Flatten extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(int): Closure(iterable<TKey, T>): Generator<mixed, mixed>
      */
     public function __invoke(): Closure

@@ -24,8 +24,6 @@ use loophp\collection\Utils\CallbacksArrayReducer;
 final class Every extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(callable(T, TKey, iterable<TKey, T>...): bool): Closure(callable(T, TKey, iterable<TKey, T>...): bool): Closure(iterable<TKey, T>): Generator<TKey, bool>
      */
     public function __invoke(): Closure

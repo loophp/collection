@@ -21,8 +21,6 @@ use Generator;
 final class Reverse extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(iterable<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
@@ -37,9 +35,9 @@ final class Reverse extends AbstractOperation
             static fn (array $carry, array $value): array => [...$value, ...$carry];
 
         /** @var Closure(iterable<TKey, T>): Generator<TKey, T> $pipe */
-        $pipe = Pipe::of()(
+        $pipe = (new Pipe())()(
             (new Pack())(),
-            Reduce::of()($callback)([]),
+            (new Reduce())()($callback)([]),
             (new Unpack())(),
         );
 

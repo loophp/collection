@@ -23,8 +23,6 @@ use Generator;
 final class RSample extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(float): Closure(iterable<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure

@@ -23,8 +23,6 @@ use Generator;
 final class GroupBy extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @template NewTKey of array-key
      *
      * @return Closure(callable(T=, TKey=): NewTKey): Closure(iterable<TKey, T>): Generator<NewTKey, non-empty-list<T>>

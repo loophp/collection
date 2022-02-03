@@ -21,8 +21,6 @@ use Generator;
 final class Last extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(iterable<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure

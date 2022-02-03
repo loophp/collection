@@ -21,14 +21,12 @@ use Generator;
 final class First extends AbstractOperation
 {
     /**
-     * @pure
-     *
      * @return Closure(iterable<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         /** @var Closure(iterable<TKey, T>): Generator<TKey, T> $head */
-        $head = Head::of();
+        $head = (new Head())();
 
         // Point free style.
         return $head;
