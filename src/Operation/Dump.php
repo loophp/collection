@@ -42,6 +42,8 @@ final class Dump extends AbstractOperation
                      */
                     static fn (?Closure $callback = null): Closure =>
                         /**
+                         * @param iterable<TKey, T> $iterable
+                         *
                          * @return Generator<TKey, T>
                          */
                         static function (iterable $iterable) use ($name, $size, $callback): Generator {

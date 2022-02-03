@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace loophp\collection\Operation;
 
+use ArrayIterator;
 use Closure;
 use Generator;
 
@@ -42,15 +43,15 @@ final class Duplicate extends AbstractOperation
                  * @return Closure(iterable<TKey, T>): Generator<TKey, T>
                  */
                 static function (callable $accessorCallback) use ($comparatorCallback): Closure {
-                    /** @var array<int, array{0: TKey, 1: T}> $stack */
-                    $stack = [];
+                    /** @var ArrayIterator<int, array{0: TKey, 1: T}> $stack */
+                    $stack = new ArrayIterator();
 
                     $filter = (new Filter())()(
                         /**
                          * @param T $value
                          * @param TKey $key
                          */
-                        static function ($value, $key) use ($comparatorCallback, $accessorCallback, &$stack): bool {
+                        static function ($value, $key) use ($comparatorCallback, $accessorCallback, $stack): bool {
                             $matchWhenNot = static fn (): bool => true;
                             $matcher =
                                 /**
@@ -64,7 +65,7 @@ final class Duplicate extends AbstractOperation
                                 return true;
                             }
 
-                            $stack[] = [$key, $value];
+                            $stack->append([$key, $value]);
 
                             return false;
                         }
