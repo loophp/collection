@@ -32,19 +32,17 @@ final class Times extends AbstractOperation
     {
         return
             /**
-             * @return Closure(null|callable(int): (int|T)): Closure(null|Iterator<TKey, T>): Generator<int, int|T>
+             * @return Closure(null|callable(int): (int|T)): Closure(): Generator<int, int|T>
              */
             static fn (int $number = 0): Closure =>
                 /**
-                 * @return Closure(null|Iterator<TKey, T>): Generator<int, int|T>
+                 * @return Closure(): Generator<int, int|T>
                  */
                 static fn (?callable $callback = null): Closure =>
                     /**
-                     * @param Iterator<TKey, T>|null $iterator
-                     *
                      * @return Generator<int, int|T>
                      */
-                    static function (?Iterator $iterator = null) use ($number, $callback): Generator {
+                    static function () use ($number, $callback): Generator {
                         if (1 > $number) {
                             return;
                         }

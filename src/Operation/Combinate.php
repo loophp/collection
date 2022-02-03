@@ -11,7 +11,6 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use Iterator;
 
 use function array_slice;
 use function count;
@@ -55,12 +54,12 @@ final class Combinate extends AbstractOperation
 
             return
                 /**
-                 * @param Iterator<TKey, T> $iterator
+                 * @param iterable<TKey, T> $iterable
                  *
                  * @return Generator<int, array<int, T>>
                  */
-                static function (Iterator $iterator) use ($length, $getCombinations): Generator {
-                    $dataset = [...$iterator];
+                static function (iterable $iterable) use ($length, $getCombinations): Generator {
+                    $dataset = [...$iterable];
 
                     if (0 < $length) {
                         return yield from $getCombinations($dataset, $length);

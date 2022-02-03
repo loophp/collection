@@ -11,7 +11,6 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use Iterator;
 
 /**
  * @immutable
@@ -28,7 +27,7 @@ final class GroupBy extends AbstractOperation
      *
      * @template NewTKey of array-key
      *
-     * @return Closure(callable(T=, TKey=): NewTKey):Closure(Iterator<TKey, T>): Generator<NewTKey, non-empty-list<T>>
+     * @return Closure(callable(T=, TKey=): NewTKey): Closure(iterable<TKey, T>): Generator<NewTKey, non-empty-list<T>>
      */
     public function __invoke(): Closure
     {
@@ -36,7 +35,7 @@ final class GroupBy extends AbstractOperation
             /**
              * @param callable(T=, TKey=): NewTKey $callable
              *
-             * @return Closure(Iterator<TKey, T>): Generator<NewTKey, non-empty-list<T>>
+             * @return Closure(iterable<TKey, T>): Generator<NewTKey, non-empty-list<T>>
              */
             static function (callable $callable): Closure {
                 $reducerFactory =
@@ -59,7 +58,7 @@ final class GroupBy extends AbstractOperation
                             return $collect;
                         };
 
-                /** @var Closure(Iterator<TKey, T>): Generator<NewTKey, non-empty-list<T>> $pipe */
+                /** @var Closure(iterable<TKey, T>): Generator<NewTKey, non-empty-list<T>> $pipe */
                 $pipe = (new Pipe())()(
                     (new Reduce())()($reducerFactory($callable))([]),
                     (new Flatten())()(1)

@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
-use Iterator;
 use loophp\collection\Contract\Collection;
 
 /**
@@ -24,7 +23,7 @@ interface FoldRightable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#foldright
      *
-     * @param callable(T, T, TKey, Iterator<TKey, T>): T $callback
+     * @param callable(T, T, TKey, iterable<TKey, T>): T $callback
      * @param T|null $initial
      *
      * @return Collection<TKey, T|null>

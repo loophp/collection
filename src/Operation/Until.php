@@ -11,7 +11,6 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use Iterator;
 use loophp\collection\Utils\CallbacksArrayReducer;
 
 /**
@@ -27,27 +26,27 @@ final class Until extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(callable(T=, TKey=, Iterator<TKey, T>=): bool ...): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(callable(T=, TKey=, iterable<TKey, T>=): bool ...): Closure(iterable<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable(T=, TKey=, Iterator<TKey, T>=): bool ...$callbacks
+             * @param callable(T=, TKey=, iterable<TKey, T>=): bool ...$callbacks
              *
-             * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @return Closure(iterable<TKey, T>): Generator<TKey, T>
              */
             static fn (callable ...$callbacks): Closure =>
                 /**
-                 * @param Iterator<TKey, T> $iterator
+                 * @param iterable<TKey, T> $iterable
                  *
                  * @return Generator<TKey, T>
                  */
-                static function (Iterator $iterator) use ($callbacks): Generator {
-                    foreach ($iterator as $key => $current) {
+                static function (iterable $iterable) use ($callbacks): Generator {
+                    foreach ($iterable as $key => $current) {
                         yield $key => $current;
 
-                        if (CallbacksArrayReducer::or()($callbacks, $current, $key, $iterator)) {
+                        if (CallbacksArrayReducer::or()($callbacks, $current, $key, $iterable)) {
                             break;
                         }
                     }

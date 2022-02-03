@@ -14,7 +14,6 @@ use ArrayIterator;
 use Closure;
 use Generator;
 use InfiniteIterator;
-use Iterator;
 
 /**
  * @immutable
@@ -27,7 +26,7 @@ final class Intersperse extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(T): Closure(int): Closure(int): Closure(Iterator<TKey, T>): Generator<int|TKey, T>
+     * @return Closure(T): Closure(int): Closure(int): Closure(iterable<TKey, T>): Generator<int|TKey, T>
      */
     public function __invoke(): Closure
     {
@@ -35,23 +34,23 @@ final class Intersperse extends AbstractOperation
             /**
              * @param T $element
              *
-             * @return Closure(int): Closure(int): Closure(Iterator<TKey, T>): Generator<int|TKey, T>
+             * @return Closure(int): Closure(int): Closure(iterable<TKey, T>): Generator<int|TKey, T>
              */
             static fn ($element): Closure =>
                 /**
-                 * @return Closure(int): Closure(Iterator<TKey, T>): Generator<int|TKey, T>
+                 * @return Closure(int): Closure(iterable<TKey, T>): Generator<int|TKey, T>
                  */
                 static fn (int $atEvery): Closure =>
                     /**
-                     * @return Closure(Iterator<TKey, T>): Generator<int|TKey, T>
+                     * @return Closure(iterable<TKey, T>): Generator<int|TKey, T>
                      */
                     static fn (int $startAt): Closure =>
                         /**
-                         * @param Iterator<TKey, T> $iterator
+                         * @param iterable<TKey, T> $iterable
                          *
                          * @return Generator<int|TKey, T>
                          */
-                        static function (Iterator $iterator) use ($element, $atEvery, $startAt): Generator {
+                        static function (iterable $iterable) use ($element, $atEvery, $startAt): Generator {
                             $intersperse = new AppendIterator();
                             $intersperse->append(
                                 new ArrayIterator(array_fill(0, $startAt, 1))
@@ -61,7 +60,7 @@ final class Intersperse extends AbstractOperation
                             );
                             $intersperse->rewind();
 
-                            foreach ($iterator as $key => $value) {
+                            foreach ($iterable as $key => $value) {
                                 if (0 === $intersperse->current()) {
                                     yield $element;
                                 }

@@ -9,17 +9,18 @@ declare(strict_types=1);
 
 namespace loophp\collection\Operation;
 
-use ArrayIterator;
 use Closure;
 use Generator;
-use Iterator;
-use loophp\iterators\IterableIterator;
+use loophp\iterators\IterableIteratorAggregate;
+use Traversable;
 
 /**
  * @immutable
  *
  * @template TKey
  * @template T
+ *
+ * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Product extends AbstractOperation
 {
@@ -35,60 +36,60 @@ final class Product extends AbstractOperation
             /**
              * @param iterable<UKey, U> ...$iterables
              *
-             * @return Closure(Iterator<TKey, T>): Generator<int, list<T|U>>
+             * @return Closure(iterable<TKey, T>): Generator<int, array<array-key, T|U>>
              */
             static function (iterable ...$iterables): Closure {
-                /** @var Closure(Iterator<TKey, T>): Generator<int, list<T|U>> $pipe */
+                /** @var Closure(iterable<TKey, T>): Generator<int, list<T|U>> $pipe */
                 $pipe = (new Pipe())()(
                     (
                         /**
-                         * @param list<Iterator<UKey, U>> $iterables
+                         * @param array<int, Traversable<UKey, U>> $iterables
                          */
                         static fn (array $iterables): Closure =>
                         /**
-                         * @param Iterator<TKey, T> $iterator
+                         * @param iterable<TKey, T> $iterable
                          */
-                        static fn (Iterator $iterator): Generator => (
+                        static fn (iterable $iterable): Generator => (
                             /**
-                             * @param Closure(Iterator<TKey, T>): (Closure(Iterator<UKey, U>): Generator<list<T|U>>) $f
+                             * @param Closure(iterable<TKey, T>): (Closure(iterable<UKey, U>): Generator<array<array-key, T|U>>) $f
                              */
                             static fn (Closure $f): Closure => (new FoldLeft())()(
                                 /**
-                                 * @param Iterator<UKey, U> $a
-                                 * @param Iterator<TKey, T> $x
+                                 * @param iterable<UKey, U> $a
+                                 * @param iterable<TKey, T> $x
                                  */
-                                static fn (Iterator $a, Iterator $x): Generator => $f($x)($a)
+                                static fn (iterable $a, iterable $x): Generator => $f($x)($a)
                             )
                         )(
                             /**
-                             * @param (Iterator<TKey, T>|Iterator<UKey, U>) $xs
+                             * @param (iterable<TKey, T>|iterable<UKey, U>) $xs
                              */
-                            static fn (Iterator $xs): Closure =>
-                            /**
-                             * @param Iterator<int, list<T>> $as
-                             */
-                            static fn (Iterator $as): Generator => (new FlatMap())()(
+                            static fn (iterable $xs): Closure =>
                                 /**
-                                 * @param list<T> $a
+                                 * @param iterable<int, array<array-key, T>> $as
                                  */
-                                static fn (array $a): Generator => (new FlatMap())()(
+                                static fn (iterable $as): Generator => (new FlatMap())()(
                                     /**
-                                     * @param T|U $x
-                                     *
-                                     * @return Generator<int, list<T|U>>
+                                     * @param array<int, T> $a
                                      */
-                                    static fn ($x): Generator => yield [...$a, $x]
-                                )($xs)
-                            )($as)
-                        )(new ArrayIterator([[]]))(new ArrayIterator([$iterator, ...$iterables]))
+                                    static fn (array $a): Generator => (new FlatMap())()(
+                                        /**
+                                         * @param T|U $x
+                                         *
+                                         * @return Generator<int, array<array-key, T|U>>
+                                         */
+                                        static fn ($x): Generator => yield [...$a, $x]
+                                    )($xs)
+                                )($as)
+                        )([[]])([$iterable, ...$iterables])
                     )(
                         array_map(
                             /**
                              * @param iterable<UKey, U> $iterable
                              *
-                             * @return Iterator<UKey, U>
+                             * @return IterableIteratorAggregate<UKey, U>
                              */
-                            static fn (iterable $iterable): Iterator => new IterableIterator($iterable),
+                            static fn (iterable $iterable): IterableIteratorAggregate => new IterableIteratorAggregate($iterable),
                             $iterables
                         )
                     ),

@@ -11,9 +11,9 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use Iterator;
-use IteratorAggregate;
+use loophp\iterators\CachingIteratorAggregate;
 use loophp\iterators\ClosureIteratorAggregate;
+use loophp\iterators\IterableIteratorAggregate;
 
 /**
  * @immutable
@@ -28,25 +28,27 @@ final class Partition extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(callable(T=, TKey=, Iterator<TKey, T>=): bool ...): Closure(IteratorAggregate<TKey, T>): Generator<int, IteratorAggregate<TKey, T>>
+     * @return Closure(callable(T=, TKey=, iterable<TKey, T>=): bool ...): Closure(iterable<TKey, T>): Generator<int, iterable<TKey, T>>
      */
     public function __invoke(): Closure
     {
         /**
-         * @param callable(T=, TKey=, Iterator<TKey, T>=): bool ...$callbacks
+         * @param callable(T=, TKey=, iterable<TKey, T>=): bool ...$callbacks
          *
-         * @return Closure(IteratorAggregate<TKey, T>): Generator<int, IteratorAggregate<TKey, T>>
+         * @return Closure(iterable<TKey, T>): Generator<int, iterable<TKey, T>>
          */
         return static fn (callable ...$callbacks): Closure =>
             /**
-             * @param IteratorAggregate<TKey, T> $iteratorAggregate
+             * @param iterable<TKey, T> $iterable
              *
-             * @return Generator<int, IteratorAggregate<TKey, T>>
+             * @return Generator<int, iterable<TKey, T>>
              */
-            static function (IteratorAggregate $iteratorAggregate) use ($callbacks): Generator {
-                yield new ClosureIteratorAggregate((new Filter())()(...$callbacks), [$iteratorAggregate->getIterator()]);
+            static function (iterable $iterable) use ($callbacks): Generator {
+                $iteratorAggregate = (new CachingIteratorAggregate((new IterableIteratorAggregate($iterable))->getIterator()));
 
-                yield new ClosureIteratorAggregate((new Reject())()(...$callbacks), [$iteratorAggregate->getIterator()]);
+                yield new ClosureIteratorAggregate((new Filter())()(...$callbacks), [$iteratorAggregate]);
+
+                yield new ClosureIteratorAggregate((new Reject())()(...$callbacks), [$iteratorAggregate]);
             };
     }
 }

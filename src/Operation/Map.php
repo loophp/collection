@@ -11,7 +11,6 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use Iterator;
 
 /**
  * @immutable
@@ -28,23 +27,23 @@ final class Map extends AbstractOperation
      *
      * @template V
      *
-     * @return Closure(callable(T=, TKey=, Iterator<TKey, T>=): mixed): Closure(Iterator<TKey, T>): Generator<TKey, mixed>
+     * @return Closure(callable(T=, TKey=, iterable<TKey, T>=): mixed): Closure(iterable<TKey, T>): Generator<TKey, mixed>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable(T=, TKey=, Iterator<TKey, T>=): V $callback
+             * @param callable(T=, TKey=, iterable<TKey, T>=): V $callback
              */
             static fn (callable $callback): Closure =>
                 /**
-                 * @param Iterator<TKey, T> $iterator
+                 * @param iterable<TKey, T> $iterable
                  *
                  * @return Generator<TKey, V>
                  */
-                static function (Iterator $iterator) use ($callback): Generator {
-                    foreach ($iterator as $key => $value) {
-                        yield $key => $callback($value, $key, $iterator);
+                static function (iterable $iterable) use ($callback): Generator {
+                    foreach ($iterable as $key => $value) {
+                        yield $key => $callback($value, $key, $iterable);
                     }
                 };
     }

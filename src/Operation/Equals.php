@@ -11,36 +11,44 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use Iterator;
+use loophp\iterators\IterableIteratorAggregate;
 
 /**
  * @immutable
  *
  * @template TKey
  * @template T
+ *
+ * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Equals extends AbstractOperation
 {
     /**
      * @pure
      *
-     * @return Closure(Iterator<TKey, T>): Closure(Iterator<TKey, T>): Generator<int|TKey, bool>
+     * @return Closure(iterable<TKey, T>): Closure(iterable<TKey, T>): Generator<int|TKey, bool>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param Iterator<TKey, T> $other
+             * @param iterable<TKey, T> $other
              *
-             * @return Closure(Iterator<TKey, T>): Generator<int|TKey, bool>
+             * @return Closure(iterable<TKey, T>): Generator<int|TKey, bool>
              */
-            static function (Iterator $other): Closure {
+            static function (iterable $other): Closure {
                 /**
-                 * @param Iterator<TKey, T> $iterator
+                 * @param iterable<TKey, T> $iterable
                  *
                  * @return Generator<int|TKey, bool>
                  */
-                return static function (Iterator $iterator) use ($other): Generator {
+                return static function (iterable $iterable) use ($other): Generator {
+                    $otherAggregate = (new IterableIteratorAggregate($other));
+                    $iteratorAggregate = new IterableIteratorAggregate($iterable);
+
+                    $iterator = $iteratorAggregate->getIterator();
+                    $other = $otherAggregate->getIterator();
+
                     while ($other->valid() && $iterator->valid()) {
                         $iterator->next();
                         $other->next();
@@ -54,9 +62,9 @@ final class Equals extends AbstractOperation
                         /**
                          * @param T $current
                          */
-                        static fn ($current): bool => (new Contains())()($current)($other)->current();
+                        static fn ($current): bool => (new Contains())()($current)($otherAggregate)->current();
 
-                    yield from (new Every())()(static fn (): bool => false)($containsCallback)($iterator);
+                    yield from (new Every())()(static fn (): bool => false)($containsCallback)($iteratorAggregate);
                 };
             };
     }

@@ -13,7 +13,6 @@ use ArrayIterator;
 use Closure;
 use Exception;
 use Generator;
-use Iterator;
 use loophp\collection\Contract\Operation;
 
 /**
@@ -29,17 +28,17 @@ final class Sort extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(int): Closure(callable(T|TKey, T|TKey): int): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(int): Closure(callable(T|TKey, T|TKey): int): Closure(iterable<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @return Closure(null|(callable(T|TKey, T|TKey): int)): Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @return Closure(null|(callable(T|TKey, T|TKey): int)): Closure(iterable<TKey, T>): Generator<TKey, T>
              */
             static fn (int $type = Operation\Sortable::BY_VALUES): Closure =>
                 /**
-                 * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
+                 * @return Closure(iterable<TKey, T>): Generator<TKey, T>
                  */
                 static function (?callable $callback = null) use ($type): Closure {
                     $callback ??=
@@ -51,11 +50,11 @@ final class Sort extends AbstractOperation
 
                     return
                         /**
-                         * @param Iterator<TKey, T> $iterator
+                         * @param iterable<TKey, T> $iterable
                          *
                          * @return Generator<TKey, T>
                          */
-                        static function (Iterator $iterator) use ($type, $callback): Iterator {
+                        static function (iterable $iterable) use ($type, $callback): Generator {
                             if (Operation\Sortable::BY_VALUES !== $type && Operation\Sortable::BY_KEYS !== $type) {
                                 throw new Exception('Invalid sort type.');
                             }
@@ -83,13 +82,13 @@ final class Sort extends AbstractOperation
                                      */
                                     static fn (array $left, array $right): int => $callback($left[1], $right[1]);
 
-                            /** @var callable(Iterator<TKey, T>): Generator<int, array{0:TKey, 1:T}> | callable(Iterator<TKey, T>): Generator<int, array{0:T, 1:TKey}> $before */
+                            /** @var callable(iterable<TKey, T>): Generator<int, array{0:TKey, 1:T}> | callable(iterable<TKey, T>): Generator<int, array{0:T, 1:TKey}> $before */
                             $before = Pipe::of()(...$operations['before']);
 
-                            $arrayIterator = new ArrayIterator([...$before($iterator)]);
+                            $arrayIterator = new ArrayIterator([...$before($iterable)]);
                             $arrayIterator->uasort($sortCallback($callback));
 
-                            return Pipe::of()(...$operations['after'])($arrayIterator);
+                            yield from Pipe::of()(...$operations['after'])($arrayIterator);
                         };
                 };
     }

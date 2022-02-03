@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
-use Iterator;
+use Generator;
 use loophp\iterators\RandomIterableAggregate;
 
 /**
@@ -26,20 +26,20 @@ final class Shuffle extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(int): Closure(Iterator<TKey, T>): Iterator<TKey, T>
+     * @return Closure(int): Closure(iterable<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @return Closure(Iterator<TKey, T>): Iterator<TKey, T>
+             * @return Closure(iterable<TKey, T>): Generator<TKey, T>
              */
             static fn (int $seed): Closure =>
                 /**
-                 * @param Iterator<TKey, T> $iterator
+                 * @param iterable<TKey, T> $iterable
                  *
-                 * @return Iterator<TKey, T>
+                 * @return Generator<TKey, T>
                  */
-                static fn (Iterator $iterator): Iterator => (new RandomIterableAggregate($iterator, $seed))->getIterator();
+                static fn (iterable $iterable): Generator => yield from new RandomIterableAggregate($iterable, $seed);
     }
 }

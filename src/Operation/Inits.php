@@ -11,7 +11,6 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use Iterator;
 
 /**
  * @immutable
@@ -24,7 +23,7 @@ final class Inits extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(Iterator<TKey, T>): Generator<int, list<array{0: TKey, 1: T}>>
+     * @return Closure(iterable<TKey, T>): Generator<int, list<array{0: TKey, 1: T}>>
      */
     public function __invoke(): Closure
     {
@@ -41,7 +40,7 @@ final class Inits extends AbstractOperation
                 return $carry;
             };
 
-        /** @var Closure(Iterator<TKey, T>): Generator<int, list<array{0: TKey, 1: T}>> $inits */
+        /** @var Closure(iterable<TKey, T>): Generator<int, list<array{0: TKey, 1: T}>> $inits */
         $inits = Pipe::of()(
             Pack::of(),
             ScanLeft::of()($scanLeftCallback)([]),

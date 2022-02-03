@@ -11,7 +11,6 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use Iterator;
 use loophp\collection\Contract\Operation\Splitable;
 
 /**
@@ -25,7 +24,7 @@ final class Explode extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(T...): Closure(Iterator<TKey, T>): Generator<int, list<T>>
+     * @return Closure(T...): Closure(iterable<TKey, T>): Generator<int, list<T>>
      */
     public function __invoke(): Closure
     {
@@ -33,10 +32,10 @@ final class Explode extends AbstractOperation
             /**
              * @param T ...$explodes
              *
-             * @return Closure(Iterator<TKey, T>): Generator<int, list<T>>
+             * @return Closure(iterable<TKey, T>): Generator<int, list<T>>
              */
             static function (...$explodes): Closure {
-                /** @var Closure(Iterator<TKey, T>): Generator<int, list<T>> $split */
+                /** @var Closure(iterable<TKey, T>): Generator<int, list<T>> $split */
                 $split = (new Split())()(Splitable::REMOVE)(
                     ...array_map(
                         /**

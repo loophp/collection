@@ -467,13 +467,20 @@ final class CollectionSpecificOperationTest extends TestCase
             CollectionInterface::class,
             $subject->last()
         );
+
+        $first = $subject->first()->current();
+        $last = $subject->last()->current();
+
+        self::assertCount(3, $first);
+        self::assertCount(7, $last);
+
         self::assertIdenticalIterable(
             [1, 2, 3],
-            $subject->first()->current()
+            $first
         );
         self::assertIdenticalIterable(
             [3 => 4, 4 => 5, 5 => 6, 6 => 7, 7 => 8, 8 => 9, 9 => 10],
-            $subject->last()->current()
+            $last
         );
 
         $callbacks = [

@@ -11,7 +11,6 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use Iterator;
 
 /**
  * @immutable
@@ -24,30 +23,30 @@ final class Pad extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(int): Closure(T): Closure(Iterator<TKey, T>): Generator<int|TKey, T>
+     * @return Closure(int): Closure(T): Closure(iterable<TKey, T>): Generator<int|TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @return Closure(T): Closure(Iterator<TKey, T>): Generator<int|TKey, T>
+             * @return Closure(T): Closure(iterable<TKey, T>): Generator<int|TKey, T>
              */
             static fn (int $size): Closure =>
                 /**
                  * @param T $padValue
                  *
-                 * @return Closure(Iterator<TKey, T>): Generator<int|TKey, T>
+                 * @return Closure(iterable<TKey, T>): Generator<int|TKey, T>
                  */
                 static fn ($padValue): Closure =>
                     /**
-                     * @param Iterator<TKey, T> $iterator
+                     * @param iterable<TKey, T> $iterable
                      *
                      * @return Generator<int|TKey, T>
                      */
-                    static function (Iterator $iterator) use ($size, $padValue): Generator {
+                    static function (iterable $iterable) use ($size, $padValue): Generator {
                         $y = 0;
 
-                        foreach ($iterator as $key => $value) {
+                        foreach ($iterable as $key => $value) {
                             ++$y;
 
                             yield $key => $value;

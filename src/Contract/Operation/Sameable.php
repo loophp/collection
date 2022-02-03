@@ -32,8 +32,8 @@ interface Sameable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#same
      *
-     * @param Collection<TKey, T> $other
+     * @param iterable<TKey, T> $other
      * @param null|callable(T, TKey): (Closure(T, TKey): bool) $comparatorCallback
      */
-    public function same(Collection $other, ?callable $comparatorCallback = null): bool;
+    public function same(iterable $other, ?callable $comparatorCallback = null): bool;
 }

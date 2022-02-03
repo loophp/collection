@@ -14,11 +14,10 @@ use ArrayObject;
 use Closure;
 use Doctrine\Common\Collections\Criteria;
 use Generator;
-use Iterator;
+use IteratorAggregate;
 use loophp\collection\Collection;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Operation\AbstractOperation;
-use loophp\iterators\ClosureIterator;
 use stdClass;
 
 use const PHP_EOL;
@@ -1146,7 +1145,7 @@ trait GenericCollectionProviders
         yield [
             $operation,
             [
-                static fn ($value, $key, Iterator $iterator): bool => $iterator instanceof ClosureIterator,
+                static fn ($value, $key, iterable $iterable): bool => $iterable instanceof IteratorAggregate,
             ],
             $input,
             true,
@@ -4280,7 +4279,7 @@ trait GenericCollectionProviders
             $operation,
             [
                 static fn (): bool => true,
-                static fn (Iterator $iterator) => new ArrayIterator(range('c', 'a')),
+                static fn (iterable $iterable) => range('c', 'a'),
             ],
             $input,
             [0 => 'c', 1 => 'b', 2 => 'a'],
@@ -4290,7 +4289,7 @@ trait GenericCollectionProviders
             $operation,
             [
                 static fn (): bool => false,
-                static fn (Iterator $iterator) => new ArrayIterator(range('c', 'a')),
+                static fn (iterable $iterable) => range('c', 'a'),
             ],
             $input,
             [0 => 'a', 1 => 'b', 2 => 'c'],

@@ -11,13 +11,15 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use Iterator;
+use loophp\iterators\IterableIteratorAggregate;
 
 /**
  * @immutable
  *
  * @template TKey
  * @template T
+ *
+ * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Permutate extends AbstractOperation
 {
@@ -36,11 +38,11 @@ final class Permutate extends AbstractOperation
 
         return
             /**
-             * @param Iterator<TKey, T> $iterator
+             * @param iterable<TKey, T> $iterable
              *
              * @return Generator<int, list<T>>
              */
-            static fn (Iterator $iterator): Iterator => $getPermutations([...$iterator]);
+            static fn (iterable $iterable): Generator => $getPermutations([...(new IterableIteratorAggregate($iterable))]);
     }
 
     /**

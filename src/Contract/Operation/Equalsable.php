@@ -27,7 +27,7 @@ interface Equalsable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#equals
      *
-     * @param Collection<TKey, T> $other
+     * @param iterable<TKey, T> $other
      */
-    public function equals(Collection $other): bool;
+    public function equals(iterable $other): bool;
 }

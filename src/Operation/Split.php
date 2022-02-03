@@ -11,7 +11,6 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use Iterator;
 use loophp\collection\Contract\Operation\Splitable;
 use loophp\collection\Utils\CallbacksArrayReducer;
 
@@ -28,31 +27,31 @@ final class Split extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(int): Closure((callable(T, TKey): bool)...): Closure(Iterator<TKey, T>): Generator<int, list<T>>
+     * @return Closure(int): Closure((callable(T, TKey): bool)...): Closure(iterable<TKey, T>): Generator<int, list<T>>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @return Closure((callable(T, TKey): bool)...): Closure(Iterator<TKey, T>): Generator<int, list<T>>
+             * @return Closure((callable(T, TKey): bool)...): Closure(iterable<TKey, T>): Generator<int, list<T>>
              */
             static fn (int $type = Splitable::BEFORE): Closure =>
                 /**
                  * @param callable(T, TKey): bool ...$callbacks
                  *
-                 * @return Closure(Iterator<TKey, T>): Generator<int, list<T>>
+                 * @return Closure(iterable<TKey, T>): Generator<int, list<T>>
                  */
                 static fn (callable ...$callbacks): Closure =>
                     /**
-                     * @param Iterator<TKey, T> $iterator
+                     * @param iterable<TKey, T> $iterable
                      *
                      * @return Generator<int, list<T>>
                      */
-                    static function (Iterator $iterator) use ($type, $callbacks): Generator {
+                    static function (iterable $iterable) use ($type, $callbacks): Generator {
                         $carry = [];
 
-                        foreach ($iterator as $key => $current) {
-                            $callbackReturn = CallbacksArrayReducer::or()($callbacks, $current, $key, $iterator);
+                        foreach ($iterable as $key => $current) {
+                            $callbackReturn = CallbacksArrayReducer::or()($callbacks, $current, $key, $iterable);
 
                             if (Splitable::AFTER === $type) {
                                 $carry[] = $current;

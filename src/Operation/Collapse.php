@@ -11,7 +11,6 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use Iterator;
 
 /**
  * @immutable
@@ -26,7 +25,7 @@ final class Collapse extends AbstractOperation
      *
      * @psalm-suppress ImpureFunctionCall - using Filter and Flatten as an internal tools, not returned.
      *
-     * @return Closure(Iterator<TKey, (T|iterable<TKey, T>)>): Generator<TKey, T>
+     * @return Closure(iterable<TKey, (T|iterable<TKey, T>)>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
@@ -36,7 +35,7 @@ final class Collapse extends AbstractOperation
              */
             static fn ($value): bool => is_iterable($value);
 
-        /** @var Closure(Iterator<TKey, (T|iterable<TKey, T>)>): Generator<TKey, T> $pipe */
+        /** @var Closure(iterable<TKey, (T|iterable<TKey, T>)>): Generator<TKey, T> $pipe */
         $pipe = (new Pipe())()(
             (new Filter())()($filterCallback),
             (new Flatten())()(1),

@@ -11,7 +11,6 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use Iterator;
 
 /**
  * @immutable
@@ -26,34 +25,34 @@ final class When extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(callable(Iterator<TKey, T>): bool): Closure(callable(Iterator<TKey, T>): iterable<TKey, T>): Closure(callable(Iterator<TKey, T>): iterable<TKey, T>): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(callable(iterable<TKey, T>): bool): Closure(callable(iterable<TKey, T>): iterable<TKey, T>): Closure(callable(iterable<TKey, T>): iterable<TKey, T>): Closure(iterable<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable(Iterator<TKey, T>): bool $predicate
+             * @param callable(iterable<TKey, T>): bool $predicate
              *
-             * @return Closure(callable(Iterator<TKey, T>): iterable<TKey, T>): Closure(callable(Iterator<TKey, T>): iterable<TKey, T>): Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @return Closure(callable(iterable<TKey, T>): iterable<TKey, T>): Closure(callable(iterable<TKey, T>): iterable<TKey, T>): Closure(iterable<TKey, T>): Generator<TKey, T>
              */
             static fn (callable $predicate): Closure =>
                 /**
-                 * @param callable(Iterator<TKey, T>): iterable<TKey, T> $whenTrue
+                 * @param callable(iterable<TKey, T>): iterable<TKey, T> $whenTrue
                  *
-                 * @return Closure(callable(Iterator<TKey, T>): iterable<TKey, T>): Closure(Iterator<TKey, T>): Generator<TKey, T>
+                 * @return Closure(callable(iterable<TKey, T>): iterable<TKey, T>): Closure(iterable<TKey, T>): Generator<TKey, T>
                  */
                 static fn (callable $whenTrue): Closure =>
                     /**
-                     * @param callable(Iterator<TKey, T>): iterable<TKey, T> $whenFalse
+                     * @param callable(iterable<TKey, T>): iterable<TKey, T> $whenFalse
                      *
-                     * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
+                     * @return Closure(iterable<TKey, T>): Generator<TKey, T>
                      */
                     static fn (callable $whenFalse): Closure =>
                         /**
-                         * @param Iterator<TKey, T> $iterator
+                         * @param iterable<TKey, T> $iterable
                          *
                          * @return Generator<TKey, T>
                          */
-                        static fn (Iterator $iterator): Generator => yield from ($predicate($iterator) ? $whenTrue($iterator) : $whenFalse($iterator));
+                        static fn (iterable $iterable): Generator => yield from $predicate($iterable) ? $whenTrue($iterable) : $whenFalse($iterable);
     }
 }

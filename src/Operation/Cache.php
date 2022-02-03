@@ -10,8 +10,9 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
-use Iterator;
+use Generator;
 use loophp\collection\Iterator\PsrCacheIterator;
+use loophp\iterators\IterableIteratorAggregate;
 use Psr\Cache\CacheItemPoolInterface;
 
 /**
@@ -27,20 +28,20 @@ final class Cache extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(CacheItemPoolInterface): Closure(Iterator<TKey, T>): Iterator<TKey, T>
+     * @return Closure(CacheItemPoolInterface): Closure(iterable<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @return Closure(Iterator<TKey, T>): Iterator<TKey, T>
+             * @return Closure(iterable<TKey, T>): Generator<TKey, T>
              */
             static fn (CacheItemPoolInterface $cache): Closure =>
                 /**
-                 * @param Iterator<TKey, T> $iterator
+                 * @param iterable<TKey, T> $iterable
                  *
-                 * @return Iterator<TKey, T>
+                 * @return Generator<TKey, T>
                  */
-                static fn (Iterator $iterator): Iterator => new PsrCacheIterator($iterator, $cache);
+                static fn (iterable $iterable): Generator => yield from new PsrCacheIterator((new IterableIteratorAggregate($iterable))->getIterator(), $cache);
     }
 }

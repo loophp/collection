@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
-use Iterator;
 
 /**
  * @immutable
@@ -23,20 +22,20 @@ final class All extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(bool): Closure(Iterator<TKey, T>): Iterator<int, T>|Iterator<TKey, T>
+     * @return Closure(bool): Closure(iterable<TKey, T>): iterable<int, T>|iterable<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @return Closure(Iterator<TKey, T>): Iterator<int, T>|Iterator<TKey, T>
+             * @return Closure(iterable<TKey, T>): iterable<int, T>|iterable<TKey, T>
              */
             static fn (bool $normalize): Closure =>
                 /**
-                 * @param Iterator<TKey, T> $iterator
+                 * @param iterable<TKey, T> $iterable
                  *
-                 * @return Iterator<int, T>|Iterator<TKey, T>
+                 * @return iterable<int, T>|iterable<TKey, T>
                  */
-                static fn (Iterator $iterator): Iterator => $normalize ? (new Normalize())()($iterator) : $iterator;
+                static fn (iterable $iterable): iterable => $normalize ? (new Normalize())()($iterable) : $iterable;
     }
 }

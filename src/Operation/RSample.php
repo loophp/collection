@@ -11,7 +11,6 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use Iterator;
 
 /**
  * @immutable
@@ -26,13 +25,13 @@ final class RSample extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(float): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(float): Closure(iterable<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @return Closure(iterable<TKey, T>): Generator<TKey, T>
              */
             static function (float $probability): Closure {
                 $filter = (new Filter())()(

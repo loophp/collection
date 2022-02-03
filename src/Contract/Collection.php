@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace loophp\collection\Contract;
 
 use Countable;
-use Iterator;
 use IteratorAggregate;
 use JsonSerializable;
 use loophp\collection\Contract\Operation\Allable;
@@ -129,6 +128,7 @@ use loophp\collection\Contract\Operation\Windowable;
 use loophp\collection\Contract\Operation\Wordsable;
 use loophp\collection\Contract\Operation\Wrapable;
 use loophp\collection\Contract\Operation\Zipable;
+use Traversable;
 
 /**
  * @immutable
@@ -374,7 +374,7 @@ interface Collection extends
     Zipable
 {
     /**
-     * @return Iterator<TKey, T>
+     * @return Traversable<TKey, T>
      */
-    public function getIterator(): Iterator;
+    public function getIterator(): Traversable;
 }

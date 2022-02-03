@@ -13,7 +13,6 @@ use Amp\Sync\LocalSemaphore;
 use Closure;
 use Exception;
 use Generator;
-use Iterator;
 
 use function Amp\Iterator\fromIterable;
 use function Amp\ParallelFunctions\parallel;
@@ -39,7 +38,7 @@ final class AsyncMapN extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(callable(mixed, mixed): mixed ...): Closure(Iterator<TKey, T>): Generator<mixed, mixed>
+     * @return Closure(callable(mixed, mixed): mixed ...): Closure(iterable<TKey, T>): Generator<mixed, mixed>
      */
     public function __invoke(): Closure
     {
@@ -49,11 +48,11 @@ final class AsyncMapN extends AbstractOperation
              */
             static fn (callable ...$callbacks): Closure =>
                 /**
-                 * @param Iterator<TKey, T> $iterator
+                 * @param iterable<TKey, T> $iterable
                  *
                  * @return Generator<mixed, mixed>
                  */
-                static function (Iterator $iterator) use ($callbacks): Generator {
+                static function (iterable $iterable) use ($callbacks): Generator {
                     $callbackFactory =
                         /**
                          * @param mixed $key
@@ -77,7 +76,7 @@ final class AsyncMapN extends AbstractOperation
                          */
                         static fn (array $value): array => [$value[0], array_reduce($callbacks, $callbackFactory($value[0]), $value[1])];
 
-                    $iter = map(fromIterable((new Pack())()($iterator)), new LocalSemaphore(32), parallel($callback));
+                    $iter = map(fromIterable((new Pack())()($iterable)), new LocalSemaphore(32), parallel($callback));
 
                     while (wait($iter->advance())) {
                         /** @var array{0: mixed, 1: mixed} $item */

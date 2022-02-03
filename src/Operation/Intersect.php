@@ -11,7 +11,6 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use Iterator;
 
 use function in_array;
 
@@ -26,7 +25,7 @@ final class Intersect extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(T...): Closure(Iterator<TKey, T>): Generator<TKey, T>
+     * @return Closure(T...): Closure(iterable<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
@@ -34,7 +33,7 @@ final class Intersect extends AbstractOperation
             /**
              * @param T ...$values
              *
-             * @return Closure(Iterator<TKey, T>): Generator<TKey, T>
+             * @return Closure(iterable<TKey, T>): Generator<TKey, T>
              */
             static function (...$values): Closure {
                 $filterCallbackFactory =

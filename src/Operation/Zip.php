@@ -11,7 +11,6 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use Iterator;
 use loophp\iterators\MultipleIterableAggregate;
 use MultipleIterator;
 
@@ -31,7 +30,7 @@ final class Zip extends AbstractOperation
      * @template UKey
      * @template U
      *
-     * @return Closure(iterable<UKey, U>...): Closure(Iterator<TKey, T>): Generator<array<int, TKey|UKey|null>, array<int, T|U|null>>
+     * @return Closure(iterable<UKey, U>...): Closure(iterable<TKey, T>): Generator<array<int, TKey|UKey|null>, array<int, T|U|null>>
      */
     public function __invoke(): Closure
     {
@@ -39,7 +38,7 @@ final class Zip extends AbstractOperation
             /**
              * @param iterable<UKey, U> ...$iterables
              *
-             * @return Closure(Iterator<TKey, T>): Generator<array<int, TKey|UKey|null>, array<int, T|U|null>>
+             * @return Closure(iterable<TKey, T>): Generator<array<int, TKey|UKey|null>, array<int, T|U|null>>
              */
             static fn (iterable ...$iterables): Closure =>
                 /**

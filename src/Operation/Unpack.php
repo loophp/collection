@@ -11,10 +11,9 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use Iterator;
+use IteratorAggregate;
 use loophp\iterators\IterableIteratorAggregate;
 use loophp\iterators\UnpackIterableAggregate;
-use Traversable;
 
 // phpcs:disable Generic.Files.LineLength.TooLong
 
@@ -29,16 +28,16 @@ final class Unpack extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(Iterator<mixed, mixed>): Generator<TKey, T>
+     * @return Closure(iterable<mixed, mixed>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
-        /** @var Closure(Iterator<array-key, array{0: TKey, 1: T}>): Generator<TKey, T> $pipe */
+        /** @var Closure(iterable<array-key, array{0: TKey, 1: T}>): Generator<TKey, T> $pipe */
         $pipe = Pipe::of()(
-            Map::of()(static fn (iterable $iterable): Iterator => (new IterableIteratorAggregate($iterable))->getIterator()),
+            Map::of()(static fn (iterable $iterable): iterable => new IterableIteratorAggregate($iterable)),
             Map::of()(Chunk::of()(2)),
             Flatten::of()(1),
-            static fn (Iterator $iterator): Traversable => (new UnpackIterableAggregate($iterator))->getIterator()
+            static fn (iterable $iterable): IteratorAggregate => new UnpackIterableAggregate($iterable)
         );
 
         // Point free style.

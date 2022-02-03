@@ -11,7 +11,6 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use Iterator;
 use loophp\iterators\PackIterableAggregate;
 
 /**
@@ -25,21 +24,21 @@ final class Pack extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(Iterator<TKey, T>): Generator<int, array{0: TKey, 1: T}>
+     * @return Closure(iterable<TKey, T>): Generator<int, array{0: TKey, 1: T}>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param Iterator<TKey, T> $iterator
+             * @param iterable<TKey, T> $iterable
              *
              * @return Generator<int, array{0: TKey, 1: T}>
              */
-            static function (Iterator $iterator): Generator {
-                /** @var PackIterableAggregate<TKey, T> $packIterableAggregate */
-                $packIterableAggregate = new PackIterableAggregate($iterator);
+            static function (iterable $iterable): Generator {
+                /** @var PackIterableAggregate<TKey, T> $iterable */
+                $iterable = new PackIterableAggregate($iterable);
 
-                yield from $packIterableAggregate->getIterator();
+                yield from $iterable->getIterator();
             };
     }
 }

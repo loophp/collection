@@ -11,7 +11,6 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use Iterator;
 
 /**
  * @immutable
@@ -26,27 +25,27 @@ final class Has extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(callable(T=, TKey=, Iterator<TKey, T>=): T ...): Closure(Iterator<TKey, T>): Generator<TKey, bool>
+     * @return Closure(callable(T=, TKey=, iterable<TKey, T>=): T ...): Closure(iterable<TKey, T>): Generator<TKey, bool>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable(T=, TKey=, Iterator<TKey, T>=): T ...$callbacks
+             * @param callable(T=, TKey=, iterable<TKey, T>=): T ...$callbacks
              *
-             * @return Closure(Iterator<TKey, T>): Generator<TKey, bool>
+             * @return Closure(iterable<TKey, T>): Generator<TKey, bool>
              */
             static function (callable ...$callbacks): Closure {
-                /** @var Closure(Iterator<TKey, T>): Generator<TKey, bool> $pipe */
+                /** @var Closure(iterable<TKey, T>): Generator<TKey, bool> $pipe */
                 $pipe = (new MatchOne())()(static fn (): bool => true)(
                     ...array_map(
                         static fn (callable $callback): callable =>
                             /**
                              * @param T $value
                              * @param TKey $key
-                             * @param Iterator<TKey, T> $iterator
+                             * @param iterable<TKey, T> $iterable
                              */
-                            static fn ($value, $key, Iterator $iterator): bool => $callback($value, $key, $iterator) === $value,
+                            static fn ($value, $key, iterable $iterable): bool => $callback($value, $key, $iterable) === $value,
                         $callbacks
                     )
                 );

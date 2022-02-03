@@ -11,7 +11,6 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use Iterator;
 
 /**
  * @immutable
@@ -24,7 +23,7 @@ final class Reverse extends AbstractOperation
     /**
      * @pure
      *
-     * @return Closure(Iterator<TKey, T>): Generator<TKey, T, mixed, void>
+     * @return Closure(iterable<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
@@ -37,7 +36,7 @@ final class Reverse extends AbstractOperation
              */
             static fn (array $carry, array $value): array => [...$value, ...$carry];
 
-        /** @var Closure(Iterator<TKey, T>): Generator<TKey, T, mixed, void> $pipe */
+        /** @var Closure(iterable<TKey, T>): Generator<TKey, T> $pipe */
         $pipe = Pipe::of()(
             (new Pack())(),
             Reduce::of()($callback)([]),

@@ -10,8 +10,8 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
-use Iterator;
-use IteratorAggregate;
+use Generator;
+use loophp\iterators\IterableIteratorAggregate;
 use loophp\iterators\TypedIteratorAggregate;
 
 /**
@@ -19,13 +19,15 @@ use loophp\iterators\TypedIteratorAggregate;
  *
  * @template TKey
  * @template T
+ *
+ * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Strict extends AbstractOperation
 {
     /**
      * @pure
      *
-     * @return Closure(null|callable(mixed): string): Closure(Iterator<TKey, T>): IteratorAggregate<TKey, T>
+     * @return Closure(null|callable(mixed): string): Closure(iterable<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
@@ -33,14 +35,14 @@ final class Strict extends AbstractOperation
             /**
              * @param null|callable(mixed): string $callback
              *
-             * @return Closure(Iterator<TKey, T>): IteratorAggregate<TKey, T>
+             * @return Closure(iterable<TKey, T>): Generator<TKey, T>
              */
             static fn (?callable $callback = null): Closure =>
                 /**
-                 * @param Iterator<TKey, T> $iterator
+                 * @param iterable<TKey, T> $iterable
                  *
-                 * @return IteratorAggregate<TKey, T>
+                 * @return Generator<TKey, T>
                  */
-                static fn (Iterator $iterator): IteratorAggregate => new TypedIteratorAggregate($iterator, $callback);
+                static fn (iterable $iterator): Generator => yield from new TypedIteratorAggregate((new IterableIteratorAggregate($iterator))->getIterator(), $callback);
     }
 }
