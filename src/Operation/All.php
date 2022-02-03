@@ -10,17 +10,20 @@ declare(strict_types=1);
 namespace loophp\collection\Operation;
 
 use Closure;
+use Generator;
 
 /**
  * @immutable
  *
  * @template TKey
  * @template T
+ *
+ * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class All extends AbstractOperation
 {
     /**
-     * @return Closure(bool): Closure(iterable<TKey, T>): iterable<int, T>|iterable<TKey, T>
+     * @return Closure(bool): Closure(iterable<TKey, T>): (Generator<int, T>|Generator<TKey, T>)
      */
     public function __invoke(): Closure
     {
@@ -32,8 +35,8 @@ final class All extends AbstractOperation
                 /**
                  * @param iterable<TKey, T> $iterable
                  *
-                 * @return iterable<int, T>|iterable<TKey, T>
+                 * @return Generator<int, T>|Generator<TKey, T>
                  */
-                static fn (iterable $iterable): iterable => $normalize ? (new Normalize())()($iterable) : $iterable;
+                static fn (iterable $iterable): Generator => yield from ($normalize ? (new Normalize())()($iterable) : $iterable);
     }
 }

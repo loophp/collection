@@ -45,9 +45,13 @@ final class AsyncMap extends AbstractOperation
         return
             /**
              * @param callable(T, TKey): V $callback
+             *
+             * @return Closure(iterable<TKey, T>): Generator<TKey, V>
              */
             static fn (callable $callback): Closure =>
                 /**
+                 * @param iterable<TKey, T> $iterable
+                 *
                  * @return Generator<TKey, V>
                  */
                 static function (iterable $iterable) use ($callback): Generator {

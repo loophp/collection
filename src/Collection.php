@@ -170,17 +170,17 @@ final class Collection implements CollectionInterface
 
     public function all(bool $normalize = true): array
     {
-        return iterator_to_array(All::of()($normalize)($this));
+        return iterator_to_array((new All())()($normalize)($this));
     }
 
     public function append(...$items): CollectionInterface
     {
-        return new self(Append::of()(...$items), [$this]);
+        return new self((new Append())()(...$items), [$this]);
     }
 
     public function apply(callable ...$callbacks): CollectionInterface
     {
-        return new self(Apply::of()(...$callbacks), [$this]);
+        return new self((new Apply())()(...$callbacks), [$this]);
     }
 
     public function associate(
@@ -195,62 +195,62 @@ final class Collection implements CollectionInterface
              */
             static fn ($carry) => $carry;
 
-        return new self(Associate::of()($callbackForKeys ?? $defaultCallback)($callbackForValues ?? $defaultCallback), [$this]);
+        return new self((new Associate())()($callbackForKeys ?? $defaultCallback)($callbackForValues ?? $defaultCallback), [$this]);
     }
 
     public function asyncMap(callable $callback): CollectionInterface
     {
-        return new self(AsyncMap::of()($callback), [$this]);
+        return new self((new AsyncMap())()($callback), [$this]);
     }
 
     public function asyncMapN(callable ...$callbacks): CollectionInterface
     {
-        return new self(AsyncMapN::of()(...$callbacks), [$this]);
+        return new self((new AsyncMapN())()(...$callbacks), [$this]);
     }
 
     public function cache(?CacheItemPoolInterface $cache = null): CollectionInterface
     {
-        return new self(Cache::of()($cache ?? new ArrayAdapter()), [$this]);
+        return new self((new Cache())()($cache ?? new ArrayAdapter()), [$this]);
     }
 
     public function chunk(int ...$sizes): CollectionInterface
     {
-        return new self(Chunk::of()(...$sizes), [$this]);
+        return new self((new Chunk())()(...$sizes), [$this]);
     }
 
     public function coalesce(): CollectionInterface
     {
-        return new self(Coalesce::of(), [$this]);
+        return new self((new Coalesce())(), [$this]);
     }
 
     public function collapse(): CollectionInterface
     {
-        return new self(Collapse::of(), [$this]);
+        return new self((new Collapse())(), [$this]);
     }
 
     public function column($column): CollectionInterface
     {
-        return new self(Column::of()($column), [$this]);
+        return new self((new Column())()($column), [$this]);
     }
 
     public function combinate(?int $length = null): CollectionInterface
     {
-        return new self(Combinate::of()($length), [$this]);
+        return new self((new Combinate())()($length), [$this]);
     }
 
     public function combine(...$keys): CollectionInterface
     {
-        return new self(Combine::of()(...$keys), [$this]);
+        return new self((new Combine())()(...$keys), [$this]);
     }
 
     public function compact(...$values): CollectionInterface
     {
-        return new self(Compact::of()(...$values), [$this]);
+        return new self((new Compact())()(...$values), [$this]);
     }
 
     public function contains(...$values): bool
     {
-        return Contains::of()(...$values)($this)->current();
+        return (new Contains())()(...$values)($this)->current();
     }
 
     public function count(): int
@@ -260,22 +260,22 @@ final class Collection implements CollectionInterface
 
     public function current(int $index = 0, $default = null)
     {
-        return Current::of()($index)($default)($this)->current();
+        return (new Current())()($index)($default)($this)->current();
     }
 
     public function cycle(): CollectionInterface
     {
-        return new self(Cycle::of(), [$this]);
+        return new self((new Cycle())(), [$this]);
     }
 
     public function diff(...$values): CollectionInterface
     {
-        return new self(Diff::of()(...$values), [$this]);
+        return new self((new Diff())()(...$values), [$this]);
     }
 
     public function diffKeys(...$keys): CollectionInterface
     {
-        return new self(DiffKeys::of()(...$keys), [$this]);
+        return new self((new DiffKeys())()(...$keys), [$this]);
     }
 
     public function distinct(?callable $comparatorCallback = null, ?callable $accessorCallback = null): CollectionInterface
@@ -301,22 +301,22 @@ final class Collection implements CollectionInterface
                  */
                 static fn ($right): bool => $left === $right;
 
-        return new self(Distinct::of()($comparatorCallback)($accessorCallback), [$this]);
+        return new self((new Distinct())()($comparatorCallback)($accessorCallback), [$this]);
     }
 
     public function drop(int $count): CollectionInterface
     {
-        return new self(Drop::of()($count), [$this]);
+        return new self((new Drop())()($count), [$this]);
     }
 
     public function dropWhile(callable ...$callbacks): CollectionInterface
     {
-        return new self(DropWhile::of()(...$callbacks), [$this]);
+        return new self((new DropWhile())()(...$callbacks), [$this]);
     }
 
     public function dump(string $name = '', int $size = 1, ?Closure $closure = null): CollectionInterface
     {
-        return new self(Dump::of()($name)($size)($closure), [$this]);
+        return new self((new Dump())()($name)($size)($closure), [$this]);
     }
 
     public function duplicate(?callable $comparatorCallback = null, ?callable $accessorCallback = null): CollectionInterface
@@ -342,7 +342,7 @@ final class Collection implements CollectionInterface
                  */
                 static fn ($right): bool => $left === $right;
 
-        return new self(Duplicate::of()($comparatorCallback)($accessorCallback), [$this]);
+        return new self((new Duplicate())()($comparatorCallback)($accessorCallback), [$this]);
     }
 
     /**
@@ -355,82 +355,82 @@ final class Collection implements CollectionInterface
 
     public function equals(iterable $other): bool
     {
-        return Equals::of()($other)($this)->current();
+        return (new Equals())()($other)($this)->current();
     }
 
     public function every(callable ...$callbacks): bool
     {
-        return Every::of()(static fn (): bool => false)(...$callbacks)($this)->current();
+        return (new Every())()(static fn (): bool => false)(...$callbacks)($this)->current();
     }
 
     public function explode(...$explodes): CollectionInterface
     {
-        return new self(Explode::of()(...$explodes), [$this]);
+        return new self((new Explode())()(...$explodes), [$this]);
     }
 
     public function falsy(): bool
     {
-        return Falsy::of()($this)->current();
+        return (new Falsy())()($this)->current();
     }
 
     public function filter(callable ...$callbacks): CollectionInterface
     {
-        return new self(Filter::of()(...$callbacks), [$this]);
+        return new self((new Filter())()(...$callbacks), [$this]);
     }
 
     public function find($default = null, callable ...$callbacks)
     {
-        return Find::of()($default)(...$callbacks)($this)->current();
+        return (new Find())()($default)(...$callbacks)($this)->current();
     }
 
     public function first(): CollectionInterface
     {
-        return new self(First::of(), [$this]);
+        return new self((new First())(), [$this]);
     }
 
     public function flatMap(callable $callback): CollectionInterface
     {
-        return new self(FlatMap::of()($callback), [$this]);
+        return new self((new FlatMap())()($callback), [$this]);
     }
 
     public function flatten(int $depth = PHP_INT_MAX): CollectionInterface
     {
-        return new self(Flatten::of()($depth), [$this]);
+        return new self((new Flatten())()($depth), [$this]);
     }
 
     public function flip(): CollectionInterface
     {
-        return new self(Flip::of(), [$this]);
+        return new self((new Flip())(), [$this]);
     }
 
     public function foldLeft(callable $callback, $initial = null): CollectionInterface
     {
-        return new self(FoldLeft::of()($callback)($initial), [$this]);
+        return new self((new FoldLeft())()($callback)($initial), [$this]);
     }
 
     public function foldLeft1(callable $callback): CollectionInterface
     {
-        return new self(FoldLeft1::of()($callback), [$this]);
+        return new self((new FoldLeft1())()($callback), [$this]);
     }
 
     public function foldRight(callable $callback, $initial = null): CollectionInterface
     {
-        return new self(Foldright::of()($callback)($initial), [$this]);
+        return new self((new Foldright())()($callback)($initial), [$this]);
     }
 
     public function foldRight1(callable $callback): CollectionInterface
     {
-        return new self(FoldRight1::of()($callback), [$this]);
+        return new self((new FoldRight1())()($callback), [$this]);
     }
 
     public function forget(...$keys): CollectionInterface
     {
-        return new self(Forget::of()(...$keys), [$this]);
+        return new self((new Forget())()(...$keys), [$this]);
     }
 
     public function frequency(): CollectionInterface
     {
-        return new self(Frequency::of(), [$this]);
+        return new self((new Frequency())(), [$this]);
     }
 
     /**
@@ -503,7 +503,7 @@ final class Collection implements CollectionInterface
 
     public function get($key, $default = null): CollectionInterface
     {
-        return new self(Get::of()($key)($default), [$this]);
+        return new self((new Get())()($key)($default), [$this]);
     }
 
     /**
@@ -516,22 +516,22 @@ final class Collection implements CollectionInterface
 
     public function group(): CollectionInterface
     {
-        return new self(Group::of(), [$this]);
+        return new self((new Group())(), [$this]);
     }
 
     public function groupBy(callable $callable): CollectionInterface
     {
-        return new self(GroupBy::of()($callable), [$this]);
+        return new self((new GroupBy())()($callable), [$this]);
     }
 
     public function has(callable ...$callbacks): bool
     {
-        return Has::of()(...$callbacks)($this)->current();
+        return (new Has())()(...$callbacks)($this)->current();
     }
 
     public function head(): CollectionInterface
     {
-        return new self(Head::of(), [$this]);
+        return new self((new Head())(), [$this]);
     }
 
     public function ifThenElse(callable $condition, callable $then, ?callable $else = null): CollectionInterface
@@ -544,42 +544,42 @@ final class Collection implements CollectionInterface
              */
             static fn ($value) => $value;
 
-        return new self(IfThenElse::of()($condition)($then)($else ?? $identity), [$this]);
+        return new self((new IfThenElse())()($condition)($then)($else ?? $identity), [$this]);
     }
 
     public function implode(string $glue = ''): CollectionInterface
     {
-        return new self(Implode::of()($glue), [$this]);
+        return new self((new Implode())()($glue), [$this]);
     }
 
     public function init(): CollectionInterface
     {
-        return new self(Init::of(), [$this]);
+        return new self((new Init())(), [$this]);
     }
 
     public function inits(): CollectionInterface
     {
-        return new self(Inits::of(), [$this]);
+        return new self((new Inits())(), [$this]);
     }
 
     public function intersect(...$values): CollectionInterface
     {
-        return new self(Intersect::of()(...$values), [$this]);
+        return new self((new Intersect())()(...$values), [$this]);
     }
 
     public function intersectKeys(...$keys): CollectionInterface
     {
-        return new self(IntersectKeys::of()(...$keys), [$this]);
+        return new self((new IntersectKeys())()(...$keys), [$this]);
     }
 
     public function intersperse($element, int $every = 1, int $startAt = 0): CollectionInterface
     {
-        return new self(Intersperse::of()($element)($every)($startAt), [$this]);
+        return new self((new Intersperse())()($element)($every)($startAt), [$this]);
     }
 
     public function isEmpty(): bool
     {
-        return IsEmpty::of()($this)->current();
+        return (new IsEmpty())()($this)->current();
     }
 
     /**
@@ -592,82 +592,82 @@ final class Collection implements CollectionInterface
 
     public function key(int $index = 0)
     {
-        return Key::of()($index)($this)->current();
+        return (new Key())()($index)($this)->current();
     }
 
     public function keys(): CollectionInterface
     {
-        return new self(Keys::of(), [$this]);
+        return new self((new Keys())(), [$this]);
     }
 
     public function last(): CollectionInterface
     {
-        return new self(Last::of(), [$this]);
+        return new self((new Last())(), [$this]);
     }
 
     public function limit(int $count = -1, int $offset = 0): CollectionInterface
     {
-        return new self(Limit::of()($count)($offset), [$this]);
+        return new self((new Limit())()($count)($offset), [$this]);
     }
 
     public function lines(): CollectionInterface
     {
-        return new self(Lines::of(), [$this]);
+        return new self((new Lines())(), [$this]);
     }
 
     public function map(callable $callback): CollectionInterface
     {
-        return new self(Map::of()($callback), [$this]);
+        return new self((new Map())()($callback), [$this]);
     }
 
     public function mapN(callable ...$callbacks): CollectionInterface
     {
-        return new self(MapN::of()(...$callbacks), [$this]);
+        return new self((new MapN())()(...$callbacks), [$this]);
     }
 
     public function match(callable $callback, ?callable $matcher = null): bool
     {
-        return MatchOne::of()($matcher ?? static fn (): bool => true)($callback)($this)->current();
+        return (new MatchOne())()($matcher ?? static fn (): bool => true)($callback)($this)->current();
     }
 
     public function matching(Criteria $criteria): CollectionInterface
     {
-        return new self(Matching::of()($criteria), [$this]);
+        return new self((new Matching())()($criteria), [$this]);
     }
 
     public function merge(iterable ...$sources): CollectionInterface
     {
-        return new self(Merge::of()(...$sources), [$this]);
+        return new self((new Merge())()(...$sources), [$this]);
     }
 
     public function normalize(): CollectionInterface
     {
-        return new self(Normalize::of(), [$this]);
+        return new self((new Normalize())(), [$this]);
     }
 
     public function nth(int $step, int $offset = 0): CollectionInterface
     {
-        return new self(Nth::of()($step)($offset), [$this]);
+        return new self((new Nth())()($step)($offset), [$this]);
     }
 
     public function nullsy(): bool
     {
-        return Nullsy::of()($this)->current();
+        return (new Nullsy())()($this)->current();
     }
 
     public function pack(): CollectionInterface
     {
-        return new self(Pack::of(), [$this]);
+        return new self((new Pack())(), [$this]);
     }
 
     public function pad(int $size, $value): CollectionInterface
     {
-        return new self(Pad::of()($size)($value), [$this]);
+        return new self((new Pad())()($size)($value), [$this]);
     }
 
     public function pair(): CollectionInterface
     {
-        return new self(Pair::of(), [$this]);
+        return new self((new Pair())(), [$this]);
     }
 
     public function partition(callable ...$callbacks): CollectionInterface
@@ -685,62 +685,62 @@ final class Collection implements CollectionInterface
 
     public function permutate(): CollectionInterface
     {
-        return new self(Permutate::of(), [$this]);
+        return new self((new Permutate())(), [$this]);
     }
 
     public function pipe(callable ...$callbacks): CollectionInterface
     {
-        return new self(Pipe::of()(...$callbacks), [$this]);
+        return new self((new Pipe())()(...$callbacks), [$this]);
     }
 
     public function pluck($pluck, $default = null): CollectionInterface
     {
-        return new self(Pluck::of()($pluck)($default), [$this]);
+        return new self((new Pluck())()($pluck)($default), [$this]);
     }
 
     public function prepend(...$items): CollectionInterface
     {
-        return new self(Prepend::of()(...$items), [$this]);
+        return new self((new Prepend())()(...$items), [$this]);
     }
 
     public function product(iterable ...$iterables): CollectionInterface
     {
-        return new self(Product::of()(...$iterables), [$this]);
+        return new self((new Product())()(...$iterables), [$this]);
     }
 
     public function random(int $size = 1, ?int $seed = null): CollectionInterface
     {
-        return new self(Random::of()($seed ?? random_int(0, 1000))($size), [$this]);
+        return new self((new Random())()($seed ?? random_int(0, 1000))($size), [$this]);
     }
 
     public static function range(float $start = 0.0, float $end = INF, float $step = 1.0): CollectionInterface
     {
-        return new self(Range::of()($start)($end)($step));
+        return new self((new Range())()($start)($end)($step));
     }
 
     public function reduce(callable $callback, $initial = null): CollectionInterface
     {
-        return new self(Reduce::of()($callback)($initial), [$this]);
+        return new self((new Reduce())()($callback)($initial), [$this]);
     }
 
     public function reduction(callable $callback, $initial = null): CollectionInterface
     {
-        return new self(Reduction::of()($callback)($initial), [$this]);
+        return new self((new Reduction())()($callback)($initial), [$this]);
     }
 
     public function reject(callable ...$callbacks): CollectionInterface
     {
-        return new self(Reject::of()(...$callbacks), [$this]);
+        return new self((new Reject())()(...$callbacks), [$this]);
     }
 
     public function reverse(): CollectionInterface
     {
-        return new self(Reverse::of(), [$this]);
+        return new self((new Reverse())(), [$this]);
     }
 
     public function rsample(float $probability): CollectionInterface
     {
-        return new self(RSample::of()($probability), [$this]);
+        return new self((new RSample())()($probability), [$this]);
     }
 
     public function same(iterable $other, ?callable $comparatorCallback = null): bool
@@ -759,7 +759,7 @@ final class Collection implements CollectionInterface
                  */
                 static fn ($rightValue, $rightKey): bool => $leftValue === $rightValue && $leftKey === $rightKey;
 
-        return Same::of()($other)($comparatorCallback)($this)->current();
+        return (new Same())()($other)($comparatorCallback)($this)->current();
     }
 
     public function scale(
@@ -769,47 +769,47 @@ final class Collection implements CollectionInterface
         float $wantedUpperBound = 1.0,
         float $base = 0.0
     ): CollectionInterface {
-        return new self(Scale::of()($lowerBound)($upperBound)($wantedLowerBound)($wantedUpperBound)($base), [$this]);
+        return new self((new Scale())()($lowerBound)($upperBound)($wantedLowerBound)($wantedUpperBound)($base), [$this]);
     }
 
     public function scanLeft(callable $callback, $initial = null): CollectionInterface
     {
-        return new self(ScanLeft::of()($callback)($initial), [$this]);
+        return new self((new ScanLeft())()($callback)($initial), [$this]);
     }
 
     public function scanLeft1(callable $callback): CollectionInterface
     {
-        return new self(ScanLeft1::of()($callback), [$this]);
+        return new self((new ScanLeft1())()($callback), [$this]);
     }
 
     public function scanRight(callable $callback, $initial = null): CollectionInterface
     {
-        return new self(ScanRight::of()($callback)($initial), [$this]);
+        return new self((new ScanRight())()($callback)($initial), [$this]);
     }
 
     public function scanRight1(callable $callback): CollectionInterface
     {
-        return new self(ScanRight1::of()($callback), [$this]);
+        return new self((new ScanRight1())()($callback), [$this]);
     }
 
     public function shuffle(?int $seed = null): CollectionInterface
     {
-        return new self(Shuffle::of()($seed ?? random_int(0, 1000)), [$this]);
+        return new self((new Shuffle())()($seed ?? random_int(0, 1000)), [$this]);
     }
 
     public function since(callable ...$callbacks): CollectionInterface
     {
-        return new self(Since::of()(...$callbacks), [$this]);
+        return new self((new Since())()(...$callbacks), [$this]);
     }
 
     public function slice(int $offset, int $length = -1): CollectionInterface
     {
-        return new self(Slice::of()($offset)($length), [$this]);
+        return new self((new Slice())()($offset)($length), [$this]);
     }
 
     public function sort(int $type = Operation\Sortable::BY_VALUES, ?callable $callback = null): CollectionInterface
     {
-        return new self(Sort::of()($type)($callback), [$this]);
+        return new self((new Sort())()($type)($callback), [$this]);
     }
 
     public function span(callable ...$callbacks): CollectionInterface
@@ -827,7 +827,7 @@ final class Collection implements CollectionInterface
 
     public function split(int $type = Operation\Splitable::BEFORE, callable ...$callbacks): CollectionInterface
     {
-        return new self(Split::of()($type)(...$callbacks), [$this]);
+        return new self((new Split())()($type)(...$callbacks), [$this]);
     }
 
     public function squash(): CollectionInterface
@@ -837,82 +837,82 @@ final class Collection implements CollectionInterface
 
     public function strict(?callable $callback = null): CollectionInterface
     {
-        return new self(Strict::of()($callback), [$this]);
+        return new self((new Strict())()($callback), [$this]);
     }
 
     public function tail(): CollectionInterface
     {
-        return new self(Tail::of(), [$this]);
+        return new self((new Tail())(), [$this]);
     }
 
     public function tails(): CollectionInterface
     {
-        return new self(Tails::of(), [$this]);
+        return new self((new Tails())(), [$this]);
     }
 
     public function takeWhile(callable ...$callbacks): CollectionInterface
     {
-        return new self(TakeWhile::of()(...$callbacks), [$this]);
+        return new self((new TakeWhile())()(...$callbacks), [$this]);
     }
 
     public static function times(int $number = 0, ?callable $callback = null): CollectionInterface
     {
-        return new self(Times::of()($number)($callback));
+        return new self((new Times())()($number)($callback));
     }
 
     public function transpose(): CollectionInterface
     {
-        return new self(Transpose::of(), [$this]);
+        return new self((new Transpose())(), [$this]);
     }
 
     public function truthy(): bool
     {
-        return Truthy::of()($this)->current();
+        return (new Truthy())()($this)->current();
     }
 
     public static function unfold(callable $callback, ...$parameters): CollectionInterface
     {
-        return new self(Unfold::of()(...$parameters)($callback));
+        return new self((new Unfold())()(...$parameters)($callback));
     }
 
     public function unlines(): CollectionInterface
     {
-        return new self(Unlines::of(), [$this]);
+        return new self((new Unlines())(), [$this]);
     }
 
     public function unpack(): CollectionInterface
     {
-        return new self(Unpack::of(), [$this]);
+        return new self((new Unpack())(), [$this]);
     }
 
     public function unpair(): CollectionInterface
     {
-        return new self(Unpair::of(), [$this]);
+        return new self((new Unpair())(), [$this]);
     }
 
     public function until(callable ...$callbacks): CollectionInterface
     {
-        return new self(Until::of()(...$callbacks), [$this]);
+        return new self((new Until())()(...$callbacks), [$this]);
     }
 
     public function unwindow(): CollectionInterface
     {
-        return new self(Unwindow::of(), [$this]);
+        return new self((new Unwindow())(), [$this]);
     }
 
     public function unwords(): CollectionInterface
     {
-        return new self(Unwords::of(), [$this]);
+        return new self((new Unwords())(), [$this]);
     }
 
     public function unwrap(): CollectionInterface
     {
-        return new self(Unwrap::of(), [$this]);
+        return new self((new Unwrap())(), [$this]);
     }
 
     public function unzip(): CollectionInterface
     {
-        return new self(Unzip::of(), [$this]);
+        return new self((new Unzip())(), [$this]);
     }
 
     public function when(callable $predicate, callable $whenTrue, ?callable $whenFalse = null): CollectionInterface
@@ -925,26 +925,26 @@ final class Collection implements CollectionInterface
              */
             static fn (iterable $iterable): iterable => $iterable;
 
-        return new self(When::of()($predicate)($whenTrue)($whenFalse), [$this]);
+        return new self((new When())()($predicate)($whenTrue)($whenFalse), [$this]);
     }
 
     public function window(int $size): CollectionInterface
     {
-        return new self(Window::of()($size), [$this]);
+        return new self((new Window())()($size), [$this]);
     }
 
     public function words(): CollectionInterface
     {
-        return new self(Words::of(), [$this]);
+        return new self((new Words())(), [$this]);
     }
 
     public function wrap(): CollectionInterface
     {
-        return new self(Wrap::of(), [$this]);
+        return new self((new Wrap())(), [$this]);
     }
 
     public function zip(iterable ...$iterables): CollectionInterface
     {
-        return new self(Zip::of()(...$iterables), [$this]);
+        return new self((new Zip())()(...$iterables), [$this]);
     }
 }

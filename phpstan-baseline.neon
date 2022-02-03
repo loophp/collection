@@ -1,6 +1,61 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Method loophp\\\\collection\\\\Collection\\:\\:group\\(\\) should return loophp\\\\collection\\\\Contract\\\\Collection\\<int, array\\<int, T\\>\\> but returns loophp\\\\collection\\\\Collection\\<int, array\\<int, mixed\\>\\>\\.$#"
+			count: 1
+			path: src/Collection.php
+
+		-
+			message: "#^Method loophp\\\\collection\\\\Collection\\:\\:inits\\(\\) should return loophp\\\\collection\\\\Contract\\\\Collection\\<int, array\\<int, array\\{TKey, T\\}\\>\\> but returns loophp\\\\collection\\\\Collection\\<int, array\\<int, array\\{mixed, mixed\\}\\>\\>\\.$#"
+			count: 1
+			path: src/Collection.php
+
+		-
+			message: "#^Method loophp\\\\collection\\\\Collection\\:\\:pack\\(\\) should return loophp\\\\collection\\\\Contract\\\\Collection\\<int, array\\{TKey, T\\}\\> but returns loophp\\\\collection\\\\Collection\\<int, array\\{mixed, mixed\\}\\>\\.$#"
+			count: 1
+			path: src/Collection.php
+
+		-
+			message: "#^Method loophp\\\\collection\\\\Collection\\:\\:tails\\(\\) should return loophp\\\\collection\\\\Contract\\\\Collection\\<int, array\\<int, T\\>\\> but returns loophp\\\\collection\\\\Collection\\<int, array\\<int, mixed\\>\\>\\.$#"
+			count: 1
+			path: src/Collection.php
+
+		-
+			message: "#^Method loophp\\\\collection\\\\Collection\\:\\:transpose\\(\\) should return loophp\\\\collection\\\\Contract\\\\Collection\\<TKey, array\\<int, T\\>\\> but returns loophp\\\\collection\\\\Collection\\<mixed, array\\<int, mixed\\>\\>\\.$#"
+			count: 1
+			path: src/Collection.php
+
+		-
+			message: "#^Method loophp\\\\collection\\\\Collection\\:\\:unzip\\(\\) should return loophp\\\\collection\\\\Contract\\\\Collection\\<int, array\\<int, T\\>\\> but returns loophp\\\\collection\\\\Collection\\<int, array\\<int, mixed\\>\\>\\.$#"
+			count: 1
+			path: src/Collection.php
+
+		-
+			message: "#^Method loophp\\\\collection\\\\Collection\\:\\:wrap\\(\\) should return loophp\\\\collection\\\\Contract\\\\Collection\\<int, array\\<\\(int&TKey\\)\\|\\(string&TKey\\), T\\>\\> but returns loophp\\\\collection\\\\Collection\\<int, array\\<int\\|string, mixed\\>\\>\\.$#"
+			count: 1
+			path: src/Collection.php
+
+		-
+			message: "#^Parameter \\#1 \\$ of closure expects callable\\(mixed, mixed, iterable\\)\\: mixed, \\(callable\\(TKey, T, Iterator\\<TKey, T\\>\\)\\: NewTKey\\)\\|\\(Closure\\(mixed\\)\\: mixed\\) given\\.$#"
+			count: 1
+			path: src/Collection.php
+
+		-
+			message: "#^Parameter \\#1 \\$ of closure expects callable\\(mixed, mixed, iterable\\)\\: mixed, callable\\(T, TKey, Iterator\\<TKey, T\\>\\)\\: mixed given\\.$#"
+			count: 1
+			path: src/Collection.php
+
+		-
+			message: "#^Parameter \\#1 \\$ of closure expects callable\\(mixed, mixed, mixed, iterable\\)\\: mixed, callable\\(T, T, TKey, Iterator\\<TKey, T\\>\\)\\: T given\\.$#"
+			count: 2
+			path: src/Collection.php
+
+		-
+			message: "#^Parameter \\#1 \\$ of closure expects callable\\(mixed, mixed, mixed, iterable\\)\\: mixed, callable\\(mixed, T, TKey, Iterator\\<TKey, T\\>\\)\\: mixed given\\.$#"
+			count: 2
+			path: src/Collection.php
+
+		-
 			message: "#^Template type NewT of method loophp\\\\collection\\\\Operation\\\\Associate\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
 			count: 1
 			path: src/Operation/Associate.php
