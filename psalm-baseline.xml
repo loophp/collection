@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="4.20.0@f82a70e7edfc6cf2705e9374c8a0b6a974a779ed">
+  <file src="src/Collection.php">
+    <InvalidArgument occurrences="5">
+      <code>$callback</code>
+      <code>$callback</code>
+      <code>$callback</code>
+      <code>$callback</code>
+      <code>$callback</code>
+    </InvalidArgument>
+    <InvalidReturnStatement occurrences="1">
+      <code>new self((new Wrap())(), [$this])</code>
+    </InvalidReturnStatement>
+    <InvalidReturnType occurrences="1">
+      <code>CollectionInterface</code>
+    </InvalidReturnType>
+    <InvalidScalarArgument occurrences="1">
+      <code>$callable</code>
+    </InvalidScalarArgument>
+    <LessSpecificReturnStatement occurrences="1">
+      <code>new self((new Zip())()(...$iterables), [$this])</code>
+    </LessSpecificReturnStatement>
+    <MoreSpecificReturnType occurrences="1">
+      <code>CollectionInterface</code>
+    </MoreSpecificReturnType>
+    <PossiblyInvalidArgument occurrences="2">
+      <code>$callbackForKeys ?? $defaultCallback</code>
+      <code>$callbackForValues ?? $defaultCallback</code>
+    </PossiblyInvalidArgument>
+    <PossiblyNullArgument occurrences="1">
+      <code>$callback</code>
+    </PossiblyNullArgument>
+  </file>
+  <file src="src/Operation/All.php">
+    <InvalidReturnStatement occurrences="1"/>
+    <InvalidReturnType occurrences="1">
+      <code>Closure(bool): Closure(iterable&lt;TKey, T&gt;): (Generator&lt;int, T&gt;|Generator&lt;TKey, T&gt;)</code>
+    </InvalidReturnType>
+  </file>
+</files>
