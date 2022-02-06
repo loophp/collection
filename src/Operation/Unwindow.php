@@ -28,14 +28,13 @@ final class Unwindow extends AbstractOperation
         /** @var Closure(iterable<TKey, list<T>>): Generator<TKey, T|null> $unwindow */
         $unwindow = (new Map())()(
             /**
-             * @param iterable<TKey, list<T>> $iterable
+             * @param list<T> $iterable
              *
              * @return T|null
              */
             static function (iterable $iterable) {
                 $value = null;
 
-                /** @var T $iterValue */
                 foreach ($iterable as $iterValue) {
                     $value = $iterValue;
                 }
