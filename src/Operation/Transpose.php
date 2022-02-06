@@ -11,7 +11,7 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use loophp\iterators\IterableIteratorAggregate;
+use loophp\iterators\MultipleIterableAggregate;
 use MultipleIterator;
 
 /**
@@ -19,12 +19,12 @@ use MultipleIterator;
  *
  * @template TKey
  * @template T
+ *
+ * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Transpose extends AbstractOperation
 {
     /**
-     * @psalm-suppress ImpureMethodCall - using MultipleIterator as an internal tool which is not returned
-     *
      * @return Closure(iterable<TKey, T>): Generator<TKey, list<T>>
      */
     public function __invoke(): Closure
@@ -47,14 +47,7 @@ final class Transpose extends AbstractOperation
 
         /** @var Closure(iterable<TKey, T>): Generator<TKey, list<T>> $pipe */
         $pipe = (new Pipe())()(
-            (new Reduce())()(
-                static function (MultipleIterator $acc, iterable $iterable): MultipleIterator {
-                    $acc->attachIterator((new IterableIteratorAggregate($iterable))->getIterator());
-
-                    return $acc;
-                }
-            )(new MultipleIterator(MultipleIterator::MIT_NEED_ANY)),
-            (new Flatten())()(1),
+            static fn (iterable $iterables): MultipleIterableAggregate => new MultipleIterableAggregate($iterables, MultipleIterator::MIT_NEED_ANY),
             (new Associate())()($callbackForKeys)($callbackForValues)
         );
 
