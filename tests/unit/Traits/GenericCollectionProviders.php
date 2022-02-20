@@ -175,6 +175,26 @@ trait GenericCollectionProviders
         ];
     }
 
+    public function averagesOperationProvider()
+    {
+        $operation = 'averages';
+        $input = array_combine(range('a', 'f'), range(0, 5));
+
+        yield [
+            $operation,
+            [],
+            $input,
+            [(int) 0, (float) .5, (float) 1.0, (float) 1.5, (float) 2.0, (float) 2.5],
+        ];
+
+        yield [
+            $operation,
+            [],
+            [],
+            [],
+        ];
+    }
+
     public function cacheOperationProvider()
     {
         $operation = 'cache';

@@ -31,6 +31,7 @@ final class CollectionGenericOperationTest extends TestCase
      * @dataProvider associateOperationProvider
      * @dataProvider asyncMapOperationProvider
      * @dataProvider asyncMapNOperationProvider
+     * @dataProvider averagesOperationProvider
      * @dataProvider cacheOperationProvider
      * @dataProvider chunkOperationProvider
      * @dataProvider coalesceOperationProvider

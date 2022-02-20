@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.20.0@f82a70e7edfc6cf2705e9374c8a0b6a974a779ed">
+<files psalm-version="4.22.0@fc2c6ab4d5fa5d644d8617089f012f3bb84b8703">
   <file src="src/Collection.php">
     <InvalidArgument occurrences="5">
       <code>$callback</code>
@@ -35,6 +35,12 @@
     <InvalidReturnStatement occurrences="1"/>
     <InvalidReturnType occurrences="1">
       <code>Closure(bool): Closure(iterable&lt;TKey, T&gt;): (Generator&lt;int, T&gt;|Generator&lt;TKey, T&gt;)</code>
+    </InvalidReturnType>
+  </file>
+  <file src="src/Operation/Averages.php">
+    <InvalidReturnStatement occurrences="1"/>
+    <InvalidReturnType occurrences="1">
+      <code>Closure(iterable&lt;TKey, T&gt;): Generator&lt;int, float&gt;</code>
     </InvalidReturnType>
   </file>
 </files>
