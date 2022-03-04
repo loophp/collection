@@ -41,9 +41,9 @@ final class Reject extends AbstractOperation
                      */
                     static fn ($value): bool => (bool) $value;
 
-                $callbacks = [] === $callbacks ?
-                    [$defaultCallback] :
-                    $callbacks;
+                $callback = CallbacksArrayReducer::or()(
+                    [] === $callbacks ? [$defaultCallback] : $callbacks
+                );
 
                 $reject = (new Filter())()(
                     /**
@@ -51,7 +51,7 @@ final class Reject extends AbstractOperation
                      * @param TKey $key
                      * @param iterable<TKey, T> $iterable
                      */
-                    static fn ($current, $key, iterable $iterable): bool => !CallbacksArrayReducer::or()($callbacks, $current, $key, $iterable)
+                    static fn ($current, $key, iterable $iterable): bool => !$callback($current, $key, $iterable)
                 );
 
                 // Point free style.

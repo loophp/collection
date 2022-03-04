@@ -47,9 +47,10 @@ final class Split extends AbstractOperation
                      */
                     static function (iterable $iterable) use ($type, $callbacks): Generator {
                         $carry = [];
+                        $callback = CallbacksArrayReducer::or()($callbacks);
 
                         foreach ($iterable as $key => $current) {
-                            $callbackReturn = CallbacksArrayReducer::or()($callbacks, $current, $key, $iterable);
+                            $callbackReturn = $callback($current, $key, $iterable);
 
                             if (Splitable::AFTER === $type) {
                                 $carry[] = $current;

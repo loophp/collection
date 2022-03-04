@@ -42,6 +42,9 @@ final class MatchOne extends AbstractOperation
                      * @return Closure(iterable<TKey, T>): Generator<TKey, bool>
                      */
                     static function (callable ...$callbacks) use ($matchers): Closure {
+                        $callback = CallbacksArrayReducer::or()($callbacks);
+                        $matcher = CallbacksArrayReducer::or()($matchers);
+
                         /** @var Closure(iterable<TKey, T>): Generator<TKey, bool> $pipe */
                         $pipe = (new Pipe())()(
                             (new Map())()(
@@ -50,7 +53,7 @@ final class MatchOne extends AbstractOperation
                                  * @param TKey $key
                                  * @param iterable<TKey, T> $iterable
                                  */
-                                static fn ($value, $key, iterable $iterable): bool => CallbacksArrayReducer::or()($callbacks, $value, $key, $iterable) === CallbacksArrayReducer::or()($matchers, $value, $key, $iterable)
+                                static fn ($value, $key, iterable $iterable): bool => $callback($value, $key, $iterable) === $matcher($value, $key, $iterable)
                             ),
                             (new DropWhile())()(static fn (bool $value): bool => !$value),
                             (new Append())()(false),

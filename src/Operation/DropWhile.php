@@ -42,10 +42,11 @@ final class DropWhile extends AbstractOperation
              */
             static function (iterable $iterable) use ($callbacks): Generator {
                 $skip = false;
+                $callback = CallbacksArrayReducer::or()($callbacks);
 
                 foreach ($iterable as $key => $current) {
                     if (false === $skip) {
-                        if (false === CallbacksArrayReducer::or()($callbacks, $current, $key, $iterable)) {
+                        if (false === $callback($current, $key, $iterable)) {
                             $skip = true;
 
                             yield $key => $current;

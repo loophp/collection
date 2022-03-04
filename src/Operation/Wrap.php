@@ -25,18 +25,17 @@ final class Wrap extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        $mapCallback =
-            /**
-             * @param T $value
-             * @param TKey $key
-             *
-             * @return array<TKey, T>
-             */
-            static fn ($value, $key): array => [$key => $value];
-
         /** @var Closure(iterable<TKey, T>): Generator<int, array<TKey, T>> $pipe */
         $pipe = (new Pipe())()(
-            (new Map())()($mapCallback),
+            (new Map())()(
+                /**
+                 * @param T $value
+                 * @param TKey $key
+                 *
+                 * @return array<TKey, T>
+                 */
+                static fn ($value, $key): array => [$key => $value]
+            ),
             (new Normalize())()
         );
 

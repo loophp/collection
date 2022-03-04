@@ -34,16 +34,15 @@ final class Nth extends AbstractOperation
                  * @return Closure(iterable<TKey, T>): Generator<TKey, T>
                  */
                 static function (int $offset) use ($step): Closure {
-                    $filterCallback =
-                        /**
-                         * @param array{0: TKey, 1: T} $value
-                         */
-                        static fn (array $value, int $key): bool => (($key % $step) === $offset);
-
                     /** @var Closure(iterable<TKey, T>): Generator<TKey, T> $pipe */
                     $pipe = (new Pipe())()(
                         (new Pack())(),
-                        (new Filter())()($filterCallback),
+                        (new Filter())()(
+                            /**
+                             * @param array{0: TKey, 1: T} $value
+                             */
+                            static fn (array $value, int $key): bool => (($key % $step) === $offset)
+                        ),
                         (new Unpack())()
                     );
 

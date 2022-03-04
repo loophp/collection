@@ -30,14 +30,6 @@ final class Init extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        $callback =
-            /**
-             * @param T $value
-             * @param TKey $key
-             * @param CachingIterator<TKey, T> $iterator
-             */
-            static fn ($value, $key, CachingIterator $iterator): bool => $iterator->hasNext();
-
         $buildCachingIterator =
             /**
              * @param iterable<TKey, T> $iterable
@@ -49,7 +41,14 @@ final class Init extends AbstractOperation
         /** @var Closure(iterable<TKey, T>): Generator<TKey, T> $takeWhile */
         $takeWhile = (new Pipe())()(
             $buildCachingIterator,
-            (new TakeWhile())()($callback)
+            (new TakeWhile())()(
+                /**
+                 * @param T $value
+                 * @param TKey $key
+                 * @param CachingIterator<TKey, T> $iterator
+                 */
+                static fn ($value, $key, CachingIterator $iterator): bool => $iterator->hasNext()
+            )
         );
 
         // Point free style.
