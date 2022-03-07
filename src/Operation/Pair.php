@@ -25,28 +25,26 @@ final class Pair extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        $callbackForKeys =
-            /**
-             * @param TKey $key
-             * @param array{0: TKey, 1: T} $value
-             *
-             * @return TKey|null
-             */
-            static fn ($key, array $value) => $value[0] ?? null;
-
-        $callbackForValues =
-            /**
-             * @param array{0: TKey, 1: T} $value
-             *
-             * @return T|null
-             */
-            static fn (array $value) => $value[1] ?? null;
-
         /** @var Closure(iterable<TKey, T>): Generator<T, T|null> $pipe */
         $pipe = (new Pipe())()(
             (new Chunk())()(2),
             (new Map())()(static fn (array $value): array => array_values($value)),
-            (new Associate())()($callbackForKeys)($callbackForValues)
+            (new Associate())()(
+                /**
+                 * @param TKey $key
+                 * @param array{0: TKey, 1: T} $value
+                 *
+                 * @return TKey|null
+                 */
+                static fn ($key, array $value) => $value[0] ?? null
+            )(
+                /**
+                 * @param array{0: TKey, 1: T} $value
+                 *
+                 * @return T|null
+                 */
+                static fn (array $value) => $value[1] ?? null
+            )
         );
 
         // Point free style.

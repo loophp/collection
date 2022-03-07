@@ -51,8 +51,10 @@ final class Filter extends AbstractOperation
                         [$defaultCallback] :
                         $callbacks;
 
+                    $callback = CallbacksArrayReducer::or()($callbacks);
+
                     foreach ($iterable as $key => $current) {
-                        if (CallbacksArrayReducer::or()($callbacks, $current, $key, $iterable)) {
+                        if ($callback($current, $key, $iterable)) {
                             yield $key => $current;
                         }
                     }

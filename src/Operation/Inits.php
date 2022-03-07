@@ -25,23 +25,22 @@ final class Inits extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        $scanLeftCallback =
-            /**
-             * @param list<array{0: TKey, 1: T}> $carry
-             * @param array{0: TKey, 1: T} $value
-             *
-             * @return list<array{0: TKey, 1: T}>
-             */
-            static function (array $carry, array $value): array {
-                $carry[] = $value;
-
-                return $carry;
-            };
-
         /** @var Closure(iterable<TKey, T>): Generator<int, list<array{0: TKey, 1: T}>> $inits */
         $inits = (new Pipe())()(
             (new Pack())(),
-            (new ScanLeft())()($scanLeftCallback)([]),
+            (new ScanLeft())()(
+                /**
+                 * @param list<array{0: TKey, 1: T}> $carry
+                 * @param array{0: TKey, 1: T} $value
+                 *
+                 * @return list<array{0: TKey, 1: T}>
+                 */
+                static function (array $carry, array $value): array {
+                    $carry[] = $value;
+
+                    return $carry;
+                }
+            )([]),
             (new Normalize())()
         );
 

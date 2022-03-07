@@ -109,6 +109,6 @@ final class CallbacksArrayReducerTest extends TestCase
         array $iterator,
         bool $expected
     ): void {
-        self::assertSame($expected, CallbacksArrayReducer::or()($callbacks, $current, $key, $iterator));
+        self::assertSame($expected, CallbacksArrayReducer::or()($callbacks)($current, $key, $iterator));
     }
 }

@@ -41,10 +41,12 @@ final class Until extends AbstractOperation
                  * @return Generator<TKey, T>
                  */
                 static function (iterable $iterable) use ($callbacks): Generator {
+                    $callback = CallbacksArrayReducer::or()($callbacks);
+
                     foreach ($iterable as $key => $current) {
                         yield $key => $current;
 
-                        if (CallbacksArrayReducer::or()($callbacks, $current, $key, $iterable)) {
+                        if ($callback($current, $key, $iterable)) {
                             break;
                         }
                     }

@@ -27,16 +27,15 @@ final class Lines extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        $mapCallback =
-            /**
-             * @param list<T> $value
-             */
-            static fn (array $value): string => implode('', $value);
-
         /** @var Closure(iterable<TKey, T>): Generator<int, string> $pipe */
         $pipe = (new Pipe())()(
             (new Explode())()(PHP_EOL, "\n", "\r\n"),
-            (new Map())()($mapCallback)
+            (new Map())()(
+                /**
+                 * @param list<T> $value
+                 */
+                static fn (array $value): string => implode('', $value)
+            )
         );
 
         // Point free style.

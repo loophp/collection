@@ -32,17 +32,16 @@ final class Implode extends AbstractOperation
              * @return Closure(iterable<TKey, T>): Generator<TKey, string>
              */
             static function (string $glue): Closure {
-                $reducer =
-                    /**
-                     * @param string|T $item
-                     */
-                    static fn (string $carry, $item): string => $carry .= $item;
-
                 /** @var Closure(iterable<TKey, T>): Generator<TKey, string> $pipe */
                 $pipe = (new Pipe())()(
                     (new Intersperse())()($glue)(1)(0),
                     (new Drop())()(1),
-                    (new Reduce())()($reducer)('')
+                    (new Reduce())()(
+                        /**
+                         * @param string|T $item
+                         */
+                        static fn (string $carry, $item): string => $carry .= $item
+                    )('')
                 );
 
                 // Point free style.

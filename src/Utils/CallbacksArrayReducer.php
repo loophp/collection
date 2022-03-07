@@ -12,35 +12,37 @@ namespace loophp\collection\Utils;
 use Closure;
 
 /**
- * @immutable
+ * @internal
  *
- * @template TKey
- * @template T
+ * @immutable
  *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class CallbacksArrayReducer
 {
     /**
-     * @return Closure(array<array-key, callable(T=, TKey=, iterable<TKey, T>=): bool>, T, TKey, iterable<TKey, T>): bool
+     * @return Closure(array<array-key, callable(mixed...): bool>): Closure(mixed...): bool
      */
     public static function or(): Closure
     {
         return
             /**
-             * @param array<array-key, callable(T=, TKey=, iterable<TKey, T>=): bool> $callbacks
-             * @param T $current
-             * @param TKey $key
-             * @param iterable<TKey, T> $iterable
+             * @param array<array-key, callable(mixed...): bool> $callbacks
+             *
+             * @return Closure(mixed...): bool
              */
-            static fn (array $callbacks, $current, $key, iterable $iterable): bool => array_reduce(
-                $callbacks,
+            static fn (array $callbacks): Closure =>
                 /**
-                 * @param bool $carry
-                 * @param callable(T=, TKey=, iterable<TKey, T>=): bool $callable
+                 * @param mixed ...$parameters
                  */
-                static fn (bool $carry, callable $callable): bool => $carry || $callable($current, $key, $iterable),
-                false
-            );
+                static fn (...$parameters): bool => array_reduce(
+                    $callbacks,
+                    /**
+                     * @param bool $carry
+                     * @param callable(mixed...): bool $callable
+                     */
+                    static fn (bool $carry, callable $callable): bool => $carry || $callable(...$parameters),
+                    false
+                );
     }
 }

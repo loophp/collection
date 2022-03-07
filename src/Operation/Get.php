@@ -40,16 +40,15 @@ final class Get extends AbstractOperation
                  * @return Closure(iterable<TKey, T>): Generator<TKey, T|V>
                  */
                 static function ($default) use ($keyToGet): Closure {
-                    $filterCallback =
-                        /**
-                         * @param T $value
-                         * @param TKey $key
-                         */
-                        static fn ($value, $key): bool => $key === $keyToGet;
-
                     /** @var Closure(iterable<TKey, T>): (Generator<TKey, T|V>) $pipe */
                     $pipe = (new Pipe())()(
-                        (new Filter())()($filterCallback),
+                        (new Filter())()(
+                            /**
+                             * @param T $value
+                             * @param TKey $key
+                             */
+                            static fn ($value, $key): bool => $key === $keyToGet
+                        ),
                         (new Append())()($default),
                         (new Head())()
                     );
