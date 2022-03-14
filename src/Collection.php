@@ -130,6 +130,7 @@ use loophp\collection\Operation\Window;
 use loophp\collection\Operation\Words;
 use loophp\collection\Operation\Wrap;
 use loophp\collection\Operation\Zip;
+use loophp\collection\Utils\CallbacksArrayReducer;
 use loophp\iterators\ClosureIteratorAggregate;
 use loophp\iterators\IterableIteratorAggregate;
 use loophp\iterators\ResourceIteratorAggregate;
@@ -360,7 +361,8 @@ final class Collection implements CollectionInterface
 
     public function every(callable ...$callbacks): bool
     {
-        return (new Every())()(static fn (): bool => false)(...$callbacks)($this)->current();
+        return (new Every())()(static fn (int $index, $value, $key, iterable $iterable) => CallbacksArrayReducer::or()($callbacks)($value, $key, $iterable))(static fn (bool $r): bool => $r)($this)
+            ->current();
     }
 
     public function explode(...$explodes): CollectionInterface

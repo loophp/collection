@@ -121,7 +121,7 @@ parameters:
 			path: src/Operation/GroupBy.php
 
 		-
-			message: "#^Parameter \\#1 \\.\\.\\.\\$ of closure expects callable\\(mixed, mixed, iterable\\)\\: bool, Closure\\(mixed, mixed, CachingIterator\\)\\: bool given\\.$#"
+			message: "#^Parameter \\#1 \\.\\.\\.\\$ of closure expects callable\\(mixed, mixed, iterable\\)\\: bool, Closure\\(mixed, mixed, loophp\\\\iterators\\\\CachingIteratorAggregate\\)\\: bool given\\.$#"
 			count: 1
 			path: src/Operation/Init.php
 

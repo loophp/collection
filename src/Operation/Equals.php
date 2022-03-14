@@ -41,7 +41,7 @@ final class Equals extends AbstractOperation
                  * @return Generator<int|TKey, bool>
                  */
                 return static function (iterable $iterable) use ($other): Generator {
-                    $otherAggregate = (new IterableIteratorAggregate($other));
+                    $otherAggregate = new IterableIteratorAggregate($other);
                     $iteratorAggregate = new IterableIteratorAggregate($iterable);
 
                     $iterator = $iteratorAggregate->getIterator();
@@ -60,9 +60,9 @@ final class Equals extends AbstractOperation
                         /**
                          * @param T $current
                          */
-                        static fn ($current): bool => (new Contains())()($current)($otherAggregate)->current();
+                        static fn (int $index, $current): bool => (new Contains())()($current)($otherAggregate)->current();
 
-                    yield from (new Every())()(static fn (): bool => false)($containsCallback)($iteratorAggregate);
+                    yield from (new Every())()($containsCallback)(static fn (bool $i): bool => $i)($iteratorAggregate);
                 };
             };
     }
