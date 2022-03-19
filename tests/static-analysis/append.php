@@ -43,7 +43,7 @@ function append_checkMixed(CollectionInterface $collection): void
 // Note that analysers can behave slightly differently, notably PHPStan does not consider
 // multiple parameters passed too append() as potentially part of a union type.
 
-//## SUCCESS ###
+// ## SUCCESS ###
 append_checkList(Collection::empty()->append(1));
 append_checkList(Collection::empty()->append(1, 2));
 append_checkList(Collection::empty()->append(...[1, 2]));
@@ -71,7 +71,7 @@ append_checkMixed(Collection::empty()->append(...[1, '2']));
 /** @phpstan-ignore-next-line */
 append_checkMixed(Collection::fromIterable(['foo' => 1, 'bar' => '2'])->append(1, '3'));
 
-//## VALID FAILURE ###
+// ## VALID FAILURE ###
 append_checkList(Collection::empty()->append(1, 'foo')); // @phpstan-ignore-line
 append_checkList(Collection::fromIterable([5])->append('foo')); // @phpstan-ignore-line
 append_checkList(Collection::fromIterable([5])->append('foo', 1)); // @phpstan-ignore-line
