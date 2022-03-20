@@ -25,26 +25,6 @@ final class Head extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        return
-            /**
-             * @param iterable<TKey, T> $iterable
-             *
-             * @return Generator<TKey, T, mixed, void>
-             */
-            static function (iterable $iterable): Generator {
-                $isEmpty = true;
-
-                $key = $current = null;
-
-                foreach ($iterable as $key => $current) {
-                    $isEmpty = false;
-
-                    break;
-                }
-
-                if (!$isEmpty) {
-                    yield $key => $current;
-                }
-            };
+        return (new Limit())()(1)(0);
     }
 }

@@ -121,16 +121,6 @@ parameters:
 			path: src/Operation/GroupBy.php
 
 		-
-			message: "#^Foreach overwrites \\$current with its value variable\\.$#"
-			count: 1
-			path: src/Operation/Head.php
-
-		-
-			message: "#^Foreach overwrites \\$key with its key variable\\.$#"
-			count: 1
-			path: src/Operation/Head.php
-
-		-
 			message: "#^Parameter \\#1 \\.\\.\\.\\$ of closure expects callable\\(mixed, mixed, iterable\\)\\: bool, Closure\\(mixed, mixed, CachingIterator\\)\\: bool given\\.$#"
 			count: 1
 			path: src/Operation/Init.php
