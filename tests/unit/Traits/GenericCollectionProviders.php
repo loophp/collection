@@ -3856,7 +3856,7 @@ trait GenericCollectionProviders
     public function takeWhileOperationProvider()
     {
         $operation = 'takeWhile';
-        $isSmallerThan = static fn (int $bound) => static fn ($value): bool => $bound > $value;
+        $isSmallerThan = static fn (int $bound): Closure => static fn (int $value): bool => $bound > $value;
         $input = [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3];
 
         yield [
