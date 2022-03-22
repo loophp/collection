@@ -24,44 +24,41 @@ use loophp\collection\Utils\CallbacksArrayReducer;
 final class Every extends AbstractOperation
 {
     /**
-     * @return Closure(callable(T, TKey, iterable<TKey, T>...): bool): Closure(callable(T, TKey, iterable<TKey, T>...): bool): Closure(iterable<TKey, T>): Generator<TKey, bool>
+     * @return Closure(callable(int=, T=, TKey=, iterable<TKey, T>=): bool): Closure(callable(bool, int, T, TKey, iterable<TKey, T>...): mixed): Closure(iterable<TKey, T>): Generator<int, mixed>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable(T=, TKey=, iterable<TKey, T>=): bool ...$matchers
+             * @param callable(int=, T=, TKey=, iterable<TKey, T>=): bool $predicate
              *
-             * @return Closure(...callable(T=, TKey=, iterable<TKey, T>=): bool): Closure(iterable<TKey, T>): Generator<TKey, bool>
+             * @return Closure(callable(bool, int, T=, TKey=, iterable<TKey, T>=): mixed): Closure(iterable<TKey, T>): Generator<int, mixed>
              */
-            static function (callable ...$matchers): Closure {
+            static function (callable ...$predicates): Closure {
                 return
                     /**
-                     * @param callable(T=, TKey=, iterable<TKey, T>=): bool ...$callbacks
+                     * @param callable(bool, int, T=, TKey=, iterable<TKey, T>=): mixed $return
                      *
-                     * @return Closure(iterable<TKey, T>): Generator<TKey, bool>
+                     * @return Closure(iterable<TKey, T>): Generator<int, mixed>
                      */
-                    static function (callable ...$callbacks) use ($matchers): Closure {
-                        $callback = CallbacksArrayReducer::or()($callbacks);
-                        $matcher = CallbacksArrayReducer::or()($matchers);
+                    static function (callable $return) use ($predicates): Closure {
+                        return
+                            /**
+                             * @param iterable<TKey, T> $iterable
+                             *
+                             * @return Generator<int, mixed>
+                             */
+                            static function (iterable $iterable) use ($return, $predicates): Generator {
+                                $predicate = CallbacksArrayReducer::or()($predicates);
 
-                        /** @var Closure(iterable<TKey, T>): Generator<TKey, bool> $pipe */
-                        $pipe = (new Pipe())()(
-                            (new Map())()(
-                                /**
-                                 * @param T $value
-                                 * @param TKey $key
-                                 * @param iterable<TKey, T> $iterable
-                                 */
-                                static fn ($value, $key, iterable $iterable): bool => $callback($value, $key, $iterable) !== $matcher($value, $key, $iterable)
-                            ),
-                            (new DropWhile())()(static fn (bool $value): bool => $value),
-                            (new Append())()(true),
-                            (new Head())(),
-                        );
+                                foreach ((new Pack())()($iterable) as $index => [$key, $value]) {
+                                    if (false === $predicate($index, $value, $key, $iterable)) {
+                                        return yield $return(false, $index, $value, $key, $iterable);
+                                    }
+                                }
 
-                        // Point free style.
-                        return $pipe;
+                                return yield true;
+                            };
                     };
             };
     }

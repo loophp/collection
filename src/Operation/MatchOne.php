@@ -47,17 +47,19 @@ final class MatchOne extends AbstractOperation
 
                         /** @var Closure(iterable<TKey, T>): Generator<TKey, bool> $pipe */
                         $pipe = (new Pipe())()(
-                            (new Map())()(
+                            (new Every())()(
                                 /**
                                  * @param T $value
                                  * @param TKey $key
-                                 * @param iterable<TKey, T> $iterable
                                  */
-                                static fn ($value, $key, iterable $iterable): bool => $callback($value, $key, $iterable) === $matcher($value, $key, $iterable)
+                                static fn (int $index, $value, $key, iterable $iterable): bool => $callback($value, $key, $iterable) !== $matcher($value, $key, $iterable)
+                            )(
+                                static fn (bool $i): bool => $i
                             ),
-                            (new DropWhile())()(static fn (bool $value): bool => !$value),
-                            (new Append())()(false),
-                            (new Head())()
+                            (new Head())(),
+                            (new Map())()(
+                                static fn (bool $i): bool => !$i
+                            )
                         );
 
                         // Point free style.
