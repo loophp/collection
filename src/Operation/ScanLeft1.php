@@ -41,7 +41,15 @@ final class ScanLeft1 extends AbstractOperation
                  * @return Generator<int|TKey, T|V>
                  */
                 static function (iterable $iterable) use ($callback): Generator {
-                    $initial = (new IterableIteratorAggregate($iterable))->getIterator()->current();
+                    $iteratorAggregate = new IterableIteratorAggregate($iterable);
+
+                    $iteratorInitial = $iteratorAggregate->getIterator();
+
+                    if (false === $iteratorInitial->valid()) {
+                        return yield from [];
+                    }
+
+                    $initial = $iteratorInitial->current();
 
                     /** @var Closure(iterable<TKey, T>): Generator<int|TKey, T|V> $pipe */
                     $pipe = (new Pipe())()(
@@ -50,7 +58,7 @@ final class ScanLeft1 extends AbstractOperation
                         (new Prepend())()($initial)
                     );
 
-                    return $pipe($iterable);
+                    yield from $pipe($iteratorAggregate->getIterator());
                 };
     }
 }

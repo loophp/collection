@@ -144,7 +144,7 @@ unfold
 
 Create a collection by yielding from a callback with an initial value.
 
-.. warning:: The callback needs to return a list of values which will be reused as callback arguments 
+.. warning:: The callback needs to return a list of values which will be reused as callback arguments
             on the next callback call. Therefore, the returned list should contain values of the same type
             as the parameters for the callback function.
 
@@ -190,7 +190,7 @@ all
 Convert the collection into an array, re-indexing keys using ``Collection::normalize()`` to prevent data loss by default.
 
 .. warning:: An earlier version of this operation did not re-index keys by default, which meant at times data loss could occur.
-        The reason data loss could occur is because PHP array keys cannot be duplicated and must either be ``int`` or ``string``. 
+        The reason data loss could occur is because PHP array keys cannot be duplicated and must either be ``int`` or ``string``.
         The old behaviour can still be achieved by using the operation with the ``$normalize`` parameter as *false*.
 
 Interface: `Allable`_
@@ -205,9 +205,9 @@ append
 
 Add one or more items to a collection.
 
-.. warning:: This operation maintains the keys of the appended items. If you wish to re-index the keys you can use the 
+.. warning:: This operation maintains the keys of the appended items. If you wish to re-index the keys you can use the
             ``Collection::normalize()`` operation, or ``Collection::all()`` when converting into an array, which will apply
-            ``normalize`` by default. 
+            ``normalize`` by default.
 
 Interface: `Appendable`_
 
@@ -910,8 +910,9 @@ This example will return ``['a', 'b', 'c', 'd', 'a']``.
 foldLeft
 ~~~~~~~~
 
-Takes the initial value and the first item of the list and applies the function to them, then feeds the function with
-this result and the second argument and so on. See ``scanLeft`` for intermediate results.
+Takes the initial value and the first item of the list and applies the function
+to them, then feeds the function with this result and the second argument and so
+on. See ``scanLeft`` for intermediate results.
 
 Interface: `FoldLeftable`_
 
@@ -932,8 +933,9 @@ Signature: ``Collection::foldLeft(callable $callback, $initial = null): Collecti
 foldLeft1
 ~~~~~~~~~
 
-Takes the first two items of the list and applies the function to them, then feeds the function with this result and the
-third argument and so on. See ``scanLeft1`` for intermediate results.
+Takes the first two items of the list and applies the function to them, then
+feeds the function with this result and the third argument and so on.
+See ``scanLeft1`` for intermediate results.
 
 Interface: `FoldLeft1able`_
 
@@ -941,14 +943,20 @@ Signature: ``Collection::foldLeft1(callable $callback): Collection;``
 
 .. code-block:: php
 
+    $callback = static fn(int $carry, int $value): int => $carry - $value;
+
     Collection::fromIterable([64, 4, 2, 8])
-        ->foldLeft1(static fn(float $carry, float $value): float => $carry / $value); // [3 => 1.0]
+        ->foldLeft1($callback); // [0 => 50]
+
+    Collection::empty()
+        ->foldLeft1($callback); // []
 
 foldRight
 ~~~~~~~~~
 
-Takes the initial value and the last item of the list and applies the function, then it takes the penultimate item from
-the end and the result, and so on. See ``scanRight`` for intermediate results.
+Takes the initial value and the last item of the list and applies the function,
+then it takes the penultimate item from the end and the result, and so on.
+See ``scanRight`` for intermediate results.
 
 Interface: `FoldRightable`_
 
@@ -969,8 +977,9 @@ Signature: ``Collection::foldRight(callable $callback, $initial = null): Collect
 foldRight1
 ~~~~~~~~~~
 
-Takes the last two items of the list and applies the function, then it takes the third item from the end and the result,
-and so on. See ``scanRight1`` for intermediate results.
+Takes the last two items of the list and applies the function, then it takes the
+third item from the end and the result, and so on. See ``scanRight1`` for
+intermediate results.
 
 Interface: `FoldRight1able`_
 
@@ -978,8 +987,13 @@ Signature: ``Collection::foldRight1(callable $callback): Collection;``
 
 .. code-block:: php
 
-    Collection::fromIterable([8, 12, 24, 4])
-        ->foldLeft1(static fn(float $carry, float $value): float => $carry / $value); // [0 => 4.0]
+    $callback = static fn(int $carry, int $value): int => $carry + $value;
+
+    Collection::fromIterable([1, 2, 3, 4])
+        ->foldRight1($callback); // [0 => 10]
+
+    Collection::empty()
+        ->foldRight1($callback); // []
 
 forget
 ~~~~~~
@@ -1252,7 +1266,7 @@ Signature: ``Collection::isEmpty(): bool;``
 jsonSerialize
 ~~~~~~~~~~~~~
 
-Returns the collection items as an array, allowing serialization. Essentially calls ``all(false)``, 
+Returns the collection items as an array, allowing serialization. Essentially calls ``all(false)``,
 which means the collection is not normalized by default.
 
 See the section on :ref:`serialization <Serialization>`.
@@ -1694,9 +1708,9 @@ prepend
 
 Push an item onto the beginning of the collection.
 
-.. warning:: This operation maintains the keys of the prepended items. If you wish to re-index the keys you can use the 
+.. warning:: This operation maintains the keys of the prepended items. If you wish to re-index the keys you can use the
             ``Collection::normalize()`` operation, or ``Collection::all()`` when converting into an array, which will apply
-            ``normalize`` by default. 
+            ``normalize`` by default.
 
 Interface: `Prependable`_
 
@@ -1893,8 +1907,9 @@ Signature: ``Collection::scanLeft(callable $callback, $initial = null): Collecti
 scanLeft1
 ~~~~~~~~~
 
-Takes the first two items of the list and applies the function to them, then feeds the function with this result and the
-third argument and so on. It returns the list of intermediate and final results.
+Takes the first two items of the list and applies the function to them, then
+feeds the function with this result and the third argument and so on.
+It returns the list of intermediate and final results.
 
 .. warning:: You might need to use the ``normalize`` operation after this.
 
@@ -1913,6 +1928,9 @@ Signature: ``Collection::scanLeft1(callable $callback): Collection;``
 
     Collection::fromIterable([12])
         ->scanLeft1($callback); // [12]
+
+    Collection::empty()
+        ->scanLeft1($callback); // []
 
 scanRight
 ~~~~~~~~~
@@ -1939,8 +1957,9 @@ Signature: ``Collection::scanRight(callable $callback, $initial = null): Collect
 scanRight1
 ~~~~~~~~~~
 
-Takes the last two items of the list and applies the function, then it takes the third item from the end and the result,
-and so on. It returns the list of intermediate and final results.
+Takes the last two items of the list and applies the function, then it takes the
+third item from the end and the result, and so on. It returns the list of
+intermediate and final results.
 
 .. warning:: You might need to use the ``normalize`` operation after this.
 
@@ -1959,6 +1978,9 @@ Signature: ``Collection::scanRight1(callable $callback): Collection;``
 
     Collection::fromIterable([12])
         ->scanRight1($callback); // [12]
+
+    Collection::empty()
+        ->scanRight1($callback); // []
 
 shuffle
 ~~~~~~~
@@ -2271,7 +2293,7 @@ Signature: ``Collection::until(callable ...$callbacks): Collection;``
 .. code-block:: php
 
     // The Collatz conjecture (https://en.wikipedia.org/wiki/Collatz_conjecture)
-    $collatz = static fn (int $value): array => 0 === $value % 2 
+    $collatz = static fn (int $value): array => 0 === $value % 2
             ? [$value / 2]
             : [$value * 3 + 1];
 
