@@ -3456,6 +3456,15 @@ trait GenericCollectionProviders
             [12],
             [12],
         ];
+
+        yield [
+            $operation,
+            [
+                $callback,
+            ],
+            [],
+            [],
+        ];
     }
 
     public function scanLeftOperationProvider()
@@ -3490,6 +3499,16 @@ trait GenericCollectionProviders
             ],
             [],
             [0 => 3],
+        ];
+
+        yield [
+            $operation,
+            [
+                $callback,
+                42,
+            ],
+            [],
+            [42],
         ];
     }
 
@@ -3561,6 +3580,16 @@ trait GenericCollectionProviders
             ],
             [],
             [3],
+        ];
+
+        yield [
+            $operation,
+            [
+                $callback,
+                42,
+            ],
+            [],
+            [42],
         ];
     }
 

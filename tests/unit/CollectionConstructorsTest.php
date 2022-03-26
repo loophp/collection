@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace tests\loophp\collection;
 
 use ArrayIterator;
-use Error;
 use Generator;
 use InvalidArgumentException;
 use loophp\collection\Collection;
@@ -188,10 +187,6 @@ final class CollectionConstructorsTest extends TestCase
             [2 => 'c', 3 => 'd', 4 => 'e'],
             Collection::fromIterable($generator)
         );
-
-        $this->expectException(Error::class);
-
-        Collection::fromIterable($generator)->count();
     }
 
     public function testFromResourceConstructor()
