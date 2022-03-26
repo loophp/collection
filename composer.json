@@ -40,7 +40,6 @@
         "drupol/php-conventions": "^5",
         "infection/infection": "^0.26.0",
         "loophp/phpunit-iterable-assertions": "^1.0",
-        "phpspec/prophecy-phpunit": "^2.0",
         "phpstan/phpstan-strict-rules": "^1.0",
         "phpunit/php-code-coverage": "^9.2",
         "phpunit/phpunit": "^9.5",

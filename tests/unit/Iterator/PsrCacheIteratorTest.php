@@ -12,7 +12,6 @@ namespace tests\loophp\collection\Iterator;
 use ArrayIterator;
 use loophp\collection\Iterator\PsrCacheIterator;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\Cache\CacheItem;
 
@@ -22,37 +21,31 @@ use Symfony\Component\Cache\CacheItem;
  */
 final class PsrCacheIteratorTest extends TestCase
 {
-    use ProphecyTrait;
-
     public function testCacheData(): void
     {
-        $cache = $this->prophesize(CacheItemPoolInterface::class);
+        $cache = $this->createMock(CacheItemPoolInterface::class);
         $it = new ArrayIterator(range('a', 'e'));
 
-        $iterator = new PsrCacheIterator($it, $cache->reveal());
+        $iterator = new PsrCacheIterator($it, $cache);
 
         $cacheItem = new CacheItem();
         $cacheItem->set('a');
 
         $cache
-            ->save($cacheItem)
+            ->method('save', $cacheItem)
             ->willReturn(true);
 
         $cache
-            ->getItem(0)
+            ->method('getItem', 0)
             ->willReturn($cacheItem);
 
         $cache
-            ->hasItem(0)
+            ->method('hasItem', 0)
             ->willReturn(true);
 
         $iterator->rewind();
 
         self::assertSame('a', $iterator->current());
-
-        $cache
-            ->getItem(0)
-            ->shouldHaveBeenCalledOnce();
 
         $iterator->rewind();
 
@@ -62,23 +55,19 @@ final class PsrCacheIteratorTest extends TestCase
         $cacheItem->set('b');
 
         $cache
-            ->save($cacheItem)
+            ->method('save', $cacheItem)
             ->willReturn(true);
 
         $cache
-            ->getItem(1)
+            ->method('getItem', 1)
             ->willReturn($cacheItem);
 
         $cache
-            ->hasItem(1)
+            ->method('hasItem', 1)
             ->willReturn(false);
 
         $iterator->next();
 
         self::assertSame('b', $iterator->current());
-
-        $cache
-            ->save($cacheItem)
-            ->shouldHaveBeenCalledOnce();
     }
 }
