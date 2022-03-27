@@ -30,13 +30,7 @@ final class Averages extends AbstractOperation
         return (new Pipe())()(
             (new Normalize())(),
             (new ScanLeft1())()(
-                /**
-                 * @param float $acc
-                 * @param float $value
-                 *
-                 * @return float
-                 */
-                static fn ($acc, $value, int $key) => ($acc * $key + $value) / ($key + 1)
+                static fn (float $acc, float $value, int $key): float => ($acc * $key + $value) / ($key + 1)
             )
         );
     }

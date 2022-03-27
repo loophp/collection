@@ -315,7 +315,14 @@ Signature: ``Collection::asyncMapN(callable ...$callbacks): Collection;``
 averages
 ~~~~~~~~
 
-Calculate the average of a list of numbers.
+Calculate the average of a collection of numbers.
+
+The average constitute the result obtained by adding together several amounts
+and then dividing this total by the number of amounts.
+
+Based on `scanLeft1`, this operation will return the average at each iteration.
+Therefore, if you're looking for one single result, you must get the last item
+using `last` operation.
 
 Interface: `Averagesable`_
 
