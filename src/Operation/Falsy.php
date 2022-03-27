@@ -25,31 +25,15 @@ final class Falsy extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        $matchWhenNot = static fn (): bool => true;
-        $matcher =
+        /** @var Closure(iterable<TKey, T>): Generator<int, bool> $every */
+        $every = (new Every())()(
             /**
-             * @param bool $value
+             * @param T $value
              */
-            static fn (bool $value): bool => $value;
-
-        /** @var Closure(iterable<TKey, T>): Generator<int, bool> $pipe */
-        $pipe = (new Pipe())()(
-            (new Map())()(
-                /**
-                 * @param T $value
-                 */
-                static fn ($value): bool => (bool) $value
-            ),
-            (new MatchOne())()($matchWhenNot)($matcher),
-            (new Map())()(
-                /**
-                 * @param bool $value
-                 */
-                static fn (bool $value): bool => !$value
-            ),
+            static fn (int $index, $value): bool => !(bool) $value
         );
 
         // Point free style.
-        return $pipe;
+        return $every;
     }
 }

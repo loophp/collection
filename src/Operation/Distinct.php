@@ -52,16 +52,20 @@ final class Distinct extends AbstractOperation
                          * @param TKey $key
                          */
                         static function ($value, $key) use ($comparatorCallback, $accessorCallback, $stack): bool {
-                            $matchWhenNot = static fn (): bool => true;
                             $matcher =
                                 /**
                                  * @param array{0: TKey, 1: T} $item
                                  */
-                                static fn (array $item): bool => $comparatorCallback($accessorCallback($value, $key))($accessorCallback($item[1], $item[0]));
+                                static fn (array $item): bool => !$comparatorCallback($accessorCallback($value, $key))($accessorCallback($item[1], $item[0]));
 
-                            $matchFalse = (new MatchOne())()($matchWhenNot)($matcher)($stack);
+                            $every = (new Every())()(
+                                /**
+                                 * @param array{0: TKey, 1: T} $keyValuePair
+                                 */
+                                static fn (int $index, array $keyValuePair): bool => $matcher($keyValuePair)
+                            )($stack);
 
-                            if ($matchFalse->current()) {
+                            if (false === $every->current()) {
                                 return false;
                             }
 

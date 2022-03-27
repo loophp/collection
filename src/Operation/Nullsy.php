@@ -34,31 +34,15 @@ final class Nullsy extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        $matchWhenNot = static fn (): bool => false;
-        $matcher =
+        /** @var Closure(iterable<TKey, T>): Generator<int, bool> $every */
+        $every = (new Every())()(
             /**
-             * @param bool $value
+             * @param T $value
              */
-            static fn (bool $value): bool => in_array($value, self::VALUES, true);
-
-        /** @var Closure(iterable<TKey, T>): Generator<int, bool> $pipe */
-        $pipe = (new Pipe())()(
-            (new Map())()(
-                /**
-                 * @param T $value
-                 */
-                static fn ($value): bool => (bool) $value
-            ),
-            (new MatchOne())()($matchWhenNot)($matcher),
-            (new Map())()(
-                /**
-                 * @param bool $value
-                 */
-                static fn (bool $value): bool => !$value
-            ),
+            static fn (int $index, $value): bool => in_array((bool) $value, self::VALUES, true)
         );
 
         // Point free style.
-        return $pipe;
+        return $every;
     }
 }
