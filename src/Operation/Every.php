@@ -24,41 +24,33 @@ use loophp\collection\Utils\CallbacksArrayReducer;
 final class Every extends AbstractOperation
 {
     /**
-     * @return Closure(callable(int=, T=, TKey=, iterable<TKey, T>=): bool): Closure(callable(bool, int, T, TKey, iterable<TKey, T>...): mixed): Closure(iterable<TKey, T>): Generator<int, mixed>
+     * @return Closure(...callable(int=, T=, TKey=, iterable<TKey, T>=): bool): Closure(iterable<TKey, T>): Generator<int, bool>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable(int=, T=, TKey=, iterable<TKey, T>=): bool $predicate
+             * @param callable(int=, T=, TKey=, iterable<TKey, T>=): bool ...$predicates
              *
-             * @return Closure(callable(bool, int, T=, TKey=, iterable<TKey, T>=): mixed): Closure(iterable<TKey, T>): Generator<int, mixed>
+             * @return Closure(iterable<TKey, T>): Generator<int, bool>
              */
             static function (callable ...$predicates): Closure {
                 return
                     /**
-                     * @param callable(bool, int, T=, TKey=, iterable<TKey, T>=): mixed $return
+                     * @param iterable<TKey, T> $iterable
                      *
-                     * @return Closure(iterable<TKey, T>): Generator<int, mixed>
+                     * @return Generator<int, bool>
                      */
-                    static function (callable $return) use ($predicates): Closure {
-                        return
-                            /**
-                             * @param iterable<TKey, T> $iterable
-                             *
-                             * @return Generator<int, mixed>
-                             */
-                            static function (iterable $iterable) use ($return, $predicates): Generator {
-                                $predicate = CallbacksArrayReducer::or()($predicates);
+                    static function (iterable $iterable) use ($predicates): Generator {
+                        $predicate = CallbacksArrayReducer::or()($predicates);
 
-                                foreach ((new Pack())()($iterable) as $index => [$key, $value]) {
-                                    if (false === $predicate($index, $value, $key, $iterable)) {
-                                        return yield $return(false, $index, $value, $key, $iterable);
-                                    }
-                                }
+                        foreach ((new Pack())()($iterable) as $index => [$key, $value]) {
+                            if (false === $predicate($index, $value, $key, $iterable)) {
+                                return yield $index => false;
+                            }
+                        }
 
-                                return yield true;
-                            };
+                        yield true;
                     };
             };
     }

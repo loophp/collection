@@ -62,7 +62,7 @@ final class Equals extends AbstractOperation
                          */
                         static fn (int $index, $current): bool => (new Contains())()($current)($otherAggregate)->current();
 
-                    yield from (new Every())()($containsCallback)(static fn (bool $i): bool => $i)($iteratorAggregate);
+                    yield from (new Every())()($containsCallback)($iteratorAggregate);
                 };
             };
     }
