@@ -361,7 +361,7 @@ final class Collection implements CollectionInterface
 
     public function every(callable ...$callbacks): bool
     {
-        return (new Every())()(static fn (int $index, $value, $key, iterable $iterable) => CallbacksArrayReducer::or()($callbacks)($value, $key, $iterable))(static fn (bool $r): bool => $r)($this)
+        return (new Every())()(static fn (int $index, $value, $key, iterable $iterable) => CallbacksArrayReducer::or()($callbacks)($value, $key, $iterable))($this)
             ->current();
     }
 

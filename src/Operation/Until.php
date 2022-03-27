@@ -52,9 +52,9 @@ final class Until extends AbstractOperation
                          * @param iterable<TKey, T> $iterable
                          */
                         static fn (int $index, $value, $key, iterable $iterable): bool => !CallbacksArrayReducer::or()($callbacks)($value, $key, $iterable)
-                    )(static fn (bool $r, int $index): int => $index)($iteratorAggregate);
+                    )($iteratorAggregate);
 
-                    $size = (true === $current = $every->current()) ? -1 : $current + 1;
+                    $size = (true === $every->current()) ? -1 : $every->key() + 1;
 
                     yield from (new Limit())()($size)(0)($iteratorAggregate);
                 };

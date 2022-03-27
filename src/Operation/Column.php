@@ -34,19 +34,15 @@ final class Column extends AbstractOperation
             static function ($column): Closure {
                 $filterCallbackBuilder =
                     /**
-                     * @param mixed $column
+                     * @param T $value
+                     * @param TKey $key
                      */
-                    static fn ($column): Closure =>
-                        /**
-                         * @param T $value
-                         * @param TKey $key
-                         */
-                        static fn ($value, $key): bool => $key === $column;
+                    static fn ($value, $key): bool => $key === $column;
 
                 /** @var Closure(iterable<TKey, T>): Generator<int, mixed> $pipe */
                 $pipe = (new Pipe())()(
                     (new Transpose())(),
-                    (new Filter())()($filterCallbackBuilder($column)),
+                    (new Filter())()($filterCallbackBuilder),
                     (new Head())(),
                     (new Flatten())()(1)
                 );

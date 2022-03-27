@@ -58,7 +58,7 @@ final class ScanLeft1 extends AbstractOperation
                         (new Prepend())()($initial)
                     );
 
-                    yield from $pipe($iteratorAggregate->getIterator());
+                    yield from $pipe($iteratorAggregate);
                 };
     }
 }
