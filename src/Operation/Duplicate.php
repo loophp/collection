@@ -52,16 +52,15 @@ final class Duplicate extends AbstractOperation
                          * @param TKey $key
                          */
                         static function ($value, $key) use ($comparatorCallback, $accessorCallback, $stack): bool {
-                            $matchWhenNot = static fn (): bool => true;
                             $matcher =
                                 /**
                                  * @param array{0: TKey, 1: T} $item
                                  */
-                                static fn (array $item): bool => $comparatorCallback($accessorCallback($value, $key))($accessorCallback($item[1], $item[0]));
+                                static fn (int $index, array $item): bool => !$comparatorCallback($accessorCallback($value, $key))($accessorCallback($item[1], $item[0]));
 
-                            $matchFalse = (new MatchOne())()($matchWhenNot)($matcher)($stack);
+                            $every = (new Every())()($matcher)($stack)->current();
 
-                            if ($matchFalse->current()) {
+                            if (false === $every) {
                                 return true;
                             }
 

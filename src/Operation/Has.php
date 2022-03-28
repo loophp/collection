@@ -34,8 +34,8 @@ final class Has extends AbstractOperation
              * @return Closure(iterable<TKey, T>): Generator<TKey, bool>
              */
             static function (callable ...$callbacks): Closure {
-                /** @var Closure(iterable<TKey, T>): Generator<TKey, bool> $pipe */
-                $pipe = (new MatchOne())()(static fn (): bool => true)(
+                /** @var Closure(iterable<TKey, T>): Generator<TKey, bool> $matchOne */
+                $matchOne = (new MatchOne())()(static fn (): bool => true)(
                     ...array_map(
                         static fn (callable $callback): callable =>
                             /**
@@ -49,7 +49,7 @@ final class Has extends AbstractOperation
                 );
 
                 // Point free style.
-                return $pipe;
+                return $matchOne;
             };
     }
 }

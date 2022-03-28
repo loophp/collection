@@ -11,6 +11,7 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
+use function in_array;
 
 /**
  * @immutable
@@ -32,18 +33,14 @@ final class Contains extends AbstractOperation
              * @return Closure(iterable<TKey, T>): Generator<TKey, bool>
              */
             static function (...$values): Closure {
-                $callback =
+                $matchWhen =
                     /**
-                     * @param T $left
+                     * @param T $value
                      */
-                    static fn ($left): Closure =>
-                        /**
-                         * @param T $right
-                         */
-                        static fn ($right): bool => $left === $right;
+                    static fn ($value): bool => in_array($value, $values, true);
 
                 /** @var Closure(iterable<TKey, T>): Generator<TKey, bool> $matchOne */
-                $matchOne = (new MatchOne())()(static fn (): bool => true)(...array_map($callback, $values));
+                $matchOne = (new MatchOne())()(static fn (): bool => true)($matchWhen);
 
                 // Point free style.
                 return $matchOne;
