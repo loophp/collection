@@ -11,6 +11,7 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
+
 use function in_array;
 
 /**
