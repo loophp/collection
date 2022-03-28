@@ -312,6 +312,25 @@ Signature: ``Collection::asyncMapN(callable ...$callbacks): Collection;``
     $collection = Collection::fromIterable(['c' => 3, 'b' => 2, 'a' => 1])
         ->asyncMapN($mapper1, $mapper2); // ['a' => 2, 'b' => 4, 'c' => 6]
 
+averages
+~~~~~~~~
+
+Calculate the average of a collection of numbers.
+
+The average constitute the result obtained by adding together several amounts
+and then dividing this total by the number of amounts.
+
+Based on `scanLeft1`, this operation will return the average at each iteration.
+Therefore, if you're looking for one single result, you must get the last item
+using `last` operation.
+
+Interface: `Averagesable`_
+
+Signature: ``Collection::averages(): Collection;``
+
+.. literalinclude:: code/operations/averages.php
+  :language: php
+
 cache
 ~~~~~
 
@@ -2486,6 +2505,7 @@ Signature: ``Collection::zip(iterable ...$iterables): Collection;``
 .. _Associateable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Associateable.php
 .. _AsyncMapable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/AsyncMapable.php
 .. _AsyncMapNable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/AsyncMapNable.php
+.. _Averagesable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Averagesable.php
 .. _Cacheable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Cacheable.php
 .. _Chunkable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Chunkable.php
 .. _Collapseable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Collapseable.php

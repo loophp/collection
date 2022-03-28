@@ -18,6 +18,7 @@ use loophp\collection\Contract\Operation\Applyable;
 use loophp\collection\Contract\Operation\Associateable;
 use loophp\collection\Contract\Operation\AsyncMapable;
 use loophp\collection\Contract\Operation\AsyncMapNable;
+use loophp\collection\Contract\Operation\Averagesable;
 use loophp\collection\Contract\Operation\Cacheable;
 use loophp\collection\Contract\Operation\Chunkable;
 use loophp\collection\Contract\Operation\Coalesceable;
@@ -142,6 +143,7 @@ use Traversable;
  * @template-extends Associateable<TKey, T>
  * @template-extends AsyncMapable<TKey, T>
  * @template-extends AsyncMapNable<TKey, T>
+ * @template-extends Averagesable<TKey, T>
  * @template-extends Cacheable<TKey, T>
  * @template-extends Chunkable<TKey, T>
  * @template-extends Coalesceable<TKey, T>
@@ -259,6 +261,7 @@ interface Collection extends
     Associateable,
     AsyncMapable,
     AsyncMapNable,
+    Averagesable,
     Cacheable,
     Chunkable,
     Coalesceable,

@@ -21,6 +21,7 @@ use loophp\collection\Operation\Apply;
 use loophp\collection\Operation\Associate;
 use loophp\collection\Operation\AsyncMap;
 use loophp\collection\Operation\AsyncMapN;
+use loophp\collection\Operation\Averages;
 use loophp\collection\Operation\Cache;
 use loophp\collection\Operation\Chunk;
 use loophp\collection\Operation\Coalesce;
@@ -207,6 +208,11 @@ final class Collection implements CollectionInterface
     public function asyncMapN(callable ...$callbacks): CollectionInterface
     {
         return new self((new AsyncMapN())()(...$callbacks), [$this]);
+    }
+
+    public function averages(): CollectionInterface
+    {
+        return new self((new Averages())(), [$this]);
     }
 
     public function cache(?CacheItemPoolInterface $cache = null): CollectionInterface
