@@ -97,6 +97,7 @@ final class CallbacksArrayReducerTest extends TestCase
 
         yield [
             [
+                static fn (): bool => false,
             ],
             [],
             [],
