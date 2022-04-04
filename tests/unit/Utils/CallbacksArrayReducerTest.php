@@ -94,6 +94,15 @@ final class CallbacksArrayReducerTest extends TestCase
             range(0, 10),
             true,
         ];
+
+        yield [
+            [
+            ],
+            [],
+            [],
+            [],
+            false,
+        ];
     }
 
     /**
