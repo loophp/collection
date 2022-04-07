@@ -34,20 +34,12 @@ final class Diff extends AbstractOperation
              * @return Closure(iterable<TKey, T>): Generator<TKey, T>
              */
             static function (...$values): Closure {
-                $filterCallbackFactory =
+                return (new Filter())()(
                     /**
-                     * @param list<T> $values
+                     * @param T $value
                      */
-                    static fn (array $values): Closure =>
-                        /**
-                         * @param T $value
-                         */
-                        static fn ($value): bool => !in_array($value, $values, true);
-
-                $filter = (new Filter())()($filterCallbackFactory($values));
-
-                // Point free style.
-                return $filter;
+                    static fn ($value): bool => !in_array($value, $values, true)
+                );
             };
     }
 }

@@ -32,15 +32,7 @@ final class Unwindow extends AbstractOperation
              *
              * @return T|null
              */
-            static function (iterable $iterable) {
-                $value = null;
-
-                foreach ($iterable as $iterValue) {
-                    $value = $iterValue;
-                }
-
-                return $value;
-            }
+            static fn (iterable $iterable) => (new Last())()($iterable)->current()
         );
 
         // Point free style.

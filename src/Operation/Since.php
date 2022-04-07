@@ -12,6 +12,8 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use loophp\collection\Utils\CallbacksArrayReducer;
+use loophp\iterators\CachingIteratorAggregate;
+use loophp\iterators\IterableIteratorAggregate;
 
 /**
  * @immutable
@@ -41,21 +43,19 @@ final class Since extends AbstractOperation
                  * @return Generator<TKey, T>
                  */
                 static function (iterable $iterable) use ($callbacks): Generator {
-                    $skip = false;
-                    $callback = CallbacksArrayReducer::or()($callbacks);
+                    $iteratorAggregate = (new CachingIteratorAggregate((new IterableIteratorAggregate($iterable))->getIterator()));
 
-                    foreach ($iterable as $key => $current) {
-                        if (false === $skip) {
-                            if (true === $callback($current, $key, $iterable)) {
-                                $skip = true;
+                    $every = (new Every())()(
+                        /**
+                         * @param T $value
+                         * @param TKey $key
+                         * @param iterable<TKey, T> $iterable
+                         */
+                        static fn (int $index, $value, $key, iterable $iterable): bool => !CallbacksArrayReducer::or()($callbacks)($value, $key, $iterable)
+                    )($iteratorAggregate);
 
-                                yield $key => $current;
-                            }
-
-                            continue;
-                        }
-
-                        yield $key => $current;
+                    if (false === $every->current()) {
+                        return yield from (new Limit())()(-1)($every->key())($iteratorAggregate);
                     }
                 };
     }

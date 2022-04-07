@@ -46,9 +46,8 @@ final class ScanRight extends AbstractOperation
                     /** @var Closure(iterable<TKey, T>): Generator<int|TKey, V|W> $pipe */
                     $pipe = (new Pipe())()(
                         (new Reverse())(),
-                        (new Reduction())()($callback)($initial),
-                        (new Reverse())(),
-                        (new Append())()($initial)
+                        (new ScanLeft())()($callback)($initial),
+                        (new Reverse())()
                     );
 
                     // Point free style.

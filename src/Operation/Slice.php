@@ -35,7 +35,7 @@ final class Slice extends AbstractOperation
                  */
                 static function (int $length = -1) use ($offset): Closure {
                     /** @var Closure(iterable<TKey, T>): Generator<TKey, T> $skip */
-                    $skip = (new Drop())()($offset);
+                    $skip = (new Limit())()(-1)($offset);
 
                     if (-1 === $length) {
                         return $skip;

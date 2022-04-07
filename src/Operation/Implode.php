@@ -35,7 +35,7 @@ final class Implode extends AbstractOperation
                 /** @var Closure(iterable<TKey, T>): Generator<TKey, string> $pipe */
                 $pipe = (new Pipe())()(
                     (new Intersperse())()($glue)(1)(0),
-                    (new Drop())()(1),
+                    (new Limit())()(-1)(1),
                     (new Reduce())()(
                         /**
                          * @param string|T $item

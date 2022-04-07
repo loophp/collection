@@ -25,16 +25,15 @@ final class Words extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        $mapCallback =
-            /**
-             * @param list<string> $value
-             */
-            static fn (array $value): string => implode('', $value);
-
         /** @var Closure(iterable<TKey, T>): Generator<TKey, string> $pipe */
         $pipe = (new Pipe())()(
             (new Explode())()("\t", "\n", ' '),
-            (new Map())()($mapCallback),
+            (new Map())()(
+                /**
+                 * @param list<string> $value
+                 */
+                static fn (array $value): string => implode('', $value)
+            ),
             (new Compact())()()
         );
 

@@ -44,8 +44,10 @@ final class Filter extends AbstractOperation
                     $defaultCallback =
                         /**
                          * @param T $value
+                         *
+                         * @return T
                          */
-                        static fn ($value): bool => (bool) $value;
+                        static fn ($value) => $value;
 
                     $callbacks = [] === $callbacks ?
                         [$defaultCallback] :
