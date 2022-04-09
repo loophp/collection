@@ -40,19 +40,15 @@ final class Combine extends AbstractOperation
             static function (...$keys): Closure {
                 $buildMultipleIterable =
                     /**
-                     * @param array<array-key, U> $keys
+                     * @param iterable<TKey, T> $iterable
+                     *
+                     * @return Generator
                      */
-                    static fn (array $keys): Closure =>
-                        /**
-                         * @param iterable<TKey, T> $iterable
-                         *
-                         * @return Generator
-                         */
-                        static fn (iterable $iterable): Generator => yield from new MultipleIterableAggregate([$keys, $iterable], MultipleIterator::MIT_NEED_ANY);
+                    static fn (iterable $iterable): Generator => yield from new MultipleIterableAggregate([$keys, $iterable], MultipleIterator::MIT_NEED_ANY);
 
                 /** @var Closure(iterable<TKey, T>): Generator<null|U, null|T> $pipe */
                 $pipe = (new Pipe())()(
-                    $buildMultipleIterable($keys),
+                    $buildMultipleIterable,
                     (new Flatten())()(1),
                     (new Pair())(),
                 );
