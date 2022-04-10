@@ -34,16 +34,13 @@ final class IntersectKeys extends AbstractOperation
              * @return Closure(iterable<TKey, T>): Generator<TKey, T>
              */
             static function (...$keys): Closure {
-                $filter = (new Filter())()(
+                return (new Filter())()(
                     /**
                      * @param T $value
                      * @param TKey $key
                      */
                     static fn ($value, $key): bool => in_array($key, $keys, true)
                 );
-
-                // Point free style.
-                return $filter;
             };
     }
 }
