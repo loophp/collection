@@ -25,28 +25,22 @@ final class Flip extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        $callbackForKeys =
+        return (new Associate())()(
             /**
              * @param TKey $key
              * @param T $value
              *
              * @return T
              */
-            static fn ($key, $value) => $value;
-
-        $callbackForValues =
+            static fn ($key, $value) => $value
+        )(
             /**
              * @param T $value
              * @param TKey $key
              *
              * @return TKey
              */
-            static fn ($value, $key) => $key;
-
-        /** @var Closure(iterable<TKey, T>): Generator<T, TKey> $associate */
-        $associate = (new Associate())()($callbackForKeys)($callbackForValues);
-
-        // Point free style.
-        return $associate;
+            static fn ($value, $key) => $key
+        );
     }
 }

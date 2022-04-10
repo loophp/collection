@@ -34,15 +34,11 @@ final class Nullsy extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        /** @var Closure(iterable<TKey, T>): Generator<int, bool> $every */
-        $every = (new Every())()(
+        return (new Every())()(
             /**
              * @param T $value
              */
             static fn (int $index, $value): bool => in_array((bool) $value, self::VALUES, true)
         );
-
-        // Point free style.
-        return $every;
     }
 }

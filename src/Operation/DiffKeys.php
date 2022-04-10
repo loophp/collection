@@ -33,14 +33,12 @@ final class DiffKeys extends AbstractOperation
              *
              * @return Closure(iterable<TKey, T>): Generator<TKey, T>
              */
-            static function (...$keys): Closure {
-                return (new Filter())()(
-                    /**
-                     * @param T $value
-                     * @param TKey $key
-                     */
-                    static fn ($value, $key): bool => !in_array($key, $keys, true)
-                );
-            };
+            static fn (...$keys): Closure => (new Filter())()(
+                /**
+                 * @param T $value
+                 * @param TKey $key
+                 */
+                static fn ($value, $key): bool => !in_array($key, $keys, true)
+            );
     }
 }

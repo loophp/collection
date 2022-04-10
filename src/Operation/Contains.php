@@ -33,18 +33,11 @@ final class Contains extends AbstractOperation
              *
              * @return Closure(iterable<TKey, T>): Generator<TKey, bool>
              */
-            static function (...$values): Closure {
-                $matchWhen =
-                    /**
-                     * @param T $value
-                     */
-                    static fn ($value): bool => in_array($value, $values, true);
-
-                /** @var Closure(iterable<TKey, T>): Generator<TKey, bool> $matchOne */
-                $matchOne = (new MatchOne())()(static fn (): bool => true)($matchWhen);
-
-                // Point free style.
-                return $matchOne;
-            };
+            static fn (...$values): Closure => (new MatchOne())()(static fn (): bool => true)(
+                /**
+                 * @param T $value
+                 */
+                static fn ($value): bool => in_array($value, $values, true)
+            );
     }
 }

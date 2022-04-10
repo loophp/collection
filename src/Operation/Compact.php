@@ -46,16 +46,13 @@ final class Compact extends AbstractOperation
                          */
                         static fn ($value): bool => !in_array($value, $values, true);
 
-                $filter = (new Filter())()(
+                return (new Filter())()(
                     $filterCallback(
                         [] === $values ?
                             Nullsy::VALUES :
                             $values
                     )
                 );
-
-                // Point free style.
-                return $filter;
             };
     }
 }

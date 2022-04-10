@@ -45,7 +45,7 @@ final class Reject extends AbstractOperation
                     [] === $callbacks ? [$defaultCallback] : $callbacks
                 );
 
-                $reject = (new Filter())()(
+                return (new Filter())()(
                     /**
                      * @param T $current
                      * @param TKey $key
@@ -53,9 +53,6 @@ final class Reject extends AbstractOperation
                      */
                     static fn ($current, $key, iterable $iterable): bool => !$callback($current, $key, $iterable)
                 );
-
-                // Point free style.
-                return $reject;
             };
     }
 }

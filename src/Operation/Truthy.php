@@ -25,15 +25,11 @@ final class Truthy extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        /** @var Closure(iterable<TKey, T>): Generator<int, bool> $every */
-        $every = (new Every())()(
+        return (new Every())()(
             /**
              * @param T $value
              */
             static fn (int $index, $value): bool => (bool) $value
         );
-
-        // Point free style.
-        return $every;
     }
 }

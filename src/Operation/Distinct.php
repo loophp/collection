@@ -46,7 +46,7 @@ final class Distinct extends AbstractOperation
                     /** @var ArrayIterator<int, array{0: TKey, 1: T}> $stack */
                     $stack = new ArrayIterator();
 
-                    $filter = (new Filter())()(
+                    return (new Filter())()(
                         /**
                          * @param T $value
                          * @param TKey $key
@@ -68,9 +68,6 @@ final class Distinct extends AbstractOperation
                             return true;
                         }
                     );
-
-                    // Point free style.
-                    return $filter;
                 };
     }
 }
