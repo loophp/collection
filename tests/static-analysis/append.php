@@ -64,19 +64,18 @@ append_checkListWithMap(Collection::fromIterable([1 => $foo])->append($bar));
 
 // These should work but they don't due to the way analysers interpret empty()
 // or variadic parameters of different types passed to append()
-/** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
+/** @psalm-suppress InvalidArgument */
 append_checkMixed(Collection::empty()->append(1, '2'));
 /** @psalm-suppress InvalidArgument */
 append_checkMixed(Collection::empty()->append(...[1, '2']));
-/** @phpstan-ignore-next-line */
 append_checkMixed(Collection::fromIterable(['foo' => 1, 'bar' => '2'])->append(1, '3'));
 
 // ## VALID FAILURE ###
-append_checkList(Collection::empty()->append(1, 'foo')); // @phpstan-ignore-line
+append_checkList(Collection::empty()->append(1, 'foo'));
 append_checkList(Collection::fromIterable([5])->append('foo')); // @phpstan-ignore-line
 append_checkList(Collection::fromIterable([5])->append('foo', 1)); // @phpstan-ignore-line
 
-/** @psalm-suppress InvalidScalarArgument @phpstan-ignore-next-line */
+/** @psalm-suppress InvalidScalarArgument */
 append_checkListWithMap(Collection::empty()->append($foo, ['bar' => 'baz']));
 /** @psalm-suppress InvalidScalarArgument @phpstan-ignore-next-line */
 append_checkListWithMap(Collection::fromIterable([1 => $foo])->append(['bar' => 'baz']));
@@ -89,7 +88,7 @@ append_checkListWithMap(Collection::fromIterable([1 => $foo])->append(['bar' => 
  */
 append_checkMap(Collection::fromIterable($foo)->append(3));
 
-/** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
+/** @psalm-suppress InvalidArgument */
 append_checkMixed(Collection::empty()->append(1, [3]));
 /** @psalm-suppress InvalidArgument */
 append_checkMixed(Collection::empty()->append(...[1, [3]]));

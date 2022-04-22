@@ -62,5 +62,4 @@ zip_checkBoolBool(Collection::fromIterable($generator())->zip($generator(), $gen
 
 // With two parameters of different types
 // Fails with PHPStan, not in PSalm.
-/** @phpstan-ignore-next-line */
 zip_checkBoolStringInt(Collection::fromIterable($generator())->zip(range('a', 'c'), range(1, 3)));
