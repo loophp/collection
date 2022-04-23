@@ -4044,11 +4044,11 @@ trait GenericCollectionProviders
         $operation = 'unpack';
 
         $input = [
-            ['a', 'a'],
-            ['b', 'b'],
-            ['c', 'c'],
-            ['d', 'd'],
-            ['e', 'e'],
+            ['A', 'a'],
+            ['B', 'b'],
+            ['C', 'c'],
+            ['D', 'd'],
+            ['E', 'e'],
         ];
 
         yield [
@@ -4056,30 +4056,11 @@ trait GenericCollectionProviders
             [],
             $input,
             [
-                'a' => 'a',
-                'b' => 'b',
-                'c' => 'c',
-                'd' => 'd',
-                'e' => 'e',
-            ],
-        ];
-
-        $input = [
-            ['a', 'b', 'c' => 'c', 'd' => 'd'],
-            ['e', 'f', 'g' => 'g', 'h' => 'h'],
-            ['i', 'j'],
-        ];
-
-        yield [
-            $operation,
-            [],
-            $input,
-            [
-                'a' => 'b',
-                'c' => 'd',
-                'e' => 'f',
-                'g' => 'h',
-                'i' => 'j',
+                'A' => 'a',
+                'B' => 'b',
+                'C' => 'c',
+                'D' => 'd',
+                'E' => 'e',
             ],
         ];
     }
