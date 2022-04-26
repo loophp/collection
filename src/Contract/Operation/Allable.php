@@ -22,7 +22,6 @@ interface Allable
      *
      * @param bool $normalize
      *
-     * @return list<T>|array<TKey, T>
      * @psalm-return ($normalize is true ? list<T> : array<TKey, T>)
      */
     public function all(bool $normalize = true): array;

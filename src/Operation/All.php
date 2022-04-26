@@ -29,7 +29,7 @@ final class All extends AbstractOperation
     {
         return
             /**
-             * @return Closure(iterable<TKey, T>): iterable<int, T>|iterable<TKey, T>
+             * @return Closure(iterable<TKey, T>): Generator<int, T>|Generator<TKey, T>
              */
             static fn (bool $normalize): Closure =>
                 /**

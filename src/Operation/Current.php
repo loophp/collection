@@ -23,14 +23,12 @@ final class Current extends AbstractOperation
     /**
      * @template V
      *
-     * @return Closure(TKey): Closure(V): Closure(iterable<TKey, T>): Generator<int, T|V>
+     * @return Closure(int): Closure(V): Closure(iterable<TKey, T>): Generator<int, T|V>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param TKey $index
-             *
              * @return Closure(V): Closure(iterable<TKey, T>): Generator<int, T|V>
              */
             static fn (int $index): Closure =>

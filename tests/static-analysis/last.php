@@ -49,8 +49,8 @@ last_checkNullableString(Collection::fromIterable(['foo' => 'bar', 'baz' => 'bar
 // This retrieval method doesn't cause static analysis complaints
 // but is not always reliable because of that.
 last_checkIntElement(Collection::fromIterable([1, 2, 3])->last()->all()[0]);
-last_checkStringElement(Collection::fromIterable(['foo' => 'bar', 'baz' => 'bar'])->last()->all()['foo']);
-last_checkStringElement(Collection::fromIterable(['foo' => 'bar', 'baz' => 'bar'])->last()->all()['baz']);
+last_checkStringElement(Collection::fromIterable(['foo' => 'bar', 'baz' => 'bar'])->last()->all(false)['foo']);
+last_checkStringElement(Collection::fromIterable(['foo' => 'bar', 'baz' => 'bar'])->last()->all(false)['baz']);
 
 // VALID failures - `current` returns T|null
 /** @psalm-suppress NullArgument @phpstan-ignore-next-line */
@@ -61,5 +61,5 @@ last_checkStringElement(Collection::fromIterable(['foo' => 'bar'])->last()->curr
 // VALID failures - these keys don't exist
 /** @psalm-suppress InvalidArrayOffset */
 last_checkIntElement(Collection::fromIterable([1, 2, 3])->last()->all(false)[4]);
-/** @psalm-suppress InvalidArrayOffset */
+/** @psalm-suppress InvalidArrayOffset @phpstan-ignore-next-line */
 last_checkStringElement(Collection::fromIterable(['foo' => 'bar', 'baz' => 'bar'])->last()->all(false)[0]);

@@ -49,8 +49,8 @@ first_checkNullableString(Collection::fromIterable(['foo' => 'bar', 'baz' => 'ba
 // This retrieval method doesn't cause static analysis complaints
 // but is not always reliable because of that.
 first_checkIntElement(Collection::fromIterable([1, 2, 3])->first()->all()[0]);
-first_checkStringElement(Collection::fromIterable(['foo' => 'bar', 'baz' => 'bar'])->first()->all()['foo']);
-first_checkStringElement(Collection::fromIterable(['foo' => 'bar', 'baz' => 'bar'])->first()->all()['baz']);
+first_checkStringElement(Collection::fromIterable(['foo' => 'bar', 'baz' => 'bar'])->first()->all(false)['foo']);
+first_checkStringElement(Collection::fromIterable(['foo' => 'bar', 'baz' => 'bar'])->first()->all(false)['baz']);
 
 // VALID failures - `current` returns T|null
 /** @psalm-suppress NullArgument @phpstan-ignore-next-line */
@@ -61,5 +61,5 @@ first_checkStringElement(Collection::fromIterable(['foo' => 'bar'])->first()->cu
 // VALID failures - these keys don't exist
 /** @psalm-suppress InvalidArrayOffset */
 first_checkIntElement(Collection::fromIterable([1, 2, 3])->first()->all(false)[4]);
-/** @psalm-suppress InvalidArrayOffset */
+/** @psalm-suppress InvalidArrayOffset @phpstan-ignore-next-line */
 first_checkStringElement(Collection::fromIterable(['foo' => 'bar', 'baz' => 'bar'])->first()->all(false)[0]);
