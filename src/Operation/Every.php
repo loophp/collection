@@ -44,7 +44,10 @@ final class Every extends AbstractOperation
                     static function (iterable $iterable) use ($predicates): Generator {
                         $predicate = CallbacksArrayReducer::or()($predicates);
 
-                        foreach ((new Pack())()($iterable) as $index => [$key, $value]) {
+                        /** @var Generator<int, array{0: TKey, 1:T}> $packed */
+                        $packed = (new Pack())()($iterable);
+
+                        foreach ($packed as $index => [$key, $value]) {
                             if (false === $predicate($index, $value, $key, $iterable)) {
                                 return yield $index => false;
                             }

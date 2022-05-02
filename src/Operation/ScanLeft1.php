@@ -38,6 +38,8 @@ final class ScanLeft1 extends AbstractOperation
              */
             static fn (callable $callback): Closure =>
                 /**
+                 * @param iterable<TKey, T> $iterable
+                 *
                  * @return Generator<int|TKey, T|V>
                  */
                 static function (iterable $iterable) use ($callback): Generator {

@@ -25,17 +25,27 @@ final class Unwindow extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        /** @var Closure(iterable<TKey, list<T>>): Generator<TKey, T|null> $unwindow */
-        $unwindow = (new Map())()(
-            /**
-             * @param list<T> $iterable
-             *
-             * @return T|null
-             */
-            static fn (iterable $iterable) => (new Last())()($iterable)->current()
+        /** @var Closure(iterable<TKey, list<T>>): Generator<TKey, T|null> $pipe */
+        $pipe = (new Pipe())()(
+            (new Map())()(
+                /**
+                 * @param list<T> $iterable
+                 *
+                 * @return Generator<TKey, T>
+                 */
+                static fn (iterable $iterable): Generator => (new Last())()($iterable)
+            ),
+            (new Map())()(
+                /**
+                 * @param Generator<TKey, T> $iterable
+                 *
+                 * @return T|null
+                 */
+                static fn (Generator $iterable) => $iterable->current()
+            ),
         );
 
         // Point free style.
-        return $unwindow;
+        return $pipe;
     }
 }
