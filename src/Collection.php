@@ -519,7 +519,7 @@ final class Collection implements CollectionInterface
      */
     public function getIterator(): Traversable
     {
-        return $this->innerIterator->getIterator();
+        yield from $this->innerIterator->getIterator();
     }
 
     public function group(): CollectionInterface
