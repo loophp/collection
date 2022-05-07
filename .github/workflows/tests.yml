@@ -33,7 +33,8 @@ jobs:
               uses: shivammathur/setup-php@2.18.1
               with:
                   php-version: ${{ matrix.php-versions }}
-                  extensions: gd,mbstring,pcov,xdebug
+                  coverage: pcov
+                  extensions: gd,mbstring
 
             - name: Get Composer Cache Directory
               id: composer-cache
