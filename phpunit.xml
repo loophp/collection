@@ -24,7 +24,6 @@
             <directory suffix=".php">src</directory>
         </include>
         <report>
-            <xml outputDirectory="build/logs/coverage/coverage-xml"/>
             <html outputDirectory="build/logs/coverage/html-coverage"/>
             <clover outputFile="build/logs/coverage/clover.xml"/>
         </report>
