@@ -19,7 +19,7 @@
         </testsuite>
     </testsuites>
 
-    <coverage pathCoverage="true" processUncoveredFiles="true">
+    <coverage processUncoveredFiles="true">
         <include>
             <directory suffix=".php">src</directory>
         </include>
