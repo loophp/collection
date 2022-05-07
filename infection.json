@@ -5,6 +5,7 @@
             "src"
         ]
     },
+    "tmpDir": "build/logs/coverage/coverage-xml",
     "logs": {
         "github": true,
         "text": "build/logs/infection/infection.log",
