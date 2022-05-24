@@ -3,10 +3,12 @@ Usage
 
 Find here some working examples.
 
-.. tip:: Read the section on :ref:`Working with keys and values` to better understand
-    the differences between working with Collection compared to normal PHP arrays.
+.. tip:: Read the section on :ref:`Working with keys and values` to better
+    understand the differences between working with Collection compared to
+    normal PHP arrays.
     The same principles apply to all :ref:`API methods <Methods (operations)>`,
-    giving you great power to manipulate various types of data if used correctly.
+    giving you great power to manipulate various types of data if used
+    correctly.
 
 Simple
 -------
@@ -29,8 +31,8 @@ be of any type!
 
 .. code-block:: php
 
-    // This following example is perfectly valid, despite that having array for keys
-    // in a regular PHP arrays is impossible.
+    // This following example is perfectly valid, despite that having array for
+    // keys in a regular PHP arrays is impossible.
     $input = static function () {
         yield ['a'] => 'a';
         yield ['b'] => 'b';
@@ -54,14 +56,14 @@ result. We can see that some data is missing, why?
         ->all(false); // [5 => 'e', 4 => 'd', 3 => 'c']
 
 The reason that the frequency analysis for letters 'a' and 'b' is missing
-is because when you call the method ``Collection::all()`` with a *false* parameter, 
-the collection converts the lazy collection into a regular PHP array, 
-and PHP doesn't allow having multiple time the same key; thus, it overrides 
+is because when you call the method ``Collection::all()`` with a *false*
+parameter, the collection converts the lazy collection into a regular PHP array,
+and PHP doesn't allow having multiple time the same key; thus, it overrides
 the previous data and there will be missing information in the resulting array.
 
 In order to prevent this, by default the ``all`` operation will also apply
-``normalize``, re-indexing and re-ordering the keys. However, this might not always
-be the desired outcome, like in this instance (see examples below).
+``normalize``, re-indexing and re-ordering the keys. However, this might not
+always be the desired outcome, like in this instance (see examples below).
 
 Other ways to circumvent this PHP array limitation:
 
@@ -76,15 +78,15 @@ It's up to you to decide which approach to take based on your use case.
 Serialization
 ~~~~~~~~~~~~~
 
-The collection object implements the `JsonSerializable`_ interface, thus allowing
-for JSON serialization using the built-in PHP function ``json_encode`` or a 
-custom serializer like the `Symfony Serializer`_.
+The collection object implements the `JsonSerializable`_ interface, thus
+allowing for JSON serialization using the built-in PHP function ``json_encode``
+or a custom serializer like the `Symfony Serializer`_.
 
-.. tip:: By default the collection is not normalized when serializing, which allows
-        its usage as an associative array. However, when it is used as a list and
-        there are missing keys, the ``normalize`` operation should be applied before
-        serialization; not doing so will likely not result in the desired outcome, as
-        shown in the example below.
+.. tip:: By default the collection is not normalized when serializing, which
+        allows its usage as an associative array. However, when it is used as a
+        list and there are missing keys, the ``normalize`` operation should be
+        applied before serialization; not doing so will likely not result in the
+        desired outcome, as shown in the example below.
 
 .. literalinclude:: code/serialization.php
   :language: php
@@ -134,6 +136,12 @@ Approximate the number Pi
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. literalinclude:: code/monte-carlo.php
+  :language: php
+
+Approximate the golden ratio
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. literalinclude:: code/goldenNumber.php
   :language: php
 
 Fibonacci sequence
@@ -188,6 +196,12 @@ Lazy json parsing
 ~~~~~~~~~~~~~~~~~
 
 .. literalinclude:: code/lazy-json-parsing.php
+  :language: php
+
+Calcultate N-Grams
+~~~~~~~~~~~~~~~~~~
+
+.. literalinclude:: code/ngrams.php
   :language: php
 
 .. _article: https://not-a-number.io/2019/php-composition-and-inheritance/
