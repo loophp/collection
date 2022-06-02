@@ -21,8 +21,6 @@ use Generator;
 final class Collapse extends AbstractOperation
 {
     /**
-     * @psalm-suppress ImpureFunctionCall - using Filter and Flatten as an internal tools, not returned.
-     *
      * @return Closure(iterable<TKey, (T|iterable<TKey, T>)>): Generator<TKey, T>
      */
     public function __invoke(): Closure
