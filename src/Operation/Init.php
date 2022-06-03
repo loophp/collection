@@ -11,7 +11,7 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use loophp\iterators\CachingIteratorAggregate;
+use loophp\iterators\SimpleCachingIteratorAggregate;
 
 /**
  * @immutable
@@ -34,9 +34,9 @@ final class Init extends AbstractOperation
             /**
              * @param T $value
              * @param TKey $key
-             * @param CachingIteratorAggregate<TKey, T> $iterator
+             * @param SimpleCachingIteratorAggregate<TKey, T> $iterator
              */
-            static fn ($value, $key, CachingIteratorAggregate $iterator): bool => $iterator->hasNext()
+            static fn ($value, $key, SimpleCachingIteratorAggregate $iterator): bool => $iterator->hasNext()
         );
 
         // Point free style.
