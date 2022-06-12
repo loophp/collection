@@ -75,7 +75,9 @@ use loophp\collection\Contract\Operation\Mapable;
 use loophp\collection\Contract\Operation\MapNable;
 use loophp\collection\Contract\Operation\Matchable;
 use loophp\collection\Contract\Operation\Matchingable;
+use loophp\collection\Contract\Operation\Maxable;
 use loophp\collection\Contract\Operation\Mergeable;
+use loophp\collection\Contract\Operation\Minable;
 use loophp\collection\Contract\Operation\Normalizeable;
 use loophp\collection\Contract\Operation\Nthable;
 use loophp\collection\Contract\Operation\Nullsyable;
@@ -200,7 +202,9 @@ use Traversable;
  * @template-extends MapNable<TKey, T>
  * @template-extends Matchable<TKey, T>
  * @template-extends Matchingable<TKey, T>
+ * @template-extends Maxable<TKey, T>
  * @template-extends Mergeable<TKey, T>
+ * @template-extends Minable<TKey, T>
  * @template-extends Normalizeable<TKey, T>
  * @template-extends Nthable<TKey, T>
  * @template-extends Nullsyable<TKey, T>
@@ -321,7 +325,9 @@ interface Collection extends
     MapNable,
     Matchable,
     Matchingable,
+    Maxable,
     Mergeable,
+    Minable,
     Normalizeable,
     Nthable,
     Nullsyable,

@@ -78,7 +78,9 @@ use loophp\collection\Operation\Map;
 use loophp\collection\Operation\MapN;
 use loophp\collection\Operation\Matching;
 use loophp\collection\Operation\MatchOne;
+use loophp\collection\Operation\Max;
 use loophp\collection\Operation\Merge;
+use loophp\collection\Operation\Min;
 use loophp\collection\Operation\Normalize;
 use loophp\collection\Operation\Nth;
 use loophp\collection\Operation\Nullsy;
@@ -643,9 +645,19 @@ final class Collection implements CollectionInterface
         return new self((new Matching())()($criteria), [$this]);
     }
 
+    public function max(?callable $callback = null): CollectionInterface
+    {
+        return new self((new Max())()($callback), [$this]);
+    }
+
     public function merge(iterable ...$sources): CollectionInterface
     {
         return new self((new Merge())()(...$sources), [$this]);
+    }
+
+    public function min(?callable $callback = null): CollectionInterface
+    {
+        return new self((new Min())()($callback), [$this]);
     }
 
     public function normalize(): CollectionInterface

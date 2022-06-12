@@ -2698,6 +2698,49 @@ trait GenericCollectionProviders
         ];
     }
 
+    /**
+     * @return iterable<array{0: string, 1: array, 2: iterable, 3: iterable}>
+     */
+    public function maxOperationProvider(): iterable
+    {
+        $operation = 'max';
+
+        yield [
+            $operation,
+            [],
+            [1, 2, 3, 4, 5],
+            [4 => 5],
+        ];
+
+        yield [
+            $operation,
+            [],
+            [-1, 200, -100, -3, -500],
+            [4 => 200],
+        ];
+
+        yield [
+            $operation,
+            [],
+            ['foo' => 'f', 'bar' => 'b', 'tar' => 't'],
+            ['tar' => 't'],
+        ];
+
+        $callback = static fn (stdClass $carry, stdClass $current): stdClass => $current->age > $carry->age
+            ? $current
+            : $carry;
+
+        $expected = (object) ['id' => 2, 'age' => 15];
+        $elem = [(object) ['id' => 1, 'age' => 5], $expected, (object) ['id' => 3, 'age' => 12]];
+
+        yield [
+            $operation,
+            [$callback],
+            $elem,
+            [2 => $expected],
+        ];
+    }
+
     public function mergeOperationProvider()
     {
         $parameter = static function () {
@@ -2725,6 +2768,49 @@ trait GenericCollectionProviders
             ],
             range('A', 'C'),
             $generator(),
+        ];
+    }
+
+    /**
+     * @return iterable<array{0: string, 1: array, 2: iterable, 3: iterable}>
+     */
+    public function minOperationProvider(): iterable
+    {
+        $operation = 'min';
+
+        yield [
+            $operation,
+            [],
+            [1, 2, 3, 4, 5],
+            [4 => 1],
+        ];
+
+        yield [
+            $operation,
+            [],
+            [1, 2, -100, 4, 5],
+            [4 => -100],
+        ];
+
+        yield [
+            $operation,
+            [],
+            ['foo' => 'f', 'bar' => 'b', 'tar' => 't'],
+            ['tar' => 'b'],
+        ];
+
+        $callback = static fn (stdClass $carry, stdClass $current): stdClass => $current->age < $carry->age
+            ? $current
+            : $carry;
+
+        $expected = (object) ['id' => 2, 'age' => 3];
+        $elem = [(object) ['id' => 1, 'age' => 5], $expected, (object) ['id' => 3, 'age' => 12]];
+
+        yield [
+            $operation,
+            [$callback],
+            $elem,
+            [2 => $expected],
         ];
     }
 

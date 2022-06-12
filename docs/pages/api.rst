@@ -1472,6 +1472,22 @@ Signature: ``Collection::matching(Criteria $criteria): Collection;``
 .. literalinclude:: code/operations/matching.php
   :language: php
 
+max
+~~~
+
+Generate the maximum value of the collection by successively applying the PHP ``max`` function
+to each pair of two elements. This comparison can be redefined by providing a callback
+that takes two arguments and returns the "highest" value.
+
+.. tip:: This operation is a specialised application of ``foldLeft1``.
+
+Interface: `Maxable`_
+
+Signature: ``Collection::max(?callable $callback = null): Collection;``
+
+.. literalinclude:: code/operations/max.php
+  :language: php
+
 merge
 ~~~~~
 
@@ -1490,6 +1506,22 @@ Signature: ``Collection::merge(iterable ...$sources): Collection;``
         ->merge(Collection::fromIterable(['d', 'e']);
 
     $collection->all() // ['a', 'b', 'c', 'd', 'e']
+
+min
+~~~
+
+Generate the minimum value of the collection by successively applying the PHP ``min`` function
+to each pair of two elements. This comparison can be redefined by providing a callback
+that takes two arguments and returns the "lowest" value.
+
+.. tip:: This operation is a specialised application of ``foldLeft1``.
+
+Interface: `Minable`_
+
+Signature: ``Collection::min(?callable $callback = null): Collection;``
+
+.. literalinclude:: code/operations/min.php
+  :language: php
 
 normalize
 ~~~~~~~~~
@@ -2562,7 +2594,9 @@ Signature: ``Collection::zip(iterable ...$iterables): Collection;``
 .. _MapNable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/MapNable.php
 .. _Matchable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Matchable.php
 .. _Matchingable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Matchingable.php
+.. _Maxable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Maxable.php
 .. _Mergeable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Mergeable.php
+.. _Minable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Minable.php
 .. _Normalizeable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Normalizeable.php
 .. _Nthable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Nthable.php
 .. _Nullsyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Nullsyable.php

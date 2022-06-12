@@ -79,6 +79,8 @@ final class CollectionGenericOperationTest extends TestCase
      * @dataProvider mapOperationProvider
      * @dataProvider mapNOperationProvider
      * @dataProvider matchingOperationProvider
+     * @dataProvider maxOperationProvider
+     * @dataProvider minOperationProvider
      * @dataProvider mergeOperationProvider
      * @dataProvider normalizeOperationProvider
      * @dataProvider nthOperationProvider
