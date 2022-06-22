@@ -19,15 +19,15 @@ interface Maxable
 {
     /**
      * Generate the maximum value of the collection by successively applying the PHP `max` function
-     * to each pair of two elements. This comparison can be redefined by providing a callback
-     * that takes two arguments and returns the "highest" value.
+     * to each pair of two elements.
+     *
+     * If custom logic is required to determine the maximum, such as when comparing objects,
+     * the `compare` operation can be used instead.
      *
      * @see https://www.php.net/manual/en/function.max.php
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#max
      *
-     * @param null|callable(T, T): T $callback
-     *
      * @return Collection<TKey, T>
      */
-    public function max(?callable $callback = null): Collection;
+    public function max(): Collection;
 }

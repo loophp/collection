@@ -27,6 +27,7 @@ use loophp\collection\Contract\Operation\Columnable;
 use loophp\collection\Contract\Operation\Combinateable;
 use loophp\collection\Contract\Operation\Combineable;
 use loophp\collection\Contract\Operation\Compactable;
+use loophp\collection\Contract\Operation\Comparable;
 use loophp\collection\Contract\Operation\Containsable;
 use loophp\collection\Contract\Operation\Currentable;
 use loophp\collection\Contract\Operation\Cycleable;
@@ -154,6 +155,7 @@ use Traversable;
  * @template-extends Combinateable<TKey, T>
  * @template-extends Combineable<TKey, T>
  * @template-extends Compactable<TKey, T>
+ * @template-extends Comparable<TKey, T>
  * @template-extends Containsable<TKey, T>
  * @template-extends Currentable<TKey, T>
  * @template-extends Cycleable<TKey, T>
@@ -274,6 +276,7 @@ interface Collection extends
     Combinateable,
     Combineable,
     Compactable,
+    Comparable,
     Containsable,
     Countable,
     Currentable,

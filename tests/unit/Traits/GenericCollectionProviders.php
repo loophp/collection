@@ -519,6 +519,54 @@ trait GenericCollectionProviders
         ];
     }
 
+    /**
+     * @return iterable<array{0: string, 1: array, 2: iterable, 3: iterable}>
+     */
+    public function compareOperationProvider(): iterable
+    {
+        $operation = 'compare';
+
+        $callback = static fn (int $left, int $right): int => $left < $right ? $left : $right;
+
+        yield [
+            $operation,
+            [$callback],
+            [1, 2, 3, 4, 5],
+            [4 => 1],
+        ];
+
+        $callback = static fn (int $left, int $right): int => $left > $right ? $left : $right;
+
+        yield [
+            $operation,
+            [$callback],
+            [1, 2, 3, 4, 5],
+            [4 => 5],
+        ];
+
+        $callback = static fn (string $left, string $right): string => min($left, $right);
+
+        yield [
+            $operation,
+            [$callback],
+            ['foo' => 'f', 'bar' => 'b', 'tar' => 't'],
+            ['tar' => 'b'],
+        ];
+
+        $callback = static fn (stdClass $carry, stdClass $current): stdClass => $current->age < $carry->age
+            ? $current
+            : $carry;
+
+        $expected = (object) ['id' => 2, 'age' => 3];
+
+        yield [
+            $operation,
+            [$callback],
+            [(object) ['id' => 1, 'age' => 5], $expected, (object) ['id' => 3, 'age' => 12]],
+            [2 => $expected],
+        ];
+    }
+
     public function containsOperationProvider()
     {
         $operation = 'contains';
@@ -2725,20 +2773,6 @@ trait GenericCollectionProviders
             ['foo' => 'f', 'bar' => 'b', 'tar' => 't'],
             ['tar' => 't'],
         ];
-
-        $callback = static fn (stdClass $carry, stdClass $current): stdClass => $current->age > $carry->age
-            ? $current
-            : $carry;
-
-        $expected = (object) ['id' => 2, 'age' => 15];
-        $elem = [(object) ['id' => 1, 'age' => 5], $expected, (object) ['id' => 3, 'age' => 12]];
-
-        yield [
-            $operation,
-            [$callback],
-            $elem,
-            [2 => $expected],
-        ];
     }
 
     public function mergeOperationProvider()
@@ -2797,20 +2831,6 @@ trait GenericCollectionProviders
             [],
             ['foo' => 'f', 'bar' => 'b', 'tar' => 't'],
             ['tar' => 'b'],
-        ];
-
-        $callback = static fn (stdClass $carry, stdClass $current): stdClass => $current->age < $carry->age
-            ? $current
-            : $carry;
-
-        $expected = (object) ['id' => 2, 'age' => 3];
-        $elem = [(object) ['id' => 1, 'age' => 5], $expected, (object) ['id' => 3, 'age' => 12]];
-
-        yield [
-            $operation,
-            [$callback],
-            $elem,
-            [2 => $expected],
         ];
     }
 

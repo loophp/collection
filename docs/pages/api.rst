@@ -499,6 +499,25 @@ Signature: ``Collection::compact(...$values): Collection;``
     $collection = Collection::fromIterable(['a', 1 => 'b', null, false, 0, 'c'])
         ->compact(null, 0); // [0 => 'a', 1 => 'b', 3 => false, 5 => 'c']
 
+compare
+~~~~~~~
+
+Fold the collection through a comparison operation, yielding the "highest" or "lowest" 
+element as defined by the comparator callback. The callback takes a pair of two elements 
+and should return the "highest" or "lowest" one as desired.
+
+If no custom logic is required for the comparison, the simpler ``max`` or ``min`` operations 
+can be used instead.
+
+.. tip:: This operation is a specialised application of ``foldLeft1``.
+
+Interface: `Comparable`_
+
+Signature: ``Collection::compare(callable $comparator): Collection;``
+
+.. literalinclude:: code/operations/compare.php
+  :language: php
+
 contains
 ~~~~~~~~
 
@@ -1476,14 +1495,14 @@ max
 ~~~
 
 Generate the maximum value of the collection by successively applying the PHP ``max`` function
-to each pair of two elements. This comparison can be redefined by providing a callback
-that takes two arguments and returns the "highest" value.
+to each pair of two elements.
 
-.. tip:: This operation is a specialised application of ``foldLeft1``.
+If custom logic is required to determine the maximum, such as when comparing objects, 
+the ``compare`` operation can be used instead.
 
 Interface: `Maxable`_
 
-Signature: ``Collection::max(?callable $callback = null): Collection;``
+Signature: ``Collection::max(): Collection;``
 
 .. literalinclude:: code/operations/max.php
   :language: php
@@ -1511,14 +1530,14 @@ min
 ~~~
 
 Generate the minimum value of the collection by successively applying the PHP ``min`` function
-to each pair of two elements. This comparison can be redefined by providing a callback
-that takes two arguments and returns the "lowest" value.
+to each pair of two elements.
 
-.. tip:: This operation is a specialised application of ``foldLeft1``.
+If custom logic is required to determine the minimum, such as when comparing objects, 
+the ``compare`` operation can be used instead.
 
 Interface: `Minable`_
 
-Signature: ``Collection::min(?callable $callback = null): Collection;``
+Signature: ``Collection::min(): Collection;``
 
 .. literalinclude:: code/operations/min.php
   :language: php
@@ -2545,6 +2564,7 @@ Signature: ``Collection::zip(iterable ...$iterables): Collection;``
 .. _Combinateable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Combinateable.php
 .. _Combineable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Combineable.php
 .. _Compactable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Compactable.php
+.. _Comparable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Comparable.php
 .. _Coalesceable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Coalesceable.php
 .. _Containsable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Containsable.php
 .. _Currentable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Currentable.php

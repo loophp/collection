@@ -30,6 +30,7 @@ use loophp\collection\Operation\Column;
 use loophp\collection\Operation\Combinate;
 use loophp\collection\Operation\Combine;
 use loophp\collection\Operation\Compact;
+use loophp\collection\Operation\Compare;
 use loophp\collection\Operation\Contains;
 use loophp\collection\Operation\Current;
 use loophp\collection\Operation\Cycle;
@@ -255,6 +256,11 @@ final class Collection implements CollectionInterface
     public function compact(...$values): CollectionInterface
     {
         return new self((new Compact())()(...$values), [$this]);
+    }
+
+    public function compare(callable $comparator): CollectionInterface
+    {
+        return new self((new Compare())()($comparator), [$this]);
     }
 
     public function contains(...$values): bool
@@ -645,9 +651,9 @@ final class Collection implements CollectionInterface
         return new self((new Matching())()($criteria), [$this]);
     }
 
-    public function max(?callable $callback = null): CollectionInterface
+    public function max(): CollectionInterface
     {
-        return new self((new Max())()($callback), [$this]);
+        return new self((new Max())(), [$this]);
     }
 
     public function merge(iterable ...$sources): CollectionInterface
@@ -655,9 +661,9 @@ final class Collection implements CollectionInterface
         return new self((new Merge())()(...$sources), [$this]);
     }
 
-    public function min(?callable $callback = null): CollectionInterface
+    public function min(): CollectionInterface
     {
-        return new self((new Min())()($callback), [$this]);
+        return new self((new Min())(), [$this]);
     }
 
     public function normalize(): CollectionInterface

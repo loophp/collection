@@ -21,34 +21,19 @@ use Generator;
 final class Min extends AbstractOperation
 {
     /**
-     * @return Closure(null|callable(T, T): T): Closure(iterable<TKey, T>): Generator<TKey, T>
+     * @return Closure(iterable<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
-        return
+        $comparator =
             /**
-             * @param null|callable(T, T): T $callback
+             * @param T $carry
+             * @param T $value
              *
-             * @return Closure(iterable<TKey, T>): Generator<TKey,T>
+             * @return T
              */
-            static function (?callable $callback = null): Closure {
-                $callback ??=
-                    /**
-                     * @param T $carry
-                     * @param T $value
-                     *
-                     * @return T
-                     */
-                    static fn ($carry, $value) => min($value, $carry);
+            static fn ($carry, $value) => min($value, $carry);
 
-                /** @var Closure(iterable<TKey, T>): Generator<TKey, T> $pipe */
-                $pipe = (new Pipe())()(
-                    (new FoldLeft1())()($callback),
-                    (new Last())(),
-                );
-
-                // Point free style.
-                return $pipe;
-            };
+        return (new Compare())()($comparator);
     }
 }
