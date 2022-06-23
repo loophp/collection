@@ -499,6 +499,25 @@ Signature: ``Collection::compact(...$values): Collection;``
     $collection = Collection::fromIterable(['a', 1 => 'b', null, false, 0, 'c'])
         ->compact(null, 0); // [0 => 'a', 1 => 'b', 3 => false, 5 => 'c']
 
+compare
+~~~~~~~
+
+Fold the collection through a comparison operation, yielding the "highest" or "lowest" 
+element as defined by the comparator callback. The callback takes a pair of two elements 
+and should return the "highest" or "lowest" one as desired.
+
+If no custom logic is required for the comparison, the simpler ``max`` or ``min`` operations 
+can be used instead.
+
+.. tip:: This operation is a specialised application of ``foldLeft1``.
+
+Interface: `Comparable`_
+
+Signature: ``Collection::compare(callable $comparator): Collection;``
+
+.. literalinclude:: code/operations/compare.php
+  :language: php
+
 contains
 ~~~~~~~~
 
@@ -1472,6 +1491,22 @@ Signature: ``Collection::matching(Criteria $criteria): Collection;``
 .. literalinclude:: code/operations/matching.php
   :language: php
 
+max
+~~~
+
+Generate the maximum value of the collection by successively applying the PHP ``max`` function
+to each pair of two elements.
+
+If custom logic is required to determine the maximum, such as when comparing objects, 
+the ``compare`` operation can be used instead.
+
+Interface: `Maxable`_
+
+Signature: ``Collection::max(): Collection;``
+
+.. literalinclude:: code/operations/max.php
+  :language: php
+
 merge
 ~~~~~
 
@@ -1490,6 +1525,22 @@ Signature: ``Collection::merge(iterable ...$sources): Collection;``
         ->merge(Collection::fromIterable(['d', 'e']);
 
     $collection->all() // ['a', 'b', 'c', 'd', 'e']
+
+min
+~~~
+
+Generate the minimum value of the collection by successively applying the PHP ``min`` function
+to each pair of two elements.
+
+If custom logic is required to determine the minimum, such as when comparing objects, 
+the ``compare`` operation can be used instead.
+
+Interface: `Minable`_
+
+Signature: ``Collection::min(): Collection;``
+
+.. literalinclude:: code/operations/min.php
+  :language: php
 
 normalize
 ~~~~~~~~~
@@ -2513,6 +2564,7 @@ Signature: ``Collection::zip(iterable ...$iterables): Collection;``
 .. _Combinateable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Combinateable.php
 .. _Combineable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Combineable.php
 .. _Compactable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Compactable.php
+.. _Comparable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Comparable.php
 .. _Coalesceable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Coalesceable.php
 .. _Containsable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Containsable.php
 .. _Currentable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Currentable.php
@@ -2562,7 +2614,9 @@ Signature: ``Collection::zip(iterable ...$iterables): Collection;``
 .. _MapNable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/MapNable.php
 .. _Matchable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Matchable.php
 .. _Matchingable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Matchingable.php
+.. _Maxable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Maxable.php
 .. _Mergeable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Mergeable.php
+.. _Minable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Minable.php
 .. _Normalizeable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Normalizeable.php
 .. _Nthable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Nthable.php
 .. _Nullsyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Nullsyable.php

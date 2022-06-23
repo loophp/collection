@@ -519,6 +519,54 @@ trait GenericCollectionProviders
         ];
     }
 
+    /**
+     * @return iterable<array{0: string, 1: array, 2: iterable, 3: iterable}>
+     */
+    public function compareOperationProvider(): iterable
+    {
+        $operation = 'compare';
+
+        $callback = static fn (int $left, int $right): int => $left < $right ? $left : $right;
+
+        yield [
+            $operation,
+            [$callback],
+            [1, 2, 3, 4, 5],
+            [4 => 1],
+        ];
+
+        $callback = static fn (int $left, int $right): int => $left > $right ? $left : $right;
+
+        yield [
+            $operation,
+            [$callback],
+            [1, 2, 3, 4, 5],
+            [4 => 5],
+        ];
+
+        $callback = static fn (string $left, string $right): string => min($left, $right);
+
+        yield [
+            $operation,
+            [$callback],
+            ['foo' => 'f', 'bar' => 'b', 'tar' => 't'],
+            ['tar' => 'b'],
+        ];
+
+        $callback = static fn (stdClass $carry, stdClass $current): stdClass => $current->age < $carry->age
+            ? $current
+            : $carry;
+
+        $expected = (object) ['id' => 2, 'age' => 3];
+
+        yield [
+            $operation,
+            [$callback],
+            [(object) ['id' => 1, 'age' => 5], $expected, (object) ['id' => 3, 'age' => 12]],
+            [2 => $expected],
+        ];
+    }
+
     public function containsOperationProvider()
     {
         $operation = 'contains';
@@ -2698,6 +2746,35 @@ trait GenericCollectionProviders
         ];
     }
 
+    /**
+     * @return iterable<array{0: string, 1: array, 2: iterable, 3: iterable}>
+     */
+    public function maxOperationProvider(): iterable
+    {
+        $operation = 'max';
+
+        yield [
+            $operation,
+            [],
+            [1, 2, 3, 4, 5],
+            [4 => 5],
+        ];
+
+        yield [
+            $operation,
+            [],
+            [-1, 200, -100, -3, -500],
+            [4 => 200],
+        ];
+
+        yield [
+            $operation,
+            [],
+            ['foo' => 'f', 'bar' => 'b', 'tar' => 't'],
+            ['tar' => 't'],
+        ];
+    }
+
     public function mergeOperationProvider()
     {
         $parameter = static function () {
@@ -2725,6 +2802,35 @@ trait GenericCollectionProviders
             ],
             range('A', 'C'),
             $generator(),
+        ];
+    }
+
+    /**
+     * @return iterable<array{0: string, 1: array, 2: iterable, 3: iterable}>
+     */
+    public function minOperationProvider(): iterable
+    {
+        $operation = 'min';
+
+        yield [
+            $operation,
+            [],
+            [1, 2, 3, 4, 5],
+            [4 => 1],
+        ];
+
+        yield [
+            $operation,
+            [],
+            [1, 2, -100, 4, 5],
+            [4 => -100],
+        ];
+
+        yield [
+            $operation,
+            [],
+            ['foo' => 'f', 'bar' => 'b', 'tar' => 't'],
+            ['tar' => 'b'],
         ];
     }
 

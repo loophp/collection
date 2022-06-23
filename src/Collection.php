@@ -30,6 +30,7 @@ use loophp\collection\Operation\Column;
 use loophp\collection\Operation\Combinate;
 use loophp\collection\Operation\Combine;
 use loophp\collection\Operation\Compact;
+use loophp\collection\Operation\Compare;
 use loophp\collection\Operation\Contains;
 use loophp\collection\Operation\Current;
 use loophp\collection\Operation\Cycle;
@@ -78,7 +79,9 @@ use loophp\collection\Operation\Map;
 use loophp\collection\Operation\MapN;
 use loophp\collection\Operation\Matching;
 use loophp\collection\Operation\MatchOne;
+use loophp\collection\Operation\Max;
 use loophp\collection\Operation\Merge;
+use loophp\collection\Operation\Min;
 use loophp\collection\Operation\Normalize;
 use loophp\collection\Operation\Nth;
 use loophp\collection\Operation\Nullsy;
@@ -253,6 +256,11 @@ final class Collection implements CollectionInterface
     public function compact(...$values): CollectionInterface
     {
         return new self((new Compact())()(...$values), [$this]);
+    }
+
+    public function compare(callable $comparator): CollectionInterface
+    {
+        return new self((new Compare())()($comparator), [$this]);
     }
 
     public function contains(...$values): bool
@@ -643,9 +651,19 @@ final class Collection implements CollectionInterface
         return new self((new Matching())()($criteria), [$this]);
     }
 
+    public function max(): CollectionInterface
+    {
+        return new self((new Max())(), [$this]);
+    }
+
     public function merge(iterable ...$sources): CollectionInterface
     {
         return new self((new Merge())()(...$sources), [$this]);
+    }
+
+    public function min(): CollectionInterface
+    {
+        return new self((new Min())(), [$this]);
     }
 
     public function normalize(): CollectionInterface
