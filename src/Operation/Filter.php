@@ -12,7 +12,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use loophp\collection\Utils\CallbacksArrayReducer;
-use loophp\iterators\FilterIterableAggregate;
 
 /**
  * @immutable
@@ -56,7 +55,11 @@ final class Filter extends AbstractOperation
 
                     $callback = CallbacksArrayReducer::or()($callbacks);
 
-                    yield from new FilterIterableAggregate($iterable, $callback);
+                    foreach ($iterable as $key => $current) {
+                        if ($callback($current, $key, $iterable)) {
+                            yield $key => $current;
+                        }
+                    }
                 };
     }
 }
