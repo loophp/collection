@@ -25,6 +25,7 @@ use PHPUnit\Framework\TestCase;
 use stdClass;
 use tests\loophp\collection\Traits\GenericCollectionProviders;
 use function gettype;
+use const PHP_VERSION_ID;
 
 /**
  * @internal

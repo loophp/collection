@@ -12,7 +12,6 @@ namespace loophp\collection;
 use Closure;
 use Doctrine\Common\Collections\Criteria;
 use Generator;
-use IteratorAggregate;
 use loophp\collection\Contract\Collection as CollectionInterface;
 use loophp\collection\Contract\Operation;
 use loophp\collection\Operation\All;
