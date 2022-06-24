@@ -160,9 +160,9 @@ use const PHP_INT_MAX;
 final class Collection implements CollectionInterface
 {
     /**
-     * @var IteratorAggregate<TKey, T>
+     * @var ClosureIteratorAggregate<TKey, T>
      */
-    private IteratorAggregate $innerIterator;
+    private ClosureIteratorAggregate $innerIterator;
 
     /**
      * @param callable(mixed ...$parameters): iterable<TKey, T> $callable
