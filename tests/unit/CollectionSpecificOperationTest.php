@@ -509,19 +509,21 @@ final class CollectionSpecificOperationTest extends TestCase
 
     public function testSquashOperation(): void
     {
-        $this->expectException(Exception::class);
+        if (PHP_VERSION_ID >= 80000) {
+            $this->expectException(Exception::class);
 
-        Collection::fromIterable([16, 4, -9, 9])
-            ->map(
-                static function (int $value): int {
-                    if (0 > $value) {
-                        throw new Exception('This should error');
+            Collection::fromIterable([16, 4, -9, 9])
+                ->map(
+                    static function (int $value): int {
+                        if (0 > $value) {
+                            throw new Exception('This should error');
+                        }
+
+                        return (int) sqrt($value);
                     }
-
-                    return (int) sqrt($value);
-                }
-            )
-            ->squash();
+                )
+                ->squash();
+        }
 
         self::assertIdenticalIterable(
             [4, 2, 3, 3],
