@@ -11,6 +11,7 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
+use loophp\iterators\MapIterableAggregate;
 
 /**
  * @immutable
@@ -39,10 +40,6 @@ final class Map extends AbstractOperation
                  *
                  * @return Generator<TKey, V>
                  */
-                static function (iterable $iterable) use ($callback): Generator {
-                    foreach ($iterable as $key => $value) {
-                        yield $key => $callback($value, $key, $iterable);
-                    }
-                };
+                static fn (iterable $iterable): Generator => yield from new MapIterableAggregate($iterable, Closure::fromCallable($callback));
     }
 }

@@ -9,11 +9,11 @@ declare(strict_types=1);
 
 namespace loophp\collection\Operation;
 
-use AppendIterator;
 use ArrayIterator;
 use Closure;
 use Generator;
 use InfiniteIterator;
+use loophp\iterators\ConcatIterableAggregate;
 
 /**
  * @immutable
@@ -49,14 +49,10 @@ final class Intersperse extends AbstractOperation
                          * @return Generator<int|TKey, T>
                          */
                         static function (iterable $iterable) use ($element, $atEvery, $startAt): Generator {
-                            $intersperse = new AppendIterator();
-                            $intersperse->append(
-                                new ArrayIterator(array_fill(0, $startAt, 1))
-                            );
-                            $intersperse->append(
-                                new InfiniteIterator(new ArrayIterator(range(0, $atEvery - 1)))
-                            );
-                            $intersperse->rewind();
+                            $intersperse = (new ConcatIterableAggregate([
+                                new ArrayIterator(array_fill(0, $startAt, 1)),
+                                new InfiniteIterator(new ArrayIterator(range(0, $atEvery - 1))),
+                            ]))->getIterator();
 
                             foreach ($iterable as $key => $value) {
                                 if (0 === $intersperse->current()) {
