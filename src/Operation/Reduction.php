@@ -11,6 +11,7 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
+use loophp\iterators\ReductionIterableAggregate;
 
 /**
  * @immutable
@@ -48,13 +49,6 @@ final class Reduction extends AbstractOperation
                      *
                      * @return Generator<TKey, W>
                      */
-                    static function (iterable $iterable) use ($callback, $initial): Generator {
-                        foreach ($iterable as $key => $value) {
-                            /** @var W $initial */
-                            $initial = $callback($initial, $value, $key, $iterable);
-
-                            yield $key => $initial;
-                        }
-                    };
+                    static fn (iterable $iterable): Generator => yield from new ReductionIterableAggregate($iterable, Closure::fromCallable($callback), $initial);
     }
 }
