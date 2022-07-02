@@ -67,8 +67,8 @@
         "sort-packages": true
     },
     "scripts": {
-        "changelog-unreleased": "docker-compose run auto_changelog -c .auto-changelog -u",
-        "changelog-version": "docker-compose run auto_changelog -c .auto-changelog -v",
+        "changelog-unreleased": "auto_changelog -c .auto-changelog -u",
+        "changelog-version": "auto_changelog -c .auto-changelog -v",
         "grumphp": "./vendor/bin/grumphp run",
         "infection": "vendor/bin/infection run -j 2",
         "phpunit": "vendor/bin/phpunit"

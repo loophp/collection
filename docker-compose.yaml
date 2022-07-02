@@ -7,8 +7,3 @@ services:
             - ./docs:/etc/Sphinx/source
         ports:
             - 8100:80
-    auto_changelog:
-        build: docker/auto-changelog
-        working_dir: /src
-        volumes:
-            - .:/src

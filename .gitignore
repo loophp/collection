@@ -1,3 +1,4 @@
+/.direnv/
 /composer.lock
 /vendor
 /build
