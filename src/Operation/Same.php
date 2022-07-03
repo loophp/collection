@@ -16,38 +16,35 @@ use loophp\iterators\IterableIteratorAggregate;
 /**
  * @immutable
  *
- * @template TKey
- * @template T
- *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Same extends AbstractOperation
 {
     /**
-     * @return Closure(iterable<TKey, T>): Closure(callable(T, TKey): Closure(T, TKey): bool): Closure(iterable<TKey, T>): Generator<int, bool>
+     * @return Closure(iterable<mixed, mixed>): Closure(callable(mixed, mixed): Closure(mixed, mixed): bool): Closure(iterable<mixed, mixed>): Generator<int, bool>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param iterable<TKey, T> $other
+             * @param iterable<mixed, mixed> $other
              *
-             * @return Closure(callable(T, TKey): Closure(T, TKey): bool): Closure(iterable<TKey, T>): Generator<int, bool>
+             * @return Closure(callable(mixed, mixed): Closure(mixed, mixed): bool): Closure(iterable<mixed, mixed>): Generator<int, bool>
              */
             static fn (iterable $other): Closure =>
                 /**
-                 * @param callable(T, TKey): (Closure(T, TKey): bool) $comparatorCallback
+                 * @param callable(mixed, mixed): (Closure(mixed, mixed): bool) $comparatorCallback
                  *
-                 * @return Closure(iterable<TKey, T>): Generator<int, bool>
+                 * @return Closure(iterable<mixed, mixed>): Generator<int, bool>
                  */
                 static fn (callable $comparatorCallback): Closure =>
                     /**
-                     * @param iterable<TKey, T> $iterable
+                     * @param iterable<mixed, mixed> $iterable
                      *
                      * @return Generator<int, bool>
                      */
                     static function (iterable $iterable) use ($other, $comparatorCallback): Generator {
-                        $otherAggregate = (new IterableIteratorAggregate($other));
+                        $otherAggregate = new IterableIteratorAggregate($other);
                         $iteratorAggregate = new IterableIteratorAggregate($iterable);
 
                         $iterator = $iteratorAggregate->getIterator();

@@ -226,7 +226,6 @@ use Traversable;
  * @template-extends Rejectable<TKey, T>
  * @template-extends Reverseable<TKey, T>
  * @template-extends RSampleable<TKey, T>
- * @template-extends Sameable<TKey, T>
  * @template-extends Scaleable<TKey, T>
  * @template-extends ScanLeft1able<TKey, T>
  * @template-extends ScanLeftable<TKey, T>

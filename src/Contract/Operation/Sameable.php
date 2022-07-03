@@ -10,12 +10,7 @@ declare(strict_types=1);
 namespace loophp\collection\Contract\Operation;
 
 use Closure;
-use loophp\collection\Contract\Collection;
 
-/**
- * @template TKey
- * @template T
- */
 interface Sameable
 {
     /**
@@ -32,8 +27,8 @@ interface Sameable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#same
      *
-     * @param iterable<TKey, T> $other
-     * @param null|callable(T, TKey): (Closure(T, TKey): bool) $comparatorCallback
+     * @param iterable<mixed, mixed> $other
+     * @param null|callable(mixed, mixed): (Closure(mixed, mixed): bool) $comparatorCallback
      */
     public function same(iterable $other, ?callable $comparatorCallback = null): bool;
 }
