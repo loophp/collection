@@ -25,7 +25,6 @@ final class Reduction extends AbstractOperation
 {
     /**
      * @template V
-     * @template W
      *
      * @return Closure(callable(mixed=, mixed=, mixed=, iterable<mixed, mixed>=): mixed): Closure(mixed): Closure(iterable<TKey, T>): Generator<TKey, mixed>
      */
@@ -33,21 +32,21 @@ final class Reduction extends AbstractOperation
     {
         return
             /**
-             * @param callable((V|W)=, T=, TKey=, iterable<TKey, T>=): W $callback
+             * @param callable(V=, T=, TKey=, iterable<TKey, T>=): V $callback
              *
-             * @return Closure(V): Closure(iterable<TKey, T>): Generator<TKey, W>
+             * @return Closure(V): Closure(iterable<TKey, T>): Generator<TKey, V>
              */
             static fn (callable $callback): Closure =>
                 /**
                  * @param V $initial
                  *
-                 * @return Closure(iterable<TKey, T>): Generator<TKey, W>
+                 * @return Closure(iterable<TKey, T>): Generator<TKey, V>
                  */
                 static fn ($initial): Closure =>
                     /**
                      * @param iterable<TKey, T> $iterable
                      *
-                     * @return Generator<TKey, W>
+                     * @return Generator<TKey, V>
                      */
                     static fn (iterable $iterable): Generator => yield from new ReductionIterableAggregate($iterable, Closure::fromCallable($callback), $initial);
     }

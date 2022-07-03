@@ -166,11 +166,6 @@ parameters:
 			path: src/Operation/Reduction.php
 
 		-
-			message: "#^Template type W of method loophp\\\\collection\\\\Operation\\\\Reduction\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
-			count: 1
-			path: src/Operation/Reduction.php
-
-		-
 			message: "#^Template type V of method loophp\\\\collection\\\\Operation\\\\ScanLeft\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
 			count: 1
 			path: src/Operation/ScanLeft.php
