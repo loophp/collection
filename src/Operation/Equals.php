@@ -16,29 +16,26 @@ use loophp\iterators\IterableIteratorAggregate;
 /**
  * @immutable
  *
- * @template TKey
- * @template T
- *
  * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Equals extends AbstractOperation
 {
     /**
-     * @return Closure(iterable<TKey, T>): Closure(iterable<TKey, T>): Generator<int|TKey, bool>
+     * @return Closure(iterable<mixed, mixed>): Closure(iterable<mixed, mixed>): Generator<int, bool, mixed, false|mixed>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param iterable<TKey, T> $other
+             * @param iterable<mixed, mixed> $other
              *
-             * @return Closure(iterable<TKey, T>): Generator<int|TKey, bool>
+             * @return Closure(iterable<mixed, mixed>): Generator<int, bool, mixed, false|mixed>
              */
             static function (iterable $other): Closure {
                 /**
-                 * @param iterable<TKey, T> $iterable
+                 * @param iterable<mixed, mixed> $iterable
                  *
-                 * @return Generator<int|TKey, bool>
+                 * @return Generator<int, bool, mixed, false|mixed>
                  */
                 return static function (iterable $iterable) use ($other): Generator {
                     $otherAggregate = new IterableIteratorAggregate($other);
@@ -58,7 +55,7 @@ final class Equals extends AbstractOperation
 
                     $containsCallback =
                         /**
-                         * @param T $current
+                         * @param mixed $current
                          */
                         static fn (int $index, $current): bool => (new Contains())()($current)($otherAggregate)->current();
 

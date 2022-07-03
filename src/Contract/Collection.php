@@ -166,7 +166,6 @@ use Traversable;
  * @template-extends DropWhileable<TKey, T>
  * @template-extends Dumpable<TKey, T>
  * @template-extends Duplicateable<TKey, T>
- * @template-extends Equalsable<TKey, T>
  * @template-extends Everyable<TKey, T>
  * @template-extends Explodeable<TKey, T>
  * @template-extends Falsyable<TKey, T>

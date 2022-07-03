@@ -9,12 +9,6 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
-use loophp\collection\Contract\Collection;
-
-/**
- * @template TKey
- * @template T
- */
 interface Equalsable
 {
     /**
@@ -27,7 +21,7 @@ interface Equalsable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#equals
      *
-     * @param iterable<TKey, T> $other
+     * @param iterable<mixed, mixed> $other
      */
     public function equals(iterable $other): bool;
 }

@@ -33,7 +33,7 @@ equals_check(Collection::fromIterable([$a, $b])->equals(Collection::fromIterable
 
 /** @psalm-suppress InvalidArgument -> Psalm narrows the types to 1|2|3 and 4|5 and knows these cannot work */
 equals_check(Collection::fromIterable([1, 2, 3])->equals(Collection::fromIterable([4, 5])));
-/** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
+/** @psalm-suppress InvalidArgument */
 equals_check(Collection::fromIterable([1, 2, 3])->equals(Collection::fromIterable(['a', 'b'])));
 /** @psalm-suppress InvalidArgument -> Psalm sees the keys and values are completely different */
 equals_check(Collection::fromIterable(['foo' => 'f', 'bar' => 'b'])->equals(Collection::fromIterable(['other' => 'x'])));
