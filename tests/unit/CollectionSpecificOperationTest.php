@@ -13,6 +13,7 @@ use loophp\collection\Contract\Collection as CollectionInterface;
 use loophp\collection\Operation\Coalesce;
 use loophp\collection\Operation\Current;
 use loophp\collection\Operation\Limit;
+use loophp\iterators\CachingIteratorAggregate;
 use loophp\PhpUnitIterableAssertions\Traits\IterableAssertions;
 use OutOfBoundsException;
 use PHPUnit\Framework\TestCase;
@@ -218,6 +219,21 @@ final class CollectionSpecificOperationTest extends TestCase
         $this::assertIdenticalIterable(
             $generator(),
             Collection::fromIterable(range(1, 3))->cycle()->limit(7),
+        );
+    }
+
+    public function testDistinctOperation(): void
+    {
+        $integers = static fn (): array => [random_int(0, 9)];
+
+        self::assertCount(
+            10,
+            new CachingIteratorAggregate(
+                Collection::unfold($integers)
+                    ->unwrap()
+                    ->distinct()
+                    ->getIterator()
+            )
         );
     }
 

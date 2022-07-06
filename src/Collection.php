@@ -13,6 +13,7 @@ use loophp\collection\Contract\Collection as CollectionInterface;
 use loophp\collection\Contract\Operation as OperationInterface;
 use loophp\collection\Utils\CallbacksArrayReducer;
 use loophp\iterators\ClosureIteratorAggregate;
+use loophp\iterators\InterruptableIterableIteratorAggregate;
 use loophp\iterators\IterableIteratorAggregate;
 use loophp\iterators\ResourceIteratorAggregate;
 use loophp\iterators\StringIteratorAggregate;
@@ -162,7 +163,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return new self((new Operation\DiffKeys())()($keys), [$this]);
     }
 
-    public function distinct(?callable $comparatorCallback = null, ?callable $accessorCallback = null): CollectionInterface
+    public function distinct(?callable $comparatorCallback = null, ?callable $accessorCallback = null, int $retries = 2^16): CollectionInterface
     {
         $accessorCallback ??=
             /**
@@ -185,7 +186,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
                  */
                 static fn (mixed $right): bool => $left === $right;
 
-        return new self((new Operation\Distinct())()($comparatorCallback)($accessorCallback), [$this]);
+        return new self((new Operation\Distinct())()($comparatorCallback)($accessorCallback)($retries), [new InterruptableIterableIteratorAggregate($this)]);
     }
 
     public function drop(int $count): CollectionInterface

@@ -7,6 +7,7 @@ namespace loophp\collection\Operation;
 use ArrayIterator;
 use Closure;
 use Generator;
+use loophp\iterators\InterruptableIterableIteratorAggregate;
 
 /**
  * @immutable
@@ -36,31 +37,41 @@ final class Distinct extends AbstractOperation
                  * @return Closure(iterable<TKey, T>): Generator<TKey, T>
                  */
                 static function (callable $accessorCallback) use ($comparatorCallback): Closure {
-                    /** @var ArrayIterator<int, array{0: TKey, 1: T}> $stack */
-                    $stack = new ArrayIterator();
+                    return static function (int $retries) use ($accessorCallback, $comparatorCallback): Closure {
+                        $accessorCallback = static fn (mixed $key, mixed $value): mixed => $accessorCallback($value, $key);
 
-                    return (new Filter())()(
-                        /**
-                         * @param T $value
-                         * @param TKey $key
-                         */
-                        static function (mixed $value, mixed $key) use ($comparatorCallback, $accessorCallback, $stack): bool {
+                        /** @var ArrayIterator<int, array{0: TKey, 1: T}> $stack */
+                        $stack = new ArrayIterator();
+
+                        $filter = static function (array $keyValuePair, Generator $generator) use ($comparatorCallback, $accessorCallback, $stack, &$retries): bool {
+                            if (0 >= $retries) {
+                                $generator->send(InterruptableIterableIteratorAggregate::BREAK);
+                            }
+
                             $every = (new Every())()(
                                 /**
                                  * @param array{0: TKey, 1: T} $keyValuePair
                                  */
-                                static fn (int $index, array $keyValuePair): bool => !$comparatorCallback($accessorCallback($value, $key))($accessorCallback($keyValuePair[1], $keyValuePair[0]))
+                                static fn (int $_, array $kv): bool => !$comparatorCallback($accessorCallback(...$kv))($accessorCallback(...$keyValuePair))
                             )($stack);
 
                             if (false === $every->current()) {
+                                --$retries;
+
                                 return false;
                             }
 
-                            $stack->append([$key, $value]);
+                            ++$retries;
+                            $stack->append($keyValuePair);
 
                             return true;
-                        }
-                    );
+                        };
+
+                        return (new Pipe())()(
+                            (new Filter())()($filter),
+                            (new Unpack)()
+                        );
+                    };
                 };
     }
 }
