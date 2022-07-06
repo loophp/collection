@@ -38,11 +38,28 @@ final class Distinct extends AbstractOperation
                  */
                 static function (callable $accessorCallback) use ($comparatorCallback): Closure {
                     return static function (int $retries) use ($accessorCallback, $comparatorCallback): Closure {
+                        /** @var ArrayIterator<int, array{0: TKey, 1: T}> $stack */
+                        $stack = new ArrayIterator();
+                    return static function (int $retries) use ($accessorCallback, $comparatorCallback): Closure {
                         $accessorCallback = static fn (mixed $key, mixed $value): mixed => $accessorCallback($value, $key);
 
                         /** @var ArrayIterator<int, array{0: TKey, 1: T}> $stack */
                         $stack = new ArrayIterator();
 
+                        $filter = (new Filter())()(
+                            static function (array $keyValuePair, Generator $generator) use ($comparatorCallback, $accessorCallback, $stack, &$retries): bool {
+                                if (0 >= $retries) {
+                                    $generator->send(InterruptableIterableIteratorAggregate::BREAK);
+                                }
+
+                                [$key, $value] = $keyValuePair;
+
+                                $every = (new Every())()(
+                                    /**
+                                     * @param array{0: TKey, 1: T} $keyValuePair
+                                     */
+                                    static fn (int $index, array $keyValuePair): bool => !$comparatorCallback($accessorCallback($value, $key))($accessorCallback($keyValuePair[1], $keyValuePair[0]))
+                                )($stack);
                         $filter = static function (array $keyValuePair, Generator $generator) use ($comparatorCallback, $accessorCallback, $stack, &$retries): bool {
                             if (0 >= $retries) {
                                 $generator->send(InterruptableIterableIteratorAggregate::BREAK);
