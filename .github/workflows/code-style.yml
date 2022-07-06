@@ -30,7 +30,7 @@ jobs:
                   fetch-depth: 1
 
             - name: Install PHP
-              uses: shivammathur/setup-php@2.19.0
+              uses: shivammathur/setup-php@2.20.0
               with:
                   php-version: ${{ matrix.php-versions }}
                   extensions: gd,mbstring,pcov
