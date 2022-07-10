@@ -977,17 +977,17 @@ See ``scanLeft1`` for intermediate results.
 
 Interface: `FoldLeft1able`_
 
-Signature: ``Collection::foldLeft1(callable $callback): Collection;``
+Signature: ``Collection::foldLeft1(callable $callback): mixed;``
 
 .. code-block:: php
 
     $callback = static fn(int $carry, int $value): int => $carry - $value;
 
     Collection::fromIterable([64, 4, 2, 8])
-        ->foldLeft1($callback); // [0 => 50]
+        ->foldLeft1($callback); // 50
 
     Collection::empty()
-        ->foldLeft1($callback); // []
+        ->foldLeft1($callback); // null
 
 foldRight
 ~~~~~~~~~

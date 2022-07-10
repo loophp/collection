@@ -423,9 +423,9 @@ final class Collection implements CollectionInterface
         return (new self((new FoldLeft())()($callback)($initial), [$this]))->current();
     }
 
-    public function foldLeft1(callable $callback): CollectionInterface
+    public function foldLeft1(callable $callback)
     {
-        return new self((new FoldLeft1())()($callback), [$this]);
+        return (new self((new FoldLeft1())()($callback), [$this]))->current();
     }
 
     public function foldRight(callable $callback, $initial = null): CollectionInterface
