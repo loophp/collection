@@ -22,21 +22,16 @@ use loophp\iterators\PackIterableAggregate;
 final class Pack extends AbstractOperation
 {
     /**
-     * @return Closure(iterable<TKey, T>): Generator<int, array{0: TKey, 1: T}>
+     * @return Closure(iterable<mixed, mixed>): Generator<int, array{0: TKey, 1: T}>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param iterable<TKey, T> $iterable
+             * @param iterable<mixed, mixed> $iterable
              *
              * @return Generator<int, array{0: TKey, 1: T}>
              */
-            static function (iterable $iterable): Generator {
-                /** @var PackIterableAggregate<TKey, T> $iterable */
-                $iterable = new PackIterableAggregate($iterable);
-
-                yield from $iterable->getIterator();
-            };
+            static fn (iterable $iterable): Generator => yield from new PackIterableAggregate($iterable);
     }
 }
