@@ -28,7 +28,7 @@ interface Reduceable
      * @param callable((V|W)=, T=, TKey=, iterable<TKey, T>=): W $callback
      * @param V $initial
      *
-     * @return Collection<TKey, W>
+     * @return W
      */
-    public function reduce(callable $callback, $initial = null): Collection;
+    public function reduce(callable $callback, $initial = null);
 }

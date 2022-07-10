@@ -502,11 +502,11 @@ Signature: ``Collection::compact(...$values): Collection;``
 compare
 ~~~~~~~
 
-Fold the collection through a comparison operation, yielding the "highest" or "lowest" 
-element as defined by the comparator callback. The callback takes a pair of two elements 
+Fold the collection through a comparison operation, yielding the "highest" or "lowest"
+element as defined by the comparator callback. The callback takes a pair of two elements
 and should return the "highest" or "lowest" one as desired.
 
-If no custom logic is required for the comparison, the simpler ``max`` or ``min`` operations 
+If no custom logic is required for the comparison, the simpler ``max`` or ``min`` operations
 can be used instead.
 
 .. tip:: This operation is a specialised application of ``foldLeft1``.
@@ -1497,7 +1497,7 @@ max
 Generate the maximum value of the collection by successively applying the PHP ``max`` function
 to each pair of two elements.
 
-If custom logic is required to determine the maximum, such as when comparing objects, 
+If custom logic is required to determine the maximum, such as when comparing objects,
 the ``compare`` operation can be used instead.
 
 Interface: `Maxable`_
@@ -1532,7 +1532,7 @@ min
 Generate the minimum value of the collection by successively applying the PHP ``min`` function
 to each pair of two elements.
 
-If custom logic is required to determine the minimum, such as when comparing objects, 
+If custom logic is required to determine the minimum, such as when comparing objects,
 the ``compare`` operation can be used instead.
 
 Interface: `Minable`_
@@ -1834,7 +1834,7 @@ Reduce a collection of items through a given callback.
 
 Interface: `Reduceable`_
 
-Signature: ``Collection::reduce(callable $callback, $initial = null): Collection;``
+Signature: ``Collection::reduce(callable $callback, $initial = null): mixed;``
 
 .. literalinclude:: code/operations/reduce.php
   :language: php

@@ -3255,7 +3255,7 @@ trait GenericCollectionProviders
                 'foo',
             ],
             [],
-            [],
+            null,
         ];
 
         yield [
@@ -3265,7 +3265,7 @@ trait GenericCollectionProviders
                 0,
             ],
             range(1, 5),
-            [4 => 15],
+            15,
         ];
 
         yield [
@@ -3275,9 +3275,7 @@ trait GenericCollectionProviders
                 '=> ',
             ],
             array_combine(range('x', 'z'), range('a', 'c')),
-            [
-                'z' => '=> [x:a][y:b][z:c]',
-            ],
+            '=> [x:a][y:b][z:c]',
         ];
     }
 
