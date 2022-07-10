@@ -1804,7 +1804,7 @@ trait GenericCollectionProviders
                 $callback,
             ],
             [8, 12, 24, 4],
-            [0 => 4],
+            4,
         ];
 
         yield [
@@ -1813,7 +1813,7 @@ trait GenericCollectionProviders
                 $callback,
             ],
             [12],
-            [0 => 12],
+            12,
         ];
     }
 

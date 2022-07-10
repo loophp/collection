@@ -1021,17 +1021,17 @@ intermediate results.
 
 Interface: `FoldRight1able`_
 
-Signature: ``Collection::foldRight1(callable $callback): Collection;``
+Signature: ``Collection::foldRight1(callable $callback): mixed;``
 
 .. code-block:: php
 
     $callback = static fn(int $carry, int $value): int => $carry + $value;
 
     Collection::fromIterable([1, 2, 3, 4])
-        ->foldRight1($callback); // [0 => 10]
+        ->foldRight1($callback); // 10
 
     Collection::empty()
-        ->foldRight1($callback); // []
+        ->foldRight1($callback); // null
 
 forget
 ~~~~~~
