@@ -26,7 +26,7 @@ interface FoldRightable
      * @param callable(T, T, TKey, iterable<TKey, T>): T $callback
      * @param T|null $initial
      *
-     * @return Collection<TKey, T|null>
+     * @return T|null
      */
-    public function foldRight(callable $callback, $initial = null): Collection;
+    public function foldRight(callable $callback, $initial = null);
 }
