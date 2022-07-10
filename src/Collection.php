@@ -743,9 +743,9 @@ final class Collection implements CollectionInterface
         return new self((new Range())()($start)($end)($step));
     }
 
-    public function reduce(callable $callback, $initial = null): CollectionInterface
+    public function reduce(callable $callback, $initial = null)
     {
-        return new self((new Reduce())()($callback)($initial), [$this]);
+        return (new self((new Reduce())()($callback)($initial), [$this]))->current();
     }
 
     public function reduction(callable $callback, $initial = null): CollectionInterface

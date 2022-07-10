@@ -94,7 +94,6 @@ final class CollectionGenericOperationTest extends TestCase
      * @dataProvider pluckOperationProvider
      * @dataProvider prependOperationProvider
      * @dataProvider productOperationProvider
-     * @dataProvider reduceOperationProvider
      * @dataProvider reductionOperationProvider
      * @dataProvider rejectOperationProvider
      * @dataProvider reverseOperationProvider
@@ -160,6 +159,7 @@ final class CollectionGenericOperationTest extends TestCase
      * @dataProvider keyOperationProvider
      * @dataProvider matchOperationProvider
      * @dataProvider nullsyOperationProvider
+     * @dataProvider reduceOperationProvider
      * @dataProvider sameOperationProvider
      * @dataProvider truthyOperationProvider
      *
