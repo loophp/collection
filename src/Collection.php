@@ -433,9 +433,9 @@ final class Collection implements CollectionInterface
         return (new self((new Foldright())()($callback)($initial), [$this]))->current();
     }
 
-    public function foldRight1(callable $callback): CollectionInterface
+    public function foldRight1(callable $callback)
     {
-        return new self((new FoldRight1())()($callback), [$this]);
+        return (new self((new FoldRight1())()($callback), [$this]))->current();
     }
 
     public function forget(...$keys): CollectionInterface
