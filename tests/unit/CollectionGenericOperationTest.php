@@ -56,7 +56,6 @@ final class CollectionGenericOperationTest extends TestCase
      * @dataProvider flattenOperationProvider
      * @dataProvider flipOperationProvider
      * @dataProvider foldRightOperationProvider
-     * @dataProvider foldLeft1OperationProvider
      * @dataProvider foldRight1OperationProvider
      * @dataProvider forgetOperationProvider
      * @dataProvider frequencyOperationProvider
@@ -154,6 +153,7 @@ final class CollectionGenericOperationTest extends TestCase
      * @dataProvider falsyOperationProvider
      * @dataProvider findOperationProvider
      * @dataProvider foldLeftOperationProvider
+     * @dataProvider foldLeft1OperationProvider
      * @dataProvider hasOperationProvider
      * @dataProvider isEmptyOperationProvider
      * @dataProvider keyOperationProvider
