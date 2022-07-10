@@ -1820,8 +1820,6 @@ trait GenericCollectionProviders
     public function foldRightOperationProvider()
     {
         $operation = 'foldRight';
-        $input = range('A', 'C');
-        $output = ['foo'];
 
         yield [
             $operation,
@@ -1833,8 +1831,8 @@ trait GenericCollectionProviders
                 },
                 '',
             ],
-            $input,
-            [0 => 'CBA'],
+            range('A', 'C'),
+            'CBA',
         ];
     }
 

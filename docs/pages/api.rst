@@ -998,7 +998,7 @@ See ``scanRight`` for intermediate results.
 
 Interface: `FoldRightable`_
 
-Signature: ``Collection::foldRight(callable $callback, $initial = null): Collection;``
+Signature: ``Collection::foldRight(callable $callback, $initial = null): mixed;``
 
 .. code-block:: php
 
@@ -1010,7 +1010,7 @@ Signature: ``Collection::foldRight(callable $callback, $initial = null): Collect
                 return $carry;
             },
             ''
-        ); // [0 => 'CBA']
+        ); // 'CBA'
 
 foldRight1
 ~~~~~~~~~~
