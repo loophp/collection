@@ -1738,16 +1738,14 @@ trait GenericCollectionProviders
     public function foldLeftOperationProvider()
     {
         $operation = 'foldLeft';
-        $input = [];
-        $output = ['foo'];
 
         yield [
             $operation,
             [
                 static fn (string $carry, string $string): string => sprintf('%s%s', $carry, $string), 'foo',
             ],
-            $input,
-            $output,
+            [],
+            'foo',
         ];
 
         yield [
@@ -1761,7 +1759,34 @@ trait GenericCollectionProviders
                 '',
             ],
             range('A', 'C'),
-            [2 => 'ABC'],
+            'ABC',
+        ];
+
+        yield [
+            $operation,
+            [
+                static function (string $carry, string $item): string {
+                    $carry .= $item;
+
+                    return $carry;
+                },
+            ],
+            [],
+            null,
+        ];
+
+        yield [
+            $operation,
+            [
+                static function (string $carry, string $item): string {
+                    $carry .= $item;
+
+                    return $carry;
+                },
+                'foo',
+            ],
+            [],
+            'foo',
         ];
     }
 

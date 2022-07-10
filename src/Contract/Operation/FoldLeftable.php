@@ -9,8 +9,6 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
-use loophp\collection\Contract\Collection;
-
 /**
  * @template TKey
  * @template T
@@ -26,7 +24,7 @@ interface FoldLeftable
      * @param callable(T, T, TKey, iterable<TKey, T>): T $callback
      * @param T|null $initial
      *
-     * @return Collection<TKey, T|null>
+     * @return T|null
      */
-    public function foldLeft(callable $callback, $initial = null): Collection;
+    public function foldLeft(callable $callback, $initial = null);
 }

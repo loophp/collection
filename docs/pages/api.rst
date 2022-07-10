@@ -954,7 +954,7 @@ on. See ``scanLeft`` for intermediate results.
 
 Interface: `FoldLeftable`_
 
-Signature: ``Collection::foldLeft(callable $callback, $initial = null): Collection;``
+Signature: ``Collection::foldLeft(callable $callback, $initial = null): mixed;``
 
 .. code-block:: php
 
@@ -966,7 +966,7 @@ Signature: ``Collection::foldLeft(callable $callback, $initial = null): Collecti
                 return $carry;
             },
             ''
-        ); // [2 => 'ABC']
+        ); // 'ABC'
 
 foldLeft1
 ~~~~~~~~~
