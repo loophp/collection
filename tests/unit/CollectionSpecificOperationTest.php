@@ -348,7 +348,7 @@ final class CollectionSpecificOperationTest extends TestCase
         $subject = Collection::fromIterable($input)->partition($isGreaterThan(5));
         self::assertCount(2, $subject);
 
-        $first = $subject->first()->current();
+        $first = $subject->first();
         $last = $subject->last()->current();
 
         self::assertInstanceOf(CollectionInterface::class, $first);
@@ -390,7 +390,6 @@ final class CollectionSpecificOperationTest extends TestCase
             Collection::fromIterable($input)
                 ->partition($isGreaterThan(5), $isGreaterThan(3))
                 ->first()
-                ->current()
         );
 
         self::assertIdenticalIterable(
@@ -472,7 +471,7 @@ final class CollectionSpecificOperationTest extends TestCase
             $subject->last()
         );
 
-        $first = $subject->first()->current();
+        $first = $subject->first();
         $last = $subject->last()->current();
 
         self::assertCount(3, $first);
@@ -503,7 +502,7 @@ final class CollectionSpecificOperationTest extends TestCase
         );
         self::assertIdenticalIterable(
             [1, 2, 3, 4],
-            $subject->first()->current()
+            $subject->first()
         );
         self::assertIdenticalIterable(
             [4 => 5, 5 => 6, 6 => 7, 7 => 8, 8 => 9, 9 => 10],

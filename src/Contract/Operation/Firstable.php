@@ -24,7 +24,7 @@ interface Firstable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#first
      *
-     * @return Collection<TKey, T>
+     * @return ?T
      */
-    public function first(): Collection;
+    public function first();
 }

@@ -53,15 +53,10 @@ span_checkListInt($right);
 
 $first = Collection::fromIterable([2, 3, 4])->span($intValueCallback)->first();
 $last = Collection::fromIterable([2, 3, 4])->span($intValueCallback)->last();
-span_checkListCollectionInt($first);
+span_checkListInt($first);
 span_checkListCollectionInt($last);
 
 // VALID failures -> current returns T|null
-
-/** @psalm-suppress PossiblyNullArgument @phpstan-ignore-next-line */
-span_checkListInt($first->current());
-/** @psalm-suppress PossiblyNullArgument @phpstan-ignore-next-line */
-span_checkListInt($last->current());
 
 [$left, $right] = Collection::fromIterable(['foo' => 'bar', 'bar' => 'foo'])->span($stringValueCallback)->all();
 span_checkMapString($left);
@@ -69,12 +64,5 @@ span_checkMapString($right);
 
 $first = Collection::fromIterable(['foo' => 'bar', 'bar' => 'foo'])->span($stringValueCallback)->first();
 $last = Collection::fromIterable(['foo' => 'bar', 'bar' => 'foo'])->span($stringValueCallback)->last();
-span_checkMapCollectionString($first);
+span_checkMapString($first);
 span_checkMapCollectionString($last);
-
-// VALID failures -> current returns T|null
-
-/** @psalm-suppress PossiblyNullArgument @phpstan-ignore-next-line */
-span_checkMapString($first->current());
-/** @psalm-suppress PossiblyNullArgument @phpstan-ignore-next-line */
-span_checkMapString($last->current());
