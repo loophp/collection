@@ -2170,14 +2170,21 @@ trait GenericCollectionProviders
             $operation,
             ['-'],
             $input,
-            [2 => 'A-B-C'],
+            'A-B-C',
         ];
 
         yield [
             $operation,
             [],
             $input,
-            [2 => 'ABC'],
+            'ABC',
+        ];
+
+        yield [
+            $operation,
+            [],
+            [],
+            '',
         ];
     }
 

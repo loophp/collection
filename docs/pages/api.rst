@@ -1200,16 +1200,14 @@ implode
 
 Join all the elements of the collection into a single string using a glue provided or the empty string as default.
 
-.. tip:: Internally this operation uses ``foldLeft``, which is why the result will have the last element's key.
-
 Interface: `Implodeable`_
 
-Signature: ``Collection::implode(string $glue = ''): Collection;``
+Signature: ``Collection::implode(string $glue = ''): string;``
 
 .. code-block:: php
 
     Collection::fromIterable(range('a', 'c'))
-        ->implode('-'); // [2 => 'a-b-c']
+        ->implode('-'); // 'a-b-c'
 
 init
 ~~~~
