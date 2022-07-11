@@ -10,23 +10,13 @@ declare(strict_types=1);
 include __DIR__ . '/../../vendor/autoload.php';
 
 use loophp\collection\Collection;
-use loophp\collection\Contract\Collection as CollectionInterface;
 
-/**
- * @param CollectionInterface<int, string> $collection
- */
-function implode_checkListString(CollectionInterface $collection): void
+function takeString(string $string): void
 {
 }
 
-/**
- * @param CollectionInterface<string, string> $collection
- */
-function implode_checkMapInt(CollectionInterface $collection): void
-{
-}
-
+// TODO: Replace with loophp/typed-generators when it will be done.
 $input = range('a', 'e');
 
-implode_checkListString(Collection::fromIterable($input)->implode(','));
-implode_checkMapInt(Collection::fromIterable(array_combine($input, $input))->implode(','));
+takeString(Collection::fromIterable($input)->implode(','));
+takeString(Collection::fromIterable([])->implode());

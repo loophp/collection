@@ -562,9 +562,9 @@ final class Collection implements CollectionInterface
         return new self((new IfThenElse())()($condition)($then)($else ?? $identity), [$this]);
     }
 
-    public function implode(string $glue = ''): CollectionInterface
+    public function implode(string $glue = ''): string
     {
-        return new self((new Implode())()($glue), [$this]);
+        return (new self((new Implode())()($glue), [$this]))->current(0, '');
     }
 
     public function init(): CollectionInterface
