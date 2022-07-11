@@ -398,9 +398,9 @@ final class Collection implements CollectionInterface
         return (new Find())()($default)(...$callbacks)($this)->current();
     }
 
-    public function first(): CollectionInterface
+    public function first()
     {
-        return new self((new First())(), [$this]);
+        return (new self((new First())(), [$this]))->current();
     }
 
     public function flatMap(callable $callback): CollectionInterface

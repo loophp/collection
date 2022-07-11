@@ -1449,21 +1449,21 @@ trait GenericCollectionProviders
             $operation,
             [],
             range(1, 10),
-            [0 => 1],
+            1,
         ];
 
         yield [
             $operation,
             [],
             [],
-            [],
+            null,
         ];
 
         yield [
             $operation,
             [],
             ['foo' => 'bar', 'baz' => 'bar'],
-            ['foo' => 'bar'],
+            'bar',
         ];
     }
 

@@ -838,11 +838,9 @@ first
 
 Get the first item from the collection in a separate collection. Alias for ``head``.
 
-The ``current`` operation can then be used to extract the item out of the collection.
-
 Interface: `Firstable`_
 
-Signature: ``Collection::first(): Collection;``
+Signature: ``Collection::first(): mixed;``
 
 .. code-block:: php
 
@@ -850,14 +848,10 @@ Signature: ``Collection::first(): Collection;``
             yield 'a' => 'a';
             yield 'b' => 'b';
             yield 'c' => 'c';
-            yield 'a' => 'd';
-            yield 'b' => 'e';
-            yield 'c' => 'f';
         };
 
         Collection::fromIterable($generator())
-            ->first()
-            ->current(); // ['a' => 'a']
+            ->first(); // a
 
 flatMap
 ~~~~~~~
