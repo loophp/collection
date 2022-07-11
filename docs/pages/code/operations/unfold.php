@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace App;
 
 use loophp\collection\Collection;
+
 use const INF;
 
 include __DIR__ . '/../../../../vendor/autoload.php';
