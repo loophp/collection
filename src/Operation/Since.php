@@ -55,7 +55,7 @@ final class Since extends AbstractOperation
                     )($iteratorAggregate);
 
                     if (false === $every->current()) {
-                        return yield from (new Limit())()(-1)($every->key())($iteratorAggregate);
+                        yield from (new Limit())()(-1)($every->key())($iteratorAggregate);
                     }
                 };
     }

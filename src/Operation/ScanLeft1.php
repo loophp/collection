@@ -48,7 +48,7 @@ final class ScanLeft1 extends AbstractOperation
                     $iteratorInitial = $iteratorAggregate->getIterator();
 
                     if (false === $iteratorInitial->valid()) {
-                        return yield from [];
+                        return;
                     }
 
                     $initial = $iteratorInitial->current();

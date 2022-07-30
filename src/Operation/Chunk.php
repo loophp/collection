@@ -48,7 +48,7 @@ final class Chunk extends AbstractOperation
                         $size = $sizesIterator->current();
 
                         if (0 >= $size) {
-                            return yield from [];
+                            return;
                         }
 
                         if (count($values) !== $size) {
