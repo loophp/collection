@@ -12,6 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use loophp\collection\Utils\CallbacksArrayReducer;
+use loophp\iterators\FilterIterableAggregate;
 
 /**
  * @immutable
@@ -34,25 +35,34 @@ final class Reject extends AbstractOperation
              *
              * @return Closure(iterable<TKey, T>): Generator<TKey, T>
              */
-            static function (callable ...$callbacks): Closure {
-                $defaultCallback =
-                    /**
-                     * @param T $value
-                     */
-                    static fn ($value): bool => (bool) $value;
+            static fn (callable ...$callbacks): Closure =>
+                /**
+                 * @param iterable<TKey, T> $iterable
+                 *
+                 * @return Generator<TKey, T>
+                 */
+                static function (iterable $iterable) use ($callbacks): Generator {
+                    $defaultCallback =
+                        /**
+                         * @param T $value
+                         *
+                         * @return T
+                         */
+                        static fn ($value) => $value;
 
-                $callback = CallbacksArrayReducer::or()(
-                    [] === $callbacks ? [$defaultCallback] : $callbacks
-                );
+                    $callback = [] === $callbacks ?
+                        $defaultCallback :
+                        CallbacksArrayReducer::or()($callbacks);
 
-                return (new Filter())()(
-                    /**
-                     * @param T $current
-                     * @param TKey $key
-                     * @param iterable<TKey, T> $iterable
-                     */
-                    static fn ($current, $key, iterable $iterable): bool => !$callback($current, $key, $iterable)
-                );
-            };
+                    $callback =
+                        /**
+                         * @param T $current
+                         * @param TKey $key
+                         * @param iterable<TKey, T> $iterable
+                         */
+                        static fn ($current, $key, $iterable): bool => !$callback($current, $key, $iterable);
+
+                    yield from new FilterIterableAggregate($iterable, $callback);
+                };
     }
 }

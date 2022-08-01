@@ -50,11 +50,9 @@ final class Filter extends AbstractOperation
                          */
                         static fn ($value) => $value;
 
-                    $callbacks = [] === $callbacks ?
-                        [$defaultCallback] :
-                        $callbacks;
-
-                    $callback = CallbacksArrayReducer::or()($callbacks);
+                    $callback = [] === $callbacks ?
+                        $defaultCallback :
+                        CallbacksArrayReducer::or()($callbacks);
 
                     yield from new FilterIterableAggregate($iterable, $callback);
                 };
