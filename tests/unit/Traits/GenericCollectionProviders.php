@@ -4325,7 +4325,7 @@ trait GenericCollectionProviders
             $operation,
             [],
             $input,
-            [11 => $output],
+            $output,
         ];
     }
 
