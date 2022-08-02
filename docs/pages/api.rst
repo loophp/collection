@@ -2391,7 +2391,7 @@ creates a single string from multiple strings using one space as the glue.
 
 Interface: `Unwordsable`_
 
-Signature: ``Collection::unwords(): Collection;``
+Signature: ``Collection::unwords(): string;``
 
 .. code-block:: php
 
@@ -2408,7 +2408,7 @@ Signature: ``Collection::unwords(): Collection;``
     ];
 
     Collection::fromIterable($words)
-        ->unwords(); // ['The quick brown fox jumps over the lazy dog.']
+        ->unwords(); // 'The quick brown fox jumps over the lazy dog.'
 
 unwrap
 ~~~~~~

@@ -111,7 +111,6 @@ final class CollectionGenericOperationTest extends TestCase
      * @dataProvider unpairOperationProvider
      * @dataProvider untilOperationProvider
      * @dataProvider unwindowOperationProvider
-     * @dataProvider unwordsOperationProvider
      * @dataProvider unwrapOperationProvider
      * @dataProvider unzipOperationProvider
      * @dataProvider whenOperationProvider
@@ -162,6 +161,7 @@ final class CollectionGenericOperationTest extends TestCase
      * @dataProvider sameOperationProvider
      * @dataProvider truthyOperationProvider
      * @dataProvider unlinesOperationProvider
+     * @dataProvider unwordsOperationProvider
      *
      * @param mixed $expected
      */

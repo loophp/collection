@@ -22,8 +22,6 @@ interface Unwordsable
      * from multiple strings using one space as the glue.
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#unwords
-     *
-     * @return Collection<TKey, string>
      */
-    public function unwords(): Collection;
+    public function unwords(): string;
 }

@@ -925,9 +925,9 @@ final class Collection implements CollectionInterface
         return new self((new Unwindow())(), [$this]);
     }
 
-    public function unwords(): CollectionInterface
+    public function unwords(): string
     {
-        return new self((new Unwords())(), [$this]);
+        return (new self((new Unwords())(), [$this]))->current(0, '');
     }
 
     public function unwrap(): CollectionInterface
