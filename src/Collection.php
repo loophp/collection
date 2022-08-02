@@ -900,9 +900,9 @@ final class Collection implements CollectionInterface
         return new self((new Unfold())()(...$parameters)($callback));
     }
 
-    public function unlines(): CollectionInterface
+    public function unlines(): string
     {
-        return new self((new Unlines())(), [$this]);
+        return (new self((new Unlines())(), [$this]))->current(0, '');
     }
 
     public function unpack(): CollectionInterface

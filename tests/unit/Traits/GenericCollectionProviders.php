@@ -4162,14 +4162,12 @@ trait GenericCollectionProviders
                 'The quick brow fox jumps over the lazy dog.',
                 'This is another sentence.',
             ],
-            [
-                1 => sprintf(
-                    '%s%s%s',
-                    'The quick brow fox jumps over the lazy dog.',
-                    PHP_EOL,
-                    'This is another sentence.'
-                ),
-            ],
+            sprintf(
+                '%s%s%s',
+                'The quick brow fox jumps over the lazy dog.',
+                PHP_EOL,
+                'This is another sentence.'
+            ),
         ];
     }
 
