@@ -2278,7 +2278,7 @@ Opposite of ``lines``, creates a single string from multiple lines using ``PHP_E
 
 Interface: `Unlinesable`_
 
-Signature: ``Collection::unlines(): Collection;``
+Signature: ``Collection::unlines(): string;``
 
 .. code-block:: php
 
@@ -2290,11 +2290,9 @@ Signature: ``Collection::unlines(): Collection;``
 
     Collection::fromIterable($lines)
         ->unlines();
-    // [
     //    'The quick brown fox jumps over the lazy dog.
     //
     //     This is another sentence.'
-    // ]
 
 unpack
 ~~~~~~

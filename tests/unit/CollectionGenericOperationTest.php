@@ -107,7 +107,6 @@ final class CollectionGenericOperationTest extends TestCase
      * @dataProvider tailsOperationProvider
      * @dataProvider takeWhileOperationProvider
      * @dataProvider transposeOperationProvider
-     * @dataProvider unlinesOperationProvider
      * @dataProvider unpackOperationProvider
      * @dataProvider unpairOperationProvider
      * @dataProvider untilOperationProvider
@@ -162,6 +161,7 @@ final class CollectionGenericOperationTest extends TestCase
      * @dataProvider reduceOperationProvider
      * @dataProvider sameOperationProvider
      * @dataProvider truthyOperationProvider
+     * @dataProvider unlinesOperationProvider
      *
      * @param mixed $expected
      */
