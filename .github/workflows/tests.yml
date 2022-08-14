@@ -21,6 +21,8 @@ jobs:
     tests:
         name: "Unit Tests"
         runs-on: ${{ matrix.operating-system }}
+        needs:
+            - supported-versions-matrix
         strategy:
             fail-fast: false
             matrix:
