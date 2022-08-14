@@ -9,15 +9,23 @@ on:
 name: "Unit tests"
 
 jobs:
-    run:
+    supported-versions-matrix:
+        name: Supported Versions Matrix
+        runs-on: ubuntu-latest
+        outputs:
+            version: ${{ steps.supported-versions-matrix.outputs.version }}
+        steps:
+            - uses: actions/checkout@v3
+            - id: supported-versions-matrix
+              uses: WyriHaximus/github-action-composer-php-versions-in-range@v1
+    tests:
         name: "Unit Tests"
         runs-on: ${{ matrix.operating-system }}
         strategy:
             fail-fast: false
             matrix:
                 operating-system: [ubuntu-latest, windows-latest, macOS-latest]
-                php-versions: ["7.4", "8.1"]
-
+                php: ${{ fromJson(needs.supported-versions-matrix.outputs.version) }}
         steps:
             - name: Set git to use LF
               run: |
@@ -32,23 +40,12 @@ jobs:
             - name: Install PHP
               uses: shivammathur/setup-php@2.21.1
               with:
-                  php-version: ${{ matrix.php-versions }}
+                  php-version: ${{ matrix.php }}
                   coverage: pcov
                   extensions: gd,mbstring
 
-            - name: Get Composer Cache Directory
-              id: composer-cache
-              run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-
-            - name: Cache dependencies
-              uses: actions/cache@v3
-              with:
-                  path: ${{ steps.composer-cache.outputs.dir }}
-                  key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
-                  restore-keys: ${{ runner.os }}-composer-
-
             - name: Install dependencies
-              run: composer install --no-progress --prefer-dist --optimize-autoloader
+              uses: ramsey/composer-install@v2
 
             - name: Run Grumphp
               env:
