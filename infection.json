@@ -1,21 +1,19 @@
 {
-    "timeout": 30,
-    "source": {
-        "directories": [
-            "src"
-        ]
-    },
-    "tmpDir": "build/logs/coverage/coverage-xml",
-    "logs": {
-        "github": true,
-        "text": "build/logs/infection/infection.log",
-        "summary": "build/logs/infection/summary.log",
-        "debug": "build/logs/infection/debug.log",
-        "perMutator": "build/logs/infection/per-mutator.md",
-        "html": "build/logs/infection/report.html",
-        "stryker": {
-            "report": "master"
-        }
-    },
-    "testFramework":"phpunit"
+  "timeout": 30,
+  "source": {
+    "directories": ["src"]
+  },
+  "tmpDir": "build/logs/coverage/coverage-xml",
+  "logs": {
+    "github": true,
+    "text": "build/logs/infection/infection.log",
+    "summary": "build/logs/infection/summary.log",
+    "debug": "build/logs/infection/debug.log",
+    "perMutator": "build/logs/infection/per-mutator.md",
+    "html": "build/logs/infection/report.html",
+    "stryker": {
+      "report": "master"
+    }
+  },
+  "testFramework": "phpunit"
 }

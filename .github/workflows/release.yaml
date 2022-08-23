@@ -38,5 +38,6 @@ jobs:
           release_name: "${{ steps.tag_name.outputs.current_version }}"
           tag_name: "${{ steps.tag_name.outputs.current_version }}"
           body: ${{ steps.changelog_reader.outputs.changes }}
-          prerelease: ${{ steps.changelog_reader.outputs.status == 'prereleased' }}
+          prerelease:
+            ${{ steps.changelog_reader.outputs.status == 'prereleased' }}
           draft: ${{ steps.changelog_reader.outputs.status == 'unreleased' }}

@@ -1,50 +1,50 @@
 # https://help.github.com/en/categories/automating-your-workflow-with-github-actions
 
 on:
-    push:
-        paths:
-          - "**.php"
-        branches:
-            - master
-    pull_request:
-        paths:
-          - "**.php"
+  push:
+    paths:
+      - "**.php"
+    branches:
+      - master
+  pull_request:
+    paths:
+      - "**.php"
 
 name: "Code style"
 
 jobs:
-    run:
-        name: "Code Style"
-        runs-on: ${{ matrix.operating-system }}
-        strategy:
-            fail-fast: false
-            matrix:
-                operating-system: [ubuntu-latest]
-                php-versions: ["8.1"]
+  run:
+    name: "Code Style"
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      fail-fast: false
+      matrix:
+        operating-system: [ubuntu-latest]
+        php-versions: ["8.1"]
 
-        steps:
-            - name: Set git to use LF
-              run: |
-                  git config --global core.autocrlf false
-                  git config --global core.eol lf
+    steps:
+      - name: Set git to use LF
+        run: |
+          git config --global core.autocrlf false
+          git config --global core.eol lf
 
-            - name: Checkout
-              uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
 
-            - name: Install PHP
-              uses: shivammathur/setup-php@v2
-              with:
-                  php-version: ${{ matrix.php-versions }}
-                  extensions: gd,mbstring,pcov
-                  tools: cs2pr
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: gd,mbstring,pcov
+          tools: cs2pr
 
-            - name: Install dependencies
-              uses: ramsey/composer-install@v2
+      - name: Install dependencies
+        uses: ramsey/composer-install@v2
 
-            - name: Run Grumphp
-              run: vendor/bin/grumphp run --testsuite=cs -n
+      - name: Run Grumphp
+        run: vendor/bin/grumphp run --testsuite=cs -n
 
-            - name: Send feedback on Github
-              if: ${{ failure() }}
-              run: |
-                  vendor/bin/php-cs-fixer --allow-risky=yes --config=.php-cs-fixer.dist.php fix --dry-run --format=checkstyle | cs2pr
+      - name: Send feedback on Github
+        if: ${{ failure() }}
+        run: |
+          vendor/bin/php-cs-fixer --allow-risky=yes --config=.php-cs-fixer.dist.php fix --dry-run --format=checkstyle | cs2pr
