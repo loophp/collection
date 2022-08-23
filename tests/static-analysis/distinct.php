@@ -31,6 +31,7 @@ function distinct_checkObjectList(CollectionInterface $collection): void
 function distinct_checkMap(CollectionInterface $collection): void
 {
 }
+
 // TODO: Replace with a proper typed generator when it will be done.
 $catGenerator =
     /**
