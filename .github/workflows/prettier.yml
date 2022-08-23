@@ -1,4 +1,4 @@
-name: README checks
+name: Prettier checks
 
 # This action works with pull requests and pushes
 on:
@@ -19,4 +19,4 @@ jobs:
               uses: cachix/install-nix-action@v17
 
             - name: Check README
-              run: nix run nixpkgs#nodePackages.prettier -- --check README.md
+              run: nix run nixpkgs#nodePackages.prettier -- --check .
