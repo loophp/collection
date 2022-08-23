@@ -2,9 +2,13 @@
 
 on:
     push:
+        paths:
+          - "src/**.php"
         branches:
             - master
     pull_request:
+        paths:
+          - "src/**.php"
 
 name: "Code style"
 
