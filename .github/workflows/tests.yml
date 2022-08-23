@@ -3,14 +3,12 @@
 on:
     push:
         paths:
-          - "src/**.php"
-          - "tests/**.php"
+          - "**.php"
         branches:
             - master
     pull_request:
         paths:
-          - "src/**.php"
-          - "tests/**.php"
+          - "**.php"
 
 name: "Unit tests"
 
@@ -42,11 +40,9 @@ jobs:
 
             - name: Checkout
               uses: actions/checkout@v3
-              with:
-                  fetch-depth: 2
 
             - name: Install PHP
-              uses: shivammathur/setup-php@2.21.1
+              uses: shivammathur/setup-php@v2
               with:
                   php-version: ${{ matrix.php }}
                   coverage: pcov
@@ -56,8 +52,6 @@ jobs:
               uses: ramsey/composer-install@v2
 
             - name: Run Grumphp
-              env:
-                XDEBUG_MODE: coverage
               run: vendor/bin/grumphp run --tasks=phpunit,clover_coverage
 
             - name: Send Scrutinizer data
