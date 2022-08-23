@@ -4,11 +4,13 @@ on:
     push:
         paths:
           - "src/**.php"
+          - "tests/**.php"
         branches:
             - master
     pull_request:
         paths:
           - "src/**.php"
+          - "tests/**.php"
 
 name: "Mutations testing"
 
