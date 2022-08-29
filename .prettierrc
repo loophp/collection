@@ -1,5 +1,3 @@
 {
-  "tabWidth": 2,
-  "useTabs": false,
-  "proseWrap": "always"
+    "proseWrap": "always"
 }

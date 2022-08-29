@@ -3,41 +3,40 @@
 name: "Release"
 
 on: # yamllint disable-line rule:truthy
-  push:
-    tags:
-      - "**"
+    push:
+        tags:
+            - "**"
 
 jobs:
-  release:
-    name: "Tag"
+    release:
+        name: "Tag"
 
-    runs-on: "ubuntu-latest"
+        runs-on: "ubuntu-latest"
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v3
 
-      - name: Determine tag
-        id: tag_name
-        run: |
-          echo ::set-output name=current_version::${GITHUB_REF#refs/tags/}
-        shell: bash
+            - name: Determine tag
+              id: tag_name
+              run: |
+                  echo ::set-output name=current_version::${GITHUB_REF#refs/tags/}
+              shell: bash
 
-      - name: Get Changelog Entry
-        id: changelog_reader
-        uses: mindsers/changelog-reader-action@v2
-        with:
-          version: ${{ steps.tag_name.outputs.current_version }}
-          path: ./CHANGELOG.md
+            - name: Get Changelog Entry
+              id: changelog_reader
+              uses: mindsers/changelog-reader-action@v2
+              with:
+                  version: ${{ steps.tag_name.outputs.current_version }}
+                  path: ./CHANGELOG.md
 
-      - name: "Create release"
-        uses: "actions/create-release@v1.1.4"
-        env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-        with:
-          release_name: "${{ steps.tag_name.outputs.current_version }}"
-          tag_name: "${{ steps.tag_name.outputs.current_version }}"
-          body: ${{ steps.changelog_reader.outputs.changes }}
-          prerelease:
-            ${{ steps.changelog_reader.outputs.status == 'prereleased' }}
-          draft: ${{ steps.changelog_reader.outputs.status == 'unreleased' }}
+            - name: "Create release"
+              uses: "actions/create-release@v1.1.4"
+              env:
+                  GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+              with:
+                  release_name: "${{ steps.tag_name.outputs.current_version }}"
+                  tag_name: "${{ steps.tag_name.outputs.current_version }}"
+                  body: ${{ steps.changelog_reader.outputs.changes }}
+                  prerelease: ${{ steps.changelog_reader.outputs.status == 'prereleased' }}
+                  draft: ${{ steps.changelog_reader.outputs.status == 'unreleased' }}

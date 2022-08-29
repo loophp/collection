@@ -1,61 +1,61 @@
 # https://help.github.com/en/categories/automating-your-workflow-with-github-actions
 
 on:
-  push:
-    paths:
-      - "**.php"
-    branches:
-      - master
-  pull_request:
-    paths:
-      - "**.php"
+    push:
+        paths:
+            - "**.php"
+        branches:
+            - master
+    pull_request:
+        paths:
+            - "**.php"
 
 name: "Unit tests"
 
 jobs:
-  supported-versions-matrix:
-    name: Supported Versions Matrix
-    runs-on: ubuntu-latest
-    outputs:
-      version: ${{ steps.supported-versions-matrix.outputs.version }}
-    steps:
-      - uses: actions/checkout@v3
-      - id: supported-versions-matrix
-        uses: WyriHaximus/github-action-composer-php-versions-in-range@v1
-  tests:
-    name: "Unit Tests"
-    runs-on: ${{ matrix.operating-system }}
-    needs:
-      - supported-versions-matrix
-    strategy:
-      fail-fast: false
-      matrix:
-        operating-system: [ubuntu-latest, windows-latest, macOS-latest]
-        php: ${{ fromJson(needs.supported-versions-matrix.outputs.version) }}
-    steps:
-      - name: Set git to use LF
-        run: |
-          git config --global core.autocrlf false
-          git config --global core.eol lf
+    supported-versions-matrix:
+        name: Supported Versions Matrix
+        runs-on: ubuntu-latest
+        outputs:
+            version: ${{ steps.supported-versions-matrix.outputs.version }}
+        steps:
+            - uses: actions/checkout@v3
+            - id: supported-versions-matrix
+              uses: WyriHaximus/github-action-composer-php-versions-in-range@v1
+    tests:
+        name: "Unit Tests"
+        runs-on: ${{ matrix.operating-system }}
+        needs:
+            - supported-versions-matrix
+        strategy:
+            fail-fast: false
+            matrix:
+                operating-system: [ubuntu-latest, windows-latest, macOS-latest]
+                php: ${{ fromJson(needs.supported-versions-matrix.outputs.version) }}
+        steps:
+            - name: Set git to use LF
+              run: |
+                  git config --global core.autocrlf false
+                  git config --global core.eol lf
 
-      - name: Checkout
-        uses: actions/checkout@v3
+            - name: Checkout
+              uses: actions/checkout@v3
 
-      - name: Install PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php }}
-          coverage: pcov
-          extensions: gd,mbstring
+            - name: Install PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ matrix.php }}
+                  coverage: pcov
+                  extensions: gd,mbstring
 
-      - name: Install dependencies
-        uses: ramsey/composer-install@v2
+            - name: Install dependencies
+              uses: ramsey/composer-install@v2
 
-      - name: Run Grumphp
-        run: vendor/bin/grumphp run --tasks=phpunit,clover_coverage
+            - name: Run Grumphp
+              run: vendor/bin/grumphp run --tasks=phpunit,clover_coverage
 
-      - name: Send Scrutinizer data
-        run: |
-          composer require scrutinizer/ocular --dev
-          vendor/bin/ocular code-coverage:upload --format=php-clover build/logs/coverage/clover.xml
-        continue-on-error: true
+            - name: Send Scrutinizer data
+              run: |
+                  composer require scrutinizer/ocular --dev
+                  vendor/bin/ocular code-coverage:upload --format=php-clover build/logs/coverage/clover.xml
+              continue-on-error: true

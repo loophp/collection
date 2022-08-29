@@ -1,76 +1,76 @@
 {
-  "name": "loophp/collection",
-  "description": "A (memory) friendly, easy, lazy and modular collection class.",
-  "license": "MIT",
-  "type": "library",
-  "keywords": [
-    "collection",
-    "generator",
-    "iterator",
-    "yield"
-  ],
-  "readme": "README.md",
-  "authors": [
-    {
-      "name": "Pol Dellaiera",
-      "email": "pol.dellaiera@protonmail.com",
-      "homepage": "https://not-a-number.io",
-      "role": "author"
-    }
-  ],
-  "homepage": "https://github.com/loophp/collection",
-  "support": {
-    "issues": "https://github.com/loophp/collection/issues",
-    "source": "https://github.com/loophp/collection",
-    "docs": "https://loophp-collection.rtfd.io"
-  },
-  "funding": [
-    {
-      "type": "github",
-      "url": "https://github.com/drupol"
-    }
-  ],
-  "require": {
-    "php": ">= 7.4",
-    "loophp/iterators": "^1.6"
-  },
-  "require-dev": {
-    "amphp/parallel-functions": "^1",
-    "doctrine/collections": "^1.6",
-    "drupol/php-conventions": "^5",
-    "infection/infection": "^0.26.0",
-    "loophp/phpunit-iterable-assertions": "^1.0",
-    "phpstan/phpstan-strict-rules": "^1.0",
-    "phpunit/php-code-coverage": "^9.2",
-    "phpunit/phpunit": "^9.5",
-    "psr/cache": "^1.0 || ^2.0",
-    "symfony/cache": "^5"
-  },
-  "autoload": {
-    "psr-4": {
-      "loophp\\collection\\": "./src/"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "tests\\loophp\\collection\\": "./tests/unit/"
-    }
-  },
-  "config": {
-    "allow-plugins": {
-      "composer/package-versions-deprecated": true,
-      "ergebnis/composer-normalize": true,
-      "infection/extension-installer": true,
-      "phpro/grumphp": true,
-      "phpstan/extension-installer": true
+    "name": "loophp/collection",
+    "description": "A (memory) friendly, easy, lazy and modular collection class.",
+    "license": "MIT",
+    "type": "library",
+    "keywords": [
+        "collection",
+        "generator",
+        "iterator",
+        "yield"
+    ],
+    "readme": "README.md",
+    "authors": [
+        {
+            "name": "Pol Dellaiera",
+            "email": "pol.dellaiera@protonmail.com",
+            "homepage": "https://not-a-number.io",
+            "role": "author"
+        }
+    ],
+    "homepage": "https://github.com/loophp/collection",
+    "support": {
+        "issues": "https://github.com/loophp/collection/issues",
+        "source": "https://github.com/loophp/collection",
+        "docs": "https://loophp-collection.rtfd.io"
     },
-    "sort-packages": true
-  },
-  "scripts": {
-    "changelog-unreleased": "auto_changelog -c .auto-changelog -u",
-    "changelog-version": "auto_changelog -c .auto-changelog -v",
-    "grumphp": "./vendor/bin/grumphp run",
-    "infection": "vendor/bin/infection run -j 2",
-    "phpunit": "vendor/bin/phpunit"
-  }
+    "funding": [
+        {
+            "type": "github",
+            "url": "https://github.com/drupol"
+        }
+    ],
+    "require": {
+        "php": ">= 7.4",
+        "loophp/iterators": "^1.6"
+    },
+    "require-dev": {
+        "amphp/parallel-functions": "^1",
+        "doctrine/collections": "^1.6",
+        "drupol/php-conventions": "^5",
+        "infection/infection": "^0.26.0",
+        "loophp/phpunit-iterable-assertions": "^1.0",
+        "phpstan/phpstan-strict-rules": "^1.0",
+        "phpunit/php-code-coverage": "^9.2",
+        "phpunit/phpunit": "^9.5",
+        "psr/cache": "^1.0 || ^2.0",
+        "symfony/cache": "^5"
+    },
+    "autoload": {
+        "psr-4": {
+            "loophp\\collection\\": "./src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "tests\\loophp\\collection\\": "./tests/unit/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true,
+            "ergebnis/composer-normalize": true,
+            "infection/extension-installer": true,
+            "phpro/grumphp": true,
+            "phpstan/extension-installer": true
+        },
+        "sort-packages": true
+    },
+    "scripts": {
+        "changelog-unreleased": "auto_changelog -c .auto-changelog -u",
+        "changelog-version": "auto_changelog -c .auto-changelog -v",
+        "grumphp": "./vendor/bin/grumphp run",
+        "infection": "vendor/bin/infection run -j 2",
+        "phpunit": "vendor/bin/phpunit"
+    }
 }

@@ -1,22 +1,22 @@
 build:
-  image: default-bionic
-  nodes:
-    php81:
-      environment:
-        php:
-          version: 8.1
-      tests:
-        override:
-          - php-scrutinizer-run
+    image: default-bionic
+    nodes:
+        php81:
+            environment:
+                php:
+                    version: 8.1
+            tests:
+                override:
+                    - php-scrutinizer-run
 
 filter:
-  paths:
-    - "src/*"
+    paths:
+        - "src/*"
 
 tools:
-  external_code_coverage:
-    timeout: 600
-  php_loc: true
-  php_pdepend: true
-  php_sim: true
-  php_changetracking: true
+    external_code_coverage:
+        timeout: 600
+    php_loc: true
+    php_pdepend: true
+    php_sim: true
+    php_changetracking: true

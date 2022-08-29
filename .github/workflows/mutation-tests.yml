@@ -1,54 +1,54 @@
 # https://help.github.com/en/categories/automating-your-workflow-with-github-actions
 
 on:
-  push:
-    paths:
-      - "src/**.php"
-      - "tests/**.php"
-    branches:
-      - master
-  pull_request:
-    paths:
-      - "src/**.php"
-      - "tests/**.php"
+    push:
+        paths:
+            - "src/**.php"
+            - "tests/**.php"
+        branches:
+            - master
+    pull_request:
+        paths:
+            - "src/**.php"
+            - "tests/**.php"
 
 name: "Mutations testing"
 
 jobs:
-  run:
-    name: "Mutation Testing"
-    runs-on: ${{ matrix.operating-system }}
-    strategy:
-      fail-fast: false
-      matrix:
-        operating-system: [ubuntu-latest]
-        php-versions: ["8.1"]
+    run:
+        name: "Mutation Testing"
+        runs-on: ${{ matrix.operating-system }}
+        strategy:
+            fail-fast: false
+            matrix:
+                operating-system: [ubuntu-latest]
+                php-versions: ["8.1"]
 
-    steps:
-      - name: Set git to use LF
-        run: |
-          git config --global core.autocrlf false
-          git config --global core.eol lf
+        steps:
+            - name: Set git to use LF
+              run: |
+                  git config --global core.autocrlf false
+                  git config --global core.eol lf
 
-      - name: Checkout
-        uses: actions/checkout@v3
+            - name: Checkout
+              uses: actions/checkout@v3
 
-      - name: Install PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php-versions }}
-          coverage: pcov
-          extensions: gd,mbstring
+            - name: Install PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ matrix.php-versions }}
+                  coverage: pcov
+                  extensions: gd,mbstring
 
-      - name: Install dependencies
-        uses: ramsey/composer-install@v2
+            - name: Install dependencies
+              uses: ramsey/composer-install@v2
 
-      - name: Run Grumphp
-        env:
-          STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
-        run: vendor/bin/grumphp run --tasks=infection -n
+            - name: Run Grumphp
+              env:
+                  STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
+              run: vendor/bin/grumphp run --tasks=infection -n
 
-      - name: Send feedback on Github
-        if: ${{ failure() }}
-        run: |
-          vendor/bin/infection -j2 --logger-github
+            - name: Send feedback on Github
+              if: ${{ failure() }}
+              run: |
+                  vendor/bin/infection -j2 --logger-github
