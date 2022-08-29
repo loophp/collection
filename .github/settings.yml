@@ -20,7 +20,7 @@ branches:
                   - "Unit Tests (macOS-latest, 8.1)"
                   - "Unit Tests (windows-latest, 7.4)"
                   - "Unit Tests (windows-latest, 8.1)"
-
+                  - "prettier"
           restrictions: null
           required_linear_history: true
 
