@@ -5,9 +5,8 @@ build:
             environment:
                 php:
                     version: 8.1
-            tests:
-                override:
-                    - php-scrutinizer-run
+                    pecl_extensions:
+                        - pcov
 
 filter:
     paths:
