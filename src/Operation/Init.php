@@ -25,6 +25,7 @@ final class Init extends AbstractOperation
 {
     /**
      * @return Closure(iterable<TKey, T>): Generator<TKey, T>
+     *
      * @psalm-suppress InvalidArgument
      */
     public function __invoke(): Closure

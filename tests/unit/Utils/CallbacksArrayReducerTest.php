@@ -14,6 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
+ *
  * @coversDefaultClass \loophp\collection\Utils\CallbacksArrayReducer
  */
 final class CallbacksArrayReducerTest extends TestCase

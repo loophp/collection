@@ -31,6 +31,7 @@ use const PHP_VERSION_ID;
 
 /**
  * @internal
+ *
  * @coversDefaultClass \loophp\collection
  */
 final class CollectionSpecificOperationTest extends TestCase

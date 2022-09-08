@@ -20,6 +20,7 @@ use const INF;
 
 /**
  * @internal
+ *
  * @coversDefaultClass \loophp\collection
  */
 final class CollectionConstructorsTest extends TestCase

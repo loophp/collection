@@ -84,6 +84,7 @@ append_checkListWithMap(Collection::fromIterable([1 => $foo])->append(['bar' => 
  * Append will transform any Collection<string, int> into Collection<int|TKey, int>.
  *
  * @psalm-suppress InvalidScalarArgument
+ *
  * @phpstan-ignore-next-line
  */
 append_checkMap(Collection::fromIterable($foo)->append(3));

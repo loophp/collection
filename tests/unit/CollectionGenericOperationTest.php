@@ -16,6 +16,7 @@ use tests\loophp\collection\Traits\GenericCollectionProviders;
 
 /**
  * @internal
+ *
  * @coversDefaultClass \loophp\collection
  */
 final class CollectionGenericOperationTest extends TestCase

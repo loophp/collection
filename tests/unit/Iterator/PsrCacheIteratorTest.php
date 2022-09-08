@@ -17,6 +17,7 @@ use Symfony\Component\Cache\CacheItem;
 
 /**
  * @internal
+ *
  * @coversDefaultClass \loophp\collection\Iterator
  */
 final class PsrCacheIteratorTest extends TestCase
