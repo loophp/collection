@@ -791,6 +791,11 @@ parameters:
 			path: tests/static-analysis/partition.php
 
 		-
+			message: "#^Parameter \\#1 \\$callback of method loophp\\\\collection\\\\Collection\\<\\*NEVER\\*,\\*NEVER\\*\\>\\:\\:reduce\\(\\) expects callable\\(int\\|null\\=, \\*NEVER\\*\\=, \\*NEVER\\*\\=, iterable\\<\\*NEVER\\*, \\*NEVER\\*\\>\\=\\)\\: int, Closure\\(int\\|null, int\\)\\: int given\\.$#"
+			count: 1
+			path: tests/static-analysis/reduce.php
+
+		-
 			message: "#^Parameter \\#1 \\$callback of method loophp\\\\collection\\\\Collection\\<int,int\\>\\:\\:reduce\\(\\) expects callable\\(int\\=, int\\=, int\\=, iterable\\<int, int\\>\\=\\)\\: int, Closure\\(int, int\\)\\: int given\\.$#"
 			count: 1
 			path: tests/static-analysis/reduce.php
