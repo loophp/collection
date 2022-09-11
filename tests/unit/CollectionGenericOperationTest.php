@@ -58,7 +58,6 @@ final class CollectionGenericOperationTest extends TestCase
      * @dataProvider forgetOperationProvider
      * @dataProvider frequencyOperationProvider
      * @dataProvider getOperationProvider
-     * @dataProvider lastOperationProvider
      * @dataProvider groupOperationProvider
      * @dataProvider groupByOperationProvider
      * @dataProvider headOperationProvider
@@ -155,6 +154,7 @@ final class CollectionGenericOperationTest extends TestCase
      * @dataProvider implodeOperationProvider
      * @dataProvider isEmptyOperationProvider
      * @dataProvider keyOperationProvider
+     * @dataProvider lastOperationProvider
      * @dataProvider matchOperationProvider
      * @dataProvider nullsyOperationProvider
      * @dataProvider reduceOperationProvider

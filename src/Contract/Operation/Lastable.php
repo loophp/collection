@@ -18,13 +18,17 @@ use loophp\collection\Contract\Collection;
 interface Lastable
 {
     /**
+     * @template V
+     *
      * Extract the last element of a collection, which must be finite and non-empty.
      *
      * The `current` operation can then be used to extract the item out of the collection.
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#last
      *
-     * @return Collection<TKey, T>
+     * @param V $default
+     *
+     * @return T|V
      */
-    public function last(): Collection;
+    public function last($default = null);
 }

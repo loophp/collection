@@ -2547,28 +2547,28 @@ trait GenericCollectionProviders
             $operation,
             [],
             range('A', 'F'),
-            [5 => 'F'],
+            'F',
         ];
 
         yield [
             $operation,
             [],
             ['A'],
-            [0 => 'A'],
+            'A',
         ];
 
         yield [
             $operation,
             [],
             [],
-            [],
+            null,
         ];
 
         yield [
             $operation,
             [],
             ['foo' => 'bar', 'baz' => 'bar'],
-            ['baz' => 'bar'],
+            'bar',
         ];
 
         $input = [
@@ -2582,9 +2582,7 @@ trait GenericCollectionProviders
             $operation,
             [],
             $input,
-            [
-                3 => ['d', 'c', 'b', 'a'],
-            ],
+            ['d', 'c', 'b', 'a'],
         ];
     }
 
