@@ -11,9 +11,9 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
+use loophp\iterators\CachingIteratorAggregate;
 use loophp\iterators\ClosureIteratorAggregate;
 use loophp\iterators\IterableIteratorAggregate;
-use loophp\iterators\CachingIteratorAggregate;
 
 /**
  * @immutable

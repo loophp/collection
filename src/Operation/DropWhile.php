@@ -12,8 +12,8 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use loophp\collection\Utils\CallbacksArrayReducer;
-use loophp\iterators\IterableIteratorAggregate;
 use loophp\iterators\CachingIteratorAggregate;
+use loophp\iterators\IterableIteratorAggregate;
 
 /**
  * @immutable
