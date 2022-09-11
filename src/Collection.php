@@ -516,9 +516,9 @@ final class Collection implements CollectionInterface
         return new self(static fn (): Generator => yield from new StringIteratorAggregate($string, $delimiter));
     }
 
-    public function get($key, $default = null): CollectionInterface
+    public function get($key, $default = null)
     {
-        return new self((new Get())()($key)($default), [$this]);
+        return (new self((new Get())()($key)($default), [$this]))->current(0, $default);
     }
 
     /**

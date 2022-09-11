@@ -27,7 +27,7 @@ interface Getable
      * @param TKey $key
      * @param V $default
      *
-     * @return Collection<TKey, T|V>
+     * @return T|V
      */
-    public function get($key, $default = null): Collection;
+    public function get($key, $default = null);
 }
