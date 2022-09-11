@@ -10,44 +10,42 @@ declare(strict_types=1);
 include __DIR__ . '/../../vendor/autoload.php';
 
 use loophp\collection\Collection;
-use loophp\collection\Contract\Collection as CollectionInterface;
 
-/**
- * @param CollectionInterface<int, int> $collection
- */
-function min_checkListInt(CollectionInterface $collection): void
+function min_takeInt(int $int): void
+{
+}
+function min_takeIntOrNull(?int $int): void
+{
+}
+function min_takeString(string $string): void
+{
+}
+function min_takeStringOrNull(?string $string): void
 {
 }
 
-/**
- * @param CollectionInterface<int, int|null> $collection
- */
-function min_checkNullableListInt(CollectionInterface $collection): void
-{
-}
+min_takeIntOrNull(Collection::empty()->min());
+min_takeIntOrNull(Collection::fromIterable([1, 2, 3, -2, 4])->min());
 
-/**
- * @param CollectionInterface<string, string> $collection
- */
-function min_checkMapString(CollectionInterface $collection): void
-{
-}
+min_takeIntOrNull(Collection::empty()->min());
+min_takeIntOrNull(Collection::fromIterable([1, 2, null, -2, 4])->min());
 
-/**
- * @param CollectionInterface<string, string|null> $collection
- */
-function min_checkMapNullableString(CollectionInterface $collection): void
-{
-}
+min_takeStringOrNull(Collection::empty()->min());
+min_takeStringOrNull(Collection::fromIterable(['f' => 'foo', 'b' => 'bar'])->min());
 
-min_checkListInt(Collection::empty()->min());
-min_checkListInt(Collection::fromIterable([1, 2, 3, -2, 4])->min());
+min_takeStringOrNull(Collection::empty()->min());
+min_takeStringOrNull(Collection::fromIterable(['f' => 'foo', 'b' => null])->min());
 
-min_checkNullableListInt(Collection::empty()->min());
-min_checkNullableListInt(Collection::fromIterable([1, 2, null, -2, 4])->min());
+// VALID failures - `min` can return NULL
 
-min_checkMapString(Collection::empty()->min());
-min_checkMapString(Collection::fromIterable(['f' => 'foo', 'b' => 'bar'])->min());
+/** @psalm-suppress PossiblyNullArgument */
+min_takeInt(Collection::empty()->min());
 
-min_checkMapNullableString(Collection::empty()->min());
-min_checkMapNullableString(Collection::fromIterable(['f' => 'foo', 'b' => null])->min());
+/** @psalm-suppress PossiblyNullArgument @phpstan-ignore-next-line */
+min_takeInt(Collection::fromIterable([1, 2, 3, -2, 4])->min());
+
+/** @psalm-suppress PossiblyNullArgument */
+min_takeString(Collection::empty()->min());
+
+/** @psalm-suppress PossiblyNullArgument @phpstan-ignore-next-line */
+min_takeString(Collection::fromIterable(['f' => 'foo', 'b' => 'bar'])->min());

@@ -27,7 +27,11 @@ interface Minable
      * @see https://www.php.net/manual/en/function.min.php
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#min
      *
-     * @return Collection<TKey, T>
+     * @template V
+     *
+     * @param V $default
+     *
+     * @return T|V
      */
-    public function min(): Collection;
+    public function min($default = null);
 }

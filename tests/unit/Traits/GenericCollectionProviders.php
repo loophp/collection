@@ -21,6 +21,8 @@ use loophp\collection\Operation\AbstractOperation;
 use stdClass;
 
 use const PHP_EOL;
+use const PHP_INT_MAX;
+use const PHP_INT_MIN;
 use const PHP_VERSION_ID;
 
 /**
@@ -532,7 +534,14 @@ trait GenericCollectionProviders
             $operation,
             [$callback],
             [1, 2, 3, 4, 5],
-            [4 => 1],
+            1,
+        ];
+
+        yield [
+            $operation,
+            [$callback, -42],
+            [],
+            -42,
         ];
 
         $callback = static fn (int $left, int $right): int => $left > $right ? $left : $right;
@@ -541,7 +550,7 @@ trait GenericCollectionProviders
             $operation,
             [$callback],
             [1, 2, 3, 4, 5],
-            [4 => 5],
+            5,
         ];
 
         $callback = static fn (string $left, string $right): string => min($left, $right);
@@ -550,7 +559,7 @@ trait GenericCollectionProviders
             $operation,
             [$callback],
             ['foo' => 'f', 'bar' => 'b', 'tar' => 't'],
-            ['tar' => 'b'],
+            'b',
         ];
 
         $callback = static fn (stdClass $carry, stdClass $current): stdClass => $current->age < $carry->age
@@ -563,7 +572,7 @@ trait GenericCollectionProviders
             $operation,
             [$callback],
             [(object) ['id' => 1, 'age' => 5], $expected, (object) ['id' => 3, 'age' => 12]],
-            [2 => $expected],
+            $expected,
         ];
     }
 
@@ -2785,21 +2794,28 @@ trait GenericCollectionProviders
             $operation,
             [],
             [1, 2, 3, 4, 5],
-            [4 => 5],
+            5,
+        ];
+
+        yield [
+            $operation,
+            [PHP_INT_MAX],
+            [],
+            PHP_INT_MAX,
         ];
 
         yield [
             $operation,
             [],
             [-1, 200, -100, -3, -500],
-            [4 => 200],
+            200,
         ];
 
         yield [
             $operation,
             [],
             ['foo' => 'f', 'bar' => 'b', 'tar' => 't'],
-            ['tar' => 't'],
+            't',
         ];
     }
 
@@ -2844,21 +2860,28 @@ trait GenericCollectionProviders
             $operation,
             [],
             [1, 2, 3, 4, 5],
-            [4 => 1],
+            1,
+        ];
+
+        yield [
+            $operation,
+            [PHP_INT_MIN],
+            [],
+            PHP_INT_MIN,
         ];
 
         yield [
             $operation,
             [],
             [1, 2, -100, 4, 5],
-            [4 => -100],
+            -100,
         ];
 
         yield [
             $operation,
             [],
             ['foo' => 'f', 'bar' => 'b', 'tar' => 't'],
-            ['tar' => 'b'],
+            'b',
         ];
     }
 
