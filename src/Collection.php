@@ -544,9 +544,9 @@ final class Collection implements CollectionInterface
         return (new Has())()(...$callbacks)($this)->current();
     }
 
-    public function head(): CollectionInterface
+    public function head($default = null)
     {
-        return new self((new Head())(), [$this]);
+        return (new self((new Head())(), [$this]))->current(0, $default);
     }
 
     public function ifThenElse(callable $condition, callable $then, ?callable $else = null): CollectionInterface
