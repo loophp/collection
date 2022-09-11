@@ -18,13 +18,17 @@ use loophp\collection\Contract\Collection;
 interface Headable
 {
     /**
+     * @template V
+     *
      * Get the first item from the collection in a separate collection. Same as `first`.
      *
      * The `current` operation can then be used to extract the item out of the collection.
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#head
      *
-     * @return Collection<TKey, T>
+     * @param V $default
+     *
+     * @return T|V
      */
-    public function head(): Collection;
+    public function head($default = null);
 }
