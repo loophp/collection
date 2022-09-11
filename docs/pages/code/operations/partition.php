@@ -54,8 +54,7 @@ print_r($right->all(false));
 // Example 2 -> Retrieve the first group only
 $left = Collection::fromIterable($input)
     ->partition($isGreaterThan(5))
-    ->first()
-    ->current();
+    ->first();
 
 // Numbers that are greater than 5
 print_r($left->all(false));

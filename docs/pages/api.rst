@@ -1141,11 +1141,9 @@ head
 
 Get the first item from the collection in a separate collection. Same as ``first``.
 
-The ``current`` operation can then be used to extract the item out of the collection.
-
 Interface: `Headable`_
 
-Signature: ``Collection::head(): Collection;``
+Signature: ``Collection::head(): mixed;``
 
 .. code-block:: php
 
@@ -1159,8 +1157,7 @@ Signature: ``Collection::head(): Collection;``
     };
 
     Collection::fromIterable($generator())
-        ->head()
-        ->current(); // [1 => 'a']
+        ->head(); // [1 => 'a']
 
 ifThenElse
 ~~~~~~~~~~
@@ -1343,8 +1340,6 @@ last
 
 Extract the last element of a collection, which must be finite and non-empty.
 
-The ``current`` operation can then be used to extract the item out of the collection.
-
 Interface: `Lastable`_
 
 Signature: ``Collection::last(): Collection;``
@@ -1361,8 +1356,7 @@ Signature: ``Collection::last(): Collection;``
         };
 
         Collection::fromIterable($generator())
-            ->last()
-            ->current(); // ['c' => 'f']
+            ->last(); // ['c' => 'f']
 
 limit
 ~~~~~
