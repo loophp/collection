@@ -67,26 +67,20 @@ partition_checkMapCollectionString(Collection::fromIterable(['foo' => 'bar', 'ba
 partition_checkListInt($left);
 partition_checkListInt($right);
 
-$first = Collection::fromIterable($integers())->partition($intValueCallback)->first();
-$last = Collection::fromIterable($integers())->partition($intValueCallback)->last();
+$first = Collection::fromIterable($integers())->partition($intValueCallback)->first(Collection::empty());
+$last = Collection::fromIterable($integers())->partition($intValueCallback)->last(Collection::empty());
 partition_checkListInt($first);
-partition_checkListCollectionInt($last);
+partition_checkListInt($last);
+
+partition_checkListInt($last);
 
 // VALID failures -> current returns T|null
-
-/** @psalm-suppress PossiblyNullArgument @phpstan-ignore-next-line */
-partition_checkListInt($last->current());
 
 [$left, $right] = Collection::fromIterable(['foo' => 'bar', 'bar' => 'foo'])->partition($stringValueCallback)->all();
 partition_checkMapString($left);
 partition_checkMapString($right);
 
-$first = Collection::fromIterable(['foo' => 'bar', 'bar' => 'foo'])->partition($stringValueCallback)->first();
-$last = Collection::fromIterable(['foo' => 'bar', 'bar' => 'foo'])->partition($stringValueCallback)->last();
+$first = Collection::fromIterable(['foo' => 'bar', 'bar' => 'foo'])->partition($stringValueCallback)->first(Collection::empty());
+$last = Collection::fromIterable(['foo' => 'bar', 'bar' => 'foo'])->partition($stringValueCallback)->last(Collection::empty());
 partition_checkMapString($first);
-partition_checkMapCollectionString($last);
-
-// VALID failures -> current returns T|null
-
-/** @psalm-suppress PossiblyNullArgument @phpstan-ignore-next-line */
-partition_checkMapString($last->current());
+partition_checkMapString($last);
