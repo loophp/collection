@@ -257,9 +257,9 @@ final class Collection implements CollectionInterface
         return new self((new Compact())()(...$values), [$this]);
     }
 
-    public function compare(callable $comparator): CollectionInterface
+    public function compare(callable $comparator, $default = null)
     {
-        return new self((new Compare())()($comparator), [$this]);
+        return (new self((new Compare())()($comparator), [$this]))->current(0, $default);
     }
 
     public function contains(...$values): bool
@@ -650,9 +650,9 @@ final class Collection implements CollectionInterface
         return new self((new Matching())()($criteria), [$this]);
     }
 
-    public function max(): CollectionInterface
+    public function max($default = null)
     {
-        return new self((new Max())(), [$this]);
+        return (new self((new Max())(), [$this]))->current(0, $default);
     }
 
     public function merge(iterable ...$sources): CollectionInterface
@@ -660,9 +660,9 @@ final class Collection implements CollectionInterface
         return new self((new Merge())()(...$sources), [$this]);
     }
 
-    public function min(): CollectionInterface
+    public function min($default = null)
     {
-        return new self((new Min())(), [$this]);
+        return (new self((new Min())(), [$this]))->current(0, $default);
     }
 
     public function normalize(): CollectionInterface

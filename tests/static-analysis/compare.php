@@ -10,33 +10,17 @@ declare(strict_types=1);
 include __DIR__ . '/../../vendor/autoload.php';
 
 use loophp\collection\Collection;
-use loophp\collection\Contract\Collection as CollectionInterface;
 
-/**
- * @param CollectionInterface<int, int> $collection
- */
-function compare_checkListInt(CollectionInterface $collection): void
+function compare_takeInt(int $int): void
 {
 }
-
-/**
- * @param CollectionInterface<int, int|null> $collection
- */
-function compare_checkNullableListInt(CollectionInterface $collection): void
+function compare_takeIntOrNull(?int $int): void
 {
 }
-
-/**
- * @param CollectionInterface<string, string> $collection
- */
-function compare_checkMapString(CollectionInterface $collection): void
+function compare_takeString(string $string): void
 {
 }
-
-/**
- * @param CollectionInterface<string, string|null> $collection
- */
-function compare_checkMapNullableString(CollectionInterface $collection): void
+function compare_takeStringOrNull(?string $string): void
 {
 }
 
@@ -49,17 +33,24 @@ $compareNullableString = static fn (?string $left, ?string $right): ?string => $
 // These are valid and should work, however Psalm restricts the values that the callable
 // is allowed to accept to the list of values contained in the collection
 /** @psalm-suppress ArgumentTypeCoercion */
-compare_checkListInt(Collection::fromIterable([1, 2, 3, -2, 4])->compare($compareInt));
+compare_takeIntOrNull(Collection::fromIterable([1, 2, 3, -2, 4])->compare($compareInt));
 /** @psalm-suppress ArgumentTypeCoercion */
-compare_checkMapString(Collection::fromIterable(['f' => 'foo', 'b' => 'bar'])->compare($compareString));
+compare_takeStringOrNull(Collection::fromIterable(['f' => 'foo', 'b' => 'bar'])->compare($compareString));
 /** @psalm-suppress ArgumentTypeCoercion,InvalidArgument */
-compare_checkNullableListInt(Collection::fromIterable([1, 2, null, -2, 4])->compare($compareNullableInt));
+compare_takeIntOrNull(Collection::fromIterable([1, 2, null, -2, 4])->compare($compareNullableInt));
 /** @psalm-suppress ArgumentTypeCoercion,InvalidArgument */
-compare_checkMapNullableString(Collection::fromIterable(['f' => 'foo', 'b' => null])->compare($compareNullableString));
+compare_takeStringOrNull(Collection::fromIterable(['f' => 'foo', 'b' => null])->compare($compareNullableString));
 
 // VALID failures
+
+// `compare` can return NULL
+/** @psalm-suppress ArgumentTypeCoercion,PossiblyNullArgument @phpstan-ignore-next-line */
+compare_takeInt(Collection::fromIterable([1, 2, 3, -2, 4])->compare($compareInt));
+/** @psalm-suppress ArgumentTypeCoercion,PossiblyNullArgument @phpstan-ignore-next-line */
+compare_takeString(Collection::fromIterable(['f' => 'foo', 'b' => 'bar'])->compare($compareString));
+
 // usage of callback with different types for `carry` and `value`
 /** @psalm-suppress ArgumentTypeCoercion @phpstan-ignore-next-line */
-compare_checkListInt(Collection::fromIterable([1, 2, 3, -2, 4])->compare($compareNullableInt));
+compare_takeIntOrNull(Collection::fromIterable([1, 2, 3, -2, 4])->compare($compareNullableInt));
 /** @psalm-suppress ArgumentTypeCoercion @phpstan-ignore-next-line */
-compare_checkMapString(Collection::fromIterable(['f' => 'foo', 'b' => 'bar'])->compare($compareNullableString));
+compare_takeStringOrNull(Collection::fromIterable(['f' => 'foo', 'b' => 'bar'])->compare($compareNullableString));

@@ -27,7 +27,11 @@ interface Maxable
      * @see https://www.php.net/manual/en/function.max.php
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#max
      *
-     * @return Collection<TKey, T>
+     * @template V
+     *
+     * @param V $default
+     *
+     * @return T|V
      */
-    public function max(): Collection;
+    public function max($default = null);
 }

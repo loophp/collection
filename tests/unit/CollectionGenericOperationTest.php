@@ -41,7 +41,6 @@ final class CollectionGenericOperationTest extends TestCase
      * @dataProvider combinateOperationProvider
      * @dataProvider combineOperationProvider
      * @dataProvider compactOperationProvider
-     * @dataProvider compareOperationProvider
      * @dataProvider cycleOperationProvider
      * @dataProvider diffOperationProvider
      * @dataProvider diffKeysOperationProvider
@@ -72,8 +71,6 @@ final class CollectionGenericOperationTest extends TestCase
      * @dataProvider mapOperationProvider
      * @dataProvider mapNOperationProvider
      * @dataProvider matchingOperationProvider
-     * @dataProvider maxOperationProvider
-     * @dataProvider minOperationProvider
      * @dataProvider mergeOperationProvider
      * @dataProvider normalizeOperationProvider
      * @dataProvider nthOperationProvider
@@ -136,6 +133,7 @@ final class CollectionGenericOperationTest extends TestCase
     }
 
     /**
+     * @dataProvider compareOperationProvider
      * @dataProvider containsOperationProvider
      * @dataProvider countOperationProvider
      * @dataProvider currentOperationProvider
@@ -156,6 +154,8 @@ final class CollectionGenericOperationTest extends TestCase
      * @dataProvider keyOperationProvider
      * @dataProvider lastOperationProvider
      * @dataProvider matchOperationProvider
+     * @dataProvider maxOperationProvider
+     * @dataProvider minOperationProvider
      * @dataProvider nullsyOperationProvider
      * @dataProvider reduceOperationProvider
      * @dataProvider sameOperationProvider

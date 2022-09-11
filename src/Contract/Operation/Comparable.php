@@ -27,9 +27,12 @@ interface Comparable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#compare
      *
-     * @param callable(T, T): T $comparator
+     * @template V
      *
-     * @return Collection<TKey, T>
+     * @param callable(T, T): T $comparator
+     * @param V $default
+     *
+     * @return T|V
      */
-    public function compare(callable $comparator): Collection;
+    public function compare(callable $comparator, $default = null);
 }

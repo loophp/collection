@@ -10,44 +10,42 @@ declare(strict_types=1);
 include __DIR__ . '/../../vendor/autoload.php';
 
 use loophp\collection\Collection;
-use loophp\collection\Contract\Collection as CollectionInterface;
 
-/**
- * @param CollectionInterface<int, int> $collection
- */
-function max_checkListInt(CollectionInterface $collection): void
+function max_takeInt(int $int): void
+{
+}
+function max_takeIntOrNull(?int $int): void
+{
+}
+function max_takeString(string $string): void
+{
+}
+function max_takeStringOrNull(?string $string): void
 {
 }
 
-/**
- * @param CollectionInterface<int, int|null> $collection
- */
-function max_checkNullableListInt(CollectionInterface $collection): void
-{
-}
+max_takeIntOrNull(Collection::empty()->max());
+max_takeIntOrNull(Collection::fromIterable([1, 2, 3, -2, 4])->max());
 
-/**
- * @param CollectionInterface<string, string> $collection
- */
-function max_checkMapString(CollectionInterface $collection): void
-{
-}
+max_takeIntOrNull(Collection::empty()->max());
+max_takeIntOrNull(Collection::fromIterable([1, 2, null, -2, 4])->max());
 
-/**
- * @param CollectionInterface<string, string|null> $collection
- */
-function max_checkMapNullableString(CollectionInterface $collection): void
-{
-}
+max_takeStringOrNull(Collection::empty()->max());
+max_takeStringOrNull(Collection::fromIterable(['f' => 'foo', 'b' => 'bar'])->max());
 
-max_checkListInt(Collection::empty()->max());
-max_checkListInt(Collection::fromIterable([1, 2, 3, -2, 4])->max());
+max_takeStringOrNull(Collection::empty()->max());
+max_takeStringOrNull(Collection::fromIterable(['f' => 'foo', 'b' => null])->max());
 
-max_checkNullableListInt(Collection::empty()->max());
-max_checkNullableListInt(Collection::fromIterable([1, 2, null, -2, 4])->max());
+// VALID failures - `max` can return NULL
 
-max_checkMapString(Collection::empty()->max());
-max_checkMapString(Collection::fromIterable(['f' => 'foo', 'b' => 'bar'])->max());
+/** @psalm-suppress PossiblyNullArgument */
+max_takeInt(Collection::empty()->max());
 
-max_checkMapNullableString(Collection::empty()->max());
-max_checkMapNullableString(Collection::fromIterable(['f' => 'foo', 'b' => null])->max());
+/** @psalm-suppress PossiblyNullArgument @phpstan-ignore-next-line */
+max_takeInt(Collection::fromIterable([1, 2, 3, -2, 4])->max());
+
+/** @psalm-suppress PossiblyNullArgument */
+max_takeString(Collection::empty()->max());
+
+/** @psalm-suppress PossiblyNullArgument @phpstan-ignore-next-line */
+max_takeString(Collection::fromIterable(['f' => 'foo', 'b' => 'bar'])->max());
