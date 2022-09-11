@@ -18,11 +18,9 @@ use loophp\collection\Contract\Collection;
 interface Firstable
 {
     /**
-     * @template V
-     *
      * Get the first item from the collection in a separate collection. Alias for `head`.
      *
-     * The `current` operation can then be used to extract the item out of the collection.
+     * @template V
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#first
      *

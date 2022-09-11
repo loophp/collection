@@ -28,8 +28,7 @@ print_r($last->all());  // [4, 5, 6, 7, 8, 9, 10]
 // Example 2 -> Retrieve the second group only
 $last = Collection::fromIterable($input)
     ->span(static fn ($x): bool => 4 > $x)
-    ->last()
-    ->current();
+    ->last();
 
 print_r($last->all()); // [4, 5, 6, 7, 8, 9, 10]
 
