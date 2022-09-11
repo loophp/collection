@@ -12,7 +12,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use loophp\iterators\IterableIteratorAggregate;
-use loophp\iterators\TypedIteratorAggregate;
+use loophp\iterators\TypedIterableAggregate;
 
 /**
  * @immutable
@@ -41,6 +41,6 @@ final class Strict extends AbstractOperation
                  *
                  * @return Generator<TKey, T>
                  */
-                static fn (iterable $iterator): Generator => yield from new TypedIteratorAggregate((new IterableIteratorAggregate($iterator))->getIterator(), $callback);
+                static fn (iterable $iterator): Generator => yield from new TypedIterableAggregate((new IterableIteratorAggregate($iterator))->getIterator(), $callback);
     }
 }

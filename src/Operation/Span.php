@@ -13,7 +13,7 @@ use Closure;
 use Generator;
 use loophp\iterators\ClosureIteratorAggregate;
 use loophp\iterators\IterableIteratorAggregate;
-use loophp\iterators\SimpleCachingIteratorAggregate;
+use loophp\iterators\CachingIteratorAggregate;
 
 /**
  * @immutable
@@ -42,7 +42,7 @@ final class Span extends AbstractOperation
              * @return Generator<int, iterable<TKey, T>>
              */
             static function (iterable $iterable) use ($callbacks): Generator {
-                $iteratorAggregate = new SimpleCachingIteratorAggregate((new IterableIteratorAggregate($iterable))->getIterator());
+                $iteratorAggregate = new CachingIteratorAggregate((new IterableIteratorAggregate($iterable))->getIterator());
 
                 yield new ClosureIteratorAggregate((new TakeWhile())()(...$callbacks), [$iteratorAggregate]);
 

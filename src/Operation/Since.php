@@ -13,7 +13,7 @@ use Closure;
 use Generator;
 use loophp\collection\Utils\CallbacksArrayReducer;
 use loophp\iterators\IterableIteratorAggregate;
-use loophp\iterators\SimpleCachingIteratorAggregate;
+use loophp\iterators\CachingIteratorAggregate;
 
 /**
  * @immutable
@@ -43,7 +43,7 @@ final class Since extends AbstractOperation
                  * @return Generator<TKey, T>
                  */
                 static function (iterable $iterable) use ($callbacks): Generator {
-                    $iteratorAggregate = new SimpleCachingIteratorAggregate((new IterableIteratorAggregate($iterable))->getIterator());
+                    $iteratorAggregate = new CachingIteratorAggregate((new IterableIteratorAggregate($iterable))->getIterator());
 
                     $every = (new Every())()(
                         /**
