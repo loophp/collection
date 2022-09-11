@@ -11,13 +11,13 @@ include __DIR__ . '/../../vendor/autoload.php';
 
 use loophp\collection\Collection;
 
-function takeInt(int $int): void
+function takeInt(?int $int): void
 {
 }
 function takeIntOrNull(?int $int): void
 {
 }
-function takeString(string $string): void
+function takeString(?string $string): void
 {
 }
 
