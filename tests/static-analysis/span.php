@@ -51,10 +51,10 @@ span_checkMapCollectionString(Collection::fromIterable(['foo' => 'bar', 'bar' =>
 span_checkListInt($left);
 span_checkListInt($right);
 
-$first = Collection::fromIterable([2, 3, 4])->span($intValueCallback)->first();
-$last = Collection::fromIterable([2, 3, 4])->span($intValueCallback)->last();
+$first = Collection::fromIterable([2, 3, 4])->span($intValueCallback)->first(Collection::empty());
+$last = Collection::fromIterable([2, 3, 4])->span($intValueCallback)->last(Collection::empty());
 span_checkListInt($first);
-span_checkListCollectionInt($last);
+span_checkListInt($last);
 
 // VALID failures -> current returns T|null
 
@@ -62,7 +62,7 @@ span_checkListCollectionInt($last);
 span_checkMapString($left);
 span_checkMapString($right);
 
-$first = Collection::fromIterable(['foo' => 'bar', 'bar' => 'foo'])->span($stringValueCallback)->first();
-$last = Collection::fromIterable(['foo' => 'bar', 'bar' => 'foo'])->span($stringValueCallback)->last();
+$first = Collection::fromIterable(['foo' => 'bar', 'bar' => 'foo'])->span($stringValueCallback)->first(Collection::empty());
+$last = Collection::fromIterable(['foo' => 'bar', 'bar' => 'foo'])->span($stringValueCallback)->last(Collection::empty());
 span_checkMapString($first);
-span_checkMapCollectionString($last);
+span_checkMapString($last);
