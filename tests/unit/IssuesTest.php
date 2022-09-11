@@ -37,9 +37,9 @@ final class IssuesTest extends TestCase
             yield 400 => 'd';
         })->cache();
 
-        self::assertEquals('a', $subject->get(100)->current());
-        self::assertEquals('b', $subject->get(200)->current());
-        self::assertEquals('c', $subject->get(300)->current());
-        self::assertEquals('d', $subject->get(400)->current());
+        self::assertEquals('a', $subject->get(100));
+        self::assertEquals('b', $subject->get(200));
+        self::assertEquals('c', $subject->get(300));
+        self::assertEquals('d', $subject->get(400));
     }
 }

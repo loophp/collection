@@ -1883,14 +1883,14 @@ trait GenericCollectionProviders
             $operation,
             [4],
             $input,
-            [4 => 'E'],
+            'E',
         ];
 
         yield [
             $operation,
             ['unexistent key', 'default'],
             $input,
-            ['default'],
+            'default',
         ];
     }
 
