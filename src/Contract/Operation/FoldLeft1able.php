@@ -26,7 +26,7 @@ interface FoldLeft1able
      *
      * @param callable(T, T, TKey, Iterator<TKey, T>): T $callback
      *
-     * @return Collection<TKey, T|null>
+     * @return T|null
      */
-    public function foldLeft1(callable $callback): Collection;
+    public function foldLeft1(callable $callback);
 }

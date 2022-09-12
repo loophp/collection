@@ -19,10 +19,6 @@ $collection
 
 // Get the first item.
 $collection
-    ->first(); // ['a']
-
-// Get the first item.
-$collection
     ->first()
     ->current(); // 'a'
 

@@ -502,18 +502,18 @@ Signature: ``Collection::compact(...$values): Collection;``
 compare
 ~~~~~~~
 
-Fold the collection through a comparison operation, yielding the "highest" or "lowest" 
-element as defined by the comparator callback. The callback takes a pair of two elements 
+Fold the collection through a comparison operation, yielding the "highest" or "lowest"
+element as defined by the comparator callback. The callback takes a pair of two elements
 and should return the "highest" or "lowest" one as desired.
 
-If no custom logic is required for the comparison, the simpler ``max`` or ``min`` operations 
+If no custom logic is required for the comparison, the simpler ``max`` or ``min`` operations
 can be used instead.
 
 .. tip:: This operation is a specialised application of ``foldLeft1``.
 
 Interface: `Comparable`_
 
-Signature: ``Collection::compare(callable $comparator): Collection;``
+Signature: ``Collection::compare(callable $comparator, $default = null): Collection;``
 
 .. literalinclude:: code/operations/compare.php
   :language: php
@@ -838,11 +838,9 @@ first
 
 Get the first item from the collection in a separate collection. Alias for ``head``.
 
-The ``current`` operation can then be used to extract the item out of the collection.
-
 Interface: `Firstable`_
 
-Signature: ``Collection::first(): Collection;``
+Signature: ``Collection::first($default = null): mixed;``
 
 .. code-block:: php
 
@@ -850,14 +848,10 @@ Signature: ``Collection::first(): Collection;``
             yield 'a' => 'a';
             yield 'b' => 'b';
             yield 'c' => 'c';
-            yield 'a' => 'd';
-            yield 'b' => 'e';
-            yield 'c' => 'f';
         };
 
         Collection::fromIterable($generator())
-            ->first()
-            ->current(); // ['a' => 'a']
+            ->first(); // a
 
 flatMap
 ~~~~~~~
@@ -954,7 +948,7 @@ on. See ``scanLeft`` for intermediate results.
 
 Interface: `FoldLeftable`_
 
-Signature: ``Collection::foldLeft(callable $callback, $initial = null): Collection;``
+Signature: ``Collection::foldLeft(callable $callback, $initial = null): mixed;``
 
 .. code-block:: php
 
@@ -966,7 +960,7 @@ Signature: ``Collection::foldLeft(callable $callback, $initial = null): Collecti
                 return $carry;
             },
             ''
-        ); // [2 => 'ABC']
+        ); // 'ABC'
 
 foldLeft1
 ~~~~~~~~~
@@ -977,17 +971,17 @@ See ``scanLeft1`` for intermediate results.
 
 Interface: `FoldLeft1able`_
 
-Signature: ``Collection::foldLeft1(callable $callback): Collection;``
+Signature: ``Collection::foldLeft1(callable $callback): mixed;``
 
 .. code-block:: php
 
     $callback = static fn(int $carry, int $value): int => $carry - $value;
 
     Collection::fromIterable([64, 4, 2, 8])
-        ->foldLeft1($callback); // [0 => 50]
+        ->foldLeft1($callback); // 50
 
     Collection::empty()
-        ->foldLeft1($callback); // []
+        ->foldLeft1($callback); // null
 
 foldRight
 ~~~~~~~~~
@@ -998,7 +992,7 @@ See ``scanRight`` for intermediate results.
 
 Interface: `FoldRightable`_
 
-Signature: ``Collection::foldRight(callable $callback, $initial = null): Collection;``
+Signature: ``Collection::foldRight(callable $callback, $initial = null): mixed;``
 
 .. code-block:: php
 
@@ -1010,7 +1004,7 @@ Signature: ``Collection::foldRight(callable $callback, $initial = null): Collect
                 return $carry;
             },
             ''
-        ); // [0 => 'CBA']
+        ); // 'CBA'
 
 foldRight1
 ~~~~~~~~~~
@@ -1021,17 +1015,17 @@ intermediate results.
 
 Interface: `FoldRight1able`_
 
-Signature: ``Collection::foldRight1(callable $callback): Collection;``
+Signature: ``Collection::foldRight1(callable $callback): mixed;``
 
 .. code-block:: php
 
     $callback = static fn(int $carry, int $value): int => $carry + $value;
 
     Collection::fromIterable([1, 2, 3, 4])
-        ->foldRight1($callback); // [0 => 10]
+        ->foldRight1($callback); // 10
 
     Collection::empty()
-        ->foldRight1($callback); // []
+        ->foldRight1($callback); // null
 
 forget
 ~~~~~~
@@ -1075,9 +1069,9 @@ Signature: ``Collection::get($key, $default = null): Collection;``
 
 .. code-block:: php
 
-    Collection::fromIterable(range('a', 'c'))->get(1) // [1 => 'b']
+    Collection::fromIterable(range('a', 'c'))->get(1) // 'b'
 
-    Collection::fromIterable(range('a', 'c'))->get(4, '') // [0 => '']
+    Collection::fromIterable(range('a', 'c'))->get(4, '') // ''
 
 group
 ~~~~~
@@ -1147,11 +1141,9 @@ head
 
 Get the first item from the collection in a separate collection. Same as ``first``.
 
-The ``current`` operation can then be used to extract the item out of the collection.
-
 Interface: `Headable`_
 
-Signature: ``Collection::head(): Collection;``
+Signature: ``Collection::head($default = null): mixed;``
 
 .. code-block:: php
 
@@ -1165,8 +1157,7 @@ Signature: ``Collection::head(): Collection;``
     };
 
     Collection::fromIterable($generator())
-        ->head()
-        ->current(); // [1 => 'a']
+        ->head(); // 'a'
 
 ifThenElse
 ~~~~~~~~~~
@@ -1206,16 +1197,14 @@ implode
 
 Join all the elements of the collection into a single string using a glue provided or the empty string as default.
 
-.. tip:: Internally this operation uses ``foldLeft``, which is why the result will have the last element's key.
-
 Interface: `Implodeable`_
 
-Signature: ``Collection::implode(string $glue = ''): Collection;``
+Signature: ``Collection::implode(string $glue = ''): string;``
 
 .. code-block:: php
 
     Collection::fromIterable(range('a', 'c'))
-        ->implode('-'); // [2 => 'a-b-c']
+        ->implode('-'); // 'a-b-c'
 
 init
 ~~~~
@@ -1351,11 +1340,9 @@ last
 
 Extract the last element of a collection, which must be finite and non-empty.
 
-The ``current`` operation can then be used to extract the item out of the collection.
-
 Interface: `Lastable`_
 
-Signature: ``Collection::last(): Collection;``
+Signature: ``Collection::last($default = null): Collection;``
 
 .. code-block:: php
 
@@ -1369,8 +1356,7 @@ Signature: ``Collection::last(): Collection;``
         };
 
         Collection::fromIterable($generator())
-            ->last()
-            ->current(); // ['c' => 'f']
+            ->last(); // 'f'
 
 limit
 ~~~~~
@@ -1497,12 +1483,12 @@ max
 Generate the maximum value of the collection by successively applying the PHP ``max`` function
 to each pair of two elements.
 
-If custom logic is required to determine the maximum, such as when comparing objects, 
+If custom logic is required to determine the maximum, such as when comparing objects,
 the ``compare`` operation can be used instead.
 
 Interface: `Maxable`_
 
-Signature: ``Collection::max(): Collection;``
+Signature: ``Collection::max($default = null): Collection;``
 
 .. literalinclude:: code/operations/max.php
   :language: php
@@ -1532,12 +1518,12 @@ min
 Generate the minimum value of the collection by successively applying the PHP ``min`` function
 to each pair of two elements.
 
-If custom logic is required to determine the minimum, such as when comparing objects, 
+If custom logic is required to determine the minimum, such as when comparing objects,
 the ``compare`` operation can be used instead.
 
 Interface: `Minable`_
 
-Signature: ``Collection::min(): Collection;``
+Signature: ``Collection::min($default = null): Collection;``
 
 .. literalinclude:: code/operations/min.php
   :language: php
@@ -1834,7 +1820,7 @@ Reduce a collection of items through a given callback.
 
 Interface: `Reduceable`_
 
-Signature: ``Collection::reduce(callable $callback, $initial = null): Collection;``
+Signature: ``Collection::reduce(callable $callback, $initial = null): mixed;``
 
 .. literalinclude:: code/operations/reduce.php
   :language: php
@@ -2286,7 +2272,7 @@ Opposite of ``lines``, creates a single string from multiple lines using ``PHP_E
 
 Interface: `Unlinesable`_
 
-Signature: ``Collection::unlines(): Collection;``
+Signature: ``Collection::unlines(): string;``
 
 .. code-block:: php
 
@@ -2298,11 +2284,9 @@ Signature: ``Collection::unlines(): Collection;``
 
     Collection::fromIterable($lines)
         ->unlines();
-    // [
     //    'The quick brown fox jumps over the lazy dog.
     //
     //     This is another sentence.'
-    // ]
 
 unpack
 ~~~~~~
@@ -2401,7 +2385,7 @@ creates a single string from multiple strings using one space as the glue.
 
 Interface: `Unwordsable`_
 
-Signature: ``Collection::unwords(): Collection;``
+Signature: ``Collection::unwords(): string;``
 
 .. code-block:: php
 
@@ -2418,7 +2402,7 @@ Signature: ``Collection::unwords(): Collection;``
     ];
 
     Collection::fromIterable($words)
-        ->unwords(); // ['The quick brown fox jumps over the lazy dog.']
+        ->unwords(); // 'The quick brown fox jumps over the lazy dog.'
 
 unwrap
 ~~~~~~

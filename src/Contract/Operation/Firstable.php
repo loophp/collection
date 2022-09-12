@@ -20,11 +20,13 @@ interface Firstable
     /**
      * Get the first item from the collection in a separate collection. Alias for `head`.
      *
-     * The `current` operation can then be used to extract the item out of the collection.
-     *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#first
      *
-     * @return Collection<TKey, T>
+     * @template V
+     *
+     * @param V $default
+     *
+     * @return T|V
      */
-    public function first(): Collection;
+    public function first($default = null);
 }

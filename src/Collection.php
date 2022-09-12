@@ -257,9 +257,9 @@ final class Collection implements CollectionInterface
         return new self((new Compact())()(...$values), [$this]);
     }
 
-    public function compare(callable $comparator): CollectionInterface
+    public function compare(callable $comparator, $default = null)
     {
-        return new self((new Compare())()($comparator), [$this]);
+        return (new self((new Compare())()($comparator), [$this]))->current(0, $default);
     }
 
     public function contains(...$values): bool
@@ -398,9 +398,9 @@ final class Collection implements CollectionInterface
         return (new Find())()($default)(...$callbacks)($this)->current();
     }
 
-    public function first(): CollectionInterface
+    public function first($default = null)
     {
-        return new self((new First())(), [$this]);
+        return (new self((new First())(), [$this]))->current(0, $default);
     }
 
     public function flatMap(callable $callback): CollectionInterface
@@ -418,24 +418,24 @@ final class Collection implements CollectionInterface
         return new self((new Flip())(), [$this]);
     }
 
-    public function foldLeft(callable $callback, $initial = null): CollectionInterface
+    public function foldLeft(callable $callback, $initial = null)
     {
-        return new self((new FoldLeft())()($callback)($initial), [$this]);
+        return (new self((new FoldLeft())()($callback)($initial), [$this]))->current();
     }
 
-    public function foldLeft1(callable $callback): CollectionInterface
+    public function foldLeft1(callable $callback)
     {
-        return new self((new FoldLeft1())()($callback), [$this]);
+        return (new self((new FoldLeft1())()($callback), [$this]))->current();
     }
 
-    public function foldRight(callable $callback, $initial = null): CollectionInterface
+    public function foldRight(callable $callback, $initial = null)
     {
-        return new self((new Foldright())()($callback)($initial), [$this]);
+        return (new self((new Foldright())()($callback)($initial), [$this]))->current();
     }
 
-    public function foldRight1(callable $callback): CollectionInterface
+    public function foldRight1(callable $callback)
     {
-        return new self((new FoldRight1())()($callback), [$this]);
+        return (new self((new FoldRight1())()($callback), [$this]))->current();
     }
 
     public function forget(...$keys): CollectionInterface
@@ -516,9 +516,9 @@ final class Collection implements CollectionInterface
         return new self(static fn (): Generator => yield from new StringIteratorAggregate($string, $delimiter));
     }
 
-    public function get($key, $default = null): CollectionInterface
+    public function get($key, $default = null)
     {
-        return new self((new Get())()($key)($default), [$this]);
+        return (new self((new Get())()($key)($default), [$this]))->current(0, $default);
     }
 
     /**
@@ -544,9 +544,9 @@ final class Collection implements CollectionInterface
         return (new Has())()(...$callbacks)($this)->current();
     }
 
-    public function head(): CollectionInterface
+    public function head($default = null)
     {
-        return new self((new Head())(), [$this]);
+        return (new self((new Head())(), [$this]))->current(0, $default);
     }
 
     public function ifThenElse(callable $condition, callable $then, ?callable $else = null): CollectionInterface
@@ -562,9 +562,9 @@ final class Collection implements CollectionInterface
         return new self((new IfThenElse())()($condition)($then)($else ?? $identity), [$this]);
     }
 
-    public function implode(string $glue = ''): CollectionInterface
+    public function implode(string $glue = ''): string
     {
-        return new self((new Implode())()($glue), [$this]);
+        return (new self((new Implode())()($glue), [$this]))->current(0, '');
     }
 
     public function init(): CollectionInterface
@@ -615,9 +615,9 @@ final class Collection implements CollectionInterface
         return new self((new Keys())(), [$this]);
     }
 
-    public function last(): CollectionInterface
+    public function last($default = null)
     {
-        return new self((new Last())(), [$this]);
+        return (new self((new Last())(), [$this]))->current(0, $default);
     }
 
     public function limit(int $count = -1, int $offset = 0): CollectionInterface
@@ -650,9 +650,9 @@ final class Collection implements CollectionInterface
         return new self((new Matching())()($criteria), [$this]);
     }
 
-    public function max(): CollectionInterface
+    public function max($default = null)
     {
-        return new self((new Max())(), [$this]);
+        return (new self((new Max())(), [$this]))->current(0, $default);
     }
 
     public function merge(iterable ...$sources): CollectionInterface
@@ -660,9 +660,9 @@ final class Collection implements CollectionInterface
         return new self((new Merge())()(...$sources), [$this]);
     }
 
-    public function min(): CollectionInterface
+    public function min($default = null)
     {
-        return new self((new Min())(), [$this]);
+        return (new self((new Min())(), [$this]))->current(0, $default);
     }
 
     public function normalize(): CollectionInterface
@@ -743,9 +743,9 @@ final class Collection implements CollectionInterface
         return new self((new Range())()($start)($end)($step));
     }
 
-    public function reduce(callable $callback, $initial = null): CollectionInterface
+    public function reduce(callable $callback, $initial = null)
     {
-        return new self((new Reduce())()($callback)($initial), [$this]);
+        return (new self((new Reduce())()($callback)($initial), [$this]))->current();
     }
 
     public function reduction(callable $callback, $initial = null): CollectionInterface
@@ -900,9 +900,9 @@ final class Collection implements CollectionInterface
         return new self((new Unfold())()(...$parameters)($callback));
     }
 
-    public function unlines(): CollectionInterface
+    public function unlines(): string
     {
-        return new self((new Unlines())(), [$this]);
+        return (new self((new Unlines())(), [$this]))->current(0, '');
     }
 
     public function unpack(): CollectionInterface
@@ -925,9 +925,9 @@ final class Collection implements CollectionInterface
         return new self((new Unwindow())(), [$this]);
     }
 
-    public function unwords(): CollectionInterface
+    public function unwords(): string
     {
-        return new self((new Unwords())(), [$this]);
+        return (new self((new Unwords())(), [$this]))->current(0, '');
     }
 
     public function unwrap(): CollectionInterface

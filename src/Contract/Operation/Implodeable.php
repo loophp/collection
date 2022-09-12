@@ -22,8 +22,6 @@ interface Implodeable
      * using a glue provided or the empty string as default.
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#implode
-     *
-     * @return Collection<TKey, string>
      */
-    public function implode(string $glue = ''): Collection;
+    public function implode(string $glue = ''): string;
 }

@@ -41,7 +41,6 @@ final class CollectionGenericOperationTest extends TestCase
      * @dataProvider combinateOperationProvider
      * @dataProvider combineOperationProvider
      * @dataProvider compactOperationProvider
-     * @dataProvider compareOperationProvider
      * @dataProvider cycleOperationProvider
      * @dataProvider diffOperationProvider
      * @dataProvider diffKeysOperationProvider
@@ -55,20 +54,11 @@ final class CollectionGenericOperationTest extends TestCase
      * @dataProvider flatMapOperationProvider
      * @dataProvider flattenOperationProvider
      * @dataProvider flipOperationProvider
-     * @dataProvider foldLeftOperationProvider
-     * @dataProvider foldRightOperationProvider
-     * @dataProvider foldLeft1OperationProvider
-     * @dataProvider foldRight1OperationProvider
      * @dataProvider forgetOperationProvider
      * @dataProvider frequencyOperationProvider
-     * @dataProvider getOperationProvider
-     * @dataProvider firstOperationProvider
-     * @dataProvider lastOperationProvider
      * @dataProvider groupOperationProvider
      * @dataProvider groupByOperationProvider
-     * @dataProvider headOperationProvider
      * @dataProvider ifThenElseOperationProvider
-     * @dataProvider implodeOperationProvider
      * @dataProvider initOperationProvider
      * @dataProvider initsOperationProvider
      * @dataProvider intersectOperationProvider
@@ -81,8 +71,6 @@ final class CollectionGenericOperationTest extends TestCase
      * @dataProvider mapOperationProvider
      * @dataProvider mapNOperationProvider
      * @dataProvider matchingOperationProvider
-     * @dataProvider maxOperationProvider
-     * @dataProvider minOperationProvider
      * @dataProvider mergeOperationProvider
      * @dataProvider normalizeOperationProvider
      * @dataProvider nthOperationProvider
@@ -94,7 +82,6 @@ final class CollectionGenericOperationTest extends TestCase
      * @dataProvider pluckOperationProvider
      * @dataProvider prependOperationProvider
      * @dataProvider productOperationProvider
-     * @dataProvider reduceOperationProvider
      * @dataProvider reductionOperationProvider
      * @dataProvider rejectOperationProvider
      * @dataProvider reverseOperationProvider
@@ -114,12 +101,10 @@ final class CollectionGenericOperationTest extends TestCase
      * @dataProvider tailsOperationProvider
      * @dataProvider takeWhileOperationProvider
      * @dataProvider transposeOperationProvider
-     * @dataProvider unlinesOperationProvider
      * @dataProvider unpackOperationProvider
      * @dataProvider unpairOperationProvider
      * @dataProvider untilOperationProvider
      * @dataProvider unwindowOperationProvider
-     * @dataProvider unwordsOperationProvider
      * @dataProvider unwrapOperationProvider
      * @dataProvider unzipOperationProvider
      * @dataProvider whenOperationProvider
@@ -148,6 +133,7 @@ final class CollectionGenericOperationTest extends TestCase
     }
 
     /**
+     * @dataProvider compareOperationProvider
      * @dataProvider containsOperationProvider
      * @dataProvider countOperationProvider
      * @dataProvider currentOperationProvider
@@ -155,13 +141,27 @@ final class CollectionGenericOperationTest extends TestCase
      * @dataProvider everyOperationProvider
      * @dataProvider falsyOperationProvider
      * @dataProvider findOperationProvider
+     * @dataProvider firstOperationProvider
+     * @dataProvider foldLeftOperationProvider
+     * @dataProvider foldLeft1OperationProvider
+     * @dataProvider foldRightOperationProvider
+     * @dataProvider foldRight1OperationProvider
+     * @dataProvider getOperationProvider
      * @dataProvider hasOperationProvider
+     * @dataProvider headOperationProvider
+     * @dataProvider implodeOperationProvider
      * @dataProvider isEmptyOperationProvider
      * @dataProvider keyOperationProvider
+     * @dataProvider lastOperationProvider
      * @dataProvider matchOperationProvider
+     * @dataProvider maxOperationProvider
+     * @dataProvider minOperationProvider
      * @dataProvider nullsyOperationProvider
+     * @dataProvider reduceOperationProvider
      * @dataProvider sameOperationProvider
      * @dataProvider truthyOperationProvider
+     * @dataProvider unlinesOperationProvider
+     * @dataProvider unwordsOperationProvider
      *
      * @param mixed $expected
      */

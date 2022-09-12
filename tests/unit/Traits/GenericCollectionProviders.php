@@ -21,6 +21,8 @@ use loophp\collection\Operation\AbstractOperation;
 use stdClass;
 
 use const PHP_EOL;
+use const PHP_INT_MAX;
+use const PHP_INT_MIN;
 use const PHP_VERSION_ID;
 
 /**
@@ -532,7 +534,14 @@ trait GenericCollectionProviders
             $operation,
             [$callback],
             [1, 2, 3, 4, 5],
-            [4 => 1],
+            1,
+        ];
+
+        yield [
+            $operation,
+            [$callback, -42],
+            [],
+            -42,
         ];
 
         $callback = static fn (int $left, int $right): int => $left > $right ? $left : $right;
@@ -541,7 +550,7 @@ trait GenericCollectionProviders
             $operation,
             [$callback],
             [1, 2, 3, 4, 5],
-            [4 => 5],
+            5,
         ];
 
         $callback = static fn (string $left, string $right): string => min($left, $right);
@@ -550,7 +559,7 @@ trait GenericCollectionProviders
             $operation,
             [$callback],
             ['foo' => 'f', 'bar' => 'b', 'tar' => 't'],
-            ['tar' => 'b'],
+            'b',
         ];
 
         $callback = static fn (stdClass $carry, stdClass $current): stdClass => $current->age < $carry->age
@@ -563,7 +572,7 @@ trait GenericCollectionProviders
             $operation,
             [$callback],
             [(object) ['id' => 1, 'age' => 5], $expected, (object) ['id' => 3, 'age' => 12]],
-            [2 => $expected],
+            $expected,
         ];
     }
 
@@ -1449,21 +1458,21 @@ trait GenericCollectionProviders
             $operation,
             [],
             range(1, 10),
-            [0 => 1],
+            1,
         ];
 
         yield [
             $operation,
             [],
             [],
-            [],
+            null,
         ];
 
         yield [
             $operation,
             [],
             ['foo' => 'bar', 'baz' => 'bar'],
-            ['foo' => 'bar'],
+            'bar',
         ];
     }
 
@@ -1722,7 +1731,7 @@ trait GenericCollectionProviders
                 $callback,
             ],
             [64, 4, 2, 8],
-            [3 => 1],
+            1,
         ];
 
         yield [
@@ -1731,23 +1740,21 @@ trait GenericCollectionProviders
                 $callback,
             ],
             [12],
-            [0 => 12],
+            12,
         ];
     }
 
     public function foldLeftOperationProvider()
     {
         $operation = 'foldLeft';
-        $input = [];
-        $output = ['foo'];
 
         yield [
             $operation,
             [
                 static fn (string $carry, string $string): string => sprintf('%s%s', $carry, $string), 'foo',
             ],
-            $input,
-            $output,
+            [],
+            'foo',
         ];
 
         yield [
@@ -1761,7 +1768,34 @@ trait GenericCollectionProviders
                 '',
             ],
             range('A', 'C'),
-            [2 => 'ABC'],
+            'ABC',
+        ];
+
+        yield [
+            $operation,
+            [
+                static function (string $carry, string $item): string {
+                    $carry .= $item;
+
+                    return $carry;
+                },
+            ],
+            [],
+            null,
+        ];
+
+        yield [
+            $operation,
+            [
+                static function (string $carry, string $item): string {
+                    $carry .= $item;
+
+                    return $carry;
+                },
+                'foo',
+            ],
+            [],
+            'foo',
         ];
     }
 
@@ -1779,7 +1813,7 @@ trait GenericCollectionProviders
                 $callback,
             ],
             [8, 12, 24, 4],
-            [0 => 4],
+            4,
         ];
 
         yield [
@@ -1788,15 +1822,13 @@ trait GenericCollectionProviders
                 $callback,
             ],
             [12],
-            [0 => 12],
+            12,
         ];
     }
 
     public function foldRightOperationProvider()
     {
         $operation = 'foldRight';
-        $input = range('A', 'C');
-        $output = ['foo'];
 
         yield [
             $operation,
@@ -1808,8 +1840,8 @@ trait GenericCollectionProviders
                 },
                 '',
             ],
-            $input,
-            [0 => 'CBA'],
+            range('A', 'C'),
+            'CBA',
         ];
     }
 
@@ -1860,14 +1892,14 @@ trait GenericCollectionProviders
             $operation,
             [4],
             $input,
-            [4 => 'E'],
+            'E',
         ];
 
         yield [
             $operation,
             ['unexistent key', 'default'],
             $input,
-            ['default'],
+            'default',
         ];
     }
 
@@ -2084,21 +2116,21 @@ trait GenericCollectionProviders
             $operation,
             [],
             range(1, 10),
-            [0 => 1],
+            1,
         ];
 
         yield [
             $operation,
             [],
             [],
-            [],
+            null,
         ];
 
         yield [
             $operation,
             [],
             ['foo' => 'bar', 'baz' => 'bar'],
-            ['foo' => 'bar'],
+            'bar',
         ];
     }
 
@@ -2147,14 +2179,21 @@ trait GenericCollectionProviders
             $operation,
             ['-'],
             $input,
-            [2 => 'A-B-C'],
+            'A-B-C',
         ];
 
         yield [
             $operation,
             [],
             $input,
-            [2 => 'ABC'],
+            'ABC',
+        ];
+
+        yield [
+            $operation,
+            [],
+            [],
+            '',
         ];
     }
 
@@ -2517,28 +2556,28 @@ trait GenericCollectionProviders
             $operation,
             [],
             range('A', 'F'),
-            [5 => 'F'],
+            'F',
         ];
 
         yield [
             $operation,
             [],
             ['A'],
-            [0 => 'A'],
+            'A',
         ];
 
         yield [
             $operation,
             [],
             [],
-            [],
+            null,
         ];
 
         yield [
             $operation,
             [],
             ['foo' => 'bar', 'baz' => 'bar'],
-            ['baz' => 'bar'],
+            'bar',
         ];
 
         $input = [
@@ -2552,9 +2591,7 @@ trait GenericCollectionProviders
             $operation,
             [],
             $input,
-            [
-                3 => ['d', 'c', 'b', 'a'],
-            ],
+            ['d', 'c', 'b', 'a'],
         ];
     }
 
@@ -2757,21 +2794,28 @@ trait GenericCollectionProviders
             $operation,
             [],
             [1, 2, 3, 4, 5],
-            [4 => 5],
+            5,
+        ];
+
+        yield [
+            $operation,
+            [PHP_INT_MAX],
+            [],
+            PHP_INT_MAX,
         ];
 
         yield [
             $operation,
             [],
             [-1, 200, -100, -3, -500],
-            [4 => 200],
+            200,
         ];
 
         yield [
             $operation,
             [],
             ['foo' => 'f', 'bar' => 'b', 'tar' => 't'],
-            ['tar' => 't'],
+            't',
         ];
     }
 
@@ -2816,21 +2860,28 @@ trait GenericCollectionProviders
             $operation,
             [],
             [1, 2, 3, 4, 5],
-            [4 => 1],
+            1,
+        ];
+
+        yield [
+            $operation,
+            [PHP_INT_MIN],
+            [],
+            PHP_INT_MIN,
         ];
 
         yield [
             $operation,
             [],
             [1, 2, -100, 4, 5],
-            [4 => -100],
+            -100,
         ];
 
         yield [
             $operation,
             [],
             ['foo' => 'f', 'bar' => 'b', 'tar' => 't'],
-            ['tar' => 'b'],
+            'b',
         ];
     }
 
@@ -3255,7 +3306,7 @@ trait GenericCollectionProviders
                 'foo',
             ],
             [],
-            [],
+            null,
         ];
 
         yield [
@@ -3265,7 +3316,7 @@ trait GenericCollectionProviders
                 0,
             ],
             range(1, 5),
-            [4 => 15],
+            15,
         ];
 
         yield [
@@ -3275,9 +3326,7 @@ trait GenericCollectionProviders
                 '=> ',
             ],
             array_combine(range('x', 'z'), range('a', 'c')),
-            [
-                'z' => '=> [x:a][y:b][z:c]',
-            ],
+            '=> [x:a][y:b][z:c]',
         ];
     }
 
@@ -4134,14 +4183,12 @@ trait GenericCollectionProviders
                 'The quick brow fox jumps over the lazy dog.',
                 'This is another sentence.',
             ],
-            [
-                1 => sprintf(
-                    '%s%s%s',
-                    'The quick brow fox jumps over the lazy dog.',
-                    PHP_EOL,
-                    'This is another sentence.'
-                ),
-            ],
+            sprintf(
+                '%s%s%s',
+                'The quick brow fox jumps over the lazy dog.',
+                PHP_EOL,
+                'This is another sentence.'
+            ),
         ];
     }
 
@@ -4299,7 +4346,7 @@ trait GenericCollectionProviders
             $operation,
             [],
             $input,
-            [11 => $output],
+            $output,
         ];
     }
 

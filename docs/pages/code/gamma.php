@@ -45,7 +45,6 @@ $number = 5.75; // 78.78
 $gamma_factorial_approximation = Collection::fromIterable($ℕ)
     ->map($γ($number))
     ->until($ε)
-    ->foldLeft($addition, 0)
-    ->current();
+    ->foldLeft($addition, 0);
 
 print_r($gamma_factorial_approximation);
