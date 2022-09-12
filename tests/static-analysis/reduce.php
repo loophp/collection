@@ -11,15 +11,15 @@ include __DIR__ . '/../../vendor/autoload.php';
 
 use loophp\collection\Collection;
 
-function takeInt(int $int): void
+function reduce_takeInt(int $int): void
 {
 }
 
-function takeIntOrNull(?int $int): void
+function reduce_takeIntOrNull(?int $int): void
 {
 }
 
-function takeString(string $string): void
+function reduce_takeString(string $string): void
 {
 }
 
@@ -29,9 +29,9 @@ $sum = static fn (int $carry, int $value): int => $carry + $value;
 $concatNullable = static fn (?string $carry, string $string): string => null === $carry ? $string : $carry . $string;
 $concat = static fn (string $carry, string $string): string => sprintf('%s%s', $carry, $string);
 
-takeInt(Collection::fromIterable([1, 2, 3])->reduce($sumNullable));
-takeIntOrNull(Collection::fromIterable([])->reduce($sumNullable));
-takeInt(Collection::fromIterable([1, 2, 3])->reduce($sum, 0));
+reduce_takeInt(Collection::fromIterable([1, 2, 3])->reduce($sumNullable));
+reduce_takeIntOrNull(Collection::fromIterable([])->reduce($sumNullable));
+reduce_takeInt(Collection::fromIterable([1, 2, 3])->reduce($sum, 0));
 
-takeString(Collection::fromIterable(['z' => 'a', 'y' => 'b', 'x' => 'c'])->reduce($concatNullable));
-takeString(Collection::fromIterable(['z' => 'a', 'y' => 'b', 'x' => 'c'])->reduce($concat, ''));
+reduce_takeString(Collection::fromIterable(['z' => 'a', 'y' => 'b', 'x' => 'c'])->reduce($concatNullable));
+reduce_takeString(Collection::fromIterable(['z' => 'a', 'y' => 'b', 'x' => 'c'])->reduce($concat, ''));

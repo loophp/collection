@@ -45,16 +45,6 @@ $integers = static function (int $i = 0): Generator {
     }
 };
 
-function takeInt(int $int): void
-{
-}
-function takeIntOrNull(?int $int): void
-{
-}
-function takeString(string $string): void
-{
-}
-
 $intValueCallback = static fn (int $value): bool => $value % 2 === 0;
 $stringValueCallback = static fn (string $value): bool => 'bar' === $value;
 

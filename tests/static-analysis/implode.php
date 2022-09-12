@@ -11,12 +11,12 @@ include __DIR__ . '/../../vendor/autoload.php';
 
 use loophp\collection\Collection;
 
-function takeString(string $string): void
+function implode_takeString(string $string): void
 {
 }
 
 // TODO: Replace with loophp/typed-generators when it will be done.
 $input = range('a', 'e');
 
-takeString(Collection::fromIterable($input)->implode(','));
-takeString(Collection::fromIterable([])->implode());
+implode_takeString(Collection::fromIterable($input)->implode(','));
+implode_takeString(Collection::fromIterable([])->implode());

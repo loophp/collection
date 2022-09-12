@@ -11,16 +11,16 @@ include __DIR__ . '/../../vendor/autoload.php';
 
 use loophp\collection\Collection;
 
-function takeInt(?int $int): void
+function first_takeInt(?int $int): void
 {
 }
-function takeIntOrNull(?int $int): void
+function first_takeIntOrNull(?int $int): void
 {
 }
-function takeString(?string $string): void
+function first_takeString(?string $string): void
 {
 }
 
-takeInt(Collection::fromIterable([1, 2, 3])->first());
-takeString(Collection::fromIterable(['foo' => 'bar', 'baz' => 'bar'])->first());
-takeIntOrNull(Collection::empty()->first());
+first_takeInt(Collection::fromIterable([1, 2, 3])->first());
+first_takeString(Collection::fromIterable(['foo' => 'bar', 'baz' => 'bar'])->first());
+first_takeIntOrNull(Collection::empty()->first());
