@@ -20,9 +20,9 @@ interface Headable
     /**
      * Get the first item from the collection in a separate collection. Same as `first`.
      *
-     * @template V
-     *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#head
+     *
+     * @template V
      *
      * @param V $default
      *

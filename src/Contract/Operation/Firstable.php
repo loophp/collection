@@ -20,9 +20,9 @@ interface Firstable
     /**
      * Get the first item from the collection in a separate collection. Alias for `head`.
      *
-     * @template V
-     *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#first
+     *
+     * @template V
      *
      * @param V $default
      *

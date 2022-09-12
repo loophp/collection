@@ -513,7 +513,7 @@ can be used instead.
 
 Interface: `Comparable`_
 
-Signature: ``Collection::compare(callable $comparator): Collection;``
+Signature: ``Collection::compare(callable $comparator, $default = null): Collection;``
 
 .. literalinclude:: code/operations/compare.php
   :language: php
@@ -840,7 +840,7 @@ Get the first item from the collection in a separate collection. Alias for ``hea
 
 Interface: `Firstable`_
 
-Signature: ``Collection::first(): mixed;``
+Signature: ``Collection::first($default = null): mixed;``
 
 .. code-block:: php
 
@@ -1069,9 +1069,9 @@ Signature: ``Collection::get($key, $default = null): Collection;``
 
 .. code-block:: php
 
-    Collection::fromIterable(range('a', 'c'))->get(1) // [1 => 'b']
+    Collection::fromIterable(range('a', 'c'))->get(1) // 'b'
 
-    Collection::fromIterable(range('a', 'c'))->get(4, '') // [0 => '']
+    Collection::fromIterable(range('a', 'c'))->get(4, '') // ''
 
 group
 ~~~~~
@@ -1143,7 +1143,7 @@ Get the first item from the collection in a separate collection. Same as ``first
 
 Interface: `Headable`_
 
-Signature: ``Collection::head(): mixed;``
+Signature: ``Collection::head($default = null): mixed;``
 
 .. code-block:: php
 
@@ -1157,7 +1157,7 @@ Signature: ``Collection::head(): mixed;``
     };
 
     Collection::fromIterable($generator())
-        ->head(); // [1 => 'a']
+        ->head(); // 'a'
 
 ifThenElse
 ~~~~~~~~~~
@@ -1342,7 +1342,7 @@ Extract the last element of a collection, which must be finite and non-empty.
 
 Interface: `Lastable`_
 
-Signature: ``Collection::last(): Collection;``
+Signature: ``Collection::last($default = null): Collection;``
 
 .. code-block:: php
 
@@ -1356,7 +1356,7 @@ Signature: ``Collection::last(): Collection;``
         };
 
         Collection::fromIterable($generator())
-            ->last(); // ['c' => 'f']
+            ->last(); // 'f'
 
 limit
 ~~~~~
@@ -1488,7 +1488,7 @@ the ``compare`` operation can be used instead.
 
 Interface: `Maxable`_
 
-Signature: ``Collection::max(): Collection;``
+Signature: ``Collection::max($default = null): Collection;``
 
 .. literalinclude:: code/operations/max.php
   :language: php
@@ -1523,7 +1523,7 @@ the ``compare`` operation can be used instead.
 
 Interface: `Minable`_
 
-Signature: ``Collection::min(): Collection;``
+Signature: ``Collection::min($default = null): Collection;``
 
 .. literalinclude:: code/operations/min.php
   :language: php

@@ -20,9 +20,9 @@ interface Lastable
     /**
      * Extract the last element of a collection, which must be finite and non-empty.
      *
-     * @template V
-     *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#last
+     *
+     * @template V
      *
      * @param V $default
      *
