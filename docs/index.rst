@@ -87,8 +87,8 @@ Features
 
       print_r(iterator_to_array($pipe(new ArrayIterator($data))));  // ['baz', 'bar']
 
-   More information about this in the `Brian Lonsdorf's conference`_, 
-   even if this is for Javascript, 
+   More information about this in the `Brian Lonsdorf's conference`_,
+   even if this is for Javascript,
    those concepts are common to other programming languages.
 
    In a nutshell, the combination of currying and function-first enables
@@ -100,7 +100,7 @@ Features
    makes it easy to compose functions to create new functions. Because
    the API is *function-first*, *data-last*, you can continue composing
    and composing until you build up the function you need before
-   dropping in the data. See `this Hugh Jackson article`_ describing 
+   dropping in the data. See `this Hugh Jackson article`_ describing
    the advantages of this style.
 
    In the following example, the well-known `flatMap`_ could

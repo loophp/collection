@@ -23,17 +23,17 @@ $listInt = static function (int $init, callable $succ): Generator {
     }
 };
 
-$ℕ = $listInt(1, static function (int $n): int {
+$N = $listInt(1, static function (int $n): int {
     return $n + 1;
 });
 
-$γ = static function (float $n): Closure {
+$Y = static function (float $n): Closure {
     return static function (int $x) use ($n): float {
         return ($x ** ($n - 1)) * (\M_E ** (-$x));
     };
 };
 
-$ε = static function (float $value): bool {
+$e = static function (float $value): bool {
     return 10 ** -12 > $value;
 };
 
@@ -42,9 +42,9 @@ $ε = static function (float $value): bool {
 // $number = 6; // 5 * 4 * 3 * 2 => 120
 $number = 5.75; // 78.78
 
-$gamma_factorial_approximation = Collection::fromIterable($ℕ)
-    ->map($γ($number))
-    ->until($ε)
+$gamma_factorial_approximation = Collection::fromIterable($N)
+    ->map($Y($number))
+    ->until($e)
     ->foldLeft($addition, 0);
 
 print_r($gamma_factorial_approximation);
