@@ -69,6 +69,7 @@
     "scripts": {
         "changelog-unreleased": "auto_changelog -c .auto-changelog -u",
         "changelog-version": "auto_changelog -c .auto-changelog -v",
+        "doc-server": "sphinx-autobuild ./docs ./build/docs",
         "grumphp": "./vendor/bin/grumphp run",
         "infection": "vendor/bin/infection run -j 2",
         "phpunit": "vendor/bin/phpunit"
