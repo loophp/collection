@@ -1,9 +1,0 @@
-version: "3"
-
-services:
-    doc:
-        build: docker/doc
-        volumes:
-            - ./docs:/etc/Sphinx/source
-        ports:
-            - 8100:80
