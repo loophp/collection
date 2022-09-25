@@ -22,33 +22,16 @@
           inherit (pkgs.texlive) scheme-full latex-bin latexmk;
         };
 
-        sphinx-build =
-          let
-            env = pkgs.python3.withPackages (pp: with pp; [
-              sphinx
-              sphinx-autobuild
-              sphinx_rtd_theme
-              sphinxcontrib-spelling
-              recommonmark
-              pyenchant
-            ]);
-          in
-          # Expose only the sphinx-build binary to avoid contaminating
-            # everything with Sphinx’s Python environment.
-          pkgs.runCommand "sphinx-build" { } ''
-            mkdir -p "$out/bin"
-            ln -s "${env}/bin/sphinx-autobuild" "$out/bin"
-            ln -s "${env}/bin/sphinx-build" "$out/bin"
-            ln -s "${env}/bin/sphinx-apidoc" "$out/bin"
-            ln -s "${env}/bin/sphinx-autogen" "$out/bin"
-            ln -s "${env}/bin/sphinx-quickstart" "$out/bin"
-          '';
-
         documentProperties = {
           name = "loophp-collection";
           inputs = [
             tex
-            sphinx-build
+            pkgs.sphinx
+            pkgs.sphinx-autobuild
+            pkgs.python3Packages.sphinx_rtd_theme
+            pkgs.python3Packages.sphinxcontrib-spelling
+            pkgs.python3Packages.recommonmark
+            pkgs.python3Packages.pyenchant
           ];
         };
 
@@ -60,11 +43,11 @@
           nativeBuildInputs = documentProperties.inputs;
 
           buildPhase = ''
-            sphinx-build -M latexpdf ./docs tmp
+            sphinx-build -M latexpdf ./docs build/docs
           '';
 
           installPhase = ''
-            install -m 0644 -vD tmp/latex/documentation.pdf $out
+            install -m 0644 -vD build/docs/latex/loophp-collection-documentation.pdf $out
           '';
         };
 
