@@ -2160,7 +2160,7 @@ Signature: ``Collection::squash(): Collection;``
   :language: php
 
 strict
-~~~~~
+~~~~~~
 
 Enforce a single type in the collection at runtime. If the collection contains *objects*, they will either be
 expected to implement the same interfaces or be of the exact same class (no inheritance logic applies).
