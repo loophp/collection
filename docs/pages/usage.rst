@@ -11,7 +11,7 @@ Find here some working examples.
     correctly.
 
 Simple
--------
+------
 
 .. literalinclude:: code/simple.php
   :language: php
@@ -94,8 +94,8 @@ or a custom serializer like the `Symfony Serializer`_.
 Extending collection
 ~~~~~~~~~~~~~~~~~~~~
 
-Sometimes, it is possible that the feature set provided by this library is
-not enough.
+Sometimes, it is possible that the feature set provided by this library is not
+enough.
 
 Then, you would like to create your own collection class with some specific
 feature added on top of it.

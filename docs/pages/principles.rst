@@ -16,25 +16,31 @@ Immutability usually makes our code:
 * easier to debug
 * more robust and consistent
 
-A few notable exceptions to this are methods that return scalar values like ``count``;
-read more about them in the :ref:`operations background <Background>` section.
+A few notable exceptions to this are methods that return scalar values like
+``count``; read more about them in the :ref:`operations background <Background>`
+section.
 
 Laziness
 --------
 
-``Collection`` is "lazy" by default. `Lazy evaluation`_, or call-by-need, is an evaluation
-strategy which delays the evaluation of an expression until its value is really needed.
+While PHP's default evaluation is *call-by-value*, ``Collection`` allows you to
+mimic a *call-by-name* evaluation strategy by evaluating items only when they
+are needed.
 
-Collection operations are executed on the input stream only when iterating over it,
-or when using very specific operations like ``all`` or ``squash``.
+Therefore, ``Collection`` is "lazy" by default. `Lazy evaluation`_ is an
+evaluation strategy which delays the evaluation of an expression until its value
+is really needed.
 
-Behavior
-~~~~~~~~
+Collection operations are executed on the input stream only when iterating over
+it, or when using very specific operations like ``all`` or ``squash``.
 
-``Collection`` leverages PHP ``Generators`` and ``Closures`` to allow working with
-large data sets while using as little memory as possible. Thanks to lazy evaluation,
-we can even deal with potentially infinite data sets or streams of data - see the
-:ref:`advanced usage <Advanced>` section for more examples.
+Behaviour
+~~~~~~~~~
+
+``Collection`` leverages PHP ``Generators`` and ``Closures`` to allow working
+with large data sets while using as little memory as possible. Thanks to lazy
+evaluation, we can even deal with potentially infinite data sets or streams of
+data - see the :ref:`advanced usage <Advanced>` section for more examples.
 
 .. code-block:: php
 
@@ -63,68 +69,77 @@ a new PHP Generator each time iteration is started.
 
 `AbstractOperation`_ and the `Operation Interface`_ - provide the blueprint
 for collection operations, which are pure functions defined as final classes
-with the `invoke`_ PHP magic method. Operations return a ``Closure`` when called,
-which itself returns an ``Iterator``; they can thus be used inside ``ClosureIterator`` to
-create new generators when needed.
+with the `invoke`_ PHP magic method. Operations return a ``Closure`` when
+called, which itself returns an ``Iterator``; they can thus be used inside
+``ClosureIterator`` to create new generators when needed.
 
 Side-Effects
 ~~~~~~~~~~~~
 
 ``Collection`` is a helper for making transformations to input data sets.
 Even though we can technically trigger side-effects in some operations
-through a custom ``Closure``, it's better to avoid this type of usage and instead
-use the operations for their transformative effects (use the return values).
+through a custom ``Closure``, it's better to avoid this type of usage and
+instead use the operations for their transformative effects
+(use the return values).
 
-Exception handling is one scenario where we might find ourselves wanting ``Collection``
-to behave eagerly. If we want an exception to be thrown and handled in a specific function,
-during an operation, rather than when the collection is later iterated on, we can take advantage
-of the :ref:`squash <Squash>` operation.
+Exception handling is one scenario where we might find ourselves wanting
+``Collection`` to behave eagerly. If we want an exception to be thrown and
+handled in a specific function, during an operation, rather than when the
+collection is later iterated on, we can take advantage of the
+:ref:`squash <Squash>` operation.
 
 Testing
 ~~~~~~~
 
-Working with lazy evaluation can impact how we test our code. Depending on the testing
-framework used, we have a few options at our disposal when it comes to comparing collections
-objects returned by a function.
+Working with lazy evaluation can impact how we test our code. Depending on the
+testing framework used, we have a few options at our disposal when it comes to
+comparing collections objects returned by a function.
 
 ``Collection`` already provides two operations which can be used for comparison:
 
-* :ref:`Equals <Equals>` - allows usage of the `assertObjectEquals`_ assertion in *PHPUnit*
-* :ref:`Same <Same>` - allows customizing precisely how elements are compared using a callback
+* :ref:`Equals <Equals>` - allows usage of the `assertObjectEquals`_ assertion
+  in *PHPUnit*
+* :ref:`Same <Same>` - allows customizing precisely how elements are compared
+  using a callback
 
-Note that these operations will traverse both collections as part of the comparison. As such,
-any side effects triggered in our source code will be triggered during this comparison. When
-using ``equals`` in particular, we might find it useful to apply ``squash`` to the resulting
-collection object before the comparison if our test needs to assert how many times
-a side effect is performed.
+Note that these operations will traverse both collections as part of the
+comparison. As such, any side effects triggered in our source code will be
+triggered during this comparison. When using ``equals`` in particular, we might
+find it useful to apply ``squash`` to the resulting collection object before the
+comparison if our test needs to assert how many times a side effect is
+performed.
 
-In addition to these, in *PHPUnit* we can use the `assertIdenticalIterable`_ assertion to assert
-how our final collection object will iterate.
+In addition to these, in *PHPUnit* we can use the `assertIdenticalIterable`_
+assertion to assert how our final collection object will iterate.
 
-The last option is to transform the collection object into an array with the :ref:`all <All>` operation
-and use any assertion that we would normally use for arrays.
+The last option is to transform the collection object into an array with the
+:ref:`all <All>` operation and use any assertion that we would normally use for
+arrays.
 
 Usability
 ---------
 
-``Collection`` and the ``Operations`` are designed with usability and flexibility in mind.
-A few key elements that contribute to this are the usage of *variadic parameters*, *custom callbacks*,
-and the fact that operations can be used both as collection object methods or *completely separately*.
+``Collection`` and the ``Operations`` are designed with usability and
+flexibility in mind. A few key elements that contribute to this are the usage of
+*variadic parameters*, *custom callbacks*, and the fact that operations can be
+used both as collection object methods or *completely separately*.
 
 Variadic Parameters
 ~~~~~~~~~~~~~~~~~~~
 
-Variadic parameters are used wherever possible in operations, allowing us to more succintly apply
-multiple transformations or predicates. They will *always* be evaluated by the operation as a *logical OR*.
+Variadic parameters are used wherever possible in operations, allowing us to
+more succinctly apply multiple transformations or predicates. They will *always*
+be evaluated by the operation as a *logical OR*.
 
-For example, the :ref:`contains <Contains>` operation allows us to easily check whether one or more
-values are contained in the collection:
+For example, the :ref:`contains <Contains>` operation allows us to easily check
+whether one or more values are contained in the collection:
 
 .. literalinclude:: code/operations/contains.php
   :language: php
 
-If we want to instead achieve a *logical AND* behaviour, we can make multiple calls to the same operation.
-The following example using the :ref:`filter <Filter>` operation illustrates this:
+If we want to instead achieve a *logical AND* behaviour, we can make multiple
+calls to the same operation. The following example using the
+:ref:`filter <Filter>` operation illustrates this:
 
 .. literalinclude:: code/operations/filter.php
   :language: php
@@ -132,11 +147,13 @@ The following example using the :ref:`filter <Filter>` operation illustrates thi
 Custom Callbacks
 ~~~~~~~~~~~~~~~~
 
-Many operations allow us to customize their behavior through custom callbacks. This gives us the power
-to achieve what we need with the operation if the default behavior is not the best fit for our use case.
+Many operations allow us to customize their behaviour through custom callbacks.
+This gives us the power to achieve what we need with the operation if the
+default behaviour is not the best fit for our use case.
 
-For example, by default the :ref:`same <Same>` operation will compare collection elements using
-strict equality (``===``). However, when dealing with objects we might want a different behavior:
+For example, by default the :ref:`same <Same>` operation will compare collection
+elements using strict equality (``===``). However, when dealing with objects we
+might want a different behaviour:
 
 .. code-block:: php
 
@@ -150,12 +167,13 @@ strict equality (``===``). However, when dealing with objects we might want a di
 Independent Operations
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Operations are pure functions that can be used to transform an iterator, either directly or
-through the ``Collection`` object.
+Operations are pure functions that can be used to transform an iterator, either
+directly or through the ``Collection`` object.
 
-For example, the :ref:`filter <Filter>` operation can be used on another iterator,
-independently of the ``Collection`` object. Because all operations return an iterator at the end,
-we can use `iterator_to_array`_ to convert this back to a normal array when needed.
+For example, the :ref:`filter <Filter>` operation can be used on another
+iterator, independently of the ``Collection`` object. Because all operations
+return an iterator at the end, we can use `iterator_to_array`_ to convert this
+back to a normal array when needed.
 
 .. literalinclude:: code/operations/background.php
   :language: php
