@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App;
 
-use ArrayIterator;
 use loophp\collection\Collection;
 use loophp\collection\Operation\Filter;
 
@@ -14,7 +13,7 @@ $input = [1, 2, 3, 4];
 $even = static fn (int $value): bool => $value % 2 === 0;
 
 // Standalone usage
-$filtered = Filter::of()($even)(new ArrayIterator($input));
+$filtered = Filter::of()($even)($input);
 
 print_r(iterator_to_array($filtered)); // [2, 4]
 

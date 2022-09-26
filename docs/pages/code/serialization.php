@@ -34,7 +34,7 @@ $col = Collection::fromIterable(['foo' => 1, 'bar' => 2])
 
 json_encode($col); // JSON: '[1, 2]'
 
-// Example 2 -> using custom serializer (all previous behaviors apply)
+// Example 2 -> using custom serializer (all previous behaviours apply)
 
 /** @var Symfony\Component\Serializer\Serializer $serializer */
 $serializer = new Serializer(); // parameters omitted for brevity
