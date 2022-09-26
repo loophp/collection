@@ -16,8 +16,6 @@
 /CHANGELOG.md export-ignore
 /infection.json export-ignore
 /LICENSE export-ignore
-/flake.nix export-ignore
-/flake.lock export-ignore
 /grumphp.yml export-ignore
 /phpstan-baseline.neon export-ignore
 /phpstan.neon.dist export-ignore
