@@ -1,3 +1,4 @@
+[![Try!][phpsandbox image]][phpsandbox link]
 [![Latest Stable Version][latest stable version]][packagist link]
 [![GitHub stars][github stars]][packagist link]
 [![Total Downloads][total downloads]][packagist link]
@@ -205,6 +206,8 @@ See [CHANGELOG.md][43] for a changelog based on [git commits][44].
 
 For more detailed changelogs, please check [the release changelogs][45].
 
+[phpsandbox image]: https://img.shields.io/badge/Try%20it-online%20!-brightgreen?style=flat-square
+[phpsandbox link]: https://play.phpsandbox.io/loophp/collection
 [packagist link]: https://packagist.org/packages/loophp/collection
 [github actions link]: https://github.com/loophp/collection/actions
 [scrutinizer link]:
