@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App;
 
-use ArrayIterator;
 use loophp\collection\Collection;
 use loophp\collection\Operation\Span;
 
@@ -28,6 +27,6 @@ $last = Collection::fromIterable($input)
 print_r($last->all()); // [4, 5, 6, 7, 8, 9, 10]
 
 // Example 3 -> Use Span operation separately
-[$left] = iterator_to_array(Span::of()(static fn ($x): bool => 4 > $x)(new ArrayIterator($input)));
+[$left] = iterator_to_array(Span::of()(static fn ($x): bool => 4 > $x)($input));
 
 print_r(iterator_to_array($left)); // [1, 2, 3]

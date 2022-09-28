@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App;
 
-use ArrayIterator;
 use Generator;
 use loophp\collection\Collection;
 use loophp\collection\Operation\All;
@@ -39,5 +38,5 @@ print_r($collection->all()); // [1, 2]
 // Example 3 -> standalone operation usage
 $even = static fn (int $value): bool => $value % 2 === 0;
 
-$piped = Pipe::of()(Filter::of()($even), All::of()(true))(new ArrayIterator([1, 2, 3, 4]));
+$piped = Pipe::of()(Filter::of()($even), All::of()(true))([1, 2, 3, 4]);
 print_r(iterator_to_array($piped)); // [2, 4]

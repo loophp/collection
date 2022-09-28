@@ -85,7 +85,7 @@ Features
       $reverse = Reverse::of();
       $pipe = Pipe::of()($reverse, $filter);
 
-      print_r(iterator_to_array($pipe(new ArrayIterator($data))));  // ['baz', 'bar']
+      print_r(iterator_to_array($pipe($data)));  // ['baz', 'bar']
 
    More information about this in the `Brian Lonsdorf's conference`_,
    even if this is for Javascript,
@@ -110,8 +110,7 @@ Features
 
       <?php
 
-      $input = ['foo,bar', 'baz,john'];
-      $userData = new ArrayIterator($input);
+      $userData = ['foo,bar', 'baz,john'];
 
       $flatMap = static fn (callable $callable) =>
                      Pipe::of()(

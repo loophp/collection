@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App;
 
-use ArrayIterator;
 use Closure;
 use loophp\collection\Collection;
 use loophp\collection\Operation\Partition;
@@ -63,7 +62,7 @@ print_r($left->all(false));
  */
 
 // Example 3 -> Use Partition operation separately
-[$left] = iterator_to_array(Partition::of()($isGreaterThan(5))(new ArrayIterator($input)));
+[$left] = iterator_to_array(Partition::of()($isGreaterThan(5))($input));
 
 // Numbers that are greater than 5
 print_r(iterator_to_array($left));
