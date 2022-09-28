@@ -42,9 +42,9 @@ $arrayList = range(1, 3);
 $arrayMap = ['foo' => 1, 'bar' => 2];
 $arrayMixed = [1, 2, '3', 'b', 5];
 
-$arrayIteratorList = new ArrayIterator(range(1, 3));
-$arrayIteratorMap = new ArrayIterator(['foo' => 1, 'bar' => 2]);
-$arrayIteratorMixed = new ArrayIterator([1, 2, '3', 'b', 5]);
+$arrayIteratorList = range(1, 3);
+$arrayIteratorMap = ['foo' => 1, 'bar' => 2];
+$arrayIteratorMixed = [1, 2, '3', 'b', 5];
 
 fromIterable_checkList(Collection::fromIterable($generatorList()));
 fromIterable_checkMap(Collection::fromIterable($generatorMap()));

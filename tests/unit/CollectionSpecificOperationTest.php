@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace tests\loophp\collection;
 
-use ArrayIterator;
 use Closure;
 use Exception;
 use Generator;
@@ -157,30 +156,26 @@ final class CollectionSpecificOperationTest extends TestCase
     {
         $input = range('a', 'e');
 
-        $iterator = new ArrayIterator($input);
-
         $coalesce = new Coalesce();
 
-        self::assertCount(1, $coalesce->__invoke()($iterator));
+        self::assertCount(1, $coalesce->__invoke()($input));
 
         self::assertIdenticalIterable(
             [
                 0 => 'a',
             ],
-            $coalesce->__invoke()($iterator)
+            $coalesce->__invoke()($input)
         );
 
         $input = ['', null, 'foo', false, ...range('a', 'e')];
 
-        $iterator = new ArrayIterator($input);
-
-        self::assertCount(1, $coalesce->__invoke()($iterator));
+        self::assertCount(1, $coalesce->__invoke()($input));
 
         self::assertIdenticalIterable(
             [
                 2 => 'foo',
             ],
-            $coalesce->__invoke()($iterator)
+            $coalesce->__invoke()($input)
         );
     }
 
@@ -188,20 +183,18 @@ final class CollectionSpecificOperationTest extends TestCase
     {
         $input = range('a', 'e');
 
-        $iterator = new ArrayIterator($input);
-
         $current = new Current();
 
         self::assertIdenticalIterable(
             ['a'],
-            $current->__invoke()(0)(null)($iterator)
+            $current->__invoke()(0)(null)($input)
         );
 
-        self::assertCount(1, $current->__invoke()(0)(null)($iterator));
+        self::assertCount(1, $current->__invoke()(0)(null)($input));
 
         self::assertIdenticalIterable(
             ['unavailable'],
-            $current->__invoke()(10)('unavailable')($iterator)
+            $current->__invoke()(10)('unavailable')($input)
         );
     }
 
@@ -307,30 +300,20 @@ final class CollectionSpecificOperationTest extends TestCase
         $limit = new Limit();
         $input = range('a', 'e');
 
-        $iterator = new ArrayIterator($input);
+        self::assertCount(1, $limit()(1)(0)($input));
 
-        self::assertCount(1, $limit()(1)(0)($iterator));
-
-        self::assertCount(2, $limit()(2)(0)($iterator));
-
-        $input = range('a', 'e');
-
-        $iterator = new ArrayIterator($input);
+        self::assertCount(2, $limit()(2)(0)($input));
 
         self::assertIdenticalIterable(
             [2 => 'c'],
-            $limit()(1)(2)($iterator)
+            $limit()(1)(2)($input)
         );
 
-        self::assertCount(2, $limit()(2)(2)($iterator));
-
-        $input = range('a', 'e');
-
-        $iterator = new ArrayIterator($input);
+        self::assertCount(2, $limit()(2)(2)($input));
 
         self::assertIdenticalIterable(
             ['a', 'b', 'c', 'd', 'e'],
-            $limit()()()($iterator)
+            $limit()()()($input)
         );
     }
 

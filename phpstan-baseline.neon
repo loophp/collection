@@ -676,11 +676,6 @@ parameters:
 			path: tests/static-analysis/flatMap.php
 
 		-
-			message: "#^Parameter \\#1 \\$callable of static method loophp\\\\collection\\\\Collection\\<mixed,mixed\\>\\:\\:fromCallable\\(\\) expects callable\\(\\.\\.\\.mixed\\)\\: iterable\\<string, int\\>, Closure\\(int\\)\\: ArrayIterator\\<string, int\\> given\\.$#"
-			count: 1
-			path: tests/static-analysis/fromCallable.php
-
-		-
 			message: "#^Parameter \\#1 \\$callable of method loophp\\\\collection\\\\Collection\\<int,string\\>\\:\\:groupBy\\(\\) expects callable\\(string\\=, int\\=\\)\\: int, Closure\\(string, int\\)\\: int given\\.$#"
 			count: 1
 			path: tests/static-analysis/groupbyable.php

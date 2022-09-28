@@ -42,11 +42,6 @@ $arrayList = static fn (): array => range(1, 3);
 $arrayMap = static fn (): array => ['myKey' => 1];
 $arrayMixed = static fn (): array => [1, 2, '3', 'b', 5];
 
-/** @var Closure(): ArrayIterator<int, int> $arrayIteratorList */
-$arrayIteratorList = static fn (int $a, int $b): ArrayIterator => new ArrayIterator(range($a, $b));
-$arrayIteratorMap = static fn (int $x): ArrayIterator => new ArrayIterator(['myKey' => $x]);
-$arrayIteratorMixed = static fn (): ArrayIterator => new ArrayIterator([1, 2, '3', 5, 'b']);
-
 $classWithMethod = new class() {
     /**
      * @return Generator<string, int>
@@ -132,10 +127,6 @@ fromCallable_checkMixed(Collection::fromCallable($generatorClosureMixed));
 fromCallable_checkList(Collection::fromCallable($arrayList));
 fromCallable_checkMap(Collection::fromCallable($arrayMap));
 fromCallable_checkMixed(Collection::fromCallable($arrayMixed));
-
-fromCallable_checkList(Collection::fromCallable($arrayIteratorList, [1, 3]));
-fromCallable_checkMap(Collection::fromCallable($arrayIteratorMap, [1]));
-fromCallable_checkMixed(Collection::fromCallable($arrayIteratorMixed));
 
 fromCallable_checkList(Collection::fromCallable([$classWithMethod, 'getValues']));
 fromCallable_checkMap(Collection::fromCallable([$classWithMethod, 'getKeyValues']));

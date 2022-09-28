@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace tests\loophp\collection\Traits;
 
-use ArrayIterator;
 use ArrayObject;
 use Closure;
 use Doctrine\Common\Collections\Criteria;
@@ -1502,15 +1501,6 @@ trait GenericCollectionProviders
             $gen(),
         ];
 
-        yield [
-            $operation,
-            [
-                static fn (int $item): iterable => new ArrayIterator([$item * $item]),
-            ],
-            $input,
-            $gen(),
-        ];
-
         $output = static function () {
             yield 0 => 2;
 
@@ -1666,7 +1656,7 @@ trait GenericCollectionProviders
         yield [
             $operation,
             [],
-            [1, new ArrayIterator([2, 3]), 4],
+            [1, [2, 3], 4],
             $output(),
         ];
     }

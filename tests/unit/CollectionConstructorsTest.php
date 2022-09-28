@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace tests\loophp\collection;
 
-use ArrayIterator;
 use Generator;
 use InvalidArgumentException;
 use loophp\collection\Collection;
@@ -52,13 +51,6 @@ final class CollectionConstructorsTest extends TestCase
         self::assertIdenticalIterable(
             range(1, 5),
             $test2
-        );
-
-        $test3 = Collection::fromCallable(static fn (int $a, int $b): ArrayIterator => new ArrayIterator(range($a, $b)), [1, 5]);
-        self::assertInstanceOf(Collection::class, $test3);
-        self::assertIdenticalIterable(
-            range(1, 5),
-            $test3
         );
 
         $classWithMethod = new class() {
