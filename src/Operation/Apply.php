@@ -37,9 +37,7 @@ final class Apply extends AbstractOperation
                 static function (iterable $iterable) use ($callbacks): Generator {
                     foreach ($iterable as $key => $value) {
                         foreach ($callbacks as $cKey => $callback) {
-                            $result = $callback($value, $key, $iterable);
-
-                            if (false === $result) {
+                            if (false === $callback($value, $key, $iterable)) {
                                 unset($callbacks[$cKey]);
                             }
                         }
