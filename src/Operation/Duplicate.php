@@ -41,21 +41,20 @@ final class Duplicate extends AbstractOperation
                     /** @var ArrayIterator<int, array{0: TKey, 1: T}> $stack */
                     $stack = new ArrayIterator();
 
-                    $filter = (new Filter())()(
+                    return (new Filter())()(
                         /**
                          * @param T $value
                          * @param TKey $key
                          */
                         static function ($value, $key) use ($comparatorCallback, $accessorCallback, $stack): bool {
-                            $matcher =
+                            $every = (new Every())()(
                                 /**
-                                 * @param array{0: TKey, 1: T} $item
+                                 * @param array{0: TKey, 1: T} $keyValuePair
                                  */
-                                static fn (int $index, array $item): bool => !$comparatorCallback($accessorCallback($value, $key))($accessorCallback($item[1], $item[0]));
+                                static fn (int $index, array $keyValuePair): bool => !$comparatorCallback($accessorCallback($value, $key))($accessorCallback($keyValuePair[1], $keyValuePair[0]))
+                            )($stack);
 
-                            $every = (new Every())()($matcher)($stack)->current();
-
-                            if (false === $every) {
+                            if (false === $every->current()) {
                                 return true;
                             }
 
@@ -64,9 +63,6 @@ final class Duplicate extends AbstractOperation
                             return false;
                         }
                     );
-
-                    // Point free style.
-                    return $filter;
                 };
     }
 }
