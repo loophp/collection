@@ -326,11 +326,6 @@ parameters:
 			path: src/Operation/Nth.php
 
 		-
-			message: "#^Parameter \\#1 \\$ of closure expects callable\\(mixed\\=, mixed\\=, iterable\\=\\)\\: mixed, Closure\\(array\\)\\: array\\<int, mixed\\> given\\.$#"
-			count: 1
-			path: src/Operation/Pair.php
-
-		-
 			message: "#^Parameter \\#1 \\$ of closure expects callable\\(mixed\\=, mixed\\=, iterable\\=\\)\\: mixed, Closure\\(mixed, array\\)\\: mixed given\\.$#"
 			count: 1
 			path: src/Operation/Pair.php
