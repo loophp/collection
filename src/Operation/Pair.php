@@ -22,7 +22,7 @@ final class Pair extends AbstractOperation
     {
         /** @var Closure(iterable<TKey, T>): Generator<T, T|null> $pipe */
         $pipe = (new Pipe())()(
-            (new Normalize)(),
+            (new Normalize())(),
             (new Chunk())()(2),
             (new Associate())()(
                 /**
