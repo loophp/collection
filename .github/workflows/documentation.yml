@@ -39,7 +39,7 @@ jobs:
               run: echo "::set-output name=version::$(git rev-parse --short HEAD)"
 
             - name: Install Nix
-              uses: cachix/install-nix-action@v17
+              uses: cachix/install-nix-action@v18
 
             - name: Build document
               run: |
