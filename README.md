@@ -47,7 +47,7 @@ Collection object][16].
 
 Also, unlike regular PHP arrays where keys must be either of type `int` or
 `string`, this collection library lets you use any kind of type for keys:
-`integer`, `string`, `objects`, `arrays`, ... anything! This library could be a
+`integer`, `string`, `object`, `array`, ... anything! This library could be a
 valid replacement for [\SplObjectStorage][17] but with much more features. This
 way of working opens up new perspectives and another way of handling data, in a
 more functional way.
@@ -184,7 +184,8 @@ are enabled to their maximum level.
 
 Feel free to contribute by sending pull requests. We are a usually very
 responsive team and we will help you going through your pull request from the
-beginning to the end.
+beginning to the end, read more about it in the
+[documentation][contributing doc page].
 
 For some reasons, if you can't contribute to the code and willing to help,
 sponsoring is a good, sound and safe way to show us some gratitude for the hours
@@ -287,3 +288,5 @@ For more detailed changelogs, please check [the release changelogs][45].
 [46]: https://www.youtube.com/watch?v=Kp47f8dtqoo
 [47]: https://loophp-collection.readthedocs.io/en/stable/pages/principles.html
 [48]: https://github.com/loophp/iterators
+[contributing doc page]:
+  https://loophp-collection.readthedocs.io/en/latest/pages/contributing.html

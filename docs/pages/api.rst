@@ -3,8 +3,13 @@
 API
 ===
 
+On this page you'll find a description of all the methods available in this
+library and their signature.
+
 Static constructors
 -------------------
+
+The following static methods acts as constructors.
 
 empty
 ~~~~~
@@ -58,7 +63,7 @@ Create a collection from a `Generator`_.
     **rewindable** by design and using ``fromGenerator`` automatically adds the
     caching layer for you.
 
-.. tip:: You can reproduce the same behavior by using ``fromIterable`` directly
+.. tip:: You can reproduce the same behaviour by using ``fromIterable`` directly
     followed by the ``cache`` operation.
 
 Signature: ``Collection::fromGenerator(Generator $generator): Collection;``
@@ -156,9 +161,6 @@ Signature: ``Collection::unfold(callable $callback, ...$parameters): Collection;
 Methods (operations)
 --------------------
 
-Background
-~~~~~~~~~~
-
 Operations are pure functions which can be used to manipulate an iterator, either directly
 or through the ``Collection`` object.
 
@@ -189,7 +191,7 @@ all
 
 Convert the collection into an array, re-indexing keys using ``Collection::normalize()`` to prevent data loss by default.
 
-.. warning:: An earlier version of this operation did not re-index keys by default, which meant at times data loss could occur.
+.. warning:: Before version 6.0.0, this operation did not re-index keys by default, which meant at times data loss could occur.
         The reason data loss could occur is because PHP array keys cannot be duplicated and must either be ``int`` or ``string``.
         The old behaviour can still be achieved by using the operation with the ``$normalize`` parameter as *false*.
 
@@ -2091,7 +2093,7 @@ sort
 Sort a collection using a callback. If no callback is provided, it will sort using natural order.
 
 By default, it will sort by values and using a callback. If you want to sort by keys, you can pass a parameter to change
-the behavior or use twice the flip operation. See the example below.
+the behaviour or use twice the flip operation. See the example below.
 
 Interface: `Sortable`_
 

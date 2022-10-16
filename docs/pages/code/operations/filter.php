@@ -11,12 +11,15 @@ include __DIR__ . '/../../../../vendor/autoload.php';
 $divisibleBy2 = static fn ($value): bool => 0 === $value % 2;
 $divisibleBy3 = static fn ($value): bool => 0 === $value % 3;
 
+// Filter values divisible by 3.
 $collection = Collection::fromIterable(range(1, 10))
     ->filter($divisibleBy3); // [3, 6, 9]
 
+// Filter values divisible by 2 or 3.
 $collection = Collection::fromIterable(range(1, 10))
     ->filter($divisibleBy2, $divisibleBy3); // [2, 3, 4, 6, 8, 9, 10]
 
+// Filter values divisible by 2 and 3.
 $collection = Collection::fromIterable(range(1, 10))
     ->filter($divisibleBy2)
     ->filter($divisibleBy3); // [6]

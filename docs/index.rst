@@ -1,21 +1,23 @@
 PHP Collection
 ==============
 
-Collection is a functional utility library for PHP greater than 7.4, including 8.0.
+Collection is a functional utility library for PHP greater than 7.4, including
+8.0.
 
-It's similar to `other available collection libraries`_ based on regular PHP arrays,
-but with a lazy mechanism under the hood that strives to do as little work as possible while being as flexible
-as possible.
+It's similar to `other available collection libraries`_ based on regular PHP
+arrays, but with a lazy mechanism under the hood that strives to do as little
+work as possible while being as flexible as possible.
 
-Functions like `array_map()`_, `array_filter()`_ and `array_reduce()`_ are great, but they create new arrays and
-everything is eagerly done before going to the next step.
-Lazy collection leverages PHP's generators, iterators, and yield statements to allow you to work with very large data
-sets while keeping memory usage as low as possible.
+Functions like `array_map()`_, `array_filter()`_ and `array_reduce()`_ are
+great, but they create new arrays and everything is eagerly done before going to
+the next step. Lazy collection leverages PHP's generators, iterators, and yield
+statements to allow you to work with very large data sets while keeping memory
+usage as low as possible.
 
-For example, imagine your application needs to process a multi-gigabyte log file while taking advantage of this
-library's methods to parse the logs.
-Instead of reading the entire file into memory at once, this library may be used to keep only a small part of the file
-in memory at a given time.
+For example, imagine your application needs to process a multi-gigabyte log file
+while taking advantage of this library's methods to parse the logs.
+Instead of reading the entire file into memory at once, this library may be used
+to keep only a small part of the file in memory at a given time.
 
 On top of this, this library:
 
@@ -23,20 +25,24 @@ On top of this, this library:
  * is extendable,
  * leverages the power of PHP `generators`_ and `iterators`_,
  * uses `S.O.L.I.D. principles`_,
- * does not have any external dependency,
- * fully tested,
- * type safe (*type safe @ > 95%*),
+ * extensively tested,
+ * uses strict types,
  * framework agnostic.
 
-Except for a few methods, most methods are `pure`_ and return a `new Collection object`_.
+Except for a few methods, most methods are `pure`_ and return a
+`new Collection object`_.
 
-Also, unlike regular PHP arrays where keys must be either of type `int` or `string`, this collection library lets you use
-any kind of type for keys: integer, string, objects, arrays, ... anything!
-This library could be a valid replacement for `\SplObjectStorage`_ but with much more features.
-This way of working opens up new perspectives and another way of handling data, in a more functional way.
+Also, unlike regular PHP arrays where keys must be either of type ``int`` or
+``string``, this collection library lets you use any kind of type for keys:
+``integer``, ``string``, ``object``, ``array``, ... anything! This library could
+be a valid replacement for `\SplObjectStorage`_ but with much more features.
+This way of working opens up new perspectives and another way of handling data,
+in a more functional way.
 
-And last but not least, collection keys are preserved throughout most operations; while it might lead to some confusion at first,
-please carefully read :ref:`this example <Working with keys and values>` for the full explanation and benefits.
+And last but not least, collection keys are preserved throughout most
+operations; while it might lead to some confusion at first, please carefully
+read :ref:`this example <Working with keys and values>` for the full explanation
+and benefits.
 
 This library has been inspired by:
 
@@ -45,9 +51,9 @@ This library has been inspired by:
  * `mtdowling/transducers`_
  * `Ruby Array`_
  * `Collect.js`_
- * `Ramda`_
  * `nikic/iter`_
  * `Haskell`_
+ * `Ramda`_
  * `Lazy.js`_
 
 Features
@@ -177,9 +183,9 @@ For more detailed changelogs, please check `the release changelogs`_.
    :hidden:
    :caption: Table of Contents
 
+   Principles <pages/principles>
    Requirements <pages/requirements>
    Installation <pages/installation>
-   Principles <pages/principles>
    Usage <pages/usage>
    API <pages/api>
    Tests <pages/tests>

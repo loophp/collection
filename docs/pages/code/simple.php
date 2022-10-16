@@ -173,12 +173,12 @@ $string = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.
   Duis vitae lorem convallis, egestas mauris at, sollicitudin sem.
   Fusce molestie rutrum faucibus.';
 
-// By default will have the same behavior as str_split().
+// By default will have the same behaviour as str_split().
 Collection::fromString($string)
     ->explode(' ')
     ->count(); // 71
 
-// Or add a separator if needed, same behavior as explode().
+// Or add a separator if needed, same behaviour as explode().
 Collection::fromString($string, ',')
     ->count(); // 9
 
@@ -194,7 +194,7 @@ Collection::fromIterable([0, 2, 4, 6, 8, 10])
 
 // Fun with function convergence.
 // Iterator over the function: f(x) = r * x * (1-x)
-// Change that parameter $r to see different behavior.
+// Change that parameter $r to see different behaviour.
 // More on this: https://en.wikipedia.org/wiki/Logistic_map
 $function = static fn ($x = .3, $r = 2): array => [$r * $x * (1 - $x)];
 

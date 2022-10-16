@@ -15,14 +15,14 @@ $string = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.
       Duis vitae lorem convallis, egestas mauris at, sollicitudin sem.
       Fusce molestie rutrum faucibus.';
 
-// By default will have the same behavior as str_split().
+// By default will have the same behaviour as str_split().
 $count = Collection::fromString($string)
     ->explode(' ')
     ->count(); // 107
 
 var_dump($count);
 
-// Or add a separator if needed, same behavior as explode().
+// Or add a separator if needed, same behaviour as explode().
 $count = Collection::fromString($string, ',')
     ->count(); // 8
 
