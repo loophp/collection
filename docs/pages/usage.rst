@@ -198,8 +198,8 @@ Lazy json parsing
 .. literalinclude:: code/lazy-json-parsing.php
   :language: php
 
-Calcultate N-Grams
-~~~~~~~~~~~~~~~~~~
+Calculate N-Grams
+~~~~~~~~~~~~~~~~~
 
 .. literalinclude:: code/ngrams.php
   :language: php

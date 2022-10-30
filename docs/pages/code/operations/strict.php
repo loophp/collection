@@ -63,7 +63,7 @@ Collection::fromIterable([1, 'foo', 3])
     ->strict()
     ->all(); // InvalidArgumentException
 
-// Example 6 -> not alowed + custom callback
+// Example 6 -> not allowed + custom callback
 
 $obj1 = new class() implements Countable {
     public function count(): int

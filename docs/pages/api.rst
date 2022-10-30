@@ -1426,7 +1426,7 @@ mapN
 Apply one or more callbacks to every item of a collection and use the return value.
 
 .. tip:: This operation is best used when multiple callbacks need to be applied. If you only want to apply
-        a single callback, ``map`` should be prefered as it benefits from more specific type hints.
+        a single callback, ``map`` should be preferred as it benefits from more specific type hints.
 
 .. warning:: Keys are preserved, use the ``Collection::normalize`` operation if you want to re-index the keys.
 
