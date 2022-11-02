@@ -1,10 +1,12 @@
 build:
+    environment:
+        php: 8.1.12
     image: default-bionic
     nodes:
         php81:
             environment:
                 php:
-                    version: 8.1
+                    version: 8.1.12
                     pecl_extensions:
                         - pcov
 
