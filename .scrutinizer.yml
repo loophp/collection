@@ -12,8 +12,8 @@ build:
                     version: 8.1.12
                     ini:
                         xdebug.mode: off
-                        pecl_extensions:
-                            - pcov
+                    pecl_extensions:
+                        - pcov
 
 filter:
     paths:
