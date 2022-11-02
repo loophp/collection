@@ -30,4 +30,5 @@ function scanLeft1_checkListOfSize1String(CollectionInterface $collection): void
 
 // see Psalm bug: https://github.com/vimeo/psalm/issues/6108
 scanLeft1_checkListString(Collection::fromIterable(range('a', 'c'))->scanLeft1($concat));
+/** @psalm-suppress InvalidArgument */
 scanLeft1_checkListOfSize1String(Collection::fromIterable([10])->scanLeft1($toString));

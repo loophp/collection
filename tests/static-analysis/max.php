@@ -33,13 +33,13 @@ max_takeStringOrNull(Collection::fromIterable(['f' => 'foo', 'b' => null])->max(
 
 // VALID failures - `max` can return NULL
 
-/** @psalm-suppress PossiblyNullArgument */
+/** @psalm-suppress NullArgument */
 max_takeInt(Collection::empty()->max());
 
 /** @psalm-suppress PossiblyNullArgument */
 max_takeInt(Collection::fromIterable([1, 2, 3, -2, 4])->max());
 
-/** @psalm-suppress PossiblyNullArgument */
+/** @psalm-suppress NullArgument */
 max_takeString(Collection::empty()->max());
 
 /** @psalm-suppress PossiblyNullArgument */

@@ -37,7 +37,7 @@ key_checkString(Collection::fromIterable(['foo' => 'f', 'bar' => 'f'])->key());
 key_checkString(Collection::fromIterable(['foo' => 'f', 'bar' => 'f'])->key(1));
 
 // VALID failure -> mixed key
-/** @psalm-suppress PossiblyNullArgument */
+/** @psalm-suppress PossiblyInvalidArgument */
 key_checkInt(Collection::fromIterable([1, 2, 'foo' => 4])->key());
-/** @psalm-suppress PossiblyNullArgument */
+/** @psalm-suppress PossiblyInvalidArgument */
 key_checkString(Collection::fromIterable([1, 2, 'foo' => 4])->key());

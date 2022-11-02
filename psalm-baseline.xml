@@ -1,29 +1,191 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="4.29.0@7ec5ffbd5f68ae03782d7fd33fff0c45a69f95b3">
-  <file src="src/Collection.php">
-    <InvalidArgument occurrences="5">
+  <file src="src/AbstractCollection.php">
+    <ImplementedParamTypeMismatch occurrences="2">
+      <code>$callback</code>
+      <code>$callbacks</code>
+    </ImplementedParamTypeMismatch>
+    <ImplementedReturnTypeMismatch occurrences="3">
+      <code>CollectionInterface&lt;UKey, U&gt;</code>
+      <code>CollectionInterface&lt;int, Collection&lt;TKey, T&gt;&gt;</code>
+      <code>CollectionInterface&lt;int, Collection&lt;TKey, T&gt;&gt;</code>
+    </ImplementedReturnTypeMismatch>
+    <InvalidArgument occurrences="34">
       <code>$callback</code>
       <code>$callback</code>
       <code>$callback</code>
       <code>$callback</code>
       <code>$callback</code>
+      <code>$this-&gt;pack()-&gt;all(false)</code>
+      <code>(new Averages())()</code>
+      <code>(new Chunk())()(...$sizes)</code>
+      <code>(new Column())()($column)</code>
+      <code>(new Explode())()(...$explodes)</code>
+      <code>(new Frequency())()</code>
+      <code>(new Group())()</code>
+      <code>(new GroupBy())()($callable)</code>
+      <code>(new Implode())()($glue)</code>
+      <code>(new Inits())()</code>
+      <code>(new Keys())()</code>
+      <code>(new Lines())()</code>
+      <code>(new Normalize())()</code>
+      <code>(new Pack())()</code>
+      <code>(new Partition())()(...$callbacks)</code>
+      <code>(new Pluck())()($pluck)($default)</code>
+      <code>(new Scale())()($lowerBound)($upperBound)($wantedLowerBound)($wantedUpperBound)($base)</code>
+      <code>(new Span())()(...$callbacks)</code>
+      <code>(new Split())()($type)(...$callbacks)</code>
+      <code>(new Tails())()</code>
+      <code>(new Transpose())()</code>
+      <code>(new Unlines())()</code>
+      <code>(new Unpair())()</code>
+      <code>(new Unwords())()</code>
+      <code>(new Unzip())()</code>
+      <code>(new Window())()($size)</code>
+      <code>(new Words())()</code>
+      <code>(new Wrap())()</code>
+      <code>(new Zip())()(...$iterables)</code>
     </InvalidArgument>
-    <InvalidReturnStatement occurrences="1">
-      <code>new self((new Wrap())(), [$this])</code>
+    <InvalidReturnStatement occurrences="60">
+      <code>static::fromCallable((new Apply())()(...$callbacks), [$this])</code>
+      <code>static::fromCallable((new AsyncMap())()($callback), [$this])</code>
+      <code>static::fromCallable((new Cache())()($cache ?? new ArrayAdapter()), [$this])</code>
+      <code>static::fromCallable((new Coalesce())(), [$this])</code>
+      <code>static::fromCallable((new Collapse())(), [$this])</code>
+      <code>static::fromCallable((new Combinate())()($length), [$this])</code>
+      <code>static::fromCallable((new Compact())()(...$values), [$this])</code>
+      <code>static::fromCallable((new Cycle())(), [$this])</code>
+      <code>static::fromCallable((new Diff())()(...$values), [$this])</code>
+      <code>static::fromCallable((new DiffKeys())()(...$keys), [$this])</code>
+      <code>static::fromCallable((new Distinct())()($comparatorCallback)($accessorCallback), [$this])</code>
+      <code>static::fromCallable((new Drop())()($count), [$this])</code>
+      <code>static::fromCallable((new DropWhile())()(...$callbacks), [$this])</code>
+      <code>static::fromCallable((new Dump())()($name)($size)($closure), [$this])</code>
+      <code>static::fromCallable((new Duplicate())()($comparatorCallback)($accessorCallback), [$this])</code>
+      <code>static::fromCallable((new Filter())()(...$callbacks), [$this])</code>
+      <code>static::fromCallable((new Flip())(), [$this])</code>
+      <code>static::fromCallable((new FoldLeft1())()($callback), [$this])-&gt;current()</code>
+      <code>static::fromCallable((new Forget())()(...$keys), [$this])</code>
+      <code>static::fromCallable((new Frequency())(), [$this])</code>
+      <code>static::fromCallable((new IfThenElse())()($condition)($then)($else ?? $identity), [$this])</code>
+      <code>static::fromCallable((new Init())(), [$this])</code>
+      <code>static::fromCallable((new Intersect())()(...$values), [$this])</code>
+      <code>static::fromCallable((new IntersectKeys())()(...$keys), [$this])</code>
+      <code>static::fromCallable((new Intersperse())()($element)($every)($startAt), [$this])</code>
+      <code>static::fromCallable((new Keys())(), [$this])</code>
+      <code>static::fromCallable((new Limit())()($count)($offset), [$this])</code>
+      <code>static::fromCallable((new Map())()($callback), [$this])</code>
+      <code>static::fromCallable((new Matching())()($criteria), [$this])</code>
+      <code>static::fromCallable((new Merge())()(...$sources), [$this])</code>
+      <code>static::fromCallable((new Normalize())(), [$this])</code>
+      <code>static::fromCallable((new Nth())()($step)($offset), [$this])</code>
+      <code>static::fromCallable((new Pair())(), [$this])</code>
+      <code>static::fromCallable((new Permutate())(), [$this])</code>
+      <code>static::fromCallable((new Prepend())()(...$items), [$this])</code>
+      <code>static::fromCallable((new Product())()(...$iterables), [$this])</code>
+      <code>static::fromCallable((new RSample())()($probability), [$this])</code>
+      <code>static::fromCallable((new Random())()($seed ?? random_int(0, 1000))($size), [$this])</code>
+      <code>static::fromCallable((new Reduction())()($callback)($initial), [$this])</code>
+      <code>static::fromCallable((new Reject())()(...$callbacks), [$this])</code>
+      <code>static::fromCallable((new Reverse())(), [$this])</code>
+      <code>static::fromCallable((new Scale())()($lowerBound)($upperBound)($wantedLowerBound)($wantedUpperBound)($base), [$this])</code>
+      <code>static::fromCallable((new ScanLeft())()($callback)($initial), [$this])</code>
+      <code>static::fromCallable((new ScanLeft1())()($callback), [$this])</code>
+      <code>static::fromCallable((new ScanRight())()($callback)($initial), [$this])</code>
+      <code>static::fromCallable((new ScanRight1())()($callback), [$this])</code>
+      <code>static::fromCallable((new Shuffle())()($seed ?? random_int(0, 1000)), [$this])</code>
+      <code>static::fromCallable((new Since())()(...$callbacks), [$this])</code>
+      <code>static::fromCallable((new Slice())()($offset)($length), [$this])</code>
+      <code>static::fromCallable((new Sort())()($type)($callback), [$this])</code>
+      <code>static::fromCallable((new Strict())()($callback), [$this])</code>
+      <code>static::fromCallable((new Tail())(), [$this])</code>
+      <code>static::fromCallable((new TakeWhile())()(...$callbacks), [$this])</code>
+      <code>static::fromCallable((new Transpose())(), [$this])</code>
+      <code>static::fromCallable((new Unpair())(), [$this])</code>
+      <code>static::fromCallable((new Until())()(...$callbacks), [$this])</code>
+      <code>static::fromCallable((new Unwindow())(), [$this])</code>
+      <code>static::fromCallable((new When())()($predicate)($whenTrue)($whenFalse), [$this])</code>
+      <code>static::fromCallable((new Window())()($size), [$this])</code>
+      <code>static::fromCallable((new Words())(), [$this])</code>
     </InvalidReturnStatement>
-    <InvalidReturnType occurrences="1">
-      <code>CollectionInterface</code>
+    <InvalidReturnType occurrences="60">
+      <code>CollectionInterface&lt;T, TKey&gt;</code>
+      <code>CollectionInterface&lt;T, T|null&gt;</code>
+      <code>CollectionInterface&lt;TKey, T&gt;</code>
+      <code>CollectionInterface&lt;TKey, T&gt;</code>
+      <code>CollectionInterface&lt;TKey, T&gt;</code>
+      <code>CollectionInterface&lt;TKey, T&gt;</code>
+      <code>CollectionInterface&lt;TKey, T&gt;</code>
+      <code>CollectionInterface&lt;TKey, T&gt;</code>
+      <code>CollectionInterface&lt;TKey, T&gt;</code>
+      <code>CollectionInterface&lt;TKey, T&gt;</code>
+      <code>CollectionInterface&lt;TKey, T&gt;</code>
+      <code>CollectionInterface&lt;TKey, T&gt;</code>
+      <code>CollectionInterface&lt;TKey, T&gt;</code>
+      <code>CollectionInterface&lt;TKey, T&gt;</code>
+      <code>CollectionInterface&lt;TKey, T&gt;</code>
+      <code>CollectionInterface&lt;TKey, T&gt;</code>
+      <code>CollectionInterface&lt;TKey, T&gt;</code>
+      <code>CollectionInterface&lt;TKey, T&gt;</code>
+      <code>CollectionInterface&lt;TKey, T&gt;</code>
+      <code>CollectionInterface&lt;TKey, T&gt;</code>
+      <code>CollectionInterface&lt;TKey, T&gt;</code>
+      <code>CollectionInterface&lt;TKey, T&gt;</code>
+      <code>CollectionInterface&lt;TKey, T&gt;</code>
+      <code>CollectionInterface&lt;TKey, T&gt;</code>
+      <code>CollectionInterface&lt;TKey, T&gt;</code>
+      <code>CollectionInterface&lt;TKey, T&gt;</code>
+      <code>CollectionInterface&lt;TKey, T&gt;</code>
+      <code>CollectionInterface&lt;TKey, T&gt;</code>
+      <code>CollectionInterface&lt;TKey, T&gt;</code>
+      <code>CollectionInterface&lt;TKey, T&gt;</code>
+      <code>CollectionInterface&lt;TKey, T&gt;</code>
+      <code>CollectionInterface&lt;TKey, T&gt;</code>
+      <code>CollectionInterface&lt;TKey, T&gt;</code>
+      <code>CollectionInterface&lt;TKey, T&gt;</code>
+      <code>CollectionInterface&lt;TKey, T&gt;</code>
+      <code>CollectionInterface&lt;TKey, T&gt;</code>
+      <code>CollectionInterface&lt;TKey, T&gt;</code>
+      <code>CollectionInterface&lt;TKey, T&gt;</code>
+      <code>CollectionInterface&lt;TKey, T&gt;</code>
+      <code>CollectionInterface&lt;TKey, T&gt;</code>
+      <code>CollectionInterface&lt;TKey, T|U&gt;</code>
+      <code>CollectionInterface&lt;TKey, T|U&gt;</code>
+      <code>CollectionInterface&lt;TKey, U&gt;</code>
+      <code>CollectionInterface&lt;TKey, V&gt;</code>
+      <code>CollectionInterface&lt;TKey, W&gt;</code>
+      <code>CollectionInterface&lt;TKey, W&gt;</code>
+      <code>CollectionInterface&lt;TKey, W&gt;</code>
+      <code>CollectionInterface&lt;TKey, W&gt;</code>
+      <code>CollectionInterface&lt;TKey, W&gt;</code>
+      <code>CollectionInterface&lt;TKey, float|int&gt;</code>
+      <code>CollectionInterface&lt;TKey, list&lt;T&gt;&gt;</code>
+      <code>CollectionInterface&lt;TKey, list&lt;T&gt;&gt;</code>
+      <code>CollectionInterface&lt;TKey, list&lt;T|U&gt;&gt;</code>
+      <code>CollectionInterface&lt;TKey, string&gt;</code>
+      <code>CollectionInterface&lt;int, T&gt;</code>
+      <code>CollectionInterface&lt;int, T&gt;</code>
+      <code>CollectionInterface&lt;int, TKey&gt;</code>
+      <code>CollectionInterface&lt;int, TKey|T&gt;</code>
+      <code>CollectionInterface&lt;int|TKey, T&gt;</code>
+      <code>T|null</code>
     </InvalidReturnType>
-    <LessSpecificReturnStatement occurrences="1">
-      <code>new self((new Zip())()(...$iterables), [$this])</code>
-    </LessSpecificReturnStatement>
-    <MoreSpecificReturnType occurrences="1">
-      <code>CollectionInterface</code>
+    <LessSpecificReturnStatement occurrences="2"/>
+    <MissingParamType occurrences="2">
+      <code>$keys</code>
+      <code>$values</code>
+    </MissingParamType>
+    <MoreSpecificReturnType occurrences="2">
+      <code>CollectionInterface&lt;int, Collection&lt;TKey, T&gt;&gt;</code>
+      <code>CollectionInterface&lt;int, Collection&lt;TKey, T&gt;&gt;</code>
     </MoreSpecificReturnType>
     <PossiblyInvalidArgument occurrences="2">
       <code>$callbackForKeys ?? $defaultCallback</code>
       <code>$callbackForValues ?? $defaultCallback</code>
     </PossiblyInvalidArgument>
+    <PossiblyNullArgument occurrences="1">
+      <code>$initial</code>
+    </PossiblyNullArgument>
   </file>
   <file src="src/Operation/All.php">
     <InvalidReturnStatement occurrences="1"/>
@@ -50,6 +212,22 @@
     <InvalidArgument occurrences="2">
       <code>[[]]</code>
       <code>static fn (iterable $a, iterable $x): Generator =&gt; $f($x)($a)</code>
+    </InvalidArgument>
+  </file>
+  <file src="tests/static-analysis/all.php">
+    <InvalidScalarArgument occurrences="1">
+      <code>Collection::fromIterable(['foo' =&gt; 1, 'bar' =&gt; 2])-&gt;all()</code>
+    </InvalidScalarArgument>
+  </file>
+  <file src="tests/static-analysis/normalize.php">
+    <InvalidScalarArgument occurrences="1">
+      <code>Collection::fromIterable(['foo' =&gt; 'f', 'bar' =&gt; 'f'])-&gt;normalize()</code>
+    </InvalidScalarArgument>
+  </file>
+  <file src="tests/static-analysis/partition.php">
+    <InvalidArgument occurrences="2">
+      <code>Collection::fromIterable($integers())-&gt;partition($intValueCallback)</code>
+      <code>Collection::fromIterable($integers())-&gt;partition($intValueCallback, $intValueCallback)</code>
     </InvalidArgument>
   </file>
 </files>

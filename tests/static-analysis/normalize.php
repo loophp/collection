@@ -30,5 +30,5 @@ normalize_checkIntList(Collection::fromIterable([1, 2, 3])->normalize());
 normalize_checkStringList(Collection::fromIterable(['foo' => 'f', 'bar' => 'f'])->normalize());
 
 // VALID failure -> `normalize` always returns a collection with `int` keys
-/** @psalm-suppress InvalidScalarArgument @phpstan-ignore-next-line */
+/** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
 normalize_checkStringMap(Collection::fromIterable(['foo' => 'f', 'bar' => 'f'])->normalize());

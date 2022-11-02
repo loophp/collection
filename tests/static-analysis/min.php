@@ -33,13 +33,13 @@ min_takeStringOrNull(Collection::fromIterable(['f' => 'foo', 'b' => null])->min(
 
 // VALID failures - `min` can return NULL
 
-/** @psalm-suppress PossiblyNullArgument */
+/** @psalm-suppress NullArgument */
 min_takeInt(Collection::empty()->min());
 
 /** @psalm-suppress PossiblyNullArgument */
 min_takeInt(Collection::fromIterable([1, 2, 3, -2, 4])->min());
 
-/** @psalm-suppress PossiblyNullArgument */
+/** @psalm-suppress NullArgument */
 min_takeString(Collection::empty()->min());
 
 /** @psalm-suppress PossiblyNullArgument */

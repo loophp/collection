@@ -31,7 +31,7 @@ all_checkMixed(Collection::fromIterable([1, 2, 'b', '5', 4])->all());
 all_checkMixed(Collection::fromIterable([1, 2, 'b', '5', 4])->all(false));
 
 // VALID failures -> improper usage
-/** @psalm-suppress InvalidScalarArgument @phpstan-ignore-next-line */
+/** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
 all_checkMap(Collection::fromIterable(['foo' => 1, 'bar' => 2])->all());
 /** @psalm-suppress InvalidScalarArgument @phpstan-ignore-next-line */
 all_checkList(Collection::fromIterable(['foo' => 1, 'bar' => 2])->all(false));
