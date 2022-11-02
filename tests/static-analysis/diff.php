@@ -38,21 +38,26 @@ diff_checkMap(Collection::fromIterable(['foo' => 'f', 'bar' => 'b'])->diff(...['
 diff_checkMap(Collection::fromIterable(['foo' => 'f', 'bar' => 'b'])->diff(...$stringGen()));
 diff_checkMap(Collection::fromIterable(['foo' => 'f', 'bar' => 'b'])->diff(...$stringCol));
 
+diff_checkList(Collection::fromIterable([1, 2, 3])->diff(...$stringCol));
+diff_checkMap(Collection::fromIterable(['foo' => 'f', 'bar' => 'b'])->diff(1, 'f'));
+diff_checkMap(Collection::fromIterable(['foo' => 'f', 'bar' => 'b'])->diff(...$intCol));
+
 // This is valid in PHP 8 but Psalm does not allow it (unpacking string keys)
 /** @psalm-suppress InvalidArgument */
 diff_checkMap(Collection::fromIterable(['foo' => 'f', 'bar' => 'b'])->diff(...Collection::fromIterable(['foo' => 'f'])));
 /** @psalm-suppress InvalidArgument */
 diff_checkMap(Collection::fromIterable(['foo' => 'f', 'bar' => 'b'])->diff(...(static fn (): Generator => yield 'bar' => 'b')()));
 
+diff_checkList(Collection::fromIterable([1, 2, 3])->diff(...$stringCol));
+diff_checkMap(Collection::fromIterable(['foo' => 'f', 'bar' => 'b'])->diff(...$intCol));
+
 // VALID failures -> usage with wrong types
 /** @psalm-suppress InvalidArgument */
 diff_checkList(Collection::fromIterable([1, 2, 3])->diff('a'));
 /** @psalm-suppress InvalidArgument */
 diff_checkList(Collection::fromIterable([1, 2, 3])->diff(1, 'a'));
-diff_checkList(Collection::fromIterable([1, 2, 3])->diff(...$stringCol));
 
 /** @psalm-suppress InvalidArgument */
 diff_checkMap(Collection::fromIterable(['foo' => 'f', 'bar' => 'b'])->diff(1));
 /** @psalm-suppress InvalidArgument */
 diff_checkMap(Collection::fromIterable(['foo' => 'f', 'bar' => 'b'])->diff(1, 'f'));
-diff_checkMap(Collection::fromIterable(['foo' => 'f', 'bar' => 'b'])->diff(...$intCol));
