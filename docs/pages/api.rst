@@ -950,7 +950,7 @@ on. See ``scanLeft`` for intermediate results.
 
 Interface: `FoldLeftable`_
 
-Signature: ``Collection::foldLeft(callable $callback, $initial = null): mixed;``
+Signature: ``Collection::foldLeft(callable $callback, $initial): mixed;``
 
 .. code-block:: php
 
@@ -994,7 +994,7 @@ See ``scanRight`` for intermediate results.
 
 Interface: `FoldRightable`_
 
-Signature: ``Collection::foldRight(callable $callback, $initial = null): mixed;``
+Signature: ``Collection::foldRight(callable $callback, $initial): mixed;``
 
 .. code-block:: php
 
@@ -1946,7 +1946,7 @@ this result and the second argument and so on. It returns the list of intermedia
 
 Interface: `ScanLeftable`_
 
-Signature: ``Collection::scanLeft(callable $callback, $initial = null): Collection;``
+Signature: ``Collection::scanLeft(callable $callback, $initial): Collection;``
 
 .. code-block:: php
 
@@ -1998,7 +1998,7 @@ the end and the result, and so on. It returns the list of intermediate and final
 
 Interface: `ScanRightable`_
 
-Signature: ``Collection::scanRight(callable $callback, $initial = null): Collection;``
+Signature: ``Collection::scanRight(callable $callback, $initial): Collection;``
 
 .. code-block:: php
 
