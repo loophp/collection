@@ -4,11 +4,13 @@ on:
     push:
         paths:
             - "**.php"
+            - ".github/workflows/tests.yml"
         branches:
             - master
     pull_request:
         paths:
             - "**.php"
+            - ".github/workflows/tests.yml"
 
 name: "Unit tests"
 
