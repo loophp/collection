@@ -1737,7 +1737,7 @@ trait GenericCollectionProviders
             $operation,
             [
                 static fn (string $carry, string $string): string => sprintf('%s%s', $carry, $string), 'foo',
-                null
+                null,
             ],
             [],
             'foo',
@@ -1765,7 +1765,7 @@ trait GenericCollectionProviders
 
                     return $carry;
                 },
-                null
+                null,
             ],
             [],
             null,
