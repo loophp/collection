@@ -1,12 +1,17 @@
 build:
     environment:
-        php: 8.1.12
+        php:
+            version: 8.1.12
+            ini:
+                xdebug.mode: off
     image: default-bionic
     nodes:
         php81:
             environment:
-                php:
-                    version: 8.1.12
+            php:
+                version: 8.1.12
+                ini:
+                    xdebug.mode: off
                     pecl_extensions:
                         - pcov
 
