@@ -45,16 +45,14 @@ diff_checkMap(Collection::fromIterable(['foo' => 'f', 'bar' => 'b'])->diff(...Co
 diff_checkMap(Collection::fromIterable(['foo' => 'f', 'bar' => 'b'])->diff(...(static fn (): Generator => yield 'bar' => 'b')()));
 
 // VALID failures -> usage with wrong types
-/** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
+/** @psalm-suppress InvalidArgument */
 diff_checkList(Collection::fromIterable([1, 2, 3])->diff('a'));
-/** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
+/** @psalm-suppress InvalidArgument */
 diff_checkList(Collection::fromIterable([1, 2, 3])->diff(1, 'a'));
-/** @phpstan-ignore-next-line */
 diff_checkList(Collection::fromIterable([1, 2, 3])->diff(...$stringCol));
 
-/** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
+/** @psalm-suppress InvalidArgument */
 diff_checkMap(Collection::fromIterable(['foo' => 'f', 'bar' => 'b'])->diff(1));
-/** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
+/** @psalm-suppress InvalidArgument */
 diff_checkMap(Collection::fromIterable(['foo' => 'f', 'bar' => 'b'])->diff(1, 'f'));
-/** @phpstan-ignore-next-line */
 diff_checkMap(Collection::fromIterable(['foo' => 'f', 'bar' => 'b'])->diff(...$intCol));

@@ -18,7 +18,9 @@ interface Diffable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#diff
      *
-     * @param T ...$values
+     * @template U
+     *
+     * @param U ...$values
      *
      * @return Collection<TKey, T>
      */
