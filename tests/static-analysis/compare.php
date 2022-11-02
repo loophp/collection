@@ -39,13 +39,13 @@ compare_takeStringOrNull(Collection::fromIterable(['f' => 'foo', 'b' => null])->
 // VALID failures
 
 // `compare` can return NULL
-/** @psalm-suppress ArgumentTypeCoercion,PossiblyNullArgument @phpstan-ignore-next-line */
+/** @psalm-suppress ArgumentTypeCoercion,PossiblyNullArgument */
 compare_takeInt(Collection::fromIterable([1, 2, 3, -2, 4])->compare($compareInt));
-/** @psalm-suppress ArgumentTypeCoercion,PossiblyNullArgument @phpstan-ignore-next-line */
+/** @psalm-suppress ArgumentTypeCoercion,PossiblyNullArgument */
 compare_takeString(Collection::fromIterable(['f' => 'foo', 'b' => 'bar'])->compare($compareString));
 
 // usage of callback with different types for `carry` and `value`
-/** @psalm-suppress ArgumentTypeCoercion @phpstan-ignore-next-line */
+/** @psalm-suppress ArgumentTypeCoercion */
 compare_takeIntOrNull(Collection::fromIterable([1, 2, 3, -2, 4])->compare($compareNullableInt));
-/** @psalm-suppress ArgumentTypeCoercion @phpstan-ignore-next-line */
+/** @psalm-suppress ArgumentTypeCoercion */
 compare_takeStringOrNull(Collection::fromIterable(['f' => 'foo', 'b' => 'bar'])->compare($compareNullableString));

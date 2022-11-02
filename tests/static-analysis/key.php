@@ -26,18 +26,18 @@ key_checkNullableString(Collection::fromIterable(['foo' => 'f', 'bar' => 'f'])->
 key_checkNullableString(Collection::fromIterable(['foo' => 'f', 'bar' => 'f'])->key(1));
 
 // VALID failure -> `key` can return `NULL` because `current` can return `NULL`
-/** @psalm-suppress PossiblyNullArgument @phpstan-ignore-next-line */
+/** @psalm-suppress PossiblyNullArgument */
 key_checkInt(Collection::fromIterable([1, 2, 3])->key());
-/** @psalm-suppress PossiblyNullArgument @phpstan-ignore-next-line */
+/** @psalm-suppress PossiblyNullArgument */
 key_checkInt(Collection::fromIterable([1, 2, 3])->key(2));
 
-/** @psalm-suppress PossiblyNullArgument @phpstan-ignore-next-line */
+/** @psalm-suppress PossiblyNullArgument */
 key_checkString(Collection::fromIterable(['foo' => 'f', 'bar' => 'f'])->key());
-/** @psalm-suppress PossiblyNullArgument @phpstan-ignore-next-line */
+/** @psalm-suppress PossiblyNullArgument */
 key_checkString(Collection::fromIterable(['foo' => 'f', 'bar' => 'f'])->key(1));
 
 // VALID failure -> mixed key
-/** @psalm-suppress PossiblyInvalidArgument @phpstan-ignore-next-line */
+/** @psalm-suppress PossiblyNullArgument */
 key_checkInt(Collection::fromIterable([1, 2, 'foo' => 4])->key());
-/** @psalm-suppress PossiblyInvalidArgument @phpstan-ignore-next-line */
+/** @psalm-suppress PossiblyNullArgument */
 key_checkString(Collection::fromIterable([1, 2, 'foo' => 4])->key());

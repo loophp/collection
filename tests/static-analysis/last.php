@@ -40,7 +40,7 @@ last_checkIntElement(Collection::fromIterable([1, 2, 3])->last(0));
 last_checkStringElement(Collection::fromIterable(['foo' => 'bar', 'baz' => 'bar'])->last(''));
 
 // VALID failures - `current` returns T|null
-/** @psalm-suppress PossiblyNullArgument @phpstan-ignore-next-line */
+/** @psalm-suppress PossiblyNullArgument */
 last_checkIntElement(Collection::fromIterable([1, 2, 3])->last());
-/** @psalm-suppress PossiblyNullArgument @phpstan-ignore-next-line */
+/** @psalm-suppress PossiblyNullArgument */
 last_checkStringElement(Collection::fromIterable(['foo' => 'bar'])->last());

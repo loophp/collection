@@ -24,7 +24,7 @@ keys_checkIntList(Collection::fromIterable([1, 2, 3])->keys());
 keys_checkStringList(Collection::fromIterable(['foo' => 'f', 'bar' => 'f'])->keys());
 
 // VALID failure -> mixed keys
-/** @psalm-suppress InvalidScalarArgument @phpstan-ignore-next-line */
+/** @psalm-suppress InvalidScalarArgument */
 keys_checkIntList(Collection::fromIterable([1, 2, 'foo' => 4])->keys());
-/** @psalm-suppress InvalidScalarArgument @phpstan-ignore-next-line */
+/** @psalm-suppress InvalidScalarArgument */
 keys_checkStringList(Collection::fromIterable([1, 2, 'foo' => 4])->keys());

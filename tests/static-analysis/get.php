@@ -52,15 +52,15 @@ get_checkListNullable(Collection::fromIterable([1, 2, 3])->get(1, -1));
 get_checkMapNullable(Collection::fromIterable(['foo' => 'a', 'bar' => 'b'])->get('foo', 'x'));
 
 // VALID failures - `get` returns `Collection<TKey, T|V>, where V can be anything
-/** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
+/** @psalm-suppress InvalidArgument */
 get_checkList(Collection::fromIterable([1, 2, 3])->get(1));
-/** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
+/** @psalm-suppress InvalidArgument */
 get_checkMap(Collection::fromIterable(['foo' => 'a', 'bar' => 'b'])->get('foo'));
 
 // VALID failures - `current` can return `NULL`
-/** @psalm-suppress PossiblyNullArgument @phpstan-ignore-next-line */
+/** @psalm-suppress PossiblyNullArgument */
 get_checkIntElement(Collection::fromIterable([1, 2, 3])->get(1));
-/** @psalm-suppress PossiblyNullArgument @phpstan-ignore-next-line */
+/** @psalm-suppress PossiblyNullArgument */
 get_checkStringElement(Collection::fromIterable(['foo' => 'a', 'bar' => 'b'])->get('foo'));
 
 // VALID but inconvenient failures - although a non-null default is provided to `get`, `current` can return `NULL`

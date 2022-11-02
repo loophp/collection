@@ -38,13 +38,13 @@ current_checkEmptyWithDefaultValue(Collection::empty()->current(10, randomString
 current_checkNonNullable(Collection::fromIterable(range(0, 6))->current(0, -1));
 
 // VALID failures because `current` can return `NULL` when the collection is empty
-/** @psalm-suppress PossiblyNullArgument @phpstan-ignore-next-line  */
+/** @psalm-suppress PossiblyNullArgument */
 current_checkNonNullable(Collection::fromIterable(range(0, 6))->current());
 /** @psalm-suppress PossiblyNullArgument PHPStan is lost here, type inference for `empty` is not as good as Psalm */
 current_checkNonNullable(Collection::empty()->current());
 
 // VALID failures because `current` can use a default value of any type
-/** @psalm-suppress PossiblyInvalidArgument @phpstan-ignore-next-line */
+/** @psalm-suppress PossiblyInvalidArgument */
 current_checkNonNullable(Collection::fromIterable(range(0, 6))->current(0, 'not found'));
 /** @psalm-suppress InvalidArgument */
 current_checkEmptyWithDefaultValue(Collection::empty()->current(10, 404));

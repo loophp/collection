@@ -36,11 +36,11 @@ max_takeStringOrNull(Collection::fromIterable(['f' => 'foo', 'b' => null])->max(
 /** @psalm-suppress PossiblyNullArgument */
 max_takeInt(Collection::empty()->max());
 
-/** @psalm-suppress PossiblyNullArgument @phpstan-ignore-next-line */
+/** @psalm-suppress PossiblyNullArgument */
 max_takeInt(Collection::fromIterable([1, 2, 3, -2, 4])->max());
 
 /** @psalm-suppress PossiblyNullArgument */
 max_takeString(Collection::empty()->max());
 
-/** @psalm-suppress PossiblyNullArgument @phpstan-ignore-next-line */
+/** @psalm-suppress PossiblyNullArgument */
 max_takeString(Collection::fromIterable(['f' => 'foo', 'b' => 'bar'])->max());

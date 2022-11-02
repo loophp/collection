@@ -65,6 +65,9 @@ append_checkMixed(Collection::empty()->append(1, '2'));
 append_checkMixed(Collection::empty()->append(...[1, '2']));
 append_checkMixed(Collection::fromIterable(['foo' => 1, 'bar' => '2'])->append(1, '3'));
 
+append_checkList(Collection::fromIterable([5])->append('foo'));
+append_checkList(Collection::fromIterable([5])->append('foo', 1));
+
 // ## VALID FAILURE ###
 /** @psalm-suppress InvalidArgument */
 append_checkList(Collection::empty()->append(1, 'foo'));
@@ -75,15 +78,13 @@ append_checkList(Collection::fromIterable([5])->append('foo', 1)); // @phpstan-i
 
 /** @psalm-suppress InvalidArgument */
 append_checkListWithMap(Collection::empty()->append($foo, ['bar' => 'baz']));
-/** @psalm-suppress InvalidScalarArgument @phpstan-ignore-next-line */
+/** @psalm-suppress InvalidScalarArgument */
 append_checkListWithMap(Collection::fromIterable([1 => $foo])->append(['bar' => 'baz']));
 
 /**
  * Append will transform any Collection<string, int> into Collection<int|TKey, int>.
  *
  * @psalm-suppress InvalidScalarArgument
- *
- * @phpstan-ignore-next-line
  */
 append_checkMap(Collection::fromIterable($foo)->append(3));
 
@@ -91,5 +92,5 @@ append_checkMap(Collection::fromIterable($foo)->append(3));
 append_checkMixed(Collection::empty()->append(1, [3]));
 /** @psalm-suppress InvalidArgument */
 append_checkMixed(Collection::empty()->append(...[1, [3]]));
-/** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
+/** @psalm-suppress InvalidArgument */
 append_checkMixed(Collection::fromIterable(['foo' => 1, 'bar' => '2'])->append(1, ['3']));

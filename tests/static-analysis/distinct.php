@@ -56,9 +56,9 @@ distinct_checkObjectList(Collection::fromIterable($catGenerator())->distinct(nul
 // VALID failures
 
 // `distinct` does not change the collection types TKey, T
-/** @psalm-suppress InvalidScalarArgument @phpstan-ignore-next-line */
+/** @psalm-suppress InvalidScalarArgument */
 distinct_checkIntList(Collection::fromIterable(['a', 'b', 'c'])->distinct());
-/** @psalm-suppress InvalidScalarArgument @phpstan-ignore-next-line */
+/** @psalm-suppress InvalidScalarArgument */
 distinct_checkMap(Collection::fromIterable(['foo' => 1, 'bar' => 2, 'baz' => 'f'])->distinct());
 
 // mixing object comparator parameter types
@@ -68,7 +68,7 @@ distinct_checkObjectList(Collection::fromIterable($catGenerator())->distinct($ob
 
 // using wrong type parameter for accessor callback
 $accessor = static fn (string $object): string => $object;
-/** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
+/** @psalm-suppress InvalidArgument */
 distinct_checkObjectList(Collection::fromIterable($catGenerator())->distinct(null, $accessor));
 
 // comparator parameter types need to match accessor return type

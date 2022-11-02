@@ -28,13 +28,9 @@ unfold_checkList(Collection::unfold($plusTwo, -2)->unwrap());
 
 // VALID use cases -> PHPStan thinks the collection is of type Collection<int, array<int, mixed>>, but Psalm works
 
-/** @phpstan-ignore-next-line */
 unfold_checkListOfLists(Collection::unfold($plusTwo));
-/** @phpstan-ignore-next-line */
 unfold_checkListOfLists(Collection::unfold($plusTwo, -2));
-/** @phpstan-ignore-next-line */
 unfold_checkListOfLists(Collection::unfold($fib));
-/** @phpstan-ignore-next-line */
 unfold_checkListOfLists(Collection::unfold($fib, 0, 1));
 
 // VALID use case -> `Pluck` can return various things so analysers cannot know the type is correct

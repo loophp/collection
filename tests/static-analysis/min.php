@@ -36,11 +36,11 @@ min_takeStringOrNull(Collection::fromIterable(['f' => 'foo', 'b' => null])->min(
 /** @psalm-suppress PossiblyNullArgument */
 min_takeInt(Collection::empty()->min());
 
-/** @psalm-suppress PossiblyNullArgument @phpstan-ignore-next-line */
+/** @psalm-suppress PossiblyNullArgument */
 min_takeInt(Collection::fromIterable([1, 2, 3, -2, 4])->min());
 
 /** @psalm-suppress PossiblyNullArgument */
 min_takeString(Collection::empty()->min());
 
-/** @psalm-suppress PossiblyNullArgument @phpstan-ignore-next-line */
+/** @psalm-suppress PossiblyNullArgument */
 min_takeString(Collection::fromIterable(['f' => 'foo', 'b' => 'bar'])->min());
