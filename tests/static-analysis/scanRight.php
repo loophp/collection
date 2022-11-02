@@ -46,5 +46,5 @@ function scanRight_checkListOfSize1String(CollectionInterface $collection): void
 
 scanRight_checkListInt(Collection::fromIterable([1, 2, 3])->scanRight($sum, 5));
 scanRight_checkListString(Collection::fromIterable(range('a', 'c'))->scanRight($concat, ''));
-scanRight_checkListStringWithNull(Collection::fromIterable(range('a', 'c'))->scanRight($concatWithNull));
+scanRight_checkListStringWithNull(Collection::fromIterable(range('a', 'c'))->scanRight($concatWithNull, null));
 scanRight_checkListOfSize1String(Collection::fromIterable([10])->scanRight($toString, true));

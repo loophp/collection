@@ -792,7 +792,7 @@ final class Collection implements CollectionInterface
         return new self((new Scale())()($lowerBound)($upperBound)($wantedLowerBound)($wantedUpperBound)($base), [$this]);
     }
 
-    public function scanLeft(callable $callback, $initial = null): CollectionInterface
+    public function scanLeft(callable $callback, $initial): CollectionInterface
     {
         return new self((new ScanLeft())()($callback)($initial), [$this]);
     }
@@ -802,7 +802,7 @@ final class Collection implements CollectionInterface
         return new self((new ScanLeft1())()($callback), [$this]);
     }
 
-    public function scanRight(callable $callback, $initial = null): CollectionInterface
+    public function scanRight(callable $callback, $initial): CollectionInterface
     {
         return new self((new ScanRight())()($callback)($initial), [$this]);
     }
