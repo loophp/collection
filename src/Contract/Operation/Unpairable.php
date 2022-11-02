@@ -17,7 +17,7 @@ interface Unpairable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#unpair
      *
-     * @return Collection<int, (TKey|T)>
+     * @return Collection<int, TKey|T>
      */
     public function unpair(): Collection;
 }

@@ -413,7 +413,7 @@ final class Collection implements CollectionInterface
         return new self((new Flip())(), [$this]);
     }
 
-    public function foldLeft(callable $callback, $initial = null)
+    public function foldLeft(callable $callback, $initial)
     {
         return (new self((new FoldLeft())()($callback)($initial), [$this]))->current();
     }
@@ -423,7 +423,7 @@ final class Collection implements CollectionInterface
         return (new self((new FoldLeft1())()($callback), [$this]))->current();
     }
 
-    public function foldRight(callable $callback, $initial = null)
+    public function foldRight(callable $callback, $initial)
     {
         return (new self((new Foldright())()($callback)($initial), [$this]))->current();
     }

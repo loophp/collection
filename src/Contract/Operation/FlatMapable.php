@@ -18,12 +18,12 @@ interface FlatMapable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#flatmap
      *
-     * @template IKey
-     * @template IValue
+     * @template UKey
+     * @template U
      *
-     * @param callable(T=, TKey=, iterable<TKey, T>=): iterable<IKey, IValue> $callback
+     * @param callable(T=, TKey=, iterable<TKey, T>=): iterable<UKey, U> $callback
      *
-     * @return Collection<IKey, IValue>
+     * @return Collection<UKey, U>
      */
     public function flatMap(callable $callback): Collection;
 }

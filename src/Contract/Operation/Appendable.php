@@ -17,7 +17,7 @@ interface Appendable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#append
      *
-     * @template U of T
+     * @template U
      *
      * @param U ...$items
      *

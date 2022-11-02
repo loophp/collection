@@ -17,9 +17,11 @@ interface Intersperseable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#intersperse
      *
-     * @param mixed $element
+     * @template U
      *
-     * @return Collection<TKey, T>
+     * @param U $element
+     *
+     * @return Collection<TKey, T|U>
      */
     public function intersperse($element, int $every = 1, int $startAt = 0): Collection;
 }

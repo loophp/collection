@@ -13,9 +13,11 @@ use Iterator;
 interface FoldRight1able
 {
     /**
-     * @param callable(T, T, TKey, Iterator<TKey, T>): T $callback
+     * @template V
      *
-     * @return T|null
+     * @param callable(T|V, T, TKey, Iterator<TKey, T>): V $callback
+     *
+     * @return T|V|null
      */
     public function foldRight1(callable $callback);
 }

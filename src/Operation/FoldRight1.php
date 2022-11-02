@@ -18,18 +18,20 @@ use Generator;
 final class FoldRight1 extends AbstractOperation
 {
     /**
-     * @return Closure(callable((T|null), T, TKey, iterable<TKey, T>): (T|null)):Closure (iterable<TKey, T>): Generator<int|TKey, T|null>
+     * @template V
+     *
+     * @return Closure(callable(T|V, T, TKey, iterable<TKey, T>): V): Closure(iterable<TKey, T>): Generator<int|TKey, T|V|null>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable(T|null, T, TKey, iterable<TKey, T>):(T|null) $callback
+             * @param callable(T|V, T, TKey, iterable<TKey, T>): V $callback
              *
-             * @return Closure(iterable<TKey, T>): Generator<int|TKey, T|null>
+             * @return Closure(iterable<TKey, T>): Generator<int|TKey, T|V|null>
              */
             static function (callable $callback): Closure {
-                /** @var Closure(iterable<TKey, T>):(Generator<int|TKey, T|null>) $pipe */
+                /** @var Closure(iterable<TKey, T>):(Generator<int|TKey, T|V|null>) $pipe */
                 $pipe = (new Pipe())()(
                     (new ScanRight1())()($callback),
                     (new Head())()

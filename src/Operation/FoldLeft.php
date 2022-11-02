@@ -18,24 +18,27 @@ use Generator;
 final class FoldLeft extends AbstractOperation
 {
     /**
-     * @return Closure(callable((T|null), T, TKey, iterable<TKey, T>):(T|null)): Closure(T): Closure(iterable<TKey, T>): Generator<TKey, T>
+     * @template V
+     * @template W
+     *
+     * @return Closure(callable((V|W)=, T=, TKey=, iterable<TKey, T>=): W): Closure(V): Closure(iterable<TKey, T>): Generator<TKey, V|W>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable(T|null, T, TKey, iterable<TKey, T>):(T|null) $callback
+             * @param callable((V|W)=, T=, TKey=, iterable<TKey, T>=): W $callback
              *
-             * @return Closure(T): Closure(iterable<TKey, T>): Generator<TKey, T>
+             * @return Closure(V): Closure(iterable<TKey, T>): Generator<TKey, V|W>
              */
             static fn (callable $callback): Closure =>
                 /**
-                 * @param T|null $initial
+                 * @param V $initial
                  *
-                 * @return Closure(iterable<TKey, T>): Generator<TKey, T>
+                 * @return Closure(iterable<TKey, T>): Generator<TKey, V|W>
                  */
-                static function ($initial = null) use ($callback): Closure {
-                    /** @var Closure(iterable<TKey, T>): Generator<TKey, T> $pipe */
+                static function ($initial) use ($callback): Closure {
+                    /** @var Closure(iterable<TKey, T>): Generator<TKey, V|W> $pipe */
                     $pipe = (new Pipe())()(
                         (new ScanLeft())()($callback)($initial),
                         (new Last())()

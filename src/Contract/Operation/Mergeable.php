@@ -17,9 +17,11 @@ interface Mergeable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#merge
      *
-     * @param iterable<mixed> ...$sources
+     * @template U
      *
-     * @return Collection<TKey, T>
+     * @param iterable<U> ...$sources
+     *
+     * @return Collection<TKey, T|U>
      */
     public function merge(iterable ...$sources): Collection;
 }

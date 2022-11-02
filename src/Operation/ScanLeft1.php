@@ -21,7 +21,7 @@ final class ScanLeft1 extends AbstractOperation
     /**
      * @template V
      *
-     * @return Closure(callable(mixed, T, TKey, iterable<TKey, T>): mixed): Closure(iterable<TKey, T>): Generator<int|TKey, mixed>
+     * @return Closure(callable(T|V, T, TKey, iterable<TKey, T>): V): Closure(iterable<TKey, T>): Generator<int|TKey, T|V>
      */
     public function __invoke(): Closure
     {

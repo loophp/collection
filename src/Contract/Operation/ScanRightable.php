@@ -19,10 +19,13 @@ interface ScanRightable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#scanright
      *
-     * @param callable(mixed=, T=, TKey=, iterable<TKey, T>=): mixed $callback
-     * @param mixed $initial
+     * @template V
+     * @template W
      *
-     * @return Collection<int|TKey, mixed>
+     * @param callable((V|W)=, T=, TKey=, iterable<TKey, T>=): W $callback
+     * @param V $initial
+     *
+     * @return Collection<TKey, V|W>
      */
     public function scanRight(callable $callback, $initial = null): Collection;
 }

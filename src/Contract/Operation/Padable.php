@@ -17,9 +17,11 @@ interface Padable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#pad
      *
-     * @param mixed $value
+     * @template U
      *
-     * @return Collection<int|TKey, T>
+     * @param U $value
+     *
+     * @return Collection<int|TKey, T|U>
      */
     public function pad(int $size, $value): Collection;
 }

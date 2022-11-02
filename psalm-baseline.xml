@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.24.0@06dd975cb55d36af80f242561738f16c5f58264f">
+<files psalm-version="4.29.0@7ec5ffbd5f68ae03782d7fd33fff0c45a69f95b3">
   <file src="src/Collection.php">
     <InvalidArgument occurrences="5">
       <code>$callback</code>
@@ -14,9 +14,6 @@
     <InvalidReturnType occurrences="1">
       <code>CollectionInterface</code>
     </InvalidReturnType>
-    <InvalidScalarArgument occurrences="1">
-      <code>$callable</code>
-    </InvalidScalarArgument>
     <LessSpecificReturnStatement occurrences="1">
       <code>new self((new Zip())()(...$iterables), [$this])</code>
     </LessSpecificReturnStatement>
@@ -27,9 +24,6 @@
       <code>$callbackForKeys ?? $defaultCallback</code>
       <code>$callbackForValues ?? $defaultCallback</code>
     </PossiblyInvalidArgument>
-    <PossiblyNullArgument occurrences="1">
-      <code>$callback</code>
-    </PossiblyNullArgument>
   </file>
   <file src="src/Operation/All.php">
     <InvalidReturnStatement occurrences="1"/>
@@ -38,14 +32,24 @@
     </InvalidReturnType>
   </file>
   <file src="src/Operation/Averages.php">
-    <InvalidReturnStatement occurrences="1"/>
-    <InvalidReturnType occurrences="1">
-      <code>Closure(iterable&lt;TKey, T&gt;): Generator&lt;int, float&gt;</code>
-    </InvalidReturnType>
+    <InvalidScalarArgument occurrences="1">
+      <code>static fn (float $acc, float $value, int $key): float =&gt; ($acc * $key + $value) / ($key + 1)</code>
+    </InvalidScalarArgument>
+  </file>
+  <file src="src/Operation/Inits.php">
+    <InvalidArgument occurrences="2">
+      <code>[]</code>
+    </InvalidArgument>
   </file>
   <file src="src/Operation/Pack.php">
     <InvalidReturnType occurrences="1">
       <code>Generator&lt;int, array{0: TKey, 1: T}&gt;</code>
     </InvalidReturnType>
+  </file>
+  <file src="src/Operation/Product.php">
+    <InvalidArgument occurrences="2">
+      <code>[[]]</code>
+      <code>static fn (iterable $a, iterable $x): Generator =&gt; $f($x)($a)</code>
+    </InvalidArgument>
   </file>
 </files>

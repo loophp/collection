@@ -19,9 +19,11 @@ interface FoldLeft1able
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#foldleft1
      *
-     * @param callable(T, T, TKey, Iterator<TKey, T>): T $callback
+     * @template V
      *
-     * @return T|null
+     * @param callable(T|V, T, TKey, Iterator<TKey, T>): V $callback
+     *
+     * @return T|V|null
      */
     public function foldLeft1(callable $callback);
 }

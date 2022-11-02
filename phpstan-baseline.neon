@@ -16,6 +16,16 @@ parameters:
 			path: src/Collection.php
 
 		-
+			message: "#^Method loophp\\\\collection\\\\Collection\\:\\:partition\\(\\) should return loophp\\\\collection\\\\Contract\\\\Collection\\<int, loophp\\\\collection\\\\Contract\\\\Collection\\<TKey, T\\>\\> but returns loophp\\\\collection\\\\Contract\\\\Collection\\<mixed, loophp\\\\collection\\\\Collection\\<mixed, mixed\\>\\>\\.$#"
+			count: 1
+			path: src/Collection.php
+
+		-
+			message: "#^Method loophp\\\\collection\\\\Collection\\:\\:span\\(\\) should return loophp\\\\collection\\\\Contract\\\\Collection\\<int, loophp\\\\collection\\\\Contract\\\\Collection\\<TKey, T\\>\\> but returns loophp\\\\collection\\\\Contract\\\\Collection\\<mixed, loophp\\\\collection\\\\Collection\\<mixed, mixed\\>\\>\\.$#"
+			count: 1
+			path: src/Collection.php
+
+		-
 			message: "#^Method loophp\\\\collection\\\\Collection\\:\\:tails\\(\\) should return loophp\\\\collection\\\\Contract\\\\Collection\\<int, array\\<int, T\\>\\> but returns loophp\\\\collection\\\\Collection\\<int, array\\<int, mixed\\>\\>\\.$#"
 			count: 1
 			path: src/Collection.php
@@ -36,22 +46,17 @@ parameters:
 			path: src/Collection.php
 
 		-
-			message: "#^Parameter \\#1 \\$ of closure expects callable\\(mixed, mixed, mixed, iterable\\)\\: mixed, callable\\(T, T, TKey, Iterator\\<TKey, T\\>\\)\\: T given\\.$#"
-			count: 2
+			message: "#^Parameter \\#1 \\$ of closure expects callable\\(mixed, mixed, mixed, iterable\\)\\: mixed, callable\\(T\\|V, T, TKey, Iterator\\<TKey, T\\>\\)\\: V given\\.$#"
+			count: 4
 			path: src/Collection.php
 
 		-
-			message: "#^Parameter \\#1 \\$ of closure expects callable\\(mixed, mixed, mixed, iterable\\)\\: mixed, callable\\(mixed, T, TKey, Iterator\\<TKey, T\\>\\)\\: mixed given\\.$#"
-			count: 2
-			path: src/Collection.php
-
-		-
-			message: "#^Parameter \\#1 \\$ of closure expects callable\\(mixed\\=, mixed\\=, iterable\\=\\)\\: mixed, \\(callable\\(TKey\\=, T\\=, Iterator\\<TKey, T\\>\\=\\)\\: NewTKey\\)\\|\\(Closure\\(mixed\\)\\: mixed\\) given\\.$#"
+			message: "#^Parameter \\#1 \\$ of closure expects callable\\(mixed\\=, mixed\\=, iterable\\=\\)\\: mixed, \\(callable\\(TKey\\=, T\\=, Iterator\\<TKey, T\\>\\=\\)\\: UKey\\)\\|\\(Closure\\(mixed\\)\\: mixed\\) given\\.$#"
 			count: 1
 			path: src/Collection.php
 
 		-
-			message: "#^Parameter \\#1 \\$ of closure expects callable\\(mixed\\=, mixed\\=, iterable\\=\\)\\: mixed, callable\\(T\\=, TKey\\=, Iterator\\<TKey, T\\>\\=\\)\\: mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$ of closure expects callable\\(mixed\\=, mixed\\=, iterable\\=\\)\\: mixed, callable\\(T\\=, TKey\\=, Iterator\\<TKey, T\\>\\=\\)\\: U given\\.$#"
 			count: 1
 			path: src/Collection.php
 
@@ -131,7 +136,7 @@ parameters:
 			path: src/Collection.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method loophp\\\\collection\\\\Collection\\<mixed,mixed\\>\\:\\:map\\(\\) expects callable\\(mixed\\=, mixed\\=, Iterator\\<mixed, mixed\\>\\=\\)\\: mixed, Closure\\(iterable\\)\\: loophp\\\\collection\\\\Collection\\<mixed, mixed\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$callback of method loophp\\\\collection\\\\Collection\\<mixed,mixed\\>\\:\\:map\\(\\) expects callable\\(mixed\\=, mixed\\=, Iterator\\<mixed, mixed\\>\\=\\)\\: loophp\\\\collection\\\\Collection\\<mixed, mixed\\>, Closure\\(iterable\\)\\: loophp\\\\collection\\\\Collection\\<mixed, mixed\\> given\\.$#"
 			count: 2
 			path: src/Collection.php
 
@@ -236,6 +241,36 @@ parameters:
 			path: src/Operation/Flip.php
 
 		-
+			message: "#^Template type V of method loophp\\\\collection\\\\Operation\\\\FoldLeft\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
+			count: 1
+			path: src/Operation/FoldLeft.php
+
+		-
+			message: "#^Template type W of method loophp\\\\collection\\\\Operation\\\\FoldLeft\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
+			count: 1
+			path: src/Operation/FoldLeft.php
+
+		-
+			message: "#^Template type V of method loophp\\\\collection\\\\Operation\\\\FoldLeft1\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
+			count: 1
+			path: src/Operation/FoldLeft1.php
+
+		-
+			message: "#^Template type V of method loophp\\\\collection\\\\Operation\\\\FoldRight\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
+			count: 1
+			path: src/Operation/FoldRight.php
+
+		-
+			message: "#^Template type W of method loophp\\\\collection\\\\Operation\\\\FoldRight\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
+			count: 1
+			path: src/Operation/FoldRight.php
+
+		-
+			message: "#^Template type V of method loophp\\\\collection\\\\Operation\\\\FoldRight1\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
+			count: 1
+			path: src/Operation/FoldRight1.php
+
+		-
 			message: "#^Parameter \\#1 \\.\\.\\.\\$ of closure expects callable\\(mixed\\=, mixed\\=, iterable\\=\\)\\: bool, Closure\\(mixed, mixed\\)\\: bool given\\.$#"
 			count: 1
 			path: src/Operation/Forget.php
@@ -337,6 +372,11 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$ of closure expects callable\\(mixed\\=, mixed\\=, iterable\\=\\)\\: iterable, Closure\\(mixed\\)\\: Generator\\<int, non\\-empty\\-array, mixed, void\\> given\\.$#"
+			count: 1
+			path: src/Operation/Product.php
+
+		-
+			message: "#^Parameter \\#1 \\$ of closure expects callable\\(mixed\\=, mixed\\=, mixed\\=, iterable\\=\\)\\: mixed, Closure\\(iterable, iterable\\)\\: Generator given\\.$#"
 			count: 1
 			path: src/Operation/Product.php
 
@@ -521,7 +561,7 @@ parameters:
 			path: tests/static-analysis/associate.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method loophp\\\\collection\\\\Contract\\\\Operation\\\\Mapable\\<int,mixed\\>\\:\\:map\\(\\) expects callable\\(mixed\\=, int\\=, Iterator\\<int, mixed\\>\\=\\)\\: mixed, Closure\\(string\\)\\: int given\\.$#"
+			message: "#^Parameter \\#1 \\$callback of method loophp\\\\collection\\\\Contract\\\\Operation\\\\Mapable\\<int,mixed\\>\\:\\:map\\(\\) expects callable\\(mixed\\=, int\\=, Iterator\\<int, mixed\\>\\=\\)\\: int, Closure\\(string\\)\\: int given\\.$#"
 			count: 1
 			path: tests/static-analysis/column.php
 
@@ -701,42 +741,42 @@ parameters:
 			path: tests/static-analysis/has.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method loophp\\\\collection\\\\Collection\\<int,int\\>\\:\\:map\\(\\) expects callable\\(int\\=, int\\=, Iterator\\<int, int\\>\\=\\)\\: mixed, Closure\\(int\\)\\: int given\\.$#"
+			message: "#^Parameter \\#1 \\$callback of method loophp\\\\collection\\\\Collection\\<int,int\\>\\:\\:map\\(\\) expects callable\\(int\\=, int\\=, Iterator\\<int, int\\>\\=\\)\\: int, Closure\\(int\\)\\: int given\\.$#"
 			count: 3
 			path: tests/static-analysis/map.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method loophp\\\\collection\\\\Collection\\<int,int\\>\\:\\:map\\(\\) expects callable\\(int\\=, int\\=, Iterator\\<int, int\\>\\=\\)\\: mixed, Closure\\(int\\)\\: numeric\\-string given\\.$#"
+			message: "#^Parameter \\#1 \\$callback of method loophp\\\\collection\\\\Collection\\<int,int\\>\\:\\:map\\(\\) expects callable\\(int\\=, int\\=, Iterator\\<int, int\\>\\=\\)\\: string, Closure\\(int\\)\\: numeric\\-string given\\.$#"
 			count: 1
 			path: tests/static-analysis/map.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method loophp\\\\collection\\\\Collection\\<int,string\\>\\:\\:map\\(\\) expects callable\\(string\\=, int\\=, Iterator\\<int, string\\>\\=\\)\\: mixed, Closure\\(string\\)\\: non\\-falsy\\-string given\\.$#"
+			message: "#^Parameter \\#1 \\$callback of method loophp\\\\collection\\\\Collection\\<int,string\\>\\:\\:map\\(\\) expects callable\\(string\\=, int\\=, Iterator\\<int, string\\>\\=\\)\\: string, Closure\\(string\\)\\: non\\-falsy\\-string given\\.$#"
 			count: 1
 			path: tests/static-analysis/map.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method loophp\\\\collection\\\\Collection\\<string,string\\>\\:\\:map\\(\\) expects callable\\(string\\=, string\\=, Iterator\\<string, string\\>\\=\\)\\: mixed, Closure\\(string\\)\\: non\\-falsy\\-string given\\.$#"
+			message: "#^Parameter \\#1 \\$callback of method loophp\\\\collection\\\\Collection\\<string,string\\>\\:\\:map\\(\\) expects callable\\(string\\=, string\\=, Iterator\\<string, string\\>\\=\\)\\: stdClass, Closure\\(string\\)\\: stdClass given\\.$#"
 			count: 1
 			path: tests/static-analysis/map.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method loophp\\\\collection\\\\Collection\\<string,string\\>\\:\\:map\\(\\) expects callable\\(string\\=, string\\=, Iterator\\<string, string\\>\\=\\)\\: mixed, Closure\\(string\\)\\: stdClass given\\.$#"
+			message: "#^Parameter \\#1 \\$callback of method loophp\\\\collection\\\\Collection\\<string,string\\>\\:\\:map\\(\\) expects callable\\(string\\=, string\\=, Iterator\\<string, string\\>\\=\\)\\: string, Closure\\(string\\)\\: non\\-falsy\\-string given\\.$#"
 			count: 1
 			path: tests/static-analysis/map.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method loophp\\\\collection\\\\Contract\\\\Operation\\\\Mapable\\<int,mixed\\>\\:\\:map\\(\\) expects callable\\(mixed\\=, int\\=, Iterator\\<int, mixed\\>\\=\\)\\: mixed, Closure\\(int\\)\\: int given\\.$#"
+			message: "#^Parameter \\#1 \\$callback of method loophp\\\\collection\\\\Contract\\\\Operation\\\\Mapable\\<int,int\\>\\:\\:map\\(\\) expects callable\\(int\\=, int\\=, Iterator\\<int, int\\>\\=\\)\\: int, Closure\\(int\\)\\: int given\\.$#"
 			count: 1
 			path: tests/static-analysis/map.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method loophp\\\\collection\\\\Contract\\\\Operation\\\\Mapable\\<int,mixed\\>\\:\\:map\\(\\) expects callable\\(mixed\\=, int\\=, Iterator\\<int, mixed\\>\\=\\)\\: mixed, Closure\\(int\\)\\: numeric\\-string given\\.$#"
+			message: "#^Parameter \\#1 \\$callback of method loophp\\\\collection\\\\Contract\\\\Operation\\\\Mapable\\<int,int\\>\\:\\:map\\(\\) expects callable\\(int\\=, int\\=, Iterator\\<int, int\\>\\=\\)\\: string, Closure\\(int\\)\\: numeric\\-string given\\.$#"
 			count: 1
 			path: tests/static-analysis/map.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method loophp\\\\collection\\\\Contract\\\\Operation\\\\Mapable\\<int,mixed\\>\\:\\:map\\(\\) expects callable\\(mixed\\=, int\\=, Iterator\\<int, mixed\\>\\=\\)\\: mixed, Closure\\(string\\)\\: non\\-falsy\\-string given\\.$#"
+			message: "#^Parameter \\#1 \\$callback of method loophp\\\\collection\\\\Contract\\\\Operation\\\\Mapable\\<int,string\\>\\:\\:map\\(\\) expects callable\\(string\\=, int\\=, Iterator\\<int, string\\>\\=\\)\\: string, Closure\\(string\\)\\: non\\-falsy\\-string given\\.$#"
 			count: 1
 			path: tests/static-analysis/map.php
 
@@ -861,42 +901,42 @@ parameters:
 			path: tests/static-analysis/reject.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method loophp\\\\collection\\\\Collection\\<int,int\\>\\:\\:scanLeft\\(\\) expects callable\\(mixed\\=, int\\=, int\\=, iterable\\<int, int\\>\\=\\)\\: mixed, Closure\\(int, int\\)\\: int given\\.$#"
+			message: "#^Parameter \\#1 \\$callback of method loophp\\\\collection\\\\Collection\\<int,int\\>\\:\\:scanLeft\\(\\) expects callable\\(bool\\|string\\=, int\\=, int\\=, iterable\\<int, int\\>\\=\\)\\: string, Closure\\(mixed, int\\)\\: non\\-falsy\\-string given\\.$#"
 			count: 1
 			path: tests/static-analysis/scanLeft.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method loophp\\\\collection\\\\Collection\\<int,int\\>\\:\\:scanLeft\\(\\) expects callable\\(mixed\\=, int\\=, int\\=, iterable\\<int, int\\>\\=\\)\\: mixed, Closure\\(mixed, int\\)\\: non\\-falsy\\-string given\\.$#"
+			message: "#^Parameter \\#1 \\$callback of method loophp\\\\collection\\\\Collection\\<int,int\\>\\:\\:scanLeft\\(\\) expects callable\\(int\\=, int\\=, int\\=, iterable\\<int, int\\>\\=\\)\\: int, Closure\\(int, int\\)\\: int given\\.$#"
 			count: 1
 			path: tests/static-analysis/scanLeft.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method loophp\\\\collection\\\\Collection\\<int,string\\>\\:\\:scanLeft\\(\\) expects callable\\(mixed\\=, string\\=, int\\=, iterable\\<int, string\\>\\=\\)\\: mixed, Closure\\(string, string\\)\\: non\\-falsy\\-string given\\.$#"
+			message: "#^Parameter \\#1 \\$callback of method loophp\\\\collection\\\\Collection\\<int,string\\>\\:\\:scanLeft\\(\\) expects callable\\(string\\=, string\\=, int\\=, iterable\\<int, string\\>\\=\\)\\: string, Closure\\(string, string\\)\\: non\\-falsy\\-string given\\.$#"
 			count: 1
 			path: tests/static-analysis/scanLeft.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method loophp\\\\collection\\\\Collection\\<int,string\\>\\:\\:scanLeft\\(\\) expects callable\\(mixed\\=, string\\=, int\\=, iterable\\<int, string\\>\\=\\)\\: mixed, Closure\\(string\\|null, string\\)\\: non\\-falsy\\-string given\\.$#"
+			message: "#^Parameter \\#1 \\$callback of method loophp\\\\collection\\\\Collection\\<int,string\\>\\:\\:scanLeft\\(\\) expects callable\\(string\\|null\\=, string\\=, int\\=, iterable\\<int, string\\>\\=\\)\\: string, Closure\\(string\\|null, string\\)\\: non\\-falsy\\-string given\\.$#"
 			count: 1
 			path: tests/static-analysis/scanLeft.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method loophp\\\\collection\\\\Collection\\<int,int\\>\\:\\:scanRight\\(\\) expects callable\\(mixed\\=, int\\=, int\\=, iterable\\<int, int\\>\\=\\)\\: mixed, Closure\\(int, int\\)\\: int given\\.$#"
+			message: "#^Parameter \\#1 \\$callback of method loophp\\\\collection\\\\Collection\\<int,int\\>\\:\\:scanRight\\(\\) expects callable\\(bool\\|string\\=, int\\=, int\\=, iterable\\<int, int\\>\\=\\)\\: string, Closure\\(mixed, int\\)\\: non\\-falsy\\-string given\\.$#"
 			count: 1
 			path: tests/static-analysis/scanRight.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method loophp\\\\collection\\\\Collection\\<int,int\\>\\:\\:scanRight\\(\\) expects callable\\(mixed\\=, int\\=, int\\=, iterable\\<int, int\\>\\=\\)\\: mixed, Closure\\(mixed, int\\)\\: non\\-falsy\\-string given\\.$#"
+			message: "#^Parameter \\#1 \\$callback of method loophp\\\\collection\\\\Collection\\<int,int\\>\\:\\:scanRight\\(\\) expects callable\\(int\\=, int\\=, int\\=, iterable\\<int, int\\>\\=\\)\\: int, Closure\\(int, int\\)\\: int given\\.$#"
 			count: 1
 			path: tests/static-analysis/scanRight.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method loophp\\\\collection\\\\Collection\\<int,string\\>\\:\\:scanRight\\(\\) expects callable\\(mixed\\=, string\\=, int\\=, iterable\\<int, string\\>\\=\\)\\: mixed, Closure\\(string, string\\)\\: non\\-falsy\\-string given\\.$#"
+			message: "#^Parameter \\#1 \\$callback of method loophp\\\\collection\\\\Collection\\<int,string\\>\\:\\:scanRight\\(\\) expects callable\\(string\\=, string\\=, int\\=, iterable\\<int, string\\>\\=\\)\\: string, Closure\\(string, string\\)\\: non\\-falsy\\-string given\\.$#"
 			count: 1
 			path: tests/static-analysis/scanRight.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method loophp\\\\collection\\\\Collection\\<int,string\\>\\:\\:scanRight\\(\\) expects callable\\(mixed\\=, string\\=, int\\=, iterable\\<int, string\\>\\=\\)\\: mixed, Closure\\(string\\|null, string\\)\\: non\\-falsy\\-string given\\.$#"
+			message: "#^Parameter \\#1 \\$callback of method loophp\\\\collection\\\\Collection\\<int,string\\>\\:\\:scanRight\\(\\) expects callable\\(string\\|null\\=, string\\=, int\\=, iterable\\<int, string\\>\\=\\)\\: string, Closure\\(string\\|null, string\\)\\: non\\-falsy\\-string given\\.$#"
 			count: 1
 			path: tests/static-analysis/scanRight.php
 
