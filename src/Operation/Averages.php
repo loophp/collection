@@ -22,11 +22,14 @@ final class Averages extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        return (new Pipe())()(
+        /** @var Closure(iterable<TKey, T>): Generator<int, float> $pipe */
+        $pipe = (new Pipe())()(
             (new Normalize())(),
             (new ScanLeft1())()(
                 static fn (float $acc, float $value, int $key): float => ($acc * $key + $value) / ($key + 1)
             )
         );
+
+        return $pipe;
     }
 }

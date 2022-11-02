@@ -18,7 +18,7 @@ interface GroupByable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#groupby
      *
-     * @template NewTKey of array-key
+     * @template NewTKey
      *
      * @param callable(T=, TKey=): NewTKey $callable
      *

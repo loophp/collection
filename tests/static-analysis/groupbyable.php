@@ -36,7 +36,7 @@ groupby_newKeyType(
 );
 
 // VALID failure -> invalid key types
-/** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
+/** @psalm-suppress InvalidArgument */
 Collection::fromIterable($foo)->groupBy(static fn () => null);
-/** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
+/** @psalm-suppress InvalidArgument */
 Collection::fromIterable($foo)->groupBy(static fn (): stdClass => new stdClass());
