@@ -100,10 +100,12 @@ enough.
 Then, you would like to create your own collection class with some specific
 feature added on top of it.
 
-Every classes of this library are ``final`` and then it is impossible to use
-inheritance and use the original Collection class as parent of another one.
+The main Collection class of this library is ``final`` and then it is impossible
+to use inheritance and use the original Collection class as parent of another
+one.
 
-If you want to **extend** the Collection, you must use the Composition pattern.
+If you want to **extend** the Collection, you have to use the Composition
+pattern or extend the new AbstractCollection class available since version 7.
 
 You can read more about Inheritance and Composition by doing a query on your
 favorite search engine. I also wrote an `article`_ about this.
@@ -112,6 +114,14 @@ Find here an example on how you could extend the collection class and add a
 new Operation ``foobar``.
 
 .. literalinclude:: code/extending-collection.php
+  :language: php
+
+Since version 7, you can extend the provided abstract class which implements
+most of the available methods. The only methods that are left to implements are
+the static constructors, you can simply copy paste them from the main Collection
+class.
+
+.. literalinclude:: code/extending-collection-with-abstract-class.php
   :language: php
 
 Manipulate strings
