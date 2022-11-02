@@ -5,12 +5,14 @@ on:
         paths:
             - "**.php"
             - ".github/workflows/tests.yml"
+            - ".scrutinizer.yml"
         branches:
             - master
     pull_request:
         paths:
             - "**.php"
             - ".github/workflows/tests.yml"
+            - ".scrutinizer.yml"
 
 name: "Unit tests"
 
