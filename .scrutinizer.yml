@@ -7,6 +7,9 @@ build:
             pecl_extensions:
                 - pcov
     image: default-bionic
+    tests:
+        override:
+            - php-scrutinizer-run
 
 filter:
     paths:
