@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace loophp\collection\Contract;
 
 use Countable;
+use Generator;
 use IteratorAggregate;
 use JsonSerializable;
 use loophp\collection\Contract\Operation\Allable;
@@ -378,6 +379,60 @@ interface Collection extends
     Wrapable,
     Zipable
 {
+    /**
+     * @template UKey
+     * @template U
+     *
+     * @return self<UKey, U>
+     */
+    public static function empty(): Collection;
+
+    /**
+     * @template UKey
+     * @template U
+     *
+     * @param callable(mixed ...$parameters): iterable<UKey, U> $callable
+     * @param iterable<int, mixed> $parameters
+     *
+     * @return self<UKey, U>
+     */
+    public static function fromCallable(callable $callable, iterable $parameters = []): Collection;
+
+    /**
+     * @return Collection<int, string>
+     */
+    public static function fromFile(string $filepath): Collection;
+
+    /**
+     * @template UKey
+     * @template U
+     *
+     * @return self<UKey, U>
+     */
+    public static function fromGenerator(Generator $generator): Collection;
+
+    /**
+     * @template UKey
+     * @template U
+     *
+     * @param iterable<UKey, U> $iterable
+     *
+     * @return self<UKey, U>
+     */
+    public static function fromIterable(iterable $iterable): Collection;
+
+    /**
+     * @param resource $resource
+     *
+     * @return Collection<int, string>
+     */
+    public static function fromResource($resource): Collection;
+
+    /**
+     * @return Collection<int, string>
+     */
+    public static function fromString(string $string, string $delimiter = ''): Collection;
+
     /**
      * @return Traversable<TKey, T>
      */
