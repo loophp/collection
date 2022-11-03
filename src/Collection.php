@@ -953,6 +953,11 @@ final class Collection implements CollectionInterface
         return new self((new Window())()($size), [$this]);
     }
 
+    public function with(Operation $operation, array $arguments = []): CollectionInterface
+    {
+        return new self(($operation())(...$arguments), [$this]);
+    }
+
     public function words(): CollectionInterface
     {
         return new self((new Words())(), [$this]);
