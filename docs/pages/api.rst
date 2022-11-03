@@ -153,7 +153,7 @@ Create a collection by yielding from a callback with an initial value.
             on the next callback call. Therefore, the returned list should contain values of the same type
             as the parameters for the callback function.
 
-Signature: ``Collection::unfold(callable $callback, ...$parameters): Collection;``
+Signature: ``Collection::unfold(callable $callback, $parameters): Collection;``
 
 .. literalinclude:: code/operations/unfold.php
   :language: php

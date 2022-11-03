@@ -307,7 +307,7 @@ final class CollectionConstructorsTest extends TestCase
     {
         $this::assertIdenticalIterable(
             [[0], [2], [4], [6], [8]],
-            Collection::unfold(static fn (int $n): array => [$n + 2], -2)->limit(5)
+            Collection::unfold(static fn (int $n): array => [$n + 2], [-2])->limit(5)
         );
     }
 }

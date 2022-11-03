@@ -24,17 +24,18 @@ $plusTwo = static fn (int $n = 0): array => [$n + 2];
 $fib = static fn (int $a = 0, int $b = 1): array => [$b, $a + $b];
 
 unfold_checkList(Collection::unfold($plusTwo)->unwrap());
-unfold_checkList(Collection::unfold($plusTwo, -2)->unwrap());
+unfold_checkList(Collection::unfold($plusTwo, [-2])->unwrap());
 
 // VALID use cases -> PHPStan thinks the collection is of type Collection<int, array<int, mixed>>, but Psalm works
 
-/** @phpstan-ignore-next-line */
-unfold_checkListOfLists(Collection::unfold($plusTwo));
-/** @phpstan-ignore-next-line */
+/** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
 unfold_checkListOfLists(Collection::unfold($plusTwo, -2));
-/** @phpstan-ignore-next-line */
-unfold_checkListOfLists(Collection::unfold($fib));
-/** @phpstan-ignore-next-line */
+/**
+ * @psalm-suppress InvalidArgument
+ * @psalm-suppress TooManyArguments
+ *
+ * @phpstan-ignore-next-line
+ */
 unfold_checkListOfLists(Collection::unfold($fib, 0, 1));
 
 // VALID use case -> `Pluck` can return various things so analysers cannot know the type is correct

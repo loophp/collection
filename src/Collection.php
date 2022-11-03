@@ -890,9 +890,9 @@ final class Collection implements CollectionInterface
         return (new Truthy())()($this)->current();
     }
 
-    public static function unfold(callable $callback, ...$parameters): CollectionInterface
+    public static function unfold(callable $callback, array $parameters = []): CollectionInterface
     {
-        return new self((new Unfold())()(...$parameters)($callback));
+        return new self((new Unfold())()($parameters)($callback));
     }
 
     public function unlines(): string
