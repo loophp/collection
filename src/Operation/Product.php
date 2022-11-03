@@ -14,8 +14,6 @@ use Traversable;
  *
  * @template TKey
  * @template T
- *
- * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Product extends AbstractOperation
 {

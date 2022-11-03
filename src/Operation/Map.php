@@ -13,8 +13,6 @@ use loophp\iterators\MapIterableAggregate;
  *
  * @template TKey
  * @template T
- *
- * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Map extends AbstractOperation
 {

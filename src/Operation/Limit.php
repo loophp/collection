@@ -13,8 +13,6 @@ use loophp\iterators\LimitIterableAggregate;
  *
  * @template TKey
  * @template T
- *
- * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Limit extends AbstractOperation
 {

@@ -15,8 +15,6 @@ use loophp\iterators\IterableIteratorAggregate;
  *
  * @template TKey
  * @template T
- *
- * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class TakeWhile extends AbstractOperation
 {

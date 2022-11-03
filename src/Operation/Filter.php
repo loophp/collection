@@ -14,8 +14,6 @@ use loophp\iterators\FilterIterableAggregate;
  *
  * @template TKey
  * @template T
- *
- * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Filter extends AbstractOperation
 {

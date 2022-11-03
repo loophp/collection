@@ -13,8 +13,6 @@ use loophp\iterators\RandomIterableAggregate;
  *
  * @template TKey
  * @template T
- *
- * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Shuffle extends AbstractOperation
 {

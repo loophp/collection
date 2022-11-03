@@ -14,8 +14,6 @@ use MultipleIterator;
  *
  * @template TKey
  * @template T
- *
- * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Combine extends AbstractOperation
 {

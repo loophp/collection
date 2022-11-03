@@ -15,18 +15,15 @@ use function Amp\Promise\wait;
 use function Amp\Sync\ConcurrentIterator\map;
 use function function_exists;
 
-// phpcs:disable
 if (!function_exists('Amp\ParallelFunctions\parallel')) {
     throw new Exception('You need amphp/parallel-functions to get this operation working.');
 }
-// phpcs:enable
+
 /**
  * @immutable
  *
  * @template TKey
  * @template T
- *
- * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class AsyncMap extends AbstractOperation
 {

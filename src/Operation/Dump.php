@@ -13,8 +13,6 @@ use Symfony\Component\VarDumper\VarDumper;
  *
  * @template TKey
  * @template T
- *
- * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Dump extends AbstractOperation
 {

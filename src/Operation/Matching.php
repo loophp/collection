@@ -15,8 +15,6 @@ use loophp\collection\Contract\Operation\Sortable;
  *
  * @template TKey
  * @template T
- *
- * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Matching extends AbstractOperation
 {

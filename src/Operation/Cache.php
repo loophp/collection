@@ -15,8 +15,6 @@ use Psr\Cache\CacheItemPoolInterface;
  *
  * @template TKey
  * @template T
- *
- * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Cache extends AbstractOperation
 {

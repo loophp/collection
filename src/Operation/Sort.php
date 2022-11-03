@@ -15,8 +15,6 @@ use loophp\collection\Contract\Operation;
  *
  * @template TKey
  * @template T
- *
- * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Sort extends AbstractOperation
 {

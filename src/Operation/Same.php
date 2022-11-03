@@ -10,8 +10,6 @@ use loophp\iterators\IterableIteratorAggregate;
 
 /**
  * @immutable
- *
- * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Same extends AbstractOperation
 {

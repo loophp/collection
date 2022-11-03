@@ -21,8 +21,6 @@ use function is_scalar;
  *
  * @template TKey
  * @template T
- *
- * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Pluck extends AbstractOperation
 {

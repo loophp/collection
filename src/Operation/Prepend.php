@@ -13,8 +13,6 @@ use loophp\iterators\ConcatIterableAggregate;
  *
  * @template TKey
  * @template T
- *
- * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Prepend extends AbstractOperation
 {

@@ -10,8 +10,6 @@ use Closure;
  * @internal
  *
  * @immutable
- *
- * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class CallbacksArrayReducer
 {

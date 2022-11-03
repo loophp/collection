@@ -12,8 +12,6 @@ use Generator;
  *
  * @template TKey
  * @template T
- *
- * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Implode extends AbstractOperation
 {

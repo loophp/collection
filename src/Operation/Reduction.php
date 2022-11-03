@@ -13,8 +13,6 @@ use loophp\iterators\ReductionIterableAggregate;
  *
  * @template TKey
  * @template T
- *
- * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Reduction extends AbstractOperation
 {

@@ -13,8 +13,6 @@ use loophp\collection\Utils\CallbacksArrayReducer;
  *
  * @template TKey
  * @template T
- *
- * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Every extends AbstractOperation
 {

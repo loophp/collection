@@ -13,8 +13,6 @@ use Generator;
  *
  * @template TKey
  * @template T
- *
- * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Duplicate extends AbstractOperation
 {

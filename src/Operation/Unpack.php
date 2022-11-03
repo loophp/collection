@@ -8,8 +8,6 @@ use Closure;
 use Generator;
 use loophp\iterators\UnpackIterableAggregate;
 
-// phpcs:disable Generic.Files.LineLength.TooLong
-
 /**
  * @immutable
  *

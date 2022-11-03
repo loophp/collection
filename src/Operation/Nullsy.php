@@ -14,8 +14,6 @@ use function in_array;
  *
  * @template TKey
  * @template T
- *
- * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Nullsy extends AbstractOperation
 {

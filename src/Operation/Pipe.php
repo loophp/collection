@@ -11,8 +11,6 @@ use Closure;
  *
  * @template TKey
  * @template T
- *
- * phpcs:disable Generic.Files.LineLength.TooLong
  */
 final class Pipe extends AbstractOperation
 {
