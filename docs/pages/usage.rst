@@ -100,8 +100,9 @@ specific feature added on top of it.
 
 If you want to **extend** the Collection, you have multiple options.
 
-1. You just create a ``callable`` and use :ref:`pages/api:pipe` method.
-2. You use the Composition design pattern and create your own library class.
+1. Create your own ``Operation`` classes and use the :ref:`pages/api:pipe` method.
+2. You just create a ``callable`` and use :ref:`pages/api:with` method.
+3. You use the Composition design pattern and create your own library class.
 
 Every classes of this library are ``final`` and then it is impossible to use
 inheritance and use the original Collection class as parent of another one.

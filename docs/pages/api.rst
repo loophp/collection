@@ -2453,6 +2453,20 @@ Signature: ``Collection::window(int $size): Collection;``
 .. literalinclude:: code/operations/window.php
   :language: php
 
+with
+~~~~
+
+Let users injects a custom operation in the Collection.
+To maintain a lazy nature, each operation needs to return a ``Generator``.
+Custom operations and operations provided in the API can be combined together.
+
+Interface: `Withable`_
+
+Signature: ``Collection::with(Operation $operation, array $arguments = []): Collection;``
+
+.. literalinclude:: code/operations/with.php
+  :language: php
+
 words
 ~~~~~
 
@@ -2624,6 +2638,7 @@ Signature: ``Collection::zip(iterable ...$iterables): Collection;``
 .. _Unzipable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Unzipable.php
 .. _Whenable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Whenable.php
 .. _Windowable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Windowable.php
+.. _Withable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Withable.php
 .. _Wordsable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Wordsable.php
 .. _Wrapable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Wrapable.php
 .. _Zipable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Zipable.php
