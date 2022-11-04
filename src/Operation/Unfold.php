@@ -16,17 +16,17 @@ use Generator;
 final class Unfold extends AbstractOperation
 {
     /**
-     * @return Closure(T...): Closure(callable(T...): list<T>): Closure(): Generator<int, list<T>>
+     * @return Closure(array<int, T>): Closure(callable(T...): list<T>): Closure(): Generator<int, list<T>>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param T ...$parameters
+             * @param array<int, T> $parameters
              *
              * @return Closure(callable(T...): list<T>): Closure(): Generator<int, list<T>>
              */
-            static fn (...$parameters): Closure =>
+            static fn ($parameters): Closure =>
                 /**
                  * @param callable(T...): list<T> $callback
                  *

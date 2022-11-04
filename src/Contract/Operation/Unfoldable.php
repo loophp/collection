@@ -6,6 +6,10 @@ namespace loophp\collection\Contract\Operation;
 
 use loophp\collection\Contract\Collection;
 
+/**
+ * @template TKey
+ * @template T
+ */
 interface Unfoldable
 {
     /**
@@ -13,12 +17,12 @@ interface Unfoldable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#unfold
      *
-     * @template T
+     * @template U of T
      *
-     * @param callable(T ...): list<T> $callback
-     * @param T ...$parameters
+     * @param callable(U ...): list<U> $callback
+     * @param array<int, U> $parameters
      *
-     * @return Collection<int, list<T>>
+     * @return Collection<int, list<U>>
      */
-    public static function unfold(callable $callback, ...$parameters): Collection;
+    public static function unfold(callable $callback, array $parameters = []): Collection;
 }
