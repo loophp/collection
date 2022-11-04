@@ -293,3 +293,6 @@ texinfo_documents = [
 
 # If true, do not generate a @detailmenu in the "Top" node's menu.
 #texinfo_no_detailmenu = False
+
+# Make sure the target is unique
+autosectionlabel_prefix_document = True

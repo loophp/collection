@@ -1719,34 +1719,8 @@ Interface: `Pipeable`_
 
 Signature: ``Collection::pipe(callable ...$callbacks): Collection;``
 
-.. code-block:: php
-
-    $square = static function ($collection): Generator {
-        foreach ($collection as $item) {
-            yield $item ** 2;
-        }
-    };
-
-    $toString = static function ($collection): Generator {
-        foreach ($collection as $item) {
-            yield (string) $item;
-        }
-    };
-
-    $times = new class() extends AbstractOperation {
-        public function __invoke(): Closure
-        {
-            return static function ($collection): Generator {
-                foreach ($collection as $item) {
-                    yield "{$item}x";
-                }
-            };
-        }
-    };
-
-    Collection::fromIterable(range(1, 5))
-        ->pipe($square, Reverse::of(), $toString, $times())
-        ->all(); // ['25x', '16x', '9x', '4x', '1x']
+.. literalinclude:: code/operations/pipe.php
+  :language: php
 
 pluck
 ~~~~~

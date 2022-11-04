@@ -95,21 +95,22 @@ Extending collection
 ~~~~~~~~~~~~~~~~~~~~
 
 Sometimes, it is possible that the feature set provided by this library is not
-enough.
+enough. Then, you would like to create your own collection class with some
+specific feature added on top of it.
 
-Then, you would like to create your own collection class with some specific
-feature added on top of it.
+If you want to **extend** the Collection, you have multiple options.
+
+1. You just create a ``callable`` and use :ref:`pages/api:pipe` method.
+2. You use the Composition design pattern and create your own library class.
 
 Every classes of this library are ``final`` and then it is impossible to use
 inheritance and use the original Collection class as parent of another one.
-
-If you want to **extend** the Collection, you must use the Composition pattern.
 
 You can read more about Inheritance and Composition by doing a query on your
 favorite search engine. I also wrote an `article`_ about this.
 
 Find here an example on how you could extend the collection class and add a
-new Operation ``foobar``.
+new operation ``foobar``.
 
 .. literalinclude:: code/extending-collection.php
   :language: php
