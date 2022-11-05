@@ -14,11 +14,8 @@ branches:
                   - "Code Style (ubuntu-latest, 8.1)"
                   - "Mutation Testing (ubuntu-latest, 8.1)"
                   - "Static Analysis (ubuntu-latest, 8.1)"
-                  - "Unit Tests (ubuntu-latest, 7.4)"
                   - "Unit Tests (ubuntu-latest, 8.1)"
-                  - "Unit Tests (macOS-latest, 7.4)"
                   - "Unit Tests (macOS-latest, 8.1)"
-                  - "Unit Tests (windows-latest, 7.4)"
                   - "Unit Tests (windows-latest, 8.1)"
                   - "prettier"
           restrictions: null
