@@ -46,7 +46,7 @@ parameters:
 			path: src/Collection.php
 
 		-
-			message: "#^Parameter \\#1 \\$ of closure expects callable\\(mixed, mixed, mixed, iterable\\)\\: mixed, callable\\(T\\|V, T, TKey, Iterator\\<TKey, T\\>\\)\\: V given\\.$#"
+			message: "#^Parameter \\#1 \\$ of closure expects callable\\(mixed, mixed, mixed, iterable\\)\\: mixed, callable\\(T\\|V, T, TKey, Iterator\\<TKey, T\\>\\)\\: T\\|V given\\.$#"
 			count: 4
 			path: src/Collection.php
 

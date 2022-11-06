@@ -22,7 +22,7 @@ interface ScanLeft1able
      *
      * @template V
      *
-     * @param callable(T|V, T, TKey, Iterator<TKey, T>): V $callback
+     * @param callable(T|V, T, TKey, Iterator<TKey, T>): (T|V) $callback
      *
      * @return Collection<int|TKey, T|V>
      */
