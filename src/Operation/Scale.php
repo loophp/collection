@@ -65,7 +65,7 @@ final class Scale extends AbstractOperation
                                     /**
                                      * @param float|int $item
                                      */
-                                    static fn ($item): bool => $item >= $lowerBound,
+                                    static fn ($item): bool => $item > $lowerBound,
                                     /**
                                      * @param float|int $item
                                      */

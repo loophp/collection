@@ -21,7 +21,7 @@ interface FoldRightable
      * @template V
      * @template W
      *
-     * @param callable((V|W)=, T=, TKey=, iterable<TKey, T>=): W $callback
+     * @param callable((V|W), T, TKey, iterable<TKey, T>): W $callback
      * @param V $initial
      *
      * @return V|W

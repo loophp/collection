@@ -18,7 +18,7 @@ final class Find extends AbstractOperation
     /**
      * @template V
      *
-     * @return Closure(V): Closure(callable(T=, TKey=, iterable<TKey, T>=): bool ...): Closure(iterable<TKey, T>): Generator<TKey, T|V>
+     * @return Closure(V): Closure(callable(T, TKey, iterable<TKey, T>): bool ...): Closure(iterable<TKey, T>): Generator<TKey, T|V>
      */
     public function __invoke(): Closure
     {
@@ -26,11 +26,11 @@ final class Find extends AbstractOperation
             /**
              * @param V $default
              *
-             * @return Closure(callable(T=, TKey=, iterable<TKey, T>=): bool ...): Closure(iterable<TKey, T>): Generator<TKey, T|V>
+             * @return Closure(callable(T, TKey, iterable<TKey, T>): bool ...): Closure(iterable<TKey, T>): Generator<TKey, T|V>
              */
             static fn ($default): Closure =>
                 /**
-                 * @param callable(T=, TKey=, iterable<TKey, T>=): bool ...$callbacks
+                 * @param callable(T, TKey, iterable<TKey, T>): bool ...$callbacks
                  *
                  * @return Closure(iterable<TKey, T>): Generator<TKey, T|V>
                  */

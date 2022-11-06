@@ -17,13 +17,13 @@ use loophp\collection\Utils\CallbacksArrayReducer;
 final class Every extends AbstractOperation
 {
     /**
-     * @return Closure(...callable(int=, T=, TKey=, iterable<TKey, T>=): bool): Closure(iterable<TKey, T>): Generator<int, bool>
+     * @return Closure(...callable(int, T, TKey, iterable<TKey, T>): bool): Closure(iterable<TKey, T>): Generator<int, bool>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable(int=, T=, TKey=, iterable<TKey, T>=): bool ...$predicates
+             * @param callable(int, T, TKey, iterable<TKey, T>): bool ...$predicates
              *
              * @return Closure(iterable<TKey, T>): Generator<int, bool>
              */

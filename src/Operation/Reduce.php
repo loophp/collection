@@ -19,13 +19,13 @@ final class Reduce extends AbstractOperation
      * @template V
      * @template W
      *
-     * @return Closure(callable(mixed=, mixed=, mixed=, iterable<mixed, mixed>=): mixed): Closure(mixed): Closure(iterable<TKey, T>): Generator<TKey, mixed>
+     * @return Closure(callable(mixed, mixed, mixed, iterable<mixed, mixed>): mixed): Closure(mixed): Closure(iterable<TKey, T>): Generator<TKey, mixed>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable((V|W)=, T=, TKey=, iterable<TKey, T>=): W $callback
+             * @param callable((V|W), T, TKey, iterable<TKey, T>): W $callback
              *
              * @return Closure(V): Closure(iterable<TKey, T>): Generator<TKey, W>
              */

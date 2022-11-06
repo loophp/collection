@@ -16,25 +16,25 @@ use Generator;
 final class IfThenElse extends AbstractOperation
 {
     /**
-     * @return Closure(callable(T=, TKey=, iterable<TKey, T>=): bool): Closure(callable(T=, TKey=, iterable<TKey, T>=): T): Closure(callable(T=, TKey=, iterable<TKey, T>=): T): Closure(iterable<TKey, T>): Generator<TKey, T>
+     * @return Closure(callable(T, TKey, iterable<TKey, T>): bool): Closure(callable(T, TKey, iterable<TKey, T>): T): Closure(callable(T, TKey, iterable<TKey, T>): T): Closure(iterable<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable(T=, TKey=, iterable<TKey, T>=): bool $condition
+             * @param callable(T, TKey, iterable<TKey, T>): bool $condition
              *
-             * @return Closure(callable(T=, TKey=, iterable<TKey, T>=): T): Closure(callable(T=, TKey=, iterable<TKey, T>=): T): Closure(iterable<TKey, T>): Generator<TKey, T>
+             * @return Closure(callable(T, TKey, iterable<TKey, T>): T): Closure(callable(T, TKey, iterable<TKey, T>): T): Closure(iterable<TKey, T>): Generator<TKey, T>
              */
             static fn (callable $condition): Closure =>
                 /**
-                 * @param callable(T=, TKey=, iterable<TKey, T>=): T $then
+                 * @param callable(T, TKey, iterable<TKey, T>): T $then
                  *
-                 * @return Closure(callable(T=, TKey=, iterable<TKey, T>=): T): Closure(iterable<TKey, T>): Generator<TKey, T>
+                 * @return Closure(callable(T, TKey, iterable<TKey, T>): T): Closure(iterable<TKey, T>): Generator<TKey, T>
                  */
                 static fn (callable $then): Closure =>
                     /**
-                     * @param callable(T=, TKey=, iterable<TKey, T>=):T $else
+                     * @param callable(T, TKey, iterable<TKey, T>):T $else
                      *
                      * @return Closure(iterable<TKey, T>): Generator<TKey, T>
                      */

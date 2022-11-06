@@ -19,12 +19,12 @@ use loophp\iterators\IterableIteratorAggregate;
 final class Partition extends AbstractOperation
 {
     /**
-     * @return Closure(callable(T=, TKey=, iterable<TKey, T>=): bool ...): Closure(iterable<TKey, T>): Generator<int, iterable<TKey, T>>
+     * @return Closure(callable(T, TKey, iterable<TKey, T>): bool ...): Closure(iterable<TKey, T>): Generator<int, iterable<TKey, T>>
      */
     public function __invoke(): Closure
     {
         /**
-         * @param callable(T=, TKey=, iterable<TKey, T>=): bool ...$callbacks
+         * @param callable(T, TKey, iterable<TKey, T>): bool ...$callbacks
          *
          * @return Closure(iterable<TKey, T>): Generator<int, iterable<TKey, T>>
          */

@@ -21,7 +21,7 @@ interface FlatMapable
      * @template UKey
      * @template U
      *
-     * @param callable(T=, TKey=, iterable<TKey, T>=): iterable<UKey, U> $callback
+     * @param callable(T, TKey, iterable<TKey, T>): iterable<UKey, U> $callback
      *
      * @return Collection<UKey, U>
      */

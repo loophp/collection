@@ -18,13 +18,13 @@ use loophp\iterators\FilterIterableAggregate;
 final class Filter extends AbstractOperation
 {
     /**
-     * @return Closure(callable(T=, TKey=, iterable<TKey, T>=): bool ...): Closure(iterable<TKey, T>): Generator<TKey, T>
+     * @return Closure(callable(T, TKey, iterable<TKey, T>): bool ...): Closure(iterable<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable(T=, TKey=, iterable<TKey, T>=): bool ...$callbacks
+             * @param callable(T, TKey, iterable<TKey, T>): bool ...$callbacks
              *
              * @return Closure(iterable<TKey, T>): Generator<TKey, T>
              */

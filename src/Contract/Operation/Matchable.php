@@ -25,8 +25,8 @@ interface Matchable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#match
      *
-     * @param callable(T=, TKey=, iterable<TKey, T>=): bool $callback
-     * @param null|callable(T=, TKey=, iterable<TKey, T>=): bool $matcher
+     * @param callable(T, TKey, iterable<TKey, T>): bool $callback
+     * @param null|callable(T, TKey, iterable<TKey, T>): bool $matcher
      */
     public function match(callable $callback, ?callable $matcher = null): bool;
 }

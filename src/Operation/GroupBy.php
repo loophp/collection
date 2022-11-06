@@ -18,20 +18,20 @@ final class GroupBy extends AbstractOperation
     /**
      * @template NewTKey
      *
-     * @return Closure(callable(T=, TKey=): NewTKey): Closure(iterable<TKey, T>): Generator<NewTKey, non-empty-list<T>>
+     * @return Closure(callable(T, TKey=): NewTKey): Closure(iterable<TKey, T>): Generator<NewTKey, non-empty-list<T>>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable(T=, TKey=): NewTKey $callable
+             * @param callable(T, TKey=): NewTKey $callable
              *
              * @return Closure(iterable<TKey, T>): Generator<NewTKey, non-empty-list<T>>
              */
             static function (callable $callable): Closure {
                 $reducerFactory =
                     /**
-                     * @param callable(T=, TKey=): NewTKey $callback
+                     * @param callable(T, TKey=): NewTKey $callback
                      *
                      * @return Closure(array<NewTKey, non-empty-list<T>>, T, TKey): array<NewTKey, non-empty-list<T>>
                      */

@@ -19,7 +19,7 @@ interface Findable
      * @template V
      *
      * @param V $default
-     * @param (callable(T=, TKey=, iterable<TKey, T>=): bool) ...$callbacks
+     * @param (callable(T, TKey, iterable<TKey, T>): bool) ...$callbacks
      *
      * @return T|V
      */

@@ -19,13 +19,13 @@ final class Map extends AbstractOperation
     /**
      * @template V
      *
-     * @return Closure(callable(T=, TKey=, iterable<TKey, T>=): mixed): Closure(iterable<TKey, T>): Generator<TKey, mixed>
+     * @return Closure(callable(T, TKey, iterable<TKey, T>): mixed): Closure(iterable<TKey, T>): Generator<TKey, mixed>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable(T=, TKey=, iterable<TKey, T>=): V $callback
+             * @param callable(T, TKey, iterable<TKey, T>): V $callback
              */
             static fn (callable $callback): Closure =>
                 /**

@@ -16,13 +16,13 @@ use Generator;
 final class Has extends AbstractOperation
 {
     /**
-     * @return Closure(callable(T=, TKey=, iterable<TKey, T>=): T ...): Closure(iterable<TKey, T>): Generator<TKey, bool>
+     * @return Closure(callable(T, TKey, iterable<TKey, T>): T ...): Closure(iterable<TKey, T>): Generator<TKey, bool>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable(T=, TKey=, iterable<TKey, T>=): T ...$callbacks
+             * @param callable(T, TKey, iterable<TKey, T>): T ...$callbacks
              *
              * @return Closure(iterable<TKey, T>): Generator<TKey, bool>
              */

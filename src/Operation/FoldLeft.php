@@ -19,13 +19,13 @@ final class FoldLeft extends AbstractOperation
      * @template V
      * @template W
      *
-     * @return Closure(callable((V|W)=, T=, TKey=, iterable<TKey, T>=): W): Closure(V): Closure(iterable<TKey, T>): Generator<TKey, V|W>
+     * @return Closure(callable((V|W), T, TKey, iterable<TKey, T>): W): Closure(V): Closure(iterable<TKey, T>): Generator<TKey, V|W>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable((V|W)=, T=, TKey=, iterable<TKey, T>=): W $callback
+             * @param callable((V|W), T, TKey, iterable<TKey, T>): W $callback
              *
              * @return Closure(V): Closure(iterable<TKey, T>): Generator<TKey, V|W>
              */

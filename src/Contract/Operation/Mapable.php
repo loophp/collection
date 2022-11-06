@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
-use Iterator;
 use loophp\collection\Contract\Collection;
 
 /**
@@ -20,7 +19,7 @@ interface Mapable
      *
      * @template U
      *
-     * @param callable(T=, TKey=, Iterator<TKey, T>=): U $callback
+     * @param callable(T, TKey, iterable<TKey, T>): U $callback
      *
      * @return Collection<TKey, U>
      */

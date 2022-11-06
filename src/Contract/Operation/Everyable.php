@@ -15,7 +15,7 @@ interface Everyable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#every
      *
-     * @param callable(T=, TKey=, iterable<TKey, T>=): bool ...$callbacks
+     * @param callable(T, TKey, iterable<TKey, T>): bool ...$callbacks
      */
     public function every(callable ...$callbacks): bool;
 }

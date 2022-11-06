@@ -17,7 +17,7 @@ interface Rejectable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#reject
      *
-     * @param callable(T=, TKey=, iterable<TKey, T>=): bool ...$callbacks
+     * @param callable(T, TKey, iterable<TKey, T>): bool ...$callbacks
      *
      * @return Collection<TKey, T>
      */

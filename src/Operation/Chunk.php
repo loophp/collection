@@ -42,7 +42,7 @@ final class Chunk extends AbstractOperation
                     foreach ($iterable as $value) {
                         $size = $sizesIterator->current();
 
-                        if (0 >= $size) {
+                        if (0 > $size) {
                             return;
                         }
 

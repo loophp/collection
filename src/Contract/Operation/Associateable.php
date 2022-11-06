@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
-use Iterator;
 use loophp\collection\Contract\Collection;
 
 /**
@@ -21,8 +20,8 @@ interface Associateable
      * @template UKey
      * @template U
      *
-     * @param callable(TKey=, T=, Iterator<TKey, T>=): UKey $callbackForKeys
-     * @param callable(T=, TKey=, Iterator<TKey, T>=): U $callbackForValues
+     * @param callable(TKey, T, iterable<TKey, T>): UKey $callbackForKeys
+     * @param callable(T, TKey, iterable<TKey, T>): U $callbackForValues
      *
      * @return Collection<UKey, U>
      */

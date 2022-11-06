@@ -18,7 +18,7 @@ interface TakeWhileable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#takewhile
      *
-     * @param callable(T=, TKey=, iterable<TKey, T>=): bool ...$callbacks
+     * @param callable(T, TKey, iterable<TKey, T>): bool ...$callbacks
      *
      * @return Collection<TKey, T>
      */
