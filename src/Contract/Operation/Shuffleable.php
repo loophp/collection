@@ -19,5 +19,5 @@ interface Shuffleable
      *
      * @return Collection<TKey, T>
      */
-    public function shuffle(): Collection;
+    public function shuffle(?int $seed = null): Collection;
 }
