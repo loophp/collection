@@ -28,7 +28,7 @@ final class Combinate extends AbstractOperation
                  * @return Generator<array<int, T>>
                  */
                 static function (array $dataset, int $length) use (&$getCombinations): Generator {
-                    for ($i = 0; count($dataset) - $length > $i; ++$i) {
+                    for ($i = 0; count($dataset) - $length >= $i; ++$i) {
                         if (1 === $length) {
                             yield [$dataset[$i]];
 
