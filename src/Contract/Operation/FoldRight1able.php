@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
-use Iterator;
-
 /**
  * @template TKey
  * @template T
@@ -15,9 +13,9 @@ interface FoldRight1able
     /**
      * @template V
      *
-     * @param callable(T|V, T, TKey, Iterator<TKey, T>): (T|V) $callback
+     * @param callable((T|V), T, TKey, iterable<TKey, T>): V $callback
      *
-     * @return T|V|null
+     * @return V
      */
     public function foldRight1(callable $callback);
 }

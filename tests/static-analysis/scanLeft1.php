@@ -8,11 +8,7 @@ use loophp\collection\Collection;
 use loophp\collection\Contract\Collection as CollectionInterface;
 
 $concat = static fn (string $carry, string $string): string => sprintf('%s%s', $carry, $string);
-$toString =
-    /**
-     * @param int|string $carry
-     */
-    static fn ($carry, int $value): string => sprintf('%s', $value);
+$toString = static fn (int|string $carry, int $value): string => sprintf('%s', $value);
 
 /**
  * @param CollectionInterface<int, string> $collection
@@ -22,7 +18,7 @@ function scanLeft1_checkListString(CollectionInterface $collection): void
 }
 
 /**
- * @param CollectionInterface<int, int|string> $collection
+ * @param CollectionInterface<int, string> $collection
  */
 function scanLeft1_checkListOfSize1String(CollectionInterface $collection): void
 {

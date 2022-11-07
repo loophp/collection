@@ -22,7 +22,7 @@ function scanRight1_checkListString(CollectionInterface $collection): void
 }
 
 /**
- * @param CollectionInterface<int, int|string> $collection
+ * @param CollectionInterface<int, string> $collection
  */
 function scanRight1_checkListOfSize1String(CollectionInterface $collection): void
 {

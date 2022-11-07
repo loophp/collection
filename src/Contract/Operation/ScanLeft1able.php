@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
-use Iterator;
 use loophp\collection\Contract\Collection;
 
 /**
@@ -22,9 +21,9 @@ interface ScanLeft1able
      *
      * @template V
      *
-     * @param callable(T|V, T, TKey, Iterator<TKey, T>): (T|V) $callback
+     * @param callable((T|V), T, TKey, iterable<TKey, T>): V $callback
      *
-     * @return Collection<int|TKey, T|V>
+     * @return Collection<int|TKey, V>
      */
     public function scanLeft1(callable $callback): Collection;
 }

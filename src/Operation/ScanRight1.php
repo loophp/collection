@@ -18,18 +18,18 @@ final class ScanRight1 extends AbstractOperation
     /**
      * @template V
      *
-     * @return Closure(callable(T|V, T, TKey, iterable<TKey, T>): (T|V)): Closure(iterable<TKey, T>): Generator<int|TKey, T|V>
+     * @return Closure(callable((T|V), T, TKey, iterable<TKey, T>): V): Closure(iterable<TKey, T>): Generator<int|TKey, V>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable(T|V, T, TKey, iterable<TKey, T>): (T|V) $callback
+             * @param callable((T|V), T, TKey, iterable<TKey, T>): V $callback
              *
-             * @return Closure(iterable<TKey, T>): Generator<int|TKey, T|V>
+             * @return Closure(iterable<TKey, T>): Generator<int|TKey, V>
              */
             static function (callable $callback): Closure {
-                /** @var Closure(iterable<TKey, T>): Generator<int|TKey, T|V> $pipe */
+                /** @var Closure(iterable<TKey, T>): Generator<int|TKey, V> $pipe */
                 $pipe = (new Pipe())()(
                     (new Reverse())(),
                     (new ScanLeft1())()($callback),
