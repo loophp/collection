@@ -16,13 +16,13 @@ use Generator;
 final class Compare extends AbstractOperation
 {
     /**
-     * @return Closure(callable(T, T): T): Closure(iterable<TKey, T>): Generator<TKey, T>
+     * @return Closure(callable(T, T, TKey, iterable<TKey, T>): T): Closure(iterable<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable(T, T): T $comparator
+             * @param callable(T, T, TKey, iterable<TKey, T>): T $comparator
              *
              * @return Closure(iterable<TKey, T>): Generator<TKey,T>
              */

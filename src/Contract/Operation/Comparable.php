@@ -24,7 +24,7 @@ interface Comparable
      *
      * @template V
      *
-     * @param callable(T, T): T $comparator
+     * @param callable(T, T, TKey, iterable<TKey, T>): T $comparator
      * @param V $default
      *
      * @return T|V
