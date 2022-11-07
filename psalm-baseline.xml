@@ -11,6 +11,24 @@
       <code>CollectionInterface</code>
     </InvalidReturnType>
   </file>
+  <file src="src/CollectionDecorator.php">
+    <InvalidArgument occurrences="4">
+      <code>foldLeft1</code>
+      <code>foldRight1</code>
+      <code>scanLeft1</code>
+      <code>scanRight1</code>
+    </InvalidArgument>
+    <InvalidReturnType occurrences="8">
+      <code>array</code>
+      <code>static</code>
+      <code>static</code>
+      <code>static</code>
+      <code>static</code>
+      <code>static</code>
+      <code>static</code>
+      <code>static</code>
+    </InvalidReturnType>
+  </file>
   <file src="src/Operation/All.php">
     <InvalidReturnStatement occurrences="1"/>
     <InvalidReturnType occurrences="1">
