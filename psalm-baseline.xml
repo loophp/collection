@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.29.0@7ec5ffbd5f68ae03782d7fd33fff0c45a69f95b3">
+<files psalm-version="4.30.0@d0bc6e25d89f649e4f36a534f330f8bb4643dd69">
   <file src="src/Collection.php">
-    <InvalidArgument occurrences="5">
-      <code>$callback</code>
+    <InvalidArgument occurrences="4">
       <code>$callback</code>
       <code>$callback</code>
       <code>$callback</code>
@@ -14,27 +13,12 @@
     <InvalidReturnType occurrences="1">
       <code>CollectionInterface</code>
     </InvalidReturnType>
-    <LessSpecificReturnStatement occurrences="1">
-      <code>new self((new Zip())()(...$iterables), [$this])</code>
-    </LessSpecificReturnStatement>
-    <MoreSpecificReturnType occurrences="1">
-      <code>CollectionInterface</code>
-    </MoreSpecificReturnType>
-    <PossiblyInvalidArgument occurrences="2">
-      <code>$callbackForKeys ?? $defaultCallback</code>
-      <code>$callbackForValues ?? $defaultCallback</code>
-    </PossiblyInvalidArgument>
   </file>
   <file src="src/Operation/All.php">
     <InvalidReturnStatement occurrences="1"/>
     <InvalidReturnType occurrences="1">
       <code>Closure(bool): Closure(iterable&lt;TKey, T&gt;): (Generator&lt;int, T&gt;|Generator&lt;TKey, T&gt;)</code>
     </InvalidReturnType>
-  </file>
-  <file src="src/Operation/Averages.php">
-    <InvalidScalarArgument occurrences="1">
-      <code>static fn (float $acc, float $value, int $key): float =&gt; ($acc * $key + $value) / ($key + 1)</code>
-    </InvalidScalarArgument>
   </file>
   <file src="src/Operation/Inits.php">
     <InvalidArgument occurrences="2">
