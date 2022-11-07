@@ -17,7 +17,7 @@ interface Untilable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#until
      *
-     * @param callable(T, TKey):bool ...$callbacks
+     * @param callable(T, TKey, iterable<TKey, T>):bool ...$callbacks
      *
      * @return Collection<TKey, T>
      */
