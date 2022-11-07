@@ -17,11 +17,6 @@
       <code>Closure(bool): Closure(iterable&lt;TKey, T&gt;): (Generator&lt;int, T&gt;|Generator&lt;TKey, T&gt;)</code>
     </InvalidReturnType>
   </file>
-  <file src="src/Operation/Averages.php">
-    <InvalidScalarArgument occurrences="1">
-      <code>static fn (float $acc, float $value, int $key): float =&gt; ($acc * $key + $value) / ($key + 1)</code>
-    </InvalidScalarArgument>
-  </file>
   <file src="src/Operation/Inits.php">
     <InvalidArgument occurrences="2">
       <code>[]</code>

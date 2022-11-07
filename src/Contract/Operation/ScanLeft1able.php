@@ -21,9 +21,9 @@ interface ScanLeft1able
      *
      * @template V
      *
-     * @param callable((T|V), T, TKey, iterable<TKey, T>): V $callback
+     * @param callable((T|V), T, TKey, iterable<TKey, T>): (T|V) $callback
      *
-     * @return Collection<int|TKey, V>
+     * @return Collection<TKey, T|V>
      */
     public function scanLeft1(callable $callback): Collection;
 }

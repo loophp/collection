@@ -51,7 +51,7 @@ parameters:
 			path: src/Collection.php
 
 		-
-			message: "#^Parameter \\#1 \\$ of closure expects callable\\(mixed, mixed, mixed, iterable\\)\\: mixed, callable\\(T\\|V, T, TKey, Iterator\\<TKey, T\\>\\)\\: V given\\.$#"
+			message: "#^Parameter \\#1 \\$ of closure expects callable\\(mixed, mixed, mixed, iterable\\)\\: mixed, callable\\(T\\|V, T, TKey, Iterator\\<TKey, T\\>\\)\\: T\\|V given\\.$#"
 			count: 1
 			path: src/Collection.php
 
@@ -319,3 +319,13 @@ parameters:
 			message: "#^Parameter \\#1 \\$callable of method loophp\\\\collection\\\\Collection\\<int,string\\>\\:\\:groupBy\\(\\) expects callable\\(string, int\\=\\)\\: int, Closure\\(string, int\\)\\: int given\\.$#"
 			count: 1
 			path: tests/static-analysis/groupbyable.php
+
+		-
+			message: "#^While loop condition is always true\\.$#"
+			count: 1
+			path: tests/static-analysis/scanLeft1.php
+
+		-
+			message: "#^While loop condition is always true\\.$#"
+			count: 1
+			path: tests/static-analysis/scanRight1.php

@@ -22,9 +22,9 @@ interface ScanRight1able
      *
      * @template V
      *
-     * @param callable((T|V), T, TKey, Iterator<TKey, T>): V $callback
+     * @param callable((T|V), T, TKey, Iterator<TKey, T>): (T|V) $callback
      *
-     * @return Collection<int|TKey, V>
+     * @return Collection<TKey, T|V>
      */
     public function scanRight1(callable $callback): Collection;
 }

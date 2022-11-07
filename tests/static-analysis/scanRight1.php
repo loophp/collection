@@ -22,12 +22,24 @@ function scanRight1_checkListString(CollectionInterface $collection): void
 }
 
 /**
- * @param CollectionInterface<int, string> $collection
+ * @param CollectionInterface<int, int|string> $collection
  */
 function scanRight1_checkListOfSize1String(CollectionInterface $collection): void
 {
 }
 
+$intGenerator =
+    /**
+     * @return Generator<int, int>
+     */
+    static function (): Generator {
+        while (true) {
+            $int = random_int(0, \PHP_INT_MAX);
+
+            yield $int => $int;
+        }
+    };
+
 // see Psalm bug: https://github.com/vimeo/psalm/issues/6108
 scanRight1_checkListString(Collection::fromIterable(range('a', 'c'))->scanRight1($concat));
-scanRight1_checkListOfSize1String(Collection::fromIterable([10])->scanRight1($toString));
+scanRight1_checkListOfSize1String(Collection::fromIterable($intGenerator())->scanRight1($toString));
