@@ -20,7 +20,7 @@ interface GroupByable
      *
      * @template UKey
      *
-     * @param callable(T, TKey=): UKey $callable
+     * @param callable(T, TKey): UKey $callable
      *
      * @return Collection<UKey, non-empty-list<T>>
      */
