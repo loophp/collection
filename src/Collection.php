@@ -450,17 +450,17 @@ final class Collection implements CollectionInterface
      * @param callable(mixed ...$parameters): iterable<NewTKey, NewT> $callable
      * @param iterable<int, mixed> $parameters
      *
-     * @return self<NewTKey, NewT>
+     * @return CollectionInterface<NewTKey, NewT>
      */
-    public static function fromCallable(callable $callable, iterable $parameters = []): self
+    public static function fromCallable(callable $callable, iterable $parameters = []): CollectionInterface
     {
         return new self($callable, $parameters);
     }
 
     /**
-     * @return self<int, string>
+     * @return CollectionInterface<int, string>
      */
-    public static function fromFile(string $filepath): self
+    public static function fromFile(string $filepath): CollectionInterface
     {
         return new self(
             static fn (): Generator => yield from new ResourceIteratorAggregate(fopen($filepath, 'rb'), true),
@@ -473,9 +473,9 @@ final class Collection implements CollectionInterface
      *
      * @param Generator<NewTKey, NewT> $generator
      *
-     * @return self<NewTKey, NewT>
+     * @return CollectionInterface<NewTKey, NewT>
      */
-    public static function fromGenerator(Generator $generator): self
+    public static function fromGenerator(Generator $generator): CollectionInterface
     {
         return new self(static fn (): Generator => yield from new NoRewindIterator($generator));
     }
@@ -486,9 +486,9 @@ final class Collection implements CollectionInterface
      *
      * @param iterable<NewTKey, NewT> $iterable
      *
-     * @return self<NewTKey, NewT>
+     * @return CollectionInterface<NewTKey, NewT>
      */
-    public static function fromIterable(iterable $iterable): self
+    public static function fromIterable(iterable $iterable): CollectionInterface
     {
         return new self(static fn (): Generator => yield from new IterableIteratorAggregate($iterable));
     }
@@ -496,17 +496,17 @@ final class Collection implements CollectionInterface
     /**
      * @param resource $resource
      *
-     * @return self<int, string>
+     * @return CollectionInterface<int, string>
      */
-    public static function fromResource($resource): self
+    public static function fromResource($resource): CollectionInterface
     {
         return new self(static fn (): Generator => yield from new ResourceIteratorAggregate($resource));
     }
 
     /**
-     * @return self<int, string>
+     * @return CollectionInterface<int, string>
      */
-    public static function fromString(string $string, string $delimiter = ''): self
+    public static function fromString(string $string, string $delimiter = ''): CollectionInterface
     {
         return new self(static fn (): Generator => yield from new StringIteratorAggregate($string, $delimiter));
     }
