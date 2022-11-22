@@ -17,7 +17,7 @@ interface Wrapable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#wrap
      *
-     * @return Collection<int, array<array-key, T>>
+     * @return Collection<int, array<TKey, T>>
      */
     public function wrap(): Collection;
 }
