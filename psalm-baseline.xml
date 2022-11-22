@@ -5,7 +5,7 @@
       <code>$callback</code>
     </InvalidArgument>
     <InvalidReturnStatement occurrences="1">
-      <code>new self((new Wrap())(), [$this])</code>
+      <code>new self((new Operation\Wrap())(), [$this])</code>
     </InvalidReturnStatement>
     <InvalidReturnType occurrences="1">
       <code>CollectionInterface</code>
