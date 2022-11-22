@@ -137,6 +137,11 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return (new Operation\Contains())()(...$values)($this)->current();
     }
 
+    public function convolve(iterable $iterable, ?callable $mult = null, ?callable $add = null): CollectionInterface
+    {
+        return new self((new Operation\Convolve())()($mult ?? static fn (int $a, int $b): int => $a * $b)($add ?? static fn (int $a, int $b): int => $a + $b)($iterable), [$this]);
+    }
+
     public function count(): int
     {
         return iterator_count($this);
