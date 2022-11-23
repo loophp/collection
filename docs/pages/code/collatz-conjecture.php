@@ -11,7 +11,7 @@ $collatz = static fn (int $value): array => 0 === $value % 2
     ? [$value / 2]
     : [$value * 3 + 1];
 
-$collection = Collection::unfold($collatz, 50)
+$collection = Collection::unfold($collatz, [50])
     ->unwrap()
     ->until(static fn (int $number): bool => 1 === $number);
 
