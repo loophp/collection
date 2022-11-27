@@ -13,6 +13,7 @@ use Traversable;
  * @template TKey
  * @template T
  *
+ * @template-extends IteratorAggregate<TKey, T>
  * @template-extends Operation\Allable<TKey, T>
  * @template-extends Operation\Appendable<TKey, T>
  * @template-extends Operation\Applyable<TKey, T>
@@ -128,9 +129,9 @@ use Traversable;
  * @template-extends Operation\Wordsable<TKey, T>
  * @template-extends Operation\Wrapable<TKey, T>
  * @template-extends Operation\Zipable<TKey, T>
- * @template-extends IteratorAggregate<TKey, T>
  */
 interface Collection extends
+    IteratorAggregate,
     Operation\Allable,
     Operation\Appendable,
     Operation\Applyable,
@@ -186,7 +187,6 @@ interface Collection extends
     Operation\Intersectkeysable,
     Operation\Intersperseable,
     Operation\IsEmptyable,
-    IteratorAggregate,
     Operation\Keyable,
     Operation\Keysable,
     Operation\Lastable,
