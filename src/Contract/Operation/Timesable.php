@@ -16,9 +16,9 @@ interface Timesable
      *
      * @template T
      *
-     * @param null|callable(int): (int|T) $callback
+     * @param callable(int): T $callback
      *
-     * @return Collection<int, int|T>
+     * @return Collection<int, T>
      */
     public static function times(int $number = 0, ?callable $callback = null): Collection;
 }

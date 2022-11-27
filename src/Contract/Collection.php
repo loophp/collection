@@ -94,7 +94,6 @@ use Traversable;
  * @template-extends Operation\Prependable<TKey, T>
  * @template-extends Operation\Productable<TKey, T>
  * @template-extends Operation\Randomable<TKey, T>
- * @template-extends Operation\Rangeable<TKey, T>
  * @template-extends Operation\Reduceable<TKey, T>
  * @template-extends Operation\Reductionable<TKey, T>
  * @template-extends Operation\Rejectable<TKey, T>
@@ -118,7 +117,6 @@ use Traversable;
  * @template-extends Operation\TakeWhileable<TKey, T>
  * @template-extends Operation\Transposeable<TKey, T>
  * @template-extends Operation\Truthyable<TKey, T>
- * @template-extends Operation\Unfoldable<TKey, T>
  * @template-extends Operation\Unlinesable<TKey, T>
  * @template-extends Operation\Unpackable<mixed, array{0: TKey, 1: T}>
  * @template-extends Operation\Unpairable<TKey, T>

@@ -8,10 +8,6 @@ use loophp\collection\Contract\Collection;
 
 use const INF;
 
-/**
- * @template TKey
- * @template T
- */
 interface Rangeable
 {
     /**
