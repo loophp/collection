@@ -362,12 +362,12 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
     }
 
     /**
-     * @template NewTKey
-     * @template NewT
+     * @template UKey
+     * @template U
      *
-     * @param iterable<NewTKey, NewT> $iterable
+     * @param iterable<UKey, U> $iterable
      *
-     * @return self<NewTKey, NewT>
+     * @return self<UKey, U>
      */
     public static function fromIterable(iterable $iterable): CollectionInterface
     {
@@ -614,6 +614,9 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return new self((new Operation\Random())()($seed ?? random_int(0, 1000))($size), [$this]);
     }
 
+    /**
+     * @return self<int, float>
+     */
     public static function range(float $start = 0.0, float $end = INF, float $step = 1.0): CollectionInterface
     {
         return new self((new Operation\Range())()($start)($end)($step));
@@ -756,6 +759,13 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return new self((new Operation\TakeWhile())()(...$callbacks), [$this]);
     }
 
+    /**
+     * @template U
+     *
+     * @param callable(int): U $callback
+     *
+     * @return Collection<int, U>
+     */
     public static function times(int $number = 0, ?callable $callback = null): CollectionInterface
     {
         return new self((new Operation\Times())()($number)($callback));
