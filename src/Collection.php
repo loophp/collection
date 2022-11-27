@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace loophp\collection;
 
 use Closure;
+use Countable;
 use Doctrine\Common\Collections\Criteria;
 use Generator;
+use JsonSerializable;
 use loophp\collection\Contract\Collection as CollectionInterface;
 use loophp\collection\Contract\Operation as OperationInterface;
 use loophp\collection\Utils\CallbacksArrayReducer;
@@ -32,7 +34,7 @@ use const PHP_INT_MAX;
  *
  * @implements \loophp\collection\Contract\Collection<TKey, T>
  */
-final class Collection implements CollectionInterface
+final class Collection implements CollectionInterface, JsonSerializable, Countable
 {
     /**
      * @var ClosureIteratorAggregate<TKey, T>
@@ -331,7 +333,7 @@ final class Collection implements CollectionInterface
      * @param callable(mixed ...$parameters): iterable<NewTKey, NewT> $callable
      * @param iterable<int, mixed> $parameters
      *
-     * @return CollectionInterface<NewTKey, NewT>
+     * @return self<NewTKey, NewT>
      */
     public static function fromCallable(callable $callable, iterable $parameters = []): CollectionInterface
     {
@@ -339,7 +341,7 @@ final class Collection implements CollectionInterface
     }
 
     /**
-     * @return CollectionInterface<int, string>
+     * @return self<int, string>
      */
     public static function fromFile(string $filepath): CollectionInterface
     {
@@ -354,7 +356,7 @@ final class Collection implements CollectionInterface
      *
      * @param Generator<NewTKey, NewT> $generator
      *
-     * @return CollectionInterface<NewTKey, NewT>
+     * @return self<NewTKey, NewT>
      */
     public static function fromGenerator(Generator $generator): CollectionInterface
     {
@@ -367,7 +369,7 @@ final class Collection implements CollectionInterface
      *
      * @param iterable<NewTKey, NewT> $iterable
      *
-     * @return CollectionInterface<NewTKey, NewT>
+     * @return self<NewTKey, NewT>
      */
     public static function fromIterable(iterable $iterable): CollectionInterface
     {
@@ -377,7 +379,7 @@ final class Collection implements CollectionInterface
     /**
      * @param resource $resource
      *
-     * @return CollectionInterface<int, string>
+     * @return self<int, string>
      */
     public static function fromResource($resource): CollectionInterface
     {
@@ -385,7 +387,7 @@ final class Collection implements CollectionInterface
     }
 
     /**
-     * @return CollectionInterface<int, string>
+     * @return self<int, string>
      */
     public static function fromString(string $string, string $delimiter = ''): CollectionInterface
     {
@@ -578,9 +580,9 @@ final class Collection implements CollectionInterface
                 /**
                  * @param iterable<TKey, T> $iterable
                  *
-                 * @return CollectionInterface<TKey, T>
+                 * @return Collection<TKey, T>
                  */
-                static fn (iterable $iterable): CollectionInterface => Collection::fromIterable($iterable)
+                static fn (iterable $iterable): Collection => Collection::fromIterable($iterable)
             );
     }
 
@@ -720,9 +722,9 @@ final class Collection implements CollectionInterface
                 /**
                  * @param iterable<TKey, T> $iterable
                  *
-                 * @return CollectionInterface<TKey, T>
+                 * @return Collection<TKey, T>
                  */
-                static fn (iterable $iterable): CollectionInterface => Collection::fromIterable($iterable)
+                static fn (iterable $iterable): Collection => Collection::fromIterable($iterable)
             );
     }
 

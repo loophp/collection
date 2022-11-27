@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract;
 
-use Countable;
 use IteratorAggregate;
-use JsonSerializable;
 use Traversable;
 
 /**
@@ -150,7 +148,6 @@ interface Collection extends
     Operation\Compactable,
     Operation\Comparable,
     Operation\Containsable,
-    Countable,
     Operation\Currentable,
     Operation\Cycleable,
     Operation\Diffable,
@@ -190,7 +187,6 @@ interface Collection extends
     Operation\Intersperseable,
     Operation\IsEmptyable,
     IteratorAggregate,
-    JsonSerializable,
     Operation\Keyable,
     Operation\Keysable,
     Operation\Lastable,

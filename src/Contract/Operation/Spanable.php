@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
-use loophp\collection\Contract\Collection;
+use loophp\collection\Collection;
+use loophp\collection\Contract\Collection as CollectionInterface;
 
 /**
  * @template TKey
@@ -23,7 +24,7 @@ interface Spanable
      *
      * @param callable(T, TKey, iterable<TKey, T>): bool ...$callbacks
      *
-     * @return Collection<int, Collection<TKey, T>>
+     * @return CollectionInterface<int, Collection<TKey, T>>
      */
-    public function span(callable ...$callbacks): Collection;
+    public function span(callable ...$callbacks): CollectionInterface;
 }

@@ -8,7 +8,7 @@ use loophp\collection\Collection;
 use loophp\collection\Contract\Collection as CollectionInterface;
 
 /**
- * @param CollectionInterface<int, CollectionInterface<int, int>> $collection
+ * @param CollectionInterface<int, Collection<int, int>> $collection
  */
 function partition_checkListCollectionInt(CollectionInterface $collection): void
 {
@@ -20,7 +20,7 @@ function partition_checkListInt(CollectionInterface $collection): void
 {
 }
 /**
- * @param CollectionInterface<int, CollectionInterface<string, string>> $collection
+ * @param CollectionInterface<int, Collection<string, string>> $collection
  */
 function partition_checkMapCollectionString(CollectionInterface $collection): void
 {
