@@ -30,8 +30,6 @@ use const PHP_INT_MAX;
  * @template TKey
  * @template T
  *
- * phpcs:disable Generic.Files.LineLength.TooLong
- *
  * @implements \loophp\collection\Contract\Collection<TKey, T>
  */
 final class Collection implements CollectionInterface, JsonSerializable, Countable
