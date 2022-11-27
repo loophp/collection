@@ -764,7 +764,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
      *
      * @param callable(int): U $callback
      *
-     * @return Collection<int, U>
+     * @return self<int, U>
      */
     public static function times(int $number = 0, ?callable $callback = null): CollectionInterface
     {
