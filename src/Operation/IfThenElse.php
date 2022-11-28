@@ -48,7 +48,7 @@ final class IfThenElse extends AbstractOperation
                              *
                              * @return T
                              */
-                            static fn (mixed $value, mixed $key, iterable $iterable): bool => $condition($value, $key, $iterable) ? $then($value, $key, $iterable) : $else($value, $key, $iterable)
+                            static fn (mixed $value, mixed $key, iterable $iterable): mixed => $condition($value, $key, $iterable) ? $then($value, $key, $iterable) : $else($value, $key, $iterable)
                         );
 
                         // Point free style.
