@@ -26,11 +26,11 @@ final class CallbacksArrayReducer
              */
             static fn (array $callbacks): Closure => static fn (mixed ...$parameters): bool => array_reduce(
                 $callbacks,
-                    /**
-                     * @param bool $carry
-                     * @param callable(mixed...): bool $callable
-                     */
-                    static fn (bool $carry, callable $callable): bool => $carry || $callable(...$parameters),
+                /**
+                 * @param bool $carry
+                 * @param callable(mixed...): bool $callable
+                 */
+                static fn (bool $carry, callable $callable): bool => $carry || $callable(...$parameters),
                 false
             );
     }
