@@ -50,7 +50,7 @@ final class Scale extends AbstractOperation
                                     /**
                                      * @param float|int $v
                                      */
-                                    static function ($v) use ($lowerBound, $upperBound, $wantedLowerBound, $wantedUpperBound, $base): float {
+                                    static function (mixed $v) use ($lowerBound, $upperBound, $wantedLowerBound, $wantedUpperBound, $base): float {
                                         $mx = 0.0 === $base ?
                                             ($v - $lowerBound) / ($upperBound - $lowerBound) :
                                             log($v - $lowerBound, $base) / log($upperBound - $lowerBound, $base);
@@ -65,11 +65,11 @@ final class Scale extends AbstractOperation
                                     /**
                                      * @param float|int $item
                                      */
-                                    static fn ($item): bool => $item > $lowerBound,
+                                    static fn (mixed $item): bool => $item > $lowerBound,
                                     /**
                                      * @param float|int $item
                                      */
-                                    static fn ($item): bool => $item <= $upperBound
+                                    static fn (mixed $item): bool => $item <= $upperBound
                                 );
 
                                 /** @var Closure(iterable<TKey, (float|int)>):(Generator<TKey, float|int>) $pipe */

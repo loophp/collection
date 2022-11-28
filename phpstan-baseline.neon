@@ -41,7 +41,7 @@ parameters:
 			path: src/Collection.php
 
 		-
-			message: "#^Method loophp\\\\collection\\\\Collection\\:\\:wrap\\(\\) should return loophp\\\\collection\\\\Contract\\\\Collection\\<int, array\\<\\(int&TKey\\)\\|\\(string&TKey\\), T\\>\\> but returns loophp\\\\collection\\\\Collection\\<int, array\\<int\\|string, mixed\\>\\>\\.$#"
+			message: "#^Method loophp\\\\collection\\\\Collection\\:\\:wrap\\(\\) should return loophp\\\\collection\\\\Contract\\\\Collection\\<int, array\\<\\(int&TKey\\)\\|\\(string&TKey\\), T\\>\\> but returns loophp\\\\collection\\\\Collection\\<int, array\\>\\.$#"
 			count: 1
 			path: src/Collection.php
 
@@ -96,7 +96,7 @@ parameters:
 			path: src/Collection.php
 
 		-
-			message: "#^Parameter \\#1 \\$callable of class loophp\\\\collection\\\\Collection constructor expects callable\\(\\.\\.\\.mixed\\)\\: iterable\\<int, array\\<int\\|string, mixed\\>\\>, Closure\\(iterable\\)\\: Generator\\<int, array\\<int\\|string, mixed\\>, mixed, mixed\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$callable of class loophp\\\\collection\\\\Collection constructor expects callable\\(\\.\\.\\.mixed\\)\\: iterable\\<int, array\\>, Closure\\(iterable\\)\\: Generator\\<int, array, mixed, mixed\\> given\\.$#"
 			count: 1
 			path: src/Collection.php
 

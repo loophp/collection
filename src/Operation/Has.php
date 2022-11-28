@@ -34,7 +34,7 @@ final class Has extends AbstractOperation
                              * @param TKey $key
                              * @param iterable<TKey, T> $iterable
                              */
-                            static fn ($value, $key, iterable $iterable): bool => $callback($value, $key, $iterable) === $value,
+                            static fn (mixed $value, mixed $key, iterable $iterable): bool => $callback($value, $key, $iterable) === $value,
                     $callbacks
                 )
             );

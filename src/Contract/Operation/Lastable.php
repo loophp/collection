@@ -23,5 +23,5 @@ interface Lastable
      *
      * @return T|V
      */
-    public function last($default = null);
+    public function last(mixed $default = null): mixed;
 }

@@ -31,7 +31,7 @@ final class Nullsy extends AbstractOperation
             /**
              * @param T $value
              */
-            static fn (int $index, $value): bool => in_array((bool) $value, self::VALUES, true)
+            static fn (int $index, mixed $value): bool => in_array((bool) $value, self::VALUES, true)
         );
     }
 }

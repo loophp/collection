@@ -23,5 +23,5 @@ interface Headable
      *
      * @return T|V
      */
-    public function head($default = null);
+    public function head(mixed $default = null): mixed;
 }

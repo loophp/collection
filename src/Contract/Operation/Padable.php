@@ -23,5 +23,5 @@ interface Padable
      *
      * @return Collection<int|TKey, T|U>
      */
-    public function pad(int $size, $value): Collection;
+    public function pad(int $size, mixed $value): Collection;
 }

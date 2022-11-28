@@ -19,9 +19,8 @@ interface Pluckable
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#pluck
      *
      * @param array<int, string>|array-key $pluck
-     * @param mixed|null $default
      *
      * @return Collection<int, iterable<int, T>|T>
      */
-    public function pluck($pluck, $default = null): Collection;
+    public function pluck(mixed $pluck, mixed $default = null): Collection;
 }

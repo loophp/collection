@@ -69,7 +69,7 @@ final class Product extends AbstractOperation
                                          *
                                          * @return Generator<int, array<array-key, T|U>>
                                          */
-                                        static fn ($x): Generator => yield [...$a, $x]
+                                        static fn (mixed $x): Generator => yield [...$a, $x]
                                     )($xs)
                                 )($as)
                         )([[]])([$iterable, ...$iterables])

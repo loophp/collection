@@ -27,7 +27,7 @@ final class Min extends AbstractOperation
              *
              * @return T
              */
-            static fn ($carry, $value) => min($value, $carry);
+            static fn (mixed $carry, mixed $value): mixed => min($value, $carry);
 
         return (new Compare())()($comparator);
     }

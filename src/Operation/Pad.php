@@ -30,7 +30,7 @@ final class Pad extends AbstractOperation
                  *
                  * @return Closure(iterable<TKey, T>): Generator<int|TKey, T>
                  */
-                static fn ($padValue): Closure =>
+                static fn (mixed $padValue): Closure =>
                     /**
                      * @param iterable<TKey, T> $iterable
                      *

@@ -35,7 +35,7 @@ final class Reduce extends AbstractOperation
                  *
                  * @return Closure(iterable<TKey, T>): Generator<TKey, W>
                  */
-                static function ($initial) use ($callback): Closure {
+                static function (mixed $initial) use ($callback): Closure {
                     /** @var Closure(iterable<TKey, T>): Generator<TKey, W> $pipe */
                     $pipe = (new Pipe())()(
                         (new Reduction())()($callback)($initial),

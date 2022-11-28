@@ -26,7 +26,7 @@ final class Unfold extends AbstractOperation
              *
              * @return Closure(callable(T...): list<T>): Closure(): Generator<int, list<T>>
              */
-            static fn ($parameters): Closure =>
+            static fn (array $parameters): Closure =>
                 /**
                  * @param callable(T...): list<T> $callback
                  *

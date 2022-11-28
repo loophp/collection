@@ -32,7 +32,7 @@ final class Current extends AbstractOperation
              *
              * @return Closure(iterable<TKey, T>): Generator<int, T|V>
              */
-            static function ($default) use ($index): Closure {
+            static function (mixed $default) use ($index): Closure {
                 /** @var Closure(iterable<TKey, T>): Generator<int, T|V> $pipe */
                 $pipe = (new Pipe())()(
                     (new Normalize())(),

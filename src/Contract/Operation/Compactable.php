@@ -21,5 +21,5 @@ interface Compactable
      *
      * @return Collection<TKey, T>
      */
-    public function compact(...$values): Collection;
+    public function compact(mixed ...$values): Collection;
 }

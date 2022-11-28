@@ -6,6 +6,7 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
+use Stringable;
 
 /**
  * @immutable
@@ -31,9 +32,9 @@ final class Implode extends AbstractOperation
                     (new Limit())()(-1)(1),
                     (new Reduce())()(
                         /**
-                         * @param string|T $item
+                         * @param string|Stringable $item
                          */
-                        static fn (string $carry, $item): string => $carry .= $item
+                        static fn (string $carry, string|Stringable $item): string => $carry .= (string) $item
                     )('')
                 );
 

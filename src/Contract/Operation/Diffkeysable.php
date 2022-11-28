@@ -23,5 +23,5 @@ interface Diffkeysable
      *
      * @return Collection<TKey, T>
      */
-    public function diffKeys(...$keys): Collection;
+    public function diffKeys(mixed ...$keys): Collection;
 }

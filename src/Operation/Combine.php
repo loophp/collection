@@ -30,7 +30,7 @@ final class Combine extends AbstractOperation
              *
              * @return Closure(iterable<TKey, T>): Generator<null|U, null|T>
              */
-            static function (...$keys): Closure {
+            static function (mixed ...$keys): Closure {
                 $buildMultipleIterable =
                     /**
                      * @param iterable<TKey, T> $iterable

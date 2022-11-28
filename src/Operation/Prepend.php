@@ -27,7 +27,7 @@ final class Prepend extends AbstractOperation
              *
              * @return Closure(iterable<TKey, T>): iterable<int|TKey, T>
              */
-            static fn (...$items): Closure =>
+            static fn (mixed ...$items): Closure =>
                 /**
                  * @param iterable<TKey, T> $iterable
                  *

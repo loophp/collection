@@ -28,12 +28,12 @@ final class DiffKeys extends AbstractOperation
              *
              * @return Closure(iterable<TKey, T>): Generator<TKey, T>
              */
-            static fn (...$keys): Closure => (new Filter())()(
+            static fn (mixed ...$keys): Closure => (new Filter())()(
                 /**
                  * @param T $value
                  * @param TKey $key
                  */
-                static fn ($value, $key): bool => !in_array($key, $keys, true)
+                static fn (mixed $value, mixed $key): bool => !in_array($key, $keys, true)
             );
     }
 }

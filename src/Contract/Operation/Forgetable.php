@@ -17,9 +17,7 @@ interface Forgetable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#forget
      *
-     * @param mixed ...$keys
-     *
      * @return Collection<TKey, T>
      */
-    public function forget(...$keys): Collection;
+    public function forget(mixed ...$keys): Collection;
 }

@@ -26,5 +26,5 @@ interface FoldRightable
      *
      * @return V|W
      */
-    public function foldRight(callable $callback, $initial);
+    public function foldRight(callable $callback, mixed $initial): mixed;
 }

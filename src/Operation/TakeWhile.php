@@ -44,7 +44,7 @@ final class TakeWhile extends AbstractOperation
                          * @param TKey $key
                          * @param iterable<TKey, T> $iterable
                          */
-                        static fn (int $index, $value, $key, iterable $iterable): bool => CallbacksArrayReducer::or()($callbacks)($value, $key, $iterable)
+                        static fn (int $index, mixed $value, mixed $key, iterable $iterable): bool => CallbacksArrayReducer::or()($callbacks)($value, $key, $iterable)
                     )($iteratorAggregate);
 
                     $size = (true === $every->current()) ? -1 : $every->key();

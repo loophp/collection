@@ -44,7 +44,7 @@ final class Since extends AbstractOperation
                          * @param TKey $key
                          * @param iterable<TKey, T> $iterable
                          */
-                        static fn (int $index, $value, $key, iterable $iterable): bool => !CallbacksArrayReducer::or()($callbacks)($value, $key, $iterable)
+                        static fn (int $index, mixed $value, mixed $key, iterable $iterable): bool => !CallbacksArrayReducer::or()($callbacks)($value, $key, $iterable)
                     )($iteratorAggregate);
 
                     if (false === $every->current()) {

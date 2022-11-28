@@ -27,5 +27,5 @@ interface ScanLeftable
      *
      * @return Collection<TKey, V|W>
      */
-    public function scanLeft(callable $callback, $initial): Collection;
+    public function scanLeft(callable $callback, mixed $initial): Collection;
 }

@@ -22,17 +22,15 @@ final class Column extends AbstractOperation
     {
         return
             /**
-             * @param mixed $column
-             *
              * @return Closure(iterable<TKey, T>): Generator<int, mixed>
              */
-            static function ($column): Closure {
+            static function (mixed $column): Closure {
                 $filterCallbackBuilder =
                     /**
                      * @param T $value
                      * @param TKey $key
                      */
-                    static fn ($value, $key): bool => $key === $column;
+                    static fn (mixed $value, mixed $key): bool => $key === $column;
 
                 /** @var Closure(iterable<TKey, T>): Generator<int, mixed> $pipe */
                 $pipe = (new Pipe())()(

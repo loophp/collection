@@ -23,5 +23,5 @@ interface Appendable
      *
      * @return Collection<int|TKey, T|U>
      */
-    public function append(...$items): Collection;
+    public function append(mixed ...$items): Collection;
 }

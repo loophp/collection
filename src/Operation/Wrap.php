@@ -16,20 +16,20 @@ use Generator;
 final class Wrap extends AbstractOperation
 {
     /**
-     * @return Closure(iterable<TKey, T>): Generator<int, array<TKey, T>>
+     * @return Closure(iterable<TKey, T>): Generator<int, array<array-key, T>>
      */
     public function __invoke(): Closure
     {
-        /** @var Closure(iterable<TKey, T>): Generator<int, array<TKey, T>> $pipe */
+        /** @var Closure(iterable<TKey, T>): Generator<int, array<array-key, T>> $pipe */
         $pipe = (new Pipe())()(
             (new Map())()(
                 /**
                  * @param T $value
-                 * @param TKey $key
+                 * @param array-key $key
                  *
-                 * @return array<TKey, T>
+                 * @return array<array-key, T>
                  */
-                static fn ($value, $key): array => [$key => $value]
+                static fn (mixed $value, int|string $key): array => [$key => $value]
             ),
             (new Normalize())()
         );

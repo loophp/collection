@@ -29,7 +29,7 @@ final class Intersperse extends AbstractOperation
              *
              * @return Closure(int): Closure(int): Closure(iterable<TKey, T>): Generator<int|TKey, T>
              */
-            static fn ($element): Closure =>
+            static fn (mixed $element): Closure =>
                 /**
                  * @return Closure(int): Closure(iterable<TKey, T>): Generator<int|TKey, T>
                  */

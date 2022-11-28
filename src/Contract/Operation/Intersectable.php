@@ -17,9 +17,7 @@ interface Intersectable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#intersect
      *
-     * @param mixed ...$values
-     *
      * @return Collection<TKey, T>
      */
-    public function intersect(...$values): Collection;
+    public function intersect(mixed ...$values): Collection;
 }

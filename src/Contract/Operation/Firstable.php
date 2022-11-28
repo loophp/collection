@@ -23,5 +23,5 @@ interface Firstable
      *
      * @return T|V
      */
-    public function first($default = null);
+    public function first(mixed $default = null): mixed;
 }

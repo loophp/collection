@@ -28,7 +28,7 @@ final class Find extends AbstractOperation
              *
              * @return Closure(callable(T, TKey, iterable<TKey, T>): bool ...): Closure(iterable<TKey, T>): Generator<TKey, T|V>
              */
-            static fn ($default): Closure =>
+            static fn (mixed $default): Closure =>
                 /**
                  * @param callable(T, TKey, iterable<TKey, T>): bool ...$callbacks
                  *

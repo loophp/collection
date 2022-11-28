@@ -30,7 +30,7 @@ final class Init extends AbstractOperation
              * @param TKey $key
              * @param CachingIteratorAggregate<TKey, T> $iterator
              */
-            static fn ($value, $key, CachingIteratorAggregate $iterator): bool => $iterator->hasNext()
+            static fn (mixed $value, mixed $key, CachingIteratorAggregate $iterator): bool => $iterator->hasNext()
         );
 
         // Point free style.

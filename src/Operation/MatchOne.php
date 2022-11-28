@@ -45,7 +45,7 @@ final class MatchOne extends AbstractOperation
                                  * @param T $value
                                  * @param TKey $key
                                  */
-                                static fn (int $index, $value, $key, iterable $iterable): bool => $callback($value, $key, $iterable) !== $matcher($value, $key, $iterable)
+                                static fn (int $index, mixed $value, mixed $key, iterable $iterable): bool => $callback($value, $key, $iterable) !== $matcher($value, $key, $iterable)
                             ),
                             (new Map())()(
                                 static fn (bool $i): bool => !$i

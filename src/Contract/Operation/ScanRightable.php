@@ -27,5 +27,5 @@ interface ScanRightable
      *
      * @return Collection<TKey, V|W>
      */
-    public function scanRight(callable $callback, $initial): Collection;
+    public function scanRight(callable $callback, mixed $initial): Collection;
 }

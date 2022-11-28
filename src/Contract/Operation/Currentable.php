@@ -21,5 +21,5 @@ interface Currentable
      *
      * @return T|V
      */
-    public function current(int $index = 0, $default = null);
+    public function current(int $index = 0, mixed $default = null): mixed;
 }

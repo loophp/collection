@@ -49,10 +49,8 @@ final class Dump extends AbstractOperation
                                 /**
                                  * @param TKey $key
                                  * @param T $value
-                                 *
-                                 * @return mixed
                                  */
-                                static fn (string $name, $key, $value) => $debugFunction(['name' => $name, 'key' => $key, 'value' => $value]);
+                                static fn (string $name, mixed $key, mixed $value): mixed => $debugFunction(['name' => $name, 'key' => $key, 'value' => $value]);
 
                             foreach ($iterable as $key => $value) {
                                 yield $key => $value;

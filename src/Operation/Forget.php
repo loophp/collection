@@ -28,13 +28,13 @@ final class Forget extends AbstractOperation
              *
              * @return Closure(iterable<TKey, T>): Generator<TKey, T>
              */
-            static function (...$keys): Closure {
+            static function (mixed ...$keys): Closure {
                 return (new Filter())()(
                     /**
                      * @param T $value
                      * @param TKey $key
                      */
-                    static fn ($value, $key): bool => !in_array($key, $keys, true)
+                    static fn (mixed $value, mixed $key): bool => !in_array($key, $keys, true)
                 );
             };
     }

@@ -35,7 +35,7 @@ final class FoldLeft extends AbstractOperation
                  *
                  * @return Closure(iterable<TKey, T>): Generator<TKey, V|W>
                  */
-                static function ($initial) use ($callback): Closure {
+                static function (mixed $initial) use ($callback): Closure {
                     /** @var Closure(iterable<TKey, T>): Generator<TKey, V|W> $pipe */
                     $pipe = (new Pipe())()(
                         (new ScanLeft())()($callback)($initial),

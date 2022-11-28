@@ -25,5 +25,5 @@ interface Reductionable
      *
      * @return Collection<TKey, W>
      */
-    public function reduction(callable $callback, $initial = null): Collection;
+    public function reduction(callable $callback, mixed $initial = null): Collection;
 }

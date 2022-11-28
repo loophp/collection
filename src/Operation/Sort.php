@@ -39,7 +39,7 @@ final class Sort extends AbstractOperation
                          * @param T|TKey $left
                          * @param T|TKey $right
                          */
-                        static fn ($left, $right): int => $left <=> $right;
+                        static fn (mixed $left, mixed $right): int => $left <=> $right;
 
                     return
                         /**

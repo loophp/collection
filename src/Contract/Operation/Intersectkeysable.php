@@ -17,9 +17,7 @@ interface Intersectkeysable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#intersectkeys
      *
-     * @param mixed ...$keys
-     *
      * @return Collection<TKey, T>
      */
-    public function intersectKeys(...$keys): Collection;
+    public function intersectKeys(mixed ...$keys): Collection;
 }

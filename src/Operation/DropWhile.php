@@ -44,7 +44,7 @@ final class DropWhile extends AbstractOperation
                      * @param TKey $key
                      * @param iterable<TKey, T> $iterable
                      */
-                    static fn (int $index, $value, $key, iterable $iterable): bool => CallbacksArrayReducer::or()($callbacks)($value, $key, $iterable)
+                    static fn (int $index, mixed $value, mixed $key, iterable $iterable): bool => CallbacksArrayReducer::or()($callbacks)($value, $key, $iterable)
                 )($iteratorAggregate);
 
                 $offset = (true === $every->current()) ? 0 : $every->key();

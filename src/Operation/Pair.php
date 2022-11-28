@@ -31,14 +31,14 @@ final class Pair extends AbstractOperation
                  *
                  * @return TKey|null
                  */
-                static fn ($key, array $value) => $value[0] ?? null
+                static fn (mixed $key, array $value): mixed => $value[0] ?? null
             )(
                 /**
                  * @param array{0: TKey, 1: T} $value
                  *
                  * @return T|null
                  */
-                static fn (array $value) => $value[1] ?? null
+                static fn (array $value): mixed => $value[1] ?? null
             )
         );
 

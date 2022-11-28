@@ -41,7 +41,7 @@ final class Filter extends AbstractOperation
                          *
                          * @return T
                          */
-                        static fn ($value) => $value;
+                        static fn (mixed $value): mixed => $value;
 
                     $callback = [] === $callbacks ?
                         $defaultCallback :

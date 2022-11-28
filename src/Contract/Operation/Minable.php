@@ -28,5 +28,5 @@ interface Minable
      *
      * @return T|V
      */
-    public function min($default = null);
+    public function min(mixed $default = null): mixed;
 }

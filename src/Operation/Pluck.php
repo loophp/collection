@@ -35,13 +35,13 @@ final class Pluck extends AbstractOperation
              *
              * @return Closure(T): Closure(iterable<TKey, T>): Generator<int, T|iterable<int, T>, mixed, void>
              */
-            static fn ($key): Closure =>
+            static fn (mixed $key): Closure =>
                 /**
                  * @param T $default
                  *
                  * @return Closure(iterable<TKey, T>): Generator<int, T|iterable<int, T>, mixed, void>
                  */
-                static fn ($default): Closure =>
+                static fn (mixed $default): Closure =>
                     /**
                      * @param iterable<TKey, T> $iterable
                      *
@@ -57,7 +57,7 @@ final class Pluck extends AbstractOperation
                              *
                              * @return iterable<int, T>|T
                              */
-                            static function (iterable $iterable, $target, array $key, $default = null) use (&$pick) {
+                            static function (iterable $iterable, mixed $target, array $key, mixed $default = null) use (&$pick) {
                                 while (null !== $segment = array_shift($key)) {
                                     if ('*' === $segment) {
                                         if (!is_iterable($target)) {

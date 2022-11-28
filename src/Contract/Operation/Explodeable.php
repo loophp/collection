@@ -19,9 +19,7 @@ interface Explodeable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#explode
      *
-     * @param mixed ...$explodes
-     *
      * @return Collection<int, list<T>>
      */
-    public function explode(...$explodes): Collection;
+    public function explode(mixed ...$explodes): Collection;
 }

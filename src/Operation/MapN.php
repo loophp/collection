@@ -33,18 +33,13 @@ final class MapN extends AbstractOperation
                 static function (iterable $iterable) use ($callbacks): Generator {
                     $callbackFactory =
                         /**
-                         * @param mixed $key
-                         *
                          * @return Closure(mixed, callable(mixed, mixed, iterable<TKey, T>): mixed): mixed
                          */
-                        static fn ($key): Closure =>
+                        static fn (mixed $key): Closure =>
                             /**
-                             * @param mixed $carry
                              * @param callable(mixed, mixed, iterable<TKey, T>): mixed $callback
-                             *
-                             * @return mixed
                              */
-                            static fn ($carry, callable $callback) => $callback($carry, $key, $iterable);
+                            static fn (mixed $carry, callable $callback): mixed => $callback($carry, $key, $iterable);
 
                     foreach ($iterable as $key => $value) {
                         yield $key => array_reduce($callbacks, $callbackFactory($key), $value);

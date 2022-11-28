@@ -28,11 +28,11 @@ final class Diff extends AbstractOperation
              *
              * @return Closure(iterable<TKey, T>): Generator<TKey, T>
              */
-            static fn (...$values): Closure => (new Filter())()(
+            static fn (mixed ...$values): Closure => (new Filter())()(
                 /**
                  * @param T $value
                  */
-                static fn ($value): bool => !in_array($value, $values, true)
+                static fn (mixed $value): bool => !in_array($value, $values, true)
             );
     }
 }

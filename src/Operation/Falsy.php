@@ -24,7 +24,7 @@ final class Falsy extends AbstractOperation
             /**
              * @param T $value
              */
-            static fn (int $index, $value): bool => !(bool) $value
+            static fn (int $index, mixed $value): bool => !(bool) $value
         );
     }
 }

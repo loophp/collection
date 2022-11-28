@@ -27,18 +27,18 @@ final class Explode extends AbstractOperation
              *
              * @return Closure(iterable<TKey, T>): Generator<int, list<T>>
              */
-            static function (...$explodes): Closure {
+            static function (mixed ...$explodes): Closure {
                 /** @var Closure(iterable<TKey, T>): Generator<int, list<T>> $split */
                 $split = (new Split())()(Splitable::REMOVE)(
                     ...array_map(
                         /**
                          * @param T $explode
                          */
-                        static fn ($explode): Closure =>
+                        static fn (mixed $explode): Closure =>
                             /**
                              * @param T $value
                              */
-                            static fn ($value): bool => $value === $explode,
+                            static fn (mixed $value): bool => $value === $explode,
                         $explodes
                     )
                 );

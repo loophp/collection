@@ -27,7 +27,7 @@ final class Flip extends AbstractOperation
              *
              * @return T
              */
-            static fn ($key, $value) => $value
+            static fn (mixed $key, mixed $value): mixed => $value
         )(
             /**
              * @param T $value
@@ -35,7 +35,7 @@ final class Flip extends AbstractOperation
              *
              * @return TKey
              */
-            static fn ($value, $key) => $key
+            static fn (mixed $value, mixed $key): mixed => $key
         );
     }
 }

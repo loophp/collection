@@ -28,7 +28,7 @@ final class Reverse extends AbstractOperation
              *
              * @return list<array{0: TKey, 1: T}>
              */
-            static fn (array $carry, $value, $key): array => [[$key, $value], ...$carry];
+            static fn (array $carry, mixed $value, mixed $key): array => [[$key, $value], ...$carry];
 
         /** @var Closure(iterable<TKey, T>): Generator<TKey, T> $pipe */
         $pipe = (new Pipe())()(

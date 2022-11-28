@@ -28,7 +28,7 @@ final class Compact extends AbstractOperation
              *
              * @return Closure(iterable<TKey, T>): Generator<TKey, T>
              */
-            static function (...$values): Closure {
+            static function (mixed ...$values): Closure {
                 $filterCallback =
                     /**
                      * @param non-empty-array<int, (null|array|int|bool|string|T)> $values
@@ -37,7 +37,7 @@ final class Compact extends AbstractOperation
                         /**
                          * @param T $value
                          */
-                        static fn ($value): bool => !in_array($value, $values, true);
+                        static fn (mixed $value): bool => !in_array($value, $values, true);
 
                 return (new Filter())()(
                     $filterCallback(

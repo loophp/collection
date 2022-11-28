@@ -28,11 +28,11 @@ final class Contains extends AbstractOperation
              *
              * @return Closure(iterable<TKey, T>): Generator<TKey, bool>
              */
-            static fn (...$values): Closure => (new MatchOne())()(static fn (): bool => true)(
+            static fn (mixed ...$values): Closure => (new MatchOne())()(static fn (): bool => true)(
                 /**
                  * @param T $value
                  */
-                static fn ($value): bool => in_array($value, $values, true)
+                static fn (mixed $value): bool => in_array($value, $values, true)
             );
     }
 }

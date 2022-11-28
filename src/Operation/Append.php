@@ -27,7 +27,7 @@ final class Append extends AbstractOperation
              *
              * @return Closure(iterable<TKey, T>): Generator<int|TKey, T>
              */
-            static fn (...$items): Closure =>
+            static fn (mixed ...$items): Closure =>
                 /**
                  * @param iterable<TKey, T> $iterable
                  *

@@ -24,5 +24,5 @@ interface Diffable
      *
      * @return Collection<TKey, T>
      */
-    public function diff(...$values): Collection;
+    public function diff(mixed ...$values): Collection;
 }

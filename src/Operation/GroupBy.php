@@ -43,7 +43,7 @@ final class GroupBy extends AbstractOperation
                          *
                          * @return non-empty-array<NewTKey, non-empty-list<T>>
                          */
-                        static function (array $collect, $value, $key) use ($callback): array {
+                        static function (array $collect, mixed $value, mixed $key) use ($callback): array {
                             $collect[$callback($value, $key)][] = $value;
 
                             return $collect;

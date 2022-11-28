@@ -36,7 +36,7 @@ final class Unwindow extends AbstractOperation
                  *
                  * @return T|null
                  */
-                static fn (Generator $iterable) => $iterable->current()
+                static fn (Generator $iterable): mixed => $iterable->current()
             ),
         );
 

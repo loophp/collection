@@ -10,6 +10,10 @@
     <InvalidReturnType occurrences="1">
       <code>CollectionInterface</code>
     </InvalidReturnType>
+    <PossiblyNullArgument occurrences="2">
+      <code>$default</code>
+      <code>$default</code>
+    </PossiblyNullArgument>
   </file>
   <file src="src/CollectionDecorator.php">
     <InvalidArgument occurrences="4">

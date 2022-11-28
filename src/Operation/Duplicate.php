@@ -44,7 +44,7 @@ final class Duplicate extends AbstractOperation
                          * @param T $value
                          * @param TKey $key
                          */
-                        static function ($value, $key) use ($comparatorCallback, $accessorCallback, $stack): bool {
+                        static function (mixed $value, mixed $key) use ($comparatorCallback, $accessorCallback, $stack): bool {
                             $every = (new Every())()(
                                 /**
                                  * @param array{0: TKey, 1: T} $keyValuePair

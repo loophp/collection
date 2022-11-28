@@ -17,5 +17,5 @@ interface Containsable
      *
      * @param T ...$values
      */
-    public function contains(...$values): bool;
+    public function contains(mixed ...$values): bool;
 }

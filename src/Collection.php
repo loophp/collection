@@ -53,7 +53,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return iterator_to_array((new Operation\All())()($normalize)($this));
     }
 
-    public function append(...$items): CollectionInterface
+    public function append(mixed ...$items): CollectionInterface
     {
         return new self((new Operation\Append())()(...$items), [$this]);
     }
@@ -67,13 +67,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         ?callable $callbackForKeys = null,
         ?callable $callbackForValues = null
     ): CollectionInterface {
-        $defaultCallback =
-            /**
-             * @param mixed $carry
-             *
-             * @return mixed
-             */
-            static fn ($carry) => $carry;
+        $defaultCallback = static fn (mixed $carry): mixed => $carry;
 
         return new self((new Operation\Associate())()($callbackForKeys ?? $defaultCallback)($callbackForValues ?? $defaultCallback), [$this]);
     }
@@ -113,7 +107,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return new self((new Operation\Collapse())(), [$this]);
     }
 
-    public function column($column): CollectionInterface
+    public function column(mixed $column): CollectionInterface
     {
         return new self((new Operation\Column())()($column), [$this]);
     }
@@ -123,22 +117,22 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return new self((new Operation\Combinate())()($length), [$this]);
     }
 
-    public function combine(...$keys): CollectionInterface
+    public function combine(mixed ...$keys): CollectionInterface
     {
         return new self((new Operation\Combine())()(...$keys), [$this]);
     }
 
-    public function compact(...$values): CollectionInterface
+    public function compact(mixed ...$values): CollectionInterface
     {
         return new self((new Operation\Compact())()(...$values), [$this]);
     }
 
-    public function compare(callable $comparator, $default = null)
+    public function compare(callable $comparator, $default = null): mixed
     {
         return (new self((new Operation\Compare())()($comparator), [$this]))->current(0, $default);
     }
 
-    public function contains(...$values): bool
+    public function contains(mixed ...$values): bool
     {
         return (new Operation\Contains())()(...$values)($this)->current();
     }
@@ -148,7 +142,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return iterator_count($this);
     }
 
-    public function current(int $index = 0, $default = null)
+    public function current(int $index = 0, $default = null): mixed
     {
         return (new Operation\Current())()($index)($default)($this)->current();
     }
@@ -158,12 +152,12 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return new self((new Operation\Cycle())(), [$this]);
     }
 
-    public function diff(...$values): CollectionInterface
+    public function diff(mixed ...$values): CollectionInterface
     {
         return new self((new Operation\Diff())()(...$values), [$this]);
     }
 
-    public function diffKeys(...$keys): CollectionInterface
+    public function diffKeys(mixed ...$keys): CollectionInterface
     {
         return new self((new Operation\DiffKeys())()(...$keys), [$this]);
     }
@@ -177,7 +171,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
              *
              * @return T
              */
-            static fn ($value, $key) => $value;
+            static fn (mixed $value, mixed $key): mixed => $value;
 
         $comparatorCallback ??=
             /**
@@ -185,11 +179,11 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
              *
              * @return Closure(T): bool
              */
-            static fn ($left): Closure =>
+            static fn (mixed $left): Closure =>
                 /**
                  * @param T $right
                  */
-                static fn ($right): bool => $left === $right;
+                static fn (mixed $right): bool => $left === $right;
 
         return new self((new Operation\Distinct())()($comparatorCallback)($accessorCallback), [$this]);
     }
@@ -218,7 +212,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
              *
              * @return T
              */
-            static fn ($value, $key) => $value;
+            static fn (mixed $value, mixed $key): mixed => $value;
 
         $comparatorCallback ??=
             /**
@@ -226,11 +220,11 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
              *
              * @return Closure(T): bool
              */
-            static fn ($left): Closure =>
+            static fn (mixed $left): Closure =>
                 /**
                  * @param T $right
                  */
-                static fn ($right): bool => $left === $right;
+                static fn (mixed $right): bool => $left === $right;
 
         return new self((new Operation\Duplicate())()($comparatorCallback)($accessorCallback), [$this]);
     }
@@ -250,11 +244,11 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
 
     public function every(callable ...$callbacks): bool
     {
-        return (new Operation\Every())()(static fn (int $index, $value, $key, iterable $iterable) => CallbacksArrayReducer::or()($callbacks)($value, $key, $iterable))($this)
+        return (new Operation\Every())()(static fn (int $index, mixed $value, mixed $key, iterable $iterable): bool => CallbacksArrayReducer::or()($callbacks)($value, $key, $iterable))($this)
             ->current();
     }
 
-    public function explode(...$explodes): CollectionInterface
+    public function explode(mixed ...$explodes): CollectionInterface
     {
         return new self((new Operation\Explode())()(...$explodes), [$this]);
     }
@@ -269,12 +263,12 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return new self((new Operation\Filter())()(...$callbacks), [$this]);
     }
 
-    public function find($default = null, callable ...$callbacks)
+    public function find(mixed $default = null, callable ...$callbacks): mixed
     {
         return (new Operation\Find())()($default)(...$callbacks)($this)->current();
     }
 
-    public function first($default = null)
+    public function first(mixed $default = null): mixed
     {
         return (new self((new Operation\First())(), [$this]))->current(0, $default);
     }
@@ -294,27 +288,27 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return new self((new Operation\Flip())(), [$this]);
     }
 
-    public function foldLeft(callable $callback, $initial)
+    public function foldLeft(callable $callback, mixed $initial): mixed
     {
         return (new self((new Operation\FoldLeft())()($callback)($initial), [$this]))->current();
     }
 
-    public function foldLeft1(callable $callback)
+    public function foldLeft1(callable $callback): mixed
     {
         return (new self((new Operation\FoldLeft1())()($callback), [$this]))->current();
     }
 
-    public function foldRight(callable $callback, $initial)
+    public function foldRight(callable $callback, mixed $initial): mixed
     {
         return (new self((new Operation\FoldRight())()($callback)($initial), [$this]))->current();
     }
 
-    public function foldRight1(callable $callback)
+    public function foldRight1(callable $callback): mixed
     {
         return (new self((new Operation\FoldRight1())()($callback), [$this]))->current();
     }
 
-    public function forget(...$keys): CollectionInterface
+    public function forget(mixed ...$keys): CollectionInterface
     {
         return new self((new Operation\Forget())()(...$keys), [$this]);
     }
@@ -392,7 +386,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return new self(static fn (): Generator => yield from new StringIteratorAggregate($string, $delimiter));
     }
 
-    public function get($key, $default = null)
+    public function get(mixed $key, mixed $default = null): mixed
     {
         return (new self((new Operation\Get())()($key)($default), [$this]))->current(0, $default);
     }
@@ -420,7 +414,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return (new Operation\Has())()(...$callbacks)($this)->current();
     }
 
-    public function head($default = null)
+    public function head(mixed $default = null): mixed
     {
         return (new self((new Operation\Head())(), [$this]))->current(0, $default);
     }
@@ -433,7 +427,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
              *
              * @return T
              */
-            static fn ($value) => $value;
+            static fn (mixed $value): mixed => $value;
 
         return new self((new Operation\IfThenElse())()($condition)($then)($else ?? $identity), [$this]);
     }
@@ -453,17 +447,17 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return new self((new Operation\Inits())(), [$this]);
     }
 
-    public function intersect(...$values): CollectionInterface
+    public function intersect(mixed ...$values): CollectionInterface
     {
         return new self((new Operation\Intersect())()(...$values), [$this]);
     }
 
-    public function intersectKeys(...$keys): CollectionInterface
+    public function intersectKeys(mixed ...$keys): CollectionInterface
     {
         return new self((new Operation\IntersectKeys())()(...$keys), [$this]);
     }
 
-    public function intersperse($element, int $every = 1, int $startAt = 0): CollectionInterface
+    public function intersperse(mixed $element, int $every = 1, int $startAt = 0): CollectionInterface
     {
         return new self((new Operation\Intersperse())()($element)($every)($startAt), [$this]);
     }
@@ -481,7 +475,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return $this->all(false);
     }
 
-    public function key(int $index = 0)
+    public function key(int $index = 0): mixed
     {
         return (new Operation\Key())()($index)($this)->current();
     }
@@ -491,7 +485,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return new self((new Operation\Keys())(), [$this]);
     }
 
-    public function last($default = null)
+    public function last(mixed $default = null): mixed
     {
         return (new self((new Operation\Last())(), [$this]))->current(0, $default);
     }
@@ -526,7 +520,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return new self((new Operation\Matching())()($criteria), [$this]);
     }
 
-    public function max($default = null)
+    public function max(mixed $default = null): mixed
     {
         return (new self((new Operation\Max())(), [$this]))->current(0, $default);
     }
@@ -536,7 +530,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return new self((new Operation\Merge())()(...$sources), [$this]);
     }
 
-    public function min($default = null)
+    public function min(mixed $default = null): mixed
     {
         return (new self((new Operation\Min())(), [$this]))->current(0, $default);
     }
@@ -561,7 +555,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return new self((new Operation\Pack())(), [$this]);
     }
 
-    public function pad(int $size, $value): CollectionInterface
+    public function pad(int $size, mixed $value): CollectionInterface
     {
         return new self((new Operation\Pad())()($size)($value), [$this]);
     }
@@ -594,12 +588,12 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return new self((new Operation\Pipe())()(...$callbacks), [$this]);
     }
 
-    public function pluck($pluck, $default = null): CollectionInterface
+    public function pluck(mixed $pluck, mixed $default = null): CollectionInterface
     {
         return new self((new Operation\Pluck())()($pluck)($default), [$this]);
     }
 
-    public function prepend(...$items): CollectionInterface
+    public function prepend(mixed ...$items): CollectionInterface
     {
         return new self((new Operation\Prepend())()(...$items), [$this]);
     }
@@ -622,12 +616,12 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return new self((new Operation\Range())()($start)($end)($step));
     }
 
-    public function reduce(callable $callback, $initial = null)
+    public function reduce(callable $callback, mixed $initial = null): mixed
     {
         return (new self((new Operation\Reduce())()($callback)($initial), [$this]))->current();
     }
 
-    public function reduction(callable $callback, $initial = null): CollectionInterface
+    public function reduction(callable $callback, mixed $initial = null): CollectionInterface
     {
         return new self((new Operation\Reduction())()($callback)($initial), [$this]);
     }
@@ -656,12 +650,12 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
              *
              * @return Closure(T, TKey): bool
              */
-            static fn ($leftValue, $leftKey): Closure =>
+            static fn (mixed $leftValue, mixed $leftKey): Closure =>
                 /**
                  * @param T $rightValue
                  * @param TKey $rightKey
                  */
-                static fn ($rightValue, $rightKey): bool => $leftValue === $rightValue && $leftKey === $rightKey;
+                static fn (mixed $rightValue, mixed $rightKey): bool => $leftValue === $rightValue && $leftKey === $rightKey;
 
         return (new Operation\Same())()($other)($comparatorCallback)($this)->current();
     }
@@ -676,7 +670,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return new self((new Operation\Scale())()($lowerBound)($upperBound)($wantedLowerBound)($wantedUpperBound)($base), [$this]);
     }
 
-    public function scanLeft(callable $callback, $initial): CollectionInterface
+    public function scanLeft(callable $callback, mixed $initial): CollectionInterface
     {
         return new self((new Operation\ScanLeft())()($callback)($initial), [$this]);
     }
@@ -686,7 +680,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return new self((new Operation\ScanLeft1())()($callback), [$this]);
     }
 
-    public function scanRight(callable $callback, $initial): CollectionInterface
+    public function scanRight(callable $callback, mixed $initial): CollectionInterface
     {
         return new self((new Operation\ScanRight())()($callback)($initial), [$this]);
     }

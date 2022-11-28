@@ -28,7 +28,7 @@ final class Transpose extends AbstractOperation
              *
              * @return TKey
              */
-            static fn (array $key) => reset($key);
+            static fn (array $key): mixed => reset($key);
 
         $callbackForValues =
             /**

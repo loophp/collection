@@ -47,7 +47,7 @@ abstract class CollectionDecorator implements CollectionInterface
         return $this->innerCollection->all($normalize);
     }
 
-    public function append(...$items): static
+    public function append(mixed ...$items): static
     {
         return new static($this->innerCollection->append(...$items));
     }
@@ -99,7 +99,7 @@ abstract class CollectionDecorator implements CollectionInterface
         return new static($this->innerCollection->collapse());
     }
 
-    public function column($column): static
+    public function column(mixed $column): static
     {
         return new static($this->innerCollection->column($column));
     }
@@ -109,27 +109,27 @@ abstract class CollectionDecorator implements CollectionInterface
         return new static($this->innerCollection->combinate($length));
     }
 
-    public function combine(...$keys): static
+    public function combine(mixed ...$keys): static
     {
         return new static($this->innerCollection->combine(...$keys));
     }
 
-    public function compact(...$values): static
+    public function compact(mixed ...$values): static
     {
         return new static($this->innerCollection->compact(...$values));
     }
 
-    public function compare(callable $comparator, $default = null): mixed
+    public function compare(callable $comparator, mixed $default = null): mixed
     {
         return $this->innerCollection->compare($comparator, $default);
     }
 
-    public function contains(...$values): bool
+    public function contains(mixed ...$values): bool
     {
         return $this->innerCollection->contains(...$values);
     }
 
-    public function current(int $index = 0, $default = null): mixed
+    public function current(int $index = 0, mixed $default = null): mixed
     {
         return $this->innerCollection->current($index, $default);
     }
@@ -139,12 +139,12 @@ abstract class CollectionDecorator implements CollectionInterface
         return new static($this->innerCollection->cycle());
     }
 
-    public function diff(...$values): static
+    public function diff(mixed ...$values): static
     {
         return new static($this->innerCollection->diff(...$values));
     }
 
-    public function diffKeys(...$keys): static
+    public function diffKeys(mixed ...$keys): static
     {
         return new static($this->innerCollection->diffKeys(...$keys));
     }
@@ -189,7 +189,7 @@ abstract class CollectionDecorator implements CollectionInterface
         return $this->innerCollection->every(...$callbacks);
     }
 
-    public function explode(...$explodes): static
+    public function explode(mixed ...$explodes): static
     {
         return new static($this->innerCollection->explode(...$explodes));
     }
@@ -204,12 +204,12 @@ abstract class CollectionDecorator implements CollectionInterface
         return new static($this->innerCollection->filter(...$callbacks));
     }
 
-    public function find($default = null, callable ...$callbacks): mixed
+    public function find(mixed $default = null, callable ...$callbacks): mixed
     {
         return $this->innerCollection->find($default, ...$callbacks);
     }
 
-    public function first($default = null): mixed
+    public function first(mixed $default = null): mixed
     {
         return $this->innerCollection->first($default);
     }
@@ -249,7 +249,7 @@ abstract class CollectionDecorator implements CollectionInterface
         return $this->innerCollection->foldRight1($callback);
     }
 
-    public function forget(...$keys): static
+    public function forget(mixed ...$keys): static
     {
         return new static($this->innerCollection->forget(...$keys));
     }
@@ -311,7 +311,7 @@ abstract class CollectionDecorator implements CollectionInterface
         return new static(Collection::fromString($string, $delimiter));
     }
 
-    public function get($key, $default = null): mixed
+    public function get(mixed $key, mixed $default = null): mixed
     {
         return $this->innerCollection->get($key, $default);
     }
@@ -339,7 +339,7 @@ abstract class CollectionDecorator implements CollectionInterface
         return $this->innerCollection->has(...$callbacks);
     }
 
-    public function head($default = null): mixed
+    public function head(mixed $default = null): mixed
     {
         return $this->innerCollection->head($default);
     }
@@ -364,17 +364,17 @@ abstract class CollectionDecorator implements CollectionInterface
         return new static($this->innerCollection->inits());
     }
 
-    public function intersect(...$values): static
+    public function intersect(mixed ...$values): static
     {
         return new static($this->innerCollection->intersect(...$values));
     }
 
-    public function intersectKeys(...$keys): static
+    public function intersectKeys(mixed ...$keys): static
     {
         return new static($this->innerCollection->intersectKeys(...$keys));
     }
 
-    public function intersperse($element, int $every = 1, int $startAt = 0): static
+    public function intersperse(mixed $element, int $every = 1, int $startAt = 0): static
     {
         return new static($this->innerCollection->intersperse($element, $every, $startAt));
     }
@@ -394,7 +394,7 @@ abstract class CollectionDecorator implements CollectionInterface
         return new static($this->innerCollection->keys());
     }
 
-    public function last($default = null): mixed
+    public function last(mixed $default = null): mixed
     {
         return $this->innerCollection->last($default);
     }
@@ -429,7 +429,7 @@ abstract class CollectionDecorator implements CollectionInterface
         return new static($this->innerCollection->matching($criteria));
     }
 
-    public function max($default = null): mixed
+    public function max(mixed $default = null): mixed
     {
         return $this->innerCollection->max($default);
     }
@@ -439,7 +439,7 @@ abstract class CollectionDecorator implements CollectionInterface
         return new static($this->innerCollection->merge(...$sources));
     }
 
-    public function min($default = null): mixed
+    public function min(mixed $default = null): mixed
     {
         return $this->innerCollection->min($default);
     }
@@ -464,7 +464,7 @@ abstract class CollectionDecorator implements CollectionInterface
         return new static($this->innerCollection->pack());
     }
 
-    public function pad(int $size, $value): static
+    public function pad(int $size, mixed $value): static
     {
         return new static($this->innerCollection->pad($size, $value));
     }
@@ -489,12 +489,12 @@ abstract class CollectionDecorator implements CollectionInterface
         return new static($this->innerCollection->pipe(...$callbacks));
     }
 
-    public function pluck($pluck, $default = null): static
+    public function pluck(mixed $pluck, mixed $default = null): static
     {
         return new static($this->innerCollection->pluck($pluck, $default));
     }
 
-    public function prepend(...$items): static
+    public function prepend(mixed ...$items): static
     {
         return new static($this->innerCollection->prepend(...$items));
     }
@@ -514,12 +514,12 @@ abstract class CollectionDecorator implements CollectionInterface
         return new static(Collection::range($start, $end, $step));
     }
 
-    public function reduce(callable $callback, $initial = null): mixed
+    public function reduce(callable $callback, mixed $initial = null): mixed
     {
         return $this->innerCollection->reduce($callback, $initial);
     }
 
-    public function reduction(callable $callback, $initial = null): static
+    public function reduction(callable $callback, mixed $initial = null): static
     {
         return new static($this->innerCollection->reduction($callback, $initial));
     }
@@ -554,7 +554,7 @@ abstract class CollectionDecorator implements CollectionInterface
         return new static($this->innerCollection->scale($lowerBound, $upperBound, $wantedLowerBound, $wantedUpperBound));
     }
 
-    public function scanLeft(callable $callback, $initial): static
+    public function scanLeft(callable $callback, mixed $initial): static
     {
         return new static($this->innerCollection->scanLeft($callback, $initial));
     }
@@ -564,7 +564,7 @@ abstract class CollectionDecorator implements CollectionInterface
         return new static($this->innerCollection->scanLeft1($callback));
     }
 
-    public function scanRight(callable $callback, $initial): static
+    public function scanRight(callable $callback, mixed $initial): static
     {
         return new static($this->innerCollection->scanRight($callback, $initial));
     }

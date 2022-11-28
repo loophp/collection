@@ -28,13 +28,13 @@ final class Get extends AbstractOperation
              *
              * @return Closure(V): Closure(iterable<TKey, T>): Generator<TKey, T|V>
              */
-            static fn ($keyToGet): Closure =>
+            static fn (mixed $keyToGet): Closure =>
                 /**
                  * @param V $default
                  *
                  * @return Closure(iterable<TKey, T>): Generator<TKey, T|V>
                  */
-                static function ($default) use ($keyToGet): Closure {
+                static function (mixed $default) use ($keyToGet): Closure {
                     /** @var Closure(iterable<TKey, T>): (Generator<TKey, T|V>) $pipe */
                     $pipe = (new Pipe())()(
                         (new Filter())()(
@@ -42,7 +42,7 @@ final class Get extends AbstractOperation
                              * @param T $value
                              * @param TKey $key
                              */
-                            static fn ($value, $key): bool => $key === $keyToGet
+                            static fn (mixed $value, mixed $key): bool => $key === $keyToGet
                         ),
                         (new Append())()($default),
                         (new Head())()

@@ -29,5 +29,5 @@ interface Comparable
      *
      * @return T|V
      */
-    public function compare(callable $comparator, $default = null);
+    public function compare(callable $comparator, mixed $default = null): mixed;
 }

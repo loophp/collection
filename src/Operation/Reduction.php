@@ -35,7 +35,7 @@ final class Reduction extends AbstractOperation
                  *
                  * @return Closure(iterable<TKey, T>): Generator<TKey, V>
                  */
-                static fn ($initial): Closure =>
+                static fn (mixed $initial): Closure =>
                     /**
                      * @param iterable<TKey, T> $iterable
                      *

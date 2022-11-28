@@ -45,18 +45,13 @@ final class AsyncMapN extends AbstractOperation
                 static function (iterable $iterable) use ($callbacks): Generator {
                     $callbackFactory =
                         /**
-                         * @param mixed $key
-                         *
                          * @return Closure(mixed, callable(mixed, mixed): mixed): mixed
                          */
-                        static fn ($key): Closure =>
+                        static fn (mixed $key): Closure =>
                             /**
-                             * @param mixed $carry
                              * @param callable(mixed, mixed): mixed $callback
-                             *
-                             * @return mixed
                              */
-                            static fn ($carry, callable $callback) => $callback($carry, $key);
+                            static fn (mixed $carry, callable $callback): mixed => $callback($carry, $key);
 
                     $callback =
                         /**

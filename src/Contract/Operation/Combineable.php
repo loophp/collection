@@ -23,5 +23,5 @@ interface Combineable
      *
      * @return Collection<U|null, T|null>
      */
-    public function combine(...$keys): Collection;
+    public function combine(mixed ...$keys): Collection;
 }

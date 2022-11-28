@@ -17,9 +17,7 @@ interface Columnable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#column
      *
-     * @param mixed $column
-     *
      * @return Collection<int, mixed>
      */
-    public function column($column): Collection;
+    public function column(mixed $column): Collection;
 }

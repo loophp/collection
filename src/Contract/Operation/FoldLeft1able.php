@@ -22,5 +22,5 @@ interface FoldLeft1able
      *
      * @return V
      */
-    public function foldLeft1(callable $callback);
+    public function foldLeft1(callable $callback): mixed;
 }

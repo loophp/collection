@@ -23,5 +23,5 @@ interface Intersperseable
      *
      * @return Collection<TKey, T|U>
      */
-    public function intersperse($element, int $every = 1, int $startAt = 0): Collection;
+    public function intersperse(mixed $element, int $every = 1, int $startAt = 0): Collection;
 }

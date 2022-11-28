@@ -27,7 +27,7 @@ final class Max extends AbstractOperation
              *
              * @return T
              */
-            static fn ($carry, $value) => max($value, $carry);
+            static fn (mixed $carry, mixed $value): mixed => max($value, $carry);
 
         return (new Compare())()($comparator);
     }
