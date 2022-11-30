@@ -51,6 +51,7 @@ final class Combinate extends AbstractOperation
                  * @return Generator<int, array<int, T>>
                  */
                 static function (iterable $iterable) use ($length, $getCombinations): Generator {
+                    /** @psalm-suppress InvalidOperand */
                     $dataset = [...$iterable];
 
                     if (0 < $length) {
