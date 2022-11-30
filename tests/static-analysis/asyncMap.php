@@ -60,7 +60,7 @@ asyncMap_checkListString(Collection::fromIterable([1, 2, 3])->asyncMap($square)-
 
 // VALID failures due to usage with wrong types
 
-/** @psalm-suppress InvalidScalarArgument @phpstan-ignore-next-line */
+/** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
 asyncMap_checkListInt(Collection::fromIterable(['foo' => 'bar'])->asyncMap($square));
-/** @psalm-suppress InvalidScalarArgument @phpstan-ignore-next-line */
+/** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
 asyncMap_checkMapString(Collection::fromIterable([1, 2, 3])->asyncMap($appendBar));
