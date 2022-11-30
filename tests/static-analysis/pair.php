@@ -42,7 +42,7 @@ pair_checkListInt(Collection::fromIterable([1, 2, 3])->pair());
 pair_checkMapString(Collection::fromIterable(range('a', 'b'))->pair());
 
 // VALID failures -> `pair` will use values as keys
-/** @psalm-suppress InvalidScalarArgument @phpstan-ignore-next-line */
+/** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
 pair_checkListNullableInt(Collection::fromIterable(['1', '2', '3'])->pair());
-/** @psalm-suppress InvalidScalarArgument @phpstan-ignore-next-line */
+/** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
 pair_checkMapNullableString(Collection::fromIterable(['foo' => 1, 'bar' => 2])->pair());
