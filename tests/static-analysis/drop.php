@@ -24,7 +24,7 @@ drop_checkList(Collection::fromIterable([1, 2, 3])->drop(1));
 drop_checkMap(Collection::fromIterable(['foo' => 'f', 'bar' => 'b'])->drop(2));
 
 // VALID failures -> `drop` does not change the key and value types
-/** @psalm-suppress InvalidScalarArgument @phpstan-ignore-next-line */
+/** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
 drop_checkList(Collection::fromIterable(['a', 'b', 'c'])->drop(1));
-/** @psalm-suppress InvalidScalarArgument @phpstan-ignore-next-line */
+/** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
 drop_checkMap(Collection::fromIterable(['foo' => 1, 'bar' => 2])->drop(3));
