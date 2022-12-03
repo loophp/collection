@@ -8,7 +8,8 @@ use loophp\collection\Collection;
 use loophp\collection\Contract\Collection as CollectionInterface;
 
 /**
- * @param CollectionInterface<int, array<int, int>> $collection
+ * @phpstan-param CollectionInterface<int, array<int, int>> $collection
+ * @psalm-param CollectionInterface<int, array<int, int<0, max>>> $collection
  */
 function wrap_checkList(CollectionInterface $collection): void
 {
