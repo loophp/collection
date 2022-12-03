@@ -14,7 +14,7 @@ $toString =
     /**
      * @param bool|string $carry
      */
-    static fn ($carry, int $value): string => sprintf('%s', $value);
+    static fn (bool|string $carry, int $value): string => sprintf('%s', $value);
 
 /**
  * @param CollectionInterface<int, int> $collection

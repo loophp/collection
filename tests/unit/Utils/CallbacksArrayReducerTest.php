@@ -104,14 +104,11 @@ final class CallbacksArrayReducerTest extends TestCase
 
     /**
      * @dataProvider dataProvider
-     *
-     * @param mixed $current
-     * @param mixed $key
      */
     public function testGeneric(
         array $callbacks,
-        $current,
-        $key,
+        mixed $current,
+        mixed $key,
         array $iterator,
         bool $expected
     ): void {

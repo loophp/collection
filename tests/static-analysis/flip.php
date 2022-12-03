@@ -27,7 +27,7 @@ function flip_checkStringInt(CollectionInterface $collection): void
 }
 
 $intIntGenerator = static function (): Generator {
-    yield mt_rand();
+    yield random_int(0, mt_getrandmax());
 };
 
 $intStringGenerator = static function (): Generator {

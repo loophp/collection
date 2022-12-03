@@ -107,12 +107,8 @@ trait GenericCollectionProviders
         yield [
             $operation,
             [
-                static function (int $key, int $value): int {
-                    return $key * 2;
-                },
-                static function (int $value, int $key): int {
-                    return $value * 2;
-                },
+                static fn (int $key, int $value): int => $key * 2,
+                static fn (int $value, int $key): int => $value * 2,
             ],
             $input,
             [
@@ -801,11 +797,8 @@ trait GenericCollectionProviders
         ];
 
         $cat = static fn (string $name) => new class($name) {
-            private string $name;
-
-            public function __construct(string $name)
+            public function __construct(private string $name)
             {
-                $this->name = $name;
             }
 
             public function name(): string
@@ -889,12 +882,8 @@ trait GenericCollectionProviders
         yield [
             $operation,
             [
-                static function (int $value): bool {
-                    return 3 > $value;
-                },
-                static function (int $value): bool {
-                    return 5 > $value;
-                },
+                static fn (int $value): bool => 3 > $value,
+                static fn (int $value): bool => 5 > $value,
             ],
             $input,
             [
@@ -912,9 +901,7 @@ trait GenericCollectionProviders
         yield [
             $operation,
             [
-                static function (int $value): bool {
-                    return 3 > $value;
-                },
+                static fn (int $value): bool => 3 > $value,
             ],
             $input,
             [
@@ -957,11 +944,8 @@ trait GenericCollectionProviders
         ];
 
         $cat = static fn (string $name) => new class($name) {
-            private string $name;
-
-            public function __construct(string $name)
+            public function __construct(private string $name)
             {
-                $this->name = $name;
             }
 
             public function name(): string
@@ -1357,9 +1341,7 @@ trait GenericCollectionProviders
         yield [
             $operation,
             [
-                static function ($value) {
-                    return $value % 2;
-                },
+                static fn ($value) => $value % 2,
             ],
             $input,
             [1 => 1, 3 => 3, 5 => 5, 7 => 7, 9 => 9],
@@ -1706,9 +1688,7 @@ trait GenericCollectionProviders
     {
         $operation = 'foldLeft1';
 
-        $callback = static function ($carry, $value) {
-            return $carry / $value;
-        };
+        $callback = static fn ($carry, $value) => $carry / $value;
 
         yield [
             $operation,
@@ -1790,9 +1770,7 @@ trait GenericCollectionProviders
     {
         $operation = 'foldRight1';
 
-        $callback = static function ($carry, $value) {
-            return $value / $carry;
-        };
+        $callback = static fn ($carry, $value) => $value / $carry;
 
         yield [
             $operation,
@@ -1937,9 +1915,7 @@ trait GenericCollectionProviders
         yield [
             $operation,
             [
-                static function (int $value, int $key) {
-                    return 0 === ($value % 2) ? 'even' : 'odd';
-                },
+                static fn (int $value, int $key) => 0 === ($value % 2) ? 'even' : 'odd',
             ],
             range(0, 20),
             [
@@ -2126,17 +2102,11 @@ trait GenericCollectionProviders
         $operation = 'ifThenElse';
         $input = range(1, 5);
 
-        $condition = static function ($value) {
-            return 0 === $value % 2;
-        };
+        $condition = static fn ($value) => 0 === $value % 2;
 
-        $then = static function ($value) {
-            return $value * $value;
-        };
+        $then = static fn ($value) => $value * $value;
 
-        $else = static function ($value) {
-            return $value + 2;
-        };
+        $else = static fn ($value) => $value + 2;
 
         yield [
             $operation,
@@ -3322,9 +3292,7 @@ trait GenericCollectionProviders
         yield [
             'reduction',
             [
-                static function ($carry, $item) {
-                    return $carry + $item;
-                },
+                static fn ($carry, $item) => $carry + $item,
                 0,
             ],
             range(1, 5),
@@ -3337,9 +3305,7 @@ trait GenericCollectionProviders
         $operation = 'reject';
         $input = array_merge([0, false], range(1, 10));
 
-        $callable = static function ($value) {
-            return $value % 2;
-        };
+        $callable = static fn ($value) => $value % 2;
 
         $callableWithKey = static fn (int $value, int $key): bool => $value % 2 === 0 && 4 < $key;
 
@@ -4228,11 +4194,9 @@ trait GenericCollectionProviders
     public function untilOperationProvider()
     {
         $operation = 'until';
-        $collatz = static function (int $initial = 1): int {
-            return 0 === $initial % 2 ?
-                $initial / 2 :
-                $initial * 3 + 1;
-        };
+        $collatz = static fn (int $initial = 1): int => 0 === $initial % 2 ?
+            $initial / 2 :
+            $initial * 3 + 1;
 
         $input = static function (int $from) use ($collatz) {
             while (true) {

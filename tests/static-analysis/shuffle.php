@@ -33,11 +33,11 @@ function shuffle_checkStringMap(CollectionInterface $collection): void
 }
 
 $intGenerator = static function (): Generator {
-    yield mt_rand();
+    yield random_int(0, mt_getrandmax());
 };
 
 $boolGenerator = static function (): Generator {
-    yield (0 === mt_rand() % 2) ? true : false;
+    yield (0 === random_int(0, mt_getrandmax()) % 2) ? true : false;
 };
 
 $stringGenerator = static function (): Generator {

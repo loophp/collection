@@ -156,14 +156,12 @@ final class CustomCollectionGenericOperationTest extends TestCase
      * @dataProvider truthyOperationProvider
      * @dataProvider unlinesOperationProvider
      * @dataProvider unwordsOperationProvider
-     *
-     * @param mixed $expected
      */
     public function testGenericScalar(
         string $operation,
         array $parameters,
         iterable $actual,
-        $expected
+        mixed $expected
     ): void {
         self::assertSame(
             $expected,

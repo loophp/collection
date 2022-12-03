@@ -36,7 +36,7 @@ unfold_checkListOfLists(Collection::unfold($plusTwo, -2));
  *
  * @phpstan-ignore-next-line
  */
-unfold_checkListOfLists(Collection::unfold($fib, 0, 1));
+unfold_checkListOfLists(Collection::unfold($fib, 0));
 
 // VALID use case -> `Pluck` can return various things so analysers cannot know the type is correct
 

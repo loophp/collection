@@ -12,7 +12,7 @@ $toString =
     /**
      * @param int|string $carry
      */
-    static fn ($carry, int $value): string => sprintf('%s', $value);
+    static fn (int|string $carry, int $value): string => sprintf('%s', $value);
 
 /**
  * @param CollectionInterface<int, string> $collection

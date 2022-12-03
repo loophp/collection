@@ -21,11 +21,11 @@ function wrap_checkMap(CollectionInterface $collection): void
 }
 
 $intIntGenerator = static function (): Generator {
-    yield mt_rand();
+    yield random_int(0, mt_getrandmax());
 };
 
 $stringBoolGenerator = static function (): Generator {
-    yield chr(random_int(0, 255)) => 0 === mt_rand() % 2;
+    yield chr(random_int(0, 255)) => 0 === random_int(0, mt_getrandmax()) % 2;
 };
 
 wrap_checkList(Collection::fromIterable($intIntGenerator())->wrap());

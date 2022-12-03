@@ -6,11 +6,8 @@ namespace tests\loophp\collection;
 
 final class NamedItem
 {
-    private string $name;
-
-    public function __construct(string $name)
+    public function __construct(private string $name)
     {
-        $this->name = $name;
     }
 
     public function name(): string

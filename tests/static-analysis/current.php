@@ -12,10 +12,7 @@ function current_checkNullable(?int $nullable): void
 function current_checkNonNullable(int $nonNullable): void
 {
 }
-/**
- * @param bool|int $default
- */
-function current_checkNonNullableWithDefaultValue($default): void
+function current_checkNonNullableWithDefaultValue(bool|int $default): void
 {
 }
 function current_checkEmptyWithDefaultValue(string $default): void
