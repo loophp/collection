@@ -11,9 +11,7 @@ $primesGenerator = static function (Iterator $iterator) use (&$primesGenerator):
 
     $iterator = new \CallbackFilterIterator(
         $iterator,
-        static function (int $a) use ($primeNumber): bool {
-            return 0 !== $a % $primeNumber;
-        }
+        static fn (int $a): bool => 0 !== $a % $primeNumber
     );
 
     $iterator->next();
@@ -29,14 +27,12 @@ $integerGenerator = static function (int $init, callable $succ) use (&$integerGe
     return yield from $integerGenerator($succ($init), $succ);
 };
 
-$limit = 1000000;
+$limit = 1_000_000;
 
 $primes = $primesGenerator(
     $integerGenerator(
         2,
-        static function (int $n): int {
-            return $n + 1;
-        }
+        static fn (int $n): int => $n + 1
     )
 );
 
@@ -45,9 +41,7 @@ $lazyPrimeNumbersCollection = Collection::fromIterable(
     $primesGenerator(
         $integerGenerator(
             2,
-            static function (int $n): int {
-                return $n + 1;
-            }
+            static fn (int $n): int => $n + 1
         )
     )
 );
@@ -62,9 +56,7 @@ $lazyPrimeNumbersCollection = Collection::fromIterable(
     $primesGenerator(
         $integerGenerator(
             2,
-            static function (int $n): int {
-                return $n + 1;
-            }
+            static fn (int $n): int => $n + 1
         )
     )
 );
@@ -73,9 +65,7 @@ $lazyPrimeNumbersCollection = Collection::fromIterable(
 $lazyTwinPrimeNumbersCollection = Collection::fromIterable($lazyPrimeNumbersCollection)
     ->zip($lazyPrimeNumbersCollection->tail())
     ->filter(
-        static function (array $chunk): bool {
-            return 2 === $chunk[1] - $chunk[0];
-        }
+        static fn (array $chunk): bool => 2 === $chunk[1] - $chunk[0]
     );
 
 foreach ($lazyTwinPrimeNumbersCollection->limit($limit) as $prime) {

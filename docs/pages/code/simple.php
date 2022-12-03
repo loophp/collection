@@ -40,9 +40,7 @@ $collection
 // Map data
 $collection
     ->map(
-        static function ($value, $key): string {
-            return sprintf('%s.%s', $value, $value);
-        }
+        static fn ($value, $key): string => sprintf('%s.%s', $value, $value)
     )
     ->all(); // ['A.A', 'B.B', 'C.C', 'D.D', 'E.E']
 
@@ -104,7 +102,7 @@ Collection::fromIterable(range('A', 'Z'))
     );
 
 // Generate 300 distinct random numbers between 0 and 1000
-$random = static fn (): array => [mt_rand() / mt_getrandmax()];
+$random = static fn (): array => [random_int(0, mt_getrandmax()) / mt_getrandmax()];
 
 Collection::unfold($random)
     ->unwrap()
@@ -146,15 +144,11 @@ $hugeFile = __DIR__ . '/vendor/composer/autoload_static.php';
 Collection::fromIterable($readFileLineByLine($hugeFile))
     // Add the line number at the end of the line, as comment.
     ->map(
-        static function ($value, $key): string {
-            return str_replace(\PHP_EOL, ' // line ' . $key . \PHP_EOL, $value);
-        }
+        static fn ($value, $key): string => str_replace(\PHP_EOL, ' // line ' . $key . \PHP_EOL, $value)
     )
     // Find public static fields or methods among the results.
     ->filter(
-        static function ($value, $key): bool {
-            return false !== mb_strpos(trim($value), 'public static');
-        }
+        static fn ($value, $key): bool => false !== mb_strpos(trim($value), 'public static')
     )
     // Drop the first result.
     ->drop(1)

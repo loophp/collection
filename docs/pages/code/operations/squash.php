@@ -26,7 +26,5 @@ $results = Collection::fromIterable(range(0, 100))
 // If no exception, you can continue the processing...
 $results = $results
     ->filter(
-        static function (string $document): bool {
-            return false !== strpos($document, 'foobar');
-        }
+        static fn (string $document): bool => str_contains($document, 'foobar')
     );

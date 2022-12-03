@@ -18,15 +18,15 @@ $collection = Collection::fromResource($fileResource)
     // Implode characters to create a line string
     ->map(static fn (array $characters): string => implode('', $characters))
     // Skip items until the string "require-dev" is found.
-    ->since(static fn ($line): bool => false !== strpos($line, 'require-dev'))
+    ->since(static fn ($line): bool => str_contains($line, 'require-dev'))
     // Skip items after the string "}" is found.
-    ->until(static fn ($line): bool => false !== strpos($line, '}'))
+    ->until(static fn ($line): bool => str_contains($line, '}'))
     // Re-index the keys
     ->normalize()
     // Filter out the first line and the last line.
     ->filter(
         static fn ($line, $index): bool => 0 !== $index,
-        static fn ($line): bool => false === strpos($line, '}')
+        static fn ($line): bool => !str_contains($line, '}')
     )
     // Trim remaining results and explode the string on ':'.
     ->map(

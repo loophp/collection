@@ -6,9 +6,7 @@ include __DIR__ . '/../../../vendor/autoload.php';
 
 use loophp\collection\Collection;
 
-$addition = static function (float $value1, float $value2): float {
-    return $value1 + $value2;
-};
+$addition = static fn (float $value1, float $value2): float => $value1 + $value2;
 
 $listInt = static function (int $init, callable $succ): Generator {
     yield $init;
@@ -18,19 +16,11 @@ $listInt = static function (int $init, callable $succ): Generator {
     }
 };
 
-$N = $listInt(1, static function (int $n): int {
-    return $n + 1;
-});
+$N = $listInt(1, static fn (int $n): int => $n + 1);
 
-$Y = static function (float $n): Closure {
-    return static function (int $x) use ($n): float {
-        return ($x ** ($n - 1)) * (\M_E ** (-$x));
-    };
-};
+$Y = static fn (float $n): Closure => static fn (int $x): float => ($x ** ($n - 1)) * (\M_E ** (-$x));
 
-$e = static function (float $value): bool {
-    return 10 ** -12 > $value;
-};
+$e = static fn (float $value): bool => 10 ** -12 > $value;
 
 // Find the factorial of this number. This is not bounded to integers!
 // $number = 3; // 2 * 2 => 4

@@ -28,14 +28,10 @@ $distribution = Collection::unfold($randomGenerator)
         }
     )
     ->groupBy(
-        static function ($value, $key) {
-            return $value;
-        }
+        static fn ($value, $key) => $value
     )
     ->map(
-        static function (array $value): int {
-            return count($value);
-        }
+        static fn (array $value): int => count($value)
     )
     ->sort(
         Sortable::BY_KEYS,

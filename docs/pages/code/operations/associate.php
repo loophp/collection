@@ -13,12 +13,8 @@ $input = range(1, 5);
 
 Collection::fromIterable($input)
     ->associate(
-        static function ($key, $value) {
-            return $key * 2;
-        },
-        static function ($value, $key) {
-            return $value * 3;
-        }
+        static fn ($key, $value) => $key * 2,
+        static fn ($value, $key) => $value * 3
     );
 
 // [
@@ -34,9 +30,7 @@ $input = range(1, 5);
 
 Collection::fromIterable($input)
     ->associate(
-        static function ($key, $value) {
-            return $key * 2;
-        }
+        static fn ($key, $value) => $key * 2
     );
 
 // [
@@ -53,9 +47,7 @@ $input = range(1, 5);
 Collection::fromIterable($input)
     ->associate(
         null,
-        static function ($value, $key) {
-            return $value * 3;
-        }
+        static fn ($value, $key) => $value * 3
     );
 
 // [

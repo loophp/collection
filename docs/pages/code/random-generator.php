@@ -7,7 +7,7 @@ include __DIR__ . '/../../../vendor/autoload.php';
 use loophp\collection\Collection;
 
 // Generate 300 distinct random numbers between 0 and 1000
-$random = static fn (): array => [mt_rand() / mt_getrandmax()];
+$random = static fn (): array => [random_int(0, mt_getrandmax()) / mt_getrandmax()];
 
 $random_numbers = Collection::unfold($random)
     ->unwrap()
