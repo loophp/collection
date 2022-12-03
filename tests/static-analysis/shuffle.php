@@ -9,6 +9,7 @@ use loophp\collection\Contract\Collection as CollectionInterface;
 
 /**
  * @phpstan-param CollectionInterface<int, int> $collection
+ *
  * @psalm-param CollectionInterface<int, int<0, max>> $collection
  */
 function shuffle_checkIntList(CollectionInterface $collection): void
