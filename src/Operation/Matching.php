@@ -50,7 +50,7 @@ final class Matching extends AbstractOperation
                 $offset = $criteria->getFirstResult();
                 $length = $criteria->getMaxResults();
 
-                $pipes[] = (new Limit())()(null !== $length ? $length : -1)(null !== $offset ? $offset : 0);
+                $pipes[] = (new Limit())()($length ?? -1)($offset ?? 0);
 
                 /** @var Closure(iterable<TKey, T>): Generator<TKey, T> $pipe */
                 $pipe = (new Pipe())()(...$pipes);

@@ -26,7 +26,7 @@ final class RSample extends AbstractOperation
              */
             static function (float $probability): Closure {
                 $filter = (new Filter())()(
-                    static fn (): bool => (mt_rand() / mt_getrandmax()) < $probability
+                    static fn (): bool => (random_int(0, mt_getrandmax()) / mt_getrandmax()) < $probability
                 );
 
                 // Point free style.

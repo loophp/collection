@@ -28,14 +28,12 @@ final class IntersectKeys extends AbstractOperation
              *
              * @return Closure(iterable<TKey, T>): Generator<TKey, T>
              */
-            static function (mixed ...$keys): Closure {
-                return (new Filter())()(
-                    /**
-                     * @param T $value
-                     * @param TKey $key
-                     */
-                    static fn (mixed $value, mixed $key): bool => in_array($key, $keys, true)
-                );
-            };
+            static fn (mixed ...$keys): Closure => (new Filter())()(
+                /**
+                 * @param T $value
+                 * @param TKey $key
+                 */
+                static fn (mixed $value, mixed $key): bool => in_array($key, $keys, true)
+            );
     }
 }

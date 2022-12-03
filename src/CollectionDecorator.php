@@ -30,16 +30,10 @@ use const PHP_INT_MAX;
 abstract class CollectionDecorator implements CollectionInterface
 {
     /**
-     * @var CollectionInterface<TKey, T>
+     * @param CollectionInterface<TKey, T> $innerCollection
      */
-    protected CollectionInterface $innerCollection;
-
-    /**
-     * @param CollectionInterface<TKey, T> $collection
-     */
-    public function __construct(CollectionInterface $collection)
+    public function __construct(protected CollectionInterface $innerCollection)
     {
-        $this->innerCollection = $collection;
     }
 
     public function all(bool $normalize = true): array

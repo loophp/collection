@@ -26,23 +26,19 @@ final class Random extends AbstractOperation
             /**
              * @return Closure(int): Closure(iterable<TKey, T>): Generator<TKey, T>
              */
-            static function (int $seed): Closure {
-                return
+            static fn (int $seed): Closure =>
+                /**
+                 * @return Closure(iterable<TKey, T>): Generator<TKey, T>
+                 */
+                static fn (int $size): Closure =>
                     /**
-                     * @return Closure(iterable<TKey, T>): Generator<TKey, T>
+                     * @param iterable<TKey, T> $iterable
+                     *
+                     * @return Generator<TKey, T>
                      */
-                    static function (int $size) use ($seed): Closure {
-                        return
-                            /**
-                             * @param iterable<TKey, T> $iterable
-                             *
-                             * @return Generator<TKey, T>
-                             */
-                            static function (iterable $iterable) use ($seed, $size): Generator {
-                                // Point free style.
-                                yield from new LimitIterableAggregate(new RandomIterableAggregate($iterable, $seed), 0, $size);
-                            };
+                    static function (iterable $iterable) use ($seed, $size): Generator {
+                        // Point free style.
+                        yield from new LimitIterableAggregate(new RandomIterableAggregate($iterable, $seed), 0, $size);
                     };
-            };
     }
 }

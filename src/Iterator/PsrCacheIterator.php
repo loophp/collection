@@ -19,22 +19,13 @@ use ReturnTypeWillChange;
  */
 final class PsrCacheIterator implements Iterator
 {
-    private CacheItemPoolInterface $cache;
-
-    /**
-     * @var Iterator<TKey, T>
-     */
-    private Iterator $iterator;
-
     private int $key = 0;
 
     /**
      * @param Iterator<TKey, T> $iterator
      */
-    public function __construct(Iterator $iterator, CacheItemPoolInterface $cache)
+    public function __construct(private Iterator $iterator, private CacheItemPoolInterface $cache)
     {
-        $this->iterator = $iterator;
-        $this->cache = $cache;
     }
 
     /**

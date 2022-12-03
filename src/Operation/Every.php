@@ -27,27 +27,19 @@ final class Every extends AbstractOperation
              *
              * @return Closure(iterable<TKey, T>): Generator<int, bool>
              */
-            static function (callable ...$predicates): Closure {
-                return
-                    /**
-                     * @param iterable<TKey, T> $iterable
-                     *
-                     * @return Generator<int, bool>
-                     */
-                    static function (iterable $iterable) use ($predicates): Generator {
-                        $predicate = CallbacksArrayReducer::or()($predicates);
+            static fn (callable ...$predicates): Closure => static function (iterable $iterable) use ($predicates): Generator {
+                $predicate = CallbacksArrayReducer::or()($predicates);
 
-                        /** @var Generator<int, array{0: TKey, 1:T}> $packed */
-                        $packed = (new Pack())()($iterable);
+                /** @var Generator<int, array{0: TKey, 1:T}> $packed */
+                $packed = (new Pack())()($iterable);
 
-                        foreach ($packed as $index => [$key, $value]) {
-                            if (false === $predicate($index, $value, $key, $iterable)) {
-                                return yield $index => false;
-                            }
-                        }
+                foreach ($packed as $index => [$key, $value]) {
+                    if (false === $predicate($index, $value, $key, $iterable)) {
+                        return yield $index => false;
+                    }
+                }
 
-                        yield true;
-                    };
+                yield true;
             };
     }
 }

@@ -24,13 +24,13 @@ final class Equals extends AbstractOperation
              *
              * @return Closure(iterable<mixed, mixed>): Generator<int, bool, mixed, false|mixed>
              */
-            static function (iterable $other): Closure {
+            static fn (iterable $other): Closure =>
                 /**
                  * @param iterable<mixed, mixed> $iterable
                  *
                  * @return Generator<int, bool, mixed, false|mixed>
                  */
-                return static function (iterable $iterable) use ($other): Generator {
+                static function (iterable $iterable) use ($other): Generator {
                     $otherAggregate = new IterableIteratorAggregate($other);
                     $iteratorAggregate = new IterableIteratorAggregate($iterable);
 
@@ -50,6 +50,5 @@ final class Equals extends AbstractOperation
 
                     yield from (new Every())()($containsCallback)($iteratorAggregate);
                 };
-            };
     }
 }
