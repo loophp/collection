@@ -60,7 +60,7 @@ flatMap_checkListString(Collection::fromIterable([1, 2, 3])->flatMap($square)->f
 
 // VALID failures due to usage with wrong types
 
-/** @psalm-suppress InvalidScalarArgument @phpstan-ignore-next-line */
+/** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
 flatMap_checkListInt(Collection::fromIterable(['foo' => 'bar'])->flatMap($square));
 /** @psalm-suppress InvalidScalarArgument,InvalidArgument @phpstan-ignore-next-line */
 flatMap_checkMapString(Collection::fromIterable([1, 2, 3])->flatMap($appendBar));

@@ -56,9 +56,9 @@ distinct_checkObjectList(Collection::fromIterable($catGenerator())->distinct(nul
 // VALID failures
 
 // `distinct` does not change the collection types TKey, T
-/** @psalm-suppress InvalidScalarArgument @phpstan-ignore-next-line */
+/** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
 distinct_checkIntList(Collection::fromIterable(['a', 'b', 'c'])->distinct());
-/** @psalm-suppress InvalidScalarArgument @phpstan-ignore-next-line */
+/** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
 distinct_checkMap(Collection::fromIterable(['foo' => 1, 'bar' => 2, 'baz' => 'f'])->distinct());
 
 // mixing object comparator parameter types

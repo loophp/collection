@@ -35,9 +35,9 @@ squash_checkList(Collection::fromIterable(['foo' => 1, 'bar' => 2])->normalize()
 squash_checkStringList(Collection::fromIterable(['foo' => 'f', 'bar' => 'b'])->normalize()->squash());
 
 // VALID failures -> `squash` does not change the key and value types
-/** @psalm-suppress InvalidScalarArgument @phpstan-ignore-next-line */
+/** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
 squash_checkList(Collection::fromIterable(['a', 'b', 'c'])->squash());
-/** @psalm-suppress InvalidScalarArgument @phpstan-ignore-next-line */
+/** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
 squash_checkStringList(Collection::fromIterable(['foo' => 'f', 'bar' => 'b'])->squash());
-/** @psalm-suppress InvalidScalarArgument @phpstan-ignore-next-line */
+/** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
 squash_checkMap(Collection::fromIterable(['foo' => 1, 'bar' => 2])->squash());

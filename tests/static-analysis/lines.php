@@ -25,5 +25,5 @@ lines_checkListString(Collection::fromIterable(range('a', 'e'))->lines());
 lines_checkListString(Collection::fromIterable(array_combine(range('a', 'c'), range('a', 'c')))->lines());
 
 // VALID failure -> `lines` returns collection of string
-/** @psalm-suppress InvalidScalarArgument @phpstan-ignore-next-line */
+/** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
 lines_checkListInt(Collection::fromIterable(range(0, 5))->lines());

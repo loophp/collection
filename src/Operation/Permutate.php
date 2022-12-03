@@ -31,6 +31,8 @@ final class Permutate extends AbstractOperation
              * @param iterable<TKey, T> $iterable
              *
              * @return Generator<int, list<T>>
+             *
+             * @psalm-suppress InvalidOperand
              */
             static fn (iterable $iterable): Generator => $getPermutations([...(new IterableIteratorAggregate($iterable))]);
     }

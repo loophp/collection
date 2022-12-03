@@ -45,10 +45,15 @@ unfold_checkList(Collection::unfold($fib)->pluck(0));
 
 // INVALID use case -> parameters of different types
 
-/** @psalm-suppress InvalidScalarArgument @phpstan-ignore-next-line */
+/**
+ * @psalm-suppress InvalidArgument
+ * @psalm-suppress InvalidScalarArgument
+ *
+ * @phpstan-ignore-next-line
+ */
 unfold_checkListOfLists(Collection::unfold(static fn (int $a = 0, float $b = 1): array => [$b, $a + $b]));
 
 // INVALID use case -> returning list of different type than the closure parameter
 
-/** @psalm-suppress InvalidScalarArgument @phpstan-ignore-next-line */
-unfold_checkListOfLists(Collection::unfold(static fn (int $n = 0): array => [(string) ($n + 2)]));
+/** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
+unfold_checkListOfLists(Collection::unfold(static fn (string $n = '0'): array => [(string) ((int) $n + 2)]));

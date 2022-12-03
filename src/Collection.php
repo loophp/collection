@@ -234,7 +234,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
      */
     public static function empty(): CollectionInterface
     {
-        return new self(static fn (): Generator => yield from []);
+        return self::fromIterable([]);
     }
 
     public function equals(iterable $other): bool

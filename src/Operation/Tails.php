@@ -32,6 +32,7 @@ final class Tails extends AbstractOperation
                 $data = [...$generator];
 
                 while ([] !== $data) {
+                    /** @psalm-suppress InvalidOperand */
                     yield [...(new Unpack())()($data)];
 
                     array_shift($data);
