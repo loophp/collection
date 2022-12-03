@@ -9,6 +9,7 @@ use loophp\collection\Contract\Collection as CollectionInterface;
 
 /**
  * @phpstan-param CollectionInterface<int, int> $collection
+ *
  * @psalm-param CollectionInterface<int<0, max>, int> $collection
  */
 function flip_checkIntInt(CollectionInterface $collection): void
