@@ -36,7 +36,7 @@
     },
     "require-dev": {
         "amphp/parallel-functions": "^1",
-        "doctrine/collections": "^1.6",
+        "doctrine/collections": "^2.0",
         "drupol/php-conventions": "^5",
         "infection/infection": "^0.26.0",
         "loophp/phpunit-iterable-assertions": "^1.0",
