@@ -3988,6 +3988,22 @@ trait GenericCollectionProviders
                 5 => [],
             ],
         ];
+
+        $input = [0 => 'A', 'b' => 'B', 'c' => 'C', 'd' => 'D', 'e' => 'E'];
+
+        yield [
+            $operation,
+            [],
+            $input,
+            [
+                0 => [0 => 'A', 'b' => 'B', 'c' => 'C', 'd' => 'D', 'e' => 'E'],
+                1 => ['b' => 'B', 'c' => 'C', 'd' => 'D', 'e' => 'E'],
+                2 => ['c' => 'C', 'd' => 'D', 'e' => 'E'],
+                3 => ['d' => 'D', 'e' => 'E'],
+                4 => ['e' => 'E'],
+                5 => [],
+            ],
+        ];
     }
 
     public function takeWhileOperationProvider()

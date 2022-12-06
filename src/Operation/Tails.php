@@ -6,7 +6,7 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use loophp\iterators\ConcatIterableAggregate;
+use loophp\iterators\IterableIteratorAggregate;
 use loophp\iterators\NormalizeIterableAggregate;
 use loophp\iterators\ReductionIterableAggregate;
 
@@ -32,8 +32,10 @@ final class Tails extends AbstractOperation
              * @return Generator<int, list<T>>
              */
             static function (iterable $iterable): Generator {
-                /** @var array<array-key, T> $generator */
-                $generator = iterator_to_array(new ConcatIterableAggregate([[0 => 0], $iterable]));
+                $generator = iterator_to_array((new IterableIteratorAggregate($iterable))->getIterator());
+                // We could use a value such as `false` or `0`, but it would
+                // be too complex to deal with S.A. annotations.
+                array_unshift($generator, current($generator));
 
                 yield from new NormalizeIterableAggregate(new ReductionIterableAggregate(
                     $generator,
