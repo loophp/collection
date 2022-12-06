@@ -3973,19 +3973,19 @@ trait GenericCollectionProviders
     public function tailsOperationProvider()
     {
         $operation = 'tails';
-        $input = range('A', 'E');
+        $input = array_combine(range('a', 'e'), range('A', 'E'));
 
         yield [
             $operation,
             [],
             $input,
             [
-                ['A', 'B', 'C', 'D', 'E'],
-                [0 => 'B', 1 => 'C', 2 => 'D', 3 => 'E'],
-                [0 => 'C', 1 => 'D', 2 => 'E'],
-                [0 => 'D', 1 => 'E'],
-                [0 => 'E'],
-                [],
+                0 => ['a' => 'A', 'b' => 'B', 'c' => 'C', 'd' => 'D', 'e' => 'E'],
+                1 => ['b' => 'B', 'c' => 'C', 'd' => 'D', 'e' => 'E'],
+                2 => ['c' => 'C', 'd' => 'D', 'e' => 'E'],
+                3 => ['d' => 'D', 'e' => 'E'],
+                4 => ['e' => 'E'],
+                5 => [],
             ],
         ];
     }

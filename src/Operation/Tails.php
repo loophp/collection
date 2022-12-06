@@ -7,6 +7,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use loophp\iterators\ConcatIterableAggregate;
+use loophp\iterators\NormalizeIterableAggregate;
 use loophp\iterators\ReductionIterableAggregate;
 
 use function array_slice;
@@ -31,15 +32,10 @@ final class Tails extends AbstractOperation
              * @return Generator<int, list<T>>
              */
             static function (iterable $iterable): Generator {
-                $iterator = new ConcatIterableAggregate([
-                    [0 => 0],
-                    $iterable,
-                ]);
-
                 /** @var array<array-key, T> $generator */
-                $generator = iterator_to_array((new Normalize())()($iterator));
+                $generator = iterator_to_array(new ConcatIterableAggregate([[0 => 0], $iterable]));
 
-                yield from new ReductionIterableAggregate(
+                yield from new NormalizeIterableAggregate(new ReductionIterableAggregate(
                     $generator,
                     /**
                      * @param list<T> $stack
@@ -48,7 +44,7 @@ final class Tails extends AbstractOperation
                      */
                     static fn (array $stack): array => array_slice($stack, 1),
                     $generator
-                );
+                ));
             };
     }
 }
