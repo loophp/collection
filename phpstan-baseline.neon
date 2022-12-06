@@ -86,7 +86,7 @@ parameters:
 			path: src/Collection.php
 
 		-
-			message: "#^Parameter \\#1 \\$callable of class loophp\\\\collection\\\\Collection constructor expects callable\\(\\.\\.\\.mixed\\)\\: iterable\\<int, array\\<int, mixed\\>\\>, Closure\\(iterable\\)\\: Generator\\<int, array\\<int, mixed\\>, mixed, void\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$callable of class loophp\\\\collection\\\\Collection constructor expects callable\\(\\.\\.\\.mixed\\)\\: iterable\\<int, array\\<int, mixed\\>\\>, Closure\\(iterable\\<\\(int\\|string\\), mixed\\>\\)\\: Generator\\<int, array\\<int, mixed\\>, mixed, mixed\\> given\\.$#"
 			count: 1
 			path: src/Collection.php
 

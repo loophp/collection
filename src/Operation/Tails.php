@@ -6,6 +6,10 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
+use loophp\iterators\ConcatIterableAggregate;
+use loophp\iterators\ReductionIterableAggregate;
+
+use function array_slice;
 
 /**
  * @immutable
@@ -16,29 +20,35 @@ use Generator;
 final class Tails extends AbstractOperation
 {
     /**
-     * @return Closure(iterable<TKey, T>): Generator<int, list<T>, mixed, void>
+     * @return Closure(iterable<array-key, T>): Generator<int, list<T>>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param iterable<TKey, T> $iterable
+             * @param iterable<array-key, T> $iterable
              *
-             * @return Generator<int, list<T>, mixed, void>
+             * @return Generator<int, list<T>>
              */
             static function (iterable $iterable): Generator {
-                /** @var Generator<int, array{0: TKey, 1: T}> $generator */
-                $generator = (new Pack())()($iterable);
-                $data = [...$generator];
+                $iterator = new ConcatIterableAggregate([
+                    [0 => 0],
+                    $iterable,
+                ]);
 
-                while ([] !== $data) {
-                    /** @psalm-suppress InvalidOperand */
-                    yield [...(new Unpack())()($data)];
+                /** @var array<array-key, T> $generator */
+                $generator = iterator_to_array((new Normalize())()($iterator));
 
-                    array_shift($data);
-                }
-
-                yield [];
+                yield from new ReductionIterableAggregate(
+                    $generator,
+                    /**
+                     * @param list<T> $stack
+                     *
+                     * @return list<T>
+                     */
+                    static fn (array $stack): array => array_slice($stack, 1),
+                    $generator
+                );
             };
     }
 }
