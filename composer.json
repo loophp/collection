@@ -16,6 +16,11 @@
             "email": "pol.dellaiera@protonmail.com",
             "homepage": "https://not-a-number.io",
             "role": "author"
+        },
+        {
+            "name": "Alex Gidei",
+            "homepage": "https://github.com/AlexandruGG",
+            "role": "maintainer"
         }
     ],
     "homepage": "https://github.com/loophp/collection",
@@ -36,15 +41,15 @@
     },
     "require-dev": {
         "amphp/parallel-functions": "^1",
-        "doctrine/collections": "^1.6",
+        "doctrine/collections": "^1.8 || ^2",
         "drupol/php-conventions": "^5",
         "infection/infection": "^0.26.0",
         "loophp/phpunit-iterable-assertions": "^1.0",
         "phpstan/phpstan-strict-rules": "^1.0",
         "phpunit/php-code-coverage": "^9.2",
         "phpunit/phpunit": "^9.5",
-        "psr/cache": "^1.0 || ^2.0",
-        "symfony/cache": "^5"
+        "psr/cache": "^2.0 || 3.0",
+        "symfony/cache": "^6"
     },
     "autoload": {
         "psr-4": {
