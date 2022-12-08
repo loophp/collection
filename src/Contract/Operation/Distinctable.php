@@ -34,5 +34,5 @@ interface Distinctable
      *
      * @return Collection<TKey, T>
      */
-    public function distinct(?callable $comparatorCallback = null, ?callable $accessorCallback = null, int $retries = 2^16): Collection;
+    public function distinct(?callable $comparatorCallback = null, ?callable $accessorCallback = null, int $retries = 2 ** 16): Collection;
 }

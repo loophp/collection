@@ -38,56 +38,41 @@ final class Distinct extends AbstractOperation
                  */
                 static function (callable $accessorCallback) use ($comparatorCallback): Closure {
                     return static function (int $retries) use ($accessorCallback, $comparatorCallback): Closure {
-                        /** @var ArrayIterator<int, array{0: TKey, 1: T}> $stack */
-                        $stack = new ArrayIterator();
-                    return static function (int $retries) use ($accessorCallback, $comparatorCallback): Closure {
-                        $accessorCallback = static fn (mixed $key, mixed $value): mixed => $accessorCallback($value, $key);
+                        return static function (iterable $iterable) use ($comparatorCallback, $accessorCallback, $retries): Generator {
+                            /** @var ArrayIterator<int, array{0: TKey, 1: T}> $stack */
+                            $stack = new ArrayIterator();
 
-                        /** @var ArrayIterator<int, array{0: TKey, 1: T}> $stack */
-                        $stack = new ArrayIterator();
+                            $accessorCallback = static fn (array $kv): mixed => $accessorCallback($kv[1], $kv[0]);
 
-                        $filter = (new Filter())()(
-                            static function (array $keyValuePair, Generator $generator) use ($comparatorCallback, $accessorCallback, $stack, &$retries): bool {
+                            $filter = static function (array $kvFilter, Generator $generator) use ($comparatorCallback, $accessorCallback, $stack, &$retries): bool {
                                 if (0 >= $retries) {
                                     $generator->send(InterruptableIterableIteratorAggregate::BREAK);
                                 }
 
-                                [$key, $value] = $keyValuePair;
-
                                 $every = (new Every())()(
                                     /**
-                                     * @param array{0: TKey, 1: T} $keyValuePair
+                                     * @param array{0: TKey, 1: T} $kv
                                      */
-                                    static fn (int $index, array $keyValuePair): bool => !$comparatorCallback($accessorCallback($value, $key))($accessorCallback($keyValuePair[1], $keyValuePair[0]))
+                                    static fn (int $_, array $kvEvery): bool => !$comparatorCallback($accessorCallback($kvFilter))($accessorCallback($kvEvery))
                                 )($stack);
-                        $filter = static function (array $keyValuePair, Generator $generator) use ($comparatorCallback, $accessorCallback, $stack, &$retries): bool {
-                            if (0 >= $retries) {
-                                $generator->send(InterruptableIterableIteratorAggregate::BREAK);
-                            }
 
-                            $every = (new Every())()(
-                                /**
-                                 * @param array{0: TKey, 1: T} $keyValuePair
-                                 */
-                                static fn (int $_, array $kv): bool => !$comparatorCallback($accessorCallback(...$kv))($accessorCallback(...$keyValuePair))
-                            )($stack);
+                                if (false === $every->current()) {
+                                    --$retries;
 
-                            if (false === $every->current()) {
-                                --$retries;
+                                    return false;
+                                }
 
-                                return false;
-                            }
+                                ++$retries;
+                                $stack->append($kvFilter);
 
-                            ++$retries;
-                            $stack->append($keyValuePair);
+                                return true;
+                            };
 
-                            return true;
+                            return (new Pipe())()(
+                                (new Filter())()($filter),
+                                (new Unpack())()
+                            )(new InterruptableIterableIteratorAggregate($iterable));
                         };
-
-                        return (new Pipe())()(
-                            (new Filter())()($filter),
-                            (new Unpack)()
-                        );
                     };
                 };
     }
