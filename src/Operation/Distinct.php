@@ -42,8 +42,6 @@ final class Distinct extends AbstractOperation
                             /** @var ArrayIterator<int, array{0: TKey, 1: T}> $stack */
                             $stack = new ArrayIterator();
 
-                            $accessorCallback = static fn (array $kv): mixed => $accessorCallback($kv[1], $kv[0]);
-
                             $filter = static function (array $kvFilter, Generator $generator) use ($comparatorCallback, $accessorCallback, $stack, &$retries): bool {
                                 if (0 >= $retries) {
                                     $generator->send(InterruptableIterableIteratorAggregate::BREAK);
@@ -51,9 +49,9 @@ final class Distinct extends AbstractOperation
 
                                 $every = (new Every())()(
                                     /**
-                                     * @param array{0: TKey, 1: T} $kv
+                                     * @param array{0: TKey, 1: T} $kvEvery
                                      */
-                                    static fn (int $_, array $kvEvery): bool => !$comparatorCallback($accessorCallback($kvFilter))($accessorCallback($kvEvery))
+                                    static fn (int $_, array $kvEvery): bool => !$comparatorCallback($accessorCallback($kvFilter[1], $kvFilter[0]))($accessorCallback($kvEvery[1], $kvEvery[0]))
                                 )($stack);
 
                                 if (false === $every->current()) {
