@@ -39,7 +39,7 @@ jobs:
 
             - name: Build document
               run: |
-                  nix run github:loophp/nix-sphinx -- -M latexpdf docs/ build/docs
+                  nix run github:loophp/nix-sphinx#build -- -M latexpdf docs/ build/docs
                   cp build/docs/latex/loophp-collection-documentation.pdf documentation.pdf
 
             - name: Upload build assets
