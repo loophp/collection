@@ -102,6 +102,7 @@ If you want to **extend** the Collection, you have multiple options.
 
 1. You just create a ``callable`` and use :ref:`pages/api:pipe` method.
 2. You use the Composition design pattern and create your own library class.
+3. Use the `CollectionDecorator` abstract class available since version 7.0.0
 
 Every classes of this library are ``final`` and then it is impossible to use
 inheritance and use the original Collection class as parent of another one.
@@ -114,6 +115,13 @@ new operation ``foobar``.
 
 .. literalinclude:: code/extending-collection.php
   :language: php
+
+Since version 7.0.0, we ship a `CollectionDecorator` abstract class which let
+you create your own Collection class with all your customizations.
+
+.. literalinclude:: code/extending-collection-with-collectiondecorator.php
+  :language: php
+
 
 Manipulate strings
 ~~~~~~~~~~~~~~~~~~
