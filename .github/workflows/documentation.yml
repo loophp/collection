@@ -18,7 +18,7 @@ jobs:
 
             - name: Create global variables
               id: version
-              run: echo "::set-output name=version::$(git rev-parse --short HEAD)"
+              run: echo "version=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
 
     build:
         name: Build PDF files
@@ -34,17 +34,13 @@ jobs:
             - name: Check out source files
               uses: actions/checkout@v3
 
-            - name: Create global variables
-              id: version
-              run: echo "::set-output name=version::$(git rev-parse --short HEAD)"
-
             - name: Install Nix
               uses: cachix/install-nix-action@v18
 
             - name: Build document
               run: |
-                  nix build .#pdf --quiet
-                  cp result documentation.pdf
+                  nix run github:loophp/nix-sphinx -- -M latexpdf docs/ build/docs
+                  cp build/docs/latex/loophp-collection-documentation.pdf documentation.pdf
 
             - name: Upload build assets
               uses: actions/upload-artifact@v3
