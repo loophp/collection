@@ -223,7 +223,7 @@ For more detailed changelogs, please check [the release changelogs][45].
 [total downloads]:
   https://img.shields.io/packagist/dt/loophp/collection.svg?style=flat-square
 [github workflow status]:
-  https://img.shields.io/github/workflow/status/loophp/collection/Unit%20tests?style=flat-square
+  https://img.shields.io/github/actions/workflow/status/loophp/collection/tests.yml?branch=master&style=flat-square
 [code quality]:
   https://img.shields.io/scrutinizer/quality/g/loophp/collection/master.svg?style=flat-square
 [type coverage]:
