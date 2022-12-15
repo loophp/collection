@@ -17,17 +17,17 @@ use loophp\collection\Contract\Operation\Splitable;
 final class Explode extends AbstractOperation
 {
     /**
-     * @return Closure(T...): Closure(iterable<TKey, T>): Generator<int, list<T>>
+     * @return Closure(array<T>): Closure(iterable<TKey, T>): Generator<int, list<T>>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param T ...$explodes
+             * @param array<T> $explodes
              *
              * @return Closure(iterable<TKey, T>): Generator<int, list<T>>
              */
-            static function (mixed ...$explodes): Closure {
+            static function (array $explodes): Closure {
                 /** @var Closure(iterable<TKey, T>): Generator<int, list<T>> $split */
                 $split = (new Split())()(Splitable::REMOVE)(
                     ...array_map(

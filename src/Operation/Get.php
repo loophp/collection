@@ -44,7 +44,7 @@ final class Get extends AbstractOperation
                              */
                             static fn (mixed $value, mixed $key): bool => $key === $keyToGet
                         ),
-                        (new Append())()($default),
+                        (new Append())()([$default]),
                         (new Head())()
                     );
 

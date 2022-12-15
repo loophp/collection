@@ -55,7 +55,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
 
     public function append(mixed ...$items): CollectionInterface
     {
-        return new self((new Operation\Append())()(...$items), [$this]);
+        return new self((new Operation\Append())()($items), [$this]);
     }
 
     public function apply(callable ...$callbacks): CollectionInterface
@@ -119,12 +119,12 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
 
     public function combine(mixed ...$keys): CollectionInterface
     {
-        return new self((new Operation\Combine())()(...$keys), [$this]);
+        return new self((new Operation\Combine())()($keys), [$this]);
     }
 
     public function compact(mixed ...$values): CollectionInterface
     {
-        return new self((new Operation\Compact())()(...$values), [$this]);
+        return new self((new Operation\Compact())()($values), [$this]);
     }
 
     public function compare(callable $comparator, $default = null): mixed
@@ -134,7 +134,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
 
     public function contains(mixed ...$values): bool
     {
-        return (new Operation\Contains())()(...$values)($this)->current();
+        return (new Operation\Contains())()($values)($this)->current();
     }
 
     public function convolve(iterable $iterable, ?callable $mult = null, ?callable $add = null): CollectionInterface
@@ -159,12 +159,12 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
 
     public function diff(mixed ...$values): CollectionInterface
     {
-        return new self((new Operation\Diff())()(...$values), [$this]);
+        return new self((new Operation\Diff())()($values), [$this]);
     }
 
     public function diffKeys(mixed ...$keys): CollectionInterface
     {
-        return new self((new Operation\DiffKeys())()(...$keys), [$this]);
+        return new self((new Operation\DiffKeys())()($keys), [$this]);
     }
 
     public function distinct(?callable $comparatorCallback = null, ?callable $accessorCallback = null): CollectionInterface
@@ -255,7 +255,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
 
     public function explode(mixed ...$explodes): CollectionInterface
     {
-        return new self((new Operation\Explode())()(...$explodes), [$this]);
+        return new self((new Operation\Explode())()($explodes), [$this]);
     }
 
     public function falsy(): bool
@@ -454,12 +454,12 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
 
     public function intersect(mixed ...$values): CollectionInterface
     {
-        return new self((new Operation\Intersect())()(...$values), [$this]);
+        return new self((new Operation\Intersect())()($values), [$this]);
     }
 
     public function intersectKeys(mixed ...$keys): CollectionInterface
     {
-        return new self((new Operation\IntersectKeys())()(...$keys), [$this]);
+        return new self((new Operation\IntersectKeys())()($keys), [$this]);
     }
 
     public function intersperse(mixed $element, int $every = 1, int $startAt = 0): CollectionInterface
@@ -600,7 +600,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
 
     public function prepend(mixed ...$items): CollectionInterface
     {
-        return new self((new Operation\Prepend())()(...$items), [$this]);
+        return new self((new Operation\Prepend())()($items), [$this]);
     }
 
     public function product(iterable ...$iterables): CollectionInterface

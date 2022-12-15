@@ -20,17 +20,17 @@ final class Combine extends AbstractOperation
     /**
      * @template U
      *
-     * @return Closure(U...): Closure(iterable<TKey, T>): Generator<null|U, null|T>
+     * @return Closure(array<U>): Closure(iterable<TKey, T>): Generator<null|U, null|T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param U ...$keys
+             * @param array<U> $keys
              *
              * @return Closure(iterable<TKey, T>): Generator<null|U, null|T>
              */
-            static function (mixed ...$keys): Closure {
+            static function (array $keys): Closure {
                 $buildMultipleIterable =
                     /**
                      * @param iterable<TKey, T> $iterable

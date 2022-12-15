@@ -25,18 +25,14 @@ final class Convolve extends AbstractOperation
     public function __invoke(): Closure
     {
         return
-            static fn (callable $mult): Closure =>
-            static fn (callable $add): Closure =>
-            static fn (array $kernel): Closure =>
-            static function (iterable $iterable) use ($kernel, $mult, $add) {
-                $callable = static fn (array $a, array $b): int =>
-                    (
-                        (new Reduce())()($add)(0)(
+            static fn (callable $mult): Closure => static fn (callable $add): Closure => static fn (array $kernel): Closure => static function (iterable $iterable) use ($kernel, $mult, $add) {
+                $callable = static fn (array $a, array $b): int => (
+                    (new Reduce())()($add)(0)(
                             (new Map())()(static fn (array $a): int => array_reduce($a, $mult, 1))(
                                 (new Zip())()($b)($a)
                             )
                         )
-                    )->current();
+                )->current();
 
                 $kernelSize = count($kernel) - 1;
                 $window = (new Window())()($kernelSize);

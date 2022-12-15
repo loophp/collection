@@ -17,17 +17,17 @@ use loophp\iterators\ConcatIterableAggregate;
 final class Append extends AbstractOperation
 {
     /**
-     * @return Closure(T...): Closure(iterable<TKey, T>): Generator<int|TKey, T>
+     * @return Closure(array<T>): Closure(iterable<TKey, T>): Generator<int|TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param T ...$items
+             * @param array<T> $items
              *
              * @return Closure(iterable<TKey, T>): Generator<int|TKey, T>
              */
-            static fn (mixed ...$items): Closure =>
+            static fn (array $items): Closure =>
                 /**
                  * @param iterable<TKey, T> $iterable
                  *
