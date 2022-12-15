@@ -24,7 +24,7 @@ final class Lines extends AbstractOperation
     {
         /** @var Closure(iterable<TKey, T>): Generator<int, string> $pipe */
         $pipe = (new Pipe())()(
-            (new Explode())()(PHP_EOL, "\n", "\r\n"),
+            (new Explode())()([PHP_EOL, "\n", "\r\n"]),
             (new Map())()(
                 /**
                  * @param list<T> $value

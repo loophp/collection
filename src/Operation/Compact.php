@@ -18,17 +18,17 @@ use function in_array;
 final class Compact extends AbstractOperation
 {
     /**
-     * @return Closure(T...): Closure(iterable<TKey, T>): Generator<TKey, T>
+     * @return Closure(array<T>): Closure(iterable<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param T ...$values
+             * @param array<T> $values
              *
              * @return Closure(iterable<TKey, T>): Generator<TKey, T>
              */
-            static function (mixed ...$values): Closure {
+            static function (array $values): Closure {
                 $filterCallback =
                     /**
                      * @param non-empty-array<int, (null|array|int|bool|string|T)> $values

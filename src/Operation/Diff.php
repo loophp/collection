@@ -18,17 +18,17 @@ use function in_array;
 final class Diff extends AbstractOperation
 {
     /**
-     * @return Closure(T...): Closure(iterable<TKey, T>): Generator<TKey, T>
+     * @return Closure(array<T>): Closure(iterable<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param T ...$values
+             * @param array<T> $values
              *
              * @return Closure(iterable<TKey, T>): Generator<TKey, T>
              */
-            static fn (mixed ...$values): Closure => (new Filter())()(
+            static fn (array $values): Closure => (new Filter())()(
                 /**
                  * @param T $value
                  */

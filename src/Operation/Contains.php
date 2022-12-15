@@ -18,17 +18,17 @@ use function in_array;
 final class Contains extends AbstractOperation
 {
     /**
-     * @return Closure(T ...$values): Closure(iterable<TKey, T>): Generator<TKey, bool>
+     * @return Closure(array<T>): Closure(iterable<TKey, T>): Generator<TKey, bool>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param T ...$values
+             * @param array<T> $values
              *
              * @return Closure(iterable<TKey, T>): Generator<TKey, bool>
              */
-            static fn (mixed ...$values): Closure => (new MatchOne())()(static fn (): bool => true)(
+            static fn (array $values): Closure => (new MatchOne())()(static fn (): bool => true)(
                 /**
                  * @param T $value
                  */

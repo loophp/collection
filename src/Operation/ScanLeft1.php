@@ -50,7 +50,7 @@ final class ScanLeft1 extends AbstractOperation
                     $pipe = (new Pipe())()(
                         (new Tail())(),
                         (new Reduction())()($callback)($initial),
-                        (new Prepend())()($initial)
+                        (new Prepend())()([$initial])
                     );
 
                     yield from $pipe($iteratorAggregate);

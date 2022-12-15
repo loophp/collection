@@ -22,7 +22,7 @@ final class Coalesce extends AbstractOperation
     {
         /** @var Closure(iterable<TKey, T>): Generator<TKey, T> $pipe */
         $pipe = (new Pipe())()(
-            (new Compact())()(),
+            (new Compact())()([]),
             (new Head())(),
         );
 

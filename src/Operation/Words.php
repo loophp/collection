@@ -22,14 +22,14 @@ final class Words extends AbstractOperation
     {
         /** @var Closure(iterable<TKey, T>): Generator<TKey, string> $pipe */
         $pipe = (new Pipe())()(
-            (new Explode())()("\t", "\n", ' '),
+            (new Explode())()(["\t", "\n", ' ']),
             (new Map())()(
                 /**
                  * @param list<string> $value
                  */
                 static fn (array $value): string => implode('', $value)
             ),
-            (new Compact())()()
+            (new Compact())()([])
         );
 
         // Point free style.

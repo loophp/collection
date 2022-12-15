@@ -39,7 +39,7 @@ final class ScanLeft extends AbstractOperation
                     /** @var Closure(iterable<TKey, T>): Generator<TKey, V|W> $pipe */
                     $pipe = (new Pipe())()(
                         (new Reduction())()($callback)($initial),
-                        (new Prepend())()($initial)
+                        (new Prepend())()([$initial])
                     );
 
                     return $pipe;
