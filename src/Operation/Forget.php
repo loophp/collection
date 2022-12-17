@@ -18,17 +18,17 @@ use function in_array;
 final class Forget extends AbstractOperation
 {
     /**
-     * @return Closure(TKey...): Closure(iterable<TKey, T>): Generator<TKey, T>
+     * @return Closure(array<TKey>): Closure(iterable<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param TKey ...$keys
+             * @param array<TKey> $keys
              *
              * @return Closure(iterable<TKey, T>): Generator<TKey, T>
              */
-            static fn (mixed ...$keys): Closure => (new Filter())()(
+            static fn (array $keys): Closure => (new Filter())()(
                 /**
                  * @param T $value
                  * @param TKey $key

@@ -310,7 +310,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
 
     public function forget(mixed ...$keys): CollectionInterface
     {
-        return new self((new Operation\Forget())()(...$keys), [$this]);
+        return new self((new Operation\Forget())()($keys), [$this]);
     }
 
     public function frequency(): CollectionInterface
