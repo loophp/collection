@@ -3,14 +3,16 @@
 on:
     push:
         paths:
-            - "src/**.php"
-            - "tests/**.php"
+            - "**.php"
+            - ".github/workflows/*.yml"
+            - ".scrutinizer.yml"
         branches:
             - master
     pull_request:
         paths:
-            - "src/**.php"
-            - "tests/**.php"
+            - "**.php"
+            - ".github/workflows/*.yml"
+            - ".scrutinizer.yml"
 
 name: "Mutations testing"
 
