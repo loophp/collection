@@ -8,11 +8,7 @@ use loophp\collection\Collection;
 use loophp\collection\Contract\Collection as CollectionInterface;
 
 $concat = static fn (string $carry, string $string): string => sprintf('%s%s', $carry, $string);
-$toString =
-    /**
-     * @param int|string $carry
-     */
-    static fn (int|string $carry, int $value): string => sprintf('%s', $value);
+$toString = static fn (int|string $carry, int $value): string => sprintf('%s', $value);
 
 /**
  * @param CollectionInterface<int, string> $collection

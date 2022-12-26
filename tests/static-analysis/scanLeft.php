@@ -10,11 +10,7 @@ use loophp\collection\Contract\Collection as CollectionInterface;
 $sum = static fn (int $carry, int $value): int => $carry + $value;
 $concat = static fn (string $carry, string $string): string => sprintf('%s%s', $carry, $string);
 $concatWithNull = static fn (?string $carry, string $string): string => sprintf('%s%s', (string) $carry, $string);
-$toString =
-    /**
-     * @param bool|string $carry
-     */
-    static fn (bool|string $carry, int $value): string => sprintf('%s', $value);
+$toString = static fn (bool|string $carry, int $value): string => sprintf('%s', $value);
 
 /**
  * @param CollectionInterface<int, int> $collection
