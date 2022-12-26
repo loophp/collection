@@ -8,13 +8,17 @@ use loophp\collection\Collection;
 use loophp\collection\Contract\Collection as CollectionInterface;
 
 /**
- * @param CollectionInterface<int, Collection<int, int>> $collection
+ * @psalm-param CollectionInterface<int, Collection<int<0, 2>, 2|3|4>> $collection
+ *
+ * @phpstan-param CollectionInterface<int, Collection<int, int>> $collection
  */
 function span_checkListCollectionInt(CollectionInterface $collection): void
 {
 }
 /**
- * @param CollectionInterface<int, int> $collection
+ * @psalm-param CollectionInterface<int<0, 2>, 2|3|4> $collection
+ *
+ * @phpstan-param CollectionInterface<int, int> $collection
  */
 function span_checkListInt(CollectionInterface $collection): void
 {
