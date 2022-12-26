@@ -5,24 +5,27 @@ declare(strict_types=1);
 include __DIR__ . '/../../vendor/autoload.php';
 
 use loophp\collection\Collection;
-use loophp\collection\Contract\Collection as CollectionInterface;
 
 /**
- * @param CollectionInterface<int, int> $collection
+ * @psalm-param Collection<int<0, max>, int> $collection
+ *
+ * @phpstan-param Collection<int, int> $collection
  */
-function fromIterable_checkList(CollectionInterface $collection): void
+function fromIterable_checkList(Collection $collection): void
 {
 }
 /**
- * @param CollectionInterface<string, int> $collection
+ * @param Collection<string, int> $collection
  */
-function fromIterable_checkMap(CollectionInterface $collection): void
+function fromIterable_checkMap(Collection $collection): void
 {
 }
 /**
- * @param CollectionInterface<int, int|string> $collection
+ * @psalm-param Collection<int<0, 4>, '3'|'b'|1|2|5>|Collection<1|3|4, '5'|'b'|'c'|2> $collection
+ *
+ * @phpstan-param Collection<int, string|int> $collection
  */
-function fromIterable_checkMixed(CollectionInterface $collection): void
+function fromIterable_checkMixed(Collection $collection): void
 {
 }
 
