@@ -14,13 +14,17 @@ function associate_checkIntInt(CollectionInterface $collection): void
 {
 }
 /**
- * @param CollectionInterface<string, string> $collection
+ * @psalm-param CollectionInterface<non-empty-string, non-empty-string> $collection
+ *
+ * @phpstan-param CollectionInterface<string, string> $collection
  */
 function associate_checkStringString(CollectionInterface $collection): void
 {
 }
 /**
- * @param CollectionInterface<string, bool> $collection
+ * @psalm-param CollectionInterface<non-empty-string, bool> $collection
+ *
+ * @phpstan-param CollectionInterface<string, bool> $collection
  */
 function associate_checkStringBool(CollectionInterface $collection): void
 {
