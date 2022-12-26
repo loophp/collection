@@ -18,7 +18,9 @@ function scanRight1_checkListString(CollectionInterface $collection): void
 }
 
 /**
- * @param CollectionInterface<int, int|string> $collection
+ * @psalm-param CollectionInterface<int, int|non-empty-string> $collection
+ *
+ * @phpstan-param CollectionInterface<int, int|string> $collection
  */
 function scanRight1_checkListOfSize1String(CollectionInterface $collection): void
 {
