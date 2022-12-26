@@ -8,14 +8,18 @@ use loophp\collection\Collection;
 use loophp\collection\Contract\Collection as CollectionInterface;
 
 /**
- * @param CollectionInterface<int, int> $collection
+ * @psalm-param CollectionInterface<int<0, 2>, 1|2|3> $collection
+ *
+ * @phpstan-param CollectionInterface<int, int> $collection
  */
 function tail_checkListInt(CollectionInterface $collection): void
 {
 }
 
 /**
- * @param CollectionInterface<int, string> $collection
+ * @psalm-param CollectionInterface<int<0, max>, string> $collection
+ *
+ * @phpstan-param CollectionInterface<int, string> $collection
  */
 function tail_checkListString(CollectionInterface $collection): void
 {
