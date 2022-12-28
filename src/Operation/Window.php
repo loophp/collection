@@ -6,6 +6,7 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
+use loophp\iterators\LimitIterableAggregate;
 use loophp\iterators\ReductionIterableAggregate;
 
 use function array_slice;
@@ -33,7 +34,7 @@ final class Window extends AbstractOperation
                  *
                  * @return Generator<TKey, list<T>>
                  */
-                static fn (iterable $iterable): Generator => yield from new ReductionIterableAggregate(
+                static fn (iterable $iterable): Generator => yield from new LimitIterableAggregate(new ReductionIterableAggregate(
                     $iterable,
                     /**
                      * @param list<T> $stack
@@ -43,6 +44,6 @@ final class Window extends AbstractOperation
                      */
                     static fn (array $stack, mixed $current): array => array_slice([...$stack, $current], ++$size * -1),
                     []
-                );
+                ), 1);
     }
 }

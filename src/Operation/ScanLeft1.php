@@ -19,7 +19,7 @@ final class ScanLeft1 extends AbstractOperation
     /**
      * @template V
      *
-     * @return Closure(callable((T|V), T, TKey, iterable<TKey, T>): (T|V)): Closure(iterable<TKey, T>): Generator<TKey, T|V>
+     * @return Closure(callable((T|V), T, TKey, iterable<TKey, T>): (T|V)): Closure(iterable<TKey, T>): Generator<TKey|int, T|V>
      */
     public function __invoke(): Closure
     {
@@ -27,13 +27,13 @@ final class ScanLeft1 extends AbstractOperation
             /**
              * @param callable((T|V), T, TKey, iterable<TKey, T>): (T|V) $callback
              *
-             * @return Closure(iterable<TKey, T>): Generator<TKey, T|V>
+             * @return Closure(iterable<TKey, T>): Generator<TKey|int, T|V>
              */
             static fn (callable $callback): Closure =>
                 /**
                  * @param iterable<TKey, T> $iterable
                  *
-                 * @return Generator<TKey, T|V>
+                 * @return Generator<TKey|int, T|V>
                  */
                 static function (iterable $iterable) use ($callback): Generator {
                     $iteratorAggregate = new IterableIteratorAggregate($iterable);
@@ -46,11 +46,10 @@ final class ScanLeft1 extends AbstractOperation
 
                     $initial = $iteratorInitial->current();
 
-                    /** @var Closure(iterable<TKey, T>): Generator<TKey, T|V> $pipe */
+                    /** @var Closure(iterable<TKey, T>): Generator<TKey|int, T|V> $pipe */
                     $pipe = (new Pipe())()(
                         (new Tail())(),
                         (new Reduction())()($callback)($initial),
-                        (new Prepend())()([$initial])
                     );
 
                     yield from $pipe($iteratorAggregate);

@@ -18,12 +18,11 @@ interface Reduceable
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#reduce
      *
      * @template V
-     * @template W
      *
-     * @param callable((V|W), T, TKey, iterable<TKey, T>): W $callback
+     * @param callable(V, T, TKey, iterable<TKey, T>): V $callback
      * @param V $initial
      *
-     * @return W
+     * @return V
      */
     public function reduce(callable $callback, mixed $initial = null): mixed;
 }

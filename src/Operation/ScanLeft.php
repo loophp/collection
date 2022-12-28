@@ -6,6 +6,7 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
+use loophp\iterators\ReductionIterableAggregate;
 
 /**
  * @immutable
@@ -17,32 +18,29 @@ final class ScanLeft extends AbstractOperation
 {
     /**
      * @template V
-     * @template W
      *
-     * @return Closure(callable((V|W), T, TKey, iterable<TKey, T>): W): Closure(V): Closure(iterable<TKey, T>): Generator<TKey, V|W>
+     * @return Closure(callable(mixed, mixed, mixed, iterable<mixed, mixed>): mixed): Closure(mixed): Closure(iterable<TKey, T>): Generator<TKey|int, mixed>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable((V|W), T, TKey, iterable<TKey, T>): W $callback
+             * @param callable(V, T, TKey, iterable<TKey, T>): V $callback
              *
-             * @return Closure(V): Closure(iterable<TKey, T>): Generator<TKey, V|W>
+             * @return Closure(V): Closure(iterable<TKey, T>): Generator<TKey|int, V>
              */
             static fn (callable $callback): Closure =>
                 /**
                  * @param V $initial
                  *
-                 * @return Closure(iterable<TKey, T>): Generator<TKey, V|W>
+                 * @return Closure(iterable<TKey, T>): Generator<TKey|int, V>
                  */
-                static function (mixed $initial) use ($callback): Closure {
-                    /** @var Closure(iterable<TKey, T>): Generator<TKey, V|W> $pipe */
-                    $pipe = (new Pipe())()(
-                        (new Reduction())()($callback)($initial),
-                        (new Prepend())()([$initial])
-                    );
-
-                    return $pipe;
-                };
+                static fn (mixed $initial): Closure =>
+                    /**
+                     * @param iterable<TKey, T> $iterable
+                     *
+                     * @return Generator<TKey|int, V>
+                     */
+                    static fn (iterable $iterable): Generator => yield from new ReductionIterableAggregate($iterable, Closure::fromCallable($callback), $initial);
     }
 }

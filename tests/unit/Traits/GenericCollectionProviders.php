@@ -1088,7 +1088,7 @@ trait GenericCollectionProviders
             [
                 Collection::fromIterable([1, 2, 3]),
             ],
-            [1, 2, 3, 4],
+            range(1, 4),
             false,
         ];
 
@@ -1096,7 +1096,7 @@ trait GenericCollectionProviders
         yield [
             $operation,
             [
-                Collection::fromIterable([1, 2, 3, 4]),
+                Collection::fromIterable(range(1, 4)),
             ],
             [1, 2, 3],
             false,
@@ -3263,7 +3263,7 @@ trait GenericCollectionProviders
                 'foo',
             ],
             [],
-            null,
+            'foo',
         ];
 
         yield [
@@ -3289,14 +3289,26 @@ trait GenericCollectionProviders
 
     public function reductionOperationProvider()
     {
+        $output = static function () {
+            yield 0 => 0;
+
+            yield 0 => 1;
+
+            yield 1 => 3;
+
+            yield 2 => 6;
+
+            yield 3 => 10;
+        };
+
         yield [
             'reduction',
             [
                 static fn ($carry, $item) => $carry + $item,
                 0,
             ],
-            range(1, 5),
-            [1, 3, 6, 10, 15],
+            range(1, 4),
+            $output(),
         ];
     }
 
@@ -3432,14 +3444,14 @@ trait GenericCollectionProviders
         yield [
             $operation,
             [Collection::fromIterable([1, 2, 3])],
-            [1, 2, 3, 4],
+            range(1, 4),
             false,
         ];
 
         // different lengths, extra elements in second
         yield [
             $operation,
-            [Collection::fromIterable([1, 2, 3, 4])],
+            [Collection::fromIterable(range(1, 4))],
             [1, 2, 3],
             false,
         ];
@@ -3565,15 +3577,15 @@ trait GenericCollectionProviders
     public function scanLeft1OperationProvider()
     {
         $operation = 'scanLeft1';
-        $callback = static fn ($carry, $value) => $carry / $value;
+        $callback = static fn ($carry, $value) => $carry + $value;
 
         yield [
             $operation,
             [
                 $callback,
             ],
-            [64, 4, 2, 8],
-            [64, 16, 8, 1],
+            range(1, 4),
+            [1, 3, 6, 10],
         ];
 
         yield [
@@ -3598,24 +3610,26 @@ trait GenericCollectionProviders
     public function scanLeftOperationProvider()
     {
         $operation = 'scanLeft';
-        $callback = static fn ($carry, $value) => $carry / $value;
+        $callback = static fn ($carry, $value) => $carry + $value;
         $output = static function () {
-            yield 0 => 64;
+            yield 0 => 0;
 
-            yield 0 => 16;
+            yield 0 => 1;
 
-            yield 1 => 8;
+            yield 1 => 3;
 
-            yield 2 => 2;
+            yield 2 => 6;
+
+            yield 3 => 10;
         };
 
         yield [
             $operation,
             [
                 $callback,
-                64,
+                0,
             ],
-            [4, 2, 4],
+            range(1, 4),
             $output(),
         ];
 
@@ -3623,25 +3637,25 @@ trait GenericCollectionProviders
             $operation,
             [
                 $callback,
-                3,
+                42,
             ],
             [],
-            [0 => 3],
+            [0 => 42],
         ];
     }
 
     public function scanRight1OperationProvider()
     {
         $operation = 'scanRight1';
-        $callback = static fn ($carry, $value) => $value / $carry;
+        $callback = static fn (int $carry, int $value): int => $value + $carry;
         $output = static function () {
-            yield 0 => 8;
+            yield 0 => 10;
 
-            yield 1 => 1;
+            yield 1 => 9;
 
-            yield 2 => 12;
+            yield 2 => 7;
 
-            yield 0 => 2;
+            yield 0 => 4;
         };
 
         yield [
@@ -3649,7 +3663,7 @@ trait GenericCollectionProviders
             [
                 $callback,
             ],
-            [8, 12, 24, 2],
+            range(1, 4),
             $output(),
         ];
 
@@ -3666,27 +3680,26 @@ trait GenericCollectionProviders
     public function scanRightOperationProvider()
     {
         $operation = 'scanRight';
-        $callback = static fn ($carry, $value) => $value / $carry;
-
+        $callback = static fn ($carry, $value) => $value + $carry;
         $output = static function () {
-            yield 0 => 8;
+            yield 0 => 10;
 
-            yield 1 => 1;
+            yield 1 => 9;
 
-            yield 2 => 12;
+            yield 2 => 7;
 
-            yield 3 => 2;
+            yield 3 => 4;
 
-            yield 0 => 2;
+            yield 0 => 0;
         };
 
         yield [
             $operation,
             [
                 $callback,
-                2,
+                0,
             ],
-            [8, 12, 24, 4],
+            range(1, 4),
             $output(),
         ];
 
@@ -3697,7 +3710,7 @@ trait GenericCollectionProviders
                 3,
             ],
             [],
-            [3],
+            [0 => 3],
         ];
     }
 
