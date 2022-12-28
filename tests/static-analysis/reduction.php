@@ -25,7 +25,7 @@ function reduction_checkListString(CollectionInterface $collection): void
 }
 
 /**
- * @param CollectionInterface<int, string> $collection
+ * @param CollectionInterface<int, ?string> $collection
  */
 function reduction_checkListStringWithNull(CollectionInterface $collection): void
 {
