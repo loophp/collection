@@ -42,6 +42,6 @@ final class Reduce extends AbstractOperation
                      *
                      * @return Generator<TKey, V>
                      */
-                    static fn (iterable $iterable): Generator => yield from new ReduceIterableAggregate($iterable, $callback, $initial);
+                    static fn (iterable $iterable): Generator => yield from new ReduceIterableAggregate($iterable, Closure::fromCallable($callback), $initial);
     }
 }
