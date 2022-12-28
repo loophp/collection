@@ -6,6 +6,7 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
+use loophp\iterators\ReduceIterableAggregate;
 
 /**
  * @immutable
@@ -35,15 +36,12 @@ final class Reduce extends AbstractOperation
                  *
                  * @return Closure(iterable<TKey, T>): Generator<TKey, W>
                  */
-                static function (mixed $initial) use ($callback): Closure {
-                    /** @var Closure(iterable<TKey, T>): Generator<TKey, W> $pipe */
-                    $pipe = (new Pipe())()(
-                        (new Reduction())()($callback)($initial),
-                        (new Last())(),
-                    );
-
-                    // Point free style.
-                    return $pipe;
-                };
+                static fn (mixed $initial): Closure =>
+                    /**
+                     * @param iterable<TKey, T> $iterable
+                     *
+                     * @return Generator<TKey, V>
+                     */
+                    static fn (iterable $iterable): Generator => yield from new ReduceIterableAggregate($iterable, $callback, $initial);
     }
 }
