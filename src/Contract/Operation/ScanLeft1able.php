@@ -23,7 +23,7 @@ interface ScanLeft1able
      *
      * @param callable((T|V), T, TKey, iterable<TKey, T>): (T|V) $callback
      *
-     * @return Collection<TKey, T|V>
+     * @return Collection<TKey|int, T|V>
      */
     public function scanLeft1(callable $callback): Collection;
 }

@@ -7,6 +7,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use loophp\iterators\IterableIteratorAggregate;
+use loophp\iterators\LimitIterableAggregate;
 use loophp\iterators\NormalizeIterableAggregate;
 use loophp\iterators\ReductionIterableAggregate;
 
@@ -37,7 +38,7 @@ final class Tails extends AbstractOperation
                 // be too complex to deal with S.A. annotations.
                 array_unshift($generator, current($generator));
 
-                yield from new NormalizeIterableAggregate(new ReductionIterableAggregate(
+                yield from new NormalizeIterableAggregate(new LimitIterableAggregate(new ReductionIterableAggregate(
                     $generator,
                     /**
                      * @param list<T> $stack
@@ -46,7 +47,7 @@ final class Tails extends AbstractOperation
                      */
                     static fn (array $stack): array => array_slice($stack, 1),
                     $generator
-                ));
+                ), 1));
             };
     }
 }
