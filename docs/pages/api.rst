@@ -1793,6 +1793,10 @@ reduce
 ~~~~~~
 
 Reduce a collection of items through a given callback.
+An optional initial value is by default set to `null` and
+can be customized by the user through the second argument.
+
+When the collection is empty, the initial value is returned.
 
 Interface: `Reduceable`_
 
@@ -1804,8 +1808,11 @@ Signature: ``Collection::reduce(callable $callback, $initial = null): mixed;``
 reduction
 ~~~~~~~~~
 
-Reduce a collection of items through a given callback and yield
-each intermediary results.
+Takes the initial value and the first item of the list and applies the function
+to them, then feeds the function with this result and the second argument and
+so on. It returns the list of intermediate and final results.
+
+When the collection is empty, the initial value is yielded.
 
 Interface: `Reductionable`_
 
@@ -1915,8 +1922,11 @@ Signature: ``Collection::scale(float $lowerBound, float $upperBound, float $want
 scanLeft
 ~~~~~~~~
 
-Takes the initial value and the first item of the list and applies the function to them, then feeds the function with
-this result and the second argument and so on. It returns the list of intermediate and final results.
+Takes the initial value and the first item of the list and applies the function
+to them, then feeds the function with this result and the second argument and
+so on. It returns the list of intermediate and final results.
+
+When the collection is empty, the initial value is yielded.
 
 Interface: `ScanLeftable`_
 
@@ -1967,8 +1977,11 @@ Signature: ``Collection::scanLeft1(callable $callback): Collection;``
 scanRight
 ~~~~~~~~~
 
-Takes the initial value and the last item of the list and applies the function, then it takes the penultimate item from
-the end and the result, and so on. It returns the list of intermediate and final results.
+Takes the initial value and the last item of the list and applies the function,
+then it takes the penultimate item from the end and the result, and so on. It
+returns the list of intermediate and final results.
+
+When the collection is empty, the initial value is yielded.
 
 Interface: `ScanRightable`_
 
