@@ -33,21 +33,25 @@ final class Tails extends AbstractOperation
              * @return Generator<int, list<T>>
              */
             static function (iterable $iterable): Generator {
-                $generator = iterator_to_array((new IterableIteratorAggregate($iterable))->getIterator());
-                // We could use a value such as `false` or `0`, but it would
-                // be too complex to deal with S.A. annotations.
-                array_unshift($generator, current($generator));
+                $generator = iterator_to_array(
+                    (new IterableIteratorAggregate($iterable))->getIterator()
+                );
 
-                yield from new NormalizeIterableAggregate(new LimitIterableAggregate(new ReductionIterableAggregate(
-                    $generator,
+                $reduction =
                     /**
-                     * @param list<T> $stack
-                     *
-                     * @return list<T>
-                     */
-                    static fn (array $stack): array => array_slice($stack, 1),
-                    $generator
-                ), 1));
+                    * @param list<T> $stack
+                    *
+                    * @return list<T>
+                    */
+                    static fn (array $stack): array => array_slice($stack, 1);
+
+                /** @var Closure(iterable<TKey, T>): Generator<int, list<T>> $pipe */
+                $pipe = (new Pipe)()(
+                    (new Reduction)()($reduction)($generator),
+                    (new Normalize)(),
+                );
+
+                yield from $pipe($iterable);
             };
     }
 }
