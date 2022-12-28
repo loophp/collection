@@ -538,7 +538,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return new self((new Operation\Merge())()(...$sources), [$this]);
     }
 
-    public function min(mixed $default = null): mixed
+    public function min(mixed $default = null)
     {
         return (new self((new Operation\Min())(), [$this]))->current(0, $default);
     }
