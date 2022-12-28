@@ -27,14 +27,11 @@ final class Compare extends AbstractOperation
              * @return Closure(iterable<TKey, T>): Generator<TKey,T>
              */
             static function (callable $comparator): Closure {
-                /** @var Closure(iterable<TKey, T>): Generator<TKey, T> $pipe */
-                $pipe = (new Pipe())()(
-                    (new FoldLeft1())()($comparator),
-                    (new Last())(),
-                );
+                /** @var Closure(iterable<TKey, T>): Generator<TKey, T> $foldLeft1 */
+                $foldLeft1 = (new FoldLeft1())()($comparator);
 
                 // Point free style.
-                return $pipe;
+                return $foldLeft1;
             };
     }
 }
