@@ -45,7 +45,7 @@ final class Tails extends AbstractOperation
                     */
                     static fn (array $stack): array => array_slice($stack, 1);
 
-                /** @var Closure(iterable<TKey, T>): Generator<int, list<T>> $pipe */
+                /** @var Closure(iterable<array-key, T>): Generator<int, list<T>> $pipe */
                 $pipe = (new Pipe)()(
                     (new Reduction)()($reduction)($generator),
                     (new Normalize)(),
