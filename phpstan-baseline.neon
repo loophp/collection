@@ -271,11 +271,6 @@ parameters:
 			path: src/Operation/Reduce.php
 
 		-
-			message: "#^Template type W of method loophp\\\\collection\\\\Operation\\\\Reduce\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
-			count: 1
-			path: src/Operation/Reduce.php
-
-		-
 			message: "#^Template type V of method loophp\\\\collection\\\\Operation\\\\Reduction\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
 			count: 1
 			path: src/Operation/Reduction.php
@@ -286,22 +281,12 @@ parameters:
 			path: src/Operation/ScanLeft.php
 
 		-
-			message: "#^Template type W of method loophp\\\\collection\\\\Operation\\\\ScanLeft\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
-			count: 1
-			path: src/Operation/ScanLeft.php
-
-		-
 			message: "#^Template type V of method loophp\\\\collection\\\\Operation\\\\ScanLeft1\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
 			count: 1
 			path: src/Operation/ScanLeft1.php
 
 		-
 			message: "#^Template type V of method loophp\\\\collection\\\\Operation\\\\ScanRight\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
-			count: 1
-			path: src/Operation/ScanRight.php
-
-		-
-			message: "#^Template type W of method loophp\\\\collection\\\\Operation\\\\ScanRight\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
 			count: 1
 			path: src/Operation/ScanRight.php
 
