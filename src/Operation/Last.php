@@ -21,8 +21,8 @@ final class Last extends AbstractOperation
     public function __invoke(): Closure
     {
         /** @var Closure(iterable<TKey, T>): Generator<TKey, T> $pipe */
-        $pipe = (new Pipe)()(
-            (new Reverse)(),
+        $pipe = (new Pipe())()(
+            (new Reverse())(),
             // We could use `Head` here, but I use `Limit` for minor perf boost.
             (new Limit())()(1)(0)
         );
