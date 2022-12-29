@@ -20,24 +20,14 @@ final class Last extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        return
-            /**
-             * @param iterable<TKey, T> $iterable
-             *
-             * @return Generator<TKey, T>
-             */
-            static function (iterable $iterable): Generator {
-                $isEmpty = true;
+        /** @var Closure(iterable<TKey, T>): Generator<TKey, T> $pipe */
+        $pipe = (new Pipe)()(
+            (new Reverse)(),
+            // We could use `Head` here, but I use `Limit` for minor perf boost.
+            (new Limit())()(1)(0)
+        );
 
-                $key = $current = null;
-
-                foreach ($iterable as $key => $current) {
-                    $isEmpty = false;
-                }
-
-                if (!$isEmpty) {
-                    yield $key => $current;
-                }
-            };
+        // Point free style.
+        return $pipe;
     }
 }

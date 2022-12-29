@@ -241,16 +241,6 @@ parameters:
 			path: src/Operation/Init.php
 
 		-
-			message: "#^Foreach overwrites \\$current with its value variable\\.$#"
-			count: 1
-			path: src/Operation/Last.php
-
-		-
-			message: "#^Foreach overwrites \\$key with its key variable\\.$#"
-			count: 1
-			path: src/Operation/Last.php
-
-		-
 			message: "#^Template type V of method loophp\\\\collection\\\\Operation\\\\Map\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
 			count: 1
 			path: src/Operation/Map.php
