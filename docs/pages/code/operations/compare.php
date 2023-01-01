@@ -15,7 +15,12 @@ $callback = static fn (stdClass $left, stdClass $right): stdClass => $left->age 
     ? $left
     : $right;
 
-$result = Collection::fromIterable([(object) ['id' => 2, 'age' => 5], (object) ['id' => 1, 'age' => 10]])
+$input = [
+    (object) ['id' => 2, 'age' => 5],
+    (object) ['id' => 1, 'age' => 10],
+];
+
+$result = Collection::fromIterable($input)
     ->compare($callback); // (object) ['id' => 1, 'age' => 10]
 
 $result = Collection::empty()

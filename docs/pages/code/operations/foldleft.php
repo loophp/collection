@@ -11,10 +11,7 @@ include __DIR__ . '/../../../../vendor/autoload.php';
 $callback = static fn (int $carry, int $item): int => $carry + $item;
 
 $collection = Collection::fromIterable(range(1, 5))
-    ->reduce($callback, 0); // 15
+    ->foldLeft($callback, 0); // 15
 
 $collection = Collection::empty()
-    ->reduce($callback, 'foo'); // 'foo'
-
-$collection = Collection::empty()
-    ->reduce($callback); // null
+    ->foldLeft($callback, 'foo'); // 'foo'

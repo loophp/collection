@@ -944,25 +944,18 @@ This example will return ``['a', 'b', 'c', 'd', 'a']``.
 foldLeft
 ~~~~~~~~
 
-Takes the initial value and the first item of the list and applies the function
-to them, then feeds the function with this result and the second argument and so
-on. See ``scanLeft`` for intermediate results.
+Takes the initial value and the first item of the collection and applies the
+function to them, then feeds the function with this result and the second
+argument and so on. See ``scanLeft`` for intermediate results.
+
+When the collection is empty, the initial value is returned.
 
 Interface: `FoldLeftable`_
 
-Signature: ``Collection::foldLeft(callable $callback, $initial): mixed;``
+Signature: ``Collection::foldLeft(callable $callback, mixed $initial): mixed;``
 
-.. code-block:: php
-
-    Collection::fromIterable(range('A', 'C'))
-        ->foldLeft(
-            static function (string $carry, string $item): string {
-                $carry .= $item;
-
-                return $carry;
-            },
-            ''
-        ); // 'ABC'
+.. literalinclude:: code/operations/foldleft.php
+  :language: php
 
 foldLeft1
 ~~~~~~~~~
@@ -1800,7 +1793,7 @@ When the collection is empty, the initial value is returned.
 
 Interface: `Reduceable`_
 
-Signature: ``Collection::reduce(callable $callback, $initial = null): mixed;``
+Signature: ``Collection::reduce(callable $callback, mixed $initial = null): mixed;``
 
 .. literalinclude:: code/operations/reduce.php
   :language: php

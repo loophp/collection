@@ -201,11 +201,6 @@ parameters:
 			path: src/Operation/FoldLeft.php
 
 		-
-			message: "#^Template type W of method loophp\\\\collection\\\\Operation\\\\FoldLeft\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
-			count: 1
-			path: src/Operation/FoldLeft.php
-
-		-
 			message: "#^Template type V of method loophp\\\\collection\\\\Operation\\\\FoldLeft1\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
 			count: 1
 			path: src/Operation/FoldLeft1.php
