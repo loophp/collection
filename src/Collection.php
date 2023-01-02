@@ -417,7 +417,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return (new Operation\Has())()(...$callbacks)($this)->current();
     }
 
-    public function head(mixed $default = null): mixed
+    public function head(mixed $default = null)
     {
         return (new self((new Operation\Head())(), [$this]))->current(0, $default);
     }
