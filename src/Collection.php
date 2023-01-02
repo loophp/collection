@@ -483,7 +483,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return $this->all(false);
     }
 
-    public function key(int $index = 0): mixed
+    public function key(int $index = 0)
     {
         return (new Operation\Key())()($index)($this)->current();
     }
