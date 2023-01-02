@@ -17,7 +17,7 @@ interface Unpackable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#unpack
      *
-     * @return Collection<mixed, mixed>
+     * @return Collection<TKey, T>
      */
     public function unpack(): Collection;
 }

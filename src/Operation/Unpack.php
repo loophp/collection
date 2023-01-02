@@ -17,13 +17,13 @@ use loophp\iterators\UnpackIterableAggregate;
 final class Unpack extends AbstractOperation
 {
     /**
-     * @return Closure(iterable<mixed, mixed>): Generator<TKey, T>
+     * @return Closure(iterable<mixed, array{0: TKey, 1: T}>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
            /**
-            * @param iterable<array{0: TKey, 1: T}> $iterable
+            * @param iterable<mixed, array{0: TKey, 1: T}> $iterable
             */
            static fn (iterable $iterable): Generator => yield from new UnpackIterableAggregate($iterable);
     }

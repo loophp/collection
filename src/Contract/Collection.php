@@ -118,7 +118,7 @@ use Traversable;
  * @template-extends Operation\Transposeable<TKey, T>
  * @template-extends Operation\Truthyable<TKey, T>
  * @template-extends Operation\Unlinesable<TKey, T>
- * @template-extends Operation\Unpackable<mixed, array{0: TKey, 1: T}>
+ * @template-extends Operation\Unpackable<TKey, T>
  * @template-extends Operation\Unpairable<TKey, T>
  * @template-extends Operation\Untilable<TKey, T>
  * @template-extends Operation\Unwindowable<TKey, T>
