@@ -230,7 +230,10 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
     }
 
     /**
-     * @return self<TKey, T>
+     * @template UKey
+     * @template U
+     *
+     * @return self<UKey, U>
      */
     public static function empty(): CollectionInterface
     {
