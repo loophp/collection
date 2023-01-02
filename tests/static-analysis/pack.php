@@ -15,7 +15,9 @@ function pack_checkListInt(CollectionInterface $collection): void
 }
 
 /**
- * @param CollectionInterface<int, array{0: int, 1: string}> $collection
+ * @phpstan-param CollectionInterface<int, array{0: int, 1: string}> $collection
+ *
+ * @psalm-param CollectionInterface<int, array{0: int<0, max>, 1: string}> $collection
  */
 function pack_checkListString(CollectionInterface $collection): void
 {
