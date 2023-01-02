@@ -528,7 +528,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return new self((new Operation\Matching())()($criteria), [$this]);
     }
 
-    public function max(mixed $default = null): mixed
+    public function max(mixed $default = null)
     {
         return (new self((new Operation\Max())(), [$this]))->current(0, $default);
     }
