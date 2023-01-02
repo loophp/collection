@@ -288,7 +288,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return new self((new Operation\Flip())(), [$this]);
     }
 
-    public function foldLeft(callable $callback, mixed $initial): mixed
+    public function foldLeft(callable $callback, mixed $initial)
     {
         return (new self((new Operation\FoldLeft())()($callback)($initial), [$this]))->current();
     }
@@ -616,7 +616,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return new self((new Operation\Range())()($start)($end)($step));
     }
 
-    public function reduce(callable $callback, mixed $initial = null): mixed
+    public function reduce(callable $callback, mixed $initial = null)
     {
         return (new self((new Operation\Reduce())()($callback)($initial), [$this]))->current();
     }

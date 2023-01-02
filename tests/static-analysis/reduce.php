@@ -39,4 +39,4 @@ reduce_takeInt(Collection::fromIterable([1, 2, 3])->reduce($sum, 0));
 reduce_takeStringOrNull(Collection::fromIterable(['z' => 'a', 'y' => 'b', 'x' => 'c'])->reduce($concatNullable));
 reduce_takeString(Collection::fromIterable(['z' => 'a', 'y' => 'b', 'x' => 'c'])->reduce($concat, ''));
 
-reduce_takeIntOrBool(Collection::fromIterable([1, 2, 3])->reduce(static fn (bool|int $c, $v): int => $v, 123));
+reduce_takeIntOrBool(Collection::fromIterable([1, 2, 3])->reduce(static fn (bool|int $c, $v): int => $v, true));

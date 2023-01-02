@@ -24,5 +24,5 @@ interface Reduceable
      *
      * @return V
      */
-    public function reduce(callable $callback, mixed $initial = null): mixed;
+    public function reduce(callable $callback, mixed $initial = null);
 }
