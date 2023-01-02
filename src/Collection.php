@@ -493,7 +493,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return new self((new Operation\Keys())(), [$this]);
     }
 
-    public function last(mixed $default = null): mixed
+    public function last(mixed $default = null)
     {
         return (new self((new Operation\Last())(), [$this]))->current(0, $default);
     }
