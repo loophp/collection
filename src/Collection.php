@@ -389,7 +389,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return new self(static fn (): Generator => yield from new StringIteratorAggregate($string, $delimiter));
     }
 
-    public function get(mixed $key, mixed $default = null): mixed
+    public function get(mixed $key, mixed $default = null)
     {
         return (new self((new Operation\Get())()($key)($default), [$this]))->current(0, $default);
     }
