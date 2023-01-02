@@ -1,58 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.30.0@d0bc6e25d89f649e4f36a534f330f8bb4643dd69">
+<files psalm-version="dev-master@c6cfa86f35350842d00e8f1f3b92839fbda5f8f9">
   <file src="src/Collection.php">
-    <InvalidArgument occurrences="1">
+    <InvalidArgument>
       <code>$callback</code>
+      <code>$parameters</code>
     </InvalidArgument>
-    <InvalidReturnStatement occurrences="1">
+    <InvalidReturnStatement>
+      <code>new self((new Operation\Unfold())()($parameters)($callback))</code>
       <code>new self((new Operation\Wrap())(), [$this])</code>
     </InvalidReturnStatement>
-    <InvalidReturnType occurrences="1">
+    <InvalidReturnType>
+      <code>CollectionInterface</code>
       <code>CollectionInterface</code>
     </InvalidReturnType>
-    <PossiblyNullArgument occurrences="2">
+    <PossiblyNullArgument>
       <code>$default</code>
       <code>$default</code>
     </PossiblyNullArgument>
   </file>
   <file src="src/CollectionDecorator.php">
-    <InvalidArgument occurrences="4">
+    <InvalidArgument>
       <code>foldLeft1</code>
       <code>foldRight1</code>
-      <code>scanLeft1</code>
-      <code>scanRight1</code>
     </InvalidArgument>
-    <InvalidReturnType occurrences="8">
-      <code>array</code>
-      <code>static</code>
-      <code>static</code>
-      <code>static</code>
-      <code>static</code>
-      <code>static</code>
-      <code>static</code>
+    <InvalidReturnType>
       <code>static</code>
     </InvalidReturnType>
   </file>
   <file src="src/Operation/All.php">
-    <InvalidReturnStatement occurrences="1"/>
-    <InvalidReturnType occurrences="1">
+    <InvalidReturnStatement>
+      <code>static fn (bool $normalize): Closure =&gt;
+                /**
+                 * @param iterable&lt;TKey, T&gt; $iterable
+                 *
+                 * @return Generator&lt;int, T&gt;|Generator&lt;TKey, T&gt;
+                 */
+                static fn (iterable $iterable): Generator =&gt; yield from ($normalize ? (new Normalize())()($iterable) : $iterable)</code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
       <code>Closure(bool): Closure(iterable&lt;TKey, T&gt;): (Generator&lt;int, T&gt;|Generator&lt;TKey, T&gt;)</code>
     </InvalidReturnType>
   </file>
-  <file src="src/Operation/Inits.php">
-    <InvalidArgument occurrences="2">
-      <code>[]</code>
-    </InvalidArgument>
-  </file>
-  <file src="src/Operation/Pack.php">
-    <InvalidReturnType occurrences="1">
-      <code>Generator&lt;int, array{0: TKey, 1: T}&gt;</code>
-    </InvalidReturnType>
+  <file src="src/Operation/Pluck.php">
+    <ArgumentTypeCoercion>
+      <code>$segment</code>
+    </ArgumentTypeCoercion>
   </file>
   <file src="src/Operation/Product.php">
-    <InvalidArgument occurrences="2">
+    <InvalidArgument>
       <code>[[]]</code>
       <code>static fn (iterable $a, iterable $x): Generator =&gt; $f($x)($a)</code>
     </InvalidArgument>
+  </file>
+  <file src="src/Operation/Zip.php">
+    <MoreSpecificReturnType>
+      <code>Generator&lt;list&lt;TKey|UKey|null&gt;, list&lt;T|U|null&gt;&gt;</code>
+    </MoreSpecificReturnType>
+  </file>
+  <file src="tests/static-analysis/partition.php">
+    <PossiblyUndefinedArrayOffset>
+      <code>$left</code>
+      <code>$left</code>
+    </PossiblyUndefinedArrayOffset>
+  </file>
+  <file src="tests/static-analysis/span.php">
+    <PossiblyUndefinedArrayOffset>
+      <code>$left</code>
+      <code>$left</code>
+    </PossiblyUndefinedArrayOffset>
   </file>
 </files>
