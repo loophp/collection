@@ -16,7 +16,9 @@ function shuffle_checkIntList(CollectionInterface $collection): void
 {
 }
 /**
- * @param CollectionInterface<int, string> $collection
+ * @phpstan-param CollectionInterface<int, string> $collection
+ *
+ * @psalm-param CollectionInterface<int, non-empty-string> $collection
  */
 function shuffle_checkStringList(CollectionInterface $collection): void
 {
@@ -28,7 +30,9 @@ function shuffle_checkBoolList(CollectionInterface $collection): void
 {
 }
 /**
- * @param CollectionInterface<string, string> $collection
+ * @phpstan-param CollectionInterface<string, string> $collection
+ *
+ * @psalm-param CollectionInterface<non-empty-string, non-empty-string> $collection
  */
 function shuffle_checkStringMap(CollectionInterface $collection): void
 {
