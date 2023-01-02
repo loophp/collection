@@ -127,7 +127,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return new self((new Operation\Compact())()($values), [$this]);
     }
 
-    public function compare(callable $comparator, $default = null): mixed
+    public function compare(callable $comparator, $default = null)
     {
         return (new self((new Operation\Compare())()($comparator), [$this]))->current(0, $default);
     }
