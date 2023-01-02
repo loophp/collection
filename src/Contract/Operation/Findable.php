@@ -23,5 +23,5 @@ interface Findable
      *
      * @return T|V
      */
-    public function find(mixed $default = null, callable ...$callbacks): mixed;
+    public function find(mixed $default = null, callable ...$callbacks);
 }
