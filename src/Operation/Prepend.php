@@ -17,21 +17,23 @@ use loophp\iterators\ConcatIterableAggregate;
 final class Prepend extends AbstractOperation
 {
     /**
-     * @return Closure(array<T>): Closure(iterable<TKey, T>): iterable<int|TKey, T>
+     * @template U
+     *
+     * @return Closure(array<U>): Closure(iterable<TKey, T>): iterable<int|TKey, T|U>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param array<T> $items
+             * @param array<U> $items
              *
-             * @return Closure(iterable<TKey, T>): iterable<int|TKey, T>
+             * @return Closure(iterable<TKey, T>): iterable<int|TKey, T|U>
              */
             static fn (array $items): Closure =>
                 /**
                  * @param iterable<TKey, T> $iterable
                  *
-                 * @return Generator<int|TKey, T>
+                 * @return Generator<int|TKey, T|U>
                  */
                 static fn (iterable $iterable): Generator => yield from new ConcatIterableAggregate([$items, $iterable]);
     }
