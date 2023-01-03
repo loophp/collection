@@ -37,7 +37,8 @@
     ],
     "require": {
         "php": ">= 8",
-        "loophp/iterators": "^2.3.1"
+        "loophp/iterators": "^2.3.1",
+        "vimeo/psalm": "dev-master#f723e08221c5028612d928241c84d9cac7fe6d86"
     },
     "require-dev": {
         "amphp/parallel-functions": "^1",
