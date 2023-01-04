@@ -21,6 +21,6 @@ final class IsNotEmpty extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        return static fn (iterable $iterable): Generator => yield (bool)(new IterableIteratorAggregate($iterable))->getIterator()->valid();
+        return static fn (iterable $iterable): Generator => yield (new IterableIteratorAggregate($iterable))->getIterator()->valid();
     }
 }
