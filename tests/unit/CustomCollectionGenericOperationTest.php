@@ -144,6 +144,7 @@ final class CustomCollectionGenericOperationTest extends TestCase
      * @dataProvider headOperationProvider
      * @dataProvider implodeOperationProvider
      * @dataProvider isEmptyOperationProvider
+     * @dataProvider isNotEmptyOperationProvider
      * @dataProvider keyOperationProvider
      * @dataProvider lastOperationProvider
      * @dataProvider matchOperationProvider

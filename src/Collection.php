@@ -470,6 +470,11 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return (new Operation\IsEmpty())()($this)->current();
     }
 
+    public function isNotEmpty(): bool
+    {
+        return (new Operation\IsNotEmpty())()($this)->current();
+    }
+
     /**
      * @return array<mixed>
      */

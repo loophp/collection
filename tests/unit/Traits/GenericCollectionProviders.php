@@ -2456,6 +2456,71 @@ trait GenericCollectionProviders
         ];
     }
 
+    public function isNotEmptyOperationProvider()
+    {
+        $operation = 'isNotEmpty';
+        $gen = static fn (): Generator => yield from [];
+
+        yield [
+            $operation,
+            [],
+            [],
+            false,
+        ];
+
+        yield [
+            $operation,
+            [],
+            $gen(),
+            false,
+        ];
+
+        yield [
+            $operation,
+            [],
+            [null],
+            true,
+        ];
+
+        yield [
+            $operation,
+            [],
+            [[]],
+            true,
+        ];
+
+        yield [
+            $operation,
+            [],
+            [1, 2, 3],
+            true,
+        ];
+
+        $withValues = Collection::fromIterable([1, 2, 3]);
+
+        foreach ($withValues as $value);
+        // iterating once through it
+
+        yield [
+            $operation,
+            [],
+            $withValues,
+            true,
+        ];
+
+        $withoutValues = Collection::fromIterable([]);
+
+        foreach ($withoutValues as $value);
+        // iterating once through it
+
+        yield [
+            $operation,
+            [],
+            $withoutValues,
+            false,
+        ];
+    }
+
     public function jsonSerializeOperationProvider()
     {
         $input = ['a' => 'A', 'b' => 'B', 'c' => 'C'];
