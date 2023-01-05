@@ -131,6 +131,16 @@ parameters:
 			path: src/Collection.php
 
 		-
+			message: "#^Template type U of method loophp\\\\collection\\\\Collection\\:\\:empty\\(\\) is not referenced in a parameter\\.$#"
+			count: 1
+			path: src/Collection.php
+
+		-
+			message: "#^Template type UKey of method loophp\\\\collection\\\\Collection\\:\\:empty\\(\\) is not referenced in a parameter\\.$#"
+			count: 1
+			path: src/Collection.php
+
+		-
 			message: "#^PHPDoc tag @return with type loophp\\\\collection\\\\CollectionDecorator\\<UKey, U\\> is incompatible with native type static\\(loophp\\\\collection\\\\CollectionDecorator\\<TKey, T\\>\\)\\.$#"
 			count: 2
 			path: src/CollectionDecorator.php
