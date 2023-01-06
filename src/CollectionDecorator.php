@@ -323,9 +323,9 @@ abstract class CollectionDecorator implements CollectionInterface
         return new static($this->innerCollection->group());
     }
 
-    public function groupBy(callable $callable): static
+    public function groupBy(callable $callback): static
     {
-        return new static($this->innerCollection->groupBy($callable));
+        return new static($this->innerCollection->groupBy($callback));
     }
 
     public function has(callable ...$callbacks): bool

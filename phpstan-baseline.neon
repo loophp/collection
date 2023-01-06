@@ -236,11 +236,6 @@ parameters:
 			path: src/Operation/Get.php
 
 		-
-			message: "#^Template type NewTKey of method loophp\\\\collection\\\\Operation\\\\GroupBy\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
-			count: 1
-			path: src/Operation/GroupBy.php
-
-		-
 			message: "#^Parameter \\#1 \\.\\.\\.\\$ of closure expects callable\\(mixed, mixed, iterable\\)\\: bool, Closure\\(mixed, mixed, loophp\\\\iterators\\\\CachingIteratorAggregate\\)\\: bool given\\.$#"
 			count: 1
 			path: src/Operation/Init.php

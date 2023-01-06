@@ -407,9 +407,9 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return new self((new Operation\Group())(), [$this]);
     }
 
-    public function groupBy(callable $callable): CollectionInterface
+    public function groupBy(callable $callback): CollectionInterface
     {
-        return new self((new Operation\GroupBy())()($callable), [$this]);
+        return new self((new Operation\GroupBy())()($callback), [$this]);
     }
 
     public function has(callable ...$callbacks): bool

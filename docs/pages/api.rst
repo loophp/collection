@@ -1086,25 +1086,17 @@ Signature: ``Collection::group(): Collection;``
 groupBy
 ~~~~~~~
 
-Group items based on the provided callback.
+Group items based on a custom callback.
+The grouping will be based on the returned value of the callback.
+The callback takes two parameters, the value and the key of the current item in
+the iterator, the returned value must be an integer or a string.
 
 Interface: `GroupByable`_
 
 Signature: ``Collection::groupBy(callable $callback): Collection;``
 
-.. code-block:: php
-
-    $callback = static function () {
-            yield 1 => 'a';
-            yield 1 => 'b';
-            yield 1 => 'c';
-            yield 2 => 'd';
-            yield 2 => 'e';
-            yield 3 => 'f';
-    };
-
-    $collection = Collection::fromIterable($callback())
-        ->groupBy(static fn (string $char, int $key): int => $key); // [1 => ['a', 'b', 'c'], 2 => ['d', 'e'], 3 => ['f']]
+.. literalinclude:: code/operations/groupBy.php
+  :language: php
 
 has
 ~~~

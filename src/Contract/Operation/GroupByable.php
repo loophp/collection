@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
+use Closure;
 use loophp\collection\Contract\Collection;
 
 /**
@@ -13,16 +14,16 @@ use loophp\collection\Contract\Collection;
 interface GroupByable
 {
     /**
-     * Group items based on their keys.
-     * The default behaviour can be customized with a callback.
+     * Group items based on a custom callback.
+     * The grouping will be based on the returned value of the callback.
+     * The callback takes two parameters, the value and the key of the current
+     * item in the iterator, the returned value must be an integer or a string.
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#groupby
      *
-     * @template UKey
+     * @param Closure(T, TKey): array-key $callback
      *
-     * @param callable(T, TKey): UKey $callable
-     *
-     * @return Collection<UKey, non-empty-list<T>>
+     * @return Collection<array-key, non-empty-list<T>>
      */
-    public function groupBy(callable $callable): Collection;
+    public function groupBy(Closure $callback): Collection;
 }

@@ -16,42 +16,34 @@ use Generator;
 final class GroupBy extends AbstractOperation
 {
     /**
-     * @template NewTKey
-     *
-     * @return Closure(callable(T, TKey): NewTKey): Closure(iterable<TKey, T>): Generator<NewTKey, non-empty-list<T>>
+     * @return Closure(Closure(T, TKey): array-key): Closure(iterable<TKey, T>): Generator<array-key, non-empty-list<T>>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable(T, TKey): NewTKey $callable
+             * @param callable(T, TKey): array-key $callback
              *
-             * @return Closure(iterable<TKey, T>): Generator<NewTKey, non-empty-list<T>>
+             * @return Closure(iterable<TKey, T>): Generator<array-key, non-empty-list<T>>
              */
-            static function (callable $callable): Closure {
+            static function (callable $callback): Closure {
                 $reducerFactory =
                     /**
-                     * @param callable(T, TKey): NewTKey $callback
+                     * @param array<array-key, non-empty-list<T>> $collect
+                     * @param T $value
+                     * @param TKey $key
                      *
-                     * @return Closure(array<NewTKey, non-empty-list<T>>, T, TKey): array<NewTKey, non-empty-list<T>>
+                     * @return non-empty-array<array-key, non-empty-list<T>>
                      */
-                    static fn (callable $callback): Closure =>
-                        /**
-                         * @param array<NewTKey, non-empty-list<T>> $collect
-                         * @param T $value
-                         * @param TKey $key
-                         *
-                         * @return non-empty-array<NewTKey, non-empty-list<T>>
-                         */
-                        static function (array $collect, mixed $value, mixed $key) use ($callback): array {
-                            $collect[$callback($value, $key)][] = $value;
+                    static function (array $collect, mixed $value, mixed $key) use ($callback): array {
+                        $collect[$callback($value, $key)][] = $value;
 
-                            return $collect;
-                        };
+                        return $collect;
+                    };
 
-                /** @var Closure(iterable<TKey, T>): Generator<NewTKey, non-empty-list<T>> $pipe */
+                /** @var Closure(iterable<TKey, T>): Generator<array-key, non-empty-list<T>> $pipe */
                 $pipe = (new Pipe())()(
-                    (new Reduce())()($reducerFactory($callable))([]),
+                    (new Reduce())()($reducerFactory)([]),
                     (new Flatten())()(1)
                 );
 
