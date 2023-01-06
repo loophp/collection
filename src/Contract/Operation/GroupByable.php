@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
-use Closure;
 use loophp\collection\Contract\Collection;
 
 /**
@@ -21,9 +20,9 @@ interface GroupByable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#groupby
      *
-     * @param Closure(T, TKey): array-key $callback
+     * @param callable(T, TKey): array-key $callback
      *
      * @return Collection<array-key, non-empty-list<T>>
      */
-    public function groupBy(Closure $callback): Collection;
+    public function groupBy(callable $callback): Collection;
 }

@@ -16,7 +16,7 @@ use Generator;
 final class GroupBy extends AbstractOperation
 {
     /**
-     * @return Closure(Closure(T, TKey): array-key): Closure(iterable<TKey, T>): Generator<array-key, non-empty-list<T>>
+     * @return Closure(callable(T, TKey): array-key): Closure(iterable<TKey, T>): Generator<array-key, non-empty-list<T>>
      */
     public function __invoke(): Closure
     {
