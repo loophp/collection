@@ -20,9 +20,7 @@ function strict_checkMap(CollectionInterface $collection): void
 {
 }
 
-$callback =
-    /** @param mixed $value */
-    static fn (mixed $value): string => gettype($value);
+$callback = static fn (mixed $value): string => gettype($value);
 
 strict_checkList(Collection::fromIterable([1, 2, 3])->strict());
 strict_checkMap(Collection::fromIterable(['foo' => 'f', 'bar' => 'b'])->strict());
