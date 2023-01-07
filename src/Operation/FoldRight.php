@@ -17,26 +17,25 @@ final class FoldRight extends AbstractOperation
 {
     /**
      * @template V
-     * @template W
      *
-     * @return Closure(callable((V|W), T, TKey, iterable<TKey, T>): W): Closure(V): Closure(iterable<TKey, T>): Generator<TKey, V|W>
+     * @return Closure(callable(V, T, TKey, iterable<TKey, T>): V): Closure(V): Closure(iterable<TKey, T>): Generator<int, V>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param callable((V|W), T, TKey, iterable<TKey, T>): W $callback
+             * @param callable(V, T, TKey, iterable<TKey, T>): V $callback
              *
-             * @return Closure(V): Closure(iterable<TKey, T>): Generator<TKey, V|W>
+             * @return Closure(V): Closure(iterable<TKey, T>): Generator<int, V>
              */
             static fn (callable $callback): Closure =>
                 /**
                  * @param V $initial
                  *
-                 * @return Closure(iterable<TKey, T>): Generator<TKey, V|W>
+                 * @return Closure(iterable<TKey, T>): Generator<int, V>
                  */
                 static function (mixed $initial = null) use ($callback): Closure {
-                    /** @var Closure(iterable<TKey, T>): Generator<TKey, V|W> $pipe */
+                    /** @var Closure(iterable<TKey, T>): Generator<int, V> $pipe */
                     $pipe = (new Pipe())()(
                         (new ScanRight())()($callback)($initial),
                         (new Head())()
