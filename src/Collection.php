@@ -778,7 +778,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return (new Operation\Truthy())()($this)->current();
     }
 
-    public static function unfold(callable $callback, array $parameters = []): CollectionInterface
+    public static function unfold(callable $callback, iterable $parameters = []): CollectionInterface
     {
         return new self((new Operation\Unfold())()($parameters)($callback));
     }

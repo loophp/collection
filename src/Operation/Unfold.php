@@ -9,32 +9,32 @@ use Generator;
 
 /**
  * @immutable
- *
- * @template TKey
- * @template T
  */
 final class Unfold extends AbstractOperation
 {
     /**
-     * @return Closure(array<int, T>): Closure(callable(T...): list<T>): Closure(): Generator<int, list<T>>
+     * @template TKey
+     * @template T
+     *
+     * @return Closure(iterable<TKey, T>): Closure(callable(T...): iterable<array-key, T>): Closure(): Generator<int, iterable<array-key, T>>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param array<int, T> $parameters
+             * @param iterable<array-key, T> $parameters
              *
-             * @return Closure(callable(T...): list<T>): Closure(): Generator<int, list<T>>
+             * @return Closure(callable(T...): iterable<array-key, T>): Closure(): Generator<int, iterable<array-key, T>>
              */
-            static fn (array $parameters): Closure =>
+            static fn (iterable $parameters): Closure =>
                 /**
-                 * @param callable(T...): list<T> $callback
+                 * @param callable(T...): iterable<array-key, T> $callback
                  *
-                 * @return Closure(): Generator<int, list<T>>
+                 * @return Closure(): Generator<int, iterable<array-key, T>>
                  */
                 static fn (callable $callback): Closure =>
                     /**
-                     * @return Generator<int, list<T>>
+                     * @return Generator<int, iterable<array-key, T>>
                      */
                     static function () use ($parameters, $callback): Generator {
                         while (true) {

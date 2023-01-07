@@ -638,7 +638,7 @@ abstract class CollectionDecorator implements CollectionInterface
         return $this->innerCollection->truthy();
     }
 
-    public static function unfold(callable $callback, array $parameters = []): static
+    public static function unfold(callable $callback, iterable $parameters = []): static
     {
         return new static(Collection::unfold($callback, $parameters));
     }

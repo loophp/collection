@@ -15,10 +15,10 @@ interface Unfoldable
      *
      * @template T
      *
-     * @param callable(T ...): list<T> $callback
-     * @param array<int, T> $parameters
+     * @param callable(T...): iterable<array-key, T> $callback
+     * @param iterable<array-key, T> $parameters
      *
-     * @return Collection<int, list<T>>
+     * @return Collection<int, iterable<array-key, T>>
      */
-    public static function unfold(callable $callback, array $parameters = []): Collection;
+    public static function unfold(callable $callback, iterable $parameters = []): Collection;
 }

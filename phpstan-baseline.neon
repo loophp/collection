@@ -281,6 +281,16 @@ parameters:
 			path: src/Operation/ScanRight1.php
 
 		-
+			message: "#^Template type T of method loophp\\\\collection\\\\Operation\\\\Unfold\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
+			count: 1
+			path: src/Operation/Unfold.php
+
+		-
+			message: "#^Template type TKey of method loophp\\\\collection\\\\Operation\\\\Unfold\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
+			count: 1
+			path: src/Operation/Unfold.php
+
+		-
 			message: "#^While loop condition is always true\\.$#"
 			count: 1
 			path: src/Operation/Unfold.php
