@@ -11,7 +11,7 @@ namespace loophp\collection\Contract\Operation;
 interface IsNotEmptyable
 {
     /**
-     * Check if a collection has any elements inside.
+     * Check if a collection has at least one element inside.
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#isnotempty
      */
