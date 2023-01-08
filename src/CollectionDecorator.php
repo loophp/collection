@@ -378,6 +378,11 @@ abstract class CollectionDecorator implements CollectionInterface
         return $this->innerCollection->isEmpty();
     }
 
+    public function isNotEmpty(): bool
+    {
+        return $this->innerCollection->isNotEmpty();
+    }
+
     public function key(int $index = 0): mixed
     {
         return $this->innerCollection->key($index);
