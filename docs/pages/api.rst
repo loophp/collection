@@ -1278,7 +1278,7 @@ Signature: ``Collection::isEmpty(): bool;``
   :language: php
 
 isNotEmpty
-~~~~~~~
+~~~~~~~~~~
 
 Check if a collection has at least one element inside.
 
