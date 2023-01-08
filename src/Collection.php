@@ -271,7 +271,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return (new Operation\Find())()($default)(...$callbacks)($this)->current();
     }
 
-    public function first(mixed $default = null): mixed
+    public function first(mixed $default = null)
     {
         return (new self((new Operation\First())(), [$this]))->current(0, $default);
     }
