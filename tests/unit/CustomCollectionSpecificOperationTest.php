@@ -31,7 +31,6 @@ use const PHP_VERSION_ID;
 final class CustomCollectionSpecificOperationTest extends TestCase
 {
     use GenericCollectionProviders;
-
     use IterableAssertions;
 
     public function testApplyOperation(): void
