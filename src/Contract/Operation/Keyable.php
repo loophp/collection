@@ -17,5 +17,5 @@ interface Keyable
      *
      * @return TKey|null
      */
-    public function key(int $index = 0): mixed;
+    public function key(int $index = 0);
 }

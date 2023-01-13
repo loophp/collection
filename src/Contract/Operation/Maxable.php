@@ -28,5 +28,5 @@ interface Maxable
      *
      * @return T|V
      */
-    public function max(mixed $default = null): mixed;
+    public function max(mixed $default = null);
 }

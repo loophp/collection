@@ -8,7 +8,9 @@ use loophp\collection\Collection;
 use loophp\collection\Contract\Collection as CollectionInterface;
 
 /**
- * @param CollectionInterface<int, list<array{0: int, 1: string}>> $collection
+ * @phpstan-param CollectionInterface<int, list<array{0: int, 1: string}>> $collection
+ *
+ * @psalm-param CollectionInterface<int, list<array{0: int<0, max>, 1: string}>> $collection
  */
 function inits_checkListString(CollectionInterface $collection): void
 {

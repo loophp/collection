@@ -127,7 +127,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return new self((new Operation\Compact())()($values), [$this]);
     }
 
-    public function compare(callable $comparator, $default = null): mixed
+    public function compare(callable $comparator, $default = null)
     {
         return (new self((new Operation\Compare())()($comparator), [$this]))->current(0, $default);
     }
@@ -142,7 +142,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return iterator_count($this);
     }
 
-    public function current(int $index = 0, $default = null): mixed
+    public function current(int $index = 0, $default = null)
     {
         return (new Operation\Current())()($index)($default)($this)->current();
     }
@@ -266,12 +266,12 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return new self((new Operation\Filter())()(...$callbacks), [$this]);
     }
 
-    public function find(mixed $default = null, callable ...$callbacks): mixed
+    public function find(mixed $default = null, callable ...$callbacks)
     {
         return (new Operation\Find())()($default)(...$callbacks)($this)->current();
     }
 
-    public function first(mixed $default = null): mixed
+    public function first(mixed $default = null)
     {
         return (new self((new Operation\First())(), [$this]))->current(0, $default);
     }
@@ -389,7 +389,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return new self(static fn (): Generator => yield from new StringIteratorAggregate($string, $delimiter));
     }
 
-    public function get(mixed $key, mixed $default = null): mixed
+    public function get(mixed $key, mixed $default = null)
     {
         return (new self((new Operation\Get())()($key)($default), [$this]))->current(0, $default);
     }
@@ -417,7 +417,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return (new Operation\Has())()(...$callbacks)($this)->current();
     }
 
-    public function head(mixed $default = null): mixed
+    public function head(mixed $default = null)
     {
         return (new self((new Operation\Head())(), [$this]))->current(0, $default);
     }
@@ -483,7 +483,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return $this->all(false);
     }
 
-    public function key(int $index = 0): mixed
+    public function key(int $index = 0)
     {
         return (new Operation\Key())()($index)($this)->current();
     }
@@ -493,7 +493,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return new self((new Operation\Keys())(), [$this]);
     }
 
-    public function last(mixed $default = null): mixed
+    public function last(mixed $default = null)
     {
         return (new self((new Operation\Last())(), [$this]))->current(0, $default);
     }
@@ -528,7 +528,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return new self((new Operation\Matching())()($criteria), [$this]);
     }
 
-    public function max(mixed $default = null): mixed
+    public function max(mixed $default = null)
     {
         return (new self((new Operation\Max())(), [$this]))->current(0, $default);
     }
@@ -538,7 +538,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return new self((new Operation\Merge())()(...$sources), [$this]);
     }
 
-    public function min(mixed $default = null): mixed
+    public function min(mixed $default = null)
     {
         return (new self((new Operation\Min())(), [$this]))->current(0, $default);
     }

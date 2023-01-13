@@ -8,7 +8,9 @@ use loophp\collection\Collection;
 use loophp\collection\Contract\Collection as CollectionInterface;
 
 /**
- * @param CollectionInterface<int, int> $collection
+ * @psalm-param CollectionInterface|CollectionInterface<int<0, 2>, 0|1|2> $collection
+ *
+ * @phpstan-param CollectionInterface<int, int> $collection
  */
 function drop_checkList(CollectionInterface $collection): void
 {

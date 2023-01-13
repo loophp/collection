@@ -6,6 +6,12 @@ include __DIR__ . '/../../vendor/autoload.php';
 
 use loophp\collection\Collection;
 
+/**
+ * @param mixed|null $last
+ */
+function last_checkNull($last): void
+{
+}
 function last_checkList(?int $last): void
 {
 }
@@ -28,8 +34,7 @@ function last_checkNullableString(?string $value): void
 last_checkList(Collection::fromIterable([1, 2, 3])->last());
 last_checkMap(Collection::fromIterable(['foo' => 'bar', 'baz' => 'bar'])->last());
 
-last_checkList(Collection::empty()->last());
-last_checkMap(Collection::empty()->last());
+last_checkNull(Collection::empty()->last());
 
 last_checkNullableInt(Collection::fromIterable([1, 2, 3])->last());
 last_checkNullableString(Collection::fromIterable(['foo' => 'bar', 'baz' => 'bar'])->last());

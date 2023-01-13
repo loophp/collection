@@ -8,23 +8,29 @@ use loophp\collection\Collection;
 use loophp\collection\Contract\Collection as CollectionInterface;
 
 /**
- * @param CollectionInterface<int, int> $collection
+ * @phpstan-param CollectionInterface<int, iterable<mixed,mixed>> $collection
+ *
+ * @psalm-param CollectionInterface<int, iterable<int|string, int>> $collection
  */
 function unfold_checkList(CollectionInterface $collection): void
 {
 }
 /**
- * @param CollectionInterface<int, list<int>> $collection
+ * @param CollectionInterface<int, iterable<int|string, int>> $collection
  */
 function unfold_checkListOfLists(CollectionInterface $collection): void
 {
 }
 
-$plusTwo = static fn (int $n = 0): array => [$n + 2];
+$plusTwo =
+    /**
+     * @return array{0: int}
+     */
+    static fn (int $n = 0): array => [$n + 2];
 $fib = static fn (int $a = 0, int $b = 1): array => [$b, $a + $b];
 
-unfold_checkList(Collection::unfold($plusTwo)->unwrap());
-unfold_checkList(Collection::unfold($plusTwo, [-2])->unwrap());
+unfold_checkList(Collection::unfold($plusTwo));
+unfold_checkList(Collection::unfold($plusTwo, [-2]));
 
 // VALID use cases -> PHPStan thinks the collection is of type Collection<int, array<int, mixed>>, but Psalm works
 
@@ -40,7 +46,7 @@ unfold_checkListOfLists(Collection::unfold($fib, 0));
 
 // VALID use case -> `Pluck` can return various things so analysers cannot know the type is correct
 
-/** @psalm-suppress InvalidArgument @phpstan-ignore-next-line */
+/** @psalm-suppress InvalidArgument */
 unfold_checkList(Collection::unfold($fib)->pluck(0));
 
 // INVALID use case -> parameters of different types

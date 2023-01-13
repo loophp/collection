@@ -5,24 +5,35 @@ declare(strict_types=1);
 include __DIR__ . '/../../vendor/autoload.php';
 
 use loophp\collection\Collection;
-use loophp\collection\Contract\Collection as CollectionInterface;
 
 /**
- * @param CollectionInterface<int, int> $collection
+ * @psalm-param Collection<int<0, max>, int>|Collection<int, int<min, max>> $collection
+ *
+ * @phpstan-param Collection<int, int> $collection
  */
-function fromCallable_checkList(CollectionInterface $collection): void
+function fromCallable_checkList(Collection $collection): void
 {
 }
 /**
- * @param CollectionInterface<string, int> $collection
+ * @param Collection<string, int> $collection
  */
-function fromCallable_checkMap(CollectionInterface $collection): void
+function fromCallable_checkMap(Collection $collection): void
 {
 }
 /**
- * @param CollectionInterface<int, int|string> $collection
+ * @psalm-param Collection<1|3|4, '5'|'b'|'c'|2> $collection
+ *
+ * @phpstan-param Collection<int, int|string> $collection
  */
-function fromCallable_checkMixed(CollectionInterface $collection): void
+function fromCallable_checkMixed1(Collection $collection): void
+{
+}
+/**
+ * @psalm-param Collection<int, int|string>|Collection<int<0, 4>, '3'|'b'|1|2|5> $collection
+ *
+ * @phpstan-param Collection<int, int|string> $collection
+ */
+function fromCallable_checkMixed2(Collection $collection): void
 {
 }
 
@@ -122,20 +133,20 @@ $invokableClassMixed = new class() {
 
 fromCallable_checkList(Collection::fromCallable($generatorClosureList));
 fromCallable_checkMap(Collection::fromCallable($generatorClosureMap));
-fromCallable_checkMixed(Collection::fromCallable($generatorClosureMixed));
+fromCallable_checkMixed1(Collection::fromCallable($generatorClosureMixed));
 
 fromCallable_checkList(Collection::fromCallable($arrayList));
 fromCallable_checkMap(Collection::fromCallable($arrayMap));
-fromCallable_checkMixed(Collection::fromCallable($arrayMixed));
+fromCallable_checkMixed2(Collection::fromCallable($arrayMixed));
 
 fromCallable_checkList(Collection::fromCallable([$classWithMethod, 'getValues']));
 fromCallable_checkMap(Collection::fromCallable([$classWithMethod, 'getKeyValues']));
-fromCallable_checkMixed(Collection::fromCallable([$classWithMethod, 'getMixed']));
+fromCallable_checkMixed2(Collection::fromCallable([$classWithMethod, 'getMixed']));
 
 fromCallable_checkList(Collection::fromCallable([$classWithStaticMethod, 'getValues']));
 fromCallable_checkMap(Collection::fromCallable([$classWithStaticMethod, 'getKeyValues']));
-fromCallable_checkMixed(Collection::fromCallable([$classWithStaticMethod, 'getMixed']));
+fromCallable_checkMixed2(Collection::fromCallable([$classWithStaticMethod, 'getMixed']));
 
 fromCallable_checkList(Collection::fromCallable($invokableClassList));
 fromCallable_checkMap(Collection::fromCallable($invokableClassMap));
-fromCallable_checkMixed(Collection::fromCallable($invokableClassMixed));
+fromCallable_checkMixed2(Collection::fromCallable($invokableClassMixed));

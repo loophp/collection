@@ -17,7 +17,11 @@ interface Prependable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#prepend
      *
-     * @return Collection<int|TKey, T>
+     * @template U
+     *
+     * @param U ...$items
+     *
+     * @return Collection<int|TKey, T|U>
      */
     public function prepend(mixed ...$items): Collection;
 }

@@ -24,5 +24,5 @@ interface Getable
      *
      * @return T|V
      */
-    public function get(mixed $key, mixed $default = null): mixed;
+    public function get(mixed $key, mixed $default = null);
 }

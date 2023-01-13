@@ -10,7 +10,7 @@ use loophp\collection\Contract\Collection as CollectionInterface;
 /**
  * @phpstan-param CollectionInterface<int, array<int, int>> $collection
  *
- * @psalm-param CollectionInterface<int, array<int, int<0, max>>> $collection
+ * @psalm-param CollectionInterface<int, array<int<0, max>, int>> $collection
  */
 function wrap_checkList(CollectionInterface $collection): void
 {
@@ -22,13 +22,5 @@ function wrap_checkMap(CollectionInterface $collection): void
 {
 }
 
-$intIntGenerator = static function (): Generator {
-    yield random_int(0, mt_getrandmax());
-};
-
-$stringBoolGenerator = static function (): Generator {
-    yield chr(random_int(0, 255)) => 0 === random_int(0, mt_getrandmax()) % 2;
-};
-
-wrap_checkList(Collection::fromIterable($intIntGenerator())->wrap());
-wrap_checkMap(Collection::fromIterable($stringBoolGenerator())->wrap());
+wrap_checkList(Collection::fromIterable(range(0, 3))->wrap());
+wrap_checkMap(Collection::fromIterable(['a' => true, 'b' => false])->wrap());
