@@ -68,6 +68,7 @@ use Traversable;
  * @template-extends Operation\Intersectkeysable<TKey, T>
  * @template-extends Operation\Intersperseable<TKey, T>
  * @template-extends Operation\IsEmptyable<TKey, T>
+ * @template-extends Operation\IsNotEmptyable<TKey, T>
  * @template-extends Operation\Keyable<TKey, T>
  * @template-extends Operation\Keysable<TKey, T>
  * @template-extends Operation\Lastable<TKey, T>
@@ -187,6 +188,7 @@ interface Collection extends
     Operation\Intersectkeysable,
     Operation\Intersperseable,
     Operation\IsEmptyable,
+    Operation\IsNotEmptyable,
     Operation\Keyable,
     Operation\Keysable,
     Operation\Lastable,

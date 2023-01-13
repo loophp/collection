@@ -1268,13 +1268,25 @@ Signature: ``Collection::intersperse($element, int $every = 1, int $startAt = 0)
 isEmpty
 ~~~~~~~
 
-Check if a collection has any elements inside.
+Check if a collection has no elements inside.
 
 Interface: `IsEmptyable`_
 
 Signature: ``Collection::isEmpty(): bool;``
 
 .. literalinclude:: code/operations/isEmpty.php
+  :language: php
+
+isNotEmpty
+~~~~~~~~~~
+
+Check if a collection has at least one element inside.
+
+Interface: `IsNotEmptyable`_
+
+Signature: ``Collection::isNotEmpty(): bool;``
+
+.. literalinclude:: code/operations/isNotEmpty.php
   :language: php
 
 jsonSerialize
@@ -2563,6 +2575,7 @@ Signature: ``Collection::zip(iterable ...$iterables): Collection;``
 .. _Intersectkeysable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Intersectkeysable.php
 .. _Intersperseable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Intersperseable.php
 .. _IsEmptyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/IsEmptyable.php
+.. _IsNotEmptyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/IsNotEmptyable.php
 .. _Keyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Keyable.php
 .. _Keysable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Keysable.php
 .. _Lastable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Lastable.php
