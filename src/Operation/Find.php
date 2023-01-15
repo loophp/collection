@@ -38,8 +38,7 @@ final class Find extends AbstractOperation
                     /** @var Closure(iterable<TKey, T>): Generator<TKey, T|V> $pipe */
                     $pipe = (new Pipe())()(
                         (new Filter())()(...$callbacks),
-                        (new Append())()([$default]),
-                        (new Head())(),
+                        (new Current())()(0)($default)
                     );
 
                     // Point free style.
