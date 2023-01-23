@@ -18,15 +18,6 @@
       <code>$default</code>
     </PossiblyNullArgument>
   </file>
-  <file src="src/CollectionDecorator.php">
-    <InvalidArgument>
-      <code>foldLeft1</code>
-      <code>foldRight1</code>
-    </InvalidArgument>
-    <InvalidReturnType>
-      <code>static</code>
-    </InvalidReturnType>
-  </file>
   <file src="src/Operation/All.php">
     <InvalidReturnStatement>
       <code>static fn (bool $normalize): Closure =&gt;
@@ -40,11 +31,6 @@
     <InvalidReturnType>
       <code>Closure(bool): Closure(iterable&lt;TKey, T&gt;): (Generator&lt;int, T&gt;|Generator&lt;TKey, T&gt;)</code>
     </InvalidReturnType>
-  </file>
-  <file src="src/Operation/Pluck.php">
-    <ArgumentTypeCoercion>
-      <code>$segment</code>
-    </ArgumentTypeCoercion>
   </file>
   <file src="src/Operation/Product.php">
     <InvalidArgument>

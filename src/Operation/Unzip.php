@@ -30,9 +30,7 @@ final class Unzip extends AbstractOperation
             static function (array $carry, iterable $value): array {
                 $index = 0;
 
-                foreach ($value as $v) {
-                    $carry[$index++][] = $v;
-                }
+                foreach ($value as $carry[$index++][]);
 
                 return $carry;
             };
