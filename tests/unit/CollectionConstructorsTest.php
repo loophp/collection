@@ -13,7 +13,6 @@ use PHPUnit\Framework\TestCase;
 use const INF;
 
 /**
- *
  * @internal
  *
  * @coversDefaultClass \loophp\collection
