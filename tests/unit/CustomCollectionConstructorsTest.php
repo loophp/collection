@@ -185,6 +185,7 @@ final class CustomCollectionConstructorsTest extends TestCase
 
         self::assertEquals(
             56,
+
             iterator_count(Collection::fromResource($stream))
         );
 
