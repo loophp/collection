@@ -40,7 +40,7 @@ jobs:
               with:
                   php-version: ${{ matrix.php-versions }}
                   extensions: mbstring
-                  coverage: none
+                  coverage: pcov
                   tools: cs2pr
 
             - name: Install dependencies
