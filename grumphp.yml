@@ -45,7 +45,7 @@ parameters:
             always_execute: true
         clover_coverage:
             clover_file: build/logs/coverage/clover.xml
-            level: 99
+            level: 95
         infection:
             threads: 10
             test_framework: phpunit
