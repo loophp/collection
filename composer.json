@@ -47,7 +47,7 @@
         "loophp/phpunit-iterable-assertions": "^1.0",
         "phpstan/phpstan-strict-rules": "^1.0",
         "phpunit/php-code-coverage": "^9.2",
-        "phpunit/phpunit": "^9.5",
+        "phpunit/phpunit": "^10.0",
         "psr/cache": "^2.0 || 3.0",
         "symfony/cache": "^6",
         "vimeo/psalm": "^5.5"
