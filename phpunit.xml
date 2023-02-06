@@ -1,36 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="./vendor/phpunit/phpunit/phpunit.xsd"
-         bootstrap="./vendor/autoload.php"
-         colors="true"
-         executionOrder="random"
-         beStrictAboutChangesToGlobalState="true"
-         beStrictAboutOutputDuringTests="false"
-         beStrictAboutCoversAnnotation="true"
-         forceCoversAnnotation="false"
-         failOnWarning="true"
-         failOnRisky="true"
-         failOnEmptyTestSuite="true"
-         verbose="true"
->
-    <testsuites>
-        <testsuite name="Test Suite">
-            <directory>./tests/unit</directory>
-        </testsuite>
-    </testsuites>
-
-    <coverage processUncoveredFiles="true">
-        <include>
-            <directory suffix=".php">src</directory>
-        </include>
-        <report>
-            <xml outputDirectory="build/logs/coverage/coverage-xml/infection"/>
-            <html outputDirectory="build/logs/coverage/html-coverage"/>
-            <clover outputFile="build/logs/coverage/clover.xml"/>
-        </report>
-    </coverage>
-
-    <logging>
-        <junit outputFile="build/logs/coverage/junit.xml"/>
-    </logging>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.0/phpunit.xsd" bootstrap="./vendor/autoload.php" colors="true" executionOrder="random" beStrictAboutChangesToGlobalState="true" beStrictAboutOutputDuringTests="false" failOnWarning="true" failOnRisky="true" failOnEmptyTestSuite="true" cacheDirectory=".phpunit.cache" requireCoverageMetadata="false" beStrictAboutCoverageMetadata="true">
+  <testsuites>
+    <testsuite name="Test Suite">
+      <directory>./tests/unit</directory>
+    </testsuite>
+  </testsuites>
+  <coverage>
+    <include>
+      <directory suffix=".php">src</directory>
+    </include>
+    <report>
+      <xml outputDirectory="build/logs/coverage/coverage-xml/infection"/>
+      <html outputDirectory="build/logs/coverage/html-coverage"/>
+      <clover outputFile="build/logs/coverage/clover.xml"/>
+    </report>
+  </coverage>
+  <logging>
+    <junit outputFile="build/logs/coverage/junit.xml"/>
+  </logging>
 </phpunit>

@@ -183,9 +183,9 @@ final class CustomCollectionConstructorsTest extends TestCase
 
         $stream = fopen('data://text/plain,' . $string, 'rb');
 
-        self::assertCount(
+        self::assertEquals(
             56,
-            Collection::fromResource($stream)
+            iterator_count(Collection::fromResource($stream))
         );
 
         $stream = fopen('data://text/plain,' . $string, 'rb');

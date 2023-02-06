@@ -24,7 +24,7 @@ use const PHP_VERSION_ID;
  */
 trait GenericCollectionProviders
 {
-    public function allOperationProvider()
+    public static function allOperationProvider()
     {
         $operation = 'all';
 
@@ -55,7 +55,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function appendOperationProvider()
+    public static function appendOperationProvider()
     {
         $operation = 'append';
 
@@ -79,7 +79,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function applyOperationProvider()
+    public static function applyOperationProvider()
     {
         $operation = 'apply';
 
@@ -91,7 +91,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function associateOperationProvider()
+    public static function associateOperationProvider()
     {
         $operation = 'associate';
 
@@ -126,7 +126,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function asyncMapNOperationProvider()
+    public static function asyncMapNOperationProvider()
     {
         $operation = 'asyncMapN';
         $input = ['c' => 2, 'b' => 1, 'a' => 0];
@@ -147,7 +147,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function asyncMapOperationProvider()
+    public static function asyncMapOperationProvider()
     {
         $operation = 'asyncMap';
         $input = ['c' => 2, 'b' => 1, 'a' => 0];
@@ -167,7 +167,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function averagesOperationProvider()
+    public static function averagesOperationProvider()
     {
         $operation = 'averages';
         $input = array_combine(range('a', 'f'), range(0, 5));
@@ -187,7 +187,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function cacheOperationProvider()
+    public static function cacheOperationProvider()
     {
         $operation = 'cache';
         $input = range('A', 'E');
@@ -200,7 +200,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function chunkOperationProvider()
+    public static function chunkOperationProvider()
     {
         $operation = 'chunk';
         $input = range('A', 'F');
@@ -235,7 +235,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function coalesceOperationProvider()
+    public static function coalesceOperationProvider()
     {
         $operation = 'coalesce';
         $input = range('a', 'e');
@@ -258,7 +258,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function collapseOperationProvider()
+    public static function collapseOperationProvider()
     {
         $operation = 'collapse';
         $input = [
@@ -294,7 +294,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function columnOperationProvider()
+    public static function columnOperationProvider()
     {
         $operation = 'column';
 
@@ -346,7 +346,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function combinateOperationProvider()
+    public static function combinateOperationProvider()
     {
         $operation = 'combinate';
         $parameters = [0];
@@ -429,7 +429,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function combineOperationProvider()
+    public static function combineOperationProvider()
     {
         $operation = 'combine';
         $parameters = [...range('e', 'a')];
@@ -486,7 +486,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function compactOperationProvider()
+    public static function compactOperationProvider()
     {
         $operation = 'compact';
         $parameters = [];
@@ -514,7 +514,7 @@ trait GenericCollectionProviders
     /**
      * @return iterable<array{0: string, 1: array, 2: iterable, 3: iterable}>
      */
-    public function compareOperationProvider(): iterable
+    public static function compareOperationProvider(): iterable
     {
         $operation = 'compare';
 
@@ -566,7 +566,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function containsOperationProvider()
+    public static function containsOperationProvider()
     {
         $operation = 'contains';
 
@@ -623,7 +623,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function countOperationProvider()
+    public static function countOperationProvider()
     {
         $operation = 'count';
 
@@ -635,7 +635,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function currentOperationProvider()
+    public static function currentOperationProvider()
     {
         $input = array_combine(range('A', 'E'), range('A', 'E'));
 
@@ -663,7 +663,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function cycleOperationProvider()
+    public static function cycleOperationProvider()
     {
         $operation = 'cycle';
         $output = static function () {
@@ -689,7 +689,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function diffKeysOperationProvider()
+    public static function diffKeysOperationProvider()
     {
         $operation = 'diffKeys';
         $input = array_combine(range('a', 'e'), range(1, 5));
@@ -711,7 +711,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function diffOperationProvider()
+    public static function diffOperationProvider()
     {
         $operation = 'diff';
         $parameters = [1, 2, 3, 9];
@@ -769,7 +769,7 @@ trait GenericCollectionProviders
         }
     }
 
-    public function distinctOperationProvider()
+    public static function distinctOperationProvider()
     {
         $operation = 'distinct';
 
@@ -854,7 +854,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function dropOperationProvider()
+    public static function dropOperationProvider()
     {
         $operation = 'drop';
         $input = range('A', 'F');
@@ -874,7 +874,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function dropWhileOperationProvider()
+    public static function dropWhileOperationProvider()
     {
         $operation = 'dropWhile';
         $input = [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3];
@@ -919,7 +919,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function dumpOperationProvider()
+    public static function dumpOperationProvider()
     {
         $operation = 'dump';
         $input = range('A', 'E');
@@ -932,7 +932,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function duplicateOperationProvider()
+    public static function duplicateOperationProvider()
     {
         $operation = 'duplicate';
 
@@ -998,7 +998,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function equalsOperationProvider()
+    public static function equalsOperationProvider()
     {
         $operation = 'equals';
 
@@ -1178,7 +1178,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function everyOperationProvider()
+    public static function everyOperationProvider()
     {
         $operation = 'every';
         $input = range(0, 10);
@@ -1248,7 +1248,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function explodeOperationProvider()
+    public static function explodeOperationProvider()
     {
         $operation = 'explode';
         $input = str_split('I am just a random piece of text.');
@@ -1300,7 +1300,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function falsyOperationProvider()
+    public static function falsyOperationProvider()
     {
         $operation = 'falsy';
 
@@ -1333,7 +1333,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function filterOperationProvider()
+    public static function filterOperationProvider()
     {
         $operation = 'filter';
         $input = range(0, 10);
@@ -1374,7 +1374,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function findOperationProvider()
+    public static function findOperationProvider()
     {
         $operation = 'find';
 
@@ -1426,7 +1426,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function firstOperationProvider()
+    public static function firstOperationProvider()
     {
         $operation = 'first';
 
@@ -1452,7 +1452,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function flatMapOperationProvider()
+    public static function flatMapOperationProvider()
     {
         $operation = 'flatMap';
         $input = range(1, 3);
@@ -1573,7 +1573,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function flattenOperationProvider()
+    public static function flattenOperationProvider()
     {
         $operation = 'flatten';
         $input = [
@@ -1643,7 +1643,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function flipOperationProvider()
+    public static function flipOperationProvider()
     {
         $operation = 'flip';
         $input = range('A', 'E');
@@ -1684,7 +1684,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function foldLeft1OperationProvider()
+    public static function foldLeft1OperationProvider()
     {
         $operation = 'foldLeft1';
 
@@ -1709,7 +1709,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function foldLeftOperationProvider()
+    public static function foldLeftOperationProvider()
     {
         $operation = 'foldLeft';
 
@@ -1766,7 +1766,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function foldRight1OperationProvider()
+    public static function foldRight1OperationProvider()
     {
         $operation = 'foldRight1';
 
@@ -1791,7 +1791,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function foldRightOperationProvider()
+    public static function foldRightOperationProvider()
     {
         $operation = 'foldRight';
 
@@ -1810,7 +1810,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function forgetOperationProvider()
+    public static function forgetOperationProvider()
     {
         yield [
             'forget',
@@ -1820,7 +1820,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function frequencyOperationProvider()
+    public static function frequencyOperationProvider()
     {
         $object = new StdClass();
         $input = ['1', '2', '3', null, '4', '2', null, '6', $object, $object];
@@ -1848,7 +1848,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function getOperationProvider()
+    public static function getOperationProvider()
     {
         $operation = 'get';
         $input = range('A', 'E');
@@ -1868,7 +1868,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function groupByOperationProvider()
+    public static function groupByOperationProvider()
     {
         $operation = 'groupBy';
 
@@ -1948,7 +1948,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function groupOperationProvider()
+    public static function groupOperationProvider()
     {
         $operation = 'group';
 
@@ -1990,7 +1990,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function hasOperationProvider()
+    public static function hasOperationProvider()
     {
         $operation = 'has';
         $input = range('A', 'C');
@@ -2071,7 +2071,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function headOperationProvider()
+    public static function headOperationProvider()
     {
         $operation = 'head';
 
@@ -2097,7 +2097,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function ifThenElseOperationProvider()
+    public static function ifThenElseOperationProvider()
     {
         $operation = 'ifThenElse';
         $input = range(1, 5);
@@ -2127,7 +2127,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function implodeOperationProvider()
+    public static function implodeOperationProvider()
     {
         $operation = 'implode';
         $input = range('A', 'C');
@@ -2154,7 +2154,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function initOperationProvider()
+    public static function initOperationProvider()
     {
         $operation = 'init';
 
@@ -2182,7 +2182,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function initsOperationProvider()
+    public static function initsOperationProvider()
     {
         $operation = 'inits';
 
@@ -2219,7 +2219,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function intersectKeysOperationProvider()
+    public static function intersectKeysOperationProvider()
     {
         $operation = 'intersectKeys';
         $input = array_combine(range('a', 'e'), range(1, 5));
@@ -2246,7 +2246,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function intersectOperationProvider()
+    public static function intersectOperationProvider()
     {
         $operation = 'intersect';
 
@@ -2265,7 +2265,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function intersperseOperationProvider()
+    public static function intersperseOperationProvider()
     {
         $operation = 'intersperse';
         $output = static function () {
@@ -2391,7 +2391,7 @@ trait GenericCollectionProviders
          */
     }
 
-    public function isEmptyOperationProvider()
+    public static function isEmptyOperationProvider()
     {
         $operation = 'isEmpty';
         $gen = static fn (): Generator => yield from [];
@@ -2456,7 +2456,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function isNotEmptyOperationProvider()
+    public static function isNotEmptyOperationProvider()
     {
         $operation = 'isNotEmpty';
         $gen = static fn (): Generator => yield from [];
@@ -2521,7 +2521,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function jsonSerializeOperationProvider()
+    public static function jsonSerializeOperationProvider()
     {
         $input = ['a' => 'A', 'b' => 'B', 'c' => 'C'];
 
@@ -2533,7 +2533,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function keyOperationProvider()
+    public static function keyOperationProvider()
     {
         $operation = 'key';
         $input = array_combine(range('A', 'E'), range('A', 'E'));
@@ -2560,7 +2560,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function keysOperationProvider()
+    public static function keysOperationProvider()
     {
         yield [
             'keys',
@@ -2570,7 +2570,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function lastOperationProvider()
+    public static function lastOperationProvider()
     {
         $operation = 'last';
 
@@ -2617,7 +2617,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function limitOperationProvider()
+    public static function limitOperationProvider()
     {
         $operation = 'limit';
         $input = range('A', 'E');
@@ -2638,7 +2638,7 @@ trait GenericCollectionProviders
          */
     }
 
-    public function linesOperationProvider()
+    public static function linesOperationProvider()
     {
         $string = <<<'EOF'
             The quick brow fox jumps over the lazy dog.
@@ -2660,7 +2660,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function mapNOperationProvider()
+    public static function mapNOperationProvider()
     {
         $operation = 'mapN';
 
@@ -2687,7 +2687,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function mapOperationProvider()
+    public static function mapOperationProvider()
     {
         $operation = 'map';
 
@@ -2726,7 +2726,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function matchingOperationProvider()
+    public static function matchingOperationProvider()
     {
         $operation = 'matching';
         $input = [
@@ -2771,7 +2771,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function matchOperationProvider()
+    public static function matchOperationProvider()
     {
         $operation = 'match';
         $input = range(1, 10);
@@ -2808,7 +2808,7 @@ trait GenericCollectionProviders
     /**
      * @return iterable<array{0: string, 1: array, 2: iterable, 3: iterable}>
      */
-    public function maxOperationProvider(): iterable
+    public static function maxOperationProvider(): iterable
     {
         $operation = 'max';
 
@@ -2841,7 +2841,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function mergeOperationProvider()
+    public static function mergeOperationProvider()
     {
         $parameter = static function () {
             yield from range('D', 'F');
@@ -2874,7 +2874,7 @@ trait GenericCollectionProviders
     /**
      * @return iterable<array{0: string, 1: array, 2: iterable, 3: iterable}>
      */
-    public function minOperationProvider(): iterable
+    public static function minOperationProvider(): iterable
     {
         $operation = 'min';
 
@@ -2907,7 +2907,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function normalizeOperationProvider()
+    public static function normalizeOperationProvider()
     {
         $operation = 'normalize';
 
@@ -2943,7 +2943,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function nthOperationProvider()
+    public static function nthOperationProvider()
     {
         $operation = 'nth';
         $input = range(0, 70);
@@ -2963,7 +2963,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function nullsyOperationProvider()
+    public static function nullsyOperationProvider()
     {
         $operation = 'nullsy';
 
@@ -2996,7 +2996,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function packOperationProvider()
+    public static function packOperationProvider()
     {
         yield [
             'pack',
@@ -3010,7 +3010,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function padOperationProvider()
+    public static function padOperationProvider()
     {
         yield [
             'pad',
@@ -3020,7 +3020,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function pairOperationProvider()
+    public static function pairOperationProvider()
     {
         $operation = 'pair';
 
@@ -3080,7 +3080,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function permutateOperationProvider()
+    public static function permutateOperationProvider()
     {
         yield [
             'permutate',
@@ -3121,7 +3121,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function pipeOperationProvider()
+    public static function pipeOperationProvider()
     {
         $square = new class() extends AbstractOperation implements Operation {
             public function __invoke(): Closure
@@ -3164,7 +3164,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function pluckOperationProvider()
+    public static function pluckOperationProvider()
     {
         $operation = 'pluck';
 
@@ -3261,7 +3261,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function prependOperationProvider()
+    public static function prependOperationProvider()
     {
         $output = static function (): Generator {
             yield 0 => 'A';
@@ -3285,7 +3285,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function productOperationProvider()
+    public static function productOperationProvider()
     {
         $operation = 'product';
 
@@ -3317,7 +3317,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function reduceOperationProvider()
+    public static function reduceOperationProvider()
     {
         $operation = 'reduce';
 
@@ -3352,7 +3352,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function reductionOperationProvider()
+    public static function reductionOperationProvider()
     {
         $output = static function () {
             yield 0 => 0;
@@ -3377,7 +3377,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function rejectOperationProvider()
+    public static function rejectOperationProvider()
     {
         $operation = 'reject';
         $input = array_merge([0, false], range(1, 10));
@@ -3418,7 +3418,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function reverseOperationProvider()
+    public static function reverseOperationProvider()
     {
         $operation = 'reverse';
 
@@ -3437,7 +3437,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function sameOperationProvider()
+    public static function sameOperationProvider()
     {
         $operation = 'same';
 
@@ -3626,7 +3626,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function scaleOperationProvider()
+    public static function scaleOperationProvider()
     {
         $operation = 'scale';
         $input = [0, 2, 4, 6, 8, 10];
@@ -3639,7 +3639,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function scanLeft1OperationProvider()
+    public static function scanLeft1OperationProvider()
     {
         $operation = 'scanLeft1';
         $callback = static fn ($carry, $value) => $carry + $value;
@@ -3672,7 +3672,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function scanLeftOperationProvider()
+    public static function scanLeftOperationProvider()
     {
         $operation = 'scanLeft';
         $callback = static fn ($carry, $value) => $carry + $value;
@@ -3709,7 +3709,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function scanRight1OperationProvider()
+    public static function scanRight1OperationProvider()
     {
         $operation = 'scanRight1';
         $callback = static fn (int $carry, int $value): int => $value + $carry;
@@ -3742,7 +3742,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function scanRightOperationProvider()
+    public static function scanRightOperationProvider()
     {
         $operation = 'scanRight';
         $callback = static fn ($carry, $value) => $value + $carry;
@@ -3779,7 +3779,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function shuffleOperationProvider()
+    public static function shuffleOperationProvider()
     {
         $operation = 'shuffle';
         $input = range('a', 'e');
@@ -3798,7 +3798,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function sinceOperationProvider()
+    public static function sinceOperationProvider()
     {
         $operation = 'since';
         $input = range('a', 'z');
@@ -3858,7 +3858,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function sliceOperationProvider()
+    public static function sliceOperationProvider()
     {
         $operation = 'slice';
         $input = range(0, 10);
@@ -3885,7 +3885,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function sortOperationProvider()
+    public static function sortOperationProvider()
     {
         $operation = 'sort';
         $input = array_combine(range('A', 'E'), range('E', 'A'));
@@ -3975,7 +3975,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function splitOperationProvider()
+    public static function splitOperationProvider()
     {
         $operation = 'split';
         $input = range(0, 10);
@@ -4012,7 +4012,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function squashOperationProvider()
+    public static function squashOperationProvider()
     {
         $operation = 'squash';
         $input = range('A', 'E');
@@ -4025,7 +4025,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function strictOperationProvider()
+    public static function strictOperationProvider()
     {
         yield [
             'strict',
@@ -4035,7 +4035,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function tailOperationProvider()
+    public static function tailOperationProvider()
     {
         $operation = 'tail';
         $input = range('A', 'F');
@@ -4048,7 +4048,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function tailsOperationProvider()
+    public static function tailsOperationProvider()
     {
         $operation = 'tails';
         $input = array_combine(range('a', 'e'), range('A', 'E'));
@@ -4084,7 +4084,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function takeWhileOperationProvider()
+    public static function takeWhileOperationProvider()
     {
         $operation = 'takeWhile';
         $isSmallerThan = static fn (int $bound): Closure => static fn (int $value): bool => $bound > $value;
@@ -4135,7 +4135,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function transposeOperationProvider()
+    public static function transposeOperationProvider()
     {
         $operation = 'transpose';
         $input = [
@@ -4188,7 +4188,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function truthyOperationProvider()
+    public static function truthyOperationProvider()
     {
         $operation = 'truthy';
 
@@ -4221,7 +4221,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function unlinesOperationProvider()
+    public static function unlinesOperationProvider()
     {
         yield [
             'unlines',
@@ -4239,7 +4239,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function unpackOperationProvider()
+    public static function unpackOperationProvider()
     {
         $operation = 'unpack';
 
@@ -4265,7 +4265,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function unpairOperationProvider()
+    public static function unpairOperationProvider()
     {
         yield [
             'unpair',
@@ -4285,7 +4285,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function untilOperationProvider()
+    public static function untilOperationProvider()
     {
         $operation = 'until';
         $collatz = static fn (int $initial = 1): int => 0 === $initial % 2 ?
@@ -4325,7 +4325,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function unwindowOperationProvider()
+    public static function unwindowOperationProvider()
     {
         yield [
             'unwindow',
@@ -4363,7 +4363,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function unwordsOperationProvider()
+    public static function unwordsOperationProvider()
     {
         $operation = 'unwords';
         $output = <<<'EOF'
@@ -4395,7 +4395,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function unwrapOperationProvider()
+    public static function unwrapOperationProvider()
     {
         $operation = 'unwrap';
 
@@ -4444,7 +4444,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function unzipOperationProvider()
+    public static function unzipOperationProvider()
     {
         $operation = 'unzip';
 
@@ -4478,7 +4478,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function whenOperationProvider()
+    public static function whenOperationProvider()
     {
         $operation = 'when';
         $input = range('a', 'c');
@@ -4504,7 +4504,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function windowOperationProvider()
+    public static function windowOperationProvider()
     {
         $operation = 'window';
 
@@ -4556,7 +4556,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function wordsOperationProvider()
+    public static function wordsOperationProvider()
     {
         $input = <<<'EOF'
             The quick brow fox jumps over the lazy dog.
@@ -4586,7 +4586,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function wrapOperationProvider()
+    public static function wrapOperationProvider()
     {
         $operation = 'wrap';
 
@@ -4605,7 +4605,7 @@ trait GenericCollectionProviders
         ];
     }
 
-    public function zipOperationProvider()
+    public static function zipOperationProvider()
     {
         $operation = 'zip';
         $output = static function () {

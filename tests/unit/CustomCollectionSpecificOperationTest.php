@@ -343,7 +343,10 @@ final class CustomCollectionSpecificOperationTest extends TestCase
 
         // Using `first` and `last`, single callback
         $subject = (new CustomCollection(Collection::fromIterable($input)))->partition($isGreaterThan(5));
-        self::assertCount(2, $subject);
+        self::assertEquals(
+            2,
+            iterator_count($subject)
+        );
 
         $first = $subject->first();
         $last = $subject->last();
@@ -351,8 +354,8 @@ final class CustomCollectionSpecificOperationTest extends TestCase
         self::assertInstanceOf(CollectionInterface::class, $first);
         self::assertInstanceOf(CollectionInterface::class, $last);
 
-        self::assertCount(4, $first);
-        self::assertCount(8, $last);
+        self::assertEquals(4, iterator_count($first));
+        self::assertEquals(8, iterator_count($last));
 
         self::assertIdenticalIterable(
             ['f' => 6, 'g' => 7, 'h' => 8, 'i' => 9],
@@ -401,14 +404,14 @@ final class CustomCollectionSpecificOperationTest extends TestCase
     {
         $input = range('a', 'z');
 
-        self::assertCount(
+        self::assertEquals(
             1,
-            (new CustomCollection(Collection::fromIterable($input)))->random()
+            iterator_count((new CustomCollection(Collection::fromIterable($input)))->random())
         );
 
-        self::assertCount(
+        self::assertEquals(
             26,
-            (new CustomCollection(Collection::fromIterable($input)))->random(100)
+            iterator_count((new CustomCollection(Collection::fromIterable($input)))->random(100))
         );
 
         // TODO: Implements assertNotIdenticalIterable in PHPunit
@@ -457,7 +460,10 @@ final class CustomCollectionSpecificOperationTest extends TestCase
         ];
 
         $subject = (new CustomCollection(Collection::fromIterable($input)))->span(...$callbacks);
-        self::assertCount(2, $subject);
+        self::assertEquals(
+            2,
+            iterator_count($subject)
+        );
         self::assertInstanceOf(
             CollectionInterface::class,
             $subject->first()
@@ -470,8 +476,14 @@ final class CustomCollectionSpecificOperationTest extends TestCase
         $first = $subject->first();
         $last = $subject->last();
 
-        self::assertCount(3, $first);
-        self::assertCount(7, $last);
+        self::assertEquals(
+            3,
+            iterator_count($first)
+        );
+        self::assertEquals(
+            7,
+            iterator_count($last)
+        );
 
         self::assertIdenticalIterable(
             [1, 2, 3],
@@ -487,7 +499,10 @@ final class CustomCollectionSpecificOperationTest extends TestCase
             static fn (int $x): bool => $x % 2 === 0,
         ];
         $subject = (new CustomCollection(Collection::fromIterable($input)))->span(...$callbacks);
-        self::assertCount(2, $subject);
+        self::assertEquals(
+            2,
+            iterator_count($subject)
+        );
         self::assertInstanceOf(
             CollectionInterface::class,
             $subject->first()

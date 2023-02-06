@@ -40,6 +40,7 @@
         "loophp/iterators": "^2.3.1"
     },
     "require-dev": {
+        "ext-pcov": "*",
         "amphp/parallel-functions": "^1",
         "doctrine/collections": "^1.8 || ^2",
         "drupol/php-conventions": "^5",

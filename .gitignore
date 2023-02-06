@@ -7,6 +7,7 @@
 /.php-cs-fixer.cache
 /examples/
 /.idea/
+/.phpunit.cache/
 /test.php
 /node_modules/
 /benchmarks/

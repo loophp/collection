@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class CallbacksArrayReducerTest extends TestCase
 {
-    public function dataProvider()
+    public static function dataProvider()
     {
         // Ensure Callbacks receive the needed arguments.
         yield [
