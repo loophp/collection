@@ -17,6 +17,7 @@ use tests\loophp\collection\Traits\GenericCollectionProviders;
 final class IssuesTest extends TestCase
 {
     use GenericCollectionProviders;
+
     use IterableAssertions;
 
     public function testIssue264()

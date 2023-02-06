@@ -13,6 +13,7 @@ use loophp\collection\Contract\Collection as CollectionInterface;
 use loophp\collection\Operation\Coalesce;
 use loophp\collection\Operation\Current;
 use loophp\collection\Operation\Limit;
+use loophp\iterators\CachingIteratorAggregate;
 use loophp\PhpUnitIterableAssertions\Traits\IterableAssertions;
 use OutOfBoundsException;
 use PHPUnit\Framework\TestCase;
@@ -31,6 +32,7 @@ use const PHP_VERSION_ID;
 final class CollectionSpecificOperationTest extends TestCase
 {
     use GenericCollectionProviders;
+
     use IterableAssertions;
 
     public function testApplyOperation(): void
@@ -157,24 +159,30 @@ final class CollectionSpecificOperationTest extends TestCase
 
         $coalesce = new Coalesce();
 
-        self::assertCount(1, $coalesce->__invoke()($input));
+        self::assertEquals(
+            1,
+            iterator_count(new CachingIteratorAggregate($coalesce->__invoke()($input)))
+        );
 
         self::assertIdenticalIterable(
             [
                 0 => 'a',
             ],
-            $coalesce->__invoke()($input)
+            new CachingIteratorAggregate($coalesce->__invoke()($input))
         );
 
         $input = ['', null, 'foo', false, ...range('a', 'e')];
 
-        self::assertCount(1, $coalesce->__invoke()($input));
+        self::assertEquals(
+            1,
+            iterator_count(new CachingIteratorAggregate($coalesce->__invoke()($input)))
+        );
 
         self::assertIdenticalIterable(
             [
                 2 => 'foo',
             ],
-            $coalesce->__invoke()($input)
+            new CachingIteratorAggregate($coalesce->__invoke()($input))
         );
     }
 
@@ -186,14 +194,17 @@ final class CollectionSpecificOperationTest extends TestCase
 
         self::assertIdenticalIterable(
             ['a'],
-            $current->__invoke()(0)(null)($input)
+            new CachingIteratorAggregate($current->__invoke()(0)(null)($input))
         );
 
-        self::assertCount(1, $current->__invoke()(0)(null)($input));
+        self::assertEquals(
+            1,
+            iterator_count(new CachingIteratorAggregate($current->__invoke()(0)(null)($input)))
+        );
 
         self::assertIdenticalIterable(
             ['unavailable'],
-            $current->__invoke()(10)('unavailable')($input)
+            new CachingIteratorAggregate($current->__invoke()(10)('unavailable')($input))
         );
     }
 
@@ -299,20 +310,29 @@ final class CollectionSpecificOperationTest extends TestCase
         $limit = new Limit();
         $input = range('a', 'e');
 
-        self::assertCount(1, $limit()(1)(0)($input));
+        self::assertEquals(
+            1,
+            iterator_count(new CachingIteratorAggregate($limit()(1)(0)($input)))
+        );
 
-        self::assertCount(2, $limit()(2)(0)($input));
+        self::assertEquals(
+            2,
+            iterator_count(new CachingIteratorAggregate($limit()(2)(0)($input)))
+        );
 
         self::assertIdenticalIterable(
             [2 => 'c'],
-            $limit()(1)(2)($input)
+            new CachingIteratorAggregate($limit()(1)(2)($input))
         );
 
-        self::assertCount(2, $limit()(2)(2)($input));
+        self::assertEquals(
+            2,
+            iterator_count(new CachingIteratorAggregate($limit()(2)(2)($input)))
+        );
 
         self::assertIdenticalIterable(
             ['a', 'b', 'c', 'd', 'e'],
-            $limit()()()($input)
+            new CachingIteratorAggregate($limit()()()($input))
         );
     }
 
