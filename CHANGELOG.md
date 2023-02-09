@@ -5,7 +5,60 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [7.0.0](https://github.com/loophp/collection/compare/6.0.3...7.0.0)
+## [7.1.0](https://github.com/loophp/collection/compare/7.0.0...7.1.0)
+
+### Merged
+
+- ci: add missing `pcov` extension [`#297`](https://github.com/loophp/collection/pull/297)
+- chore(deps): update cachix/install-nix-action action to v19 [`#296`](https://github.com/loophp/collection/pull/296)
+- Psalm 5.4 upgrade [`#287`](https://github.com/loophp/collection/pull/287)
+- `IsNotEmpty` operation [`#292`](https://github.com/loophp/collection/pull/292)
+- Fix `reducing` operations [`#288`](https://github.com/loophp/collection/pull/288)
+- chore(deps): update actions/stale action to v7 [`#286`](https://github.com/loophp/collection/pull/286)
+
+### Commits
+
+- chore: update `clover coverage` [`5b510c2`](https://github.com/loophp/collection/commit/5b510c2c776e1f3fe779a2c9c4c4c063c2f88694)
+- chore: fix phpunit 9 and 10 compatibility [`0273e64`](https://github.com/loophp/collection/commit/0273e641688c351256ce0218c17db65a9849862e)
+- chore: fix phpunit 9 and 10 compatibility [`2a62cf2`](https://github.com/loophp/collection/commit/2a62cf2ffd053735bc71a7043727caf5ce282eac)
+- chore: fix phpunit 9 and 10 compatibility [`631a57f`](https://github.com/loophp/collection/commit/631a57f30352d33f1e1b495e04c04d5d696f8e57)
+- chore: fix phpunit 9 and 10 compatibility [`cd9b36d`](https://github.com/loophp/collection/commit/cd9b36d82b05e467151da377466cdebd0308605b)
+- chore: fix phpunit 10 compatibility [`3aab1e1`](https://github.com/loophp/collection/commit/3aab1e112e7ba0aa323cb184191a2a2c1146a232)
+- chore: update `composer.json` [`70f95b6`](https://github.com/loophp/collection/commit/70f95b650e06c77ad22bb4f2a5ce814979d42e26)
+- chore: bump Psalm [`5dd2a88`](https://github.com/loophp/collection/commit/5dd2a882c1b7fae0a5b8b858ec57ceb4bf173c61)
+- fix: `find` operation [`50d416a`](https://github.com/loophp/collection/commit/50d416a9b2ba9b719ac81db660dfda4cd32b6721)
+- chore: bump vimeo/psalm temporarily [`1aca436`](https://github.com/loophp/collection/commit/1aca4369add9ed2d9326fd9e7a37670ae5dbfb88)
+- fix: autofix code style [`29b0456`](https://github.com/loophp/collection/commit/29b0456624f394f2ed37e67577ff1a4dd5188507)
+- fix: `unfold` static operations [`a429c78`](https://github.com/loophp/collection/commit/a429c78b6bf37be29d4abddf1784ee3474b3ed67)
+- chore: remove obsolete PHPDoc annotations [`531249e`](https://github.com/loophp/collection/commit/531249ea974b7c6a3820d0c9ba6e01b6351f614a)
+- chore: update PHPStan baseline [`999c257`](https://github.com/loophp/collection/commit/999c257b9d4c98e594319c4441389db513519107)
+- fix: `foldRight` operation [`f717078`](https://github.com/loophp/collection/commit/f717078fe19750915c41672cd50382565f535d49)
+- fix: `groupBy` update typing information [`b55fec7`](https://github.com/loophp/collection/commit/b55fec784f6299bfd76ea21e2e11cec7f2067b83)
+- chore: update `groupBy` [`b5662f4`](https://github.com/loophp/collection/commit/b5662f4180d62b5afffcc5fe6b0665002c725b38)
+- sa: update PHPStan `baseline` [`61f6367`](https://github.com/loophp/collection/commit/61f6367c011284058b58d2ccdb9ab8b86402b1e3)
+- fix: `Matching` operation, add inline SA annotations [`e9cc0f3`](https://github.com/loophp/collection/commit/e9cc0f3d10fa31f4f65f7e1be41487876989fdae)
+- chore: update license date [`755f8b3`](https://github.com/loophp/collection/commit/755f8b3b81020532a1c211968854ed1f16b341d2)
+- fix: update `empty` constructor [`9a4b0bb`](https://github.com/loophp/collection/commit/9a4b0bb6f9278ec2df4a46773cb8fe14d534573e)
+- fix: `foldleft`, `reduce`, update return types and tests [`19907fc`](https://github.com/loophp/collection/commit/19907fcac717e4fa15b0567486cc26a1e504b8fd)
+- fix: `foldleft` operation [`c3a536b`](https://github.com/loophp/collection/commit/c3a536b42e91be1b3be9d9eda9638d61f598f1ce)
+- cs: autofix code style [`507175d`](https://github.com/loophp/collection/commit/507175d971a547520ef79762889b8b9ac9cec3b0)
+- fix: `last` operation improvements [`7c60e2c`](https://github.com/loophp/collection/commit/7c60e2c0ae43d6c3372576879daf643e3c888dcf)
+- fix: `tails` SA improvement [`8e3de94`](https://github.com/loophp/collection/commit/8e3de9460ecbf735f6d73e3dc1a08dadcd04653c)
+- fix: `tails` operation improvements [`58c840b`](https://github.com/loophp/collection/commit/58c840b23e29f0d0b7d62df84b5b8ed8ae97ae1f)
+- fix: `compare` minor improvement [`5e46af0`](https://github.com/loophp/collection/commit/5e46af010d323f82039c852569edc48e9abd6da4)
+- fix: `reduce` operation static annotations [`5c7d401`](https://github.com/loophp/collection/commit/5c7d4015ced04dcc5750506abcfd333256373c1a)
+- fix: convert `callable` into `Closure` [`f30c87a`](https://github.com/loophp/collection/commit/f30c87a0cb990dce9e5796bc30b17ae580ef6b2a)
+- fix: `reduce` operation, use `ReduceIterableIterator` [`884f64c`](https://github.com/loophp/collection/commit/884f64c9ebbda993c533ae5b9c04add187e32394)
+- chore: remove obsolete PHPDoc annotations [`0453ee3`](https://github.com/loophp/collection/commit/0453ee31a9f11756c4dac5d7736a66071dec04fd)
+- ci: update workflows [`6f320a6`](https://github.com/loophp/collection/commit/6f320a6ce11431403cd5e73f2184863d16ec0ef4)
+- fix: prevent wrapping and unwrapping arrays when it's not needed [`08af31b`](https://github.com/loophp/collection/commit/08af31bbfab1180c3dcfa120ba66767d32259d48)
+- docs: fix badge link [`3571e0c`](https://github.com/loophp/collection/commit/3571e0c2c6af74ee773b4978027f3fbc2777c84b)
+- fix: prevent wrapping and unwrapping arrays when it's not needed [`937740d`](https://github.com/loophp/collection/commit/937740d617fe3d3fee00604db2b8878fa7071ef2)
+- ci: fix PDF documentation generation [`92f778c`](https://github.com/loophp/collection/commit/92f778c465fd5092ee50bdb1d357e8f10b7b6d04)
+- docs: update `extending collection` section with code example [`0c1d439`](https://github.com/loophp/collection/commit/0c1d4399d8782f4127cb1d9091e6b187258ed3ea)
+- ci: fix PDF documentation generation [`c93f350`](https://github.com/loophp/collection/commit/c93f35031cf921b510a6f8a4e0e28c42f957b785)
+
+## [7.0.0](https://github.com/loophp/collection/compare/6.0.3...7.0.0) - 2022-12-12
 
 ### Merged
 
@@ -55,6 +108,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Breaking change:** refactor: `Tails` operation, performance improvements [`d71b2ef`](https://github.com/loophp/collection/commit/d71b2ef419d94a7dc50e8dce42fd5279877838a7)
 - **Breaking change:** refactor: Update `Unpack` operation. [`34c36da`](https://github.com/loophp/collection/commit/34c36da5c26cc1e238ce9a803e7152224b12f934)
+- docs: update changelog [`c6b9164`](https://github.com/loophp/collection/commit/c6b916473f419d781189cfdbe756a649f3e2742b)
 - chore: update `composer.json` and fix `auto-changelog` command [`6949831`](https://github.com/loophp/collection/commit/6949831449021fc533c640f11710206ea219bf68)
 - chore: update `composer.json` [`1ba6085`](https://github.com/loophp/collection/commit/1ba608537969322caf3729e62879665d712c7ded)
 - remove obsolete annotation [`908d3e5`](https://github.com/loophp/collection/commit/908d3e55bd7bbe5b0b00d5af8b2a7d0e6c44f9bf)
