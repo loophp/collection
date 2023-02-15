@@ -5,7 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [7.1.0](https://github.com/loophp/collection/compare/7.0.0...7.1.0)
+## [7.1.1](https://github.com/loophp/collection/compare/7.1.0...7.1.1)
+
+### Commits
+
+- refactor: `TakeWhile` - simplify things [`9d4bee7`](https://github.com/loophp/collection/commit/9d4bee7fd0deae65d82f9080bbf10bae8b03c545)
+- refactor: `TakeWhile`: do not use `CachingIteratorAggregate` [`09eb135`](https://github.com/loophp/collection/commit/09eb135b5c12f8ce415db941a71a4e847f58874d)
+- style: autofix codestyle [`61f15cd`](https://github.com/loophp/collection/commit/61f15cd053457ebcdc0ecc9135525b3f7cb27941)
+
+## [7.1.0](https://github.com/loophp/collection/compare/7.0.0...7.1.0) - 2023-02-09
 
 ### Merged
 
@@ -18,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Commits
 
+- docs: update changelog [`30682ef`](https://github.com/loophp/collection/commit/30682efe0a15d04f37613ce233edcd957a03bc4d)
 - chore: update `clover coverage` [`5b510c2`](https://github.com/loophp/collection/commit/5b510c2c776e1f3fe779a2c9c4c4c063c2f88694)
 - chore: fix phpunit 9 and 10 compatibility [`0273e64`](https://github.com/loophp/collection/commit/0273e641688c351256ce0218c17db65a9849862e)
 - chore: fix phpunit 9 and 10 compatibility [`2a62cf2`](https://github.com/loophp/collection/commit/2a62cf2ffd053735bc71a7043727caf5ce282eac)
