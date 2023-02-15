@@ -7,7 +7,6 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use loophp\collection\Utils\CallbacksArrayReducer;
-use loophp\iterators\IterableIteratorAggregate;
 
 /**
  * @immutable
@@ -35,20 +34,15 @@ final class TakeWhile extends AbstractOperation
                  * @return Generator<TKey, T>
                  */
                 static function (iterable $iterable) use ($callbacks): Generator {
-                    $iteratorAggregate = (new IterableIteratorAggregate($iterable))->getIterator();
+                    $callback = CallbacksArrayReducer::or()($callbacks);
 
-                    $every = (new Every())()(
-                        /**
-                         * @param T $value
-                         * @param TKey $key
-                         * @param iterable<TKey, T> $iterable
-                         */
-                        static fn (int $index, mixed $value, mixed $key, iterable $iterable): bool => CallbacksArrayReducer::or()($callbacks)($value, $key, $iterable)
-                    )($iteratorAggregate);
+                    foreach ($iterable as $key => $current) {
+                        if (false === $callback($current, $key, $iterable)) {
+                            break;
+                        }
 
-                    $size = (true === $every->current()) ? -1 : $every->key();
-
-                    yield from (new Limit())()($size)(0)($iteratorAggregate);
+                        yield $key => $current;
+                    }
                 };
     }
 }
