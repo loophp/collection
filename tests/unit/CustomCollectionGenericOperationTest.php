@@ -17,7 +17,6 @@ use tests\loophp\collection\Traits\GenericCollectionProviders;
 final class CustomCollectionGenericOperationTest extends TestCase
 {
     use GenericCollectionProviders;
-
     use IterableAssertions;
 
     /**
