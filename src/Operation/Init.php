@@ -7,6 +7,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Generator;
 use loophp\iterators\CachingIteratorAggregate;
+use loophp\iterators\IterableIteratorAggregate;
 
 /**
  * @immutable
@@ -23,14 +24,25 @@ final class Init extends AbstractOperation
      */
     public function __invoke(): Closure
     {
-        /** @var Closure(iterable<TKey, T>): Generator<TKey, T> $takeWhile */
-        $takeWhile = (new TakeWhile())()(
+        $buildCachingIterator =
             /**
-             * @param T $value
-             * @param TKey $key
-             * @param CachingIteratorAggregate<TKey, T> $iterator
+             * @param iterable<TKey, T> $iterable
+             *
+             * @return CachingIteratorAggregate<TKey, T>
              */
-            static fn (mixed $value, mixed $key, CachingIteratorAggregate $iterator): bool => $iterator->hasNext()
+            static fn (iterable $iterator): CachingIteratorAggregate => new CachingIteratorAggregate((new IterableIteratorAggregate($iterator))->getIterator());
+
+        /** @var Closure(iterable<TKey, T>): Generator<TKey, T> $takeWhile */
+        $takeWhile = (new Pipe())()(
+            $buildCachingIterator,
+            (new TakeWhile())()(
+                /**
+                 * @param T $value
+                 * @param TKey $key
+                 * @param CachingIteratorAggregate<TKey, T> $iterator
+                 */
+                static fn ($value, $key, CachingIteratorAggregate $iterator): bool => $iterator->hasNext()
+            )
         );
 
         // Point free style.
