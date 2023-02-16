@@ -5,10 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [7.1.1](https://github.com/loophp/collection/compare/7.1.0...7.1.1)
+## [7.1.2](https://github.com/loophp/collection/compare/7.1.1...7.1.2)
 
 ### Commits
 
+- fix: refactor `DropWhile`, `Since`, `Until` operations for better performance [`0e8ffa8`](https://github.com/loophp/collection/commit/0e8ffa8bf19615c318af54e90f76a222bc064afd)
+
+## [7.1.1](https://github.com/loophp/collection/compare/7.1.0...7.1.1) - 2023-02-15
+
+### Commits
+
+- docs: update changelog [`958202c`](https://github.com/loophp/collection/commit/958202cc79d9b0e6a3e094d2dc17da7b856efc65)
 - refactor: `TakeWhile` - simplify things [`9d4bee7`](https://github.com/loophp/collection/commit/9d4bee7fd0deae65d82f9080bbf10bae8b03c545)
 - refactor: `TakeWhile`: do not use `CachingIteratorAggregate` [`09eb135`](https://github.com/loophp/collection/commit/09eb135b5c12f8ce415db941a71a4e847f58874d)
 - style: autofix codestyle [`61f15cd`](https://github.com/loophp/collection/commit/61f15cd053457ebcdc0ecc9135525b3f7cb27941)
