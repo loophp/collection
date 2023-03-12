@@ -38,7 +38,7 @@ final class Permutate extends AbstractOperation
     }
 
     /**
-     * @param list<T> $dataset
+     * @param array<array-key, T> $dataset
      *
      * @return Generator<int, list<T>>
      */
