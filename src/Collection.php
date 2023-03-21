@@ -245,6 +245,11 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return (new Operation\Equals())()($other)($this)->current();
     }
 
+    public function evert(): CollectionInterface
+    {
+        return new self((new Operation\Evert())(), [$this]);
+    }
+
     public function every(callable ...$callbacks): bool
     {
         return (new Operation\Every())()(static fn (int $index, mixed $value, mixed $key, iterable $iterable): bool => CallbacksArrayReducer::or()($callbacks)($value, $key, $iterable))($this)
