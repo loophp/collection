@@ -6,7 +6,7 @@ namespace App;
 
 require_once __DIR__ . '/../../../vendor/autoload.php';
 
-use JsonMachine\JsonMachine;
+use JsonMachine\Items;
 use loophp\collection\Collection;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\ChunkInterface;
@@ -24,7 +24,7 @@ use Symfony\Contracts\HttpClient\ChunkInterface;
 // Parse a local JSON file
 $composerJson = __DIR__ . '/../../../composer.json';
 
-$json = Collection::fromIterable(JsonMachine::fromFile($composerJson));
+$json = Collection::fromIterable(Items::fromFile($composerJson));
 
 foreach ($json as $key => $value);
 
