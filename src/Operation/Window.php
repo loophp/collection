@@ -20,19 +20,19 @@ use function array_slice;
 final class Window extends AbstractOperation
 {
     /**
-     * @return Closure(int): Closure(iterable<TKey, T>): Generator<TKey, list<T>>
+     * @return Closure(int): Closure(iterable<TKey, T>): Generator<TKey|int, list<T>>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @return Closure(iterable<TKey, T>): Generator<TKey, list<T>>
+             * @return Closure(iterable<TKey, T>): Generator<TKey|int, list<T>>
              */
             static fn (int $size): Closure =>
                 /**
                  * @param iterable<TKey, T> $iterable
                  *
-                 * @return Generator<TKey, list<T>>
+                 * @return Generator<TKey|int, list<T>>
                  */
                 static fn (iterable $iterable): Generator => yield from new LimitIterableAggregate(new ReductionIterableAggregate(
                     $iterable,

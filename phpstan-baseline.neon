@@ -51,92 +51,92 @@ parameters:
 			path: src/Collection.php
 
 		-
-			message: "#^Parameter \\#1 \\$ of closure expects array\\<callable\\(\\.\\.\\.mixed\\)\\: bool\\>, array\\<int\\|string, callable\\(T, TKey, iterable\\<TKey, T\\>\\)\\: bool\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$ of closure expects array\\<callable\\(mixed \\.\\.\\.\\)\\: bool\\>, array\\<int\\|string, callable\\(T, TKey, iterable\\<TKey, T\\>\\)\\: bool\\> given\\.$#"
 			count: 1
 			path: src/Collection.php
 
 		-
-			message: "#^Parameter \\#1 \\$ of closure expects callable\\(mixed, mixed, mixed, iterable\\)\\: mixed, callable\\(T\\|V, T, TKey, Iterator\\<TKey, T\\>\\)\\: T\\|V given\\.$#"
+			message: "#^Parameter \\#1 \\$ of closure expects callable\\(mixed, mixed, mixed, iterable\\)\\: mixed, callable\\(T\\|V, T, TKey, Iterator\\<TKey, T\\>\\)\\: \\(T\\|V\\) given\\.$#"
 			count: 1
 			path: src/Collection.php
 
 		-
-			message: "#^Parameter \\#1 \\$callable of class loophp\\\\collection\\\\Collection constructor expects callable\\(\\.\\.\\.mixed\\)\\: iterable, Closure\\(iterable\\)\\: Generator\\<mixed, mixed, mixed, mixed\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$callable of class loophp\\\\collection\\\\Collection constructor expects callable\\(mixed \\.\\.\\.\\)\\: iterable, Closure\\(iterable\\)\\: Generator\\<mixed, mixed, mixed, mixed\\> given\\.$#"
 			count: 13
 			path: src/Collection.php
 
 		-
-			message: "#^Parameter \\#1 \\$callable of class loophp\\\\collection\\\\Collection constructor expects callable\\(\\.\\.\\.mixed\\)\\: iterable, Closure\\(iterable\\)\\: iterable given\\.$#"
+			message: "#^Parameter \\#1 \\$callable of class loophp\\\\collection\\\\Collection constructor expects callable\\(mixed \\.\\.\\.\\)\\: iterable, Closure\\(iterable\\)\\: iterable given\\.$#"
 			count: 1
 			path: src/Collection.php
 
 		-
-			message: "#^Parameter \\#1 \\$callable of class loophp\\\\collection\\\\Collection constructor expects callable\\(\\.\\.\\.mixed\\)\\: iterable, Closure\\(iterable\\<array\\<int, mixed\\>\\>\\)\\: Generator\\<mixed, mixed, mixed, mixed\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$callable of class loophp\\\\collection\\\\Collection constructor expects callable\\(mixed \\.\\.\\.\\)\\: iterable, Closure\\(iterable\\<array\\<int, mixed\\>\\>\\)\\: Generator\\<mixed, mixed, mixed, mixed\\> given\\.$#"
 			count: 1
 			path: src/Collection.php
 
 		-
-			message: "#^Parameter \\#1 \\$callable of class loophp\\\\collection\\\\Collection constructor expects callable\\(\\.\\.\\.mixed\\)\\: iterable, Closure\\(iterable\\<array\\{mixed, mixed\\}\\>\\)\\: Generator\\<mixed, mixed, mixed, mixed\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$callable of class loophp\\\\collection\\\\Collection constructor expects callable\\(mixed \\.\\.\\.\\)\\: iterable, Closure\\(iterable\\<array\\{mixed, mixed\\}\\>\\)\\: Generator\\<mixed, mixed, mixed, mixed\\> given\\.$#"
 			count: 1
 			path: src/Collection.php
 
 		-
-			message: "#^Parameter \\#1 \\$callable of class loophp\\\\collection\\\\Collection constructor expects callable\\(\\.\\.\\.mixed\\)\\: iterable\\<array\\<int, mixed\\>\\>, Closure\\(iterable\\)\\: Generator\\<mixed, array\\<int, mixed\\>, mixed, mixed\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$callable of class loophp\\\\collection\\\\Collection constructor expects callable\\(mixed \\.\\.\\.\\)\\: iterable\\<array\\<int, mixed\\>\\>, Closure\\(iterable\\)\\: Generator\\<mixed, array\\<int, mixed\\>, mixed, mixed\\> given\\.$#"
 			count: 1
 			path: src/Collection.php
 
 		-
-			message: "#^Parameter \\#1 \\$callable of class loophp\\\\collection\\\\Collection constructor expects callable\\(\\.\\.\\.mixed\\)\\: iterable\\<int, array\\<int, array\\{mixed, mixed\\}\\>\\>, Closure\\(iterable\\)\\: Generator\\<int, array\\<int, array\\{mixed, mixed\\}\\>, mixed, mixed\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$callable of class loophp\\\\collection\\\\Collection constructor expects callable\\(mixed \\.\\.\\.\\)\\: iterable\\<int, array\\<int, array\\{mixed, mixed\\}\\>\\>, Closure\\(iterable\\)\\: Generator\\<int, array\\<int, array\\{mixed, mixed\\}\\>, mixed, mixed\\> given\\.$#"
 			count: 1
 			path: src/Collection.php
 
 		-
-			message: "#^Parameter \\#1 \\$callable of class loophp\\\\collection\\\\Collection constructor expects callable\\(\\.\\.\\.mixed\\)\\: iterable\\<int, array\\<int, mixed\\>\\>, Closure\\(iterable\\)\\: Generator\\<int, array\\<int, mixed\\>, mixed, mixed\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$callable of class loophp\\\\collection\\\\Collection constructor expects callable\\(mixed \\.\\.\\.\\)\\: iterable\\<int, array\\<int, mixed\\>\\>, Closure\\(iterable\\)\\: Generator\\<int, array\\<int, mixed\\>, mixed, mixed\\> given\\.$#"
 			count: 1
 			path: src/Collection.php
 
 		-
-			message: "#^Parameter \\#1 \\$callable of class loophp\\\\collection\\\\Collection constructor expects callable\\(\\.\\.\\.mixed\\)\\: iterable\\<int, array\\<int, mixed\\>\\>, Closure\\(iterable\\<\\(int\\|string\\), mixed\\>\\)\\: Generator\\<int, array\\<int, mixed\\>, mixed, mixed\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$callable of class loophp\\\\collection\\\\Collection constructor expects callable\\(mixed \\.\\.\\.\\)\\: iterable\\<int, array\\<int, mixed\\>\\>, Closure\\(iterable\\<array\\<int, mixed\\>\\>\\)\\: Generator\\<int, array\\<int, mixed\\>, mixed, mixed\\> given\\.$#"
 			count: 1
 			path: src/Collection.php
 
 		-
-			message: "#^Parameter \\#1 \\$callable of class loophp\\\\collection\\\\Collection constructor expects callable\\(\\.\\.\\.mixed\\)\\: iterable\\<int, array\\<int, mixed\\>\\>, Closure\\(iterable\\<array\\<int, mixed\\>\\>\\)\\: Generator\\<int, array\\<int, mixed\\>, mixed, mixed\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$callable of class loophp\\\\collection\\\\Collection constructor expects callable\\(mixed \\.\\.\\.\\)\\: iterable\\<int, array\\<int, mixed\\>\\>, Closure\\(iterable\\<int\\|string, mixed\\>\\)\\: Generator\\<int, array\\<int, mixed\\>, mixed, mixed\\> given\\.$#"
 			count: 1
 			path: src/Collection.php
 
 		-
-			message: "#^Parameter \\#1 \\$callable of class loophp\\\\collection\\\\Collection constructor expects callable\\(\\.\\.\\.mixed\\)\\: iterable\\<int, array\\<int\\|string, mixed\\>\\>, Closure\\(iterable\\)\\: Generator\\<int, array\\<int\\|string, mixed\\>, mixed, mixed\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$callable of class loophp\\\\collection\\\\Collection constructor expects callable\\(mixed \\.\\.\\.\\)\\: iterable\\<int, array\\<int\\|string, mixed\\>\\>, Closure\\(iterable\\)\\: Generator\\<int, array\\<int\\|string, mixed\\>, mixed, mixed\\> given\\.$#"
 			count: 1
 			path: src/Collection.php
 
 		-
-			message: "#^Parameter \\#1 \\$callable of class loophp\\\\collection\\\\Collection constructor expects callable\\(\\.\\.\\.mixed\\)\\: iterable\\<int, array\\{mixed, mixed\\}\\>, Closure\\(iterable\\)\\: Generator\\<int, array\\{mixed, mixed\\}, mixed, mixed\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$callable of class loophp\\\\collection\\\\Collection constructor expects callable\\(mixed \\.\\.\\.\\)\\: iterable\\<int, array\\{mixed, mixed\\}\\>, Closure\\(iterable\\)\\: Generator\\<int, array\\{mixed, mixed\\}, mixed, mixed\\> given\\.$#"
 			count: 1
 			path: src/Collection.php
 
 		-
-			message: "#^Parameter \\#1 \\$callable of class loophp\\\\collection\\\\Collection constructor expects callable\\(\\.\\.\\.mixed\\)\\: iterable\\<int, float\\>, Closure\\(iterable\\)\\: Generator\\<int, float, mixed, mixed\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$callable of class loophp\\\\collection\\\\Collection constructor expects callable\\(mixed \\.\\.\\.\\)\\: iterable\\<int, float\\>, Closure\\(iterable\\)\\: Generator\\<int, float, mixed, mixed\\> given\\.$#"
 			count: 1
 			path: src/Collection.php
 
 		-
-			message: "#^Parameter \\#1 \\$callable of class loophp\\\\collection\\\\Collection constructor expects callable\\(\\.\\.\\.mixed\\)\\: iterable\\<int, mixed\\>, Closure\\(iterable\\)\\: Generator\\<int, mixed, mixed, mixed\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$callable of class loophp\\\\collection\\\\Collection constructor expects callable\\(mixed \\.\\.\\.\\)\\: iterable\\<int, mixed\\>, Closure\\(iterable\\)\\: Generator\\<int, mixed, mixed, mixed\\> given\\.$#"
 			count: 3
 			path: src/Collection.php
 
 		-
-			message: "#^Parameter \\#1 \\$callable of class loophp\\\\collection\\\\Collection constructor expects callable\\(\\.\\.\\.mixed\\)\\: iterable\\<int, mixed\\>, Closure\\(iterable\\)\\: Generator\\<int, mixed, mixed, void\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$callable of class loophp\\\\collection\\\\Collection constructor expects callable\\(mixed \\.\\.\\.\\)\\: iterable\\<int, mixed\\>, Closure\\(iterable\\)\\: Generator\\<int, mixed, mixed, void\\> given\\.$#"
 			count: 1
 			path: src/Collection.php
 
 		-
-			message: "#^Parameter \\#1 \\$callable of class loophp\\\\collection\\\\Collection constructor expects callable\\(\\.\\.\\.mixed\\)\\: iterable\\<int, string\\>, Closure\\(iterable\\)\\: Generator\\<int, string, mixed, mixed\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$callable of class loophp\\\\collection\\\\Collection constructor expects callable\\(mixed \\.\\.\\.\\)\\: iterable\\<int, string\\>, Closure\\(iterable\\)\\: Generator\\<int, string, mixed, mixed\\> given\\.$#"
 			count: 1
 			path: src/Collection.php
 
 		-
-			message: "#^Parameter \\#1 \\$callable of class loophp\\\\collection\\\\Collection constructor expects callable\\(\\.\\.\\.mixed\\)\\: iterable\\<string\\>, Closure\\(iterable\\)\\: Generator\\<mixed, string, mixed, mixed\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$callable of class loophp\\\\collection\\\\Collection constructor expects callable\\(mixed \\.\\.\\.\\)\\: iterable\\<string\\>, Closure\\(iterable\\)\\: Generator\\<mixed, string, mixed, mixed\\> given\\.$#"
 			count: 3
 			path: src/Collection.php
 
