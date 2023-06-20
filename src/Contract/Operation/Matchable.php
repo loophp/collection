@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
-use Iterator;
-
 /**
  * @template TKey
  * @template T
