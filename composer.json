@@ -36,22 +36,22 @@
         }
     ],
     "require": {
-        "php": ">= 8",
-        "loophp/iterators": "^2.3.1"
+        "php": ">= 8.1",
+        "loophp/iterators": "^2.3.4"
     },
     "require-dev": {
         "ext-pcov": "*",
         "amphp/parallel-functions": "^1",
-        "doctrine/collections": "^1.8 || ^2",
+        "doctrine/collections": "^2",
         "drupol/php-conventions": "^5",
-        "infection/infection": "^0.26 || ^0.27",
+        "infection/infection": "^0.27",
         "loophp/phpunit-iterable-assertions": "^1.0",
         "phpstan/phpstan-strict-rules": "^1.0",
-        "phpunit/php-code-coverage": "^9 || ^10",
-        "phpunit/phpunit": "^9 || ^10",
+        "phpunit/php-code-coverage": "^10",
+        "phpunit/phpunit": "^10",
         "psr/cache": "^2.0 || 3.0",
         "symfony/cache": "^6",
-        "vimeo/psalm": "^5.5"
+        "vimeo/psalm": "^5.14"
     },
     "autoload": {
         "psr-4": {
