@@ -5,10 +5,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [7.1.2](https://github.com/loophp/collection/compare/7.1.1...7.1.2)
+## [7.2.0](https://github.com/loophp/collection/compare/7.1.2...7.2.0)
+
+### Merged
+
+- chore(deps): update cachix/install-nix-action action to v22 [`#305`](https://github.com/loophp/collection/pull/305)
+- Update lazy-json-parsing.php [`#301`](https://github.com/loophp/collection/pull/301)
+- chore(deps): update actions/stale action to v8 [`#300`](https://github.com/loophp/collection/pull/300)
+- chore(deps): update cachix/install-nix-action action to v20 [`#299`](https://github.com/loophp/collection/pull/299)
 
 ### Commits
 
+- ci: update, add `composer.json` [`ff6299f`](https://github.com/loophp/collection/commit/ff6299f6100d5b63cff3525c7fa58ba108095f31)
+- chore: minimum PHP version is 8.1 [`309f4b0`](https://github.com/loophp/collection/commit/309f4b065fb762c0f8850777d10110aa82f6b345)
+- cs: autofix code style [`13ef487`](https://github.com/loophp/collection/commit/13ef487fc050e9c04eeb11d8f863299238b73cff)
+- chore: autofix cs [`3847ab0`](https://github.com/loophp/collection/commit/3847ab0a8b8e39dadd42903e4f3c20fa983b60b5)
+- cs: autofix codestyle [`2cdf128`](https://github.com/loophp/collection/commit/2cdf1289cbe8b777bfde89659bd0a5b4df55de97)
+- tests: migrate phpunit configuration [`52540ff`](https://github.com/loophp/collection/commit/52540ff18e069a609cfebd2c097089a3de8c5d02)
+- static-analysis: minor update [`3c06179`](https://github.com/loophp/collection/commit/3c0617961d1f6e72728eb6e75f4cd7a28db29ef0)
+- tests: update Psalm configuration file. [`a081ef1`](https://github.com/loophp/collection/commit/a081ef14d97018049643e803b7a7d838e2d0c2bb)
+- fix: update parameter type to satisfy PSalm 5.8.0 [`9ad6d0f`](https://github.com/loophp/collection/commit/9ad6d0ff49bfae01f918e40efdf5995a78f2765e)
+- style: remove headers [`d062040`](https://github.com/loophp/collection/commit/d062040f1bdfb391e6893753aaa600f873a39ec6)
+
+## [7.1.2](https://github.com/loophp/collection/compare/7.1.1...7.1.2) - 2023-02-16
+
+### Commits
+
+- docs: Update changelog. [`4e60bd1`](https://github.com/loophp/collection/commit/4e60bd168ca9e1a94817f2a13fcf96e12a0d1ee7)
 - fix: refactor `DropWhile`, `Since`, `Until` operations for better performance [`0e8ffa8`](https://github.com/loophp/collection/commit/0e8ffa8bf19615c318af54e90f76a222bc064afd)
 
 ## [7.1.1](https://github.com/loophp/collection/compare/7.1.0...7.1.1) - 2023-02-15
