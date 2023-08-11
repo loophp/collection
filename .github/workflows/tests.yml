@@ -6,6 +6,7 @@ on:
             - "**.php"
             - ".github/workflows/*.yml"
             - ".scrutinizer.yml"
+            - "composer.json"
         branches:
             - master
     pull_request:
@@ -13,6 +14,7 @@ on:
             - "**.php"
             - ".github/workflows/*.yml"
             - ".scrutinizer.yml"
+            - "composer.json"
 
 name: "Unit tests"
 
