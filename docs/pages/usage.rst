@@ -213,6 +213,13 @@ Calculate N-Grams
 .. literalinclude:: code/ngrams.php
   :language: php
 
+Interactive Fizz-Buzz
+~~~~~~~~~~~~~~~~~~~~~
+
+.. literalinclude:: code/fizzbuzz.php
+  :language: php
+
+
 .. _article: https://not-a-number.io/2019/php-composition-and-inheritance/
 .. _JsonSerializable: https://www.php.net/manual/en/class.jsonserializable.php
 .. _Symfony Serializer: https://symfony.com/doc/current/components/serializer.html
