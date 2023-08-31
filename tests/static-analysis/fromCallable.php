@@ -67,7 +67,15 @@ $classWithMethod = new class() {
      */
     public function getMixed(): Generator
     {
-        yield from [1, 2, '3', 'b', 5];
+        yield 1;
+
+        yield 2;
+
+        yield '3';
+
+        yield 'b';
+
+        yield 5;
     }
 
     /**
@@ -92,7 +100,15 @@ $classWithStaticMethod = new class() {
      */
     public static function getMixed(): Generator
     {
-        yield from [1, 2, '3', 'b', 5];
+        yield 1;
+
+        yield 2;
+
+        yield '3';
+
+        yield 'b';
+
+        yield 5;
     }
 
     /**
@@ -127,7 +143,15 @@ $invokableClassMixed = new class() {
      */
     public function __invoke(): Generator
     {
-        yield from [1, 2, '3', 'b', 5];
+        yield 1;
+
+        yield 2;
+
+        yield '3';
+
+        yield 'b';
+
+        yield 5;
     }
 };
 
