@@ -25,5 +25,5 @@ $generator = static function (): Generator {
 
 $groupByCallback = static fn (string $char, int $key): int => $key;
 
-$collection = Collection::fromIterable($callback())
+$collection = Collection::fromIterable($generator())
     ->groupBy($groupByCallback); // [1 => ['a', 'b', 'c'], 2 => ['d', 'e'], 3 => ['f']]
