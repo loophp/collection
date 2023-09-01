@@ -551,6 +551,19 @@ Signature: ``Collection::count(): int;``
     $collection = Collection::fromIterable(range('a', 'c'))
         ->count(); // 3
 
+countIn
+~~~~~~~
+
+This operation requires a reference to a parameter that will contains the amount
+of items in the collection.
+
+Interface: `CountInAble`_
+
+Signature: ``Collection::countIn(int &$counter): Collection;``
+
+.. literalinclude:: code/operations/countIn.php
+  :language: php
+
 current
 ~~~~~~~
 
@@ -2537,6 +2550,7 @@ Signature: ``Collection::zip(iterable ...$iterables): Collection;``
 .. _Comparable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Comparable.php
 .. _Coalesceable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Coalesceable.php
 .. _Containsable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Containsable.php
+.. _CountInAble: https://github.com/loophp/collection/blob/master/src/Contract/Operation/CountInAble.php
 .. _Currentable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Currentable.php
 .. _Cycleable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Cycleable.php
 .. _Diffable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Diffable.php

@@ -31,6 +31,7 @@ use Traversable;
  * @template-extends Operation\Compactable<TKey, T>
  * @template-extends Operation\Comparable<TKey, T>
  * @template-extends Operation\Containsable<TKey, T>
+ * @template-extends Operation\CountInAble<TKey, T>
  * @template-extends Operation\Currentable<TKey, T>
  * @template-extends Operation\Cycleable<TKey, T>
  * @template-extends Operation\Diffable<TKey, T>
@@ -150,6 +151,7 @@ interface Collection extends
     Operation\Compactable,
     Operation\Comparable,
     Operation\Containsable,
+    Operation\CountInAble,
     Operation\Currentable,
     Operation\Cycleable,
     Operation\Diffable,
