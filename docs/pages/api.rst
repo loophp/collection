@@ -554,7 +554,7 @@ Signature: ``Collection::count(): int;``
 countIn
 ~~~~~~~
 
-This operation requires a reference to a parameter that will contains the amount
+This operation requires a reference to a parameter that will contain the amount
 of items in the collection.
 
 Interface: `CountInAble`_
