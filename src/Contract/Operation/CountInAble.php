@@ -13,7 +13,7 @@ use loophp\collection\Contract\Collection;
 interface CountInAble
 {
     /**
-     * This operation requires a reference to a parameter that will contains the
+     * This operation requires a reference to a parameter that will contain the
      * amount of items in the collection.
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#countIn
