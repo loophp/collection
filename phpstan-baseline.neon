@@ -141,6 +141,11 @@ parameters:
 			path: src/Collection.php
 
 		-
+			message: "#^Parameter \\#1 \\.\\.\\.\\$ of closure expects callable\\(mixed, mixed, iterable\\)\\: bool, Closure\\(\\)\\: void given\\.$#"
+			count: 1
+			path: src/Collection.php
+
+		-
 			message: "#^Template type U of method loophp\\\\collection\\\\Collection\\:\\:empty\\(\\) is not referenced in a parameter\\.$#"
 			count: 1
 			path: src/Collection.php

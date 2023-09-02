@@ -18,7 +18,7 @@ Collection::fromIterable(range(0, 6))->countIn($counter);
 count_check($counter);
 
 /**
- * @psalm-param CollectionInterface<int<0, 2>, int> $collection
+ * @psalm-param CollectionInterface<int<0,2>, 1|2|3> $collection
  *
  * @phpstan-param CollectionInterface<int, int> $collection
  */
