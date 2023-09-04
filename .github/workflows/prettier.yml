@@ -15,8 +15,8 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v4
 
-            - name: Install the Nix package manager
-              uses: cachix/install-nix-action@v23
+            - name: Install Nix
+              uses: DeterminateSystems/nix-installer-action@main
 
             - name: Checks
               run: nix run nixpkgs#nodePackages.prettier -- --check .
