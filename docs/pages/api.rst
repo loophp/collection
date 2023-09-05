@@ -557,6 +557,10 @@ countIn
 This operation requires a reference to a parameter that will contain the amount
 of items in the collection.
 
+The difference with the `count` operation is that the `count` operation will
+return the amount of items in the collection and the `countIn` operation will
+yield over the collection itself while updating the counter variable.
+
 Interface: `CountInAble`_
 
 Signature: ``Collection::countIn(int &$counter): Collection;``
