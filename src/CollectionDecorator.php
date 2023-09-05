@@ -123,6 +123,13 @@ abstract class CollectionDecorator implements CollectionInterface
         return $this->innerCollection->contains(...$values);
     }
 
+    public function countIn(int &$counter): CollectionInterface
+    {
+        $this->innerCollection->countIn($counter);
+
+        return $this;
+    }
+
     public function current(int $index = 0, $default = null): mixed
     {
         return $this->innerCollection->current($index, $default);

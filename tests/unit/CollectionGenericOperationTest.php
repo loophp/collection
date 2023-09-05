@@ -169,4 +169,20 @@ final class CollectionGenericOperationTest extends TestCase
             Collection::fromIterable($actual)->{$operation}(...$parameters)
         );
     }
+
+    /**
+     * @dataProvider countInOperationProvider
+     */
+    public function testOperationWithSideEffects(
+        callable $test,
+        string $operation,
+        array $parameters,
+        iterable $actual,
+        mixed $expected
+    ): void {
+        self::assertSame(
+            $expected,
+            $test($operation, $parameters, $actual, $expected)
+        );
+    }
 }

@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="5.9.0@8b9ad1eb9e8b7d3101f949291da2b9f7767cd163">
+<files psalm-version="5.15.0@5c774aca4746caf3d239d9c8cadb9f882ca29352">
   <file src="src/Collection.php">
     <InvalidArgument>
       <code>$callback</code>
       <code>$parameters</code>
+      <code><![CDATA[static function () use (&$counter): void {
+                    ++$counter;
+                }]]></code>
     </InvalidArgument>
     <InvalidReturnStatement>
       <code>new self((new Operation\Unfold())()($parameters)($callback))</code>

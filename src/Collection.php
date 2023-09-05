@@ -142,6 +142,18 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return iterator_count($this);
     }
 
+    public function countIn(int &$counter): CollectionInterface
+    {
+        return new self(
+            (new Operation\Apply())()(
+                static function () use (&$counter): void {
+                    ++$counter;
+                }
+            ),
+            [$this]
+        );
+    }
+
     public function current(int $index = 0, $default = null)
     {
         return (new Operation\Current())()($index)($default)($this)->current();

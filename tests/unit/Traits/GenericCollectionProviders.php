@@ -623,6 +623,40 @@ trait GenericCollectionProviders
         ];
     }
 
+    public static function countInOperationProvider()
+    {
+        $operation = 'countIn';
+        $parameters = [];
+
+        yield [
+            static function ($operation, $parameters, $actual): int {
+                $counter = 0;
+
+                Collection::fromIterable($actual)->{$operation}($counter)->all();
+
+                return $counter;
+            },
+            $operation,
+            $parameters,
+            [],
+            0,
+        ];
+
+        yield [
+            static function ($operation, $parameters, $actual): int {
+                $counter = 0;
+
+                Collection::fromIterable($actual)->{$operation}($counter)->all();
+
+                return $counter;
+            },
+            $operation,
+            $parameters,
+            range('A', 'C'),
+            3,
+        ];
+    }
+
     public static function countOperationProvider()
     {
         $operation = 'count';
