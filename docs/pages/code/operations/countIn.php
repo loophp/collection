@@ -19,5 +19,5 @@ $collection = Collection::fromString('The quick brown fox jumps over the lazy do
     )
     ->all(); // [ "[1/9]: The", "[2/9]: quick", "[3/9]: brown", "[4/9]: fox", "[5/9]: jumps", "[6/9]: over", "[7/9]: the", "[8/9]: lazy", "[9/9]: dog" ]
 
-    print_r($wordsCounter); // 9
-    print_r($lettersCounter); // 43
+print_r($wordsCounter); // 9
+print_r($lettersCounter); // 43
