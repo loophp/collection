@@ -336,12 +336,14 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
     }
 
     /**
+     * @param null|non-negative-int $length
+     *
      * @return self<int, string>
      */
-    public static function fromFile(string $filepath): CollectionInterface
+    public static function fromFile(string $filepath, ?int $length = 2): CollectionInterface
     {
         return new self(
-            static fn (): Generator => yield from new ResourceIteratorAggregate(fopen($filepath, 'rb'), true),
+            static fn (): Generator => yield from new ResourceIteratorAggregate(fopen($filepath, 'rb'), true, $length),
         );
     }
 

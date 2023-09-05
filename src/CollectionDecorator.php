@@ -267,9 +267,12 @@ abstract class CollectionDecorator implements CollectionInterface
         return new static(Collection::fromCallable($callable, $parameters));
     }
 
-    public static function fromFile(string $filepath): static
+    /**
+     * @param null|non-negative-int $length
+     */
+    public static function fromFile(string $filepath, ?int $length = 2): static
     {
-        return new static(Collection::fromFile($filepath));
+        return new static(Collection::fromFile($filepath, $length));
     }
 
     public static function fromGenerator(Generator $generator): static
