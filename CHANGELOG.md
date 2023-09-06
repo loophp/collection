@@ -5,7 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [7.2.0](https://github.com/loophp/collection/compare/7.1.2...7.2.0)
+## [7.2.1](https://github.com/loophp/collection/compare/7.2.0...7.2.1)
+
+### Merged
+
+- feat: add `countIn` operation [`#306`](https://github.com/loophp/collection/pull/306)
+- feat: add `length` parameter to `fromFile` constructor [`#307`](https://github.com/loophp/collection/pull/307)
+- chore(deps): update cachix/install-nix-action action to v23 [`#308`](https://github.com/loophp/collection/pull/308)
+- chore(deps): update actions/checkout action to v4 [`#309`](https://github.com/loophp/collection/pull/309)
+
+### Commits
+
+- ci: switch to `DeterminateSystems/nix-installer-action` [`6a4374b`](https://github.com/loophp/collection/commit/6a4374bcdc5685f45ac817cbf05e7c5e802fce85)
+- chore: update `.editorconfig` [`d700df0`](https://github.com/loophp/collection/commit/d700df0c488b5579eb6de0b80c4b3248ec9736eb)
+- refactor: `range` operation may now yield `int|float` instead of `float` [`64ba910`](https://github.com/loophp/collection/commit/64ba910d8e95b08a8b9cbfc7024da3fc3226415d)
+- chore: autofix code style [`f346796`](https://github.com/loophp/collection/commit/f3467969c49e636510f3ae430457dc7553037879)
+- doc: add `fizz-buzz` example [`4d3d325`](https://github.com/loophp/collection/commit/4d3d3254551e7f9c106e2e02082138562c87635d)
+- doc: fix `groupBy` example [`55f1989`](https://github.com/loophp/collection/commit/55f19899618cdebc004c2332e9fa9b040cf779a3)
+
+## [7.2.0](https://github.com/loophp/collection/compare/7.1.2...7.2.0) - 2023-08-11
 
 ### Merged
 
@@ -16,6 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Commits
 
+- docs: update changelog [`1bfd964`](https://github.com/loophp/collection/commit/1bfd964556b1e41059ba19333c903dbbe99be50f)
 - ci: update, add `composer.json` [`ff6299f`](https://github.com/loophp/collection/commit/ff6299f6100d5b63cff3525c7fa58ba108095f31)
 - chore: minimum PHP version is 8.1 [`309f4b0`](https://github.com/loophp/collection/commit/309f4b065fb762c0f8850777d10110aa82f6b345)
 - cs: autofix code style [`13ef487`](https://github.com/loophp/collection/commit/13ef487fc050e9c04eeb11d8f863299238b73cff)
