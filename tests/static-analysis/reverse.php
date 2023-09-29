@@ -12,8 +12,6 @@ use loophp\collection\Contract\Collection as CollectionInterface;
  *
  * @phpstan-param CollectionInterface<int, int> $collection
  */
-function reverse_checkList(CollectionInterface $collection): void
-{
-}
+function reverse_checkList(CollectionInterface $collection): void {}
 
 reverse_checkList(Collection::fromIterable(range(0, 5))->reverse());

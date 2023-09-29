@@ -6,6 +6,4 @@ namespace tests\loophp\collection;
 
 use loophp\collection\CollectionDecorator;
 
-final class CustomCollection extends CollectionDecorator
-{
-}
+final class CustomCollection extends CollectionDecorator {}

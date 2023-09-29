@@ -12,15 +12,11 @@ use loophp\collection\Contract\Collection as CollectionInterface;
  *
  * @phpstan-param CollectionInterface<int, string> $collection
  */
-function apply_checkList(CollectionInterface $collection): void
-{
-}
+function apply_checkList(CollectionInterface $collection): void {}
 /**
  * @param CollectionInterface<string, string> $collection
  */
-function apply_checkMap(CollectionInterface $collection): void
-{
-}
+function apply_checkMap(CollectionInterface $collection): void {}
 
 $echoCallbackTrue = static function (string $item): bool {
     echo $item;

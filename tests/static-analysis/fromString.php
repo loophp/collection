@@ -10,8 +10,6 @@ use loophp\collection\Contract\Collection as CollectionInterface;
 /**
  * @param CollectionInterface<int, string> $collection
  */
-function fromString_check(CollectionInterface $collection): void
-{
-}
+function fromString_check(CollectionInterface $collection): void {}
 
 fromString_check(Collection::fromString('hello world', ' '));

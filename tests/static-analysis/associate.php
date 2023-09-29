@@ -10,25 +10,19 @@ use loophp\collection\Contract\Collection as CollectionInterface;
 /**
  * @param CollectionInterface<int, int> $collection
  */
-function associate_checkIntInt(CollectionInterface $collection): void
-{
-}
+function associate_checkIntInt(CollectionInterface $collection): void {}
 /**
  * @psalm-param CollectionInterface<non-empty-string, non-empty-string> $collection
  *
  * @phpstan-param CollectionInterface<string, string> $collection
  */
-function associate_checkStringString(CollectionInterface $collection): void
-{
-}
+function associate_checkStringString(CollectionInterface $collection): void {}
 /**
  * @psalm-param CollectionInterface<non-empty-string, bool> $collection
  *
  * @phpstan-param CollectionInterface<string, bool> $collection
  */
-function associate_checkStringBool(CollectionInterface $collection): void
-{
-}
+function associate_checkStringBool(CollectionInterface $collection): void {}
 
 $square = static fn (int $val): int => $val ** 2;
 $toBoldString = static fn (int $val): string => sprintf('*%s*', $val);

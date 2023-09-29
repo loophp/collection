@@ -6,9 +6,7 @@ include __DIR__ . '/../../vendor/autoload.php';
 
 use loophp\collection\Collection;
 
-function contains_check(bool $value): void
-{
-}
+function contains_check(bool $value): void {}
 
 contains_check(Collection::fromIterable([1, 2, 3])->contains(2));
 contains_check(Collection::fromIterable(range(1, 3))->contains(2, 4));

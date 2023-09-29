@@ -12,29 +12,21 @@ use loophp\collection\Contract\Collection as CollectionInterface;
  *
  * @phpstan-param CollectionInterface<int, Collection<int, int>> $collection
  */
-function span_checkListCollectionInt(CollectionInterface $collection): void
-{
-}
+function span_checkListCollectionInt(CollectionInterface $collection): void {}
 /**
  * @psalm-param CollectionInterface<int<0, 2>, 2|3|4> $collection
  *
  * @phpstan-param CollectionInterface<int, int> $collection
  */
-function span_checkListInt(CollectionInterface $collection): void
-{
-}
+function span_checkListInt(CollectionInterface $collection): void {}
 /**
  * @param CollectionInterface<int, Collection<string, string>> $collection
  */
-function span_checkMapCollectionString(CollectionInterface $collection): void
-{
-}
+function span_checkMapCollectionString(CollectionInterface $collection): void {}
 /**
  * @param CollectionInterface<string, string> $collection
  */
-function span_checkMapString(CollectionInterface $collection): void
-{
-}
+function span_checkMapString(CollectionInterface $collection): void {}
 
 $intValueCallback = static fn (int $value): bool => $value % 2 === 0;
 $intSecondCallback = static fn (int $value): bool => 3 > $value;

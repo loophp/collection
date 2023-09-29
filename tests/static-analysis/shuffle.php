@@ -12,31 +12,23 @@ use loophp\collection\Contract\Collection as CollectionInterface;
  *
  * @psalm-param CollectionInterface<int, int<0, max>> $collection
  */
-function shuffle_checkIntList(CollectionInterface $collection): void
-{
-}
+function shuffle_checkIntList(CollectionInterface $collection): void {}
 /**
  * @phpstan-param CollectionInterface<int, string> $collection
  *
  * @psalm-param CollectionInterface<int, non-empty-string> $collection
  */
-function shuffle_checkStringList(CollectionInterface $collection): void
-{
-}
+function shuffle_checkStringList(CollectionInterface $collection): void {}
 /**
  * @param CollectionInterface<int, bool> $collection
  */
-function shuffle_checkBoolList(CollectionInterface $collection): void
-{
-}
+function shuffle_checkBoolList(CollectionInterface $collection): void {}
 /**
  * @phpstan-param CollectionInterface<string, string> $collection
  *
  * @psalm-param CollectionInterface<non-empty-string, non-empty-string> $collection
  */
-function shuffle_checkStringMap(CollectionInterface $collection): void
-{
-}
+function shuffle_checkStringMap(CollectionInterface $collection): void {}
 
 $intGenerator = static function (): Generator {
     yield random_int(0, mt_getrandmax());

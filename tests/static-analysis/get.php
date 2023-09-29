@@ -10,33 +10,17 @@ use loophp\collection\Contract\Collection as CollectionInterface;
 /**
  * @param CollectionInterface<int, int> $collection
  */
-function get_checkList(CollectionInterface $collection): void
-{
-}
-function get_checkListNullable(?int $collection): void
-{
-}
+function get_checkList(CollectionInterface $collection): void {}
+function get_checkListNullable(?int $collection): void {}
 /**
  * @param CollectionInterface<string, string> $collection
  */
-function get_checkMap(CollectionInterface $collection): void
-{
-}
-function get_checkMapNullable(?string $collection): void
-{
-}
-function get_checkIntElement(int $value): void
-{
-}
-function get_checkNullableInt(?int $value): void
-{
-}
-function get_checkStringElement(string $value): void
-{
-}
-function get_checkNullableString(?string $value): void
-{
-}
+function get_checkMap(CollectionInterface $collection): void {}
+function get_checkMapNullable(?string $collection): void {}
+function get_checkIntElement(int $value): void {}
+function get_checkNullableInt(?int $value): void {}
+function get_checkStringElement(string $value): void {}
+function get_checkNullableString(?string $value): void {}
 
 get_checkListNullable(Collection::fromIterable([1, 2, 3])->get(1));
 get_checkMapNullable(Collection::fromIterable(['foo' => 'a', 'bar' => 'b'])->get('foo'));

@@ -6,9 +6,7 @@ include __DIR__ . '/../../vendor/autoload.php';
 
 use loophp\collection\Collection;
 
-function has_check(bool $value): void
-{
-}
+function has_check(bool $value): void {}
 
 $number2 = static fn (): int => 2;
 $number3 = static fn (): int => 2;

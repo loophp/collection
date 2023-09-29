@@ -6,19 +6,11 @@ include __DIR__ . '/../../vendor/autoload.php';
 
 use loophp\collection\Collection;
 
-function key_checkInt(int $key): void
-{
-}
+function key_checkInt(int $key): void {}
 
-function key_checkNullableInt(?int $key): void
-{
-}
-function key_checkString(string $key): void
-{
-}
-function key_checkNullableString(?string $key): void
-{
-}
+function key_checkNullableInt(?int $key): void {}
+function key_checkString(string $key): void {}
+function key_checkNullableString(?string $key): void {}
 
 key_checkNullableInt(Collection::fromIterable([1, 2, 3])->key());
 key_checkNullableInt(Collection::fromIterable([1, 2, 3])->key(2));

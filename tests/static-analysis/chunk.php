@@ -10,15 +10,11 @@ use loophp\collection\Contract\Collection as CollectionInterface;
 /**
  * @param CollectionInterface<int, list<int>> $collection
  */
-function chunk_checkList(CollectionInterface $collection): void
-{
-}
+function chunk_checkList(CollectionInterface $collection): void {}
 /**
  * @param CollectionInterface<int, list<string>> $collection
  */
-function chunk_checkMap(CollectionInterface $collection): void
-{
-}
+function chunk_checkMap(CollectionInterface $collection): void {}
 
 chunk_checkList(Collection::fromIterable(range(0, 6))->chunk(1));
 chunk_checkList(Collection::fromIterable(range(0, 6))->chunk(1, 2));

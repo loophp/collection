@@ -10,27 +10,19 @@ use loophp\collection\Contract\Collection as CollectionInterface;
 /**
  * @param CollectionInterface<int, int> $collection
  */
-function mapN_checkListInt(CollectionInterface $collection): void
-{
-}
+function mapN_checkListInt(CollectionInterface $collection): void {}
 /**
  * @param CollectionInterface<int, string> $collection
  */
-function mapN_checkListString(CollectionInterface $collection): void
-{
-}
+function mapN_checkListString(CollectionInterface $collection): void {}
 /**
  * @param CollectionInterface<string, string> $collection
  */
-function mapN_checkMapString(CollectionInterface $collection): void
-{
-}
+function mapN_checkMapString(CollectionInterface $collection): void {}
 /**
  * @param CollectionInterface<string, stdClass> $collection
  */
-function mapN_checkMapClass(CollectionInterface $collection): void
-{
-}
+function mapN_checkMapClass(CollectionInterface $collection): void {}
 
 $square = static fn (int $val): int => $val ** 2;
 $toString = static fn (int $val): string => (string) $val;

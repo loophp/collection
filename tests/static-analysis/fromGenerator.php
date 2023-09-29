@@ -12,21 +12,15 @@ use loophp\collection\Contract\Collection as CollectionInterface;
  *
  * @phpstan-param CollectionInterface<int, int> $collection
  */
-function fromGenerator_checkList(CollectionInterface $collection): void
-{
-}
+function fromGenerator_checkList(CollectionInterface $collection): void {}
 /**
  * @param CollectionInterface<string, int> $collection
  */
-function fromGenerator_checkMap(CollectionInterface $collection): void
-{
-}
+function fromGenerator_checkMap(CollectionInterface $collection): void {}
 /**
  * @param CollectionInterface<int, int|string> $collection
  */
-function fromGenerator_checkMixed(CollectionInterface $collection): void
-{
-}
+function fromGenerator_checkMixed(CollectionInterface $collection): void {}
 
 $generatorClosureList = static fn (): Generator => yield from range(1, 3);
 $generatorClosureMap = static fn (): Generator => yield 'myKey' => 1;

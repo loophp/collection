@@ -10,15 +10,11 @@ use loophp\collection\Contract\Collection as CollectionInterface;
 /**
  * @param CollectionInterface<int, int> $collection
  */
-function flatten_checkList(CollectionInterface $collection): void
-{
-}
+function flatten_checkList(CollectionInterface $collection): void {}
 /**
  * @param CollectionInterface<string, string> $collection
  */
-function flatten_checkMap(CollectionInterface $collection): void
-{
-}
+function flatten_checkMap(CollectionInterface $collection): void {}
 
 flatten_checkList(Collection::fromIterable([1, 2, 3])->flatten());
 flatten_checkList(Collection::fromIterable([[1], 2, 3])->flatten());

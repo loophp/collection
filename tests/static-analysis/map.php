@@ -12,27 +12,19 @@ use loophp\collection\Contract\Collection as CollectionInterface;
  *
  * @phpstan-param CollectionInterface<int, int> $collection
  */
-function map_checkListInt(CollectionInterface $collection): void
-{
-}
+function map_checkListInt(CollectionInterface $collection): void {}
 /**
  * @param CollectionInterface<int, string> $collection
  */
-function map_checkListString(CollectionInterface $collection): void
-{
-}
+function map_checkListString(CollectionInterface $collection): void {}
 /**
  * @param CollectionInterface<string, string> $collection
  */
-function map_checkMapString(CollectionInterface $collection): void
-{
-}
+function map_checkMapString(CollectionInterface $collection): void {}
 /**
  * @param CollectionInterface<string, stdClass> $collection
  */
-function map_checkMapClass(CollectionInterface $collection): void
-{
-}
+function map_checkMapClass(CollectionInterface $collection): void {}
 
 $square = static fn (int $val): int => $val ** 2;
 $toString = static fn (int $val): string => (string) $val;

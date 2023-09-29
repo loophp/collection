@@ -10,27 +10,19 @@ use loophp\collection\Contract\Collection as CollectionInterface;
 /**
  * @param CollectionInterface<int, int|null> $collection
  */
-function pair_checkListNullableInt(CollectionInterface $collection): void
-{
-}
+function pair_checkListNullableInt(CollectionInterface $collection): void {}
 /**
  * @param CollectionInterface<int, int> $collection
  */
-function pair_checkListInt(CollectionInterface $collection): void
-{
-}
+function pair_checkListInt(CollectionInterface $collection): void {}
 /**
  * @param CollectionInterface<string, string|null> $collection
  */
-function pair_checkMapNullableString(CollectionInterface $collection): void
-{
-}
+function pair_checkMapNullableString(CollectionInterface $collection): void {}
 /**
  * @param CollectionInterface<string, string> $collection
  */
-function pair_checkMapString(CollectionInterface $collection): void
-{
-}
+function pair_checkMapString(CollectionInterface $collection): void {}
 
 pair_checkListNullableInt(Collection::fromIterable([1, 2, 3])->pair());
 pair_checkMapNullableString(Collection::fromIterable(range('a', 'b'))->pair());

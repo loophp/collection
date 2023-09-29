@@ -10,21 +10,15 @@ use loophp\collection\Contract\Collection as CollectionInterface;
 /**
  * @param CollectionInterface<int, int> $collection
  */
-function empty_checkList(CollectionInterface $collection): void
-{
-}
+function empty_checkList(CollectionInterface $collection): void {}
 /**
  * @param CollectionInterface<string, int> $collection
  */
-function empty_checkMap(CollectionInterface $collection): void
-{
-}
+function empty_checkMap(CollectionInterface $collection): void {}
 /**
  * @param CollectionInterface<int, int|string> $collection
  */
-function empty_checkMixed(CollectionInterface $collection): void
-{
-}
+function empty_checkMixed(CollectionInterface $collection): void {}
 
 empty_checkList(Collection::empty());
 empty_checkMap(Collection::empty());

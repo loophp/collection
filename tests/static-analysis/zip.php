@@ -10,36 +10,28 @@ use loophp\collection\Contract\Collection as CollectionInterface;
 /**
  * @param CollectionInterface<list<bool>, list<bool>> $collection
  */
-function zip_checkBoolBool(CollectionInterface $collection): void
-{
-}
+function zip_checkBoolBool(CollectionInterface $collection): void {}
 
 /**
  * @phpstan-param CollectionInterface<list<bool|int>, list<bool|string>> $collection
  *
  * @psalm-param CollectionInterface<list<bool|int<0, max>>, list<bool|string>> $collection
  */
-function zip_checkBoolString(CollectionInterface $collection): void
-{
-}
+function zip_checkBoolString(CollectionInterface $collection): void {}
 
 /**
  * @phpstan-param CollectionInterface<list<int>, list<int|string>> $collection
  *
  * @psalm-param CollectionInterface<list<int<0, max>>, list<int|string>> $collection
  */
-function zip_checkIntString(CollectionInterface $collection): void
-{
-}
+function zip_checkIntString(CollectionInterface $collection): void {}
 
 /**
  * @phpstan-param CollectionInterface<list<bool|int>, list<bool|int|string>> $collection
  *
  * @psalm-param CollectionInterface<list<bool|int<0, max>>, list<bool|int|string>> $collection
  */
-function zip_checkBoolStringInt(CollectionInterface $collection): void
-{
-}
+function zip_checkBoolStringInt(CollectionInterface $collection): void {}
 
 $generator =
     /**

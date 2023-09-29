@@ -6,9 +6,7 @@ include __DIR__ . '/../../vendor/autoload.php';
 
 use loophp\collection\Collection;
 
-function falsy_check(bool $value): void
-{
-}
+function falsy_check(bool $value): void {}
 
 falsy_check(Collection::fromIterable([1, 2, 3])->falsy());
 falsy_check(Collection::fromIterable([null, ''])->falsy());

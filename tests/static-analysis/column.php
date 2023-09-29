@@ -10,16 +10,12 @@ use loophp\collection\Contract\Collection as CollectionInterface;
 /**
  * @param CollectionInterface<int, int> $collection
  */
-function column_checkInt(CollectionInterface $collection): void
-{
-}
+function column_checkInt(CollectionInterface $collection): void {}
 
 /**
  * @param CollectionInterface<int, string> $collection
  */
-function column_checkString(CollectionInterface $collection): void
-{
-}
+function column_checkString(CollectionInterface $collection): void {}
 
 $records = [
     [

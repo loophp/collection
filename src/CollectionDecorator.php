@@ -32,9 +32,7 @@ abstract class CollectionDecorator implements CollectionInterface
     /**
      * @param CollectionInterface<TKey, T> $innerCollection
      */
-    public function __construct(protected CollectionInterface $innerCollection)
-    {
-    }
+    public function __construct(protected CollectionInterface $innerCollection) {}
 
     public function all(bool $normalize = true): array
     {

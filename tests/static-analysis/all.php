@@ -9,21 +9,15 @@ use loophp\collection\Collection;
 /**
  * @param array<int, int> $array
  */
-function all_checkList(array $array): void
-{
-}
+function all_checkList(array $array): void {}
 /**
  * @param array<string, int> $array
  */
-function all_checkMap(array $array): void
-{
-}
+function all_checkMap(array $array): void {}
 /**
  * @param array<int, int|string> $array
  */
-function all_checkMixed(array $array): void
-{
-}
+function all_checkMixed(array $array): void {}
 
 all_checkList(Collection::fromIterable([1, 2, 3])->all());
 all_checkList(Collection::fromIterable([1, 2, 3])->all(false));

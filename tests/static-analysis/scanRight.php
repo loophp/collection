@@ -15,30 +15,22 @@ $toString = static fn (bool|string $carry, int $value): string => sprintf('%s', 
 /**
  * @param CollectionInterface<int, int> $collection
  */
-function scanRight_checkListInt(CollectionInterface $collection): void
-{
-}
+function scanRight_checkListInt(CollectionInterface $collection): void {}
 
 /**
  * @param CollectionInterface<int, string> $collection
  */
-function scanRight_checkListString(CollectionInterface $collection): void
-{
-}
+function scanRight_checkListString(CollectionInterface $collection): void {}
 
 /**
  * @param CollectionInterface<int, string|null> $collection
  */
-function scanRight_checkListStringWithNull(CollectionInterface $collection): void
-{
-}
+function scanRight_checkListStringWithNull(CollectionInterface $collection): void {}
 
 /**
  * @param CollectionInterface<int, bool|string> $collection
  */
-function scanRight_checkListOfSize1String(CollectionInterface $collection): void
-{
-}
+function scanRight_checkListOfSize1String(CollectionInterface $collection): void {}
 
 scanRight_checkListInt(Collection::fromIterable([1, 2, 3])->scanRight($sum, 5));
 scanRight_checkListString(Collection::fromIterable(range('a', 'c'))->scanRight($concat, ''));

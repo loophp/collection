@@ -6,18 +6,10 @@ include __DIR__ . '/../../vendor/autoload.php';
 
 use loophp\collection\Collection;
 
-function current_checkNullable(?int $nullable): void
-{
-}
-function current_checkNonNullable(int $nonNullable): void
-{
-}
-function current_checkNonNullableWithDefaultValue(bool|int $default): void
-{
-}
-function current_checkEmptyWithDefaultValue(string $default): void
-{
-}
+function current_checkNullable(?int $nullable): void {}
+function current_checkNonNullable(int $nonNullable): void {}
+function current_checkNonNullableWithDefaultValue(bool|int $default): void {}
+function current_checkEmptyWithDefaultValue(string $default): void {}
 
 function randomString(): string
 {

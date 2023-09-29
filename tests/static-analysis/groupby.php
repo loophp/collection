@@ -12,18 +12,14 @@ use loophp\collection\Contract\Collection as CollectionInterface;
  *
  * @phpstan-param CollectionInterface<int, non-empty-array<int, string>> $collection
  */
-function groupby_sameKeyType(CollectionInterface $collection): void
-{
-}
+function groupby_sameKeyType(CollectionInterface $collection): void {}
 
 /**
  * @psalm-param CollectionInterface<string, non-empty-list<string>> $collection
  *
  * @phpstan-param CollectionInterface<string, non-empty-array<int, string>> $collection
  */
-function groupby_newKeyType(CollectionInterface $collection): void
-{
-}
+function groupby_newKeyType(CollectionInterface $collection): void {}
 
 $foo = [
     0 => 'foo',

@@ -9,27 +9,13 @@ use loophp\collection\Collection;
 /**
  * @param mixed|null $last
  */
-function last_checkNull($last): void
-{
-}
-function last_checkList(?int $last): void
-{
-}
-function last_checkMap(?string $last): void
-{
-}
-function last_checkIntElement(int $value): void
-{
-}
-function last_checkNullableInt(?int $value): void
-{
-}
-function last_checkStringElement(string $value): void
-{
-}
-function last_checkNullableString(?string $value): void
-{
-}
+function last_checkNull($last): void {}
+function last_checkList(?int $last): void {}
+function last_checkMap(?string $last): void {}
+function last_checkIntElement(int $value): void {}
+function last_checkNullableInt(?int $value): void {}
+function last_checkStringElement(string $value): void {}
+function last_checkNullableString(?string $value): void {}
 
 last_checkList(Collection::fromIterable([1, 2, 3])->last());
 last_checkMap(Collection::fromIterable(['foo' => 'bar', 'baz' => 'bar'])->last());

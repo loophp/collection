@@ -11,23 +11,17 @@ use loophp\collection\Collection;
  *
  * @phpstan-param Collection<int, int> $collection
  */
-function fromIterable_checkList(Collection $collection): void
-{
-}
+function fromIterable_checkList(Collection $collection): void {}
 /**
  * @param Collection<string, int> $collection
  */
-function fromIterable_checkMap(Collection $collection): void
-{
-}
+function fromIterable_checkMap(Collection $collection): void {}
 /**
  * @psalm-param Collection<int<0, 4>, '3'|'b'|1|2|5>|Collection<1|3|4, '5'|'b'|'c'|2> $collection
  *
  * @phpstan-param Collection<int, string|int> $collection
  */
-function fromIterable_checkMixed(Collection $collection): void
-{
-}
+function fromIterable_checkMixed(Collection $collection): void {}
 
 $generatorList = static fn (): Generator => yield from range(1, 3);
 $generatorMap = static fn (): Generator => yield 'myKey' => 1;

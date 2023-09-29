@@ -6,24 +6,12 @@ include __DIR__ . '/../../vendor/autoload.php';
 
 use loophp\collection\Collection;
 
-function head_checkList(?int $collection): void
-{
-}
-function head_checkMap(?string $collection): void
-{
-}
-function head_checkIntElement(int $value): void
-{
-}
-function head_checkNullableInt(?int $value): void
-{
-}
-function head_checkStringElement(string $value): void
-{
-}
-function head_checkNullableString(?string $value): void
-{
-}
+function head_checkList(?int $collection): void {}
+function head_checkMap(?string $collection): void {}
+function head_checkIntElement(int $value): void {}
+function head_checkNullableInt(?int $value): void {}
+function head_checkStringElement(string $value): void {}
+function head_checkNullableString(?string $value): void {}
 
 head_checkList(Collection::fromIterable([1, 2, 3])->head());
 head_checkMap(Collection::fromIterable(['foo' => 'bar', 'baz' => 'bar'])->head());

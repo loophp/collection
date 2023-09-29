@@ -831,9 +831,7 @@ trait GenericCollectionProviders
         ];
 
         $cat = static fn (string $name) => new class($name) {
-            public function __construct(private string $name)
-            {
-            }
+            public function __construct(private string $name) {}
 
             public function name(): string
             {
@@ -978,9 +976,7 @@ trait GenericCollectionProviders
         ];
 
         $cat = static fn (string $name) => new class($name) {
-            public function __construct(private string $name)
-            {
-            }
+            public function __construct(private string $name) {}
 
             public function name(): string
             {

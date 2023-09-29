@@ -24,9 +24,7 @@ final class PsrCacheIterator implements Iterator
     /**
      * @param Iterator<TKey, T> $iterator
      */
-    public function __construct(private Iterator $iterator, private CacheItemPoolInterface $cache)
-    {
-    }
+    public function __construct(private Iterator $iterator, private CacheItemPoolInterface $cache) {}
 
     /**
      * @return T

@@ -12,15 +12,11 @@ use loophp\collection\Contract\Collection as CollectionInterface;
  *
  * @phpstan-param CollectionInterface<int, int> $collection
  */
-function drop_checkList(CollectionInterface $collection): void
-{
-}
+function drop_checkList(CollectionInterface $collection): void {}
 /**
  * @param CollectionInterface<string, string> $collection
  */
-function drop_checkMap(CollectionInterface $collection): void
-{
-}
+function drop_checkMap(CollectionInterface $collection): void {}
 
 drop_checkList(Collection::fromIterable([1, 2, 3])->drop(1));
 drop_checkMap(Collection::fromIterable(['foo' => 'f', 'bar' => 'b'])->drop(2));

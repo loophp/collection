@@ -12,9 +12,7 @@ use loophp\collection\Contract\Operation;
  */
 abstract class AbstractOperation implements Operation
 {
-    final public function __construct()
-    {
-    }
+    final public function __construct() {}
 
     public static function of(): Closure
     {

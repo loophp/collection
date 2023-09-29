@@ -12,18 +12,14 @@ use loophp\collection\Contract\Collection as CollectionInterface;
  *
  * @phpstan-param CollectionInterface<int, string> $collection
  */
-function whenConditionIsTrueT_checkList(CollectionInterface $collection): void
-{
-}
+function whenConditionIsTrueT_checkList(CollectionInterface $collection): void {}
 
 /**
  * @psalm-param CollectionInterface<int<0, max>, int> $collection
  *
  * @phpstan-param CollectionInterface<int, int> $collection
  */
-function whenConditionIsFalseT_checkList(CollectionInterface $collection): void
-{
-}
+function whenConditionIsFalseT_checkList(CollectionInterface $collection): void {}
 
 whenConditionIsTrueT_checkList(
     Collection::fromIterable(range('a', 'e'))

@@ -12,15 +12,11 @@ use loophp\collection\Contract\Collection as CollectionInterface;
  *
  * @phpstan-param CollectionInterface<int, int> $collection
  */
-function filter_checkList(CollectionInterface $collection): void
-{
-}
+function filter_checkList(CollectionInterface $collection): void {}
 /**
  * @param CollectionInterface<string, string> $collection
  */
-function filter_checkMap(CollectionInterface $collection): void
-{
-}
+function filter_checkMap(CollectionInterface $collection): void {}
 
 $intValueCallback = static fn (int $value): bool => $value % 2 === 0;
 $intValueCallback2 = static fn (int $value): bool => 2 < $value;

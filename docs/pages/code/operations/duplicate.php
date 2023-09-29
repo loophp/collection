@@ -16,9 +16,7 @@ $collection = Collection::fromIterable(['a', 'b', 'a', 'c', 'a', 'c'])
 // Example 2 -> Using a custom comparator callback, with object values
 final class User
 {
-    public function __construct(private string $name)
-    {
-    }
+    public function __construct(private string $name) {}
 
     public function name(): string
     {
@@ -41,9 +39,7 @@ $collection = Collection::fromIterable($users)
 // Example 3 -> Using a custom accessor callback, with object values
 final class Person
 {
-    public function __construct(private string $name)
-    {
-    }
+    public function __construct(private string $name) {}
 
     public function name(): string
     {
@@ -67,9 +63,7 @@ $collection = Collection::fromIterable($users)
 // Example 4 -> Using both accessor and comparator callbacks, with object values
 final class Cat
 {
-    public function __construct(private string $name)
-    {
-    }
+    public function __construct(private string $name) {}
 
     public function name(): string
     {

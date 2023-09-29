@@ -13,21 +13,15 @@ use tests\loophp\collection\NamedItem;
  *
  * @phpstan-param CollectionInterface<int, int> $collection
  */
-function distinct_checkIntList(CollectionInterface $collection): void
-{
-}
+function distinct_checkIntList(CollectionInterface $collection): void {}
 /**
  * @param CollectionInterface<int, NamedItem> $collection
  */
-function distinct_checkObjectList(CollectionInterface $collection): void
-{
-}
+function distinct_checkObjectList(CollectionInterface $collection): void {}
 /**
  * @param CollectionInterface<string, string> $collection
  */
-function distinct_checkMap(CollectionInterface $collection): void
-{
-}
+function distinct_checkMap(CollectionInterface $collection): void {}
 
 // TODO: Replace with a proper typed generator when it will be done.
 $catGenerator =

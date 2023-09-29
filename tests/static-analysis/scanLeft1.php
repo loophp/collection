@@ -13,25 +13,19 @@ $toString = static fn (int|string $carry, int $value): string => sprintf('%s', $
 /**
  * @param CollectionInterface<int, string> $collection
  */
-function scanLeft1_checkListString(CollectionInterface $collection): void
-{
-}
+function scanLeft1_checkListString(CollectionInterface $collection): void {}
 
 /**
  * @psalm-param CollectionInterface<int, int|non-empty-string> $collection
  *
  * @phpstan-param CollectionInterface<int, int|string> $collection
  */
-function scanLeft1_checkListOfSize1String(CollectionInterface $collection): void
-{
-}
+function scanLeft1_checkListOfSize1String(CollectionInterface $collection): void {}
 
 /**
  * @param CollectionInterface<string|int, string|int> $collection
  */
-function scanLeft1_checkMixedInput(CollectionInterface $collection): void
-{
-}
+function scanLeft1_checkMixedInput(CollectionInterface $collection): void {}
 
 $intGenerator =
     /**

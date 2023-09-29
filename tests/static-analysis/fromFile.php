@@ -10,8 +10,6 @@ use loophp\collection\Contract\Collection as CollectionInterface;
 /**
  * @param CollectionInterface<int, string> $collection
  */
-function fromFile_check(CollectionInterface $collection): void
-{
-}
+function fromFile_check(CollectionInterface $collection): void {}
 
 fromFile_check(Collection::fromFile('https://loripsum.net/api')->limit(25));

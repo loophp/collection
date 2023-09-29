@@ -9,21 +9,11 @@ use loophp\collection\Collection;
 /**
  * @param null|mixed $_
  */
-function min_takeNull($_): void
-{
-}
-function min_takeInt(int $int): void
-{
-}
-function min_takeIntOrNull(?int $int): void
-{
-}
-function min_takeString(string $string): void
-{
-}
-function min_takeStringOrNull(?string $string): void
-{
-}
+function min_takeNull($_): void {}
+function min_takeInt(int $int): void {}
+function min_takeIntOrNull(?int $int): void {}
+function min_takeString(string $string): void {}
+function min_takeStringOrNull(?string $string): void {}
 
 min_takeNull(Collection::empty()->min());
 

@@ -6,9 +6,7 @@ include __DIR__ . '/../../vendor/autoload.php';
 
 use loophp\collection\Collection;
 
-function every_check(bool $value): void
-{
-}
+function every_check(bool $value): void {}
 
 $even = static fn (int $val): bool => $val % 2 === 0;
 $negative = static fn (int $val): bool => 0 > $val;

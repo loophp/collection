@@ -6,15 +6,9 @@ include __DIR__ . '/../../vendor/autoload.php';
 
 use loophp\collection\Collection;
 
-function first_takeInt(?int $int): void
-{
-}
-function first_takeIntOrNull(?int $int): void
-{
-}
-function first_takeString(?string $string): void
-{
-}
+function first_takeInt(?int $int): void {}
+function first_takeIntOrNull(?int $int): void {}
+function first_takeString(?string $string): void {}
 
 first_takeInt(Collection::fromIterable([1, 2, 3])->first());
 first_takeString(Collection::fromIterable(['foo' => 'bar', 'baz' => 'bar'])->first());

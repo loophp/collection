@@ -12,15 +12,11 @@ use loophp\collection\Contract\Collection as CollectionInterface;
  *
  * @phpstan-param CollectionInterface<int, int> $collection
  */
-function strict_checkList(CollectionInterface $collection): void
-{
-}
+function strict_checkList(CollectionInterface $collection): void {}
 /**
  * @param CollectionInterface<string, string> $collection
  */
-function strict_checkMap(CollectionInterface $collection): void
-{
-}
+function strict_checkMap(CollectionInterface $collection): void {}
 
 $callback = static fn (mixed $value): string => gettype($value);
 

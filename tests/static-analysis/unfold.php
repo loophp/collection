@@ -12,15 +12,11 @@ use loophp\collection\Contract\Collection as CollectionInterface;
  *
  * @psalm-param CollectionInterface<int, iterable<int|string, int>> $collection
  */
-function unfold_checkList(CollectionInterface $collection): void
-{
-}
+function unfold_checkList(CollectionInterface $collection): void {}
 /**
  * @param CollectionInterface<int, iterable<int|string, int>> $collection
  */
-function unfold_checkListOfLists(CollectionInterface $collection): void
-{
-}
+function unfold_checkListOfLists(CollectionInterface $collection): void {}
 
 $plusTwo =
     /**

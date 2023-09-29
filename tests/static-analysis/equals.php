@@ -6,9 +6,7 @@ include __DIR__ . '/../../vendor/autoload.php';
 
 use loophp\collection\Collection;
 
-function equals_check(bool $value): void
-{
-}
+function equals_check(bool $value): void {}
 
 $a = (object) ['id' => 'a'];
 $a2 = (object) ['id' => 'a'];

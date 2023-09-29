@@ -12,15 +12,11 @@ use loophp\collection\Contract\Collection as CollectionInterface;
  *
  * @phpstan-param CollectionInterface<int, int> $collection
  */
-function diff_checkList(CollectionInterface $collection): void
-{
-}
+function diff_checkList(CollectionInterface $collection): void {}
 /**
  * @param CollectionInterface<string, string> $collection
  */
-function diff_checkMap(CollectionInterface $collection): void
-{
-}
+function diff_checkMap(CollectionInterface $collection): void {}
 
 $intGen = static fn (): Generator => yield from [2, 3];
 $intCol = Collection::fromIterable([2, 3]);

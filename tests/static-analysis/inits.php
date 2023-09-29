@@ -12,16 +12,12 @@ use loophp\collection\Contract\Collection as CollectionInterface;
  *
  * @psalm-param CollectionInterface<int, list<array{0: int<0, max>, 1: string}>> $collection
  */
-function inits_checkListString(CollectionInterface $collection): void
-{
-}
+function inits_checkListString(CollectionInterface $collection): void {}
 
 /**
  * @param CollectionInterface<int, list<array{0: string, 1: string}>> $collection
  */
-function inits_checkMapString(CollectionInterface $collection): void
-{
-}
+function inits_checkMapString(CollectionInterface $collection): void {}
 
 $listString = range('a', 'c');
 $mapString = array_combine(range('a', 'c'), range('a', 'c'));

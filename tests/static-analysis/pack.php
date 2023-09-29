@@ -10,25 +10,19 @@ use loophp\collection\Contract\Collection as CollectionInterface;
 /**
  * @param CollectionInterface<int, array{0: int, 1: int}> $collection
  */
-function pack_checkListInt(CollectionInterface $collection): void
-{
-}
+function pack_checkListInt(CollectionInterface $collection): void {}
 
 /**
  * @phpstan-param CollectionInterface<int, array{0: int, 1: string}> $collection
  *
  * @psalm-param CollectionInterface<int, array{0: int<0, max>, 1: string}> $collection
  */
-function pack_checkListString(CollectionInterface $collection): void
-{
-}
+function pack_checkListString(CollectionInterface $collection): void {}
 
 /**
  * @param CollectionInterface<int, array{0: string, 1: string}> $collection
  */
-function pack_checkListStringWithString(CollectionInterface $collection): void
-{
-}
+function pack_checkListStringWithString(CollectionInterface $collection): void {}
 
 pack_checkListInt(Collection::fromIterable([1, 2, 3])->pack());
 pack_checkListString(Collection::fromIterable(range('a', 'b'))->pack());

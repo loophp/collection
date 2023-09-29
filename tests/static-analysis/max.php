@@ -9,21 +9,11 @@ use loophp\collection\Collection;
 /**
  * @param null|mixed $_
  */
-function max_takeNull($_): void
-{
-}
-function max_takeInt(int $int): void
-{
-}
-function max_takeIntOrNull(?int $int): void
-{
-}
-function max_takeString(string $string): void
-{
-}
-function max_takeStringOrNull(?string $string): void
-{
-}
+function max_takeNull($_): void {}
+function max_takeInt(int $int): void {}
+function max_takeIntOrNull(?int $int): void {}
+function max_takeString(string $string): void {}
+function max_takeStringOrNull(?string $string): void {}
 
 max_takeNull(Collection::empty()->max());
 

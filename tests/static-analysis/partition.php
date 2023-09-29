@@ -10,27 +10,19 @@ use loophp\collection\Contract\Collection as CollectionInterface;
 /**
  * @param CollectionInterface<int, Collection<int, int>> $collection
  */
-function partition_checkListCollectionInt(CollectionInterface $collection): void
-{
-}
+function partition_checkListCollectionInt(CollectionInterface $collection): void {}
 /**
  * @param CollectionInterface<int, int> $collection
  */
-function partition_checkListInt(CollectionInterface $collection): void
-{
-}
+function partition_checkListInt(CollectionInterface $collection): void {}
 /**
  * @param CollectionInterface<int, Collection<string, string>> $collection
  */
-function partition_checkMapCollectionString(CollectionInterface $collection): void
-{
-}
+function partition_checkMapCollectionString(CollectionInterface $collection): void {}
 /**
  * @param CollectionInterface<string, string> $collection
  */
-function partition_checkMapString(CollectionInterface $collection): void
-{
-}
+function partition_checkMapString(CollectionInterface $collection): void {}
 
 // TODO: Replace this with loophp/typed-generators when it's done.
 $integers = static function (int $i = 0): Generator {

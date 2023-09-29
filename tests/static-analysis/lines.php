@@ -10,16 +10,12 @@ use loophp\collection\Contract\Collection as CollectionInterface;
 /**
  * @param CollectionInterface<int, string> $collection
  */
-function lines_checkListString(CollectionInterface $collection): void
-{
-}
+function lines_checkListString(CollectionInterface $collection): void {}
 
 /**
  * @param CollectionInterface<int, int> $collection
  */
-function lines_checkListInt(CollectionInterface $collection): void
-{
-}
+function lines_checkListInt(CollectionInterface $collection): void {}
 
 lines_checkListString(Collection::fromIterable(range('a', 'e'))->lines());
 lines_checkListString(Collection::fromIterable(array_combine(range('a', 'c'), range('a', 'c')))->lines());

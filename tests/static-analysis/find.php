@@ -6,18 +6,10 @@ include __DIR__ . '/../../vendor/autoload.php';
 
 use loophp\collection\Collection;
 
-function find_checkIntElement(int $value): void
-{
-}
-function find_checkNullableInt(?int $value): void
-{
-}
-function find_checkStringElement(string $value): void
-{
-}
-function find_checkNullableString(?string $value): void
-{
-}
+function find_checkIntElement(int $value): void {}
+function find_checkNullableInt(?int $value): void {}
+function find_checkStringElement(string $value): void {}
+function find_checkNullableString(?string $value): void {}
 
 $intValueCallback = static fn (int $value): bool => $value % 2 === 0;
 $intValueCallback2 = static fn (int $value): bool => 2 < $value;

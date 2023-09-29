@@ -12,39 +12,29 @@ use loophp\collection\Contract\Collection as CollectionInterface;
  *
  * @phpstan-param CollectionInterface<int, int> $collection
  */
-function squash_checkList1(CollectionInterface $collection): void
-{
-}
+function squash_checkList1(CollectionInterface $collection): void {}
 /**
  * @psalm-param CollectionInterface<int, 1|2> $collection
  *
  * @phpstan-param CollectionInterface<int, int> $collection
  */
-function squash_checkList2(CollectionInterface $collection): void
-{
-}
+function squash_checkList2(CollectionInterface $collection): void {}
 /**
  * @psalm-param CollectionInterface<int<0, 2>, 'a'|'b'|'c'> $collection
  *
  * @phpstan-param CollectionInterface<int, string> $collection
  */
-function squash_checkStringList1(CollectionInterface $collection): void
-{
-}
+function squash_checkStringList1(CollectionInterface $collection): void {}
 /**
  * @psalm-param CollectionInterface<int, 'b'|'f'> $collection
  *
  * @phpstan-param CollectionInterface<int, string> $collection
  */
-function squash_checkStringList2(CollectionInterface $collection): void
-{
-}
+function squash_checkStringList2(CollectionInterface $collection): void {}
 /**
  * @param CollectionInterface<string, string> $collection
  */
-function squash_checkMap(CollectionInterface $collection): void
-{
-}
+function squash_checkMap(CollectionInterface $collection): void {}
 
 squash_checkList1(Collection::fromIterable([1, 2, 3])->squash());
 squash_checkMap(Collection::fromIterable(['foo' => 'f', 'bar' => 'b'])->squash());

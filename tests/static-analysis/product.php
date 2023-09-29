@@ -12,9 +12,7 @@ use loophp\collection\Contract\Collection as CollectionInterface;
  *
  * @phpstan-param CollectionInterface<int, list<int|string>> $collection
  */
-function product_checkList(CollectionInterface $collection): void
-{
-}
+function product_checkList(CollectionInterface $collection): void {}
 
 $input = range('a', 'e');
 $productWith = range(1, 5);

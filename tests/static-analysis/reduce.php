@@ -6,25 +6,15 @@ include __DIR__ . '/../../vendor/autoload.php';
 
 use loophp\collection\Collection;
 
-function reduce_takeInt(int $int): void
-{
-}
+function reduce_takeInt(int $int): void {}
 
-function reduce_takeIntOrNull(?int $int): void
-{
-}
+function reduce_takeIntOrNull(?int $int): void {}
 
-function reduce_takeString(string $string): void
-{
-}
+function reduce_takeString(string $string): void {}
 
-function reduce_takeStringOrNull(?string $string): void
-{
-}
+function reduce_takeStringOrNull(?string $string): void {}
 
-function reduce_takeIntOrBool(int|bool $v): void
-{
-}
+function reduce_takeIntOrBool(int|bool $v): void {}
 
 $sumNullable = static fn (?int $carry, int $value): int => null === $carry ? $value : $carry + $value;
 $sum = static fn (int $carry, int $value): int => $carry + $value;

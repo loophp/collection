@@ -6,18 +6,10 @@ include __DIR__ . '/../../vendor/autoload.php';
 
 use loophp\collection\Collection;
 
-function compare_takeInt(int $int): void
-{
-}
-function compare_takeIntOrNull(?int $int): void
-{
-}
-function compare_takeString(string $string): void
-{
-}
-function compare_takeStringOrNull(?string $string): void
-{
-}
+function compare_takeInt(int $int): void {}
+function compare_takeIntOrNull(?int $int): void {}
+function compare_takeString(string $string): void {}
+function compare_takeStringOrNull(?string $string): void {}
 
 $compareInt = static fn (int $left, int $right): int => $right < $left ? $right : $left;
 $compareNullableInt = static fn (?int $left, ?int $right): ?int => $right < $left ? $right : $left;
