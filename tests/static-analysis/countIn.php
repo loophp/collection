@@ -7,9 +7,7 @@ include __DIR__ . '/../../vendor/autoload.php';
 use loophp\collection\Collection;
 use loophp\collection\Contract\Collection as CollectionInterface;
 
-function count_check(int $count): void
-{
-}
+function count_check(int $count): void {}
 
 $counter = 0;
 
@@ -22,8 +20,6 @@ count_check($counter);
  *
  * @phpstan-param CollectionInterface<int, int> $collection
  */
-function checkListInt(CollectionInterface $collection): void
-{
-}
+function checkListInt(CollectionInterface $collection): void {}
 
 checkListInt(Collection::fromIterable([1, 2, 3])->countIn($counter));
