@@ -26,15 +26,15 @@ final class Range extends AbstractOperation
             /**
              * @return Closure(int|float=): Closure(int|float=): Closure(): Generator<int, int|float>
              */
-            static fn (int|float $start = 0.0): Closure =>
+            static fn (float|int $start = 0.0): Closure =>
                 /**
                  * @return Closure(int|float=): Closure(): Generator<int, int|float>
                  */
-                static fn (int|float $end = INF): Closure =>
+                static fn (float|int $end = INF): Closure =>
                     /**
                      * @return Closure(): Generator<int, int|float>
                      */
-                    static fn (int|float $step = 1.0): Closure =>
+                    static fn (float|int $step = 1.0): Closure =>
                         /**
                          * @return Generator<int, int|float>
                          */

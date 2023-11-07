@@ -14,7 +14,7 @@ function foldleft_takeString(string $string): void {}
 
 function foldleft_takeStringOrNull(?string $string): void {}
 
-function foldleft_takeIntOrBool(int|bool $v): void {}
+function foldleft_takeIntOrBool(bool|int $v): void {}
 
 $sumNullable = static fn (?int $carry, int $value): int => null === $carry ? $value : $carry + $value;
 $sum = static fn (int $carry, int $value): int => $carry + $value;

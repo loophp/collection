@@ -14,7 +14,7 @@ function reduce_takeString(string $string): void {}
 
 function reduce_takeStringOrNull(?string $string): void {}
 
-function reduce_takeIntOrBool(int|bool $v): void {}
+function reduce_takeIntOrBool(bool|int $v): void {}
 
 $sumNullable = static fn (?int $carry, int $value): int => null === $carry ? $value : $carry + $value;
 $sum = static fn (int $carry, int $value): int => $carry + $value;
