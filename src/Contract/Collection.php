@@ -92,6 +92,7 @@ use Traversable;
  * @template-extends Operation\Permutateable<TKey, T>
  * @template-extends Operation\Pipeable<TKey, T>
  * @template-extends Operation\Pluckable<TKey, T>
+ * @template-extends Operation\Plusable<TKey, T>
  * @template-extends Operation\Prependable<TKey, T>
  * @template-extends Operation\Productable<TKey, T>
  * @template-extends Operation\Randomable<TKey, T>
@@ -213,6 +214,7 @@ interface Collection extends
     Operation\Permutateable,
     Operation\Pipeable,
     Operation\Pluckable,
+    Operation\Plusable,
     Operation\Prependable,
     Operation\Productable,
     Operation\Randomable,

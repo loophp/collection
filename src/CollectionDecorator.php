@@ -501,6 +501,11 @@ abstract class CollectionDecorator implements CollectionInterface
         return new static($this->innerCollection->pluck($pluck, $default));
     }
 
+    public function plus(iterable $items): static
+    {
+        return new static($this->innerCollection->plus($items));
+    }
+
     public function prepend(mixed ...$items): static
     {
         return new static($this->innerCollection->prepend(...$items));

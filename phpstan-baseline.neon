@@ -261,6 +261,16 @@ parameters:
 			path: src/Operation/Map.php
 
 		-
+			message: "#^Template type U of method loophp\\\\collection\\\\Operation\\\\Plus\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
+			count: 1
+			path: src/Operation/Plus.php
+
+		-
+			message: "#^Template type UKey of method loophp\\\\collection\\\\Operation\\\\Plus\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
+			count: 1
+			path: src/Operation/Plus.php
+
+		-
 			message: "#^Template type U of method loophp\\\\collection\\\\Operation\\\\Prepend\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
 			count: 1
 			path: src/Operation/Prepend.php
