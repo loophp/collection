@@ -32,7 +32,7 @@ $users = [
 ];
 
 $collection = Collection::fromIterable($users)
-    ->distinct(
+    ->duplicate(
         static fn (User $left): Closure => static fn (User $right): bool => $left->name() === $right->name()
     ); // [2 => User<foo>]
 
@@ -47,15 +47,15 @@ final class Person
     }
 }
 
-$users = [
+$people = [
     new Person('foo'),
     new Person('bar'),
     new Person('foo'),
     new Person('a'),
 ];
 
-$collection = Collection::fromIterable($users)
-    ->distinct(
+$collection = Collection::fromIterable($people)
+    ->duplicate(
         null,
         static fn (Person $person): string => $person->name()
     ); // [2 => Person<foo>]
@@ -71,15 +71,15 @@ final class Cat
     }
 }
 
-$users = [
+$cats = [
     new Cat('izumi'),
     new Cat('nakano'),
     new Cat('booba'),
     new Cat('booba'),
 ];
 
-$collection = Collection::fromIterable($users)
-    ->distinct(
+$collection = Collection::fromIterable($cats)
+    ->duplicate(
         static fn (string $left): Closure => static fn (string $right): bool => $left === $right,
         static fn (Cat $cat): string => $cat->name()
     ); // [3 => Cat<booba>]
