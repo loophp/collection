@@ -3291,6 +3291,56 @@ trait GenericCollectionProviders
         ];
     }
 
+    public static function plusOperationProvider()
+    {
+        $output = static function (): Generator {
+            yield 0 => 'A';
+
+            yield 1 => 'B';
+
+            yield 2 => 'C';
+        };
+
+        yield [
+            'plus',
+            [range('A', 'C')],
+            [],
+            $output(),
+        ];
+
+        $output = static function (): Generator {
+            yield 0 => 'A';
+
+            yield 1 => 'B';
+
+            yield 2 => 'C';
+        };
+
+        yield [
+            'plus',
+            [[]],
+            range('A', 'C'),
+            $output(),
+        ];
+
+        $output = static function (): Generator {
+            yield 0 => 'A';
+
+            yield 1 => 'B';
+
+            yield 2 => 'E';
+
+            yield 3 => 'F';
+        };
+
+        yield [
+            'plus',
+            [range('C', 'F')],
+            range('A', 'B'),
+            $output(),
+        ];
+    }
+
     public static function prependOperationProvider()
     {
         $output = static function (): Generator {

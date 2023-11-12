@@ -74,6 +74,7 @@ final class CollectionGenericOperationTest extends TestCase
      * @dataProvider permutateOperationProvider
      * @dataProvider pipeOperationProvider
      * @dataProvider pluckOperationProvider
+     * @dataProvider plusOperationProvider
      * @dataProvider prependOperationProvider
      * @dataProvider productOperationProvider
      * @dataProvider reductionOperationProvider
