@@ -35,6 +35,11 @@
       <code><![CDATA[Closure(bool): Closure(iterable<TKey, T>): (Generator<int, T>|Generator<TKey, T>)]]></code>
     </InvalidReturnType>
   </file>
+  <file src="src/Operation/Plus.php">
+    <InvalidArgument>
+      <code>$key</code>
+    </InvalidArgument>
+  </file>
   <file src="src/Operation/Product.php">
     <InvalidArgument>
       <code>[[]]</code>
