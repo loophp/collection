@@ -80,6 +80,7 @@ use Traversable;
  * @template-extends Operation\Matchable<TKey, T>
  * @template-extends Operation\Matchingable<TKey, T>
  * @template-extends Operation\Maxable<TKey, T>
+ * @template-extends Operation\Memorizeable<TKey, T>
  * @template-extends Operation\Mergeable<TKey, T>
  * @template-extends Operation\Minable<TKey, T>
  * @template-extends Operation\Normalizeable<TKey, T>
@@ -201,6 +202,7 @@ interface Collection extends
     Operation\Matchable,
     Operation\Matchingable,
     Operation\Maxable,
+    Operation\Memorizeable,
     Operation\Mergeable,
     Operation\Minable,
     Operation\Normalizeable,
