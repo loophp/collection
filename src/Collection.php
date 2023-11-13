@@ -615,6 +615,11 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return new self((new Operation\Pluck())()($pluck)($default), [$this]);
     }
 
+    public function plus(iterable $iterable): CollectionInterface
+    {
+        return new self((new Operation\Plus())()($iterable), [$this]);
+    }
+
     public function prepend(mixed ...$items): CollectionInterface
     {
         return new self((new Operation\Prepend())()($items), [$this]);
