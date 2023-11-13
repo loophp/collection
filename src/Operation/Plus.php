@@ -6,7 +6,7 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use loophp\iterators\ConcatIterableAggregate;
+use loophp\collection\Collection;
 
 /**
  * @immutable
@@ -48,6 +48,20 @@ final class Plus extends AbstractOperation
                  *
                  * @return Generator<int|TKey|UKey, T|U>
                  */
-                static fn (iterable $iterable): Generator => yield from (new Distinct())()($comparatorCallback)(static fn (mixed $value, mixed $key): mixed => $key)(new ConcatIterableAggregate([$iterable, $items]));
+                static function (iterable $iterable) use ($items): Generator {
+                    $collection = Collection::fromIterable($iterable)->squash();
+
+                    foreach ($collection as $key => $value) {
+                        yield $key => $value;
+                    }
+
+                    foreach ($items as $key => $value) {
+                        if ($collection->keys()->contains($key)) {
+                            continue;
+                        }
+
+                        yield $key => $value;
+                    }
+                };
     }
 }

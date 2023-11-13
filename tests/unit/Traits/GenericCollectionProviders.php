@@ -3339,6 +3339,25 @@ trait GenericCollectionProviders
             range('A', 'B'),
             $output(),
         ];
+
+        $input = static function (): Generator {
+            yield 'id' => 1;
+
+            yield 'id' => 2;
+        };
+
+        $output = static function (): Generator {
+            yield 'id' => 1;
+
+            yield 'id' => 2;
+        };
+
+        yield [
+            'plus',
+            [[]],
+            $input(),
+            $output(),
+        ];
     }
 
     public static function prependOperationProvider()
