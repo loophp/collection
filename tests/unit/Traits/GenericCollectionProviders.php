@@ -1028,6 +1028,46 @@ trait GenericCollectionProviders
         ];
     }
 
+    public static function entropyOperationProvider()
+    {
+        $operation = 'entropy';
+
+        yield [
+            $operation,
+            [],
+            [],
+            [],
+        ];
+
+        yield [
+            $operation,
+            [],
+            [
+                'a',
+                'b',
+            ],
+            [
+                0,
+                1,
+            ],
+        ];
+
+        yield [
+            $operation,
+            [],
+            [
+                'a',
+                'b',
+                'a',
+            ],
+            [
+                0,
+                1,
+                0.9182958340544896,
+            ],
+        ];
+    }
+
     public static function equalsOperationProvider()
     {
         $operation = 'equals';

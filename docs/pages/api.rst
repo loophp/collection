@@ -723,6 +723,27 @@ Signature: ``Collection::duplicate(?callable $comparatorCallback = null, ?callab
 .. literalinclude:: code/operations/duplicate.php
   :language: php
 
+entropy
+~~~~~~~
+
+This method extends the library's functionality by allowing users to calculate
+the normalized Shannon entropy of a collection.
+
+The implementation provides the normalized version of Shannon entropy.
+Normalization ensures that the entropy value is scaled between `0` and `1`,
+making it easier to compare entropy across different collections, irrespective
+of their size or the diversity of elements they contain.
+
+An entropy of `0` indicates no diversity (all elements are the same), while an
+entropy of `1` signifies maximum diversity.
+
+Interface: `Entropyable`_
+
+Signature: ``Collection::entropy(): Collection;``
+
+.. literalinclude:: code/operations/entropy.php
+  :language: php
+
 equals
 ~~~~~~
 
@@ -2564,6 +2585,7 @@ Signature: ``Collection::zip(iterable ...$iterables): Collection;``
 .. _DropWhileable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/DropWhileable.php
 .. _Dumpable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Dumpable.php
 .. _Duplicateable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Duplicateable.php
+.. _Entropyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Entropyable.php
 .. _Equalsable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Equalsable.php
 .. _Everyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Everyable.php
 .. _Explodeable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Explodeable.php

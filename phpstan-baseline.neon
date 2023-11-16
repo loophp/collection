@@ -1,6 +1,11 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Method loophp\\\\collection\\\\Collection\\:\\:entropy\\(\\) should return loophp\\\\collection\\\\Contract\\\\Collection\\<int, float\\|int\\<0, 1\\>\\> but returns loophp\\\\collection\\\\Collection\\<int, float\\|int\\>\\.$#"
+			count: 1
+			path: src/Collection.php
+
+		-
 			message: "#^Method loophp\\\\collection\\\\Collection\\:\\:group\\(\\) should return loophp\\\\collection\\\\Contract\\\\Collection\\<int, array\\<int, T\\>\\> but returns loophp\\\\collection\\\\Collection\\<int, array\\<int, mixed\\>\\>\\.$#"
 			count: 1
 			path: src/Collection.php
@@ -121,6 +126,11 @@ parameters:
 			path: src/Collection.php
 
 		-
+			message: "#^Parameter \\#1 \\$callable of class loophp\\\\collection\\\\Collection constructor expects callable\\(mixed \\.\\.\\.\\)\\: iterable\\<int, float\\|int\\>, Closure\\(iterable\\)\\: Generator\\<int, float\\|int\\<0, 1\\>, mixed, mixed\\> given\\.$#"
+			count: 1
+			path: src/Collection.php
+
+		-
 			message: "#^Parameter \\#1 \\$callable of class loophp\\\\collection\\\\Collection constructor expects callable\\(mixed \\.\\.\\.\\)\\: iterable\\<int, mixed\\>, Closure\\(iterable\\)\\: Generator\\<int, mixed, mixed, mixed\\> given\\.$#"
 			count: 3
 			path: src/Collection.php
@@ -209,6 +219,16 @@ parameters:
 			message: "#^Template type U of method loophp\\\\collection\\\\Operation\\\\Duplicate\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
 			count: 1
 			path: src/Operation/Duplicate.php
+
+		-
+			message: "#^Parameter \\#1 \\$ of closure expects callable\\(mixed, mixed, iterable\\)\\: mixed, Closure\\(mixed, int, loophp\\\\collection\\\\Collection\\)\\: float given\\.$#"
+			count: 1
+			path: src/Operation/Entropy.php
+
+		-
+			message: "#^Parameter \\#1 \\$callback of method loophp\\\\collection\\\\Contract\\\\Operation\\\\Reduceable\\<int,float\\>\\:\\:reduce\\(\\) expects callable\\(float\\|int, float, int, iterable\\<int, float\\>\\)\\: \\(float\\|int\\), Closure\\(float, float, int, loophp\\\\collection\\\\Collection\\)\\: float given\\.$#"
+			count: 1
+			path: src/Operation/Entropy.php
 
 		-
 			message: "#^Template type V of method loophp\\\\collection\\\\Operation\\\\Find\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
