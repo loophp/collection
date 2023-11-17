@@ -245,7 +245,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
      * @template UKey
      * @template U
      *
-     * @return self<UKey, U>
+     * @return CollectionInterface<UKey, U>&self<UKey, U>
      */
     public static function empty(): CollectionInterface
     {
@@ -345,7 +345,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
      * @param callable(mixed ...$parameters): iterable<NewTKey, NewT> $callable
      * @param iterable<int, mixed> $parameters
      *
-     * @return self<NewTKey, NewT>
+     * @return CollectionInterface<NewTKey, NewT>&self<NewTKey, NewT>
      */
     public static function fromCallable(callable $callable, iterable $parameters = []): CollectionInterface
     {
@@ -355,7 +355,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
     /**
      * @param null|non-negative-int $length
      *
-     * @return self<int, string>
+     * @return CollectionInterface<int, string>&self<int, string>
      */
     public static function fromFile(string $filepath, ?int $length = 2): CollectionInterface
     {
@@ -370,7 +370,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
      *
      * @param Generator<NewTKey, NewT> $generator
      *
-     * @return self<NewTKey, NewT>
+     * @return CollectionInterface<NewTKey, NewT>&self<NewTKey, NewT>
      */
     public static function fromGenerator(Generator $generator): CollectionInterface
     {
@@ -383,7 +383,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
      *
      * @param iterable<UKey, U> $iterable
      *
-     * @return self<UKey, U>
+     * @return CollectionInterface<UKey, U>&self<UKey, U>
      */
     public static function fromIterable(iterable $iterable): CollectionInterface
     {
@@ -393,7 +393,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
     /**
      * @param resource $resource
      *
-     * @return self<int, string>
+     * @return CollectionInterface<int, string>&self<int, string>
      */
     public static function fromResource($resource): CollectionInterface
     {
@@ -401,7 +401,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
     }
 
     /**
-     * @return self<int, string>
+     * @return CollectionInterface<int, string>&self<int, string>
      */
     public static function fromString(string $string, string $delimiter = ''): CollectionInterface
     {

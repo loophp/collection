@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="5.16.0@2897ba636551a8cb61601cc26f6ccfbba6c36591">
   <file src="src/Collection.php">
+  <MixedArgument>
+      <code>(new Operation\Product())()(...$iterables)</code>
+      <code>(new Operation\Combinate())()($length)</code>
+  </MixedArgument>
     <InvalidArgument>
       <code>$callback</code>
       <code>$callbacks</code>

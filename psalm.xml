@@ -14,4 +14,7 @@
             <directory name="tests/unit/" />
         </ignoreFiles>
     </projectFiles>
+    <issueHandlers>
+        <MixedArgument errorLevel="error"/>
+    </issueHandlers>
 </psalm>
