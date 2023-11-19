@@ -547,6 +547,11 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return (new self((new Operation\Max())(), [$this]))->current(0, $default);
     }
 
+    public function memorize(): CollectionInterface
+    {
+        return Collection::fromIterable($this->pack()->all(false))->unpack();
+    }
+
     public function merge(iterable ...$sources): CollectionInterface
     {
         return new self((new Operation\Merge())()(...$sources), [$this]);
