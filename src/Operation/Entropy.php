@@ -41,12 +41,14 @@ final class Entropy extends AbstractOperation
                 static fn (mixed $_, int $key, Collection $collection): float => $collection
                     ->limit($key + 1)
                     ->frequency()
-                    ->keys()
                     ->map(
-                        static fn (int $freq): float => $freq / ($key + 1)
+                        /**
+                         * @param T $_
+                         */
+                        static fn (mixed $_, int $freq): float => $freq / ($key + 1)
                     )
                     ->reduce(
-                        static fn (float $acc, float $freq, int $_, Collection $c): float => 0 === $key ? $acc : $acc - $freq * log($freq, 2) / log($c->count(), 2),
+                        static fn (float $acc, float $p, int $_, Collection $c): float => 0 === $key ? $acc : $acc - $p * log($p, 2) / log($c->count(), 2),
                         0
                     )
             ),
