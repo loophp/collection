@@ -178,6 +178,11 @@ abstract class CollectionDecorator implements CollectionInterface
         return new static(Collection::empty());
     }
 
+    public function entropy(): static
+    {
+        return new static($this->innerCollection->entropy());
+    }
+
     public function equals(iterable $other): bool
     {
         return $this->innerCollection->equals($other);

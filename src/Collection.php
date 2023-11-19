@@ -252,6 +252,11 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return self::fromIterable([]);
     }
 
+    public function entropy(): CollectionInterface
+    {
+        return new self((new Operation\Entropy())(), [$this]);
+    }
+
     public function equals(iterable $other): bool
     {
         return (new Operation\Equals())()($other)($this)->current();

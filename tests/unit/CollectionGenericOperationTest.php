@@ -43,6 +43,7 @@ final class CollectionGenericOperationTest extends TestCase
      * @dataProvider dropWhileOperationProvider
      * @dataProvider dumpOperationProvider
      * @dataProvider duplicateOperationProvider
+     * @dataProvider entropyOperationProvider
      * @dataProvider explodeOperationProvider
      * @dataProvider filterOperationProvider
      * @dataProvider flatMapOperationProvider

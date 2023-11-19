@@ -41,6 +41,7 @@ use Traversable;
  * @template-extends Operation\DropWhileable<TKey, T>
  * @template-extends Operation\Dumpable<TKey, T>
  * @template-extends Operation\Duplicateable<TKey, T>
+ * @template-extends Operation\Entropyable<TKey, T>
  * @template-extends Operation\Everyable<TKey, T>
  * @template-extends Operation\Explodeable<TKey, T>
  * @template-extends Operation\Falsyable<TKey, T>
@@ -162,6 +163,7 @@ interface Collection extends
     Operation\Dumpable,
     Operation\Duplicateable,
     Operation\Equalsable,
+    Operation\Entropyable,
     Operation\Everyable,
     Operation\Explodeable,
     Operation\Falsyable,
