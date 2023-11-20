@@ -36,6 +36,7 @@ use Traversable;
  * @template-extends Operation\Cycleable<TKey, T>
  * @template-extends Operation\Diffable<TKey, T>
  * @template-extends Operation\Diffkeysable<TKey, T>
+ * @template-extends Operation\Dispersionable<TKey, T>
  * @template-extends Operation\Distinctable<TKey, T>
  * @template-extends Operation\Dropable<TKey, T>
  * @template-extends Operation\DropWhileable<TKey, T>
@@ -157,6 +158,7 @@ interface Collection extends
     Operation\Cycleable,
     Operation\Diffable,
     Operation\Diffkeysable,
+    Operation\Dispersionable,
     Operation\Distinctable,
     Operation\Dropable,
     Operation\DropWhileable,
