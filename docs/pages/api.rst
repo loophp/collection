@@ -335,18 +335,17 @@ Signature: ``Collection::averages(): Collection;``
 cache
 ~~~~~
 
-Useful when using a resource as input and you need to run through the collection multiple times.
+This operation is caching an iterable through a PSR Cache compatible object.
+Useful when using a resource as input and you need to run through the collection
+multiple times. For performance, the `squash` operation is definitely a better
+option.
 
 Interface: `Cacheable`_
 
 Signature: ``Collection::cache(?CacheItemPoolInterface $cache = null): Collection;``
 
-.. code-block:: php
-
-    $fopen = fopen(__DIR__ . '/vendor/autoload.php', 'r');
-
-    $collection = Collection::fromResource($fopen)
-        ->cache();
+.. literalinclude:: code/operations/cache.php
+  :language: php
 
 chunk
 ~~~~~

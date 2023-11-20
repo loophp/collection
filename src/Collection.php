@@ -89,7 +89,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
 
     public function cache(?CacheItemPoolInterface $cache = null): CollectionInterface
     {
-        return new self((new Operation\Cache())()($cache ?? new ArrayAdapter()), [$this]);
+        return new self((new Operation\Cache())()($cache ?? new ArrayAdapter()), [$this->squash()]);
     }
 
     public function chunk(int ...$sizes): CollectionInterface
