@@ -1066,6 +1066,21 @@ trait GenericCollectionProviders
                 0.9182958340544896,
             ],
         ];
+
+        yield [
+            $operation,
+            [],
+            [
+                'a',
+                'a',
+                'a',
+            ],
+            [
+                0,
+                0,
+                0,
+            ],
+        ];
     }
 
     public static function equalsOperationProvider()

@@ -48,7 +48,7 @@ final class Entropy extends AbstractOperation
                         static fn (mixed $_, int $freq): float => $freq / ($key + 1)
                     )
                     ->reduce(
-                        static fn (float $acc, float $p, int $_, Collection $c): float => 0 === $key ? $acc : $acc - $p * log($p, 2) / log($c->count(), 2),
+                        static fn (float $acc, float $p, int $_, Collection $c): float => 0 === $key ? $acc : $acc - $p * log($p, 2) / ((1 === $count = $c->count()) ? 1 : log($count, 2)),
                         0
                     )
             ),
