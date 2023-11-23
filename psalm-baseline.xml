@@ -1,18 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="5.15.0@5c774aca4746caf3d239d9c8cadb9f882ca29352">
+<files psalm-version="5.16.0@2897ba636551a8cb61601cc26f6ccfbba6c36591">
   <file src="src/Collection.php">
     <InvalidArgument>
       <code>$callback</code>
+      <code>$callbacks</code>
       <code>$parameters</code>
       <code><![CDATA[static function () use (&$counter): void {
                     ++$counter;
                 }]]></code>
     </InvalidArgument>
     <InvalidReturnStatement>
+      <code><![CDATA[(new self((new Operation\Partition())()(...$callbacks), [$this]))
+            ->map(
+                /**
+                 * @param iterable<TKey, T> $iterable
+                 *
+                 * @return Collection<TKey, T>
+                 */
+                static fn (iterable $iterable): Collection => Collection::fromIterable($iterable)
+            )]]></code>
+      <code><![CDATA[(new self((new Operation\Span())()(...$callbacks), [$this]))
+            ->map(
+                /**
+                 * @param iterable<TKey, T> $iterable
+                 *
+                 * @return Collection<TKey, T>
+                 */
+                static fn (iterable $iterable): Collection => Collection::fromIterable($iterable)
+            )]]></code>
       <code>new self((new Operation\Unfold())()($parameters)($callback))</code>
       <code>new self((new Operation\Wrap())(), [$this])</code>
     </InvalidReturnStatement>
     <InvalidReturnType>
+      <code>CollectionInterface</code>
+      <code>CollectionInterface</code>
       <code>CollectionInterface</code>
       <code>CollectionInterface</code>
     </InvalidReturnType>
@@ -35,6 +56,11 @@
       <code><![CDATA[Closure(bool): Closure(iterable<TKey, T>): (Generator<int, T>|Generator<TKey, T>)]]></code>
     </InvalidReturnType>
   </file>
+  <file src="src/Operation/DropWhile.php">
+    <InvalidArgument>
+      <code>$callbacks</code>
+    </InvalidArgument>
+  </file>
   <file src="src/Operation/Entropy.php">
     <InvalidArgument>
       <code><![CDATA[static fn (float $acc, float $p, int $_, Collection $c): float => 0 === $key ? $acc : $acc - $p * log($p, 2) / ((1 === $count = $c->count()) ? 1 : log($count, 2))]]></code>
@@ -53,16 +79,70 @@
                     )]]></code>
     </InvalidArgument>
   </file>
+  <file src="src/Operation/Every.php">
+    <InvalidArgument>
+      <code>$predicates</code>
+    </InvalidArgument>
+  </file>
+  <file src="src/Operation/Filter.php">
+    <InvalidArgument>
+      <code>$callbacks</code>
+    </InvalidArgument>
+  </file>
+  <file src="src/Operation/MatchOne.php">
+    <InvalidArgument>
+      <code>$callbacks</code>
+      <code>$matchers</code>
+    </InvalidArgument>
+  </file>
   <file src="src/Operation/Product.php">
     <InvalidArgument>
       <code>[[]]</code>
       <code><![CDATA[static fn (iterable $a, iterable $x): Generator => $f($x)($a)]]></code>
     </InvalidArgument>
   </file>
+  <file src="src/Operation/Reject.php">
+    <InvalidArgument>
+      <code>$callbacks</code>
+    </InvalidArgument>
+  </file>
+  <file src="src/Operation/Since.php">
+    <InvalidArgument>
+      <code>$callbacks</code>
+    </InvalidArgument>
+  </file>
+  <file src="src/Operation/Split.php">
+    <InvalidArgument>
+      <code>$callbacks</code>
+    </InvalidArgument>
+  </file>
+  <file src="src/Operation/TakeWhile.php">
+    <InvalidArgument>
+      <code>$callbacks</code>
+    </InvalidArgument>
+  </file>
+  <file src="src/Operation/Until.php">
+    <InvalidArgument>
+      <code>$callbacks</code>
+    </InvalidArgument>
+  </file>
   <file src="src/Operation/Zip.php">
     <MoreSpecificReturnType>
       <code><![CDATA[Generator<list<TKey|UKey|null>, list<T|U|null>>]]></code>
     </MoreSpecificReturnType>
+  </file>
+  <file src="tests/static-analysis/fromCallable.php">
+    <PossiblyInvalidArgument>
+      <code>$invokableClassList</code>
+      <code>$invokableClassMap</code>
+      <code>$invokableClassMixed</code>
+      <code><![CDATA[[$classWithMethod, 'getKeyValues']]]></code>
+      <code><![CDATA[[$classWithMethod, 'getMixed']]]></code>
+      <code><![CDATA[[$classWithMethod, 'getValues']]]></code>
+      <code><![CDATA[[$classWithStaticMethod, 'getKeyValues']]]></code>
+      <code><![CDATA[[$classWithStaticMethod, 'getMixed']]]></code>
+      <code><![CDATA[[$classWithStaticMethod, 'getValues']]]></code>
+    </PossiblyInvalidArgument>
   </file>
   <file src="tests/static-analysis/partition.php">
     <PossiblyUndefinedArrayOffset>
