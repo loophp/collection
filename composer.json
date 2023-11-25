@@ -37,7 +37,7 @@
     ],
     "require": {
         "php": ">= 8.1",
-        "loophp/iterators": "^2.4"
+        "loophp/iterators": "^3.0"
     },
     "require-dev": {
         "ext-pcov": "*",
