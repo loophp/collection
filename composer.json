@@ -41,7 +41,7 @@
     },
     "require-dev": {
         "ext-pcov": "*",
-        "amphp/parallel-functions": "^1",
+        "amphp/parallel-functions": "^2",
         "doctrine/collections": "^2",
         "drupol/php-conventions": "^5",
         "infection/infection": "^0.27",
