@@ -47,11 +47,10 @@ fromFile
 
 Create a collection from a file.
 
-Signature: ``Collection::fromIterable(string $filepath): Collection;``
+Signature: ``Collection::fromFile(string $filepath, ?Closure $consumer = null): Collection;``
 
-.. code-block:: php
-
-    Collection::fromFile('http://loripsum.net/api');
+.. literalinclude:: code/operations/fromFile.php
+  :language: php
 
 fromGenerator
 ~~~~~~~~~~~~~

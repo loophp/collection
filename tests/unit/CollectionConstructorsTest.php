@@ -107,6 +107,14 @@ final class CollectionConstructorsTest extends TestCase
             ['a', 'b', 'c'],
             Collection::fromFile(__DIR__ . '/../fixtures/sample.txt')
         );
+
+        self::assertIdenticalIterable(
+            [['a', 'b', 'c'], ['d', 'e', 'f']],
+            Collection::fromFile(
+                __DIR__ . '/../fixtures/data.csv',
+                fgetcsv(...)
+            )
+        );
     }
 
     public function testFromGeneratorConstructor()
