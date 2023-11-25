@@ -65,6 +65,18 @@
       <code>$callbacks</code>
     </InvalidArgument>
   </file>
+  <file src="src/Operation/Dispersion.php">
+    <InvalidReturnStatement>
+      <code>[(0 === $key) ? 0 : (($c * ($key - 1) + (($v === $value) ? 0 : 1)) / $key), $value]</code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[array<float|int<0,1>, T>]]></code>
+    </InvalidReturnType>
+    <MismatchingDocblockParamType>
+      <code><![CDATA[array<float|int<0,1>, T>]]></code>
+      <code><![CDATA[array<float|int<0,1>, T|null>]]></code>
+    </MismatchingDocblockParamType>
+  </file>
   <file src="src/Operation/Entropy.php">
     <InvalidArgument>
       <code><![CDATA[static fn (float $acc, float $p, int $_, Collection $c): float => 0 === $key ? $acc : $acc - $p * log($p, 2) / ((1 === $count = $c->count()) ? 1 : log($count, 2))]]></code>

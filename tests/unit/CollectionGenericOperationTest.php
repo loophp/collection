@@ -38,6 +38,7 @@ final class CollectionGenericOperationTest extends TestCase
      * @dataProvider cycleOperationProvider
      * @dataProvider diffOperationProvider
      * @dataProvider diffKeysOperationProvider
+     * @dataProvider dispersionOperationProvider
      * @dataProvider distinctOperationProvider
      * @dataProvider dropOperationProvider
      * @dataProvider dropWhileOperationProvider

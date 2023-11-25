@@ -803,6 +803,63 @@ trait GenericCollectionProviders
         }
     }
 
+    public static function dispersionOperationProvider()
+    {
+        $operation = 'dispersion';
+
+        yield [
+            $operation,
+            [],
+            [],
+            [],
+        ];
+
+        yield [
+            $operation,
+            [],
+            [
+                'a',
+                'b',
+            ],
+            [
+                0,
+                1,
+            ],
+        ];
+
+        yield [
+            $operation,
+            [],
+            [
+                'a',
+                'a',
+                'b',
+                'b',
+            ],
+            [
+                0,
+                0,
+                .5,
+                1 / 3,
+            ],
+        ];
+
+        yield [
+            $operation,
+            [],
+            [
+                'a',
+                'a',
+                'a',
+            ],
+            [
+                0,
+                0,
+                0,
+            ],
+        ];
+    }
+
     public static function distinctOperationProvider()
     {
         $operation = 'distinct';

@@ -148,6 +148,11 @@ abstract class CollectionDecorator implements CollectionInterface
         return new static($this->innerCollection->diffKeys(...$keys));
     }
 
+    public function dispersion(): static
+    {
+        return new static($this->innerCollection->dispersion());
+    }
+
     public function distinct(?callable $comparatorCallback = null, ?callable $accessorCallback = null): static
     {
         return new static($this->innerCollection->distinct($comparatorCallback, $accessorCallback));

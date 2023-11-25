@@ -627,6 +627,26 @@ Signature: ``Collection::diffKeys(...$keys): Collection;``
     $collection = Collection::fromIterable(['a', 'b', 'c', 'd', 'e'])
         ->diffKeys(1, 2); // [0 => 'a', 3 => 'd', 4 => 'e']
 
+dispersion
+~~~~~~~~~~
+
+This method extends the library's functionality by allowing users to calculate
+a dispersion value using the amount of value changes within the collection.
+
+For example, the set `[a, b, a]` contains three elements and two changes.
+From `a` to `b` and from `b` to `a`. Therefore, the dispersion value is
+`2 / 2 = 1`.
+
+The dispersion value is normalized between `0` and `1`. A dispersion of `0`
+indicates no dispersion, while a dispersion of `1` means maximum dispersion.
+
+Interface: `Dispersionable`_
+
+Signature: ``Collection::dispersion(): Collection;``
+
+.. literalinclude:: code/operations/dispersion.php
+  :language: php
+
 distinct
 ~~~~~~~~
 
@@ -2584,6 +2604,7 @@ Signature: ``Collection::zip(iterable ...$iterables): Collection;``
 .. _Cycleable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Cycleable.php
 .. _Diffable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Diffable.php
 .. _Diffkeysable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Diffkeysable.php
+.. _Dispersionable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Dispersionable.php
 .. _Distinctable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Distinctable.php
 .. _Dropable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Dropable.php
 .. _DropWhileable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/DropWhileable.php

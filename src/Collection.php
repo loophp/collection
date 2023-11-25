@@ -174,6 +174,11 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return new self((new Operation\DiffKeys())()($keys), [$this]);
     }
 
+    public function dispersion(): CollectionInterface
+    {
+        return new self((new Operation\Dispersion())(), [$this]);
+    }
+
     public function distinct(?callable $comparatorCallback = null, ?callable $accessorCallback = null): CollectionInterface
     {
         $accessorCallback ??=
