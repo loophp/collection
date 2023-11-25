@@ -6,23 +6,54 @@ include __DIR__ . '/../../vendor/autoload.php';
 
 use loophp\collection\Collection;
 
-enum fromIterableAssociateAll: int
-{
-    case FIFTH = 5;
-    case FIRST = 1;
-    case FOURTH = 4;
-    case SECOND = 2;
-    case THIRD = 3;
-}
+$stringGenerator = static function (): Generator {
+    yield chr(random_int(0, 255));
+};
 
 /**
- * @psalm-param array<string, int> $array
- *
- * @phpstan-param array<string, int> $array
+ * @param iterable<string, int> $iterable
  */
-function checklist(array $array): void {}
+function checkStringInt(iterable $iterable): void {}
 
-checklist(Collection::fromIterable(fromIterableAssociateAll::cases())->associate(
-    static fn (int $_, fromIterableAssociateAll $item) => $item->value,
-    static fn (fromIterableAssociateAll $item, int $_) => $item->name,
-)->flip()->all(false));
+/**
+ * @param iterable<int, string> $iterable
+ */
+function checkIntString(iterable $iterable): void {}
+
+checkStringInt(
+    Collection::fromCallable($stringGenerator)
+        ->associate(
+            static fn (int $key): int => $key,
+            static fn (string $item): string => $item,
+        )
+        ->flip()
+);
+
+checkStringInt(
+    Collection::fromCallable($stringGenerator)
+        ->associate(
+            static fn (int $key): int => $key,
+            static fn (string $item): string => $item,
+        )
+        ->flip()
+        ->all(false)
+);
+
+checkIntString(
+    Collection::fromCallable($stringGenerator)
+        ->associate(
+            static fn (int $_, string $item): string => $item,
+            static fn (string $_, int $key): int => $key,
+        )
+        ->flip()
+);
+
+checkIntString(
+    Collection::fromCallable($stringGenerator)
+        ->associate(
+            static fn (int $_, string $item): string => $item,
+            static fn (string $_, int $key): int => $key,
+        )
+        ->flip()
+        ->all(false)
+);
