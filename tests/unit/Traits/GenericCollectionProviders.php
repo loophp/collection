@@ -3220,6 +3220,13 @@ trait GenericCollectionProviders
             $input,
             $output(),
         ];
+
+        yield [
+            $operation,
+            [],
+            [],
+            [],
+        ];
     }
 
     public static function permutateOperationProvider()

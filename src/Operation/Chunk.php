@@ -59,7 +59,9 @@ final class Chunk extends AbstractOperation
                         $values = [$value];
                     }
 
-                    yield $values;
+                    if ([] !== $values) {
+                        yield $values;
+                    }
                 };
     }
 }
