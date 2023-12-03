@@ -224,11 +224,10 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         $accessorCallback ??=
             /**
              * @param T $value
-             * @param TKey $key
              *
              * @return T
              */
-            static fn (mixed $value, mixed $key): mixed => $value;
+            static fn (mixed $value): mixed => $value;
 
         $comparatorCallback ??=
             /**
