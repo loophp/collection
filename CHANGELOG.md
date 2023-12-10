@@ -5,7 +5,40 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [7.2.1](https://github.com/loophp/collection/compare/7.2.0...7.2.1)
+## [7.3.0](https://github.com/loophp/collection/compare/7.2.1...7.3.0)
+
+### Merged
+
+- fix: `pair` and `chunk` operation when using empty input [`#327`](https://github.com/loophp/collection/pull/327)
+- **Breaking change:** feat: update `Collection::fromFile` constructor [`#322`](https://github.com/loophp/collection/pull/322)
+- feat: add `dispersion` operation [`#320`](https://github.com/loophp/collection/pull/320)
+- Improve return types for psalm [`#321`](https://github.com/loophp/collection/pull/321)
+- feat: add `entropy` operation [`#317`](https://github.com/loophp/collection/pull/317)
+- doc: fix `duplicate` example [`#315`](https://github.com/loophp/collection/pull/315)
+- docs: fix light color code everywhere where it was white [`#312`](https://github.com/loophp/collection/pull/312)
+- docs: fix light color code over light gray background [`#311`](https://github.com/loophp/collection/pull/311)
+
+### Fixed
+
+- fix: `pair` and `chunk` operation when using empty input (#327) [`#326`](https://github.com/loophp/collection/issues/326)
+
+### Commits
+
+- fix: remove unused parameter bind [`b2ef168`](https://github.com/loophp/collection/commit/b2ef168ff05b0c9d8fea15082310776b49790a2d)
+- fix: remove unused parameter bind [`df8d3e9`](https://github.com/loophp/collection/commit/df8d3e99f4182078dd5610216b7b48ef277f8d71)
+- refactor: improve SA tests [`81b1195`](https://github.com/loophp/collection/commit/81b119557691498764ca50d327f96e5bef41b472)
+- fix: Updated PSalm baseline [`4374455`](https://github.com/loophp/collection/commit/437445511e972fc946046e7502c7b04e7cf93d2b)
+- fix: Updated PSalm baseline [`80c7a12`](https://github.com/loophp/collection/commit/80c7a12ed379b0391edc9a777bc496e2669f0a4a)
+- fix: `Entropy` operation [`138fc0e`](https://github.com/loophp/collection/commit/138fc0e2b8efabf7de60ba982f98d675496ed28f)
+- cs: autofix coding standards [`7be4f29`](https://github.com/loophp/collection/commit/7be4f29770a8bc9e12295fddd74ca04dda690d0c)
+- cs: autofix coding standards [`46db7b8`](https://github.com/loophp/collection/commit/46db7b873fcb96a364b3d1f8a15591c19c5967b5)
+- docs: fix builds [`c1acfbb`](https://github.com/loophp/collection/commit/c1acfbbd06de1cb279c84a1f80679643e4d66559)
+- docs: update RTD config [`9bdd856`](https://github.com/loophp/collection/commit/9bdd85667a4854e37a302b2a5abef66ce1dd284a)
+- autofix code style [`9b4cf93`](https://github.com/loophp/collection/commit/9b4cf9362843028f4705d6d95649c09cbd55d4bc)
+- autofix code style [`1101f3a`](https://github.com/loophp/collection/commit/1101f3a037d2b6489cd0ab557613326f7ed628b3)
+- refactor: update `sort` operation [`cc26a56`](https://github.com/loophp/collection/commit/cc26a56d1465c82fc379a3440eb2ea05651b4430)
+
+## [7.2.1](https://github.com/loophp/collection/compare/7.2.0...7.2.1) - 2023-09-06
 
 ### Merged
 
@@ -16,6 +49,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Commits
 
+- docs: update changelog [`5321ebc`](https://github.com/loophp/collection/commit/5321ebc15532209ae1bc7a0113e31fe611645d08)
 - ci: switch to `DeterminateSystems/nix-installer-action` [`6a4374b`](https://github.com/loophp/collection/commit/6a4374bcdc5685f45ac817cbf05e7c5e802fce85)
 - chore: update `.editorconfig` [`d700df0`](https://github.com/loophp/collection/commit/d700df0c488b5579eb6de0b80c4b3248ec9736eb)
 - refactor: `range` operation may now yield `int|float` instead of `float` [`64ba910`](https://github.com/loophp/collection/commit/64ba910d8e95b08a8b9cbfc7024da3fc3226415d)
