@@ -25,10 +25,10 @@ final class Dispersion extends AbstractOperation
             (new Normalize())(),
             (new ScanLeft())()(
                 /**
-                 * @param array<float|int<0,1>, T|null> $acc
+                 * @param array<numeric-string|int<0,1>, T> $acc
                  * @param T $value
                  *
-                 * @return array<float|int<0,1>, T>
+                 * @return list{float|int<0,1>, T}
                  */
                 static function (array $acc, mixed $value, int $key): array {
                     [$c, $v] = $acc;
@@ -39,7 +39,7 @@ final class Dispersion extends AbstractOperation
             (new Drop())()(1),
             (new Map())()(
                 /**
-                 * @param array<float|int<0,1>, T> $value
+                 * @param array<numeric-string|int<0,1>, T> $value
                  *
                  * @return float|int<0,1>
                  */

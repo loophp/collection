@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="5.16.0@2897ba636551a8cb61601cc26f6ccfbba6c36591">
+<files psalm-version="5.18.0@b113f3ed0259fd6e212d87c3df80eec95a6abf19">
   <file src="src/Collection.php">
-  <MixedArgument>
-      <code>(new Operation\Product())()(...$iterables)</code>
-      <code>(new Operation\Combinate())()($length)</code>
-  </MixedArgument>
     <InvalidArgument>
       <code>$callback</code>
       <code>$callbacks</code>
@@ -41,6 +37,10 @@
       <code>CollectionInterface</code>
       <code>CollectionInterface</code>
     </InvalidReturnType>
+    <MixedArgument>
+      <code>(new Operation\Combinate())()($length)</code>
+      <code>(new Operation\Product())()(...$iterables)</code>
+    </MixedArgument>
     <PossiblyNullArgument>
       <code>$default</code>
       <code>$default</code>
@@ -64,18 +64,6 @@
     <InvalidArgument>
       <code>$callbacks</code>
     </InvalidArgument>
-  </file>
-  <file src="src/Operation/Dispersion.php">
-    <InvalidReturnStatement>
-      <code>[(0 === $key) ? 0 : (($c * ($key - 1) + (($v === $value) ? 0 : 1)) / $key), $value]</code>
-    </InvalidReturnStatement>
-    <InvalidReturnType>
-      <code><![CDATA[array<float|int<0,1>, T>]]></code>
-    </InvalidReturnType>
-    <MismatchingDocblockParamType>
-      <code><![CDATA[array<float|int<0,1>, T>]]></code>
-      <code><![CDATA[array<float|int<0,1>, T|null>]]></code>
-    </MismatchingDocblockParamType>
   </file>
   <file src="src/Operation/Entropy.php">
     <InvalidArgument>
