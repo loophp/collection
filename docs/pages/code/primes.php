@@ -9,7 +9,7 @@ use loophp\collection\Collection;
 $primesGenerator = static function (Iterator $iterator) use (&$primesGenerator): Generator {
     yield $primeNumber = $iterator->current();
 
-    $iterator = new \CallbackFilterIterator(
+    $iterator = new CallbackFilterIterator(
         $iterator,
         static fn (int $a): bool => 0 !== $a % $primeNumber
     );
