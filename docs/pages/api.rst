@@ -2140,6 +2140,9 @@ Sort a collection using a callback. If no callback is provided, it will sort usi
 By default, it will sort by values and using a callback. If you want to sort by keys, you can pass a parameter to change
 the behaviour or use twice the flip operation. See the example below.
 
+Since version 7.4, sorting is `stable` by default. Stable sort algorithms sort equal
+elements in the same order that they appear in the input.
+
 Interface: `Sortable`_
 
 Signature: ``Collection::sort(int $type = Sortable::BY_VALUES, ?callable $callback = null): Collection;``
