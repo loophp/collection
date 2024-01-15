@@ -73,7 +73,7 @@ final class Sort extends AbstractOperation
                              * @param array{0:TKey|T, 1:T|TKey} $left
                              * @param array{0:TKey|T, 1:T|TKey} $right
                              */
-                            static fn (array $left, array $right): int => $callback($right[1], $left[1]);
+                            static fn (array $left, array $right): int => (0 === $return = $callback($right[1], $left[1])) ? ($right[0] <=> $left[0]) : $return;
 
                         $sortedIterator =
                             /**

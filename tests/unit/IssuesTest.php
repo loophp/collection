@@ -36,4 +36,24 @@ final class IssuesTest extends TestCase
         self::assertEquals('c', $subject->get(300));
         self::assertEquals('d', $subject->get(400));
     }
+
+    public function testIssue331(): void
+    {
+        $valueObjectFactory = static fn (int $id, int $weight) => new class($id, $weight) {
+            public function __construct(
+                public readonly int $id,
+                public readonly int $weight,
+            ) {}
+        };
+
+        $input = Collection::fromIterable([
+            $valueObjectFactory(id: 1, weight: 1),
+            $valueObjectFactory(id: 2, weight: 1),
+            $valueObjectFactory(id: 3, weight: 1),
+        ])
+            ->sort(callback: static fn (object $a, object $b): int => $a->weight <=> $b->weight)
+            ->map(static fn ($item): int => $item->id);
+
+        self::assertEquals([1, 2, 3], $input->all());
+    }
 }
