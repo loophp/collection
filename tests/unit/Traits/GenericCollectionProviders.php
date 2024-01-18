@@ -1964,7 +1964,7 @@ trait GenericCollectionProviders
 
     public static function frequencyOperationProvider()
     {
-        $object = new StdClass();
+        $object = new stdClass();
         $input = ['1', '2', '3', null, '4', '2', null, '6', $object, $object];
         $output = static function () use ($object): Generator {
             yield 1 => '1';

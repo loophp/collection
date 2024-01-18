@@ -31,9 +31,6 @@ final class Implode extends AbstractOperation
                     (new Intersperse())()($glue)(1)(0),
                     (new Limit())()(-1)(1),
                     (new Reduce())()(
-                        /**
-                         * @param string|Stringable $item
-                         */
                         static fn (string $carry, string|Stringable $item): string => $carry .= (string) $item
                     )('')
                 );

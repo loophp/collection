@@ -35,7 +35,6 @@ final class Entropy extends AbstractOperation
             (new Map())()(
                 /**
                  * @param T $_
-                 * @param int $key
                  * @param Collection<TKey, T> $collection
                  */
                 static fn (mixed $_, int $key, Collection $collection): float => $collection

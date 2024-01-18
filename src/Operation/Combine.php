@@ -34,8 +34,6 @@ final class Combine extends AbstractOperation
                 $buildMultipleIterable =
                     /**
                      * @param iterable<TKey, T> $iterable
-                     *
-                     * @return Generator
                      */
                     static fn (iterable $iterable): Generator => yield from new MultipleIterableAggregate([$keys, $iterable], MultipleIterator::MIT_NEED_ANY);
 

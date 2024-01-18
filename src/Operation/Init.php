@@ -26,8 +26,6 @@ final class Init extends AbstractOperation
     {
         $buildCachingIterator =
             /**
-             * @param iterable<TKey, T> $iterable
-             *
              * @return CachingIteratorAggregate<TKey, T>
              */
             static fn (iterable $iterator): CachingIteratorAggregate => new CachingIteratorAggregate((new IterableIteratorAggregate($iterator))->getIterator());

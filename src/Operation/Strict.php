@@ -30,8 +30,6 @@ final class Strict extends AbstractOperation
              */
             static fn (?callable $callback = null): Closure =>
                 /**
-                 * @param iterable<TKey, T> $iterable
-                 *
                  * @return Generator<TKey, T>
                  */
                 static fn (iterable $iterator): Generator => yield from new TypedIterableAggregate((new IterableIteratorAggregate($iterator))->getIterator(), $callback);
