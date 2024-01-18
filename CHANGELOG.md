@@ -5,7 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [7.3.0](https://github.com/loophp/collection/compare/7.2.1...7.3.0)
+## [7.4.0](https://github.com/loophp/collection/compare/7.3.0...7.4.0)
+
+### Merged
+
+- feat: implements stable sorting [`#333`](https://github.com/loophp/collection/pull/333)
+- chore(deps): update actions/download-artifact action to v4 [`#329`](https://github.com/loophp/collection/pull/329)
+- chore(deps): update actions/upload-artifact action to v4 [`#330`](https://github.com/loophp/collection/pull/330)
+- chore(deps): update actions/stale action to v9 [`#328`](https://github.com/loophp/collection/pull/328)
+
+### Fixed
+
+- feat: implements stable sorting (#333) [`#331`](https://github.com/loophp/collection/issues/331)
+
+### Commits
+
+- chore: fix psalm error [`b72a03a`](https://github.com/loophp/collection/commit/b72a03aa8b81c2c7954e808e3ba55ccd333d5b80)
+- chore: autofix code style [`21d6dc7`](https://github.com/loophp/collection/commit/21d6dc75ada703c39a1e8c8131fcda4356cf3342)
+- fix: unrelated Grumphp issues [`71a6145`](https://github.com/loophp/collection/commit/71a6145022ea14940e78e69e7a7796697b1fe55f)
+- fix: update Psalm baseline [`c0ef374`](https://github.com/loophp/collection/commit/c0ef374b306390d3cac90049850a19d59f05da4c)
+- docs: update changelog [`2ccd67f`](https://github.com/loophp/collection/commit/2ccd67faaa52a506de27db4c9f19361107be6aa3)
+
+## [7.3.0](https://github.com/loophp/collection/compare/7.2.1...7.3.0) - 2023-12-10
 
 ### Merged
 
@@ -24,6 +45,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Commits
 
+- docs: update changelog [`ed5ef20`](https://github.com/loophp/collection/commit/ed5ef2036a4e42c5372056d91b9470c564e2c66c)
 - fix: remove unused parameter bind [`b2ef168`](https://github.com/loophp/collection/commit/b2ef168ff05b0c9d8fea15082310776b49790a2d)
 - fix: remove unused parameter bind [`df8d3e9`](https://github.com/loophp/collection/commit/df8d3e99f4182078dd5610216b7b48ef277f8d71)
 - refactor: improve SA tests [`81b1195`](https://github.com/loophp/collection/commit/81b119557691498764ca50d327f96e5bef41b472)
