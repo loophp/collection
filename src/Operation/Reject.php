@@ -53,7 +53,7 @@ final class Reject extends AbstractOperation
                          * @param TKey $key
                          * @param iterable<TKey, T> $iterable
                          */
-                        static fn (mixed $current, mixed $key, mixed $iterable): bool => !$callback($current, $key, $iterable);
+                        static fn (mixed $current, mixed $key, mixed $iterable): bool => !(bool)$callback($current, $key, $iterable);
 
                     yield from new FilterIterableAggregate($iterable, $callback);
                 };
