@@ -735,7 +735,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return new self((new Operation\Slice())()($offset)($length), [$this]);
     }
 
-    public function sort(int $type = OperationInterface\Sortable::BY_VALUES, ?callable $callback = null): CollectionInterface
+    public function sort(int $type = OperationInterface\Sortable::BY_VALUES, null|callable|Closure $callback = null): CollectionInterface
     {
         return new self((new Operation\Sort())()($type)($callback), [$this]);
     }

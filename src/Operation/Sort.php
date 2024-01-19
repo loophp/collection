@@ -8,7 +8,7 @@ use Closure;
 use Exception;
 use Generator;
 use loophp\collection\Contract\Operation;
-use loophp\iterators\SortIterator;
+use loophp\iterators\SortIterableAggregate;
 
 /**
  * @immutable
@@ -19,76 +19,72 @@ use loophp\iterators\SortIterator;
 final class Sort extends AbstractOperation
 {
     /**
-     * @return Closure(int): Closure(null|(callable(T|TKey, T|TKey): int)): Closure(iterable<TKey, T>): Generator<TKey, T>
+     * @return Closure(int): Closure(null|(Closure(T, T, TKey, TKey): int)): Closure(iterable<TKey, T>): Generator<TKey, T>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @return Closure(null|(callable(T|TKey, T|TKey): int)): Closure(iterable<TKey, T>): Generator<TKey, T>
+             * @return Closure(null|Closure(T, T, TKey, TKey): int): Closure(iterable<TKey, T>): Generator<TKey, T>
              */
             static fn (int $type = Operation\Sortable::BY_VALUES): Closure =>
-            /**
-             * @param null|(callable(T|TKey, T|TKey): int) $callback
-             *
-             * @return Closure(iterable<TKey, T>): Generator<TKey, T>
-             */
-            static function (?callable $callback = null) use ($type): Closure {
-                $callback ??=
-                    /**
-                     * @param T|TKey $left
-                     * @param T|TKey $right
-                     */
-                    static fn (mixed $left, mixed $right): int => $left <=> $right;
+                /**
+                 * @param null|(Closure(T, T, TKey, TKey): int)|(callable(T, T, TKey, TKey): int) $callback
+                 *
+                 * @return Closure(iterable<TKey, T>): Generator<TKey, T>
+                 */
+                static function (null|callable|Closure $callback = null) use ($type): Closure {
+                    if (Operation\Sortable::BY_VALUES !== $type && Operation\Sortable::BY_KEYS !== $type) {
+                        throw new Exception('Invalid sort type.');
+                    }
 
-                return
-                    /**
-                     * @param iterable<TKey, T> $iterable
-                     *
-                     * @return Generator<TKey, T>
-                     */
-                    static function (iterable $iterable) use ($type, $callback): Generator {
-                        if (Operation\Sortable::BY_VALUES !== $type && Operation\Sortable::BY_KEYS !== $type) {
-                            throw new Exception('Invalid sort type.');
-                        }
+                    $callback ??=
+                        /**
+                         * @param T $left
+                         * @param T $right
+                         * @param TKey $leftKey
+                         * @param TKey $rightKey
+                         */
+                        static fn (mixed $left, mixed $right, mixed $leftKey, mixed $rightKey): int => $right <=> $left;
 
-                        $operations = Operation\Sortable::BY_VALUES === $type ?
-                            [
-                                'before' => [(new Pack())()],
-                                'after' => [(new Unpack())()],
-                            ] :
-                            [
-                                'before' => [(new Flip())(), (new Pack())()],
-                                'after' => [(new Unpack())(), (new Flip())()],
-                            ];
+                    if (!($callback instanceof Closure)) {
+                        trigger_deprecation(
+                            'loophp/collection',
+                            '7.4',
+                            'Passing a callable as argument is deprecated and will be removed in 8.0. Use a closure instead.',
+                            self::class
+                        );
 
-                        $sortCallback =
-                            /**
-                             * @param callable(T|TKey, T|TKey): int $callback
-                             *
-                             * @return Closure(array{0:TKey|T, 1:T|TKey}, array{0:TKey|T, 1:T|TKey}): int
-                             */
-                            static fn (callable $callback): Closure =>
-                            /**
-                             * @param array{0:TKey|T, 1:T|TKey} $left
-                             * @param array{0:TKey|T, 1:T|TKey} $right
-                             */
-                            static fn (array $left, array $right): int => (0 === $return = $callback($right[1], $left[1])) ? ($right[0] <=> $left[0]) : $return;
+                        $callback = Closure::fromCallable($callback);
+                    }
 
-                        $sortedIterator =
-                            /**
-                             * @param iterable<TKey, T> $iterable
-                             *
-                             * @return SortIterator<TKey, T>
-                             */
-                            static fn (iterable $iterable): SortIterator => new SortIterator($iterable, $sortCallback($callback));
+                    $operations = Operation\Sortable::BY_VALUES === $type ?
+                        [
+                            'before' => [],
+                            'after' => [],
+                        ] :
+                        [
+                            'before' => [(new Flip())()],
+                            'after' => [(new Flip())()],
+                        ];
 
-                        yield from (new Pipe())()(
-                            ...$operations['before'],
-                            ...[$sortedIterator],
-                            ...$operations['after']
-                        )($iterable);
-                    };
-            };
+                    $sortedIterator =
+                        /**
+                         * @param iterable<TKey, T> $iterable
+                         *
+                         * @return SortIterableAggregate<TKey, T>
+                         */
+                        static fn (iterable $iterable): SortIterableAggregate => new SortIterableAggregate($iterable, $callback);
+
+                    /** @var Closure(iterable<TKey, T>): Generator<TKey, T> $sort */
+                    $sort = (new Pipe())()(
+                        ...$operations['before'],
+                        ...[$sortedIterator],
+                        ...$operations['after']
+                    );
+
+                    // Point free style.
+                    return $sort;
+                };
     }
 }
