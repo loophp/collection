@@ -2135,17 +2135,20 @@ Signature: ``Collection::slice(int $offset, ?int $length = -1): Collection;``
 sort
 ~~~~
 
-Sort a collection using a callback. If no callback is provided, it will sort using natural order.
+Sort a collection using a callback. If no callback is provided, it will sort
+using natural order, ascending.
 
-By default, it will sort by values and using a callback. If you want to sort by keys, you can pass a parameter to change
-the behaviour or use twice the flip operation. See the example below.
+By default, it will sort by values and using the default callback. If you want
+to sort by keys, you can pass a parameter to change the behaviour.
 
-Since version 7.4, sorting is `stable` by default. Stable sort algorithms sort equal
-elements in the same order that they appear in the input.
+Since version 7.4, sorting is `stable` by default. Stable sort algorithms sort
+equal elements in the same order that they appear in the input.
 
 Interface: `Sortable`_
 
 Signature: ``Collection::sort(int $type = Sortable::BY_VALUES, ?callable $callback = null): Collection;``
+
+Callback signature: ``Closure(mixed $left, mixed $right, mixed $leftKey, mixed $rightKey): int``
 
 .. literalinclude:: code/operations/sort.php
   :language: php
