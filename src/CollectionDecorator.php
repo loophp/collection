@@ -606,7 +606,7 @@ abstract class CollectionDecorator implements CollectionInterface
         return new static($this->innerCollection->slice($offset, $length));
     }
 
-    public function sort(int $type = Operation\Sortable::BY_VALUES, ?callable $callback = null): static
+    public function sort(int $type = Operation\Sortable::BY_VALUES, null|callable|Closure $callback = null): static
     {
         return new static($this->innerCollection->sort($type, $callback));
     }

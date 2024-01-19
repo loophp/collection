@@ -60,7 +60,6 @@ final class Scale extends AbstractOperation
 
                                 $filter = (new Filter())()(
                                     static fn (float|int $item): bool => $item > $lowerBound,
-
                                     static fn (float|int $item): bool => $item <= $upperBound
                                 );
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace loophp\collection\Contract\Operation;
 
+use Closure;
 use loophp\collection\Contract\Collection;
 
 /**
@@ -23,7 +24,9 @@ interface Sortable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#sort
      *
+     * @param null|callable|Closure(T, T, TKey, TKey): int $callback
+     *
      * @return Collection<TKey, T>
      */
-    public function sort(int $type = Sortable::BY_VALUES, ?callable $callback = null): Collection;
+    public function sort(int $type = Sortable::BY_VALUES, null|callable|Closure $callback = null): Collection;
 }

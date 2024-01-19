@@ -4068,7 +4068,7 @@ trait GenericCollectionProviders
             $operation,
             [
                 Operation\Sortable::BY_VALUES,
-                static fn ($left, $right): int => $right <=> $left,
+                static fn (string $left, string $right): int => $left <=> $right,
             ],
             $input,
             array_combine(range('A', 'E'), range('E', 'A')),
