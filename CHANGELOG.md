@@ -5,7 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [7.4.0](https://github.com/loophp/collection/compare/7.3.0...7.4.0)
+## [7.5.0](https://github.com/loophp/collection/compare/7.4.0...7.5.0)
+
+### Merged
+
+- sort: improve `sort` operation [`#334`](https://github.com/loophp/collection/pull/334)
+
+### Commits
+
+- fix: make `sort` operation's direction match PHP `usort` function's direction [`3b0f875`](https://github.com/loophp/collection/commit/3b0f87528fabc45b02509144ca42d6d65571b64d)
+- chore: autofix code style [`353f0c2`](https://github.com/loophp/collection/commit/353f0c226b2944ebf50dc38788515ea7fa5e80f7)
+
+## [7.4.0](https://github.com/loophp/collection/compare/7.3.0...7.4.0) - 2024-01-18
 
 ### Merged
 
@@ -20,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Commits
 
+- docs: update changelog [`6ea3c47`](https://github.com/loophp/collection/commit/6ea3c4798bd66fa0cb4a1d8f09f19ed773873346)
 - chore: fix psalm error [`b72a03a`](https://github.com/loophp/collection/commit/b72a03aa8b81c2c7954e808e3ba55ccd333d5b80)
 - chore: autofix code style [`21d6dc7`](https://github.com/loophp/collection/commit/21d6dc75ada703c39a1e8c8131fcda4356cf3342)
 - fix: unrelated Grumphp issues [`71a6145`](https://github.com/loophp/collection/commit/71a6145022ea14940e78e69e7a7796697b1fe55f)
