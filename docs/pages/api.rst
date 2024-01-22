@@ -2136,7 +2136,7 @@ sort
 ~~~~
 
 Sort a collection using a callback. If no callback is provided, it will sort
-using natural order, ascending.
+using natural order. The direction by default match the PHP `usort` function.
 
 By default, it will sort by values and using the default callback. If you want
 to sort by keys, you can pass a parameter to change the behaviour.

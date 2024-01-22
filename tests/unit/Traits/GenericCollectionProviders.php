@@ -4071,7 +4071,7 @@ trait GenericCollectionProviders
                 static fn (string $left, string $right): int => $left <=> $right,
             ],
             $input,
-            array_combine(range('A', 'E'), range('E', 'A')),
+            array_combine(range('E', 'A'), range('A', 'E')),
         ];
 
         $inputGen = static function () {

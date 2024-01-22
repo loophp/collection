@@ -45,7 +45,7 @@ final class Sort extends AbstractOperation
                          * @param TKey $leftKey
                          * @param TKey $rightKey
                          */
-                        static fn (mixed $left, mixed $right, mixed $leftKey, mixed $rightKey): int => $right <=> $left;
+                        static fn (mixed $left, mixed $right, mixed $leftKey, mixed $rightKey): int => $left <=> $right;
 
                     if (!($callback instanceof Closure)) {
                         trigger_deprecation(

@@ -43,7 +43,7 @@ final class Matching extends AbstractOperation
                     $next = null;
 
                     foreach (array_reverse($orderings) as $field => $ordering) {
-                        $next = ClosureExpressionVisitor::sortByField($field, Criteria::ASC === $ordering ? -1 : 1, $next);
+                        $next = ClosureExpressionVisitor::sortByField($field, Criteria::DESC === $ordering ? -1 : 1, $next);
                     }
 
                     $pipes[] = (new Sort())()(Sortable::BY_VALUES)($next);
