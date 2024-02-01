@@ -19,6 +19,23 @@ final class IssuesTest extends TestCase
     use GenericCollectionProviders;
     use IterableAssertions;
 
+    public function testCollectionSorting(): void
+    {
+        $input = Collection::fromIterable([
+            self::createValueObject(id: 1, weight: 2),
+            self::createValueObject(id: 160, weight: 1),
+            self::createValueObject(id: 1600, weight: 3),
+            self::createValueObject(id: 2, weight: 2),
+            self::createValueObject(id: 150, weight: 1),
+            self::createValueObject(id: 1500, weight: 3),
+            self::createValueObject(id: 3, weight: 2),
+        ])
+            ->sort(callback: static fn (object $a, object $b): int => $a->weight <=> $b->weight)
+            ->map(static fn (object $item): int => $item->id);
+
+        self::assertEquals([160, 150, 1, 2, 3, 1600, 1500], $input->all());
+    }
+
     public function testIssue264()
     {
         $subject = Collection::fromCallable(static function () {
@@ -57,17 +74,6 @@ final class IssuesTest extends TestCase
         self::assertEquals([1, 2, 3], $input->all());
     }
 
-    private static function createValueObject(int $id, int $weight): object
-    {
-        return new class($id, $weight) {
-            public function __construct(
-                public int $id,
-                public int $weight,
-            ) {
-            }
-        };
-    }
-
     public function testPhpSorting(): void
     {
         $input = [
@@ -87,20 +93,13 @@ final class IssuesTest extends TestCase
         self::assertEquals([160, 150, 1, 2, 3, 1600, 1500], $collection->all());
     }
 
-    public function testCollectionSorting(): void
+    private static function createValueObject(int $id, int $weight): object
     {
-        $input = Collection::fromIterable([
-            self::createValueObject(id: 1, weight: 2),
-            self::createValueObject(id: 160, weight: 1),
-            self::createValueObject(id: 1600, weight: 3),
-            self::createValueObject(id: 2, weight: 2),
-            self::createValueObject(id: 150, weight: 1),
-            self::createValueObject(id: 1500, weight: 3),
-            self::createValueObject(id: 3, weight: 2),
-        ])
-            ->sort(callback: static fn (object $a, object $b): int => $a->weight <=> $b->weight)
-            ->map(static fn (object $item): int => $item->id);
-
-        self::assertEquals([160, 150, 1, 2, 3, 1600, 1500], $input->all());
+        return new class($id, $weight) {
+            public function __construct(
+                public int $id,
+                public int $weight,
+            ) {}
+        };
     }
 }
