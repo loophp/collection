@@ -47,7 +47,7 @@
         "infection/infection": "^0.27",
         "loophp/phpunit-iterable-assertions": "^1.0",
         "phpstan/phpstan-strict-rules": "^1.0",
-        "phpunit/php-code-coverage": "^10",
+        "phpunit/php-code-coverage": "^11",
         "phpunit/phpunit": "^10",
         "psr/cache": "^2.0 || 3.0",
         "symfony/cache": "^6",
