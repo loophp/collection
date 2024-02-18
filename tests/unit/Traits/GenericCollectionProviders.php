@@ -3933,17 +3933,28 @@ trait GenericCollectionProviders
         $operation = 'shuffle';
         $input = range('a', 'e');
 
+        $output = match (true) {
+            PHP_VERSION_ID < 80200 => [
+                3 => 'd',
+                0 => 'a',
+                4 => 'e',
+                2 => 'c',
+                1 => 'b',
+            ],
+            default => [
+                2 => 'c',
+                0 => 'a',
+                3 => 'd',
+                1 => 'b',
+                4 => 'e',
+            ],
+        };
+
         yield [
             $operation,
             [123],
             $input,
-            [
-                2 => 'c',
-                1 => 'b',
-                3 => 'd',
-                4 => 'e',
-                0 => 'a',
-            ],
+            $output,
         ];
     }
 

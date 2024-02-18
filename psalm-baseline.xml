@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="5.18.0@b113f3ed0259fd6e212d87c3df80eec95a6abf19">
+<files psalm-version="5.22.1@e9dad66e11274315dac27e08349c628c7d6a1a43">
   <file src="src/Collection.php">
     <InvalidArgument>
-      <code>$callback</code>
-      <code>$callbacks</code>
-      <code>$parameters</code>
+      <code><![CDATA[$callback]]></code>
+      <code><![CDATA[$callbacks]]></code>
+      <code><![CDATA[$parameters]]></code>
       <code><![CDATA[static function () use (&$counter): void {
                     ++$counter;
                 }]]></code>
@@ -28,23 +28,19 @@
                  */
                 static fn (iterable $iterable): Collection => Collection::fromIterable($iterable)
             )]]></code>
-      <code>new self((new Operation\Unfold())()($parameters)($callback))</code>
-      <code>new self((new Operation\Wrap())(), [$this])</code>
+      <code><![CDATA[new self((new Operation\Unfold())()($parameters)($callback))]]></code>
+      <code><![CDATA[new self((new Operation\Wrap())(), [$this])]]></code>
     </InvalidReturnStatement>
     <InvalidReturnType>
-      <code>CollectionInterface</code>
-      <code>CollectionInterface</code>
-      <code>CollectionInterface</code>
-      <code>CollectionInterface</code>
+      <code><![CDATA[CollectionInterface]]></code>
+      <code><![CDATA[CollectionInterface]]></code>
+      <code><![CDATA[CollectionInterface]]></code>
+      <code><![CDATA[CollectionInterface]]></code>
     </InvalidReturnType>
     <MixedArgument>
-      <code>(new Operation\Combinate())()($length)</code>
-      <code>(new Operation\Product())()(...$iterables)</code>
+      <code><![CDATA[(new Operation\Combinate())()($length)]]></code>
+      <code><![CDATA[(new Operation\Product())()(...$iterables)]]></code>
     </MixedArgument>
-    <PossiblyNullArgument>
-      <code>$default</code>
-      <code>$default</code>
-    </PossiblyNullArgument>
   </file>
   <file src="src/Operation/All.php">
     <InvalidReturnStatement>
@@ -62,7 +58,7 @@
   </file>
   <file src="src/Operation/DropWhile.php">
     <InvalidArgument>
-      <code>$callbacks</code>
+      <code><![CDATA[$callbacks]]></code>
     </InvalidArgument>
   </file>
   <file src="src/Operation/Entropy.php">
@@ -85,49 +81,49 @@
   </file>
   <file src="src/Operation/Every.php">
     <InvalidArgument>
-      <code>$predicates</code>
+      <code><![CDATA[$predicates]]></code>
     </InvalidArgument>
   </file>
   <file src="src/Operation/Filter.php">
     <InvalidArgument>
-      <code>$callbacks</code>
+      <code><![CDATA[$callbacks]]></code>
     </InvalidArgument>
   </file>
   <file src="src/Operation/MatchOne.php">
     <InvalidArgument>
-      <code>$callbacks</code>
-      <code>$matchers</code>
+      <code><![CDATA[$callbacks]]></code>
+      <code><![CDATA[$matchers]]></code>
     </InvalidArgument>
   </file>
   <file src="src/Operation/Product.php">
     <InvalidArgument>
-      <code>[[]]</code>
+      <code><![CDATA[[[]]]]></code>
       <code><![CDATA[static fn (iterable $a, iterable $x): Generator => $f($x)($a)]]></code>
     </InvalidArgument>
   </file>
   <file src="src/Operation/Reject.php">
     <InvalidArgument>
-      <code>$callbacks</code>
+      <code><![CDATA[$callbacks]]></code>
     </InvalidArgument>
   </file>
   <file src="src/Operation/Since.php">
     <InvalidArgument>
-      <code>$callbacks</code>
+      <code><![CDATA[$callbacks]]></code>
     </InvalidArgument>
   </file>
   <file src="src/Operation/Split.php">
     <InvalidArgument>
-      <code>$callbacks</code>
+      <code><![CDATA[$callbacks]]></code>
     </InvalidArgument>
   </file>
   <file src="src/Operation/TakeWhile.php">
     <InvalidArgument>
-      <code>$callbacks</code>
+      <code><![CDATA[$callbacks]]></code>
     </InvalidArgument>
   </file>
   <file src="src/Operation/Until.php">
     <InvalidArgument>
-      <code>$callbacks</code>
+      <code><![CDATA[$callbacks]]></code>
     </InvalidArgument>
   </file>
   <file src="src/Operation/Zip.php">
@@ -137,9 +133,9 @@
   </file>
   <file src="tests/static-analysis/fromCallable.php">
     <PossiblyInvalidArgument>
-      <code>$invokableClassList</code>
-      <code>$invokableClassMap</code>
-      <code>$invokableClassMixed</code>
+      <code><![CDATA[$invokableClassList]]></code>
+      <code><![CDATA[$invokableClassMap]]></code>
+      <code><![CDATA[$invokableClassMixed]]></code>
       <code><![CDATA[[$classWithMethod, 'getKeyValues']]]></code>
       <code><![CDATA[[$classWithMethod, 'getMixed']]]></code>
       <code><![CDATA[[$classWithMethod, 'getValues']]]></code>
@@ -150,14 +146,24 @@
   </file>
   <file src="tests/static-analysis/partition.php">
     <PossiblyUndefinedArrayOffset>
-      <code>$left</code>
-      <code>$left</code>
+      <code><![CDATA[$left]]></code>
+      <code><![CDATA[$left]]></code>
     </PossiblyUndefinedArrayOffset>
+  </file>
+  <file src="tests/static-analysis/scanLeft1.php">
+    <InvalidArgument>
+      <code><![CDATA[Collection::fromIterable(array_combine(range('a', 'e'), range('a', 'e')))->scanLeft1(static fn (int|string $carry, string $value): int => ord($value))]]></code>
+    </InvalidArgument>
+  </file>
+  <file src="tests/static-analysis/scanRight1.php">
+    <InvalidArgument>
+      <code><![CDATA[Collection::fromIterable(array_combine(range('a', 'e'), range('a', 'e')))->scanRight1(static fn (int|string $carry, string $value): int => ord($value))]]></code>
+    </InvalidArgument>
   </file>
   <file src="tests/static-analysis/span.php">
     <PossiblyUndefinedArrayOffset>
-      <code>$left</code>
-      <code>$left</code>
+      <code><![CDATA[$left]]></code>
+      <code><![CDATA[$left]]></code>
     </PossiblyUndefinedArrayOffset>
   </file>
 </files>
