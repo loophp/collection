@@ -42,14 +42,4 @@ $intGenerator =
 // see Psalm bug: https://github.com/vimeo/psalm/issues/6108
 scanLeft1_checkListString(Collection::fromIterable(range('a', 'c'))->scanLeft1($concat));
 scanLeft1_checkListOfSize1String(Collection::fromIterable($intGenerator())->scanLeft1($toString));
-scanLeft1_checkMixedInput(
-    Collection::fromIterable(array_combine(range('a', 'e'), range('a', 'e')))
-        ->scanLeft1(
-            /**
-             * @param int<0, 255>|string $carry
-             *
-             * @return int<0, 255>
-             */
-            static fn (int|string $carry, string $value): int => ord($value)
-        )
-);
+scanLeft1_checkMixedInput(Collection::fromIterable(array_combine(range('a', 'e'), range('a', 'e')))->scanLeft1(static fn (int|string $carry, string $value): int => ord($value)));

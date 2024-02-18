@@ -41,10 +41,6 @@
       <code><![CDATA[(new Operation\Combinate())()($length)]]></code>
       <code><![CDATA[(new Operation\Product())()(...$iterables)]]></code>
     </MixedArgument>
-    <PossiblyNullArgument>
-      <code>$default</code>
-      <code>$default</code>
-    </PossiblyNullArgument>
   </file>
   <file src="src/Operation/All.php">
     <InvalidReturnStatement>
@@ -153,6 +149,16 @@
       <code><![CDATA[$left]]></code>
       <code><![CDATA[$left]]></code>
     </PossiblyUndefinedArrayOffset>
+  </file>
+  <file src="tests/static-analysis/scanLeft1.php">
+    <InvalidArgument>
+      <code><![CDATA[Collection::fromIterable(array_combine(range('a', 'e'), range('a', 'e')))->scanLeft1(static fn (int|string $carry, string $value): int => ord($value))]]></code>
+    </InvalidArgument>
+  </file>
+  <file src="tests/static-analysis/scanRight1.php">
+    <InvalidArgument>
+      <code><![CDATA[Collection::fromIterable(array_combine(range('a', 'e'), range('a', 'e')))->scanRight1(static fn (int|string $carry, string $value): int => ord($value))]]></code>
+    </InvalidArgument>
   </file>
   <file src="tests/static-analysis/span.php">
     <PossiblyUndefinedArrayOffset>
