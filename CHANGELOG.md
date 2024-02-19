@@ -5,7 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [7.5.0](https://github.com/loophp/collection/compare/7.4.0...7.5.0)
+## [7.5.1](https://github.com/loophp/collection/compare/7.5.0...7.5.1)
+
+### Merged
+
+- loophp/iterators: 3.1.1 -&gt; 3.2.0 [`#337`](https://github.com/loophp/collection/pull/337)
+
+### Commits
+
+- chore: autofix code style [`2cbba52`](https://github.com/loophp/collection/commit/2cbba5284fbab77f5ec91c317fbe7836f87648b1)
+
+## [7.5.0](https://github.com/loophp/collection/compare/7.4.0...7.5.0) - 2024-01-22
 
 ### Merged
 
@@ -13,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Commits
 
+- docs: update changelog [`b8bfd5a`](https://github.com/loophp/collection/commit/b8bfd5a46940d993a333155d258e98f4c5d719fe)
 - fix: make `sort` operation's direction match PHP `usort` function's direction [`3b0f875`](https://github.com/loophp/collection/commit/3b0f87528fabc45b02509144ca42d6d65571b64d)
 - chore: autofix code style [`353f0c2`](https://github.com/loophp/collection/commit/353f0c226b2944ebf50dc38788515ea7fa5e80f7)
 
