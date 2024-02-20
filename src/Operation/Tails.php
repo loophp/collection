@@ -19,18 +19,18 @@ use function array_slice;
 final class Tails extends AbstractOperation
 {
     /**
-     * @return Closure(iterable<array-key, T>): Generator<int, list<T>>
+     * @return Closure(iterable<TKey, T>): Generator<int, list<T>>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @param iterable<array-key, T> $iterable
+             * @param iterable<TKey, T> $iterable
              *
              * @return Generator<int, list<T>>
              */
             static function (iterable $iterable): Generator {
-                $generator = iterator_to_array(
+                $initial = iterator_to_array(
                     (new IterableIteratorAggregate($iterable))->getIterator()
                 );
 
@@ -42,9 +42,9 @@ final class Tails extends AbstractOperation
                      */
                     static fn (array $stack): array => array_slice($stack, 1);
 
-                /** @var Closure(iterable<array-key, T>): Generator<int, list<T>> $pipe */
+                /** @var Closure(iterable<TKey, T>): Generator<int, list<T>> $pipe */
                 $pipe = (new Pipe())()(
-                    (new Reduction())()($reduction)($generator),
+                    (new Reduction())()($reduction)($initial),
                     (new Normalize())(),
                 );
 
