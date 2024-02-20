@@ -5,7 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [7.5.1](https://github.com/loophp/collection/compare/7.5.0...7.5.1)
+## [7.5.2](https://github.com/loophp/collection/compare/7.5.1...7.5.2)
+
+### Merged
+
+- refactor: remove obsolete `All` class [`#338`](https://github.com/loophp/collection/pull/338)
+
+### Commits
+
+- refactor: minor SA update `Tails` operation [`acb6d8f`](https://github.com/loophp/collection/commit/acb6d8fe3805b6be531053812bea2aea68458750)
+
+## [7.5.1](https://github.com/loophp/collection/compare/7.5.0...7.5.1) - 2024-02-19
 
 ### Merged
 
@@ -13,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Commits
 
+- docs: update changelog [`179c2a5`](https://github.com/loophp/collection/commit/179c2a5c98a0aa1045860da9c21d7336cc2de37e)
 - chore: autofix code style [`2cbba52`](https://github.com/loophp/collection/commit/2cbba5284fbab77f5ec91c317fbe7836f87648b1)
 
 ## [7.5.0](https://github.com/loophp/collection/compare/7.4.0...7.5.0) - 2024-01-22
