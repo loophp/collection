@@ -50,7 +50,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
 
     public function all(bool $normalize = true): array
     {
-        return iterator_to_array((new Operation\All())()($normalize)($this));
+        return iterator_to_array($this, !$normalize);
     }
 
     public function append(mixed ...$items): CollectionInterface
