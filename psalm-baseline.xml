@@ -42,20 +42,6 @@
       <code><![CDATA[(new Operation\Product())()(...$iterables)]]></code>
     </MixedArgument>
   </file>
-  <file src="src/Operation/All.php">
-    <InvalidReturnStatement>
-      <code><![CDATA[static fn (bool $normalize): Closure =>
-                /**
-                 * @param iterable<TKey, T> $iterable
-                 *
-                 * @return Generator<int, T>|Generator<TKey, T>
-                 */
-                static fn (iterable $iterable): Generator => yield from ($normalize ? (new Normalize())()($iterable) : $iterable)]]></code>
-    </InvalidReturnStatement>
-    <InvalidReturnType>
-      <code><![CDATA[Closure(bool): Closure(iterable<TKey, T>): (Generator<int, T>|Generator<TKey, T>)]]></code>
-    </InvalidReturnType>
-  </file>
   <file src="src/Operation/DropWhile.php">
     <InvalidArgument>
       <code><![CDATA[$callbacks]]></code>
