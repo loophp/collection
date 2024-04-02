@@ -5,7 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [7.5.2](https://github.com/loophp/collection/compare/7.5.1...7.5.2)
+## [7.6.0](https://github.com/loophp/collection/compare/7.5.2...7.6.0)
+
+### Merged
+
+- Adds tap() - allows shorter syntax for chaining no side effects operations [`#340`](https://github.com/loophp/collection/pull/340)
+
+### Commits
+
+- fix: `doctrine/collections` deprecations [`5b39b54`](https://github.com/loophp/collection/commit/5b39b54f6a27addcd79c2c0ec16bc9a8aeaeba4d)
+
+## [7.5.2](https://github.com/loophp/collection/compare/7.5.1...7.5.2) - 2024-02-20
 
 ### Merged
 
@@ -13,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Commits
 
+- docs: update changelog [`b0b4468`](https://github.com/loophp/collection/commit/b0b44687c96374a63f30e36c2c52069f9e9c55e5)
 - refactor: minor SA update `Tails` operation [`acb6d8f`](https://github.com/loophp/collection/commit/acb6d8fe3805b6be531053812bea2aea68458750)
 
 ## [7.5.1](https://github.com/loophp/collection/compare/7.5.0...7.5.1) - 2024-02-19
