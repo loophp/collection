@@ -2287,6 +2287,22 @@ Signature: ``Collection::takeWhile(callable ...$callbacks): Collection;``
     Collection::fromIterable([1,2,3,4,5,6,7,8,9,1,2,3])
         ->takeWhile($isSmallerThanThree); // [1,2]
 
+tap
+~~~
+
+Execute callback(s) on each element of the collection.
+
+Iterates on the collection items regardless of the return value of the callback.
+
+It is a simplified version of the ``apply`` operation, as it does not require the callback to return a boolean value, allowing shorter syntax e.g. for logging or event dispatching: ``->tap(fn($value) => $events->emit(new ItemReceived($value)))``.
+
+Interface: `Tappable`_
+
+Signature: ``Collection::tap(callable ...$callbacks): Collection;``
+
+.. literalinclude:: code/operations/tap.php
+  :language: php
+
 transpose
 ~~~~~~~~~
 
@@ -2693,6 +2709,7 @@ Signature: ``Collection::zip(iterable ...$iterables): Collection;``
 .. _Tailable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Tailable.php
 .. _Tailsable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Tailsable.php
 .. _TakeWhileable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/TakeWhileable.php
+.. _Tappable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Tappable.php
 .. _Transposeable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Transposeable.php
 .. _Truthyable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Truthyable.php
 .. _Unlinesable: https://github.com/loophp/collection/blob/master/src/Contract/Operation/Unlinesable.php

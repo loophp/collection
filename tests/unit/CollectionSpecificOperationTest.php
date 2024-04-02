@@ -562,4 +562,58 @@ final class CollectionSpecificOperationTest extends TestCase
             $collection->strict($callback)->all()
         );
     }
+
+    public function testTapOperation(): void
+    {
+        $input = range('a', 'e');
+        $stack = [];
+
+        $this::assertIdenticalIterable(
+            $input,
+            Collection::fromIterable($input)
+                ->tap(
+                    static function ($item) use (&$stack): void {
+                        $stack += [$item => []];
+                        $stack[$item][] = 'fn1';
+                    }
+                )
+        );
+
+        $expected = [
+            'a' => ['fn1'],
+            'b' => ['fn1'],
+            'c' => ['fn1'],
+            'd' => ['fn1'],
+            'e' => ['fn1'],
+        ];
+
+        self::assertSame($expected, $stack);
+
+        $stack = [];
+
+        $this::assertIdenticalIterable(
+            $input,
+            Collection::fromIterable($input)
+                ->tap(
+                    static function ($item) use (&$stack): void {
+                        $stack += [$item => []];
+                        $stack[$item][] = 'fn1';
+                    },
+                    static function ($item) use (&$stack): void {
+                        $stack += [$item => []];
+                        $stack[$item][] = 'fn2';
+                    }
+                )
+        );
+
+        $expected = [
+            'a' => ['fn1', 'fn2'],
+            'b' => ['fn1', 'fn2'],
+            'c' => ['fn1', 'fn2'],
+            'd' => ['fn1', 'fn2'],
+            'e' => ['fn1', 'fn2'],
+        ];
+
+        self::assertSame($expected, $stack);
+    }
 }
