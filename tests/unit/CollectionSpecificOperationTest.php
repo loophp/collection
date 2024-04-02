@@ -598,25 +598,6 @@ final class CollectionSpecificOperationTest extends TestCase
                     static function ($item) use (&$stack): void {
                         $stack += [$item => []];
                         $stack[$item][] = 'fn1';
-                    }
-                )
-        );
-
-        $expected = [
-            'a' => ['fn1'],
-        ];
-
-        self::assertSame($expected, $stack);
-
-        $stack = [];
-
-        $this::assertIdenticalIterable(
-            $input,
-            Collection::fromIterable($input)
-                ->tap(
-                    static function ($item) use (&$stack): void {
-                        $stack += [$item => []];
-                        $stack[$item][] = 'fn1';
                     },
                     static function ($item) use (&$stack): void {
                         $stack += [$item => []];

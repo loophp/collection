@@ -22,11 +22,11 @@ final class Tap extends AbstractOperation
     {
         return
             /**
-             * @param callable(T, TKey, iterable<TKey, T>): bool ...$callbacks
+             * @param callable(T, TKey, iterable<TKey, T>): void ...$callbacks
              *
              * @return Closure(iterable<TKey, T>): Generator<TKey, T>
              */
-            static fn(callable ...$callbacks): Closure => /**
+            static fn (callable ...$callbacks): Closure => /**
              * @param iterable<TKey, T> $iterable
              *
              * @return Generator<TKey, T>
