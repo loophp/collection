@@ -118,6 +118,7 @@ use Traversable;
  * @template-extends Operation\Tailable<TKey, T>
  * @template-extends Operation\Tailsable<TKey, T>
  * @template-extends Operation\TakeWhileable<TKey, T>
+ * @template-extends Operation\Tappable<TKey, T>
  * @template-extends Operation\Transposeable<TKey, T>
  * @template-extends Operation\Truthyable<TKey, T>
  * @template-extends Operation\Unlinesable<TKey, T>
@@ -243,6 +244,7 @@ interface Collection extends
     Operation\Tailable,
     Operation\Tailsable,
     Operation\TakeWhileable,
+    Operation\Tappable,
     Operation\Timesable,
     Operation\Transposeable,
     Operation\Truthyable,

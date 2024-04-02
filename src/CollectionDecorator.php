@@ -646,6 +646,11 @@ abstract class CollectionDecorator implements CollectionInterface
         return new static($this->innerCollection->takeWhile(...$callbacks));
     }
 
+    public function tap(callable ...$callbacks): static
+    {
+        return new static($this->innerCollection->tap(...$callbacks));
+    }
+
     public static function times(int $number = 0, ?callable $callback = null): static
     {
         return new static(Collection::times($number, $callback));

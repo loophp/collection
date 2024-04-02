@@ -783,6 +783,11 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         return new self((new Operation\TakeWhile())()(...$callbacks), [$this]);
     }
 
+    public function tap(callable ...$callbacks): CollectionInterface
+    {
+        return new self((new Operation\Tap())()(...$callbacks), [$this]);
+    }
+
     /**
      * @template U
      *
