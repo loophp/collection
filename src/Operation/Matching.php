@@ -7,6 +7,7 @@ namespace loophp\collection\Operation;
 use Closure;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Collections\Expr\ClosureExpressionVisitor;
+use Doctrine\Common\Collections\Order;
 use Generator;
 use loophp\collection\Contract\Operation\Sortable;
 
@@ -37,13 +38,13 @@ final class Matching extends AbstractOperation
                     $pipes[] = (new Filter())()($filterCallback);
                 }
 
-                $orderings = $criteria->getOrderings();
+                $orderings = $criteria->orderings();
 
                 if ([] !== $orderings) {
                     $next = null;
 
                     foreach (array_reverse($orderings) as $field => $ordering) {
-                        $next = ClosureExpressionVisitor::sortByField($field, Criteria::DESC === $ordering ? -1 : 1, $next);
+                        $next = ClosureExpressionVisitor::sortByField($field, Order::Descending === $ordering ? -1 : 1, $next);
                     }
 
                     $pipes[] = (new Sort())()(Sortable::BY_VALUES)($next);
