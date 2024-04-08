@@ -212,7 +212,7 @@ Add one or more items to a collection.
 
 Interface: `Appendable`_
 
-Signature: ``Collection::append(...$items): Collection;``
+Signature: ``Collection::append(mixed ...$items): Collection;``
 
 .. code-block:: php
 
@@ -414,7 +414,7 @@ Return the values from a single column in the input iterables.
 
 Interface: `Columnable`_
 
-Signature: ``Collection::column($column): Collection;``
+Signature: ``Collection::column(mixed $column): Collection;``
 
 .. code-block:: php
 
@@ -470,7 +470,7 @@ Combine a collection of items with some other keys.
 
 Interface: `Combineable`_
 
-Signature: ``Collection::combine(...$keys): Collection;``
+Signature: ``Collection::combine(mixed ...$keys): Collection;``
 
 .. literalinclude:: code/operations/combine.php
   :language: php
@@ -490,7 +490,7 @@ Remove given values from the collection; if no values are provided, it removes *
 
 Interface: `Compactable`_
 
-Signature: ``Collection::compact(...$values): Collection;``
+Signature: ``Collection::compact(mixed ...$values): Collection;``
 
 .. code-block:: php
 
@@ -514,7 +514,7 @@ can be used instead.
 
 Interface: `Comparable`_
 
-Signature: ``Collection::compare(callable $comparator, $default = null): Collection;``
+Signature: ``Collection::compare(callable $comparator, mixed $default = null): Collection;``
 
 .. literalinclude:: code/operations/compare.php
   :language: php
@@ -528,7 +528,7 @@ Check if the collection contains one or more values.
 
 Interface: `Containsable`_
 
-Signature: ``Collection::contains(...$values): bool;``
+Signature: ``Collection::contains(mixed ...$values): bool;``
 
 .. literalinclude:: code/operations/contains.php
   :language: php
@@ -577,7 +577,7 @@ that can be modified by providing a second argument to the operation.
 
 Interface: `Currentable`_
 
-Signature: ``Collection::current(int $index = 0, $default = null);``
+Signature: ``Collection::current(int $index = 0, mixed $default = null);``
 
 .. literalinclude:: code/operations/current.php
   :language: php
@@ -604,7 +604,7 @@ This method will return the values in the original collection that are not prese
 
 Interface: `Diffable`_
 
-Signature: ``Collection::diff(...$values): Collection;``
+Signature: ``Collection::diff(mixed ...$values): Collection;``
 
 .. code-block:: php
 
@@ -619,7 +619,7 @@ This method will return the key / value pairs in the original collection that ar
 
 Interface: `Diffkeysable`_
 
-Signature: ``Collection::diffKeys(...$keys): Collection;``
+Signature: ``Collection::diffKeys(mixed ...$keys): Collection;``
 
 .. code-block:: php
 
@@ -828,7 +828,7 @@ collection are removed from the chunks.
 
 Interface: `Explodeable`_
 
-Signature: ``Collection::explode(...$explodes): Collection;``
+Signature: ``Collection::explode(mixed ...$explodes): Collection;``
 
 .. code-block:: php
 
@@ -891,7 +891,7 @@ any collection item, it will return the ``$default`` value.
 
 Interface: `Findable`_
 
-Signature: ``Collection::find($default = null, callable ...$callbacks);``
+Signature: ``Collection::find(mixed $default = null, callable ...$callbacks);``
 
 .. literalinclude:: code/operations/find.php
   :language: php
@@ -903,7 +903,7 @@ Get the first item from the collection in a separate collection. Alias for ``hea
 
 Interface: `Firstable`_
 
-Signature: ``Collection::first($default = null): mixed;``
+Signature: ``Collection::first(mixed $default = null): mixed;``
 
 .. code-block:: php
 
@@ -1048,7 +1048,7 @@ See ``scanRight`` for intermediate results.
 
 Interface: `FoldRightable`_
 
-Signature: ``Collection::foldRight(callable $callback, $initial): mixed;``
+Signature: ``Collection::foldRight(callable $callback, mixed $initial): mixed;``
 
 .. code-block:: php
 
@@ -1090,7 +1090,7 @@ Remove items having specific keys.
 
 Interface: `Forgetable`_
 
-Signature: ``Collection::forget(...$keys): Collection;``
+Signature: ``Collection::forget(mixed ...$keys): Collection;``
 
 .. code-block:: php
 
@@ -1121,7 +1121,7 @@ Get a specific element of the collection from a key; if the key doesn't exist, r
 
 Interface: `Getable`_
 
-Signature: ``Collection::get($key, $default = null): Collection;``
+Signature: ``Collection::get(mixed $key, mixed $default = null): Collection;``
 
 .. code-block:: php
 
@@ -1191,7 +1191,7 @@ Get the first item from the collection in a separate collection. Same as ``first
 
 Interface: `Headable`_
 
-Signature: ``Collection::head($default = null): mixed;``
+Signature: ``Collection::head(mixed $default = null): mixed;``
 
 .. code-block:: php
 
@@ -1287,7 +1287,7 @@ Removes any values from the original collection that are not present in the give
 
 Interface: `Intersectable`_
 
-Signature: ``Collection::intersect(...$values): Collection;``
+Signature: ``Collection::intersect(mixed ...$values): Collection;``
 
 .. code-block:: php
 
@@ -1301,7 +1301,7 @@ Removes any keys from the original collection that are not present in the given 
 
 Interface: `Intersectkeysable`_
 
-Signature: ``Collection::intersectKeys(...$keys): Collection;``
+Signature: ``Collection::intersectKeys(mixed ...$keys): Collection;``
 
 .. code-block:: php
 
@@ -1315,7 +1315,7 @@ Insert a given value at every ``n`` element of a collection; indices are not pre
 
 Interface: `Intersperseable`_
 
-Signature: ``Collection::intersperse($element, int $every = 1, int $startAt = 0): Collection;``
+Signature: ``Collection::intersperse(mixed $element, int $every = 1, int $startAt = 0): Collection;``
 
 .. code-block:: php
 
@@ -1398,25 +1398,14 @@ Signature: ``Collection::keys(): Collection;``
 last
 ~~~~
 
-Extract the last element of a collection, which must be finite and non-empty.
+Extract the last element of a collection.
 
 Interface: `Lastable`_
 
-Signature: ``Collection::last($default = null): Collection;``
+Signature: ``Collection::last(mixed $default = null): Collection;``
 
-.. code-block:: php
-
-        $generator = static function (): Generator {
-            yield 'a' => 'a';
-            yield 'b' => 'b';
-            yield 'c' => 'c';
-            yield 'a' => 'd';
-            yield 'b' => 'e';
-            yield 'c' => 'f';
-        };
-
-        Collection::fromIterable($generator())
-            ->last(); // 'f'
+.. literalinclude:: code/operations/last.php
+  :language: php
 
 limit
 ~~~~~
@@ -1548,7 +1537,7 @@ the ``compare`` operation can be used instead.
 
 Interface: `Maxable`_
 
-Signature: ``Collection::max($default = null): Collection;``
+Signature: ``Collection::max(mixed $default = null): Collection;``
 
 .. literalinclude:: code/operations/max.php
   :language: php
@@ -1583,7 +1572,7 @@ the ``compare`` operation can be used instead.
 
 Interface: `Minable`_
 
-Signature: ``Collection::min($default = null): Collection;``
+Signature: ``Collection::min(mixed $default = null): Collection;``
 
 .. literalinclude:: code/operations/min.php
   :language: php
@@ -1668,7 +1657,7 @@ Pad a collection to the given length with a given value.
 
 Interface: `Padable`_
 
-Signature: ``Collection::pad(int $size, $value): Collection;``
+Signature: ``Collection::pad(int $size, mixed $value): Collection;``
 
 .. code-block:: php
 
@@ -1788,7 +1777,7 @@ Nested values can be retrieved using "dot notation" and the wildcard character `
 
 Interface: `Pluckable`_
 
-Signature: ``Collection::pluck($pluck, $default = null): Collection;``
+Signature: ``Collection::pluck(mixed $pluck, mixed $default = null): Collection;``
 
 .. literalinclude:: code/operations/pluck.php
   :language: php
@@ -1804,7 +1793,7 @@ Push an item onto the beginning of the collection.
 
 Interface: `Prependable`_
 
-Signature: ``Collection::prepend(...$items): Collection;``
+Signature: ``Collection::prepend(mixed ...$items): Collection;``
 
 .. code-block:: php
 
@@ -1874,7 +1863,7 @@ When the collection is empty, the initial value is yielded.
 
 Interface: `Reductionable`_
 
-Signature: ``Collection::reduction(callable $callback, $initial = null): Collection;``
+Signature: ``Collection::reduction(callable $callback, mixed $initial = null): Collection;``
 
 .. code-block:: php
 
@@ -1988,7 +1977,7 @@ When the collection is empty, the initial value is yielded.
 
 Interface: `ScanLeftable`_
 
-Signature: ``Collection::scanLeft(callable $callback, $initial): Collection;``
+Signature: ``Collection::scanLeft(callable $callback, mixed $initial): Collection;``
 
 .. code-block:: php
 
@@ -2043,7 +2032,7 @@ When the collection is empty, the initial value is yielded.
 
 Interface: `ScanRightable`_
 
-Signature: ``Collection::scanRight(callable $callback, $initial): Collection;``
+Signature: ``Collection::scanRight(callable $callback, mixed $initial): Collection;``
 
 .. code-block:: php
 
