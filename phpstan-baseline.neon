@@ -61,16 +61,6 @@ parameters:
 			path: src/Collection.php
 
 		-
-			message: "#^Parameter \\#1 \\$ of closure expects array\\<callable\\(mixed \\.\\.\\.\\)\\: bool\\>, array\\<int\\|string, callable\\(T, TKey, iterable\\<TKey, T\\>\\)\\: bool\\> given\\.$#"
-			count: 1
-			path: src/Collection.php
-
-		-
-			message: "#^Parameter \\#1 \\$ of closure expects callable\\(mixed, mixed, mixed, iterable\\)\\: mixed, callable\\(T\\|V, T, TKey, Iterator\\<TKey, T\\>\\)\\: \\(T\\|V\\) given\\.$#"
-			count: 1
-			path: src/Collection.php
-
-		-
 			message: "#^Parameter \\#1 \\$callable of class loophp\\\\collection\\\\Collection constructor expects callable\\(mixed \\.\\.\\.\\)\\: iterable, Closure\\(iterable\\)\\: Generator\\<mixed, mixed, mixed, mixed\\> given\\.$#"
 			count: 13
 			path: src/Collection.php
@@ -151,7 +141,17 @@ parameters:
 			path: src/Collection.php
 
 		-
-			message: "#^Parameter \\#1 \\.\\.\\.\\$ of closure expects callable\\(mixed, mixed, iterable\\)\\: bool, Closure\\(\\)\\: void given\\.$#"
+			message: "#^Parameter \\#1 of closure expects array\\<callable\\(mixed \\.\\.\\.\\)\\: bool\\>, array\\<int\\|string, callable\\(T, TKey, iterable\\<TKey, T\\>\\)\\: bool\\> given\\.$#"
+			count: 1
+			path: src/Collection.php
+
+		-
+			message: "#^Parameter \\#1 of closure expects callable\\(mixed, mixed, iterable\\)\\: bool, Closure\\(\\)\\: void given\\.$#"
+			count: 1
+			path: src/Collection.php
+
+		-
+			message: "#^Parameter \\#1 of closure expects callable\\(mixed, mixed, mixed, iterable\\)\\: mixed, callable\\(T\\|V, T, TKey, Iterator\\<TKey, T\\>\\)\\: \\(T\\|V\\) given\\.$#"
 			count: 1
 			path: src/Collection.php
 
@@ -221,12 +221,12 @@ parameters:
 			path: src/Operation/Duplicate.php
 
 		-
-			message: "#^Parameter \\#1 \\$ of closure expects callable\\(mixed, mixed, iterable\\)\\: mixed, Closure\\(mixed, int, loophp\\\\collection\\\\Collection\\)\\: float given\\.$#"
+			message: "#^Parameter \\#1 \\$callback of method loophp\\\\collection\\\\Contract\\\\Operation\\\\Reduceable\\<int,float\\>\\:\\:reduce\\(\\) expects callable\\(float\\|int, float, int, iterable\\<int, float\\>\\)\\: \\(float\\|int\\), Closure\\(float, float, int, loophp\\\\collection\\\\Collection\\)\\: float given\\.$#"
 			count: 1
 			path: src/Operation/Entropy.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method loophp\\\\collection\\\\Contract\\\\Operation\\\\Reduceable\\<int,float\\>\\:\\:reduce\\(\\) expects callable\\(float\\|int, float, int, iterable\\<int, float\\>\\)\\: \\(float\\|int\\), Closure\\(float, float, int, loophp\\\\collection\\\\Collection\\)\\: float given\\.$#"
+			message: "#^Parameter \\#1 of closure expects callable\\(mixed, mixed, iterable\\)\\: mixed, Closure\\(mixed, int, loophp\\\\collection\\\\Collection\\)\\: float given\\.$#"
 			count: 1
 			path: src/Operation/Entropy.php
 
@@ -271,7 +271,7 @@ parameters:
 			path: src/Operation/Get.php
 
 		-
-			message: "#^Parameter \\#1 \\.\\.\\.\\$ of closure expects callable\\(mixed, mixed, iterable\\)\\: bool, Closure\\(mixed, mixed, loophp\\\\iterators\\\\CachingIteratorAggregate\\)\\: bool given\\.$#"
+			message: "#^Parameter \\#1 of closure expects callable\\(mixed, mixed, iterable\\)\\: bool, Closure\\(mixed, mixed, loophp\\\\iterators\\\\CachingIteratorAggregate\\)\\: bool given\\.$#"
 			count: 1
 			path: src/Operation/Init.php
 
@@ -349,18 +349,3 @@ parameters:
 			message: "#^Template type UKey of method loophp\\\\collection\\\\Operation\\\\Zip\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
 			count: 1
 			path: src/Operation/Zip.php
-
-		-
-			message: "#^While loop condition is always true\\.$#"
-			count: 1
-			path: tests/static-analysis/scanLeft1.php
-
-		-
-			message: "#^While loop condition is always true\\.$#"
-			count: 1
-			path: tests/static-analysis/scanRight1.php
-
-		-
-			message: "#^Parameter \\#1 \\$collection of function unfold_checkList expects loophp\\\\collection\\\\Contract\\\\Collection\\<int, iterable\\>, loophp\\\\collection\\\\Contract\\\\Collection\\<int, iterable\\<\\(int\\|string\\), mixed\\>\\> given\\.$#"
-			count: 3
-			path: tests/static-analysis/unfold.php
