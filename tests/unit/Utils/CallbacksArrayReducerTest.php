@@ -7,6 +7,8 @@ namespace tests\loophp\collection\Utils;
 use loophp\collection\Utils\CallbacksArrayReducer;
 use PHPUnit\Framework\TestCase;
 
+use function sprintf;
+
 /**
  * @internal
  *

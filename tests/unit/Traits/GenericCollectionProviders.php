@@ -14,6 +14,8 @@ use loophp\collection\Contract\Operation;
 use loophp\collection\Operation\AbstractOperation;
 use stdClass;
 
+use function sprintf;
+
 use const PHP_EOL;
 use const PHP_INT_MAX;
 use const PHP_INT_MIN;
@@ -1534,7 +1536,8 @@ trait GenericCollectionProviders
             $operation,
             [
                 'missing',
-                static fn ($value): bool => 'd' === $value,            ],
+                static fn ($value): bool => 'd' === $value,
+            ],
             ['foo' => 'a', 'bar' => 'b'],
             'missing',
         ];
@@ -2188,7 +2191,8 @@ trait GenericCollectionProviders
             $operation,
             [
                 static fn () => 1,
-                static fn () => 'bar',            ],
+                static fn () => 'bar',
+            ],
             $input,
             true,
         ];
