@@ -11,9 +11,8 @@ use Generator;
 use JsonSerializable;
 use loophp\collection\Contract\Collection as CollectionInterface;
 use loophp\collection\Contract\Operation as OperationInterface;
+use loophp\collection\Operation\Pipe;
 use loophp\collection\Utils\CallbacksArrayReducer;
-use loophp\iterators\ClosureIteratorAggregate;
-use loophp\iterators\IterableIteratorAggregate;
 use loophp\iterators\ResourceIteratorAggregate;
 use loophp\iterators\StringIteratorAggregate;
 use NoRewindIterator;
@@ -35,17 +34,23 @@ use const PHP_INT_MAX;
 final class Collection implements CollectionInterface, JsonSerializable, Countable
 {
     /**
-     * @var ClosureIteratorAggregate<TKey, T>
+     * @param array{callable(iterable<TKey, T>): iterable<TKey, T>} $pipe
      */
-    private ClosureIteratorAggregate $innerIterator;
+    public array $pipe;
 
     /**
-     * @param callable(mixed ...$parameters): iterable<TKey, T> $callable
-     * @param iterable<int, mixed> $parameters
+     * @param iterable<TKey, T> $subject
      */
-    private function __construct(callable $callable, iterable $parameters = [])
+    public iterable $subject;
+
+    /**
+     * @param array{callable(iterable<TKey, T>): iterable<TKey, T>} $pipe
+     * @param iterable<TKey, T> $subject
+     */
+    private function __construct(array $pipe = [], iterable $subject = [])
     {
-        $this->innerIterator = new ClosureIteratorAggregate($callable, $parameters);
+        $this->pipe = $pipe;
+        $this->subject = $subject;
     }
 
     public function all(bool $normalize = true): array
@@ -55,21 +60,21 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
 
     public function append(mixed ...$items): CollectionInterface
     {
-        return new self((new Operation\Append())()($items), [$this]);
+        return new self([...$this->pipe, (new Operation\Append())()($items)], $this->subject);
     }
 
     public function apply(callable ...$callbacks): CollectionInterface
     {
-        return new self((new Operation\Apply())()(...$callbacks), [$this]);
+        return new self([...$this->pipe, (new Operation\Apply())()(...$callbacks)], $this->subject);
     }
 
     public function associate(
         ?callable $callbackForKeys = null,
         ?callable $callbackForValues = null
     ): CollectionInterface {
-        $defaultCallback = static fn (mixed $carry): mixed => $carry;
+        $defaultCallback = static fn(mixed $carry): mixed => $carry;
 
-        return new self((new Operation\Associate())()($callbackForKeys ?? $defaultCallback)($callbackForValues ?? $defaultCallback), [$this]);
+        return new self([...$this->pipe, (new Operation\Associate())()($callbackForKeys ?? $defaultCallback)($callbackForValues ?? $defaultCallback)], $this->subject);
     }
 
     public function asyncMap(callable $callback): CollectionInterface
@@ -92,57 +97,57 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
 
     public function averages(): CollectionInterface
     {
-        return new self((new Operation\Averages())(), [$this]);
+        return new self([...$this->pipe, (new Operation\Averages())()], $this->subject);
     }
 
     public function cache(?CacheItemPoolInterface $cache = null): CollectionInterface
     {
-        return new self((new Operation\Cache())()($cache ?? new ArrayAdapter()), [$this]);
+        return new self([...$this->pipe, (new Operation\Cache())()($cache ?? new ArrayAdapter())], $this->subject);
     }
 
     public function chunk(int ...$sizes): CollectionInterface
     {
-        return new self((new Operation\Chunk())()(...$sizes), [$this]);
+        return new self([...$this->pipe, (new Operation\Chunk())()(...$sizes)], $this->subject);
     }
 
     public function coalesce(): CollectionInterface
     {
-        return new self((new Operation\Coalesce())(), [$this]);
+        return new self([...$this->pipe, (new Operation\Coalesce())()], $this->subject);
     }
 
     public function collapse(): CollectionInterface
     {
-        return new self((new Operation\Collapse())(), [$this]);
+        return new self([...$this->pipe, (new Operation\Collapse())()], $this->subject);
     }
 
     public function column(mixed $column): CollectionInterface
     {
-        return new self((new Operation\Column())()($column), [$this]);
+        return new self([...$this->pipe, (new Operation\Column())()($column)], $this->subject);
     }
 
     public function combinate(?int $length = null): CollectionInterface
     {
-        return new self((new Operation\Combinate())()($length), [$this]);
+        return new self([...$this->pipe, (new Operation\Combinate())()($length)], $this->subject);
     }
 
     public function combine(mixed ...$keys): CollectionInterface
     {
-        return new self((new Operation\Combine())()($keys), [$this]);
+        return new self([...$this->pipe, (new Operation\Combine())()($keys)], $this->subject);
     }
 
     public function compact(mixed ...$values): CollectionInterface
     {
-        return new self((new Operation\Compact())()($values), [$this]);
+        return new self([...$this->pipe, (new Operation\Compact())()($values)], $this->subject);
     }
 
     public function compare(callable $comparator, $default = null)
     {
-        return (new self((new Operation\Compare())()($comparator), [$this]))->current(0, $default);
+        return (new self([...$this->pipe, (new Operation\Compare())()($comparator)], $this->subject))->current(0, $default);
     }
 
     public function contains(mixed ...$values): bool
     {
-        return (new Operation\Contains())()($values)($this)->current();
+        return (new self([...$this->pipe, (new Operation\Contains())()($values)], $this->subject))->current();
     }
 
     public function count(): int
@@ -152,39 +157,36 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
 
     public function countIn(int &$counter): CollectionInterface
     {
-        return new self(
-            (new Operation\Apply())()(
-                static function () use (&$counter): void {
-                    ++$counter;
-                }
-            ),
-            [$this]
-        );
+        return new self([...$this->pipe, (new Operation\Tap())()(
+            static function () use (&$counter): void {
+                ++$counter;
+            }
+        )], $this->subject);
     }
 
     public function current(int $index = 0, $default = null)
     {
-        return (new Operation\Current())()($index)($default)($this)->current();
+        return (new self([...$this->pipe, (new Operation\Current())()($index)($default)], $this->subject))->getIterator()->current();
     }
 
     public function cycle(): CollectionInterface
     {
-        return new self((new Operation\Cycle())(), [$this]);
+        return new self([...$this->pipe, (new Operation\Cycle())()], $this->subject);
     }
 
     public function diff(mixed ...$values): CollectionInterface
     {
-        return new self((new Operation\Diff())()($values), [$this]);
+        return new self([...$this->pipe, (new Operation\Diff())()($values)], $this->subject);
     }
 
     public function diffKeys(mixed ...$keys): CollectionInterface
     {
-        return new self((new Operation\DiffKeys())()($keys), [$this]);
+        return new self([...$this->pipe, (new Operation\DiffKeys())()($keys)], $this->subject);
     }
 
     public function dispersion(): CollectionInterface
     {
-        return new self((new Operation\Dispersion())(), [$this]);
+        return new self([...$this->pipe, (new Operation\Dispersion())()], $this->subject);
     }
 
     public function distinct(?callable $comparatorCallback = null, ?callable $accessorCallback = null): CollectionInterface
@@ -195,7 +197,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
              *
              * @return T
              */
-            static fn (mixed $value): mixed => $value;
+            static fn(mixed $value): mixed => $value;
 
         $comparatorCallback ??=
             /**
@@ -203,28 +205,28 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
              *
              * @return Closure(T): bool
              */
-            static fn (mixed $left): Closure =>
-                /**
-                 * @param T $right
-                 */
-                static fn (mixed $right): bool => $left === $right;
+            static fn(mixed $left): Closure =>
+            /**
+             * @param T $right
+             */
+            static fn(mixed $right): bool => $left === $right;
 
-        return new self((new Operation\Distinct())()($comparatorCallback)($accessorCallback), [$this]);
+        return new self([...$this->pipe, (new Operation\Distinct())()($comparatorCallback)($accessorCallback)], $this->subject);
     }
 
     public function drop(int $count): CollectionInterface
     {
-        return new self((new Operation\Drop())()($count), [$this]);
+        return new self([...$this->pipe, (new Operation\Drop())()($count)], $this->subject);
     }
 
     public function dropWhile(callable ...$callbacks): CollectionInterface
     {
-        return new self((new Operation\DropWhile())()(...$callbacks), [$this]);
+        return new self([...$this->pipe, (new Operation\DropWhile())()(...$callbacks)], $this->subject);
     }
 
     public function dump(string $name = '', int $size = 1, ?Closure $closure = null): CollectionInterface
     {
-        return new self((new Operation\Dump())()($name)($size)($closure), [$this]);
+        return new self([...$this->pipe, (new Operation\Dump())()($name)($size)($closure)], $this->subject);
     }
 
     public function duplicate(?callable $comparatorCallback = null, ?callable $accessorCallback = null): CollectionInterface
@@ -235,7 +237,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
              *
              * @return T
              */
-            static fn (mixed $value): mixed => $value;
+            static fn(mixed $value): mixed => $value;
 
         $comparatorCallback ??=
             /**
@@ -243,13 +245,13 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
              *
              * @return Closure(T): bool
              */
-            static fn (mixed $left): Closure =>
-                /**
-                 * @param T $right
-                 */
-                static fn (mixed $right): bool => $left === $right;
+            static fn(mixed $left): Closure =>
+            /**
+             * @param T $right
+             */
+            static fn(mixed $right): bool => $left === $right;
 
-        return new self((new Operation\Duplicate())()($comparatorCallback)($accessorCallback), [$this]);
+        return new self([...$this->pipe, (new Operation\Duplicate())()($comparatorCallback)($accessorCallback)], $this->subject);
     }
 
     /**
@@ -265,88 +267,87 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
 
     public function entropy(): CollectionInterface
     {
-        return new self((new Operation\Entropy())(), [$this]);
+        return new self([...$this->pipe, (new Operation\Entropy())()], $this->subject);
     }
 
     public function equals(iterable $other): bool
     {
-        return (new Operation\Equals())()($other)($this)->current();
+        return (new self([...$this->pipe, (new Operation\Equals())()($other)], $this->subject))->current();
     }
 
     public function every(callable ...$callbacks): bool
     {
-        return (new Operation\Every())()(static fn (int $index, mixed $value, mixed $key, iterable $iterable): bool => CallbacksArrayReducer::or()($callbacks)($value, $key, $iterable))($this)
-            ->current();
+        return (new self([...$this->pipe, (new Operation\Every())()(static fn(int $index, mixed $value, mixed $key, iterable $iterable): bool => CallbacksArrayReducer::or()($callbacks)($value, $key, $iterable))], $this->subject))->current();
     }
 
     public function explode(mixed ...$explodes): CollectionInterface
     {
-        return new self((new Operation\Explode())()($explodes), [$this]);
+        return new self([...$this->pipe, (new Operation\Explode())()($explodes)], $this->subject);
     }
 
     public function falsy(): bool
     {
-        return (new Operation\Falsy())()($this)->current();
+        return (new self([...$this->pipe, (new Operation\Falsy())()], $this->subject))->current();
     }
 
     public function filter(callable ...$callbacks): CollectionInterface
     {
-        return new self((new Operation\Filter())()(...$callbacks), [$this]);
+        return new self([...$this->pipe, (new Operation\Filter())()(...$callbacks)], $this->subject);
     }
 
     public function find(mixed $default = null, callable ...$callbacks)
     {
-        return (new Operation\Find())()($default)(...$callbacks)($this)->current();
+        return (new self([...$this->pipe, (new Operation\Find())()($default)(...$callbacks)], $this->subject))->current();
     }
 
     public function first(mixed $default = null)
     {
-        return (new self((new Operation\First())(), [$this]))->current(0, $default);
+        return (new self([...$this->pipe, (new Operation\First())()], $this->subject))->current(0, $default);
     }
 
     public function flatMap(callable $callback): CollectionInterface
     {
-        return new self((new Operation\FlatMap())()($callback), [$this]);
+        return new self([...$this->pipe, (new Operation\FlatMap())()($callback)], $this->subject);
     }
 
     public function flatten(int $depth = PHP_INT_MAX): CollectionInterface
     {
-        return new self((new Operation\Flatten())()($depth), [$this]);
+        return new self([...$this->pipe, (new Operation\Flatten())()($depth)], $this->subject);
     }
 
     public function flip(): CollectionInterface
     {
-        return new self((new Operation\Flip())(), [$this]);
+        return new self([...$this->pipe, (new Operation\Flip())()], $this->subject);
     }
 
     public function foldLeft(callable $callback, mixed $initial)
     {
-        return (new self((new Operation\FoldLeft())()($callback)($initial), [$this]))->current();
+        return (new self([...$this->pipe, (new Operation\FoldLeft())()($callback)($initial)], $this->subject))->current();
     }
 
     public function foldLeft1(callable $callback): mixed
     {
-        return (new self((new Operation\FoldLeft1())()($callback), [$this]))->current();
+        return (new self([...$this->pipe, (new Operation\FoldLeft1())()($callback)], $this->subject))->current();
     }
 
     public function foldRight(callable $callback, mixed $initial): mixed
     {
-        return (new self((new Operation\FoldRight())()($callback)($initial), [$this]))->current();
+        return (new self([...$this->pipe, (new Operation\FoldRight())()($callback)($initial)], $this->subject))->current();
     }
 
     public function foldRight1(callable $callback): mixed
     {
-        return (new self((new Operation\FoldRight1())()($callback), [$this]))->current();
+        return (new self([...$this->pipe, (new Operation\FoldRight1())()($callback)], $this->subject))->current();
     }
 
     public function forget(mixed ...$keys): CollectionInterface
     {
-        return new self((new Operation\Forget())()($keys), [$this]);
+        return new self([...$this->pipe, (new Operation\Forget())()($keys)], $this->subject);
     }
 
     public function frequency(): CollectionInterface
     {
-        return new self((new Operation\Frequency())(), [$this]);
+        return new self([...$this->pipe, (new Operation\Frequency())()], $this->subject);
     }
 
     /**
@@ -360,7 +361,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
      */
     public static function fromCallable(callable $callable, iterable $parameters = []): CollectionInterface
     {
-        return new self($callable, $parameters);
+        return new self([static fn(): iterable => $callable(...$parameters)]);
     }
 
     /**
@@ -371,7 +372,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
     public static function fromFile(string $filepath, ?Closure $consumer = null): CollectionInterface
     {
         return new self(
-            static fn (): Generator => yield from new ResourceIteratorAggregate(fopen($filepath, 'rb'), true, $consumer),
+            [static fn(): Generator => yield from new ResourceIteratorAggregate(fopen($filepath, 'rb'), true, $consumer)],
         );
     }
 
@@ -385,7 +386,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
      */
     public static function fromGenerator(Generator $generator): CollectionInterface
     {
-        return new self(static fn (): Generator => yield from new NoRewindIterator($generator));
+        return new self([static fn(): Generator => yield from new NoRewindIterator($generator)]);
     }
 
     /**
@@ -398,7 +399,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
      */
     public static function fromIterable(iterable $iterable): CollectionInterface
     {
-        return new self(static fn (): Generator => yield from new IterableIteratorAggregate($iterable));
+        return new self([], $iterable);
     }
 
     /**
@@ -408,7 +409,7 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
      */
     public static function fromResource($resource): CollectionInterface
     {
-        return new self(static fn (): Generator => yield from new ResourceIteratorAggregate($resource));
+        return new self([static fn(): Generator => yield from new ResourceIteratorAggregate($resource)]);
     }
 
     /**
@@ -416,12 +417,12 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
      */
     public static function fromString(string $string, string $delimiter = ''): CollectionInterface
     {
-        return new self(static fn (): Generator => yield from new StringIteratorAggregate($string, $delimiter));
+        return new self([static fn(): Generator => yield from new StringIteratorAggregate($string, $delimiter)]);
     }
 
     public function get(mixed $key, mixed $default = null)
     {
-        return (new self((new Operation\Get())()($key)($default), [$this]))->current(0, $default);
+        return (new self([...$this->pipe, (new Operation\Get())()($key)($default)], $this->subject))->current();
     }
 
     /**
@@ -429,27 +430,27 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
      */
     public function getIterator(): Traversable
     {
-        yield from $this->innerIterator->getIterator();
+        yield from (new Pipe)()(...$this->pipe)($this->subject);
     }
 
     public function group(): CollectionInterface
     {
-        return new self((new Operation\Group())(), [$this]);
+        return new self([...$this->pipe, (new Operation\Group())()], $this->subject);
     }
 
     public function groupBy(callable $callback): CollectionInterface
     {
-        return new self((new Operation\GroupBy())()($callback), [$this]);
+        return new self([...$this->pipe, (new Operation\GroupBy())()($callback)], $this->subject);
     }
 
     public function has(callable ...$callbacks): bool
     {
-        return (new Operation\Has())()(...$callbacks)($this)->current();
+        return (new self([...$this->pipe, (new Operation\Has())()(...$callbacks)], $this->subject))->current();
     }
 
     public function head(mixed $default = null)
     {
-        return (new self((new Operation\Head())(), [$this]))->current(0, $default);
+        return (new self([...$this->pipe, (new Operation\Head())()], $this->subject))->current(0, $default);
     }
 
     public function ifThenElse(callable $condition, callable $then, ?callable $else = null): CollectionInterface
@@ -460,49 +461,49 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
              *
              * @return T
              */
-            static fn (mixed $value): mixed => $value;
+            static fn(mixed $value): mixed => $value;
 
-        return new self((new Operation\IfThenElse())()($condition)($then)($else ?? $identity), [$this]);
+        return new self([...$this->pipe, (new Operation\IfThenElse())()($condition)($then)($else ?? $identity)], $this->subject);
     }
 
     public function implode(string $glue = ''): string
     {
-        return (new self((new Operation\Implode())()($glue), [$this]))->current(0, '');
+        return (new self([...$this->pipe, (new Operation\Implode())()($glue)], $this->subject))->current(0, '');
     }
 
     public function init(): CollectionInterface
     {
-        return new self((new Operation\Init())(), [$this]);
+        return new self([...$this->pipe, (new Operation\Init())()], $this->subject);
     }
 
     public function inits(): CollectionInterface
     {
-        return new self((new Operation\Inits())(), [$this]);
+        return new self([...$this->pipe, (new Operation\Inits())()], $this->subject);
     }
 
     public function intersect(mixed ...$values): CollectionInterface
     {
-        return new self((new Operation\Intersect())()($values), [$this]);
+        return new self([...$this->pipe, (new Operation\Intersect())()($values)], $this->subject);
     }
 
     public function intersectKeys(mixed ...$keys): CollectionInterface
     {
-        return new self((new Operation\IntersectKeys())()($keys), [$this]);
+        return new self([...$this->pipe, (new Operation\IntersectKeys())()($keys)], $this->subject);
     }
 
     public function intersperse(mixed $element, int $every = 1, int $startAt = 0): CollectionInterface
     {
-        return new self((new Operation\Intersperse())()($element)($every)($startAt), [$this]);
+        return new self([...$this->pipe, (new Operation\Intersperse())()($element)($every)($startAt)], $this->subject);
     }
 
     public function isEmpty(): bool
     {
-        return (new Operation\IsEmpty())()($this)->current();
+        return (new self([...$this->pipe, (new Operation\IsEmpty())()], $this->subject))->current();
     }
 
     public function isNotEmpty(): bool
     {
-        return (new Operation\IsNotEmpty())()($this)->current();
+        return (new self([...$this->pipe, (new Operation\IsNotEmpty())()], $this->subject))->current();
     }
 
     /**
@@ -515,135 +516,135 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
 
     public function key(int $index = 0)
     {
-        return (new Operation\Key())()($index)($this)->current();
+        return (new self([...$this->pipe, (new Operation\Key())()($index)], $this->subject))->current();
     }
 
     public function keys(): CollectionInterface
     {
-        return new self((new Operation\Keys())(), [$this]);
+        return new self([...$this->pipe, (new Operation\Keys())()], $this->subject);
     }
 
     public function last(mixed $default = null)
     {
-        return (new self((new Operation\Last())(), [$this]))->current(0, $default);
+        return (new self([...$this->pipe, (new Operation\Last())()], $this->subject))->current(0, $default);
     }
 
     public function limit(int $count = -1, int $offset = 0): CollectionInterface
     {
-        return new self((new Operation\Limit())()($count)($offset), [$this]);
+        return new self([...$this->pipe, (new Operation\Limit())()($count)($offset)], $this->subject);
     }
 
     public function lines(): CollectionInterface
     {
-        return new self((new Operation\Lines())(), [$this]);
+        return new self([...$this->pipe, (new Operation\Lines())()], $this->subject);
     }
 
     public function map(callable $callback): CollectionInterface
     {
-        return new self((new Operation\Map())()($callback), [$this]);
+        return new self([...$this->pipe, (new Operation\Map())()($callback)], $this->subject);
     }
 
     public function mapN(callable ...$callbacks): CollectionInterface
     {
-        return new self((new Operation\MapN())()(...$callbacks), [$this]);
+        return new self([...$this->pipe, (new Operation\MapN())()(...$callbacks)], $this->subject);
     }
 
     public function match(callable $callback, ?callable $matcher = null): bool
     {
-        return (new Operation\MatchOne())()($matcher ?? static fn (): bool => true)($callback)($this)->current();
+        return (new self([...$this->pipe, (new Operation\MatchOne())()($matcher ?? static fn(): bool => true)($callback)], $this->subject))->current();
     }
 
     public function matching(Criteria $criteria): CollectionInterface
     {
-        return new self((new Operation\Matching())()($criteria), [$this]);
+        return new self([...$this->pipe, (new Operation\Matching())()($criteria)], $this->subject);
     }
 
     public function max(mixed $default = null)
     {
-        return (new self((new Operation\Max())(), [$this]))->current(0, $default);
+        return (new self([...$this->pipe, (new Operation\Max())()], $this->subject))->current(0, $default);
     }
 
     public function merge(iterable ...$sources): CollectionInterface
     {
-        return new self((new Operation\Merge())()(...$sources), [$this]);
+        return new self([...$this->pipe, (new Operation\Merge())()(...$sources)], $this->subject);
     }
 
     public function min(mixed $default = null)
     {
-        return (new self((new Operation\Min())(), [$this]))->current(0, $default);
+        return (new self([...$this->pipe, (new Operation\Min())()], $this->subject))->current(0, $default);
     }
 
     public function normalize(): CollectionInterface
     {
-        return new self((new Operation\Normalize())(), [$this]);
+        return new self([...$this->pipe, (new Operation\Normalize())()], $this->subject);
     }
 
     public function nth(int $step, int $offset = 0): CollectionInterface
     {
-        return new self((new Operation\Nth())()($step)($offset), [$this]);
+        return new self([...$this->pipe, (new Operation\Nth())()($step)($offset)], $this->subject);
     }
 
     public function nullsy(): bool
     {
-        return (new Operation\Nullsy())()($this)->current();
+        return (new self([...$this->pipe, (new Operation\Nullsy())()], $this->subject))->current();
     }
 
     public function pack(): CollectionInterface
     {
-        return new self((new Operation\Pack())(), [$this]);
+        return new self([...$this->pipe, (new Operation\Pack())()], $this->subject);
     }
 
     public function pad(int $size, mixed $value): CollectionInterface
     {
-        return new self((new Operation\Pad())()($size)($value), [$this]);
+        return new self([...$this->pipe, (new Operation\Pad())()($size)($value)], $this->subject);
     }
 
     public function pair(): CollectionInterface
     {
-        return new self((new Operation\Pair())(), [$this]);
+        return new self([...$this->pipe, (new Operation\Pair())()], $this->subject);
     }
 
     public function partition(callable ...$callbacks): CollectionInterface
     {
-        return (new self((new Operation\Partition())()(...$callbacks), [$this]))
-            ->map(
-                /**
-                 * @param iterable<TKey, T> $iterable
-                 *
-                 * @return Collection<TKey, T>
-                 */
-                static fn (iterable $iterable): Collection => Collection::fromIterable($iterable)
-            );
+        $map =
+            /**
+             * @param iterable<TKey, T> $iterable
+             *
+             * @return Collection<TKey, T>
+             */
+            static fn(iterable $iterable): Collection => Collection::fromIterable($iterable);
+
+        return new self([...$this->pipe, (new Operation\Partition())()(...$callbacks), (new Operation\Map())()($map)], $this->subject);
     }
 
     public function permutate(): CollectionInterface
     {
-        return new self((new Operation\Permutate())(), [$this]);
+        return new self([...$this->pipe, (new Operation\Permutate())()], $this->subject);
     }
 
     public function pipe(callable ...$callbacks): CollectionInterface
     {
-        return new self((new Operation\Pipe())()(...$callbacks), [$this]);
+        return new self([...$this->pipe, (new Operation\Pipe())()(...$callbacks)], $this->subject);
     }
 
     public function pluck(mixed $pluck, mixed $default = null): CollectionInterface
     {
-        return new self((new Operation\Pluck())()($pluck)($default), [$this]);
+        return new self([...$this->pipe, (new Operation\Pluck())()($pluck)($default)], $this->subject);
     }
 
     public function prepend(mixed ...$items): CollectionInterface
     {
-        return new self((new Operation\Prepend())()($items), [$this]);
+        return new self([...$this->pipe,  (new Operation\Prepend())()($items)], $this->subject);
     }
 
     public function product(iterable ...$iterables): CollectionInterface
     {
-        return new self((new Operation\Product())()(...$iterables), [$this]);
+        return new self([...$this->pipe, (new Operation\Product())()(...$iterables)], $this->subject);
     }
 
     public function random(int $size = 1, ?int $seed = null): CollectionInterface
     {
-        return new self((new Operation\Random())()($seed ?? random_int(0, 1000))($size), [$this]);
+        return new self([...$this->pipe, (new Operation\Random())()($seed ?? random_int(0, 1000))($size)], $this->subject);
     }
 
     /**
@@ -651,32 +652,32 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
      */
     public static function range(float $start = 0.0, float $end = INF, float $step = 1.0): CollectionInterface
     {
-        return new self((new Operation\Range())()($start)($end)($step));
+        return new self([(new Operation\Range())()($start)($end)($step)]);
     }
 
     public function reduce(callable $callback, mixed $initial = null)
     {
-        return (new self((new Operation\Reduce())()($callback)($initial), [$this]))->current();
+        return (new self([...$this->pipe, (new Operation\Reduce())()($callback)($initial)], $this->subject))->current();
     }
 
     public function reduction(callable $callback, mixed $initial = null): CollectionInterface
     {
-        return new self((new Operation\Reduction())()($callback)($initial), [$this]);
+        return new self([...$this->pipe, (new Operation\Reduction())()($callback)($initial)], $this->subject);
     }
 
     public function reject(callable ...$callbacks): CollectionInterface
     {
-        return new self((new Operation\Reject())()(...$callbacks), [$this]);
+        return new self([...$this->pipe, (new Operation\Reject())()(...$callbacks)], $this->subject);
     }
 
     public function reverse(): CollectionInterface
     {
-        return new self((new Operation\Reverse())(), [$this]);
+        return new self([...$this->pipe, (new Operation\Reverse())()], $this->subject);
     }
 
     public function rsample(float $probability): CollectionInterface
     {
-        return new self((new Operation\RSample())()($probability), [$this]);
+        return new self([...$this->pipe, (new Operation\RSample())()($probability)], $this->subject);
     }
 
     public function same(iterable $other, ?callable $comparatorCallback = null): bool
@@ -688,14 +689,14 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
              *
              * @return Closure(T, TKey): bool
              */
-            static fn (mixed $leftValue, mixed $leftKey): Closure =>
-                /**
-                 * @param T $rightValue
-                 * @param TKey $rightKey
-                 */
-                static fn (mixed $rightValue, mixed $rightKey): bool => $leftValue === $rightValue && $leftKey === $rightKey;
+            static fn(mixed $leftValue, mixed $leftKey): Closure =>
+            /**
+             * @param T $rightValue
+             * @param TKey $rightKey
+             */
+            static fn(mixed $rightValue, mixed $rightKey): bool => $leftValue === $rightValue && $leftKey === $rightKey;
 
-        return (new Operation\Same())()($other)($comparatorCallback)($this)->current();
+        return (new self([...$this->pipe, (new Operation\Same())()($other)($comparatorCallback)], $this->subject))->current();
     }
 
     public function scale(
@@ -705,65 +706,65 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
         float $wantedUpperBound = 1.0,
         float $base = 0.0
     ): CollectionInterface {
-        return new self((new Operation\Scale())()($lowerBound)($upperBound)($wantedLowerBound)($wantedUpperBound)($base), [$this]);
+        return new self([...$this->pipe, (new Operation\Scale())()($lowerBound)($upperBound)($wantedLowerBound)($wantedUpperBound)($base)], $this->subject);
     }
 
     public function scanLeft(callable $callback, mixed $initial): CollectionInterface
     {
-        return new self((new Operation\ScanLeft())()($callback)($initial), [$this]);
+        return new self([...$this->pipe, (new Operation\ScanLeft())()($callback)($initial)], $this->subject);
     }
 
     public function scanLeft1(callable $callback): CollectionInterface
     {
-        return new self((new Operation\ScanLeft1())()($callback), [$this]);
+        return new self([...$this->pipe, (new Operation\ScanLeft1())()($callback)], $this->subject);
     }
 
     public function scanRight(callable $callback, mixed $initial): CollectionInterface
     {
-        return new self((new Operation\ScanRight())()($callback)($initial), [$this]);
+        return new self([...$this->pipe, (new Operation\ScanRight())()($callback)($initial)], $this->subject);
     }
 
     public function scanRight1(callable $callback): CollectionInterface
     {
-        return new self((new Operation\ScanRight1())()($callback), [$this]);
+        return new self([...$this->pipe, (new Operation\ScanRight1())()($callback)], $this->subject);
     }
 
     public function shuffle(?int $seed = null): CollectionInterface
     {
-        return new self((new Operation\Shuffle())()($seed ?? random_int(0, 1000)), [$this]);
+        return new self([...$this->pipe, (new Operation\Shuffle())()($seed ?? random_int(0, 1000))], $this->subject);
     }
 
     public function since(callable ...$callbacks): CollectionInterface
     {
-        return new self((new Operation\Since())()(...$callbacks), [$this]);
+        return new self([...$this->pipe, (new Operation\Since())()(...$callbacks)], $this->subject);
     }
 
     public function slice(int $offset, int $length = -1): CollectionInterface
     {
-        return new self((new Operation\Slice())()($offset)($length), [$this]);
+        return new self([...$this->pipe, (new Operation\Slice())()($offset)($length)], $this->subject);
     }
 
     public function sort(int $type = OperationInterface\Sortable::BY_VALUES, null|callable|Closure $callback = null): CollectionInterface
     {
-        return new self((new Operation\Sort())()($type)($callback), [$this]);
+        return new self([...$this->pipe, (new Operation\Sort())()($type)($callback)], $this->subject);
     }
 
     public function span(callable ...$callbacks): CollectionInterface
     {
-        return (new self((new Operation\Span())()(...$callbacks), [$this]))
-            ->map(
-                /**
-                 * @param iterable<TKey, T> $iterable
-                 *
-                 * @return Collection<TKey, T>
-                 */
-                static fn (iterable $iterable): Collection => Collection::fromIterable($iterable)
-            );
+        $map =
+            /**
+             * @param iterable<TKey, T> $iterable
+             *
+             * @return Collection<TKey, T>
+             */
+            static fn(iterable $iterable): Collection => Collection::fromIterable($iterable);
+
+        return new self([...$this->pipe, (new Operation\Span())()(...$callbacks), (new Operation\Map())()($map)], $this->subject);
     }
 
     public function split(int $type = OperationInterface\Splitable::BEFORE, callable ...$callbacks): CollectionInterface
     {
-        return new self((new Operation\Split())()($type)(...$callbacks), [$this]);
+        return new self([...$this->pipe, (new Operation\Split())()($type)(...$callbacks)], $this->subject);
     }
 
     public function squash(): CollectionInterface
@@ -773,27 +774,27 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
 
     public function strict(?callable $callback = null): CollectionInterface
     {
-        return new self((new Operation\Strict())()($callback), [$this]);
+        return new self([...$this->pipe, (new Operation\Strict())()($callback)], $this->subject);
     }
 
     public function tail(): CollectionInterface
     {
-        return new self((new Operation\Tail())(), [$this]);
+        return new self([...$this->pipe, (new Operation\Tail())()], $this->subject);
     }
 
     public function tails(): CollectionInterface
     {
-        return new self((new Operation\Tails())(), [$this]);
+        return new self([...$this->pipe, (new Operation\Tails())()], $this->subject);
     }
 
     public function takeWhile(callable ...$callbacks): CollectionInterface
     {
-        return new self((new Operation\TakeWhile())()(...$callbacks), [$this]);
+        return new self([...$this->pipe, (new Operation\TakeWhile())()(...$callbacks)], $this->subject);
     }
 
     public function tap(callable ...$callbacks): CollectionInterface
     {
-        return new self((new Operation\Tap())()(...$callbacks), [$this]);
+        return new self([...$this->pipe, (new Operation\Tap())()(...$callbacks)], $this->subject);
     }
 
     /**
@@ -805,62 +806,62 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
      */
     public static function times(int $number = 0, ?callable $callback = null): CollectionInterface
     {
-        return new self((new Operation\Times())()($number)($callback));
+        return new self([(new Operation\Times())()($number)($callback)]);
     }
 
     public function transpose(): CollectionInterface
     {
-        return new self((new Operation\Transpose())(), [$this]);
+        return new self([...$this->pipe, (new Operation\Transpose())()], $this->subject);
     }
 
     public function truthy(): bool
     {
-        return (new Operation\Truthy())()($this)->current();
+        return (new self([...$this->pipe, (new Operation\Truthy())()], $this->subject))->current();
     }
 
     public static function unfold(callable $callback, iterable $parameters = []): CollectionInterface
     {
-        return new self((new Operation\Unfold())()($parameters)($callback));
+        return new self([(new Operation\Unfold())()($parameters)($callback)]);
     }
 
     public function unlines(): string
     {
-        return (new self((new Operation\Unlines())(), [$this]))->current(0, '');
+        return (new self([...$this->pipe, (new Operation\Unlines())()], $this->subject))->current(0, '');
     }
 
     public function unpack(): CollectionInterface
     {
-        return new self((new Operation\Unpack())(), [$this]);
+        return new self([...$this->pipe, (new Operation\Unpack())()], $this->subject);
     }
 
     public function unpair(): CollectionInterface
     {
-        return new self((new Operation\Unpair())(), [$this]);
+        return new self([...$this->pipe, (new Operation\Unpair())()], $this->subject);
     }
 
     public function until(callable ...$callbacks): CollectionInterface
     {
-        return new self((new Operation\Until())()(...$callbacks), [$this]);
+        return new self([...$this->pipe, (new Operation\Until())()(...$callbacks)], $this->subject);
     }
 
     public function unwindow(): CollectionInterface
     {
-        return new self((new Operation\Unwindow())(), [$this]);
+        return new self([...$this->pipe, (new Operation\Unwindow())()], $this->subject);
     }
 
     public function unwords(): string
     {
-        return (new self((new Operation\Unwords())(), [$this]))->current(0, '');
+        return (new self([...$this->pipe, (new Operation\Unwords())()], $this->subject))->current(0, '');
     }
 
     public function unwrap(): CollectionInterface
     {
-        return new self((new Operation\Unwrap())(), [$this]);
+        return new self([...$this->pipe, (new Operation\Unwrap())()], $this->subject);
     }
 
     public function unzip(): CollectionInterface
     {
-        return new self((new Operation\Unzip())(), [$this]);
+        return new self([...$this->pipe, (new Operation\Unzip())()], $this->subject);
     }
 
     public function when(callable $predicate, callable $whenTrue, ?callable $whenFalse = null): CollectionInterface
@@ -871,28 +872,28 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
              *
              * @return iterable<TKey, T>
              */
-            static fn (iterable $iterable): iterable => $iterable;
+            static fn(iterable $iterable): iterable => $iterable;
 
-        return new self((new Operation\When())()($predicate)($whenTrue)($whenFalse), [$this]);
+        return new self([...$this->pipe, (new Operation\When())()($predicate)($whenTrue)($whenFalse)], $this->subject);
     }
 
     public function window(int $size): CollectionInterface
     {
-        return new self((new Operation\Window())()($size), [$this]);
+        return new self([...$this->pipe, (new Operation\Window())()($size)], $this->subject);
     }
 
     public function words(): CollectionInterface
     {
-        return new self((new Operation\Words())(), [$this]);
+        return new self([...$this->pipe, (new Operation\Words())()], $this->subject);
     }
 
     public function wrap(): CollectionInterface
     {
-        return new self((new Operation\Wrap())(), [$this]);
+        return new self([...$this->pipe, (new Operation\Wrap())()], $this->subject);
     }
 
     public function zip(iterable ...$iterables): CollectionInterface
     {
-        return new self((new Operation\Zip())()(...$iterables), [$this]);
+        return new self([...$this->pipe, (new Operation\Zip())()(...$iterables)], $this->subject);
     }
 }
