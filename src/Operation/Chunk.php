@@ -6,7 +6,6 @@ namespace loophp\collection\Operation;
 
 use Closure;
 use Generator;
-use Iterator;
 
 use function count;
 
@@ -34,13 +33,12 @@ final class Chunk extends AbstractOperation
                  * @return Generator<int, list<T>>
                  */
                 static function (iterable $iterable) use ($sizes): Generator {
-                    /** @var Iterator<int, int> $sizesIterator */
-                    $sizesIterator = (new Cycle())()($sizes);
-
+                    $sizesCount = count($sizes);
+                    $i = 0;
                     $values = [];
 
                     foreach ($iterable as $value) {
-                        $size = $sizesIterator->current();
+                        $size = $sizes[$i % $sizesCount];
 
                         if (0 >= $size) {
                             return;
@@ -52,7 +50,7 @@ final class Chunk extends AbstractOperation
                             continue;
                         }
 
-                        $sizesIterator->next();
+                        ++$i;
 
                         yield $values;
 

@@ -47,24 +47,6 @@
       <code><![CDATA[$callbacks]]></code>
     </InvalidArgument>
   </file>
-  <file src="src/Operation/Entropy.php">
-    <InvalidArgument>
-      <code><![CDATA[static fn (float $acc, float $p, int $_, Collection $c): float => 0 === $key ? $acc : $acc - $p * log($p, 2) / ((1 === $count = $c->count()) ? 1 : log($count, 2))]]></code>
-      <code><![CDATA[static fn (mixed $_, int $key, Collection $collection): float => $collection
-                    ->limit($key + 1)
-                    ->frequency()
-                    ->map(
-                        /**
-                         * @param T $_
-                         */
-                        static fn (mixed $_, int $freq): float => $freq / ($key + 1)
-                    )
-                    ->reduce(
-                        static fn (float $acc, float $p, int $_, Collection $c): float => 0 === $key ? $acc : $acc - $p * log($p, 2) / ((1 === $count = $c->count()) ? 1 : log($count, 2)),
-                        0
-                    )]]></code>
-    </InvalidArgument>
-  </file>
   <file src="src/Operation/Every.php">
     <InvalidArgument>
       <code><![CDATA[$predicates]]></code>

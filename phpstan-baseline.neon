@@ -221,16 +221,6 @@ parameters:
 			path: src/Operation/Duplicate.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method loophp\\\\collection\\\\Contract\\\\Operation\\\\Reduceable\\<int,float\\>\\:\\:reduce\\(\\) expects callable\\(float\\|int, float, int, iterable\\<int, float\\>\\)\\: \\(float\\|int\\), Closure\\(float, float, int, loophp\\\\collection\\\\Collection\\)\\: float given\\.$#"
-			count: 1
-			path: src/Operation/Entropy.php
-
-		-
-			message: "#^Parameter \\#1 of closure expects callable\\(mixed, mixed, iterable\\)\\: mixed, Closure\\(mixed, int, loophp\\\\collection\\\\Collection\\)\\: float given\\.$#"
-			count: 1
-			path: src/Operation/Entropy.php
-
-		-
 			message: "#^Template type V of method loophp\\\\collection\\\\Operation\\\\Find\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
 			count: 1
 			path: src/Operation/Find.php
