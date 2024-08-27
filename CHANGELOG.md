@@ -5,7 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [7.6.0](https://github.com/loophp/collection/compare/7.5.2...7.6.0)
+## [7.6.1](https://github.com/loophp/collection/compare/7.6.0...7.6.1)
+
+### Merged
+
+- chore(deps): update dependency infection/infection to ^0.29 [`#343`](https://github.com/loophp/collection/pull/343)
+
+### Commits
+
+- perf: improve performance of Chunk and Entropy operations [`3e571a0`](https://github.com/loophp/collection/commit/3e571a039a8cac74f36a2b5937fa2d739c875640)
+- chore: update code style [`68e7154`](https://github.com/loophp/collection/commit/68e7154be5b87385d46489939375f00f0cd154f4)
+- chore: update `phpstan` baseline [`947c03e`](https://github.com/loophp/collection/commit/947c03ede03cba9e09e9e87a09c22743deeb28f5)
+- chore: fix `composer.json` [`b086f6c`](https://github.com/loophp/collection/commit/b086f6cf91b7a0c0b41a93cfd25fec93bf9e3c10)
+- documentation: update `API` page [`84f6c5b`](https://github.com/loophp/collection/commit/84f6c5b52ac05d571f5b17a13a465ee812550710)
+
+## [7.6.0](https://github.com/loophp/collection/compare/7.5.2...7.6.0) - 2024-04-02
 
 ### Merged
 
@@ -13,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Commits
 
+- docs: update `CHANGELOG` [`a068dee`](https://github.com/loophp/collection/commit/a068deed401f774be817c520db293769f9494847)
 - fix: `doctrine/collections` deprecations [`5b39b54`](https://github.com/loophp/collection/commit/5b39b54f6a27addcd79c2c0ec16bc9a8aeaeba4d)
 
 ## [7.5.2](https://github.com/loophp/collection/compare/7.5.1...7.5.2) - 2024-02-20
