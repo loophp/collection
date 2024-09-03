@@ -8,7 +8,7 @@ use loophp\collection\Collection;
 use loophp\collection\Contract\Collection as CollectionInterface;
 
 /**
- * @phpstan-param CollectionInterface<int, iterable<mixed,mixed>> $collection
+ * @phpstan-param CollectionInterface<int, iterable<int|string, mixed>> $collection
  *
  * @psalm-param CollectionInterface<int, iterable<int|string, int>> $collection
  */

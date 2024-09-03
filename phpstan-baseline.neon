@@ -339,3 +339,13 @@ parameters:
 			message: "#^Template type UKey of method loophp\\\\collection\\\\Operation\\\\Zip\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
 			count: 1
 			path: src/Operation/Zip.php
+
+		-
+			message: "#^While loop condition is always true\\.$#"
+			count: 1
+			path: tests/static-analysis/scanLeft1.php
+
+		-
+			message: "#^While loop condition is always true\\.$#"
+			count: 1
+			path: tests/static-analysis/scanRight1.php
