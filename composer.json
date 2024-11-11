@@ -46,7 +46,7 @@
         "drupol/php-conventions": "^6",
         "infection/infection": "^0.27 || ^0.28 || ^0.29",
         "loophp/phpunit-iterable-assertions": "^1.0",
-        "phpstan/phpstan-strict-rules": "^1.0",
+        "phpstan/phpstan-strict-rules": "^2.0",
         "phpunit/php-code-coverage": "^10",
         "phpunit/phpunit": "^10",
         "psr/cache": "^2.0 || 3.0",
