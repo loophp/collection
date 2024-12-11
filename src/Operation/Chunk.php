@@ -44,19 +44,15 @@ final class Chunk extends AbstractOperation
                             return;
                         }
 
-                        if (count($chunk) !== $size) {
-                            $chunk[] = $value;
+                        $chunk[] = $value;
 
-                            continue;
+                        if (count($chunk) >= $size) {
+                            ++$chunkIndex;
+
+                            yield $chunk;
+
+                            $chunk = [];
                         }
-
-                        ++$chunkIndex;
-
-                        /** @psalm-var non-empty-list $chunk */
-
-                        yield $chunk;
-
-                        $chunk = [$value];
                     }
 
                     if ([] !== $chunk) {
