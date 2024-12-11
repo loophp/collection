@@ -17,7 +17,7 @@ interface Chunkable
      *
      * @see https://loophp-collection.readthedocs.io/en/stable/pages/api.html#chunk
      *
-     * @return Collection<int, list<T>>
+     * @return Collection<int, non-empty-list<T>>
      */
     public function chunk(int ...$sizes): Collection;
 }

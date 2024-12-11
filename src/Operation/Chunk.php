@@ -18,47 +18,45 @@ use function count;
 final class Chunk extends AbstractOperation
 {
     /**
-     * @return Closure(int...): Closure(iterable<TKey, T>): Generator<int, list<T>>
+     * @return Closure(int...): Closure(iterable<TKey, T>): Generator<int, non-empty-list<T>>
      */
     public function __invoke(): Closure
     {
         return
             /**
-             * @return Closure(iterable<TKey, T>): Generator<int, list<T>>
+             * @return Closure(iterable<TKey, T>): Generator<int, non-empty-list<T>>
              */
             static fn (int ...$sizes): Closure =>
                 /**
                  * @param iterable<TKey, T> $iterable
                  *
-                 * @return Generator<int, list<T>>
+                 * @return Generator<int, non-empty-list<T>>
                  */
                 static function (iterable $iterable) use ($sizes): Generator {
                     $sizesCount = count($sizes);
-                    $i = 0;
-                    $values = [];
+                    $chunkIndex = 0;
+                    $chunk = [];
 
                     foreach ($iterable as $value) {
-                        $size = $sizes[$i % $sizesCount];
+                        $size = $sizes[$chunkIndex % $sizesCount];
 
                         if (0 >= $size) {
                             return;
                         }
 
-                        if (count($values) !== $size) {
-                            $values[] = $value;
+                        $chunk[] = $value;
 
-                            continue;
+                        if (count($chunk) >= $size) {
+                            ++$chunkIndex;
+
+                            yield $chunk;
+
+                            $chunk = [];
                         }
-
-                        ++$i;
-
-                        yield $values;
-
-                        $values = [$value];
                     }
 
-                    if ([] !== $values) {
-                        yield $values;
+                    if ([] !== $chunk) {
+                        yield $chunk;
                     }
                 };
     }
