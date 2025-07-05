@@ -16,9 +16,9 @@ $toString = static fn (int|string $carry, int $value): string => sprintf('%s', $
 function scanRight1_checkListString(CollectionInterface $collection): void {}
 
 /**
- * @psalm-param CollectionInterface<int, int|non-empty-string> $collection
- *
  * @phpstan-param CollectionInterface<int, int|string> $collection
+ *
+ * @psalm-param CollectionInterface<int, int|non-empty-string> $collection
  */
 function scanRight1_checkListOfSize1String(CollectionInterface $collection): void {}
 

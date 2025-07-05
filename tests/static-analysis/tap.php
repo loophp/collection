@@ -8,9 +8,9 @@ use loophp\collection\Collection;
 use loophp\collection\Contract\Collection as CollectionInterface;
 
 /**
- * @psalm-param CollectionInterface<int<0,1>, 'bar'|'foo'> $collection
- *
  * @phpstan-param CollectionInterface<int, string> $collection
+ *
+ * @psalm-param CollectionInterface<int<0,1>, 'bar'|'foo'> $collection
  */
 function tap_checkList(CollectionInterface $collection): void {}
 /**

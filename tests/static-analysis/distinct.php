@@ -9,9 +9,9 @@ use loophp\collection\Contract\Collection as CollectionInterface;
 use tests\loophp\collection\NamedItem;
 
 /**
- * @psalm-param CollectionInterface<int<0, 3>, 11|12|13> $collection
- *
  * @phpstan-param CollectionInterface<int, int> $collection
+ *
+ * @psalm-param CollectionInterface<int<0, 3>, 11|12|13> $collection
  */
 function distinct_checkIntList(CollectionInterface $collection): void {}
 /**

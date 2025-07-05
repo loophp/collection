@@ -8,9 +8,9 @@ use loophp\collection\Collection;
 use loophp\collection\Contract\Collection as CollectionInterface;
 
 /**
- * @psalm-param CollectionInterface<int<0, max>, int> $collection
- *
  * @phpstan-param CollectionInterface<int, int> $collection
+ *
+ * @psalm-param CollectionInterface<int<0, max>, int> $collection
  */
 function fromGenerator_checkList(CollectionInterface $collection): void {}
 /**

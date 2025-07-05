@@ -8,27 +8,27 @@ use loophp\collection\Collection;
 use loophp\collection\Contract\Collection as CollectionInterface;
 
 /**
- * @psalm-param CollectionInterface<int<0, 2>, 1|2|3> $collection
- *
  * @phpstan-param CollectionInterface<int, int> $collection
+ *
+ * @psalm-param CollectionInterface<int<0, 2>, 1|2|3> $collection
  */
 function squash_checkList1(CollectionInterface $collection): void {}
 /**
- * @psalm-param CollectionInterface<int, 1|2> $collection
- *
  * @phpstan-param CollectionInterface<int, int> $collection
+ *
+ * @psalm-param CollectionInterface<int, 1|2> $collection
  */
 function squash_checkList2(CollectionInterface $collection): void {}
 /**
- * @psalm-param CollectionInterface<int<0, 2>, 'a'|'b'|'c'> $collection
- *
  * @phpstan-param CollectionInterface<int, string> $collection
+ *
+ * @psalm-param CollectionInterface<int<0, 2>, 'a'|'b'|'c'> $collection
  */
 function squash_checkStringList1(CollectionInterface $collection): void {}
 /**
- * @psalm-param CollectionInterface<int, 'b'|'f'> $collection
- *
  * @phpstan-param CollectionInterface<int, string> $collection
+ *
+ * @psalm-param CollectionInterface<int, 'b'|'f'> $collection
  */
 function squash_checkStringList2(CollectionInterface $collection): void {}
 /**

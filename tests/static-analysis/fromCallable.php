@@ -7,9 +7,9 @@ include __DIR__ . '/../../vendor/autoload.php';
 use loophp\collection\Collection;
 
 /**
- * @psalm-param Collection<int<0, max>, int>|Collection<int, int<min, max>> $collection
- *
  * @phpstan-param Collection<int, int> $collection
+ *
+ * @psalm-param Collection<int<0, max>, int>|Collection<int, int<min, max>> $collection
  */
 function fromCallable_checkList(Collection $collection): void {}
 /**
@@ -17,15 +17,15 @@ function fromCallable_checkList(Collection $collection): void {}
  */
 function fromCallable_checkMap(Collection $collection): void {}
 /**
- * @psalm-param Collection<1|3|4, '5'|'b'|'c'|2> $collection
- *
  * @phpstan-param Collection<int, int|string> $collection
+ *
+ * @psalm-param Collection<1|3|4, '5'|'b'|'c'|2> $collection
  */
 function fromCallable_checkMixed1(Collection $collection): void {}
 /**
- * @psalm-param Collection<int, int|string>|Collection<int<0, 4>, '3'|'b'|1|2|5> $collection
- *
  * @phpstan-param Collection<int, int|string> $collection
+ *
+ * @psalm-param Collection<int, int|string>|Collection<int<0, 4>, '3'|'b'|1|2|5> $collection
  */
 function fromCallable_checkMixed2(Collection $collection): void {}
 

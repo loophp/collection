@@ -9,9 +9,9 @@ use loophp\collection\Collection;
 use loophp\collection\Contract\Collection as CollectionInterface;
 
 /**
- * @psalm-param CollectionInterface<int<0, 2>, 1|2|3> $collection
- *
  * @phpstan-param CollectionInterface<int, int> $collection
+ *
+ * @psalm-param CollectionInterface<int<0, 2>, 1|2|3> $collection
  */
 function matching_checkList(CollectionInterface $collection): void {}
 

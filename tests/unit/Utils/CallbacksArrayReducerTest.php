@@ -16,6 +16,19 @@ use function sprintf;
  */
 final class CallbacksArrayReducerTest extends TestCase
 {
+    /**
+     * @dataProvider provideGenericCases
+     */
+    public function testGeneric(
+        array $callbacks,
+        mixed $current,
+        mixed $key,
+        array $iterator,
+        bool $expected
+    ): void {
+        self::assertSame($expected, CallbacksArrayReducer::or()($callbacks)($current, $key, $iterator));
+    }
+
     public static function provideGenericCases(): iterable
     {
         // Ensure Callbacks receive the needed arguments.
@@ -102,18 +115,5 @@ final class CallbacksArrayReducerTest extends TestCase
             [],
             false,
         ];
-    }
-
-    /**
-     * @dataProvider provideGenericCases
-     */
-    public function testGeneric(
-        array $callbacks,
-        mixed $current,
-        mixed $key,
-        array $iterator,
-        bool $expected
-    ): void {
-        self::assertSame($expected, CallbacksArrayReducer::or()($callbacks)($current, $key, $iterator));
     }
 }

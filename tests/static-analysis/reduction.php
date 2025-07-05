@@ -11,16 +11,16 @@ $sum = static fn (int $carry, int $value): int => $carry + $value;
 $concat = static fn (?string $carry, string $string): string => sprintf('%s%s', (string) $carry, $string);
 
 /**
- * @psalm-param CollectionInterface|CollectionInterface<int<0, 2>, int> $collection
- *
  * @phpstan-param CollectionInterface<int, int> $collection
+ *
+ * @psalm-param CollectionInterface|CollectionInterface<int<0, 2>, int> $collection
  */
 function reduction_checkListInt(CollectionInterface $collection): void {}
 
 /**
- * @psalm-param CollectionInterface|CollectionInterface<int<0, max>, string> $collection
- *
  * @phpstan-param CollectionInterface<int, string> $collection
+ *
+ * @psalm-param CollectionInterface|CollectionInterface<int<0, max>, string> $collection
  */
 function reduction_checkListString(CollectionInterface $collection): void {}
 

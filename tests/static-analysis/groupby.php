@@ -8,16 +8,16 @@ use loophp\collection\Collection;
 use loophp\collection\Contract\Collection as CollectionInterface;
 
 /**
- * @psalm-param CollectionInterface<int<0, 2>, non-empty-list<'bar'|'baz'|'foo'>> $collection
- *
  * @phpstan-param CollectionInterface<int, non-empty-array<int, string>> $collection
+ *
+ * @psalm-param CollectionInterface<int<0, 2>, non-empty-list<'bar'|'baz'|'foo'>> $collection
  */
 function groupby_sameKeyType(CollectionInterface $collection): void {}
 
 /**
- * @psalm-param CollectionInterface<string, non-empty-list<string>> $collection
- *
  * @phpstan-param CollectionInterface<string, non-empty-array<int, string>> $collection
+ *
+ * @psalm-param CollectionInterface<string, non-empty-list<string>> $collection
  */
 function groupby_newKeyType(CollectionInterface $collection): void {}
 
