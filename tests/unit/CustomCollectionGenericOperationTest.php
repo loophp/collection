@@ -24,8 +24,6 @@ final class CustomCollectionGenericOperationTest extends TestCase
      * @dataProvider appendOperationProvider
      * @dataProvider applyOperationProvider
      * @dataProvider associateOperationProvider
-     * @dataProvider asyncMapOperationProvider
-     * @dataProvider asyncMapNOperationProvider
      * @dataProvider averagesOperationProvider
      * @dataProvider cacheOperationProvider
      * @dataProvider chunkOperationProvider

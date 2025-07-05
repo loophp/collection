@@ -18,8 +18,6 @@ use Traversable;
  * @template-extends Operation\Appendable<TKey, T>
  * @template-extends Operation\Applyable<TKey, T>
  * @template-extends Operation\Associateable<TKey, T>
- * @template-extends Operation\AsyncMapable<TKey, T>
- * @template-extends Operation\AsyncMapNable<TKey, T>
  * @template-extends Operation\Averagesable<TKey, T>
  * @template-extends Operation\Cacheable<TKey, T>
  * @template-extends Operation\Chunkable<TKey, T>
@@ -141,8 +139,6 @@ interface Collection extends
     Operation\Appendable,
     Operation\Applyable,
     Operation\Associateable,
-    Operation\AsyncMapable,
-    Operation\AsyncMapNable,
     Operation\Averagesable,
     Operation\Cacheable,
     Operation\Chunkable,

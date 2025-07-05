@@ -128,47 +128,6 @@ trait GenericCollectionProviders
         ];
     }
 
-    public static function asyncMapNOperationProvider()
-    {
-        $operation = 'asyncMapN';
-        $input = ['c' => 2, 'b' => 1, 'a' => 0];
-        $output = ['a' => 0, 'b' => 2, 'c' => 4];
-
-        yield [
-            $operation,
-            [
-                static function (int $v): int {
-                    sleep($v);
-
-                    return $v;
-                },
-                static fn (int $v): int => $v * 2,
-            ],
-            $input,
-            $output,
-        ];
-    }
-
-    public static function asyncMapOperationProvider()
-    {
-        $operation = 'asyncMap';
-        $input = ['c' => 2, 'b' => 1, 'a' => 0];
-        $output = ['a' => 0, 'b' => 2, 'c' => 4];
-
-        yield [
-            $operation,
-            [
-                static function (int $v): int {
-                    sleep($v);
-
-                    return $v * 2;
-                },
-            ],
-            $input,
-            $output,
-        ];
-    }
-
     public static function averagesOperationProvider()
     {
         $operation = 'averages';

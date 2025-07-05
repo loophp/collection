@@ -74,12 +74,20 @@ final class Collection implements CollectionInterface, JsonSerializable, Countab
 
     public function asyncMap(callable $callback): CollectionInterface
     {
-        return new self((new Operation\AsyncMap())()($callback), [$this]);
+        trigger_error(
+            'The `asyncMap` method has been removed. Use `map` instead.',
+            E_USER_DEPRECATED
+        );
+        return $this->map($callback);
     }
 
     public function asyncMapN(callable ...$callbacks): CollectionInterface
     {
-        return new self((new Operation\AsyncMapN())()(...$callbacks), [$this]);
+        trigger_error(
+            'The `asyncMapN` method has been removed. Use `mapN` instead.',
+            E_USER_DEPRECATED
+        );
+        return $this->mapN(...$callbacks);
     }
 
     public function averages(): CollectionInterface

@@ -191,11 +191,6 @@ parameters:
 			path: src/Operation/Associate.php
 
 		-
-			message: "#^Template type V of method loophp\\\\collection\\\\Operation\\\\AsyncMap\\:\\:__invoke\\(\\) is not referenced in a parameter\\.$#"
-			count: 1
-			path: src/Operation/AsyncMap.php
-
-		-
 			message: "#^Anonymous function with return type void returns void but should not return anything\\.$#"
 			count: 2
 			path: src/Operation/Combinate.php
