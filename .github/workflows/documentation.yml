@@ -14,7 +14,7 @@ jobs:
 
         steps:
             - name: Check out source files
-              uses: actions/checkout@v4
+              uses: actions/checkout@v5
 
             - name: Create global variables
               id: version
@@ -32,7 +32,7 @@ jobs:
                   git config --global core.eol lf
 
             - name: Check out source files
-              uses: actions/checkout@v4
+              uses: actions/checkout@v5
 
             - name: Install Nix
               uses: DeterminateSystems/nix-installer-action@main
