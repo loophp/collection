@@ -43,7 +43,7 @@
         "ext-pcov": "*",
         "doctrine/collections": "^2",
         "drupol/php-conventions": "^6",
-        "infection/infection": "^0.27 || ^0.28 || ^0.29 || ^0.30",
+        "infection/infection": "^0.27 || ^0.28 || ^0.29 || ^0.30 || ^0.32",
         "loophp/phpunit-iterable-assertions": "^1.0",
         "phpstan/phpstan-strict-rules": "^2.0",
         "phpunit/php-code-coverage": "^10",
