@@ -43,7 +43,7 @@ jobs:
                   cp build/docs/latex/loophp-collection-documentation.pdf documentation.pdf
 
             - name: Upload build assets
-              uses: actions/upload-artifact@v5
+              uses: actions/upload-artifact@v6
               with:
                   name: assets
                   path: documentation.pdf
@@ -73,7 +73,7 @@ jobs:
 
         steps:
             - name: Download build assets (${{ matrix.assets.input }})
-              uses: actions/download-artifact@v6
+              uses: actions/download-artifact@v7
               with:
                   name: assets
                   path: assets
