@@ -41,7 +41,7 @@
     },
     "require-dev": {
         "ext-pcov": "*",
-        "doctrine/collections": "^2",
+        "doctrine/collections": "^3",
         "drupol/php-conventions": "^6",
         "infection/infection": "^0.27 || ^0.28 || ^0.29 || ^0.30",
         "loophp/phpunit-iterable-assertions": "^1.0",
