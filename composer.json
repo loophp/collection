@@ -49,7 +49,7 @@
         "phpunit/php-code-coverage": "^10",
         "phpunit/phpunit": "^10",
         "psr/cache": "^2.0 || 3.0",
-        "symfony/cache": "^6",
+        "symfony/cache": "^8",
         "vimeo/psalm": "^6"
     },
     "autoload": {
