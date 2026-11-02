@@ -50,7 +50,7 @@
         "phpunit/phpunit": "^10",
         "psr/cache": "^2.0 || 3.0",
         "symfony/cache": "^6",
-        "vimeo/psalm": "^6"
+        "vimeo/psalm": "^7"
     },
     "autoload": {
         "psr-4": {
